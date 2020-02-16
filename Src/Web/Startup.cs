@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NSwag;
-using NSwag.Generation.Processors.Security;
 using Serilog;
+using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Web.DependencyInjection;
 
 namespace TreniniDotNet.Web
@@ -40,6 +39,9 @@ namespace TreniniDotNet.Web
 
             services.AddPersistance(Configuration);
             services.AddEntityFrameworkIdentity(Configuration);
+
+            services.AddHealthChecks()
+                 .AddDbContextCheck<ApplicationDbContext>("DbHealthCheck");
                         
             services.AddJwtAuthentication(Configuration)
                 .AddJwtAuthorization();
@@ -66,6 +68,8 @@ namespace TreniniDotNet.Web
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
+
+            app.UseHealthChecks("/health");
 
             app.UseSpa(spa =>
             {
