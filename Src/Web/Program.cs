@@ -31,6 +31,7 @@ namespace TreniniDotNet.Web
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(options => options.AddServerHeader = false);
                     webBuilder.UseStartup<Startup>();
                     webBuilder.CaptureStartupErrors(true);
                 });
