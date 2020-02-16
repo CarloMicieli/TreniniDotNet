@@ -3,7 +3,7 @@ using TreniniDotNet.Application.Boundaries.CreateBrand;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Brands;
 
-namespace TreniniDotNet.Application.UseCases
+namespace TreniniDotNet.Application.UseCases.Catalog
 {
     public sealed class CreateBrand : IUseCase
     {

@@ -1,0 +1,37 @@
+using TreniniDotNet.Application.Boundaries.GetScaleBySlug;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Web.ViewModels.V1.Catalog;
+
+namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
+{
+    public class GetScaleBySlugPresenter : IOutputPort
+    {
+        private readonly IMapper _mapper;
+
+        public GetScaleBySlugPresenter(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
+        public ActionResult<ScaleView> ViewModel { get; private set; } = null!;
+
+        public void ScaleNotFound(string message)
+        {
+            ViewModel = new NotFoundResult();
+        }
+
+        public void Standard(GetScaleBySlugOutput output)
+        {
+            if (output.Scale is null)
+            {
+                ViewModel = new NotFoundResult();
+            }
+            else
+            {
+                var scaleViewModel = _mapper.Map<ScaleView>(output.Scale);
+                ViewModel = new ActionResult<ScaleView>(scaleViewModel);
+            }
+        }
+    }
+}

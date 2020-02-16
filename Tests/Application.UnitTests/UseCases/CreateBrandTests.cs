@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.SeedData.Catalog;
 using TreniniDotNet.Common;
+using TreniniDotNet.Application.UseCases.Catalog;
 
 namespace TreniniDotNet.Application.UseCases
 {

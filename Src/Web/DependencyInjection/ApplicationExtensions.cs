@@ -7,7 +7,7 @@ namespace TreniniDotNet.Web.DependencyInjection
     {
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
-            services.AddScoped<TreniniDotNet.Application.Boundaries.CreateBrand.IUseCase, TreniniDotNet.Application.UseCases.CreateBrand>();
+            services.AddScoped<TreniniDotNet.Application.Boundaries.CreateBrand.IUseCase, TreniniDotNet.Application.UseCases.Catalog.CreateBrand>();
             services.AddScoped<TreniniDotNet.Application.Boundaries.GetBrandBySlug.IUseCase, TreniniDotNet.Application.UseCases.Catalog.GetBrandBySlug>();
             
             services.AddScoped<BrandService>();
