@@ -1,10 +1,12 @@
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
+using System;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
-    public sealed class ScalesFactory : IScalesFactory
+    [Obsolete()]
+    public sealed class ScalesFactory2 : IScalesFactory
     {
         public IScale NewScale(string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
         {
@@ -18,6 +20,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 TrackGauge = trackGauge,
                 Notes = notes
             };
+        }
+
+        public Domain.Catalog.Scales.Scale NewScale(string name, decimal ratio, decimal gauge, TrackGauge trackGauge)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
