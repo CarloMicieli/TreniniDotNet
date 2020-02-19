@@ -3,7 +3,7 @@ using TreniniDotNet.Application.Boundaries.CreateScale;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 {
-    public class CreateScalePresenter
+    public class CreateScalePresenter : IOutputPort
     {
         public IActionResult ViewModel { get; private set; } = new NotFoundResult();
 

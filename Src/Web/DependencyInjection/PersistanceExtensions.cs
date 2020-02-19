@@ -19,7 +19,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             var connectionString = Configuration.GetConnectionString("ApplicationConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlite(connectionString, b => b.MigrationsAssembly("Web"));
+                options.UseNpgsql(connectionString, b => b.MigrationsAssembly("Web"));
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

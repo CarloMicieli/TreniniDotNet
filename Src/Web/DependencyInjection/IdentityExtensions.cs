@@ -16,7 +16,7 @@ namespace TreniniDotNet.Web.DependencyInjection
         public static IServiceCollection AddEntityFrameworkIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationIdentityDbContext>(options => 
-                options.UseSqlite(configuration.GetConnectionString("IdentityConnection")));
+                options.UseNpgsql(configuration.GetConnectionString("IdentityConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationIdentityDbContext>()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand;
+using TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale;
 using TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug;
 using TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug;
 
@@ -17,6 +18,9 @@ namespace TreniniDotNet.Web.DependencyInjection
 
             services.AddScoped<GetScaleBySlugPresenter, GetScaleBySlugPresenter>();
             services.AddScoped<TreniniDotNet.Application.Boundaries.GetScaleBySlug.IOutputPort>(x => x.GetRequiredService<GetScaleBySlugPresenter>());
+
+            services.AddScoped<CreateScalePresenter, CreateScalePresenter>();
+            services.AddScoped<TreniniDotNet.Application.Boundaries.CreateScale.IOutputPort>(x => x.GetRequiredService<CreateScalePresenter>());
 
             return services;
         }
