@@ -1,5 +1,7 @@
 # Trenini.Net
 
+![.NET Core](https://github.com/CarloMicieli/TreniniDotNet/workflows/.NET%20Core/badge.svg)
+
 One Paragraph of project description goes here
 
 ## Getting Started
