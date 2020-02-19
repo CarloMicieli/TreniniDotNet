@@ -7,12 +7,12 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface ICatalogItemRepository
     {
-         Task<ICatalogItem> GetBy(IBrand brand, ItemNumber itemNumber);
+         Task<CatalogItem> GetBy(IBrand brand, ItemNumber itemNumber);
 
-         Task<ICatalogItem> GetBy(Slug slug);
+         Task<CatalogItem> GetBy(Slug slug);
 
-         Task<ICatalogItem> GetBy(CatalogItemId id);
+         Task<CatalogItem> GetBy(CatalogItemId id);
 
-         Task<CatalogItemId> Add(ICatalogItem catalogItem);
+         Task<CatalogItemId> Add(CatalogItem catalogItem);
     }
 }

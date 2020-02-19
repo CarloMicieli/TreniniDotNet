@@ -1,27 +1,40 @@
+using System;
 using System.Collections.Generic;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems;
+using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
+using TreniniDotNet.Infrastructure.Persistence.Catalog.Scales;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
-    public class CatalogItem : ICatalogItem
+    public class CatalogItem 
     {
         public CatalogItemId CatalogItemId { set; get; }
 
         public Brand Brand { set; get; } = null!;
 
-        public Slug Slug { set; get; }
+        public string Slug { set; get; }
 
-        public ItemNumber ItemNumber { set; get; }
+        public string Category { set; get; } = "";
 
-        public IEnumerable<RollingStock> RollingStocks { set; get; } = new List<RollingStock>();
+        public Scale Scale { set; get; } = null!;
+
+        public string ItemNumber { set; get; } = null!;
+
+        public List<RollingStock> RollingStocks { set; get; } = null!;
 
         public string Description { set; get; } = "";
 
         public string? PrototypeDescription { set; get; }
 
         public string? ModelDescription { set; get; }
+
+        public string? DeliveryDate { set; get; }
+
+        public bool? DirectCurrent { set; get; }
+
+        public bool? Released { set; get; }
+
+        public DateTime? CreatedAt { set; get; }
     }
 }
