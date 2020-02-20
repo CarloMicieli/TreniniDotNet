@@ -15,6 +15,12 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             _scaleRepository = scaleRepository;
         }
 
+        public async Task<Scale> CreateScale(Scale scale)
+        {
+            await _scaleRepository.Add(scale);
+            return scale;            
+        }
+
         public async Task<IScale> CreateScale(string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
         {
             var scale = _scaleFactory.NewScale(name, ratio, gauge, trackGauge, notes);
@@ -27,7 +33,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             try
             {
                 var slug = Slug.Of(name);
-                var brand = await _scaleRepository.GetBy(slug);
+                var _ = await _scaleRepository.GetByAsync(slug);
                 return true;
             }
             catch (ScaleNotFoundException)

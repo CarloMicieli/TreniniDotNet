@@ -42,9 +42,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             IRailway railway = await _railways.GetBy(rollingStock.Railway.Slug);
             IScale scale = await _scales.GetBy(rollingStock.Scale.Slug);
 
-            ICatalogItem item = await _catalogItemsRepository.GetBy(brand, itemNumber);
+            CatalogItem item = await _catalogItemsRepository.GetBy(brand, itemNumber);
 
-            ICatalogItem newItem = _catalogItemFactory.NewCatalogItem();
+            CatalogItem newItem = _catalogItemFactory.NewCatalogItem();
 
             await _catalogItemsRepository.Add(newItem);
 

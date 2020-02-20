@@ -6,8 +6,7 @@ namespace TreniniDotNet.Application.Boundaries.GetBrandBySlug
     {
         private IBrand? _brand;
 
-        public GetBrandBySlugOutput(IBrand? brand
-            )
+        public GetBrandBySlugOutput(IBrand? brand)
         {
             _brand = brand;
         }
