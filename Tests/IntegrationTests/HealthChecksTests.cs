@@ -23,7 +23,6 @@ namespace IntegrationTests
 
             // Assert
             response.EnsureSuccessStatusCode(); // Status Code 200-299
-
         }
     }
 }

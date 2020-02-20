@@ -12,8 +12,8 @@ namespace TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems
                 .IsUnique()
                 .HasName("Idx_CatalogItems_Slug");
 
-            builder.HasIndex(e => new { e.ItemNumber, e.Brand.Name })
-                .IsUnique()
+            builder.HasIndex(e => e.ItemNumber)
+                .IsUnique(false)
                 .HasName("Idx_CatalogItems_ItemNumber_BrandName");
 
             builder.Property(e => e.ItemNumber)
