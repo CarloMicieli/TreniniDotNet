@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using TreniniDotNet.Application.Boundaries.CreateBrand;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public sealed class CreateBrand : IUseCase
+    public sealed class CreateBrand : ICreateBrandUseCase
     {
         private readonly IOutputPort _outputPort;
         private readonly IUnitOfWork _unitOfWork;

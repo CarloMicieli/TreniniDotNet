@@ -10,18 +10,19 @@ namespace TreniniDotNet.Web.DependencyInjection
     {
         public static IServiceCollection AddPresenters(this IServiceCollection services)
         {
-            services.AddScoped<CreateBrandPresenter, CreateBrandPresenter>();
-            services.AddScoped<TreniniDotNet.Application.Boundaries.CreateBrand.IOutputPort>(x => x.GetRequiredService<CreateBrandPresenter>());
+            services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.CreateBrand.IOutputPort, CreateBrandPresenter>();
+            services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug.IOutputPort, GetBrandBySlugPresenter>();
+            services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.GetScaleBySlug.IOutputPort, GetScaleBySlugPresenter>();
+            services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.CreateScale.IOutputPort, CreateScalePresenter>();
+            return services;
+        }
 
-            services.AddScoped<GetBrandBySlugPresenter, GetBrandBySlugPresenter>();
-            services.AddScoped<TreniniDotNet.Application.Boundaries.GetBrandBySlug.IOutputPort>(x => x.GetRequiredService<GetBrandBySlugPresenter>());
-
-            services.AddScoped<GetScaleBySlugPresenter, GetScaleBySlugPresenter>();
-            services.AddScoped<TreniniDotNet.Application.Boundaries.GetScaleBySlug.IOutputPort>(x => x.GetRequiredService<GetScaleBySlugPresenter>());
-
-            services.AddScoped<CreateScalePresenter, CreateScalePresenter>();
-            services.AddScoped<TreniniDotNet.Application.Boundaries.CreateScale.IOutputPort>(x => x.GetRequiredService<CreateScalePresenter>());
-
+        private static IServiceCollection AddPresenter<TOutputPort, TPresenter>(this IServiceCollection services)
+            where TOutputPort: class
+            where TPresenter: class, TOutputPort
+        {
+            services.AddScoped<TPresenter, TPresenter>();
+            services.AddScoped<TOutputPort>(x => x.GetRequiredService<TPresenter>());
             return services;
         }
     }

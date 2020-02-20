@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Boundaries.GetBrandBySlug;
+using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug
 {
     public class GetBrandBySlugHandler : AsyncRequestHandler<GetBrandBySlugRequest>
     {
-        private readonly IUseCase _useCase;
+        private readonly IGetBrandBySlugUseCase _useCase;
 
-        public GetBrandBySlugHandler(IUseCase useCase)
+        public GetBrandBySlugHandler(IGetBrandBySlugUseCase useCase)
         {
             _useCase = useCase;
         }

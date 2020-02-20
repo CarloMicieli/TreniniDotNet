@@ -1,17 +1,17 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using TreniniDotNet.Application.Boundaries.CreateScale;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 {
     public class CreateScaleHandler : AsyncRequestHandler<CreateScaleRequest>
     {
-        private readonly IUseCase _useCase;
+        private readonly ICreateScaleUseCase _useCase;
         private readonly IScalesFactory _scaleFactory;
 
-        public CreateScaleHandler(IUseCase useCase, IScalesFactory scaleFactory)
+        public CreateScaleHandler(ICreateScaleUseCase useCase, IScalesFactory scaleFactory)
         {
             _useCase = useCase;
             _scaleFactory = scaleFactory;

@@ -8,9 +8,9 @@ namespace TreniniDotNet.Web.DependencyInjection
     {
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
-            services.AddScoped<TreniniDotNet.Application.Boundaries.CreateBrand.IUseCase, TreniniDotNet.Application.UseCases.Catalog.CreateBrand>();
-            services.AddScoped<TreniniDotNet.Application.Boundaries.GetBrandBySlug.IUseCase, TreniniDotNet.Application.UseCases.Catalog.GetBrandBySlug>();
-            services.AddScoped<TreniniDotNet.Application.Boundaries.CreateScale.IUseCase, TreniniDotNet.Application.UseCases.Catalog.CreateScale>();
+            services.AddScoped<TreniniDotNet.Application.Boundaries.Catalog.CreateBrand.ICreateBrandUseCase, TreniniDotNet.Application.UseCases.Catalog.CreateBrand>();
+            services.AddScoped<TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug.IGetBrandBySlugUseCase, TreniniDotNet.Application.UseCases.Catalog.GetBrandBySlug>();
+            services.AddScoped<TreniniDotNet.Application.Boundaries.Catalog.CreateScale.ICreateScaleUseCase, TreniniDotNet.Application.UseCases.Catalog.CreateScale>();
 
             services.AddScoped<BrandService>();
             services.AddScoped<ScaleService>();

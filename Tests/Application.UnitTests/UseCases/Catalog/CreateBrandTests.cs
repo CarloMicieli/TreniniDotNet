@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using Moq;
 using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Application.Boundaries.CreateBrand;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 using TreniniDotNet.Application.InMemory;
 using System;
 using System.Net.Mail;

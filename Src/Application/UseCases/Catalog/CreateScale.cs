@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Boundaries.CreateScale;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class CreateScale : IUseCase
+    public class CreateScale : ICreateScaleUseCase
     {
         private readonly IOutputPort _outputPort;
         private readonly ScaleService _scaleService;

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TreniniDotNet.Application.Boundaries.CreateScale;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 {

@@ -1,17 +1,20 @@
 ﻿using System.Threading.Tasks;
-using TreniniDotNet.Application.Boundaries.GetBrandBySlug;
+using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
+using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class GetBrandBySlug : IUseCase
+    public class GetBrandBySlug : IGetBrandBySlugUseCase
     {
         private readonly IOutputPort _outputPort;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly BrandService _brandService;
 
-        public GetBrandBySlug(IOutputPort outputPort, BrandService brandService)
+        public GetBrandBySlug(IOutputPort outputPort, IUnitOfWork unitOfWork, BrandService brandService)
         {
             _outputPort = outputPort;
+            _unitOfWork = unitOfWork;
             _brandService = brandService;
         }
 

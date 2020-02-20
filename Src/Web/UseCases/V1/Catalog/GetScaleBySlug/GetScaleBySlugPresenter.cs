@@ -1,4 +1,4 @@
-using TreniniDotNet.Application.Boundaries.GetScaleBySlug;
+using TreniniDotNet.Application.Boundaries.Catalog.GetScaleBySlug;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Web.ViewModels.V1.Catalog;

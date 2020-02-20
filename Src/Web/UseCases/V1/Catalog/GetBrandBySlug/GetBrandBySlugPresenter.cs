@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TreniniDotNet.Application.Boundaries.GetBrandBySlug;
+using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Web.ViewModels.V1.Catalog;
 

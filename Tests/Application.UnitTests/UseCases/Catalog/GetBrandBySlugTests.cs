@@ -1,6 +1,6 @@
 ﻿using Moq;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Boundaries.GetBrandBySlug;
+using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
 using TreniniDotNet.Application.InMemory;
 using TreniniDotNet.Application.InMemory.Catalog;
 using TreniniDotNet.Application.SeedData.Catalog;
@@ -55,7 +55,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var brandFactory = new DomainBrandFactory();
             var brandService = new BrandService(repo, brandFactory);
 
-            var useCase = new GetBrandBySlug(outputPort, brandService);
+            var useCase = new GetBrandBySlug(outputPort, new UnitOfWork(), brandService);
             return useCase;
         }
     }

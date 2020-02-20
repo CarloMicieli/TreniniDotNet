@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TreniniDotNet.Application.Boundaries.CreateBrand;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
 {
