@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 using TreniniDotNet.Application.SeedData.Catalog;
 using TreniniDotNet.Common;
 using TreniniDotNet.Application.UseCases.Catalog;
+using TreniniDotNet.Application.InMemory.Catalog;
 
-namespace TreniniDotNet.Application.UseCases
+namespace TreniniDotNet.Application.UseCases.Catalog
 {
     public class CreateBrandTests
     {
