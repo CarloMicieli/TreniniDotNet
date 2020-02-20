@@ -4,11 +4,81 @@ using System.Net.Mail;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Catalog.Railways;
 
 namespace TreniniDotNet.Application.SeedData.Catalog
 {
     public static class CatalogSeedData
     {
+        #region [ Railways ]
+
+        public static ICollection<Railway> Railways
+        {
+            get
+            {
+                return _railways;
+            }
+        }
+
+        private static readonly ICollection<Railway> _railways = new List<Railway>()
+        {
+            Fs(),
+            Sbb(),
+            DieBahn()
+        };
+
+        private static Railway Fs()
+        {
+            return new Railway("FS", "Ferrovie dello Stato", "IT", RailwayStatus.Active);
+        }
+
+        private static Railway Sbb()
+        {
+            return new Railway("Sbb", "", "CH", RailwayStatus.Active);
+        }
+
+        private static Railway DieBahn()
+        {
+            return new Railway("DieBahn", "", "DE", RailwayStatus.Active);
+        }
+
+        #endregion
+
+        #region [ Scales ]
+
+        public static ICollection<Scale> Scales
+        {
+            get
+            {
+                return _scales;
+            }
+        }
+
+        private static readonly ICollection<Scale> _scales = new List<Scale>()
+        {
+            ScaleH0(),
+            ScaleH0m(),
+            ScaleN()
+        };
+
+        private static Scale ScaleH0()
+        {
+            return new Scale("H0", Ratio.Of(87f), Gauge.OfMillimiters(16.5f), TrackGauge.Standard, null);
+        }
+
+        private static Scale ScaleH0m()
+        {
+            return new Scale("H0m", Ratio.Of(87f), Gauge.OfMillimiters(9f), TrackGauge.Narrow, null);
+        }
+
+        private static Scale ScaleN()
+        {
+            return new Scale("n", Ratio.Of(160f), Gauge.OfMillimiters(9f), TrackGauge.Standard, null);
+        }
+
+        #endregion
+
         #region [ Brands ]
 
         private readonly static IBrandsFactory brandFactory = new DomainBrandFactory();
