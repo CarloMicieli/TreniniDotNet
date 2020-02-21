@@ -15,6 +15,13 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             BrandKind kind);
 
         IBrand NewBrand(
+            string name,
+            string? companyName,
+            string? websiteUrl,
+            string? emailAddress,
+            BrandKind kind);
+
+        IBrand NewBrand(
             BrandId brandId,
             string name,
             Slug slug,

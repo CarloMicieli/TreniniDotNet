@@ -9,10 +9,10 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             throw new System.NotImplementedException();
         }
 
-        public Scale NewScale(string name, decimal ratio, decimal gauge, TrackGauge trackGauge)
+        public IScale NewScale(string name, decimal? ratio, decimal? gauge, TrackGauge trackGauge)
         {
             //TODO
-            return new Scale(name, Ratio.Of((float) ratio), Gauge.OfMillimiters(gauge), trackGauge, null);
+            return new Scale(name, Ratio.Of((float) (ratio ?? 0M)), Gauge.OfMillimiters(gauge ?? 0), trackGauge, null);
         }
     }
 }

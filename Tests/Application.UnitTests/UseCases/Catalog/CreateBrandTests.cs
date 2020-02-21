@@ -3,13 +3,12 @@ using Moq;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 using TreniniDotNet.Application.InMemory;
-using System;
-using System.Net.Mail;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.SeedData.Catalog;
 using TreniniDotNet.Common;
-using TreniniDotNet.Application.UseCases.Catalog;
 using TreniniDotNet.Application.InMemory.Catalog;
+using FluentValidation;
+using System.Collections.Generic;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
@@ -21,7 +20,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var brandRepository = new BrandRepository(new InMemoryContext());
 
             CreateBrandOutput output = null;
-            var outputPortMock = new Mock<IOutputPort>();
+            var outputPortMock = new Mock<ICreateBrandOutputPort>();
             outputPortMock.Setup(h => h.Standard(It.IsAny<CreateBrandOutput>()))
                 .Callback<CreateBrandOutput>(o => output = o);
 
@@ -30,9 +29,9 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var input = new CreateBrandInput(
                 "ACME",
                 "Associazione Costruzioni Modellistiche Esatte",
-                new Uri("http://www.acmetreni.com"),
-                new MailAddress("mail@acmetreni.com"),
-                BrandKind.Industrial
+                "http://www.acmetreni.com",
+                "mail@acmetreni.com",
+                BrandKind.Industrial.ToString()
                 );
 
             await useCase.Execute(input);
@@ -51,7 +50,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var brandRepository = new BrandRepository(InMemoryContext.WithCatalogSeedData());
 
             string message = "";
-            var outputPortMock = new Mock<IOutputPort>();
+            var outputPortMock = new Mock<ICreateBrandOutputPort>();
             outputPortMock.Setup(h => h.BrandAlreadyExists(It.IsAny<string>()))
                 .Callback<string>(msg => message = msg);
 
@@ -60,9 +59,9 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var input = new CreateBrandInput(
                 "ACME",
                 "Associazione Costruzioni Modellistiche Esatte",
-                new Uri("http://www.acmetreni.com"),
-                new MailAddress("mail@acmetreni.com"),
-                BrandKind.Industrial
+                "http://www.acmetreni.com",
+                "mail@acmetreni.com",
+                BrandKind.Industrial.ToString()
                 );
 
             await useCase.Execute(input);
@@ -71,13 +70,18 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             Assert.Equal("Brand 'ACME' already exists", message);
         }
         
-        private CreateBrand NewCreateBrandUseCase(IBrandsRepository repo, IOutputPort outputPort)
+        private CreateBrand NewCreateBrandUseCase(IBrandsRepository repo, ICreateBrandOutputPort outputPort)
         {
             var brandFactory = new DomainBrandFactory();
             var brandService = new BrandService(repo, brandFactory);
 
-            var useCase = new CreateBrand(brandService, outputPort, new UnitOfWork());
+            var useCase = new CreateBrand(NewValidator(), outputPort, brandService, new UnitOfWork());
             return useCase;
+        }
+
+        private IEnumerable<IValidator<CreateBrandInput>> NewValidator()
+        {
+            return new List<IValidator<CreateBrandInput>> { new CreateBrandInputValidator() };
         }
     }
 }

@@ -6,6 +6,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     {
         IScale NewScale(string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes);
 
-        Scale NewScale(string name, decimal ratio, decimal gauge, TrackGauge trackGauge);
+        IScale NewScale(string name, decimal? ratio, decimal? gauge, TrackGauge trackGauge);
     }
 }

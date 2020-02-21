@@ -22,6 +22,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             };
         }
 
+        public IBrand NewBrand(string name, string? companyName, string? websiteUrl, string? emailAddress, BrandKind kind)
+        {
+            return new Brand
+            {
+                BrandId = BrandId.NewId(),
+                Name = name,
+                Slug = Slug.Of(name),
+                CompanyName = companyName,
+                WebsiteUrl = websiteUrl != null ? new Uri(websiteUrl) : null,
+                EmailAddress = emailAddress != null ? new MailAddress(emailAddress) : null,
+                Kind = kind
+            };
+        }
+
         public IBrand NewBrand(BrandId brandId, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
         {
             return new Brand

@@ -14,7 +14,7 @@ namespace TreniniDotNet.Infrastructure.Persistence
             _context = context;
         }
 
-        public async Task<int> Save()
+        public async Task<int> SaveAsync()
         {
             int affectedRows = await _context.SaveChangesAsync().ConfigureAwait(false);
             return affectedRows;

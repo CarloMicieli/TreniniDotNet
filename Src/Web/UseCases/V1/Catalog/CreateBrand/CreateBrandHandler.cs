@@ -22,9 +22,9 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
             var input = new CreateBrandInput(
                 request.Name,
                 request.CompanyName,
-                request.WebsiteUrl != null ? new Uri(request.WebsiteUrl) : null,
-                request.EmailAddress != null ? new MailAddress(request.EmailAddress) : null,
-                request.BrandType.ToBrandKind());
+                request.WebsiteUrl,
+                request.EmailAddress,
+                request.BrandType);
 
             return _useCase.Execute(input);
         }

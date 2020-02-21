@@ -28,5 +28,15 @@ namespace TreniniDotNet.Application.SeedData.Catalog
                 emailAddress,
                 kind);
         }
+
+        public IBrand NewBrand(string name, string companyName, string websiteUrl, string emailAddress, BrandKind kind)
+        {
+            return new Brand(
+                name,
+                companyName,
+                new Uri(websiteUrl),
+                new MailAddress(emailAddress),
+                kind);
+        }
     }
 }

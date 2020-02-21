@@ -16,6 +16,13 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             _brandFactory = brandFactory;
         }
 
+        public async Task<IBrand> CreateBrand(string name, string? companyName, string? websiteUrl, string? emailAddress, BrandKind kind)
+        {
+            var brand = _brandFactory.NewBrand(name, companyName, websiteUrl, emailAddress, kind);
+            await _brandRepository.Add(brand);
+            return brand;
+        }
+
         public async Task<IBrand> CreateBrand(string name, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
         {
             var brand = _brandFactory.NewBrand(name, companyName, websiteUrl, emailAddress, kind);

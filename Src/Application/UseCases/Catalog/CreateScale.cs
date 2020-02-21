@@ -29,7 +29,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             Scale scale = await _scaleService.CreateScale(input.Scale);
 
-            await _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
 
             BuildOutput(scale);    
         }

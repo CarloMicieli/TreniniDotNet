@@ -5,13 +5,13 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
 {
     public class CreateScaleInput : IUseCaseInput
     {
-        private readonly Scale _scale;
+        private readonly IScale _scale;
 
-        public CreateScaleInput(Scale scale)
+        public CreateScaleInput(IScale scale)
         {
             _scale = scale;
         }
 
-        public Scale Scale => _scale;
+        public IScale Scale => _scale;
     }
 }

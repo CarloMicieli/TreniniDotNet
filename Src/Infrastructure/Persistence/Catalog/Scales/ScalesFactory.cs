@@ -22,7 +22,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             };
         }
 
-        public Domain.Catalog.Scales.Scale NewScale(string name, decimal ratio, decimal gauge, TrackGauge trackGauge)
+        public IScale NewScale(string name, decimal? ratio, decimal? gauge, TrackGauge trackGauge)
         {
             throw new System.NotImplementedException();
         }

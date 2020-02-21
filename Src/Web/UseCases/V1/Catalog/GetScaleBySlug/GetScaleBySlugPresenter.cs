@@ -2,6 +2,8 @@ using TreniniDotNet.Application.Boundaries.Catalog.GetScaleBySlug;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Web.ViewModels.V1.Catalog;
+using System.Collections.Generic;
+using FluentValidation.Results;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
 {
@@ -15,6 +17,11 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
         }
 
         public ActionResult<ScaleView> ViewModel { get; private set; } = null!;
+
+        public void InvalidRequest(List<ValidationFailure> failures)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public void ScaleNotFound(string message)
         {

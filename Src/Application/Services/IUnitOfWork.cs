@@ -4,6 +4,6 @@ namespace TreniniDotNet.Application.Services
 {
     public interface IUnitOfWork
     {
-        Task<int> Save();
+        Task<int> SaveAsync();
     }
 }

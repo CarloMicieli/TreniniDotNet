@@ -1,48 +1,51 @@
-﻿using System.Threading.Tasks;
+﻿using FluentValidation;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
-{
-    public sealed class CreateBrand : ICreateBrandUseCase
+{ 
+    public sealed class CreateBrand : AbstractUseCase<CreateBrandInput, CreateBrandOutput, ICreateBrandOutputPort>, ICreateBrandUseCase
     {
-        private readonly IOutputPort _outputPort;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly BrandService _brandService;
 
-        public CreateBrand(BrandService brandService, IOutputPort outputPort, IUnitOfWork unitOfWork)
+        public CreateBrand(
+            IEnumerable<IValidator<CreateBrandInput>> validators, 
+            ICreateBrandOutputPort outputPort,
+            BrandService brandService,
+            IUnitOfWork unitOfWork)
+            : base(validators, outputPort, unitOfWork)
         {
-            _outputPort = outputPort;
-            _unitOfWork = unitOfWork;
             _brandService = brandService;
         }
 
-        public async Task Execute(CreateBrandInput input)
+        protected override async Task ExecuteUseCase(CreateBrandInput input)
         {
-            bool brandExists = await _brandService.BrandAlreadyExists(input.Name);
+            bool brandExists = await _brandService.BrandAlreadyExists(input.Name!);
             if (brandExists)
             {
-                _outputPort.BrandAlreadyExists($"Brand '{input.Name}' already exists");
+                OutputPort.BrandAlreadyExists($"Brand '{input.Name}' already exists");
                 return;
             }
 
             IBrand brand = await _brandService.CreateBrand(
-                input.Name, 
+                input.Name!,
                 input.CompanyName,
                 input.WebsiteUrl,
-                input.EmailAddress, 
-                input.BrandKind ?? BrandKind.Industrial);
+                input.EmailAddress,
+                input.Kind.ToBrandKind());
 
-            await _unitOfWork.Save();
+            await UnitOfWork.SaveAsync();
 
-            BuildOutput(brand);    
+            BuildOutput(brand);
         }
 
-        public void BuildOutput(IBrand brand)
+        private void BuildOutput(IBrand brand)
         {
             var output = new CreateBrandOutput(brand);
-            _outputPort.Standard(output);
+            OutputPort.Standard(output);
         }
     }
 }

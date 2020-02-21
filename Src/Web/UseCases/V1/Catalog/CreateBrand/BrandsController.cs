@@ -33,11 +33,6 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Post(CreateBrandRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             await _mediator.Send(request);
             return _presenter.ViewModel;
         }
