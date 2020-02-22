@@ -1,39 +1,27 @@
 using System;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public sealed class RailwayService
     {
-        private readonly IRailwaysFactory _railwayFactory;
         private readonly IRailwaysRepository _railwayRepository;
 
-        public RailwayService(IRailwaysFactory railwayFactory, IRailwaysRepository railwayRepository)
+        public RailwayService(IRailwaysRepository railwayRepository)
         {
-            _railwayFactory = railwayFactory;
             _railwayRepository = railwayRepository;
         }
 
-        public async Task<IRailway> CreateRailway(string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus rs)
+        public Task<RailwayId> CreateRailway(string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus rs)
         {
-            var railway = _railwayFactory.NewRailway(name, companyName, country, operatingSince, operatingUntil, rs);
-            await _railwayRepository.Add(railway);
-            return railway;
+            return _railwayRepository.Add(name, Slug.Of(name), companyName, country, operatingSince, operatingUntil, rs);
         }
 
-        public async Task<bool> RailwayAlreadyExists(string name)
+        public Task<bool> RailwayAlreadyExists(Slug slug)
         {
-            try
-            {
-                var slug = Slug.Of(name);
-                var brand = await _railwayRepository.GetBy(slug);
-                return true;
-            }
-            catch (RailwayNotFoundException)
-            {
-                return false;
-            }
+            return _railwayRepository.Exists(slug);
         }
     }
 }

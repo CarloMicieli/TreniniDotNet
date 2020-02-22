@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
@@ -25,15 +26,19 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         protected override async Task Handle(CreateScaleInput input)
         {
-            bool scaleExists = await _scaleService.ScaleAlreadyExists(input.Name!);
+            string scaleName = input.Name!;
+            var slug = Slug.Of(scaleName);
+
+            bool scaleExists = await _scaleService.ScaleAlreadyExists(slug);
             if (scaleExists)
             {
-                _outputPort.ScaleAlreadyExists($"Scale '{input.Name}' already exists");
+                _outputPort.ScaleAlreadyExists($"Scale '{scaleName}' already exists");
                 return;
             }
 
-            IScale scale = await _scaleService.CreateScale(
-                input.Name!,
+            var _ = await _scaleService.CreateScale(
+                scaleName,
+                slug,
                 Ratio.Of(input.Ratio ?? 0M),
                 Gauge.OfMillimiters(input.Gauge ?? 0M),
                 input.TrackGauge.ToTrackGauge(),
@@ -41,12 +46,12 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             await _unitOfWork.SaveAsync();
 
-            BuildOutput(scale);
+            BuildOutput(slug);
         }
 
-        private void BuildOutput(IScale scale)
+        private void BuildOutput(Slug slug)
         {
-            var output = new CreateScaleOutput(scale);
+            var output = new CreateScaleOutput(slug);
             _outputPort.Standard(output);
         }
     }

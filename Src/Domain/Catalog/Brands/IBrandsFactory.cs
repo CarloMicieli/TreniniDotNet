@@ -1,33 +1,26 @@
 ﻿using System;
 using System.Net.Mail;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public interface IBrandsFactory
     {
-        IBrand NewBrand(
-            string name,
-            string? companyName, 
-            Uri? websiteUrl, 
-            MailAddress? emailAddress,
-            BrandKind kind);
-
-        IBrand NewBrand(
-            string name,
+        IBrand NewBrand(Guid brandId, 
+            string name, 
+            string slug, 
             string? companyName,
             string? websiteUrl,
             string? emailAddress,
-            BrandKind kind);
+            string? brandKind);
 
-        IBrand NewBrand(
-            BrandId brandId,
-            string name,
-            Slug slug,
-            string? companyName,
-            Uri? websiteUrl,
-            MailAddress? emailAddress,
-            BrandKind kind);
+        IBrand NewBrand(BrandId brandId, 
+            string name, 
+            Slug slug, 
+            string? companyName, 
+            Uri? uri, 
+            MailAddress? mailAddress, 
+            BrandKind? industrial);
     }
 }

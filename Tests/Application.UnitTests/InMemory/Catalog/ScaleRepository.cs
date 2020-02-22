@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
@@ -9,21 +10,28 @@ namespace TreniniDotNet.Application.InMemory.Catalog
     public sealed class ScaleRepository : IScalesRepository
     {
         private readonly InMemoryContext _context;
+        private readonly IScalesFactory _scalesFactory;
 
         public ScaleRepository(InMemoryContext context)
         {
-            _context = context;
-        }
-        
-        public Task<ScaleId> Add(IScale scale)
-        {
-            _context.Scales.Add((Scale) scale);
-            return Task.FromResult(ScaleId.Empty);
+            _context = context ??
+                throw new ArgumentNullException(nameof(context));
+
+            _scalesFactory = new ScalesFactory();
         }
 
-        public Task<ScaleId> Create(Scale scale)
+        public Task<ScaleId> Add(
+            ScaleId scaleId, Slug slug, string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string notes)
         {
-            throw new System.NotImplementedException();
+            _context.Scales.Add(_scalesFactory.NewScale(
+                scaleId.ToGuid(),
+                name,
+                slug.Value,
+                ratio.ToDecimal(),
+                gauge.ToDecimal(MeasureUnit.Millimeters),
+                trackGauge.ToString(),
+                notes));
+            return Task.FromResult(scaleId);
         }
 
         public Task<IScale> GetBy(Slug slug)
@@ -36,14 +44,10 @@ namespace TreniniDotNet.Application.InMemory.Catalog
             return Task.FromResult(scale);
         }
 
-        public Task<Scale> GetByAsync(Slug slug)
+        public Task<bool> Exists(Slug slug)
         {
-            IScale scale = _context.Scales.FirstOrDefault(e => e.Slug == slug);
-            if (scale == null)
-            {
-                throw new ScaleNotFoundException(slug);
-            }
-            return Task.FromResult((Scale) scale);
+            var found = _context.Scales.Any(e => e.Slug == slug);
+            return Task.FromResult(found);
         }
     }
 }

@@ -2,32 +2,29 @@
 using System.Net.Mail;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class BrandService
     {
         private readonly IBrandsRepository _brandRepository;
-        private readonly IBrandsFactory _brandFactory;
 
-        public BrandService(IBrandsRepository brandRepository, IBrandsFactory brandFactory)
+        public BrandService(IBrandsRepository brandRepository)
         {
             _brandRepository = brandRepository;
-            _brandFactory = brandFactory;
         }
 
-        public async Task<IBrand> CreateBrand(string name, string? companyName, string? websiteUrl, string? emailAddress, BrandKind kind)
+        public Task<BrandId> CreateBrand(string name, Slug slug, string? companyName, string? websiteUrl, string? emailAddress, BrandKind kind)
         {
-            var brand = _brandFactory.NewBrand(name, companyName, websiteUrl, emailAddress, kind);
-            await _brandRepository.Add(brand);
-            return brand;
-        }
-
-        public async Task<IBrand> CreateBrand(string name, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
-        {
-            var brand = _brandFactory.NewBrand(name, companyName, websiteUrl, emailAddress, kind);
-            await _brandRepository.Add(brand);
-            return brand;
+            return _brandRepository.Add(
+                BrandId.NewId(),
+                name,
+                slug,
+                companyName,
+                new Uri(websiteUrl),
+                new MailAddress(emailAddress),
+                kind);
         }
 
         public Task<IBrand> GetBy(Slug slug)
@@ -35,18 +32,9 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             return _brandRepository.GetBy(slug);
         }
 
-        public async Task<bool> BrandAlreadyExists(string name)
+        public Task<bool> BrandAlreadyExists(Slug slug)
         {
-            try
-            {
-                var slug = Slug.Of(name);
-                var brand = await _brandRepository.GetBy(slug);
-                return true;
-            }
-            catch (BrandNotFoundException)
-            {
-                return false;
-            }
+            return _brandRepository.Exists(slug);
         }
     }
 }

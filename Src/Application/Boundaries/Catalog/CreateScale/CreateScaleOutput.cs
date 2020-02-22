@@ -7,9 +7,9 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
     {
         private readonly Slug _slug;
 
-        public CreateScaleOutput(IScale s)
+        public CreateScaleOutput(Slug slug)
         {
-            _slug = s.Slug;
+            _slug = slug;
         }
 
         public Slug Slug => _slug;

@@ -1,11 +1,9 @@
-﻿using TreniniDotNet.Domain.Catalog.ValueObjects;
+﻿using System;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
     public interface IScalesFactory
     {
-        IScale NewScale(string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes);
-
-        IScale NewScale(string name, decimal? ratio, decimal? gauge, TrackGauge trackGauge, string? notes);
+        IScale NewScale(Guid id, string name, string slug, decimal? ratio, decimal? gauge, string? trackGauge, string? notes);
     }
 }

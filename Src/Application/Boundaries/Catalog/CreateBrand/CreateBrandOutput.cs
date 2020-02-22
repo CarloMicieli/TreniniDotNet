@@ -7,9 +7,9 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
     {
         private readonly Slug _slug;
 
-        public CreateBrandOutput(IBrand brand)
+        public CreateBrandOutput(Slug slug)
         {
-            _slug = brand.Slug;
+            _slug = slug;
         }
 
         public Slug Slug => _slug;

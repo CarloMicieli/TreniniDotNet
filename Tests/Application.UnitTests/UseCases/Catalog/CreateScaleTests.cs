@@ -64,7 +64,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         private CreateScale NewCreateScaleUseCase(IScalesRepository repo, ICreateScaleOutputPort outputPort)
         {
             var scaleFactory = new ScalesFactory();
-            var scaleService = new ScaleService(scaleFactory, repo);
+            var scaleService = new ScaleService(repo);
 
             var useCase = new CreateScale(NewValidator(), outputPort, scaleService, new UnitOfWork());
             return useCase;

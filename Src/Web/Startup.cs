@@ -1,4 +1,3 @@
-using AutoMapper;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -38,7 +37,6 @@ namespace TreniniDotNet.Web
             services.AddPresenters();
 
             services.AddMediatR(typeof(Startup).Assembly);
-            services.AddAutoMapper(typeof(Startup));
 
             services.AddPersistance(Configuration);
             services.AddEntityFrameworkIdentity(Configuration);

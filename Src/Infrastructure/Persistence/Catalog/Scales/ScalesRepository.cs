@@ -1,61 +1,56 @@
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
     public sealed class ScalesRepository : IScalesRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
+        private readonly IScalesFactory _scalesFactory;
 
-        public ScalesRepository(ApplicationDbContext context, IMapper mapper)
+        public ScalesRepository(ApplicationDbContext context, IScalesFactory scalesFactory)
         {
-            if (context is null)
-            {
+            _context = context ??
                 throw new ArgumentNullException(nameof(context));
-            }
-            
-            if (mapper is null)
-            {
-                throw new ArgumentNullException(nameof(mapper));
-            }
 
-            _context = context;
-            _mapper = mapper;
+            _scalesFactory = scalesFactory ??
+                throw new ArgumentNullException(nameof(scalesFactory));
         }
 
-        public async Task<ScaleId> Add(IScale scale)
+        public Task<ScaleId> Add(
+            ScaleId scaleId, 
+            Slug slug, 
+            string name, 
+            Ratio ratio,
+            Gauge gauge,
+            TrackGauge trackGauge, 
+            string? notes)
         {
-            if (scale is null)
+            _context.Scales.Add(new Scale
             {
-                throw new ArgumentNullException(nameof(scale));
-            }
+                ScaleId = scaleId.ToGuid(),
+                Name = name,
+                Slug = slug.ToString(),
+                Gauge = gauge.ToDecimal(MeasureUnit.Millimeters),
+                Ratio = ratio.ToDecimal(),
+                Notes = notes,
+                TrackGauge = trackGauge.ToString(),
+                Version = 1,
+                CreatedAt = DateTime.Now
+            });
 
-            await _context.Scales.AddAsync(_mapper.Map<Scale>(scale));
-            await _context.SaveChangesAsync();
-            return scale.ScaleId;
-        }
-
-        public async Task<ScaleId> Create(Domain.Catalog.Scales.Scale scale)
-        {
-            var newScale = _mapper.Map<Scale>(scale);
-            _context.Add(newScale);
-            var _ = await _context.SaveChangesAsync();
-            return new ScaleId(newScale.ScaleId);
+            return Task.FromResult(scaleId);
         }
 
         public async Task<IScale> GetBy(Slug slug)
         {
             var scale = await _context.Scales
                 .Where(s => s.Slug == slug.ToString())
-                .ProjectTo<Domain.Catalog.Scales.Scale>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
 
             if (scale is null)
@@ -63,22 +58,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 throw new ScaleNotFoundException(slug);
             }
 
-            return scale;
+            return _scalesFactory.NewScale(
+                scale.ScaleId,
+                scale.Name,
+                scale.Slug,
+                scale.Ratio,
+                scale.Gauge,
+                scale.TrackGauge,
+                scale.Notes);
         }
 
-        public async Task<Domain.Catalog.Scales.Scale> GetByAsync(Slug slug)
+        public Task<bool> Exists(Slug slug)
         {
-            var scale = await _context.Scales
-                .Where(s => s.Slug == slug.ToString())
-                .ProjectTo<Domain.Catalog.Scales.Scale>(_mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync();
-
-            if (scale is null)
-            {
-                throw new ScaleNotFoundException(slug);
-            }
-
-            return scale;                
+            return _context.Scales
+                .AnyAsync(s => s.Slug == slug.ToString());
         }
     }
 }

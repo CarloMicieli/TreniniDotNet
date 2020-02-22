@@ -90,8 +90,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         
         private CreateBrand NewCreateBrandUseCase(IBrandsRepository repo, ICreateBrandOutputPort outputPort)
         {
-            var brandFactory = new DomainBrandFactory();
-            var brandService = new BrandService(repo, brandFactory);
+            var brandService = new BrandService(repo);
 
             var useCase = new CreateBrand(NewValidator(), outputPort, brandService, new UnitOfWork());
             return useCase;

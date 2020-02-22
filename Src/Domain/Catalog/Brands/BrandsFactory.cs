@@ -7,19 +7,30 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class BrandsFactory : IBrandsFactory
     {
-        public IBrand NewBrand(string name, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
+        public IBrand NewBrand(Guid brandId, string name, string slug, string? companyName, string? websiteUrl, string? emailAddress, string? brandKind)
         {
-            throw new NotImplementedException();
+            return new Brand(
+                id: new BrandId(brandId),
+                name: name,
+                slug: Slug.Of(slug),
+                companyName: companyName,
+                websiteUrl: websiteUrl != null ? new Uri(websiteUrl) : null,
+                emailAddress: emailAddress != null ? new MailAddress(emailAddress) : null,
+                kind: brandKind.ToBrandKind()
+                );
         }
 
-        public IBrand NewBrand(string name, string? companyName, string? websiteUrl, string? emailAddress, BrandKind kind)
+        public IBrand NewBrand(BrandId brandId, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? mailAddress, BrandKind? kind)
         {
-            throw new NotImplementedException();
-        }
-
-        public IBrand NewBrand(BrandId brandId, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
-        {
-            throw new NotImplementedException();
+            return new Brand(
+                id: brandId,
+                name: name,
+                slug: slug,
+                companyName: companyName,
+                websiteUrl: websiteUrl,
+                emailAddress: mailAddress,
+                kind: kind ?? BrandKind.Industrial
+                );
         }
     }
 }

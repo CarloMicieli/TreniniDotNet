@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
 using TreniniDotNet.Application.InMemory;
 using TreniniDotNet.Application.InMemory.Catalog;
-using TreniniDotNet.Application.SeedData.Catalog;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using Xunit;
@@ -52,8 +51,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         private GetBrandBySlug NewUseCase(IBrandsRepository repo, IOutputPort outputPort)
         {
-            var brandFactory = new DomainBrandFactory();
-            var brandService = new BrandService(repo, brandFactory);
+            var brandService = new BrandService(repo);
 
             var useCase = new GetBrandBySlug(outputPort, new UnitOfWork(), brandService);
             return useCase;

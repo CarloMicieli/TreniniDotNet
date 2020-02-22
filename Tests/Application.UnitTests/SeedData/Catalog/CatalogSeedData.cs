@@ -81,7 +81,7 @@ namespace TreniniDotNet.Application.SeedData.Catalog
 
         #region [ Brands ]
 
-        private readonly static IBrandsFactory brandFactory = new DomainBrandFactory();
+        private readonly static IBrandsFactory brandFactory = new BrandsFactory();
 
         private readonly static IBrand _acme = Acme();
         private readonly static IBrand _bemo = Bemo();

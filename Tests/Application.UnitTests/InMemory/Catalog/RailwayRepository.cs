@@ -8,7 +8,12 @@ namespace TreniniDotNet.Application.InMemory.Catalog
 {
     public sealed class RailwayRepository : IRailwaysRepository
     {
-        public Task<GuidId> Add(IRailway railway)
+        public Task<RailwayId> Add(string name, Slug slug, string companyName, string country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus rs)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Exists(Slug slug)
         {
             throw new NotImplementedException();
         }

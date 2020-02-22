@@ -1,13 +1,23 @@
+using System;
 using System.Threading.Tasks;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public interface IRailwaysRepository
     {
-        Task<GuidId> Add(IRailway railway);
+        Task<RailwayId> Add(
+            string name, 
+            Slug slug,
+            string? companyName, 
+            string? country, 
+            DateTime? operatingSince,
+            DateTime? operatingUntil,
+            RailwayStatus rs);
 
         Task<IRailway> GetBy(Slug slug);
+
+        Task<bool> Exists(Slug slug);
     }
 }

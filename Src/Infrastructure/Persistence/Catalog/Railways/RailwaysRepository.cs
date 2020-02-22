@@ -5,47 +5,49 @@ using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
     public sealed class RailwaysRepository : IRailwaysRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
+        private readonly IRailwaysFactory _railwaysFactory;
 
-        public RailwaysRepository(ApplicationDbContext context, IMapper mapper)
+        public RailwaysRepository(ApplicationDbContext context, IRailwaysFactory railwaysFactory)
         {
             _context = context;
-            _mapper = mapper;
+            _railwaysFactory = railwaysFactory;
         }
 
-        public async Task<GuidId> Add(IRailway railway)
+        public Task<RailwayId> Add(string name, Slug slug, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus rs)
         {
-            if (railway is null)
-            {
-                throw new ArgumentNullException(nameof(railway));
-            }
-            
-            await _context.Railways.AddAsync(_mapper.Map<Railway>(railway));
-            await _context.SaveChangesAsync();
-            return railway.RailwayId;
+            var newId = Guid.NewGuid();
+
+            var railway = new Railway { };
+
+            _context.Add(railway);
+            return Task.FromResult(new RailwayId(newId));
         }
 
-        public async Task<IRailway> GetBy(Slug slug)
+        public Task<bool> Exists(Slug slug)
         {
-            var railway = await _context.Railways
-                .Where(c => c.Slug == slug.ToString())
-                .ProjectTo<Domain.Catalog.Railways.Railway>(_mapper.ConfigurationProvider)
+            return _context.Railways.AnyAsync(r => r.Slug == slug.ToString());
+        }
+
+        public Task<IRailway> GetBy(Slug slug)
+        {
+            return _context.Railways
+                .Where(r => r.Slug == slug.ToString())
+                .Select(r => _railwaysFactory.NewRailway(
+                    new RailwayId(r.RailwayId),
+                    r.Name,
+                    Slug.Of(r.Slug),
+                    r.CompanyName,
+                    r.Country,
+                    r.OperatingSince,
+                    r.OperatingUntil,
+                    r.Status.ToRailwayStatus()))
                 .SingleOrDefaultAsync();
-
-            if (railway is null)
-            {
-                throw new RailwayNotFoundException(slug);
-            }
-
-            return railway;
         }
     }
 }

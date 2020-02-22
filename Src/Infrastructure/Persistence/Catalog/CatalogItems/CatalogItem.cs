@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Scales;
@@ -9,11 +8,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
     public class CatalogItem 
     {
-        public CatalogItemId CatalogItemId { set; get; }
+        public Guid CatalogItemId { set; get; }
 
         public Brand Brand { set; get; } = null!;
 
-        public string Slug { set; get; }
+        public string Slug { set; get; } = null!;
 
         public string Category { set; get; } = "";
 
@@ -21,7 +20,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
         public string ItemNumber { set; get; } = null!;
 
-        public List<RollingStock> RollingStocks { set; get; } = null!;
+        public List<RollingStock> RollingStocks { set; get; } = new List<RollingStock>();
 
         public string Description { set; get; } = "";
 

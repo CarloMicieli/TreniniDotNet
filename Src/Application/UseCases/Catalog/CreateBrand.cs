@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
-{ 
+{
     public sealed class CreateBrand : ValidatedUseCase<CreateBrandInput, ICreateBrandOutputPort>, ICreateBrandUseCase
     {
         private readonly BrandService _brandService;
@@ -31,15 +32,19 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         protected override async Task Handle(CreateBrandInput input)
         {
-            bool brandExists = await _brandService.BrandAlreadyExists(input.Name!);
+            string brandName = input.Name!;
+            Slug slug = Slug.Of(brandName);
+
+            bool brandExists = await _brandService.BrandAlreadyExists(slug);
             if (brandExists)
             {
-                _outputPort.BrandAlreadyExists($"Brand '{input.Name}' already exists");
+                _outputPort.BrandAlreadyExists($"Brand '{brandName}' already exists");
                 return;
             }
 
-            IBrand brand = await _brandService.CreateBrand(
-                input.Name!,
+            var _ = await _brandService.CreateBrand(
+                brandName,
+                slug,
                 input.CompanyName,
                 input.WebsiteUrl,
                 input.EmailAddress,
@@ -47,12 +52,12 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             await _unitOfWork.SaveAsync();
 
-            BuildOutput(brand);
+            BuildOutput(slug);
         }
 
-        private void BuildOutput(IBrand brand)
+        private void BuildOutput(Slug slug)
         {
-            var output = new CreateBrandOutput(brand);
+            var output = new CreateBrandOutput(slug);
             _outputPort.Standard(output);
         }
     }

@@ -6,7 +6,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public interface IRailway
     {
-        public GuidId RailwayId { get; }
+        public RailwayId RailwayId { get; }
 
         public Slug Slug { get; }
 

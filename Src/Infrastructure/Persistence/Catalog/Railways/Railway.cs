@@ -13,6 +13,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         public DateTime? OperatingUntil { set; get; }
         public DateTime? OperatingSince { set; get; }
         public int Version { set; get; } = 1;
-        public DateTime CreationTime { set; get; }
+        public DateTime CreatedAt { set; get; }
     }
 }

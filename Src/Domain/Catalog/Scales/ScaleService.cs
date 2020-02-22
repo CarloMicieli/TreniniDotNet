@@ -1,39 +1,36 @@
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
+using System;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
     public sealed class ScaleService
     {
-        private readonly IScalesFactory _scaleFactory;
         private readonly IScalesRepository _scaleRepository;
 
-        public ScaleService(IScalesFactory scaleFactory, IScalesRepository scaleRepository)
+        public ScaleService(IScalesRepository scaleRepository)
         {
-            _scaleFactory = scaleFactory;
-            _scaleRepository = scaleRepository;
+            _scaleRepository = scaleRepository ??
+                throw new ArgumentNullException(nameof(scaleRepository));
         }
 
-        public async Task<IScale> CreateScale(string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
+        public async Task<ScaleId> CreateScale(string name, Slug slug, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
         {
-            var scale = _scaleFactory.NewScale(name, ratio, gauge, trackGauge, notes);
-            await _scaleRepository.Add(scale);
-            return scale;
+            ScaleId scaleId = await _scaleRepository.Add(
+                ScaleId.NewId(),
+                slug,
+                name, 
+                ratio,
+                gauge, 
+                trackGauge,
+                notes);
+            return scaleId;
         }
 
-        public async Task<bool> ScaleAlreadyExists(string name)
+        public Task<bool> ScaleAlreadyExists(Slug slug)
         {
-            try
-            {
-                var slug = Slug.Of(name);
-                var _ = await _scaleRepository.GetByAsync(slug);
-                return true;
-            }
-            catch (ScaleNotFoundException)
-            {
-                return false;
-            }
+            return _scaleRepository.Exists(slug);
         }
     }
 }

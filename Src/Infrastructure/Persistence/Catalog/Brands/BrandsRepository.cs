@@ -5,70 +5,59 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
+using System.Net.Mail;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
     public sealed class BrandsRepository : IBrandsRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
+        private readonly IBrandsFactory _brandsFactory;
 
-        public BrandsRepository(ApplicationDbContext context, IMapper mapper)
+        public BrandsRepository(ApplicationDbContext context, IBrandsFactory brandsFactory)
         {
-            _context = context;
-            _mapper = mapper;
+            _context = context ??
+                throw new ArgumentNullException(nameof(context));
+
+            _brandsFactory = brandsFactory ??
+                throw new ArgumentNullException(nameof(brandsFactory));
         }
 
-        public async Task<BrandId> Add(IBrand brand)
+        public Task<BrandId> Add(BrandId brandId, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind? brandKind)
         {
-            if (brand is null)
+            var newBrand = new Brand
             {
-                throw new ArgumentNullException(nameof(brand));
-            }
+                BrandId = brandId.ToGuid(),
+                Name = name,
+                Slug = slug.ToString(),
+                CompanyName = companyName,
+                WebsiteUrl = websiteUrl?.ToString(),
+                EmailAddress = emailAddress?.ToString(),
+                BrandKind = brandKind?.ToString()
+            };
 
-            Brand newBrand = (Brand)brand;
             _context.Brands.Add(newBrand);
-            
-            await _context.SaveChangesAsync();
-
-            return new BrandId(newBrand.BrandId);
+            return Task.FromResult(brandId);
         }
 
-        public Task<IBrand> GetBy(BrandId brandId)
+        public Task<bool> Exists(Slug slug)
         {
-            //var brand = await _context.Brands
-            //    .Where(c => c.BrandId == brandId.ToGuid())
-            //    .SingleOrDefaultAsync();
-
-            //if (brand is null)
-            //{
-            //    throw new BrandNotFoundException();
-            //}
-
-            //return brand;
-            throw new NotImplementedException();
+            return _context.Brands.AnyAsync(b => b.Slug == slug.ToString());
         }
 
-        public async Task<IBrand> GetBy(Slug slug)
+        public Task<IBrand> GetBy(Slug slug)
         {
-            var brand = await _context.Brands
-                .Where(c => c.Slug == slug.ToString())
-                .ProjectTo<Domain.Catalog.Brands.Brand>(_mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync();
-
-            if (brand is null)
-            {
-                throw new BrandNotFoundException();
-            }
-
-            return brand;
-        }
-
-        public async Task Update(IBrand brand)
-        {
-            await _context.Brands.AddAsync((Brand)brand);
+            return _context.Brands
+                .Where(b => b.Slug == slug.ToString())
+                .Select(b => _brandsFactory.NewBrand(
+                    b.BrandId,
+                    b.Name,
+                    b.Slug,
+                    b.CompanyName,
+                    b.WebsiteUrl,
+                    b.EmailAddress,
+                    b.BrandKind))
+                .FirstOrDefaultAsync();
         }
     }
 }

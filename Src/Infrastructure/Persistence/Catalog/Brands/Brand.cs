@@ -13,6 +13,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         public string? BrandKind { set; get; }
         public bool? Active { set; get; }
         public int Version { set; get; } = 1;
-        public DateTime CreationTime { set; get; }
+        public DateTime CreatedAt { set; get; }
     }
 }

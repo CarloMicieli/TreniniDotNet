@@ -12,6 +12,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         public string? TrackGauge { set; get; }
         public string? Notes { set; get; }
         public int Version { set; get; } = 1;
-        public DateTime CreationTime { set; get; }
+        public DateTime CreatedAt { set; get; }
     }
 }

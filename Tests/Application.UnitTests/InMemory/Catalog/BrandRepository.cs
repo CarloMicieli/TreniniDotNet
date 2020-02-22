@@ -3,28 +3,42 @@ using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
+using System;
+using System.Net.Mail;
 
 namespace TreniniDotNet.Application.InMemory.Catalog
 {
     public class BrandRepository : IBrandsRepository
     {
         private readonly InMemoryContext _context;
+        private readonly IBrandsFactory _brandsFactory;
 
         public BrandRepository(InMemoryContext context)
         {
             _context = context;
+            _brandsFactory = new BrandsFactory();
         }
 
-        public Task<BrandId> Add(IBrand brand)
+        public Task<BrandId> Add(BrandId brandId, string name, Slug slug, string companyName, Uri websiteUrl, MailAddress emailAddress, BrandKind? brandKind)
         {
-            _context.Brands.Add((Brand)brand);
-            return Task.FromResult(BrandId.Empty); //TODO: fixme
+            var newBrand = _brandsFactory.NewBrand(
+                brandId.ToGuid(), 
+                name, 
+                slug.ToString(), 
+                companyName,
+                websiteUrl?.ToString(), 
+                emailAddress?.ToString(),
+                brandKind?.ToString());
+
+            _context.Brands.Add(newBrand);
+
+            return Task.FromResult(brandId);
         }
 
-        public Task<IBrand> GetBy(BrandId brandId)
+        public Task<bool> Exists(Slug slug)
         {
-            var brand = _context.Brands.FirstOrDefault(e => e.BrandId == brandId);
-            return Task.FromResult(brand);
+            bool exists = _context.Brands.Any(b => b.Slug == slug);
+            return Task.FromResult(exists);
         }
 
         public Task<IBrand> GetBy(Slug slug)
@@ -35,17 +49,6 @@ namespace TreniniDotNet.Application.InMemory.Catalog
                 throw new BrandNotFoundException();
             }
             return Task.FromResult(brand);
-        }
-
-        public async Task Update(IBrand brand)
-        {
-            var brandToUpdate = _context.Brands.FirstOrDefault(e => e.BrandId.Equals(brand.BrandId)); //TODO: #fixme
-            if (brandToUpdate != null)
-            {
-                //bran
-            }
-
-            await Task.CompletedTask;
         }
     }
 }
