@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using System.Text.Json;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Web.DependencyInjection;
 
@@ -26,9 +27,13 @@ namespace TreniniDotNet.Web
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .CreateLogger();
-                
+
             services.AddControllers()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>())
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                });
 
             services.AddOpenApi();
             services.AddVersioning();
@@ -43,7 +48,7 @@ namespace TreniniDotNet.Web
 
             services.AddHealthChecks()
                  .AddDbContextCheck<ApplicationDbContext>("DbHealthCheck");
-                        
+
             services.AddJwtAuthentication(Configuration)
                 .AddJwtAuthorization();
         }
@@ -83,7 +88,7 @@ namespace TreniniDotNet.Web
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }
-            });            
+            });
         }
     }
 }

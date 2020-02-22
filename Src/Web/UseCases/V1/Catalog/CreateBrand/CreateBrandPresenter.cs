@@ -14,11 +14,11 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
         public override void Standard(CreateBrandOutput output)
         {
             ViewModel = Created(
-                "GetBrand",
+                "GetBrandBySlug",
                 new
                 {
                     slug = output.Slug,
-                    version = "1.0",
+                    version = "1",
                 },
                 output);
         }

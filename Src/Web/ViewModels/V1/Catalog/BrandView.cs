@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using TreniniDotNet.Domain.Catalog.Brands;
+﻿using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Catalog
 {
@@ -19,14 +18,8 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
         public string Id { set; get; } = null!;
         public string Slug { set; get; } = null!;
         public string Name { set; get; } = null!;
-
-        [JsonPropertyName("company_name")]
         public string? CompanyName { set; get; }
-
-        [JsonPropertyName("mail_address")]
         public string? MailAddress { set; get; }
-
-        [JsonPropertyName("website_url")]
         public string? WebsiteUrl { set; get; }
         public string? Kind { set; get; }
     }

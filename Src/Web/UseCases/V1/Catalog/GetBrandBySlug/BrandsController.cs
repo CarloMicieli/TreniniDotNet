@@ -21,7 +21,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug
         }
 
         [HttpGet]
-        [Route("{slug}")]
+        [Route("{slug}", Name = nameof(GetBrandBySlug))]
         public async Task<ActionResult<BrandView>> GetBrandBySlug(string slug)
         {
             await _mediator.Send(new GetBrandBySlugRequest(Slug.Of(slug)));
