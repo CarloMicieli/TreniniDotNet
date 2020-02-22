@@ -5,16 +5,20 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
     public sealed class BrandsRepository : IBrandsRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public BrandsRepository(ApplicationDbContext context)
+        public BrandsRepository(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<BrandId> Add(IBrand brand)
@@ -29,27 +33,29 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             
             await _context.SaveChangesAsync();
 
-            return newBrand.BrandId;
+            return new BrandId(newBrand.BrandId);
         }
 
-        public async Task<IBrand> GetBy(BrandId brandId)
+        public Task<IBrand> GetBy(BrandId brandId)
         {
-            var brand = await _context.Brands
-                .Where(c => c.BrandId == brandId)
-                .SingleOrDefaultAsync();
+            //var brand = await _context.Brands
+            //    .Where(c => c.BrandId == brandId.ToGuid())
+            //    .SingleOrDefaultAsync();
 
-            if (brand is null)
-            {
-                throw new BrandNotFoundException();
-            }
+            //if (brand is null)
+            //{
+            //    throw new BrandNotFoundException();
+            //}
 
-            return brand;
+            //return brand;
+            throw new NotImplementedException();
         }
 
         public async Task<IBrand> GetBy(Slug slug)
         {
             var brand = await _context.Brands
-                .Where(c => c.Slug == slug)
+                .Where(c => c.Slug == slug.ToString())
+                .ProjectTo<Domain.Catalog.Brands.Brand>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
 
             if (brand is null)

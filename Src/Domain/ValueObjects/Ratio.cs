@@ -27,6 +27,11 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             return (float) _ratio;
         }
 
+        public decimal ToDecimal()
+        {
+            return _ratio;
+        }
+
         #region [ Equality ]
         public override bool Equals(object obj)
         {

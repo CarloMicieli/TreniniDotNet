@@ -1,25 +1,18 @@
 using System;
-using System.Net.Mail;
-using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
-    public class Brand : IBrand
+    public class Brand
     {
-        public BrandId BrandId { set; get; }
-
-        public Slug Slug { set; get; }
-
+        public Guid BrandId { set; get; }
+        public string Slug { set; get; } = null!;
         public string Name { set; get; } = null!;
-
-        public Uri? WebsiteUrl { set; get; }
-
-        public MailAddress? EmailAddress { set; get; }
-
+        public string? WebsiteUrl { set; get; }
+        public string? EmailAddress { set; get; }
         public string? CompanyName { set; get; }
-
-        public BrandKind Kind { set; get; }
+        public string? BrandKind { set; get; }
+        public bool? Active { set; get; }
+        public int Version { set; get; } = 1;
+        public DateTime CreationTime { set; get; }
     }
 }

@@ -8,10 +8,10 @@ namespace TreniniDotNet.Domain.Catalog.Brands
     {
         Task<IBrand> GetBy(Slug slug);
 
-        Task<IBrand> GetBy(BrandId brandId);
+        //Task<IBrand> GetBy(BrandId brandId);
 
         Task<BrandId> Add(IBrand brand);
 
-        Task Update(IBrand brand);
+        //Task Update(IBrand brand);
     }
 }

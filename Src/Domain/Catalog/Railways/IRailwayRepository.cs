@@ -6,7 +6,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public interface IRailwaysRepository
     {
-        Task<RailwayId> Add(IRailway railway);
+        Task<GuidId> Add(IRailway railway);
 
         Task<IRailway> GetBy(Slug slug);
     }

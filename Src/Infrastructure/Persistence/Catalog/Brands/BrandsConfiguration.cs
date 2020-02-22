@@ -26,35 +26,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 .HasMaxLength(25);
 
             builder.Property(e => e.Slug)
-                .HasConversion(
-                    value => value.ToString(),
-                    value => Slug.Of(value))
                 .HasMaxLength(25)
                 .IsRequired();
 
             builder.Property(e => e.BrandId)
-                .HasConversion<Guid>(
-                    value => value.ToGuid(),
-                    value => new BrandId(value))
                 .ValueGeneratedNever()
                 .IsRequired();
 
             builder.Property(e => e.EmailAddress)
-                .HasConversion(
-                    value => value!.ToString(),
-                    value => new MailAddress(value))
                 .HasMaxLength(250);
 
             builder.Property(e => e.WebsiteUrl)
-                .HasConversion(
-                    value => value!.ToString(),
-                    value => new Uri(value))
                 .HasMaxLength(250);
 
-            builder.Property(e => e.Kind)
-                .HasConversion<string>(
-                    kind => kind.ToString(),
-                    str => str.ToBrandKind())
+            builder.Property(e => e.BrandKind)
                 .HasMaxLength(25);
         }
     }

@@ -2,18 +2,18 @@ using System;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {
-    public readonly struct RailwayId : IEquatable<RailwayId>
+    public readonly struct GuidId : IEquatable<GuidId>
     {
         private readonly Guid _id;
 
-        public static RailwayId NewId()
+        public static GuidId NewId()
         {
-            return new RailwayId(Guid.NewGuid());
+            return new GuidId(Guid.NewGuid());
         }
 
-        public static RailwayId Empty => new RailwayId(Guid.Empty);
+        public static GuidId Empty => new GuidId(Guid.Empty);
 
-        public RailwayId(Guid id)
+        public GuidId(Guid id)
         {
             _id = id;
         }
@@ -27,7 +27,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         #region [ Equality ]
         public override bool Equals(object obj)
         {
-            if (obj is RailwayId that)
+            if (obj is GuidId that)
             {
                 return AreEquals(this, that);
             }
@@ -35,22 +35,22 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             return false;
         }
 
-        public static bool operator ==(RailwayId left, RailwayId right)
+        public static bool operator ==(GuidId left, GuidId right)
         {
             return AreEquals(left, right);
         }
 
-        public static bool operator !=(RailwayId left, RailwayId right)
+        public static bool operator !=(GuidId left, GuidId right)
         {
             return !AreEquals(left, right);
         }
 
-        public bool Equals(RailwayId other)
+        public bool Equals(GuidId other)
         {
             return AreEquals(this, other);
         }
 
-        private static bool AreEquals(RailwayId left, RailwayId right)
+        private static bool AreEquals(GuidId left, GuidId right)
         {
             return left._id == right._id;
         }

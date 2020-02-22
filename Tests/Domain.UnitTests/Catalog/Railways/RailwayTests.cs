@@ -50,7 +50,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         [Fact]
         public void ItShouldThrowAnExceptionWhenTheNameIsABlankString()
         {
-            Assert.Throws<ArgumentException>(() => new Railway(RailwayId.NewId(), Slug.Of("db"), "  ", null, "de", null, null, null));
+            Assert.Throws<ArgumentException>(() => new Railway(GuidId.NewId(), Slug.Of("db"), "  ", null, "de", null, null, null));
         }
 
         [Fact]

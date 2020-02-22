@@ -37,7 +37,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string? modelDescription,
             string? prototypeDescription,
             IRollingStock rollingStock)
-        {
+        {/*
             IBrand brand = await _brands.GetBy(brandId);
             IRailway railway = await _railways.GetBy(rollingStock.Railway.Slug);
             IScale scale = await _scales.GetBy(rollingStock.Scale.Slug);
@@ -47,7 +47,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             CatalogItem newItem = _catalogItemFactory.NewCatalogItem();
 
             await _catalogItemsRepository.Add(newItem);
-
+            */
 
 
 

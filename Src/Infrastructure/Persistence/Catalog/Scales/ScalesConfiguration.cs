@@ -1,9 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
@@ -20,16 +16,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 .HasName("Idx_Scales_Slug");
 
             builder.Property(e => e.ScaleId)
-                .HasConversion<Guid>(
-                    id => id.ToGuid(),
-                    guid => new ScaleId(guid))
                 .ValueGeneratedNever()
                 .IsRequired();
 
             builder.Property(e => e.Slug)
-                .HasConversion<string>(
-                    slug => slug.ToString(),
-                    str => Slug.Of(str))
                 .HasMaxLength(10)
                 .IsRequired();
 
@@ -39,21 +29,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 .HasMaxLength(10);
 
             builder.Property(e => e.Gauge)
-                .HasConversion<decimal>(
-                    g => g.ToDecimal(MeasureUnit.Millimeters),
-                    g => Gauge.OfMillimiters(g))
                 .IsRequired();
 
             builder.Property(e => e.Ratio)
-                .HasConversion<float>(
-                    r => r.ToFloat(),
-                    r => Ratio.Of(r))
                 .IsRequired();
 
             builder.Property(e => e.TrackGauge)
-                .HasConversion<string>(
-                    tg => tg.ToString(),
-                    str => str.ToTrackGauge())
                 .HasMaxLength(15);
         }
     }

@@ -10,7 +10,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
     /// </summary>
     public sealed class Railway : IEquatable<Railway>, IRailway
     {
-        private readonly RailwayId _id;
+        private readonly GuidId _id;
         private readonly Slug _slug;
         private readonly string _name;
         private readonly string? _companyName;
@@ -20,16 +20,16 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         private readonly DateTime? _operatingUntil;
 
         public Railway(string name, string? companyName, string? country, RailwayStatus? rs)
-            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, null, null, rs)
+            : this(GuidId.NewId(), Slug.Empty, name, companyName, country, null, null, rs)
         {
         }
 
         public Railway(string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs)
-            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, operatingSince, operatingUntil, rs)
+            : this(GuidId.NewId(), Slug.Empty, name, companyName, country, operatingSince, operatingUntil, rs)
         {
         }
 
-        public Railway(RailwayId id, Slug slug, string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs)
+        public Railway(GuidId id, Slug slug, string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs)
         {
             ValidateCountryCode(country);
             ValidateName(name);
@@ -46,7 +46,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         }
 
         #region [ Properties ]
-        public RailwayId RailwayId => _id;
+        public GuidId RailwayId => _id;
 
         public Slug Slug => _slug;
 

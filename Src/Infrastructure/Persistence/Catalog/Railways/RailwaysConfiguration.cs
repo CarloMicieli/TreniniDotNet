@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
@@ -20,9 +16,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 .HasName("Idx_Railways_Slug");
 
             builder.Property(e => e.RailwayId)
-                .HasConversion<Guid>(
-                    rid => rid.ToGuid(),
-                    guid => new RailwayId(guid))
                 .ValueGeneratedNever()
                 .IsRequired();
 
@@ -37,15 +30,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             builder.Property(e => e.Slug)
                 .IsRequired()
-                .HasMaxLength(25)
-                .HasConversion<string>(
-                    slug => slug.ToString(),
-                    str => Slug.Of(str));
+                .HasMaxLength(25);
 
             builder.Property(e => e.Status)
-                .HasConversion<string>(
-                    status => status.ToString(),
-                    str => str.ToRailwayStatus())
                 .HasMaxLength(10);
         }
     }

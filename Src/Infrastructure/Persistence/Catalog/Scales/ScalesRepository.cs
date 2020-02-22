@@ -38,7 +38,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 throw new ArgumentNullException(nameof(scale));
             }
 
-            await _context.Scales.AddAsync((Scale)scale);
+            await _context.Scales.AddAsync(_mapper.Map<Scale>(scale));
             await _context.SaveChangesAsync();
             return scale.ScaleId;
         }
@@ -48,16 +48,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             var newScale = _mapper.Map<Scale>(scale);
             _context.Add(newScale);
             var _ = await _context.SaveChangesAsync();
-            return newScale.ScaleId;            
+            return new ScaleId(newScale.ScaleId);
         }
 
         public async Task<IScale> GetBy(Slug slug)
         {
             var scale = await _context.Scales
-                .Where(s => s.Slug == slug)
+                .Where(s => s.Slug == slug.ToString())
+                .ProjectTo<Domain.Catalog.Scales.Scale>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
 
-            if (scale == null)
+            if (scale is null)
             {
                 throw new ScaleNotFoundException(slug);
             }
@@ -68,7 +69,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         public async Task<Domain.Catalog.Scales.Scale> GetByAsync(Slug slug)
         {
             var scale = await _context.Scales
-                .Where(s => s.Slug == slug)
+                .Where(s => s.Slug == slug.ToString())
                 .ProjectTo<Domain.Catalog.Scales.Scale>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
 

@@ -1,23 +1,17 @@
-using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
+using System;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
-    public sealed class Scale : IScale
+    public sealed class Scale
     {
-        public ScaleId ScaleId { set; get; }
-
-        public Slug Slug { set; get; }
-
+        public Guid ScaleId { set; get; }
+        public string Slug { set; get; } = null!;
         public string Name { set; get; } = null!;
-
-        public Ratio Ratio { set; get; }
-
-        public Gauge Gauge { set; get; }
-
-        public TrackGauge TrackGauge { set; get; }
-
+        public decimal Ratio { set; get; }
+        public decimal Gauge { set; get; }
+        public string? TrackGauge { set; get; }
         public string? Notes { set; get; }
+        public int Version { set; get; } = 1;
+        public DateTime CreationTime { set; get; }
     }
 }
