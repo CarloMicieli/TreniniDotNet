@@ -69,6 +69,11 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             return $"1:{_ratio}";
         }
 
+        public static Ratio Of(decimal ratio)
+        {
+            return new Ratio(ratio);
+        }
+
         public static Ratio Of(float ratio)
         {
             return new Ratio((decimal) ratio);

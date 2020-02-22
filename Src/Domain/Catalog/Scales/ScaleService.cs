@@ -15,13 +15,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             _scaleRepository = scaleRepository;
         }
 
-        public async Task<Scale> CreateScale(IScale scale)
-        {
-            var s = (Scale)scale; //TODO
-            await _scaleRepository.Add(s);
-            return s;            
-        }
-
         public async Task<IScale> CreateScale(string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
         {
             var scale = _scaleFactory.NewScale(name, ratio, gauge, trackGauge, notes);
