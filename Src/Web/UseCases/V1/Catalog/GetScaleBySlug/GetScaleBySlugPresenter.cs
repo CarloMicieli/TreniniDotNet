@@ -23,7 +23,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
             throw new System.NotImplementedException();
         }
 
-        public void InvalidRequest(List<ValidationFailure> failures)
+        public void InvalidRequest(IList<ValidationFailure> failures)
         {
             throw new System.NotImplementedException();
         }

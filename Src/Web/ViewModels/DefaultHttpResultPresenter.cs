@@ -22,7 +22,7 @@ namespace TreniniDotNet.Web.ViewModels
             throw new System.NotImplementedException("TODO");
         }
 
-        public void InvalidRequest(List<ValidationFailure> failures)
+        public void InvalidRequest(IList<ValidationFailure> failures)
         {
             var modelState = new ModelStateDictionary();
 

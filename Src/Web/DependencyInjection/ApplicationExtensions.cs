@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Scales;
 
@@ -14,7 +15,9 @@ namespace TreniniDotNet.Web.DependencyInjection
 
             services.AddScoped<BrandService>();
             services.AddScoped<ScaleService>();
-            
+
+            services.AddSingleton(typeof(IUseCaseInputValidator<>), typeof(UseCaseInputValidator<>));
+
             return services;
         }
     }

@@ -1,15 +1,8 @@
-﻿using FluentValidation.Results;
-using System.Collections.Generic;
-
-namespace TreniniDotNet.Application.Boundaries
+﻿namespace TreniniDotNet.Application.Boundaries
 {
-    public interface IOutputPortStandard<in TUseCaseOutput>
+    public interface IOutputPortStandard<in TUseCaseOutput> : IOutputPortErrors
         where TUseCaseOutput : IUseCaseOutput
     {
         void Standard(TUseCaseOutput output);
-
-        void InvalidRequest(List<ValidationFailure> failures);
-
-        void Error(string? message);
     }
 }

@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 using TreniniDotNet.Application.Services;
@@ -7,26 +6,35 @@ using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 { 
-    public sealed class CreateBrand : AbstractUseCase<CreateBrandInput, CreateBrandOutput, ICreateBrandOutputPort>, ICreateBrandUseCase
+    public sealed class CreateBrand : ValidatedUseCase<CreateBrandInput, ICreateBrandOutputPort>, ICreateBrandUseCase
     {
         private readonly BrandService _brandService;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICreateBrandOutputPort _outputPort;
 
         public CreateBrand(
-            IEnumerable<IValidator<CreateBrandInput>> validators, 
+            IUseCaseInputValidator<CreateBrandInput> validator, 
             ICreateBrandOutputPort outputPort,
             BrandService brandService,
             IUnitOfWork unitOfWork)
-            : base(validators, outputPort, unitOfWork)
+            : base(validator, outputPort)
         {
-            _brandService = brandService;
+            _brandService = brandService ??
+                throw new ArgumentNullException(nameof(brandService));
+
+            _unitOfWork = unitOfWork ?? 
+                throw new ArgumentNullException(nameof(unitOfWork));
+
+            _outputPort = outputPort ??
+                throw new ArgumentNullException(nameof(outputPort));
         }
 
-        protected override async Task ExecuteUseCase(CreateBrandInput input)
+        protected override async Task Handle(CreateBrandInput input)
         {
             bool brandExists = await _brandService.BrandAlreadyExists(input.Name!);
             if (brandExists)
             {
-                OutputPort.BrandAlreadyExists($"Brand '{input.Name}' already exists");
+                _outputPort.BrandAlreadyExists($"Brand '{input.Name}' already exists");
                 return;
             }
 
@@ -37,7 +45,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 input.EmailAddress,
                 input.Kind.ToBrandKind());
 
-            await UnitOfWork.SaveAsync();
+            await _unitOfWork.SaveAsync();
 
             BuildOutput(brand);
         }
@@ -45,7 +53,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         private void BuildOutput(IBrand brand)
         {
             var output = new CreateBrandOutput(brand);
-            OutputPort.Standard(output);
+            _outputPort.Standard(output);
         }
     }
 }

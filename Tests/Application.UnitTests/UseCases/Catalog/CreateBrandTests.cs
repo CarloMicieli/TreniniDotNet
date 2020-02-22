@@ -20,10 +20,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var brandRepository = new BrandRepository(new InMemoryContext());
 
-            var validationFailures = new List<ValidationFailure>();
+            IList<ValidationFailure> validationFailures = new List<ValidationFailure>();
             var outputPortMock = new Mock<ICreateBrandOutputPort>();
-            outputPortMock.Setup(h => h.InvalidRequest(It.IsAny<List<ValidationFailure>>()))
-                .Callback<List<ValidationFailure>>(o => validationFailures = o);
+            outputPortMock.Setup(h => h.InvalidRequest(It.IsAny<IList<ValidationFailure>>()))
+                .Callback<IList<ValidationFailure>>(o => validationFailures = o);
 
             var useCase = NewCreateBrandUseCase(brandRepository, outputPortMock.Object);
 
@@ -97,9 +97,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             return useCase;
         }
 
-        private IEnumerable<IValidator<CreateBrandInput>> NewValidator()
+        private IUseCaseInputValidator<CreateBrandInput> NewValidator()
         {
-            return new List<IValidator<CreateBrandInput>> { new CreateBrandInputValidator() };
+            return new UseCaseInputValidator<CreateBrandInput>(
+                new List<IValidator<CreateBrandInput>> { new CreateBrandInputValidator() });
         }
     }
 }
