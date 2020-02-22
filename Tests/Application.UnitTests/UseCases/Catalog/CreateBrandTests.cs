@@ -9,11 +9,30 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Application.InMemory.Catalog;
 using FluentValidation;
 using System.Collections.Generic;
+using FluentValidation.Results;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
     public class CreateBrandTests
     {
+        [Fact]
+        public async Task CreateBrand_ShouldValidateInput()
+        {
+            var brandRepository = new BrandRepository(new InMemoryContext());
+
+            var validationFailures = new List<ValidationFailure>();
+            var outputPortMock = new Mock<ICreateBrandOutputPort>();
+            outputPortMock.Setup(h => h.InvalidRequest(It.IsAny<List<ValidationFailure>>()))
+                .Callback<List<ValidationFailure>>(o => validationFailures = o);
+
+            var useCase = NewCreateBrandUseCase(brandRepository, outputPortMock.Object);
+
+            await useCase.Execute(new CreateBrandInput(null, null, null, null, null));
+
+            outputPortMock.Verify(outputPort => outputPort.InvalidRequest(It.IsAny<List<ValidationFailure>>()), Times.Once);
+            Assert.True(validationFailures.Count > 0);
+        }
+
         [Fact]
         public async Task CreateBrand_Should_CreateANewBrand()
         {
@@ -37,11 +56,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             await useCase.Execute(input);
 
             Assert.NotNull(output);
-            Assert.True(output!.BrandId != null);
             Assert.True(output!.Slug != null);
             Assert.Equal(Slug.Of("acme"), output!.Slug);
 
-            Assert.NotNull(brandRepository.GetBy(output!.BrandId));
+            Assert.NotNull(brandRepository.GetBy(output!.Slug));
         }
 
         [Fact]

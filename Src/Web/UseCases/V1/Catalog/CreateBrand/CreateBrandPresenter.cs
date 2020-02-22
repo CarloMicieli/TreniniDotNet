@@ -1,27 +1,19 @@
-﻿using FluentValidation.Results;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
+using TreniniDotNet.Web.ViewModels;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
 {
-    public class CreateBrandPresenter : ICreateBrandOutputPort
+    public class CreateBrandPresenter : DefaultHttpResultPresenter<CreateBrandOutput>, ICreateBrandOutputPort
     {
-        public IActionResult ViewModel { get; private set; } = new NotFoundResult();
-
         public void BrandAlreadyExists(string message)
         {
             ViewModel = new BadRequestObjectResult(message);
         }
-
-        public void InvalidRequest(List<ValidationFailure> failures)
+        
+        public override void Standard(CreateBrandOutput output)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void Standard(CreateBrandOutput output)
-        {
-            ViewModel = new CreatedAtRouteResult(
+            ViewModel = Created(
                 "GetBrand",
                 new
                 {

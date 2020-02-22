@@ -1,10 +1,7 @@
 ﻿using MediatR;
-using System;
-using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
-using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
 {

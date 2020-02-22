@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -15,20 +16,14 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 
         public ScalesController(IMediator mediator, CreateScalePresenter presenter)
         {
-            _mediator = mediator;
-            _presenter = presenter;
+            _mediator = mediator ??
+                throw new ArgumentNullException(nameof(mediator));
+            _presenter = presenter ??
+                throw new ArgumentNullException(nameof(presenter));
         }
 
-        /// <summary>
-        /// Create a new brand
-        /// </summary>
-        /// <response code="200">The new brand was created successfully.</response>
-        /// <response code="400">Invalid request.</response>
-        /// <response code="500">Error.</response>
-        /// <param name="request">The request to create a new brand.</param>
-        /// <returns>The newly created brand.</returns>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CreateScaleResponse))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Post(CreateScaleRequest request)

@@ -18,6 +18,11 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
 
         public ActionResult<ScaleView> ViewModel { get; private set; } = null!;
 
+        public void Error(string? message)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void InvalidRequest(List<ValidationFailure> failures)
         {
             throw new System.NotImplementedException();

@@ -1,8 +1,9 @@
 using FluentValidation;
+using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 {
-    public class CreateScaleRequestValidator : AbstractValidator<CreateScaleRequest>
+    public sealed class CreateScaleRequestValidator : AbstractValidator<CreateScaleRequest>
     {
         public CreateScaleRequestValidator()
         {
@@ -16,6 +17,12 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 
             RuleFor(x => x.Ratio)
                 .GreaterThanOrEqualTo(0M);
+
+            RuleFor(x => x.Notes)
+                .MaximumLength(250);
+
+            RuleFor(x => x.TrackGauge)
+                .IsEnumName(typeof(TrackGauge), caseSensitive: false);
         }
     }
 }

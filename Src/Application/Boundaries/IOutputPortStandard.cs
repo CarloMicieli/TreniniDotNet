@@ -9,5 +9,7 @@ namespace TreniniDotNet.Application.Boundaries
         void Standard(TUseCaseOutput output);
 
         void InvalidRequest(List<ValidationFailure> failures);
+
+        void Error(string? message);
     }
 }

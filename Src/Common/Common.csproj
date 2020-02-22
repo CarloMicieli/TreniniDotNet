@@ -7,4 +7,8 @@
     <RootNamespace>TreniniDotNet.Domain</RootNamespace>        
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.0" />
+  </ItemGroup>
+
 </Project>

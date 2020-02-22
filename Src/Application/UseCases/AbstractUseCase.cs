@@ -28,6 +28,12 @@ namespace TreniniDotNet.Application.UseCases
 
         public Task Execute(TInput input)
         {
+            if (input is null)
+            {
+                OutputPort.Error("Input is null");
+                return Task.CompletedTask;
+            }
+
             var failures = ValidateInput(input);
             if (failures.Any())
             {

@@ -16,6 +16,11 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug
             ViewModel = new NotFoundResult();
         }
 
+        public void Error(string? message)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void InvalidRequest(List<ValidationFailure> failures)
         {
             throw new System.NotImplementedException();

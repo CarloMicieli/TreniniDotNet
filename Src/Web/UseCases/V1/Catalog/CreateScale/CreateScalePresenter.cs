@@ -1,25 +1,17 @@
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
+using TreniniDotNet.Web.ViewModels;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 {
-    public class CreateScalePresenter : IOutputPort
+    public class CreateScalePresenter : DefaultHttpResultPresenter<CreateScaleOutput>, IOutputPort
     {
-        public IActionResult ViewModel { get; private set; } = new NotFoundResult();
-
-        public void InvalidRequest(List<ValidationFailure> failures)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void ScaleAlreadyExists(string message)
         {
-            ViewModel = new BadRequestObjectResult(message);
+            ViewModel = BadRequest(message);
         }
 
-        public void Standard(CreateScaleOutput output)
+        public override void Standard(CreateScaleOutput output)
         {
             ViewModel = new CreatedAtRouteResult(
                 "GetScale",
@@ -29,6 +21,6 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
                     version = "1.0",
                 },
                 output);
-        }        
+        }
     }
 }
