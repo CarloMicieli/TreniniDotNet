@@ -8,9 +8,10 @@ namespace TreniniDotNet.Common
         private readonly string _value;
         private static Slug EmptySlug = new Slug(string.Empty);
 
-        private Slug(string value)
+        private Slug(string slug)
         {
-            _value = value;
+            _value = slug ??
+                throw new ArgumentNullException(nameof(slug));
         }
 
         private static Slug NewSlug(string value)

@@ -11,14 +11,13 @@ namespace TreniniDotNet.Application.InMemory
     {
         public InMemoryContext()
         {
-            this.Brands = new List<IBrand>();
         }
 
-        public ICollection<IBrand> Brands { set; get; }
+        public ICollection<IBrand> Brands { set; get; } = new List<IBrand>();
 
-        public ICollection<Scale> Scales { set; get; }
+        public ICollection<IScale> Scales { set; get; } = new List<IScale>();
 
-        public ICollection<Railway> Railways { set; get; }
+        public ICollection<IRailway> Railways { set; get; } = new List<IRailway>();
 
         public ICollection<CatalogItem> CatalogItems { set; get; }
 

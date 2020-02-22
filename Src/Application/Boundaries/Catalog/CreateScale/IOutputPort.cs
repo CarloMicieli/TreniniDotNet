@@ -1,6 +1,6 @@
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
 {
-    public interface IOutputPort : IOutputPortStandard<CreateScaleOutput>
+    public interface ICreateScaleOutputPort : IOutputPortStandard<CreateScaleOutput>
     {
         void ScaleAlreadyExists(string message);
     }

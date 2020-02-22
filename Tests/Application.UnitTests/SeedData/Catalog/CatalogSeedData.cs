@@ -13,7 +13,7 @@ namespace TreniniDotNet.Application.SeedData.Catalog
     {
         #region [ Railways ]
 
-        public static ICollection<Railway> Railways
+        public static ICollection<IRailway> Railways
         {
             get
             {
@@ -21,24 +21,24 @@ namespace TreniniDotNet.Application.SeedData.Catalog
             }
         }
 
-        private static readonly ICollection<Railway> _railways = new List<Railway>()
+        private static readonly ICollection<IRailway> _railways = new List<IRailway>()
         {
             Fs(),
             Sbb(),
             DieBahn()
         };
 
-        private static Railway Fs()
+        private static IRailway Fs()
         {
             return new Railway("FS", "Ferrovie dello Stato", "IT", RailwayStatus.Active);
         }
 
-        private static Railway Sbb()
+        private static IRailway Sbb()
         {
             return new Railway("Sbb", "", "CH", RailwayStatus.Active);
         }
 
-        private static Railway DieBahn()
+        private static IRailway DieBahn()
         {
             return new Railway("DieBahn", "", "DE", RailwayStatus.Active);
         }
@@ -47,7 +47,7 @@ namespace TreniniDotNet.Application.SeedData.Catalog
 
         #region [ Scales ]
 
-        public static ICollection<Scale> Scales
+        public static ICollection<IScale> Scales
         {
             get
             {
@@ -55,24 +55,24 @@ namespace TreniniDotNet.Application.SeedData.Catalog
             }
         }
 
-        private static readonly ICollection<Scale> _scales = new List<Scale>()
+        private static readonly ICollection<IScale> _scales = new List<IScale>()
         {
             ScaleH0(),
             ScaleH0m(),
             ScaleN()
         };
 
-        private static Scale ScaleH0()
+        private static IScale ScaleH0()
         {
             return new Scale("H0", Ratio.Of(87f), Gauge.OfMillimiters(16.5f), TrackGauge.Standard, null);
         }
 
-        private static Scale ScaleH0m()
+        private static IScale ScaleH0m()
         {
             return new Scale("H0m", Ratio.Of(87f), Gauge.OfMillimiters(9f), TrackGauge.Narrow, null);
         }
 
-        private static Scale ScaleN()
+        private static IScale ScaleN()
         {
             return new Scale("n", Ratio.Of(160f), Gauge.OfMillimiters(9f), TrackGauge.Standard, null);
         }

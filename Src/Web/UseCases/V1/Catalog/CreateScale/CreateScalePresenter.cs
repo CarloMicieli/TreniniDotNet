@@ -4,7 +4,7 @@ using TreniniDotNet.Web.ViewModels;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 {
-    public class CreateScalePresenter : DefaultHttpResultPresenter<CreateScaleOutput>, IOutputPort
+    public class CreateScalePresenter : DefaultHttpResultPresenter<CreateScaleOutput>, ICreateScaleOutputPort
     {
         public void ScaleAlreadyExists(string message)
         {

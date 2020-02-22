@@ -6,20 +6,24 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class CreateScale : ICreateScaleUseCase
+    public class CreateScale : ValidatedUseCase<CreateScaleInput, ICreateScaleOutputPort>, ICreateScaleUseCase
     {
-        private readonly IOutputPort _outputPort;
+        private readonly ICreateScaleOutputPort _outputPort;
         private readonly ScaleService _scaleService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateScale(IOutputPort outputPort, IUnitOfWork unitOfWork, ScaleService scaleService)
+        public CreateScale(IUseCaseInputValidator<CreateScaleInput> validator,
+            ICreateScaleOutputPort outputPort, 
+            ScaleService scaleService, 
+            IUnitOfWork unitOfWork)
+            : base(validator, outputPort)
         {
             _outputPort = outputPort;
             _scaleService = scaleService;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Execute(CreateScaleInput input)
+        protected override async Task Handle(CreateScaleInput input)
         {
             bool scaleExists = await _scaleService.ScaleAlreadyExists(input.Name!);
             if (scaleExists)
@@ -37,10 +41,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             await _unitOfWork.SaveAsync();
 
-            BuildOutput(scale);    
+            BuildOutput(scale);
         }
 
-        public void BuildOutput(IScale scale)
+        private void BuildOutput(IScale scale)
         {
             var output = new CreateScaleOutput(scale);
             _outputPort.Standard(output);

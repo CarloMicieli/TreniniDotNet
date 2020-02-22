@@ -15,28 +15,26 @@ namespace TreniniDotNet.Application.InMemory.Catalog
             _context = context;
         }
 
-        public async Task<BrandId> Add(IBrand brand)
+        public Task<BrandId> Add(IBrand brand)
         {
             _context.Brands.Add((Brand)brand);
-            await Task.CompletedTask;
-
-            return BrandId.Empty; //TODO: fixme
+            return Task.FromResult(BrandId.Empty); //TODO: fixme
         }
 
-        public async Task<IBrand> GetBy(BrandId brandId)
+        public Task<IBrand> GetBy(BrandId brandId)
         {
             var brand = _context.Brands.FirstOrDefault(e => e.BrandId == brandId);
-            return await Task.FromResult(brand);
+            return Task.FromResult(brand);
         }
 
-        public async Task<IBrand> GetBy(Slug slug)
+        public Task<IBrand> GetBy(Slug slug)
         {
             IBrand brand = _context.Brands.FirstOrDefault(e => e.Slug == slug);
             if (brand == null)
             {
                 throw new BrandNotFoundException();
             }
-            return await Task.FromResult(brand);
+            return Task.FromResult(brand);
         }
 
         public async Task Update(IBrand brand)

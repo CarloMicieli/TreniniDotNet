@@ -8,9 +8,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     {
         Task<ScaleId> Add(IScale scale);
         Task<IScale> GetBy(Slug slug);
-
         Task<Scale> GetByAsync(Slug slug);
-
         Task<ScaleId> Create(Scale scale);
     }
 }

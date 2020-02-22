@@ -13,7 +13,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.CreateBrand.ICreateBrandOutputPort, CreateBrandPresenter>();
             services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug.IOutputPort, GetBrandBySlugPresenter>();
             services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.GetScaleBySlug.IOutputPort, GetScaleBySlugPresenter>();
-            services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.CreateScale.IOutputPort, CreateScalePresenter>();
+            services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.CreateScale.ICreateScaleOutputPort, CreateScalePresenter>();
             return services;
         }
 

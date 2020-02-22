@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
 {
@@ -12,10 +13,16 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
                 .MaximumLength(10);
 
             RuleFor(x => x.Gauge)
-                .GreaterThanOrEqualTo(0M);
+                .GreaterThan(0M);
 
             RuleFor(x => x.Ratio)
-                .GreaterThanOrEqualTo(0M);
+                .GreaterThan(0M);
+
+            RuleFor(x => x.TrackGauge)
+                .IsEnumName(typeof(TrackGauge), caseSensitive: false);
+
+            RuleFor(x => x.Notes)
+                .MaximumLength(2500);
         }
     }
 }
