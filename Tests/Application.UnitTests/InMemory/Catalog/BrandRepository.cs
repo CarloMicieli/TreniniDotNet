@@ -44,10 +44,6 @@ namespace TreniniDotNet.Application.InMemory.Catalog
         public Task<IBrand> GetBy(Slug slug)
         {
             IBrand brand = _context.Brands.FirstOrDefault(e => e.Slug == slug);
-            if (brand == null)
-            {
-                throw new BrandNotFoundException();
-            }
             return Task.FromResult(brand);
         }
     }

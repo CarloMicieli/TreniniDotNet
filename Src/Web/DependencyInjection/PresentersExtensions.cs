@@ -10,7 +10,7 @@ namespace TreniniDotNet.Web.DependencyInjection
         public static IServiceCollection AddPresenters(this IServiceCollection services)
         {
             services.AddPresenter<CatalogBoundaries.CreateBrand.ICreateBrandOutputPort, CatalogUseCases.CreateBrand.CreateBrandPresenter>();
-            services.AddPresenter<CatalogBoundaries.GetBrandBySlug.IOutputPort, CatalogUseCases.GetBrandBySlug.GetBrandBySlugPresenter>();
+            services.AddPresenter<CatalogBoundaries.GetBrandBySlug.IGetBrandBySlugOutputPort, CatalogUseCases.GetBrandBySlug.GetBrandBySlugPresenter>();
             
             services.AddPresenter<CatalogBoundaries.CreateScale.ICreateScaleOutputPort, CatalogUseCases.CreateScale.CreateScalePresenter>();
             services.AddPresenter<CatalogBoundaries.GetScaleBySlug.IGetScaleBySlugOutputPort, CatalogUseCases.GetScaleBySlug.GetScaleBySlugPresenter>();

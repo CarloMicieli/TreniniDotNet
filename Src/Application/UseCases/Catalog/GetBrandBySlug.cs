@@ -1,34 +1,29 @@
 ﻿using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class GetBrandBySlug : IGetBrandBySlugUseCase
+    public class GetBrandBySlug : ValidatedUseCase<GetBrandBySlugInput, IGetBrandBySlugOutputPort>, IGetBrandBySlugUseCase
     {
-        private readonly IOutputPort _outputPort;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly BrandService _brandService;
 
-        public GetBrandBySlug(IOutputPort outputPort, IUnitOfWork unitOfWork, BrandService brandService)
+        public GetBrandBySlug(IGetBrandBySlugOutputPort outputPort, BrandService brandService)
+            : base(new GetBrandBySlugInputValidator(), outputPort)
         {
-            _outputPort = outputPort;
-            _unitOfWork = unitOfWork;
             _brandService = brandService;
         }
 
-        public async Task Execute(GetBrandBySlugInput input)
+        protected override async Task Handle(GetBrandBySlugInput input)
         {
-            try
+            var brand = await _brandService.GetBy(input.Slug);
+            if (brand is null)
             {
-                var brand = await _brandService.GetBy(input.Slug);
-                _outputPort.Standard(new GetBrandBySlugOutput(brand));
+                OutputPort.BrandNotFound($"Brand '{input.Slug}' not found");
+                return;
             }
-            catch (BrandNotFoundException)
-            {
-                _outputPort.BrandNotFound("not found");
-            }
+
+            OutputPort.Standard(new GetBrandBySlugOutput(brand));
         }
     }
 }

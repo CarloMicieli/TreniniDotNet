@@ -2,30 +2,24 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
-using TreniniDotNet.Web.ViewModels.V1.Catalog;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class BrandsController : ControllerBase
+    public class BrandsController : UseCaseController<GetBrandBySlugRequest, GetBrandBySlugPresenter>
     {
-        private readonly IMediator _mediator;
-        private readonly GetBrandBySlugPresenter _presenter;
-
         public BrandsController(IMediator mediator, GetBrandBySlugPresenter presenter)
+            : base(mediator, presenter)
         {
-            _mediator = mediator;
-            _presenter = presenter;
         }
 
         [HttpGet]
         [Route("{slug}", Name = nameof(GetBrandBySlug))]
-        public async Task<ActionResult<BrandView>> GetBrandBySlug(string slug)
+        public Task<IActionResult> GetBrandBySlug(string slug)
         {
-            await _mediator.Send(new GetBrandBySlugRequest(Slug.Of(slug)));
-            return _presenter.ViewModel;
+            return HandleRequest(new GetBrandBySlugRequest(Slug.Of(slug)));
         }
     }
 }

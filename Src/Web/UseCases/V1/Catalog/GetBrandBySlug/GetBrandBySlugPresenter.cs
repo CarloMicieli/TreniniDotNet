@@ -1,41 +1,21 @@
-﻿using FluentValidation.Results;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
+using TreniniDotNet.Web.ViewModels;
 using TreniniDotNet.Web.ViewModels.V1.Catalog;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug
 {
-    public class GetBrandBySlugPresenter : IOutputPort
+    public class GetBrandBySlugPresenter : DefaultHttpResultPresenter<GetBrandBySlugOutput>, IGetBrandBySlugOutputPort
     {
-        public ActionResult<BrandView> ViewModel { get; private set; } = null!;
-
         public void BrandNotFound(string message)
         {
             ViewModel = new NotFoundResult();
         }
 
-        public void Error(string? message)
+        public override void Standard(GetBrandBySlugOutput output)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void InvalidRequest(IList<ValidationFailure> failures)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Standard(GetBrandBySlugOutput output)
-        {
-            if (output.Brand is null)
-            {
-                ViewModel = new NotFoundResult();
-            }
-            else
-            {
-                var brandViewModel = new BrandView(output.Brand);
-                ViewModel = new ActionResult<BrandView>(brandViewModel);
-            }
+            var brandViewModel = new BrandView(output.Brand);
+            ViewModel = new OkObjectResult(brandViewModel);
         }
     }
 }
