@@ -1,26 +1,29 @@
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.GetScaleBySlug;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class GetScaleBySlug : IGetScaleBySlugUseCase
+    public class GetScaleBySlug : ValidatedUseCase<GetScaleBySlugInput, IGetScaleBySlugOutputPort>, IGetScaleBySlugUseCase
     {
-        private readonly IOutputPort _outputPort;
-        private readonly IUnitOfWork unitOfWork;
         private readonly ScaleService _scaleService;
 
-        public GetScaleBySlug(IOutputPort outputPort, IUnitOfWork unitOfWork, ScaleService scaleService)
+        public GetScaleBySlug(IUseCaseInputValidator<GetScaleBySlugInput> validator, IGetScaleBySlugOutputPort output, ScaleService scaleService) 
+            : base(validator, output)
         {
-            _outputPort = outputPort;
-            this.unitOfWork = unitOfWork;
-            _scaleService = scaleService;
+            this._scaleService = scaleService;
         }
 
-        public Task Execute(GetScaleBySlugInput input)
+        protected override async Task Handle(GetScaleBySlugInput input)
         {
-            throw new System.NotImplementedException();
+            var scale = await _scaleService.GetBy(input.Slug);
+            if (scale is null)
+            {
+                OutputPort.ScaleNotFound($"The '{input.Slug}' scale was not found");
+                return;
+            }
+
+            OutputPort.Standard(new GetScaleBySlugOutput(scale));
         }
     }
 }

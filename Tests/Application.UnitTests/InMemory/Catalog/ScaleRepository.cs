@@ -37,10 +37,6 @@ namespace TreniniDotNet.Application.InMemory.Catalog
         public Task<IScale> GetBy(Slug slug)
         {
             IScale scale = _context.Scales.FirstOrDefault(e => e.Slug == slug);
-            if (scale == null)
-            {
-                throw new ScaleNotFoundException(slug);
-            }
             return Task.FromResult(scale);
         }
 

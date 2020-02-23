@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
+using TreniniDotNet.Domain.Catalog.Railways;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -26,6 +27,11 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 trackGauge,
                 notes);
             return scaleId;
+        }
+
+        public Task<IScale> GetBy(Slug slug)
+        {
+            return _scaleRepository.GetBy(slug);
         }
 
         public Task<bool> ScaleAlreadyExists(Slug slug)

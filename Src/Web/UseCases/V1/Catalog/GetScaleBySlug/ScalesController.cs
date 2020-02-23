@@ -9,23 +9,18 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ScalesController : ControllerBase
+    public class ScalesController : UseCaseController<GetScaleBySlugRequest, GetScaleBySlugPresenter>
     {
-        private readonly IMediator _mediator;
-        private readonly GetScaleBySlugPresenter _presenter;
-
         public ScalesController(IMediator mediator, GetScaleBySlugPresenter presenter)
+            : base(mediator, presenter)
         {
-            _mediator = mediator;
-            _presenter = presenter;
         }
 
         [HttpGet]
-        [Route("{slug}")]
-        public async Task<ActionResult<ScaleView>> GetBrandBySlug(string slug)
+        [Route("{slug}", Name = nameof(GetScaleBySlug))]
+        public Task<IActionResult> GetBrandBySlug(string slug)
         {
-            await _mediator.Send(new GetScaleBySlugRequest(Slug.Of(slug)));
-            return _presenter.ViewModel;
+            return HandleRequest(new GetScaleBySlugRequest(Slug.Of(slug)));
         }
     }
 }

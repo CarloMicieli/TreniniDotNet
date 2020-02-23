@@ -14,11 +14,11 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
         public override void Standard(CreateScaleOutput output)
         {
             ViewModel = new CreatedAtRouteResult(
-                "GetScale",
+                "GetScaleBySlug",
                 new
                 {
                     slug = output.Slug,
-                    version = "1.0",
+                    version = "1",
                 },
                 output);
         }

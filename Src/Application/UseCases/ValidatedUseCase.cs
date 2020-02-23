@@ -13,15 +13,6 @@ namespace TreniniDotNet.Application.UseCases
         private readonly IUseCaseInputValidator<TInput> _validator;
         private readonly TOutputPort _output;
 
-        protected ValidatedUseCase(IUseCaseInputValidator<TInput> validator, TOutputPort output)
-        {
-            this._validator = validator ??
-                throw new ArgumentNullException(nameof(validator));
-
-            this._output = output ??
-                throw new ArgumentNullException(nameof(output));
-        }
-
         public Task Execute(TInput input)
         {
             if (input is null)
@@ -41,5 +32,16 @@ namespace TreniniDotNet.Application.UseCases
         }
 
         protected abstract Task Handle(TInput input);
+
+        protected ValidatedUseCase(IUseCaseInputValidator<TInput> validator, TOutputPort output)
+        {
+            this._validator = validator ??
+                throw new ArgumentNullException(nameof(validator));
+
+            this._output = output ??
+                throw new ArgumentNullException(nameof(output));
+        }
+
+        protected TOutputPort OutputPort => _output;
     }
 }

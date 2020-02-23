@@ -1,8 +1,9 @@
+using MediatR;
 using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
 {
-    public class GetScaleBySlugRequest
+    public class GetScaleBySlugRequest : IRequest
     {
         private readonly Slug _slug;
 

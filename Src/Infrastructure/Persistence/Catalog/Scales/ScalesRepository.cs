@@ -47,25 +47,19 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             return Task.FromResult(scaleId);
         }
 
-        public async Task<IScale> GetBy(Slug slug)
+        public Task<IScale> GetBy(Slug slug)
         {
-            var scale = await _context.Scales
+            return _context.Scales
                 .Where(s => s.Slug == slug.ToString())
+                .Select(scale => _scalesFactory.NewScale(
+                    scale.ScaleId,
+                    scale.Name,
+                    scale.Slug,
+                    scale.Ratio,
+                    scale.Gauge,
+                    scale.TrackGauge,
+                    scale.Notes))
                 .SingleOrDefaultAsync();
-
-            if (scale is null)
-            {
-                throw new ScaleNotFoundException(slug);
-            }
-
-            return _scalesFactory.NewScale(
-                scale.ScaleId,
-                scale.Name,
-                scale.Slug,
-                scale.Ratio,
-                scale.Gauge,
-                scale.TrackGauge,
-                scale.Notes);
         }
 
         public Task<bool> Exists(Slug slug)
