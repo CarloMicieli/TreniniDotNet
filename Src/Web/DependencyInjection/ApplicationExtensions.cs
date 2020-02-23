@@ -13,17 +13,41 @@ namespace TreniniDotNet.Web.DependencyInjection
     {
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
+            services.AddBrandUseCases();
+            services.AddScaleUseCases();
+            services.AddRailwayUseCases();
+
+            services.AddSingleton(typeof(IUseCaseInputValidator<>), typeof(UseCaseInputValidator<>));
+
+            return services;
+        }
+
+        private static IServiceCollection AddBrandUseCases(this IServiceCollection services)
+        {
             services.AddScoped<CatalogBoundaries.CreateBrand.ICreateBrandUseCase, CatalogUseCases.CreateBrand>();
             services.AddScoped<CatalogBoundaries.GetBrandBySlug.IGetBrandBySlugUseCase, CatalogUseCases.GetBrandBySlug>();
+
+            services.AddScoped<BrandService>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddScaleUseCases(this IServiceCollection services)
+        {
             services.AddScoped<CatalogBoundaries.CreateScale.ICreateScaleUseCase, CatalogUseCases.CreateScale>();
+            services.AddScoped<CatalogBoundaries.GetScaleBySlug.IGetScaleBySlugUseCase, CatalogUseCases.GetScaleBySlug>();
+
+            services.AddScoped<ScaleService>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddRailwayUseCases(this IServiceCollection services)
+        {
             services.AddScoped<CatalogBoundaries.CreateRailway.ICreateRailwayUseCase, CatalogUseCases.CreateRailway>();
             services.AddScoped<CatalogBoundaries.GetRailwayBySlug.IGetRailwayBySlugUseCase, CatalogUseCases.GetRailwayBySlug>();
 
-            services.AddScoped<BrandService>();
             services.AddScoped<RailwayService>();
-            services.AddScoped<ScaleService>();
-
-            services.AddSingleton(typeof(IUseCaseInputValidator<>), typeof(UseCaseInputValidator<>));
 
             return services;
         }
