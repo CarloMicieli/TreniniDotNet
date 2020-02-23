@@ -63,7 +63,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             var useCase = NewCreateRailwayUseCase(railwayRepository, outputPortMock.Object);
 
-            var input = new CreateRailwayInput("DB", "Die Bahn", "DE", "active", DateTime.Now.AddDays(-1), DateTime.Now); 
+            var input = new CreateRailwayInput("DB", "Die Bahn", "DE", "active", DateTime.Now.AddDays(-1), null); 
 
             await useCase.Execute(input);
 

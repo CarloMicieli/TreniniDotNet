@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using System;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Validation;
 
@@ -23,8 +24,24 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
                 .IsEnumName(typeof(RailwayStatus), caseSensitive: false);
 
             RuleFor(x => x.Status)
-                .Must((input, status) => RailwayStatus.Active.ToString() == status && input.OperatingUntil.HasValue == false)
+                .Must((input, status) => ValidateStatusAndOperatingUntil(status, input.OperatingUntil))
                 .WithMessage("Invalid railway: operating until must be unset for active railways");
-        }            
+        }
+
+        private static bool ValidateStatusAndOperatingUntil(string? status, DateTime? operatingUntil)
+        {
+            if (status is null)
+                return true;
+
+            string activeStatus = RailwayStatus.Active.ToString().ToLowerInvariant();
+            string railwayStatus = status.ToLowerInvariant();
+
+            if (railwayStatus == activeStatus)
+            {
+                return operatingUntil.HasValue == false;
+            }
+
+            return true;
+        }
     }
 }

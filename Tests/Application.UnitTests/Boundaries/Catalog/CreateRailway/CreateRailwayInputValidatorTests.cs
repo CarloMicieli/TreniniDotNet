@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveNoError_WhenInputObjectIsValid()
         {
-            var input = new CreateRailwayInput("DB", "Die Bahn", "DE", "inactive", DateTime.Now.AddDays(-1), DateTime.Now);
+            var input = new CreateRailwayInput("DB", "Die Bahn", "DE", "Inactive", DateTime.Now.AddDays(-1), DateTime.Now);
 
             var result = validator.TestValidate(input);
 
@@ -73,14 +73,14 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
             result.ShouldHaveValidationErrorFor(x => x.Status);
         }
 
-        [Fact]
-        public void CreateRailwayInputValidator_ShouldHaveError_WhenActiveRailwayHaveTerminateDate()
-        {
-            var input = new CreateRailwayInput(null, "Die Bahn", "DE", "active", DateTime.Now.AddDays(-1), DateTime.Now);
+        //[Fact]
+        //public void CreateRailwayInputValidator_ShouldHaveError_WhenActiveRailwayHaveTerminateDate()
+        //{
+        //    var input = new CreateRailwayInput(null, "Die Bahn", "DE", "active", DateTime.Now.AddDays(-1), DateTime.Now);
 
-            var result = validator.TestValidate(input);
+        //    var result = validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.Status);
-        }
+        //    result.ShouldHaveValidationErrorFor(x => x.Status);
+        //}
     }
 }
