@@ -11,23 +11,18 @@ namespace TreniniDotNet.Application.UseCases.Catalog
     {
         private readonly BrandService _brandService;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICreateBrandOutputPort _outputPort;
 
         public CreateBrand(
-            IUseCaseInputValidator<CreateBrandInput> validator, 
             ICreateBrandOutputPort outputPort,
             BrandService brandService,
             IUnitOfWork unitOfWork)
-            : base(validator, outputPort)
+            : base(new CreateBrandInputValidator(), outputPort)
         {
             _brandService = brandService ??
                 throw new ArgumentNullException(nameof(brandService));
 
             _unitOfWork = unitOfWork ?? 
                 throw new ArgumentNullException(nameof(unitOfWork));
-
-            _outputPort = outputPort ??
-                throw new ArgumentNullException(nameof(outputPort));
         }
 
         protected override async Task Handle(CreateBrandInput input)
@@ -38,7 +33,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             bool brandExists = await _brandService.BrandAlreadyExists(slug);
             if (brandExists)
             {
-                _outputPort.BrandAlreadyExists($"Brand '{brandName}' already exists");
+                OutputPort.BrandAlreadyExists($"Brand '{brandName}' already exists");
                 return;
             }
 
@@ -58,7 +53,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         private void BuildOutput(Slug slug)
         {
             var output = new CreateBrandOutput(slug);
-            _outputPort.Standard(output);
+            OutputPort.Standard(output);
         }
     }
 }

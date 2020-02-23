@@ -8,6 +8,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         public CreateScaleInputValidator()
         {
             RuleFor(x => x.Name)
+                .NotNull()
                 .NotEmpty()
                 .MinimumLength(1)
                 .MaximumLength(10);

@@ -8,8 +8,8 @@ namespace TreniniDotNet.Application.UseCases.Catalog
     {
         private readonly ScaleService _scaleService;
 
-        public GetScaleBySlug(IUseCaseInputValidator<GetScaleBySlugInput> validator, IGetScaleBySlugOutputPort output, ScaleService scaleService) 
-            : base(validator, output)
+        public GetScaleBySlug(IGetScaleBySlugOutputPort output, ScaleService scaleService) 
+            : base(new GetScaleBySlugInputValidator(), output)
         {
             this._scaleService = scaleService;
         }

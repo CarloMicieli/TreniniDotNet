@@ -6,13 +6,11 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 {
     public sealed class GetRailwayBySlug : ValidatedUseCase<GetRailwayBySlugInput, IGetRailwayBySlugOutputPort>, IGetRailwayBySlugUseCase
     {
-        private readonly IGetRailwayBySlugOutputPort _outputPort;
         private readonly RailwayService _railwayService;
 
-        public GetRailwayBySlug(IUseCaseInputValidator<GetRailwayBySlugInput> validator, IGetRailwayBySlugOutputPort outputPort, RailwayService railwayService)
-            : base(validator, outputPort)
+        public GetRailwayBySlug(IGetRailwayBySlugOutputPort outputPort, RailwayService railwayService)
+            : base(new GetRailwayBySlugInputValidator(), outputPort)
         {
-            _outputPort = outputPort;
             _railwayService = railwayService;
         }
 
@@ -21,11 +19,11 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var railway = await _railwayService.GetBy(input.Slug);
             if (railway is null)
             {
-                _outputPort.RailwayNotFound($"The '{input.Slug}' railway was not found");
+                OutputPort.RailwayNotFound($"The '{input.Slug}' railway was not found");
                 return;
             }
 
-            _outputPort.Standard(new GetRailwayBySlugOutput(railway));
+            OutputPort.Standard(new GetRailwayBySlugOutput(railway));
         }
     }
 }

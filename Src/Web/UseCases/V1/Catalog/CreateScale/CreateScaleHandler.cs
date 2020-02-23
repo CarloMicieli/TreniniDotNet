@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -11,7 +12,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 
         public CreateScaleHandler(ICreateScaleUseCase useCase)
         {
-            _useCase = useCase;
+            _useCase = useCase ??
+                throw new ArgumentNullException(nameof(useCase));
         }
 
         protected override Task Handle(CreateScaleRequest request, CancellationToken cancellationToken)

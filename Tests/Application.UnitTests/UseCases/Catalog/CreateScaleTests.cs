@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using Moq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -108,14 +107,8 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var scaleFactory = new ScalesFactory();
             var scaleService = new ScaleService(repo);
 
-            var useCase = new CreateScale(NewValidator(), outputPort, scaleService, new UnitOfWork());
+            var useCase = new CreateScale(outputPort, scaleService, new UnitOfWork());
             return useCase;
-        }
-
-        private IUseCaseInputValidator<CreateScaleInput> NewValidator()
-        {
-            return new UseCaseInputValidator<CreateScaleInput>(
-                new List<IValidator<CreateScaleInput>> { new CreateScaleInputValidator() });
         }
     }
 }

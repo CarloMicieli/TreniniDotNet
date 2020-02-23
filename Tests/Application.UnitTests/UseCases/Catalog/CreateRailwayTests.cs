@@ -13,7 +13,7 @@ using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class CreateRailwayTests : UseCaseTests<CreateRailwayInput, CreateRailwayInputValidator>
+    public class CreateRailwayTests : UseCaseTests<CreateRailwayInput>
     {
         [Fact]
         public async Task CreateRailway_ShouldValidateInput()
@@ -109,7 +109,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var railwayFactory = new RailwaysFactory();
             var railwayService = new RailwayService(repo);
 
-            var useCase = new CreateRailway(NewValidator(), outputPort, railwayService, unitOfWork);
+            var useCase = new CreateRailway(outputPort, railwayService, unitOfWork);
             return useCase;
         }
     }

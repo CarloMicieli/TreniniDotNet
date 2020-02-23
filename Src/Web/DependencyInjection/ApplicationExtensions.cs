@@ -17,7 +17,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddScaleUseCases();
             services.AddRailwayUseCases();
 
-            services.AddSingleton(typeof(IUseCaseInputValidator<>), typeof(UseCaseInputValidator<>));
+            services.AddScoped(typeof(IUseCaseInputValidator<>), typeof(UseCaseInputValidator<>));
 
             return services;
         }

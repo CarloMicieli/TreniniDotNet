@@ -4,10 +4,8 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 using TreniniDotNet.Application.InMemory;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.SeedData.Catalog;
 using TreniniDotNet.Common;
 using TreniniDotNet.Application.InMemory.Catalog;
-using FluentValidation;
 using System.Collections.Generic;
 using FluentValidation.Results;
 
@@ -110,14 +108,8 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var brandService = new BrandService(repo);
 
-            var useCase = new CreateBrand(NewValidator(), outputPort, brandService, new UnitOfWork());
+            var useCase = new CreateBrand(outputPort, brandService, new UnitOfWork());
             return useCase;
-        }
-
-        private IUseCaseInputValidator<CreateBrandInput> NewValidator()
-        {
-            return new UseCaseInputValidator<CreateBrandInput>(
-                new List<IValidator<CreateBrandInput>> { new CreateBrandInputValidator() });
         }
     }
 }

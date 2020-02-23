@@ -55,7 +55,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             var response = await client.PostAsync("/api/v1/brands", content);
 
             // Assert
-            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [Fact]

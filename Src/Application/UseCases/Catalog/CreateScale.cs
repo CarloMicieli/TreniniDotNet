@@ -9,17 +9,15 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 {
     public class CreateScale : ValidatedUseCase<CreateScaleInput, ICreateScaleOutputPort>, ICreateScaleUseCase
     {
-        private readonly ICreateScaleOutputPort _outputPort;
         private readonly ScaleService _scaleService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateScale(IUseCaseInputValidator<CreateScaleInput> validator,
+        public CreateScale(
             ICreateScaleOutputPort outputPort, 
             ScaleService scaleService, 
             IUnitOfWork unitOfWork)
-            : base(validator, outputPort)
+            : base(new CreateScaleInputValidator(), outputPort)
         {
-            _outputPort = outputPort;
             _scaleService = scaleService;
             _unitOfWork = unitOfWork;
         }
@@ -32,7 +30,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             bool scaleExists = await _scaleService.ScaleAlreadyExists(slug);
             if (scaleExists)
             {
-                _outputPort.ScaleAlreadyExists($"Scale '{scaleName}' already exists");
+                OutputPort.ScaleAlreadyExists($"Scale '{scaleName}' already exists");
                 return;
             }
 
@@ -52,7 +50,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         private void BuildOutput(Slug slug)
         {
             var output = new CreateScaleOutput(slug);
-            _outputPort.Standard(output);
+            OutputPort.Standard(output);
         }
     }
 }

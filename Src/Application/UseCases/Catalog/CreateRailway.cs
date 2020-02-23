@@ -9,18 +9,15 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 {
     public sealed class CreateRailway : ValidatedUseCase<CreateRailwayInput, ICreateRailwayOutputPort>, ICreateRailwayUseCase
     {
-        private readonly ICreateRailwayOutputPort _outputPort;
         private readonly IUnitOfWork _unitOfWork;
         private readonly RailwayService _railwayService;
 
         public CreateRailway(
-            IUseCaseInputValidator<CreateRailwayInput> validator,
             ICreateRailwayOutputPort outputPort,
             RailwayService railwayService,
             IUnitOfWork unitOfWork)
-            : base(validator, outputPort)
+            : base(new CreateRailwayInputValidator(), outputPort)
         {
-            _outputPort = outputPort;
             _unitOfWork = unitOfWork;
             _railwayService = railwayService;
         }
@@ -33,7 +30,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             bool exists = await _railwayService.RailwayAlreadyExists(slug);
             if (exists)
             {
-                _outputPort.RailwayAlreadyExists($"Railway '{railwayName}' already exists");
+                OutputPort.RailwayAlreadyExists($"Railway '{railwayName}' already exists");
                 return;
             }
 
@@ -56,7 +53,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         private void BuildOutput(Slug slug)
         {
             var output = new CreateRailwayOutput(slug);
-            _outputPort.Standard(output);
+            OutputPort.Standard(output);
         }
     }
 }

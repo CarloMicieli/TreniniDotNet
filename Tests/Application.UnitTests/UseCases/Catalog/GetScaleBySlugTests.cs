@@ -11,7 +11,7 @@ using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class GetScaleBySlugTests : UseCaseTests<GetScaleBySlugInput, GetScaleBySlugInputValidator>
+    public class GetScaleBySlugTests : UseCaseTests<GetScaleBySlugInput>
     {
         [Fact]
         public async Task GetScaleBySlug_ShouldValidateInput()
@@ -89,7 +89,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         private GetScaleBySlug NewGetScaleBySlugUseCase(ScaleRepository repo, IGetScaleBySlugOutputPort outputPort)
         {
-            return new GetScaleBySlug(NewValidator(), outputPort, new ScaleService(repo));
+            return new GetScaleBySlug(outputPort, new ScaleService(repo));
         }
     }
 }

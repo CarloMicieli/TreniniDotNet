@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
@@ -11,7 +12,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
 
         public CreateBrandHandler(ICreateBrandUseCase useCase)
         {
-            _useCase = useCase;
+            _useCase = useCase ??
+                throw new ArgumentNullException(nameof(useCase));
         }
 
         protected override Task Handle(CreateBrandRequest request, CancellationToken cancellationToken)
@@ -22,7 +24,6 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
                 request.WebsiteUrl,
                 request.EmailAddress,
                 request.BrandType);
-
             return _useCase.Execute(input);
         }
     }

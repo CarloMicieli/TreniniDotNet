@@ -12,7 +12,7 @@ using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class GetRailwayBySlugTests : UseCaseTests<GetRailwayBySlugInput, GetRailwayBySlugInputValidator>
+    public class GetRailwayBySlugTests : UseCaseTests<GetRailwayBySlugInput>
     {
         [Fact]
         public async Task GetRailwayBySlug_ShouldValidateInput()
@@ -89,7 +89,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         private GetRailwayBySlug NewGetRailwayBySlugUseCase(RailwayRepository repo, IGetRailwayBySlugOutputPort outputPort)
         {
-            return new GetRailwayBySlug(NewValidator(), outputPort, new RailwayService(repo));
+            return new GetRailwayBySlug(outputPort, new RailwayService(repo));
         }
     }
 }

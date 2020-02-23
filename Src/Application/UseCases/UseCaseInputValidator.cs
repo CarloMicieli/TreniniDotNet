@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TreniniDotNet.Common.Interfaces;
@@ -11,9 +12,14 @@ namespace TreniniDotNet.Application.UseCases
     {
         private readonly IEnumerable<IValidator<TInput>> _validators;
 
-        public UseCaseInputValidator(IEnumerable<IValidator<TInput>> validators)
+        public UseCaseInputValidator(IValidator<TInput> validator)
         {
-            _validators = validators;
+            if (validator is null)
+            {
+                throw new ArgumentNullException(nameof(validator));
+            }
+
+            _validators = new List<IValidator<TInput>>() { validator };
         }
 
         public IList<ValidationFailure> Validate(TInput input)
