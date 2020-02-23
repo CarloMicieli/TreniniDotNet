@@ -41,6 +41,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             var _ = await _railwayService.CreateRailway(
                 railwayName,
+                slug,
                 input.CompanyName,
                 input.Country,
                 input.OperatingSince,

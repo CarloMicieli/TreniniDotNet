@@ -14,14 +14,19 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             _railwayRepository = railwayRepository;
         }
 
-        public Task<RailwayId> CreateRailway(string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus rs)
+        public Task<RailwayId> CreateRailway(string name, Slug slug, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus rs)
         {
-            return _railwayRepository.Add(name, Slug.Of(name), companyName, country, operatingSince, operatingUntil, rs);
+            return _railwayRepository.Add(name, slug, companyName, country, operatingSince, operatingUntil, rs);
         }
 
         public Task<bool> RailwayAlreadyExists(Slug slug)
         {
             return _railwayRepository.Exists(slug);
+        }
+
+        public Task<IRailway> GetBy(Slug slug)
+        {
+            return _railwayRepository.GetBy(slug);
         }
     }
 }

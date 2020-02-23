@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
-using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Web.ViewModels.V1.Catalog;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug

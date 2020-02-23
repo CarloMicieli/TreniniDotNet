@@ -16,6 +16,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CatalogBoundaries.GetScaleBySlug.IOutputPort, CatalogUseCases.GetScaleBySlug.GetScaleBySlugPresenter>();
 
             services.AddPresenter<CatalogBoundaries.CreateRailway.ICreateRailwayOutputPort, CatalogUseCases.CreateRailway.CreateRailwayPresenter>();
+            services.AddPresenter<CatalogBoundaries.GetRailwayBySlug.IGetRailwayBySlugOutputPort, CatalogUseCases.GetRailwayBySlug.GetRailwayBySlugPresenter>();
 
             return services;
         }

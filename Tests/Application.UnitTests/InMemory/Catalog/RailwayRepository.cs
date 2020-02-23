@@ -49,10 +49,6 @@ namespace TreniniDotNet.Application.InMemory.Catalog
         public Task<IRailway> GetBy(Slug slug)
         {
             IRailway railway = _context.Railways.FirstOrDefault(e => e.Slug == slug);
-            if (railway == null)
-            {
-                throw new RailwayNotFoundException(slug);
-            }
             return Task.FromResult(railway);
         }
     }

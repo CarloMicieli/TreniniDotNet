@@ -23,7 +23,18 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         {
             var newId = Guid.NewGuid();
 
-            var railway = new Railway { };
+            var railway = new Railway 
+            {
+                RailwayId = newId,
+                Name = name,
+                Slug = slug.ToString(),
+                CompanyName = companyName,
+                Country = country,
+                Status = rs.ToString(),
+                Version = 1,
+                OperatingSince = operatingSince,
+                OperatingUntil = operatingUntil
+            };
 
             _context.Add(railway);
             return Task.FromResult(new RailwayId(newId));

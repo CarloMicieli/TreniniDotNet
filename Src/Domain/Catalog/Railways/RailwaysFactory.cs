@@ -23,7 +23,16 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public IRailway NewRailway(RailwayId id, string name, Slug slug, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs)
         {
-            throw new NotImplementedException();
+            var railway = new Railway(
+                id,
+                Slug.Of(name),
+                name,
+                companyName,
+                country,
+                operatingSince,
+                operatingUntil,
+                rs);
+            return railway;
         }
     }
 }
