@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -27,6 +28,11 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public Task<IRailway> GetBy(Slug slug)
         {
             return _railwayRepository.GetBy(slug);
+        }
+
+        public Task<List<IRailway>> GetAll()
+        {
+            return _railwayRepository.GetAll();
         }
     }
 }

@@ -7,7 +7,7 @@ using System;
 using System.Net.Mail;
 using System.Collections.Generic;
 
-namespace TreniniDotNet.Application.InMemory.Catalog
+namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 {
     public class BrandRepository : IBrandsRepository
     {

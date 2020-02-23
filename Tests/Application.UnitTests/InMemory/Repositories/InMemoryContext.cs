@@ -5,7 +5,7 @@ using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 
-namespace TreniniDotNet.Application.InMemory
+namespace TreniniDotNet.Application.InMemory.Repositories
 {
     public sealed class InMemoryContext
     {

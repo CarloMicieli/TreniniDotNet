@@ -10,12 +10,10 @@ namespace TreniniDotNet.Web.DependencyInjection
         public static IServiceCollection AddPresenters(this IServiceCollection services)
         {
             services.AddBrandPresenters();
-            
+            services.AddRailwayPresenters();
+
             services.AddPresenter<CatalogBoundaries.CreateScale.ICreateScaleOutputPort, CatalogUseCases.CreateScale.CreateScalePresenter>();
             services.AddPresenter<CatalogBoundaries.GetScaleBySlug.IGetScaleBySlugOutputPort, CatalogUseCases.GetScaleBySlug.GetScaleBySlugPresenter>();
-
-            services.AddPresenter<CatalogBoundaries.CreateRailway.ICreateRailwayOutputPort, CatalogUseCases.CreateRailway.CreateRailwayPresenter>();
-            services.AddPresenter<CatalogBoundaries.GetRailwayBySlug.IGetRailwayBySlugOutputPort, CatalogUseCases.GetRailwayBySlug.GetRailwayBySlugPresenter>();
 
             return services;
         }
@@ -25,6 +23,15 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CatalogBoundaries.CreateBrand.ICreateBrandOutputPort, CatalogUseCases.CreateBrand.CreateBrandPresenter>();
             services.AddPresenter<CatalogBoundaries.GetBrandBySlug.IGetBrandBySlugOutputPort, CatalogUseCases.GetBrandBySlug.GetBrandBySlugPresenter>();
             services.AddPresenter<CatalogBoundaries.GetBrandsList.IGetBrandsListOutputPort, CatalogUseCases.GetBrandsList.GetBrandsListPresenter>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddRailwayPresenters(this IServiceCollection services)
+        {
+            services.AddPresenter<CatalogBoundaries.CreateRailway.ICreateRailwayOutputPort, CatalogUseCases.CreateRailway.CreateRailwayPresenter>();
+            services.AddPresenter<CatalogBoundaries.GetRailwayBySlug.IGetRailwayBySlugOutputPort, CatalogUseCases.GetRailwayBySlug.GetRailwayBySlugPresenter>();
+            services.AddPresenter<CatalogBoundaries.GetRailwaysList.IGetRailwaysListOutputPort, CatalogUseCases.GetRailwaysList.GetRailwaysListPresenter>();
 
             return services;
         }

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
-namespace TreniniDotNet.Application.InMemory.Catalog
+namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 {
     public sealed class RailwayRepository : IRailwaysRepository
     {
@@ -44,6 +45,11 @@ namespace TreniniDotNet.Application.InMemory.Catalog
         {
             var found = _context.Railways.Any(e => e.Slug == slug);
             return Task.FromResult(found);
+        }
+
+        public Task<List<IRailway>> GetAll()
+        {
+            return Task.FromResult(_context.Railways.ToList());
         }
 
         public Task<IRailway> GetBy(Slug slug)

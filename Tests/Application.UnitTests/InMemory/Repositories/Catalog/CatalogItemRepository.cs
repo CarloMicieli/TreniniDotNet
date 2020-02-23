@@ -5,7 +5,7 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
-namespace TreniniDotNet.Application.InMemory.Catalog
+namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 {
     public sealed class CatalogItemRepository : ICatalogItemRepository
     {

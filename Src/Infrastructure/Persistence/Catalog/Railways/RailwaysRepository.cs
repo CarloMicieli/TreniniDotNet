@@ -5,6 +5,7 @@ using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
+using System.Collections.Generic;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
@@ -59,6 +60,21 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                     r.OperatingUntil,
                     r.Status.ToRailwayStatus()))
                 .SingleOrDefaultAsync();
+        }
+
+        public Task<List<IRailway>> GetAll()
+        {
+            return _context.Railways
+                .Select(r => _railwaysFactory.NewRailway(
+                    new RailwayId(r.RailwayId),
+                    r.Name,
+                    Slug.Of(r.Slug),
+                    r.CompanyName,
+                    r.Country,
+                    r.OperatingSince,
+                    r.OperatingUntil,
+                    r.Status.ToRailwayStatus()))
+                .ToListAsync();
         }
     }
 }

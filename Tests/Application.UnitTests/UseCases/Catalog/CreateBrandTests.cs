@@ -1,13 +1,14 @@
 ﻿using Xunit;
 using Moq;
-using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
-using TreniniDotNet.Application.InMemory;
 using System.Threading.Tasks;
-using TreniniDotNet.Common;
-using TreniniDotNet.Application.InMemory.Catalog;
 using System.Collections.Generic;
 using FluentValidation.Results;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
+using TreniniDotNet.Application.InMemory.Repositories;
+using TreniniDotNet.Application.InMemory.Repositories.Catalog;
+using TreniniDotNet.Application.InMemory.Services;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {

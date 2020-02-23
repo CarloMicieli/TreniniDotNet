@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TreniniDotNet.Application.Services;
 
-namespace TreniniDotNet.Application.InMemory
+namespace TreniniDotNet.Application.InMemory.Services
 {
     public class UnitOfWork : IUnitOfWork
     {

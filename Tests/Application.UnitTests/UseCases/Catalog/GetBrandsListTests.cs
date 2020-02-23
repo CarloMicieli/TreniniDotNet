@@ -3,8 +3,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.GetBrandsList;
-using TreniniDotNet.Application.InMemory;
-using TreniniDotNet.Application.InMemory.Catalog;
+using TreniniDotNet.Application.InMemory.Repositories;
+using TreniniDotNet.Application.InMemory.Repositories.Catalog;
 using TreniniDotNet.Domain.Catalog.Brands;
 using Xunit;
 
