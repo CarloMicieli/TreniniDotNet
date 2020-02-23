@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
@@ -8,19 +9,51 @@ namespace TreniniDotNet.Application.InMemory.Catalog
 {
     public sealed class RailwayRepository : IRailwaysRepository
     {
-        public Task<RailwayId> Add(string name, Slug slug, string companyName, string country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus rs)
+        private readonly InMemoryContext _context;
+        private readonly IRailwaysFactory _railwaysFactory;
+
+        public RailwayRepository(InMemoryContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _railwaysFactory = new RailwaysFactory();
+        }
+
+        public Task<RailwayId> Add(
+            string name,
+            Slug slug, 
+            string companyName,
+            string country,
+            DateTime? operatingSince,
+            DateTime? operatingUntil,
+            RailwayStatus rs)
+        {
+            var newRailway = _railwaysFactory.NewRailway(
+                name,
+                companyName,
+                country,
+                operatingSince,
+                operatingUntil,
+                rs);
+
+            _context.Railways.Add(newRailway);
+
+            return Task.FromResult(newRailway.RailwayId);
         }
 
         public Task<bool> Exists(Slug slug)
         {
-            throw new NotImplementedException();
+            var found = _context.Railways.Any(e => e.Slug == slug);
+            return Task.FromResult(found);
         }
 
         public Task<IRailway> GetBy(Slug slug)
         {
-            throw new NotImplementedException();
+            IRailway railway = _context.Railways.FirstOrDefault(e => e.Slug == slug);
+            if (railway == null)
+            {
+                throw new RailwayNotFoundException(slug);
+            }
+            return Task.FromResult(railway);
         }
     }
 }

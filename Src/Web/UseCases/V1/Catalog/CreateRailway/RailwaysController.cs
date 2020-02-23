@@ -1,11 +1,28 @@
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
-namespace Web.UseCases.V1.Catalog.CreateRailway
+namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateRailway
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class RailwaysController : ControllerBase
+    public class RailwaysController : UseCaseController<CreateRailwayRequest, CreateRailwayPresenter>
     {
+        public RailwaysController(IMediator mediator, CreateRailwayPresenter presenter)
+            : base(mediator, presenter)
+        {
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public Task<IActionResult> PostRailway(CreateRailwayRequest brandRequest)
+        {
+            return HandleRequest(brandRequest);
+        }
     }
 }

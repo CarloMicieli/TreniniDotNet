@@ -1,4 +1,5 @@
 ﻿using FluentValidation.TestHelper;
+using TreniniDotNet.Domain.Catalog.Scales;
 using Xunit;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
@@ -10,6 +11,16 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         public CreateScaleInputValidatorTests()
         {
             validator = new CreateScaleInputValidator();
+        }
+
+        [Fact]
+        public void CreateScaleInputValidator_ShouldHaveNoError_WhenInputObjectIsValid()
+        {
+            var input = new CreateScaleInput("H0", 87M, 16.5M, TrackGauge.Standard.ToString(), "my notes");
+
+            var result = validator.TestValidate(input);
+
+            result.ShouldNotHaveAnyValidationErrors();
         }
 
         [Fact]

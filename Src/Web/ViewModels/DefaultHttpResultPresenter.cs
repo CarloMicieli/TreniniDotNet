@@ -10,7 +10,7 @@ namespace TreniniDotNet.Web.ViewModels
     /// <summary>
     /// An helper class to produce HTTP results from a presenters
     /// </summary>
-    public abstract class DefaultHttpResultPresenter<TOutput> : IOutputPortStandard<TOutput>
+    public abstract class DefaultHttpResultPresenter<TOutput> : IOutputPortStandard<TOutput>, IActionResultPresenter
         where TOutput : IUseCaseOutput
     {
         private static readonly IActionResult NotFoundResult = new NotFoundResult();

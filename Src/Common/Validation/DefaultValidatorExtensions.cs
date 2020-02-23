@@ -13,5 +13,10 @@ namespace TreniniDotNet.Domain.Validation
 		{
 			return ruleBuilder.SetValidator(new UriValidator());
 		}
+
+		public static IRuleBuilderOptions<T, string> CountryCode<T>(this IRuleBuilder<T, string> ruleBuilder)
+		{
+			return ruleBuilder.SetValidator(new CountryCodeValidator());
+		}
 	}
 }

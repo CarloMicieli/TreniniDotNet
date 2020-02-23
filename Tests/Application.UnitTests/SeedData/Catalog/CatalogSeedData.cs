@@ -40,7 +40,7 @@ namespace TreniniDotNet.Application.SeedData.Catalog
 
         private static IRailway DieBahn()
         {
-            return new Railway("DieBahn", "", "DE", RailwayStatus.Active);
+            return new Railway("DB", "Die Bahn", "DE", RailwayStatus.Active);
         }
 
         #endregion

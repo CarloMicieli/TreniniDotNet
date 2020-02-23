@@ -87,7 +87,25 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             outputPortMock.Verify(outputPort => outputPort.BrandAlreadyExists(It.IsAny<string>()), Times.Once);
             Assert.Equal("Brand 'ACME' already exists", message);
         }
-        
+
+        [Fact]
+        public async Task CreateBrand_ShouldOutputAnError_WhenInputIsNull()
+        {
+            var brandRepository = new BrandRepository(InMemoryContext.WithCatalogSeedData());
+
+            string message = "";
+            var outputPortMock = new Mock<ICreateBrandOutputPort>();
+            outputPortMock.Setup(h => h.Error(It.IsAny<string>()))
+                .Callback<string>(msg => message = msg);
+
+            var useCase = NewCreateBrandUseCase(brandRepository, outputPortMock.Object);
+
+            await useCase.Execute(null);
+
+            outputPortMock.Verify(outputPort => outputPort.Error(It.IsAny<string>()), Times.Once);
+            Assert.Equal("The use case input is null", message);
+        }
+
         private CreateBrand NewCreateBrandUseCase(IBrandsRepository repo, ICreateBrandOutputPort outputPort)
         {
             var brandService = new BrandService(repo);

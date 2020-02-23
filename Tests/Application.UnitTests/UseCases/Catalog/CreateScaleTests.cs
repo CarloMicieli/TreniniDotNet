@@ -60,6 +60,48 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             Assert.NotNull(scaleRepository.GetBy(output!.Slug));
         }
 
+        [Fact]
+        public async Task CreateScale_ShouldNotCreateANewScale_WhenScaleAlreadyExists()
+        {
+            var scaleRepository = new ScaleRepository(InMemoryContext.WithCatalogSeedData());
+
+            string message = "";
+            var outputPortMock = new Mock<ICreateScaleOutputPort>();
+            outputPortMock.Setup(h => h.ScaleAlreadyExists(It.IsAny<string>()))
+                .Callback<string>(msg => message = msg);
+
+            var useCase = NewCreateScaleUseCase(scaleRepository, outputPortMock.Object);
+
+            var input = new CreateScaleInput(
+                "H0",
+                87M,
+                16.5M,
+                TrackGauge.Standard.ToString(),
+                "notes");
+
+            await useCase.Execute(input);
+
+            outputPortMock.Verify(outputPort => outputPort.ScaleAlreadyExists(It.IsAny<string>()), Times.Once);
+            Assert.Equal("Scale 'H0' already exists", message);
+        }
+
+        [Fact]
+        public async Task CreateScale_ShouldOutputAnError_WhenInputIsNull()
+        {
+            var scaleRepository = new ScaleRepository(InMemoryContext.WithCatalogSeedData());
+
+            string message = "";
+            var outputPortMock = new Mock<ICreateScaleOutputPort>();
+            outputPortMock.Setup(h => h.Error(It.IsAny<string>()))
+                .Callback<string>(msg => message = msg);
+
+            var useCase = NewCreateScaleUseCase(scaleRepository, outputPortMock.Object);
+
+            await useCase.Execute(null);
+
+            outputPortMock.Verify(outputPort => outputPort.Error(It.IsAny<string>()), Times.Once);
+            Assert.Equal("The use case input is null", message);
+        }
 
         private CreateScale NewCreateScaleUseCase(IScalesRepository repo, ICreateScaleOutputPort outputPort)
         {

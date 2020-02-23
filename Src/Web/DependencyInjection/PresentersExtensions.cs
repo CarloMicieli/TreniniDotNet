@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand;
-using TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale;
-using TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug;
-using TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug;
+
+using CatalogBoundaries = TreniniDotNet.Application.Boundaries.Catalog;
+using CatalogUseCases = TreniniDotNet.Web.UseCases.V1.Catalog;
 
 namespace TreniniDotNet.Web.DependencyInjection
 {
@@ -10,10 +9,14 @@ namespace TreniniDotNet.Web.DependencyInjection
     {
         public static IServiceCollection AddPresenters(this IServiceCollection services)
         {
-            services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.CreateBrand.ICreateBrandOutputPort, CreateBrandPresenter>();
-            services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug.IOutputPort, GetBrandBySlugPresenter>();
-            services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.GetScaleBySlug.IOutputPort, GetScaleBySlugPresenter>();
-            services.AddPresenter<TreniniDotNet.Application.Boundaries.Catalog.CreateScale.ICreateScaleOutputPort, CreateScalePresenter>();
+            services.AddPresenter<CatalogBoundaries.CreateBrand.ICreateBrandOutputPort, CatalogUseCases.CreateBrand.CreateBrandPresenter>();
+            services.AddPresenter<CatalogBoundaries.GetBrandBySlug.IOutputPort, CatalogUseCases.GetBrandBySlug.GetBrandBySlugPresenter>();
+            
+            services.AddPresenter<CatalogBoundaries.CreateScale.ICreateScaleOutputPort, CatalogUseCases.CreateScale.CreateScalePresenter>();
+            services.AddPresenter<CatalogBoundaries.GetScaleBySlug.IOutputPort, CatalogUseCases.GetScaleBySlug.GetScaleBySlugPresenter>();
+
+            services.AddPresenter<CatalogBoundaries.CreateRailway.ICreateRailwayOutputPort, CatalogUseCases.CreateRailway.CreateRailwayPresenter>();
+
             return services;
         }
 
