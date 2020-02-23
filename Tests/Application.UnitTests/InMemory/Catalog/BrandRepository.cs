@@ -5,6 +5,7 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
 using System.Net.Mail;
+using System.Collections.Generic;
 
 namespace TreniniDotNet.Application.InMemory.Catalog
 {
@@ -39,6 +40,11 @@ namespace TreniniDotNet.Application.InMemory.Catalog
         {
             bool exists = _context.Brands.Any(b => b.Slug == slug);
             return Task.FromResult(exists);
+        }
+
+        public Task<List<IBrand>> GetAll()
+        {
+            return Task.FromResult(_context.Brands.ToList());
         }
 
         public Task<IBrand> GetBy(Slug slug)

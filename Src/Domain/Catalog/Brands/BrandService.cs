@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
@@ -25,6 +26,11 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 new Uri(websiteUrl),
                 new MailAddress(emailAddress),
                 kind);
+        }
+
+        public Task<List<IBrand>> GetAllBrands()
+        {
+            return _brandRepository.GetAll();
         }
 
         public Task<IBrand> GetBy(Slug slug)

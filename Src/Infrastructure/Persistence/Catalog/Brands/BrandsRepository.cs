@@ -6,6 +6,7 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
 using System.Net.Mail;
+using System.Collections.Generic;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
@@ -43,6 +44,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         public Task<bool> Exists(Slug slug)
         {
             return _context.Brands.AnyAsync(b => b.Slug == slug.ToString());
+        }
+
+        public Task<List<IBrand>> GetAll()
+        {
+            return _context.Brands
+                .Select(b => _brandsFactory.NewBrand(
+                    b.BrandId,
+                    b.Name,
+                    b.Slug,
+                    b.CompanyName,
+                    b.WebsiteUrl,
+                    b.EmailAddress,
+                    b.BrandKind))
+                .ToListAsync();
         }
 
         public Task<IBrand> GetBy(Slug slug)

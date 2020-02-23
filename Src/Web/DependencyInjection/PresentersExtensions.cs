@@ -9,14 +9,22 @@ namespace TreniniDotNet.Web.DependencyInjection
     {
         public static IServiceCollection AddPresenters(this IServiceCollection services)
         {
-            services.AddPresenter<CatalogBoundaries.CreateBrand.ICreateBrandOutputPort, CatalogUseCases.CreateBrand.CreateBrandPresenter>();
-            services.AddPresenter<CatalogBoundaries.GetBrandBySlug.IGetBrandBySlugOutputPort, CatalogUseCases.GetBrandBySlug.GetBrandBySlugPresenter>();
+            services.AddBrandPresenters();
             
             services.AddPresenter<CatalogBoundaries.CreateScale.ICreateScaleOutputPort, CatalogUseCases.CreateScale.CreateScalePresenter>();
             services.AddPresenter<CatalogBoundaries.GetScaleBySlug.IGetScaleBySlugOutputPort, CatalogUseCases.GetScaleBySlug.GetScaleBySlugPresenter>();
 
             services.AddPresenter<CatalogBoundaries.CreateRailway.ICreateRailwayOutputPort, CatalogUseCases.CreateRailway.CreateRailwayPresenter>();
             services.AddPresenter<CatalogBoundaries.GetRailwayBySlug.IGetRailwayBySlugOutputPort, CatalogUseCases.GetRailwayBySlug.GetRailwayBySlugPresenter>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddBrandPresenters(this IServiceCollection services)
+        {
+            services.AddPresenter<CatalogBoundaries.CreateBrand.ICreateBrandOutputPort, CatalogUseCases.CreateBrand.CreateBrandPresenter>();
+            services.AddPresenter<CatalogBoundaries.GetBrandBySlug.IGetBrandBySlugOutputPort, CatalogUseCases.GetBrandBySlug.GetBrandBySlugPresenter>();
+            services.AddPresenter<CatalogBoundaries.GetBrandsList.IGetBrandsListOutputPort, CatalogUseCases.GetBrandsList.GetBrandsListPresenter>();
 
             return services;
         }

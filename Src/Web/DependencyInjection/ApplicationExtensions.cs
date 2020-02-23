@@ -26,6 +26,7 @@ namespace TreniniDotNet.Web.DependencyInjection
         {
             services.AddScoped<CatalogBoundaries.CreateBrand.ICreateBrandUseCase, CatalogUseCases.CreateBrand>();
             services.AddScoped<CatalogBoundaries.GetBrandBySlug.IGetBrandBySlugUseCase, CatalogUseCases.GetBrandBySlug>();
+            services.AddScoped<CatalogBoundaries.GetBrandsList.IGetBrandsListUseCase, CatalogUseCases.GetBrandsList>();
 
             services.AddScoped<BrandService>();
 

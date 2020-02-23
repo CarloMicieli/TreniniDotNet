@@ -3,14 +3,13 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
 using System.Net.Mail;
+using System.Collections.Generic;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public interface IBrandsRepository
     {
         Task<IBrand> GetBy(Slug slug);
-
-        //Task<IBrand> GetBy(BrandId brandId);
 
         Task<BrandId> Add(BrandId brandId,
             string name,
@@ -22,6 +21,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         Task<bool> Exists(Slug slug);
 
-        //Task Update(IBrand brand);
+        Task<List<IBrand>> GetAll();
     }
 }
