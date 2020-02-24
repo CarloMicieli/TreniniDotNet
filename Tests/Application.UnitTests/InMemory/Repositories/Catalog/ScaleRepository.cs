@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
@@ -38,6 +39,11 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         {
             IScale scale = _context.Scales.FirstOrDefault(e => e.Slug == slug);
             return Task.FromResult(scale);
+        }
+
+        public Task<List<IScale>> GetAll()
+        {
+            return Task.FromResult(_context.Scales.ToList());
         }
 
         public Task<bool> Exists(Slug slug)

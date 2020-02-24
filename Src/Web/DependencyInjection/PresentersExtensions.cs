@@ -14,6 +14,7 @@ namespace TreniniDotNet.Web.DependencyInjection
 
             services.AddPresenter<CatalogBoundaries.CreateScale.ICreateScaleOutputPort, CatalogUseCases.CreateScale.CreateScalePresenter>();
             services.AddPresenter<CatalogBoundaries.GetScaleBySlug.IGetScaleBySlugOutputPort, CatalogUseCases.GetScaleBySlug.GetScaleBySlugPresenter>();
+            services.AddPresenter<CatalogBoundaries.GetScalesList.IGetScalesListOutputPort, CatalogUseCases.GetScalesList.GetScalesListPresenter>();
 
             return services;
         }

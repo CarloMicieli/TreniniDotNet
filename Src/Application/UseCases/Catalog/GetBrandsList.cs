@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.GetBrandsList;
 using TreniniDotNet.Domain.Catalog.Brands;
 

@@ -5,6 +5,7 @@ using TreniniDotNet.Common;
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
@@ -60,6 +61,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                     scale.TrackGauge,
                     scale.Notes))
                 .SingleOrDefaultAsync();
+        }
+
+        public Task<List<IScale>> GetAll()
+        {
+            return _context.Scales
+                .Select(scale => _scalesFactory.NewScale(
+                    scale.ScaleId,
+                    scale.Name,
+                    scale.Slug,
+                    scale.Ratio,
+                    scale.Gauge,
+                    scale.TrackGauge,
+                    scale.Notes))
+                .ToListAsync();
         }
 
         public Task<bool> Exists(Slug slug)

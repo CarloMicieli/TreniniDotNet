@@ -3,6 +3,7 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
 using TreniniDotNet.Domain.Catalog.Railways;
+using System.Collections.Generic;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -27,6 +28,11 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 trackGauge,
                 notes);
             return scaleId;
+        }
+
+        public Task<List<IScale>> GetAll()
+        {
+            return _scaleRepository.GetAll();
         }
 
         public Task<IScale> GetBy(Slug slug)

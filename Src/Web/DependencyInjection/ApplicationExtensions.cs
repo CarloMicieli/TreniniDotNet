@@ -37,6 +37,7 @@ namespace TreniniDotNet.Web.DependencyInjection
         {
             services.AddScoped<CatalogBoundaries.CreateScale.ICreateScaleUseCase, CatalogUseCases.CreateScale>();
             services.AddScoped<CatalogBoundaries.GetScaleBySlug.IGetScaleBySlugUseCase, CatalogUseCases.GetScaleBySlug>();
+            services.AddScoped<CatalogBoundaries.GetScalesList.IGetScalesListUseCase, CatalogUseCases.GetScalesList>();
 
             services.AddScoped<ScaleService>();
 
