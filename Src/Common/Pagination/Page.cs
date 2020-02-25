@@ -5,10 +5,12 @@ namespace TreniniDotNet.Domain.Pagination
     public readonly struct Page
     {
         public Page(int start, int limit)
-        { 
+        {
             this.Limit = limit;
             this.Start = start;
         }
+
+        public static Page Default => new Page(0, 50);
 
         public Page Next()
         {

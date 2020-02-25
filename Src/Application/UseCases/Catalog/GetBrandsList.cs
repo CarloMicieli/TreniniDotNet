@@ -17,8 +17,8 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         public async Task Execute(GetBrandsListInput input)
         {
-            var brands = await _brandService.GetAllBrands();
-            OutputPort.Standard(new GetBrandsListOutput(brands));
+            var paginatedResult = await _brandService.FindAllBrands(input.Page);
+            OutputPort.Standard(new GetBrandsListOutput(paginatedResult));
         }
 
         private IGetBrandsListOutputPort OutputPort => _outputPort;

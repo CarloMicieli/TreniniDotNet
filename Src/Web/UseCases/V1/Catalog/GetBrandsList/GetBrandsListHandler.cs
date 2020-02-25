@@ -16,7 +16,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandsList
 
         protected override Task Handle(GetBrandsListRequest request, CancellationToken cancellationToken)
         {
-            return _useCase.Execute(new GetBrandsListInput());
+            return _useCase.Execute(new GetBrandsListInput(request.Page));
         }
     }
 }

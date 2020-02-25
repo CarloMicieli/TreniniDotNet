@@ -4,6 +4,7 @@ using TreniniDotNet.Application.Boundaries.Catalog.GetBrandsList;
 using TreniniDotNet.Application.InMemory.OutputPorts.Catalog;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Domain.Pagination;
 using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
@@ -15,14 +16,14 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewGetBrandsList);
 
-            await useCase.Execute(new GetBrandsListInput());
+            await useCase.Execute(new GetBrandsListInput(new Page(0, 10)));
 
             var output = outputPort.UseCaseOutput;
             Assert.True(output.Result.Count() == 0);
         }
 
         [Fact]
-        public async Task GetBrandsList_ShouldReturnBrandsList()
+        public async Task GetBrandsList_ShouldReturnBrandsList_WithoutPagination()
         {
             var (useCase, outputPort) = ArrangeBrandsUseCase(Start.WithSeedData, NewGetBrandsList);
 
@@ -30,7 +31,18 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             var output = outputPort.UseCaseOutput;
             Assert.True(output.Result.Count() > 0);
+        }
 
+        [Fact]
+        public async Task GetBrandsList_ShouldReturnBrandsList_WithPagination()
+        {
+            var expextedElements = 2;
+            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.WithSeedData, NewGetBrandsList);
+
+            await useCase.Execute(new GetBrandsListInput(new Page(0, expextedElements)));
+
+            var output = outputPort.UseCaseOutput;
+            Assert.Equal(expextedElements, output.Result.Count());
         }
 
         private GetBrandsList NewGetBrandsList(BrandService brandService, GetBrandsListOutputPort outputPort, IUnitOfWork unitOfWork)

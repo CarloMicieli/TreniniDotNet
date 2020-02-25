@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-
+using TreniniDotNet.Web.ViewModels.Pagination;
 using CatalogBoundaries = TreniniDotNet.Application.Boundaries.Catalog;
 using CatalogUseCases = TreniniDotNet.Web.UseCases.V1.Catalog;
 
@@ -9,6 +9,8 @@ namespace TreniniDotNet.Web.DependencyInjection
     {
         public static IServiceCollection AddPresenters(this IServiceCollection services)
         {
+            services.AddSingleton<IPaginationLinksGenerator, PaginationLinksGenerator>();
+
             services.AddBrandPresenters();
             services.AddRailwayPresenters();
 

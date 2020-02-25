@@ -27,12 +27,19 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             // Assert
             response.EnsureSuccessStatusCode(); // Status Code 200-299
 
-            var content = await ExtractContent<List<GetBrandsListResponse>>(response);
-            Assert.True(content.Count > 0);
+            var content = await ExtractContent<GetBrandsListResponse>(response);
+            Assert.True(content.Results.Count > 0);
         }
     }
 
     class GetBrandsListResponse 
+    {
+        public object _links { get; set; }
+        public int? Limit { get; set; }
+        public List<GetBrandsListElement> Results { get; set; }
+    }
+
+    class GetBrandsListElement
     {
         public string Slug { get; set; }
     }

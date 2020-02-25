@@ -1,11 +1,17 @@
-﻿using TreniniDotNet.Domain.Catalog.Brands;
+﻿using System.Text.Json.Serialization;
+using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Web.ViewModels.Links;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Catalog
 {
     public class BrandView
     {
-        public BrandView(IBrand b)
+        public BrandView(IBrand b, string? selfLink)
         {
+            Links = selfLink == null ? null : new LinksView
+            {
+                Self = selfLink 
+            };
             Id = b.BrandId.ToString();
             Slug = b.Slug.ToString();
             Name = b.Name;
@@ -15,6 +21,9 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
             Kind = b.Kind.ToString();
         }
 
+
+        [JsonPropertyName("_links")]
+        public LinksView? Links { set; get; }
         public string Id { set; get; } = null!;
         public string Slug { set; get; } = null!;
         public string Name { set; get; } = null!;

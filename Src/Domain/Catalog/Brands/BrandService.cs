@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
@@ -28,9 +28,9 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 kind);
         }
 
-        public Task<List<IBrand>> GetAllBrands()
+        public Task<PaginatedResult<IBrand>> FindAllBrands(Page? page)
         {
-            return _brandRepository.GetAll();
+            return _brandRepository.GetBrands(page ?? Page.Default);
         }
 
         public Task<IBrand> GetBy(Slug slug)
