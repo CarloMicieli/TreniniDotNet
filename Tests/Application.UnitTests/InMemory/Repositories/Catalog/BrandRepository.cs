@@ -6,6 +6,7 @@ using TreniniDotNet.Common;
 using System;
 using System.Net.Mail;
 using System.Collections.Generic;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 {
@@ -45,6 +46,16 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         public Task<List<IBrand>> GetAll()
         {
             return Task.FromResult(_context.Brands.ToList());
+        }
+
+        public Task<PaginatedResult<IBrand>> GetBrands(Page page)
+        {
+            var results = _context.Brands
+                .Skip(page.Start)
+                .Take(page.Limit + 1)
+                .ToList();
+
+            return Task.FromResult(new PaginatedResult<IBrand>(page, results));
         }
 
         public Task<IBrand> GetBy(Slug slug)

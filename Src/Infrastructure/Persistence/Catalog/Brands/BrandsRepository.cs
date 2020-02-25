@@ -7,6 +7,7 @@ using TreniniDotNet.Common;
 using System;
 using System.Net.Mail;
 using System.Collections.Generic;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
@@ -58,6 +59,26 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                     b.EmailAddress,
                     b.BrandKind))
                 .ToListAsync();
+        }
+
+        public async Task<PaginatedResult<IBrand>> GetBrands(Page page)
+        {
+            var results = await _context.Brands
+                .Take(page.Limit + 1) //To discover if we have more results
+                .Skip(page.Start)
+                .Select(b => _brandsFactory.NewBrand(
+                    b.BrandId,
+                    b.Name,
+                    b.Slug,
+                    b.CompanyName,
+                    b.WebsiteUrl,
+                    b.EmailAddress,
+                    b.BrandKind))
+                .ToListAsync();
+
+            return new PaginatedResult<IBrand>(
+                page,
+                results);
         }
 
         public Task<IBrand> GetBy(Slug slug)

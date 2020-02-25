@@ -4,6 +4,7 @@ using TreniniDotNet.Common;
 using System;
 using System.Net.Mail;
 using System.Collections.Generic;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
@@ -22,5 +23,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         Task<bool> Exists(Slug slug);
 
         Task<List<IBrand>> GetAll();
+
+        Task<PaginatedResult<IBrand>> GetBrands(Page page);
     }
 }
