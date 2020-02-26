@@ -64,8 +64,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         public async Task<PaginatedResult<IBrand>> GetBrands(Page page)
         {
             var results = await _context.Brands
-                .Take(page.Limit + 1) //To discover if we have more results
                 .Skip(page.Start)
+                .Take(page.Limit + 1) //To discover if we have more results
                 .OrderBy(b => b.Name)
                 .Select(b => _brandsFactory.NewBrand(
                     b.BrandId,

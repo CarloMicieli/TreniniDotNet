@@ -39,7 +39,7 @@ namespace TreniniDotNet.Web.ViewModels.Links
             {
                 Page nextPage = paginatedResult.CurrentPage.Next();
 
-                prevLink = _linkGenerator.GetUriByAction(httpContext,
+                nextLink = _linkGenerator.GetUriByAction(httpContext,
                     action: actionName,
                     values: new { start = nextPage.Start, limit = nextPage.Limit });
             }
