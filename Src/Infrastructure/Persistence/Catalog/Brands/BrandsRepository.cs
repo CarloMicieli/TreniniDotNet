@@ -66,6 +66,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             var results = await _context.Brands
                 .Take(page.Limit + 1) //To discover if we have more results
                 .Skip(page.Start)
+                .OrderBy(b => b.Name)
                 .Select(b => _brandsFactory.NewBrand(
                     b.BrandId,
                     b.Name,
