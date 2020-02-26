@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using TreniniDotNet.Web;
+using TreniniDotNet.Web.ViewModels.Links;
 using Xunit;
 
 namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
@@ -26,7 +27,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             response.EnsureSuccessStatusCode(); // Status Code 200-299
 
             var content = await ExtractContent<Response>(response);
-            Assert.Equal("acme", content.Slug);
+            Assert.Equal("acme", content._Links.Slug);
         }
 
         [Fact]
@@ -45,6 +46,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
     class Response
     {
-        public string Slug { set; get; }
+        public LinksView _Links { set; get; }
+        public string Name { set; get; }
     }
 }

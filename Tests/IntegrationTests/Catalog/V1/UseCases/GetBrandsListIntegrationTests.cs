@@ -41,6 +41,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
     class GetBrandsListElement
     {
-        public string Slug { get; set; }
+        public string Name { get; set; }
+        public string CompanyName { get; set; }
     }
 }

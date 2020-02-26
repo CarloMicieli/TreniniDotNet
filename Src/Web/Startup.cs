@@ -33,6 +33,7 @@ namespace TreniniDotNet.Web
                 {
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 });
+            services.AddHttpContextAccessor();
 
             services.AddOpenApi();
             services.AddVersioning();

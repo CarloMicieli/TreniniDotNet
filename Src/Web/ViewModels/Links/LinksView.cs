@@ -6,5 +6,7 @@ namespace TreniniDotNet.Web.ViewModels.Links
     {
         [JsonPropertyName("_self")]
         public string Self { set; get; } = "";
+
+        public string Slug { set; get; } = "";
     }
 }

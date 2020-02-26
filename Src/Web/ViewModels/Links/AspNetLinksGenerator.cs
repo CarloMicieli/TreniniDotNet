@@ -1,27 +1,19 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Pagination;
-using TreniniDotNet.Web.ViewModels.Links;
 
-namespace TreniniDotNet.Web.ViewModels.Pagination
+namespace TreniniDotNet.Web.ViewModels.Links
 {
-    public sealed class PaginationLinksGenerator : IPaginationLinksGenerator
+    public sealed class AspNetLinksGenerator : ILinksGenerator
     {
         private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public PaginationLinksGenerator(LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public AspNetLinksGenerator(LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
         {
             _linkGenerator = linkGenerator;
             _httpContextAccessor = httpContextAccessor;
-        }
-
-        public string GenerateLink(string actionName, object values)
-        {
-            var httpContext = _httpContextAccessor.HttpContext;
-            return _linkGenerator.GetUriByAction(httpContext,
-                    action: actionName,
-                    values: values);
         }
 
         public PaginateLinksView Generate<TValue>(string actionName, PaginatedResult<TValue> paginatedResult)
@@ -57,6 +49,20 @@ namespace TreniniDotNet.Web.ViewModels.Pagination
                 Self = selfLink,
                 Next = nextLink,
                 Prev = prevLink
+            };
+        }
+
+        public LinksView GenerateSelfLink(string actionName, Slug slug)
+        {
+            var httpContext = _httpContextAccessor.HttpContext;
+            var selfLink = _linkGenerator.GetUriByAction(httpContext,
+                    action: actionName,
+                    values: new { slug = slug.ToString(), version = "1" });
+
+            return new LinksView
+            {
+                Self = selfLink,
+                Slug = slug.ToString()
             };
         }
     }
