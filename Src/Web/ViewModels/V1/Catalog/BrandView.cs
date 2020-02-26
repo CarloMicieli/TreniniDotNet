@@ -15,8 +15,8 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
             MailAddress = b.EmailAddress?.ToString();
             WebsiteUrl = b.WebsiteUrl?.ToString();
             Kind = b.Kind.ToString();
+            Active = true;
         }
-
 
         [JsonPropertyName("_links")]
         public LinksView? Links { set; get; }
@@ -26,5 +26,6 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
         public string? MailAddress { set; get; }
         public string? WebsiteUrl { set; get; }
         public string? Kind { set; get; }
+        public bool? Active { set; get; }
     }
 }
