@@ -16,7 +16,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScalesList
 
         protected override Task Handle(GetScalesListRequest request, CancellationToken cancellationToken)
         {
-            return _useCase.Execute(new GetScalesListInput());
+            return _useCase.Execute(new GetScalesListInput(request.Page));
         }
     }
 }

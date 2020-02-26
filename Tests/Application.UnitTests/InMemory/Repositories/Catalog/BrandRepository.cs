@@ -51,6 +51,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         public Task<PaginatedResult<IBrand>> GetBrands(Page page)
         {
             var results = _context.Brands
+                .OrderBy(r => r.Name)
                 .Skip(page.Start)
                 .Take(page.Limit + 1)
                 .ToList();

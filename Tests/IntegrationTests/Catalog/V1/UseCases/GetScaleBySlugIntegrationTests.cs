@@ -1,4 +1,6 @@
-﻿using IntegrationTests;
+﻿using FluentAssertions;
+using IntegrationTests;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using TreniniDotNet.Web;
@@ -6,9 +8,9 @@ using Xunit;
 
 namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 {
-    public class GetScaleBySlugTests : AbstractWebApplicationFixture
+    public class GetScaleBySlugIntegrationTests : AbstractWebApplicationFixture
     {
-        public GetScaleBySlugTests(CustomWebApplicationFactory<Startup> factory) 
+        public GetScaleBySlugIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
             : base(factory)
         {
         }
@@ -26,7 +28,9 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             response.EnsureSuccessStatusCode(); // Status Code 200-299
 
             var content = await ExtractContent<GetScaleBySlugResponse>(response);
-            Assert.Equal("h0", content.Slug);
+
+            content._Links.Should().NotBeNull();
+            content._Links.Slug.Should().Be("h0");
         }
 
         [Fact]
@@ -41,10 +45,22 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
-    }
 
-    class GetScaleBySlugResponse
-    {
-        public string Slug { get; set; }
+        class GetScaleBySlugResponseLinks
+        {
+            public string Slug { set; get; }
+            public string _Self { set; get; }
+        }
+
+        class GetScaleBySlugResponse
+        {
+            public Guid Id { set; get; }
+            public GetScaleBySlugResponseLinks _Links { set; get; }
+            public string Slug { set; get; }
+            public string Name { set; get; }
+            public decimal? Ratio { set; get; }
+            public decimal? Gauge { set; get; }
+            public string TrackGauge { set; get; }
+        }
     }
 }

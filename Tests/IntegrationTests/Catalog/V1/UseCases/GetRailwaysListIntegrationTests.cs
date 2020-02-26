@@ -1,4 +1,5 @@
 ﻿using IntegrationTests;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TreniniDotNet.Web;
@@ -25,13 +26,41 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             // Assert
             response.EnsureSuccessStatusCode(); // Status Code 200-299
 
-            var content = await ExtractContent<List<GetRailwaysList>>(response);
-            Assert.True(content.Count > 0);
+            var content = await ExtractContent<GetRailwaysListResponse>(response);
+            Assert.True(content.Results.Count > 0);
         }
-    }
 
-    class GetRailwaysList
-    {
-        public string Slug { get; set; }
+        class GetRailwaysListLinks
+        {
+            public string _Self { set; get; }
+            public string Prev { set; get; }
+            public string Next { set; get; }
+        }
+
+        class GetRailwaysListResponse
+        {
+            public GetRailwaysListLinks _links { get; set; }
+            public int? Limit { get; set; }
+            public List<GetRailwaysListElement> Results { set; get; }
+        }
+
+        class GetRailwaysListElementLinks
+        {
+            public string Slug { set; get; }
+            public string _Self { set; get; }
+        }
+
+        class GetRailwaysListElement
+        {
+            public Guid Id { set; get; }
+            public GetRailwaysListElementLinks _Links { set; get; }
+            public string Slug { set; get; }
+            public string Name { set; get; }
+            public string CompanyName { set; get; }
+            public string Country { set; get; }
+            public string Status { set; get; }
+            public DateTime? OperatingSince { set; get; }
+            public DateTime? OperatingUntil { set; get; }
+        }
     }
 }

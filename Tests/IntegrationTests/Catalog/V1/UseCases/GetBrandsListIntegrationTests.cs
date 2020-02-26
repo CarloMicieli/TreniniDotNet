@@ -1,7 +1,7 @@
-﻿using IntegrationTests;
+﻿using FluentAssertions;
+using IntegrationTests;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Web;
 using Xunit;
@@ -10,7 +10,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 {
     public sealed class GetBrandsListIntegrationTests : AbstractWebApplicationFixture
     {
-        public GetBrandsListIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
+        public GetBrandsListIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
         }
@@ -28,20 +28,40 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             response.EnsureSuccessStatusCode(); // Status Code 200-299
 
             var content = await ExtractContent<GetBrandsListResponse>(response);
-            Assert.True(content.Results.Count > 0);
+
+            content.Results.Should().NotBeEmpty();
         }
-    }
 
-    class GetBrandsListResponse 
-    {
-        public object _links { get; set; }
-        public int? Limit { get; set; }
-        public List<GetBrandsListElement> Results { get; set; }
-    }
+        class GetBrandsListLinks
+        {
+            public string _Self { set; get; }
+            public string Prev { set; get; }
+            public string Next { set; get; }
+        }
 
-    class GetBrandsListElement
-    {
-        public string Name { get; set; }
-        public string CompanyName { get; set; }
+        class GetBrandsListResponse
+        {
+            public GetBrandsListLinks _links { get; set; }
+            public int? Limit { get; set; }
+            public List<GetBrandsListElement> Results { get; set; }
+        }
+
+        class GetBrandsListElementLinks
+        {
+            public string Slug { set; get; }
+            public string _Self { set; get; }
+        }
+
+        class GetBrandsListElement
+        {
+            public GetBrandsListElementLinks _Links { set; get; }
+            public Guid BrandId { set; get; }
+            public string Name { get; set; }
+            public string CompanyName { get; set; }
+            public string MailAddress { get; set; }
+            public string WebsiteUrl { get; set; }
+            public string Kind { get; set; }
+            public bool? Active { get; set; }
+        }
     }
 }

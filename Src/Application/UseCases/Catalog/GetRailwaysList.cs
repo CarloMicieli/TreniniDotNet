@@ -17,8 +17,8 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         public async Task Execute(GetRailwaysListInput input)
         {
-            var railways = await _railwayService.GetAll();
-            OutputPort.Standard(new GetRailwaysListOutput(railways));
+            var paginatedResult = await _railwayService.FindAllRailways(input.Page);
+            OutputPort.Standard(new GetRailwaysListOutput(paginatedResult));
         }
 
         private IGetRailwaysListOutputPort OutputPort => _outputPort;

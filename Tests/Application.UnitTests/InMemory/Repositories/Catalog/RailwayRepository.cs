@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 {
@@ -56,6 +57,17 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         {
             IRailway railway = _context.Railways.FirstOrDefault(e => e.Slug == slug);
             return Task.FromResult(railway);
+        }
+
+        public Task<PaginatedResult<IRailway>> GetRailways(Page page)
+        {
+            var results = _context.Railways
+                .OrderBy(r => r.Name)
+                .Skip(page.Start)
+                .Take(page.Limit + 1)
+                .ToList();
+
+            return Task.FromResult(new PaginatedResult<IRailway>(page, results));
         }
     }
 }

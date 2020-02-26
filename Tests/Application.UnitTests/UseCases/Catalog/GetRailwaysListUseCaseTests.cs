@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.GetRailwaysList;
 using TreniniDotNet.Application.InMemory.OutputPorts.Catalog;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Pagination;
 using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
@@ -14,10 +16,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewGetRailwaysList);
 
-            await useCase.Execute(new GetRailwaysListInput());
+            await useCase.Execute(new GetRailwaysListInput(Page.Default));
 
             outputPort.ShouldHaveStandardOutput();
-            Assert.True(outputPort.UseCaseOutput.Railways.Count == 0);
+            Assert.True(outputPort.UseCaseOutput.Result.Count() == 0);
         }
 
         [Fact]
@@ -25,10 +27,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.WithSeedData, NewGetRailwaysList);
 
-            await useCase.Execute(new GetRailwaysListInput());
+            await useCase.Execute(new GetRailwaysListInput(Page.Default));
 
             outputPort.ShouldHaveStandardOutput();
-            Assert.True(outputPort.UseCaseOutput.Railways.Count > 0);
+            Assert.True(outputPort.UseCaseOutput.Result.Count() > 0);
         }
 
         private GetRailwaysList NewGetRailwaysList(RailwayService railwayService, GetRailwaysListOutputPort outputPort, IUnitOfWork unitOfWork)

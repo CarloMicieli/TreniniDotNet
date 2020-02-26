@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
-using TreniniDotNet.Domain.Catalog.Railways;
 using System.Collections.Generic;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -28,6 +28,11 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 trackGauge,
                 notes);
             return scaleId;
+        }
+
+        public Task<PaginatedResult<IScale>> FindAllScales(Page? page)
+        {
+            return _scaleRepository.GetScales(page ?? Page.Default);
         }
 
         public Task<List<IScale>> GetAll()

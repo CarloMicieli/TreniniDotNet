@@ -16,7 +16,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetRailwaysList
 
         protected override Task Handle(GetRailwaysListRequest request, CancellationToken cancellationToken)
         {
-            return _useCase.Execute(new GetRailwaysListInput());
+            return _useCase.Execute(new GetRailwaysListInput(request.Page));
         }
     }
 }

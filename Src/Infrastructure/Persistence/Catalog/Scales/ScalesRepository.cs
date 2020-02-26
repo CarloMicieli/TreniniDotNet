@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
@@ -81,6 +82,25 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         {
             return _context.Scales
                 .AnyAsync(s => s.Slug == slug.ToString());
+        }
+
+        public async Task<PaginatedResult<IScale>> GetScales(Page page)
+        {
+            var results = await _context.Scales
+                .OrderBy(s => s.Name)
+                .Skip(page.Start)
+                .Take(page.Limit + 1)
+                .Select(scale => _scalesFactory.NewScale(
+                    scale.ScaleId,
+                    scale.Name,
+                    scale.Slug,
+                    scale.Ratio,
+                    scale.Gauge,
+                    scale.TrackGauge,
+                    scale.Notes))
+                .ToListAsync();
+
+            return new PaginatedResult<IScale>(page, results);
         }
     }
 }

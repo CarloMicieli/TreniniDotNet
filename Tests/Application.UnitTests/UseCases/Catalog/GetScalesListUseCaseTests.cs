@@ -4,6 +4,7 @@ using TreniniDotNet.Application.Boundaries.Catalog.GetScalesList;
 using TreniniDotNet.Application.InMemory.OutputPorts.Catalog;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Pagination;
 using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
@@ -15,7 +16,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewGetScalesList);
 
-            await useCase.Execute(new GetScalesListInput());
+            await useCase.Execute(new GetScalesListInput(Page.Default));
 
             var output = outputPort.UseCaseOutput;
             Assert.True(output.Result.Count() == 0);
@@ -26,7 +27,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeScalesUseCase(Start.WithSeedData, NewGetScalesList);
 
-            await useCase.Execute(new GetScalesListInput());
+            await useCase.Execute(new GetScalesListInput(Page.Default));
 
             var output = outputPort.UseCaseOutput;
             Assert.True(output.Result.Count() > 0);

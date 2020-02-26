@@ -16,8 +16,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
         }
 
         [HttpGet]
-        [Route("{slug}", Name = nameof(GetScaleBySlug))]
-        public Task<IActionResult> GetBrandBySlug(string slug)
+        [Route("{slug}", Name = nameof(Catalog.GetScaleBySlug))]
+        public Task<IActionResult> GetScaleBySlug(string slug)
         {
             return HandleRequest(new GetScaleBySlugRequest(Slug.Of(slug)));
         }

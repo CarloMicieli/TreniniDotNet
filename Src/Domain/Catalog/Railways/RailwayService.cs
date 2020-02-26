@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
@@ -33,6 +34,11 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public Task<List<IRailway>> GetAll()
         {
             return _railwayRepository.GetAll();
+        }
+
+        public Task<PaginatedResult<IRailway>> FindAllRailways(Page? page)
+        {
+            return _railwayRepository.GetRailways(page ?? Page.Default);
         }
     }
 }

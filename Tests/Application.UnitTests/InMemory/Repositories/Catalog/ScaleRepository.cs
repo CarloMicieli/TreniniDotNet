@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 {
@@ -50,6 +51,17 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         {
             var found = _context.Scales.Any(e => e.Slug == slug);
             return Task.FromResult(found);
+        }
+
+        public Task<PaginatedResult<IScale>> GetScales(Page page)
+        {
+            var results = _context.Scales
+                .OrderBy(r => r.Name)
+                .Skip(page.Start)
+                .Take(page.Limit + 1)
+                .ToList();
+
+            return Task.FromResult(new PaginatedResult<IScale>(page, results));
         }
     }
 }

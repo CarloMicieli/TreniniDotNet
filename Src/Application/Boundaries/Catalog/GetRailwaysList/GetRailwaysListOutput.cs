@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.GetRailwaysList
 {
     public sealed class GetRailwaysListOutput : IUseCaseOutput
     {
-        private readonly List<IRailway> _railways;
+        private readonly PaginatedResult<IRailway> _paginatedResult;
 
-        public GetRailwaysListOutput(List<IRailway> railways)
+        public GetRailwaysListOutput(PaginatedResult<IRailway> paginatedResult)
         {
-            _railways = railways;
+            _paginatedResult = paginatedResult;
         }
 
-        public List<IRailway> Railways => _railways;
+        public IEnumerable<IRailway> Result => _paginatedResult.Results;
+
+        public PaginatedResult<IRailway> PaginatedResult => _paginatedResult;
     }
 }

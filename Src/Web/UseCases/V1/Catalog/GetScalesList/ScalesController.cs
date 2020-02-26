@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScalesList
 {
@@ -15,9 +16,9 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScalesList
         }
 
         [HttpGet]
-        public Task<IActionResult> GetScalesList()
+        public Task<IActionResult> GetScales(int start = 0, int limit = 50)
         {
-            return HandleRequest(new GetScalesListRequest());
+            return HandleRequest(new GetScalesListRequest(new Page(start, limit)));
         }
     }
 }
