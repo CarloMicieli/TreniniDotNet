@@ -1,7 +1,9 @@
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Common;
+using TreniniDotNet.Web.ViewModels.V1.Catalog;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
 {
@@ -17,6 +19,9 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
 
         [HttpGet]
         [Route("{slug}", Name = nameof(Catalog.GetScaleBySlug))]
+        [ProducesResponseType(typeof(ScaleView), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> GetScaleBySlug(string slug)
         {
             return HandleRequest(new GetScaleBySlugRequest(Slug.Of(slug)));

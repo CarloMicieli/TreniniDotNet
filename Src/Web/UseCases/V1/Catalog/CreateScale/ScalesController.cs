@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 {
@@ -16,7 +17,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CreateScaleOutput), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> Post(CreateScaleRequest request)

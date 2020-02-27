@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
+using TreniniDotNet.Web.ViewModels.V1.Catalog;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug
 {
@@ -17,6 +19,9 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug
 
         [HttpGet]
         [Route("{slug}", Name = nameof(GetBrandBySlug))]
+        [ProducesResponseType(typeof(BrandView), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> GetBrandBySlug(string slug)
         {
             return HandleRequest(new GetBrandBySlugRequest(Slug.Of(slug)));

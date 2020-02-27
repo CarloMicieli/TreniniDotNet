@@ -1,7 +1,10 @@
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Pagination;
+using TreniniDotNet.Web.ViewModels.Pagination;
+using TreniniDotNet.Web.ViewModels.V1.Catalog;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetRailwaysList
 {
@@ -16,6 +19,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetRailwaysList
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(PaginatedViewModel<RailwayView>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> GetRailways(int start = 0, int limit = 50)
         {
             return HandleRequest(new GetRailwaysListRequest(new Page(start, limit)));
