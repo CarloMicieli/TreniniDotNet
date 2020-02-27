@@ -18,33 +18,28 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetRailwayBySlug_ReturnsOk_WhenTheBrandExists()
         {
-            // Arrange
             var client = CreateHttpClient();
 
-            // Act
             var response = await client.GetAsync("/api/v1/railways/fs");
 
-            // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var responseContent = await ExtractContent<GetRailwayBySlugResponse>(response);
-            responseContent.Name.Should().Be("FS");
+            var content = await ExtractContent<GetRailwayBySlugResponse>(response);
+            content.Name.Should().Be("FS");
 
-            responseContent._Links.Should().NotBeNull();
-            responseContent._Links.Slug.Should().Be("fs");
+            content._Links.Should().NotBeNull();
+            content._Links.Slug.Should().Be("fs");
+            content._Links._Self.Should().Be("http://localhost/api/v1/Railways/fs");
         }
 
         [Fact]
         public async Task GetRailwayBySlug_ReturnsNotFound_WhenTheBrandDoesNotExist()
         {
-            // Arrange
             var client = CreateHttpClient();
 
-            // Act
             var response = await client.GetAsync("/api/v1/railways/not-found");
 
-            // Assert
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         class GetRailwayBySlugLinks

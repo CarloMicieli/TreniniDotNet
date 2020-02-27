@@ -18,35 +18,29 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetBrandBySlug_ReturnsOk_WhenTheBrandExists()
         {
-            // Arrange
             var client = CreateHttpClient();
 
-            // Act
             var response = await client.GetAsync("/api/v1/brands/acme");
 
-            // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var content = await ExtractContent<GetBrandBySlugResponse>(response);
-
             content.Should().NotBeNull();
             content.Id.Should().Be(new Guid("9ed9f089-2053-4a39-b669-a6d603080402"));
             content.Name.Should().Be("ACME");
             content._Links.Should().NotBeNull();
             content._Links.Slug.Should().Be("acme");
+            content._Links._Self.Should().Be("http://localhost/api/v1/Brands/acme");
         }
 
         [Fact]
         public async Task GetBrandBySlug_ReturnsNotFound_WhenTheBrandDoesNotExist()
         {
-            // Arrange
             var client = CreateHttpClient();
 
-            // Act
             var response = await client.GetAsync("/api/v1/brands/not-found");
 
-            // Assert
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         class GetBrandsListElementLinks

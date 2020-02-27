@@ -1,6 +1,9 @@
-﻿using IntegrationTests;
+﻿using FluentAssertions;
+using IntegrationTests;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using TreniniDotNet.Web;
 using Xunit;
@@ -15,19 +18,68 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetRailwaysList_ShouldReturnTheBrands()
+        public async Task GetRailwaysList_ShouldReturnTheRailways()
         {
-            // Arrange
             var client = CreateHttpClient();
 
-            // Act
             var response = await client.GetAsync("/api/v1/railways");
 
-            // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var content = await ExtractContent<GetRailwaysListResponse>(response);
-            Assert.True(content.Results.Count > 0);
+
+            content._links.Should().NotBeNull();
+            content._links._Self.Should().Be("http://localhost/api/v1/Railways?start=0&limit=50");
+
+            content.Results.Should().NotBeEmpty();
+
+            var first = content.Results.First();
+            first.Should().NotBeNull();
+            first._Links.Should().NotBeNull();
+            first._Links.Slug.Should().Be("db");
+            first._Links._Self.Should().Be("http://localhost/api/v1/Railways/db");
+        }
+
+        [Fact]
+        public async Task GetRailwaysList_ShouldReturnTheFirstPageOfRailways()
+        {
+            var limit = 2;
+            var client = CreateHttpClient();
+
+            var response = await client.GetAsync($"/api/v1/railways?start=0&limit={limit}");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await ExtractContent<GetRailwaysListResponse>(response);
+
+            content._links.Should().NotBeNull();
+            content._links._Self.Should().Be($"http://localhost/api/v1/Railways?start=0&limit={limit}");
+            content._links.Next.Should().Be($"http://localhost/api/v1/Railways?start=2&limit={limit}");
+            content._links.Prev.Should().BeNull();
+
+            content.Results.Should().NotBeEmpty();
+            content.Results.Should().HaveCount(limit);
+        }
+
+        [Fact]
+        public async Task GetRailwaysList_ShouldReturnTheRailways_WithPagination()
+        {
+            var limit = 2;
+            var client = CreateHttpClient();
+
+            var response = await client.GetAsync($"/api/v1/railways?start=2&limit={limit}");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await ExtractContent<GetRailwaysListResponse>(response);
+
+            content._links.Should().NotBeNull();
+            content._links._Self.Should().Be($"http://localhost/api/v1/Railways?start=2&limit={limit}");
+            content._links.Next.Should().Be($"http://localhost/api/v1/Railways?start=4&limit={limit}");
+            content._links.Prev.Should().Be($"http://localhost/api/v1/Railways?start=0&limit={limit}");
+
+            content.Results.Should().NotBeEmpty();
+            content.Results.Should().HaveCount(limit);
         }
 
         class GetRailwaysListLinks

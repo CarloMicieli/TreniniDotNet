@@ -1,4 +1,5 @@
-﻿using IntegrationTests;
+﻿using FluentAssertions;
+using IntegrationTests;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -7,9 +8,9 @@ using Xunit;
 
 namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 {
-    public class CreateBrandTests : AbstractWebApplicationFixture
+    public class CreateBrandIntegrationTests : AbstractWebApplicationFixture
     {
-        public CreateBrandTests(CustomWebApplicationFactory<Startup> factory) 
+        public CreateBrandIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
             : base(factory)
         {
         }
@@ -33,9 +34,9 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
             // Assert
             response.EnsureSuccessStatusCode(); // Status Code 200-299
-            
-            Assert.NotNull(response.Headers.Location);
-            Assert.Equal(new Uri("http://localhost/api/v1/Brands/new-brand"), response.Headers.Location);
+
+            response.Headers.Should().NotBeEmpty();
+            response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/Brands/new-brand"));
         }
 
         [Fact]

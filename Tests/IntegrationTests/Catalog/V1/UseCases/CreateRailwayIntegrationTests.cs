@@ -7,9 +7,9 @@ using Xunit;
 
 namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 {
-    public class CreateRailwayTests : AbstractWebApplicationFixture
+    public class CreateRailwayIntegrationTests : AbstractWebApplicationFixture
     {
-        public CreateRailwayTests(CustomWebApplicationFactory<Startup> factory) 
+        public CreateRailwayIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
             : base(factory)
         {
         }
