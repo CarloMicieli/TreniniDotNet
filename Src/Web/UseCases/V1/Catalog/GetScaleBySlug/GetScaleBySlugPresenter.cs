@@ -22,7 +22,10 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
 
         public override void Standard(GetScaleBySlugOutput output)
         {
-            var selfLink = _linksGenerator.GenerateSelfLink("GetScaleBySlug", output.Scale.Slug);
+            var selfLink = _linksGenerator.GenerateSelfLink(
+                nameof(ScalesController.GetScaleBySlug), 
+                output.Scale.Slug);
+
             var scaleViewModel = new ScaleView(output.Scale, selfLink);
             ViewModel = new OkObjectResult(scaleViewModel);
         }

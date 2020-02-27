@@ -14,7 +14,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
         public override void Standard(CreateBrandOutput output)
         {
             ViewModel = Created(
-                "GetBrandBySlug",
+                nameof(GetBrandBySlug.BrandsController.GetBrandBySlug),
                 new
                 {
                     slug = output.Slug,

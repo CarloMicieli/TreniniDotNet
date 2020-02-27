@@ -14,7 +14,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
         public override void Standard(CreateScaleOutput output)
         {
             ViewModel = new CreatedAtRouteResult(
-                "GetScaleBySlug",
+                nameof(GetScaleBySlug.ScalesController.GetScaleBySlug),
                 new
                 {
                     slug = output.Slug,

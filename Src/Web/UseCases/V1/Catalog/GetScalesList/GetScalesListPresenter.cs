@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Boundaries.Catalog.GetScalesList;
+using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Web.ViewModels;
 using TreniniDotNet.Web.ViewModels.Links;
 using TreniniDotNet.Web.ViewModels.Pagination;
@@ -18,14 +19,20 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScalesList
 
         public override void Standard(GetScalesListOutput output)
         {
-            var links = _linksGenerator.Generate("GetScales", output.PaginatedResult);
+            var links = _linksGenerator.Generate(nameof(ScalesController.GetScales), output.PaginatedResult);
 
-            PaginatedViewModel<ScaleView> viewModel = output.PaginatedResult
-                .ToViewModel(links, scale => {
-                    return new ScaleView(scale, _linksGenerator.GenerateSelfLink("GetScaleBySlug", scale.Slug));
-                });
+            PaginatedViewModel<ScaleView> viewModel = output
+                .PaginatedResult
+                .ToViewModel(links, ToScaleView);
 
             ViewModel = new OkObjectResult(viewModel);
+        }
+
+        private ScaleView ToScaleView(IScale scale)
+        {
+            return new ScaleView(scale, _linksGenerator.GenerateSelfLink(
+                nameof(GetScaleBySlug.ScalesController.GetScaleBySlug), 
+                scale.Slug));
         }
     }
 }
