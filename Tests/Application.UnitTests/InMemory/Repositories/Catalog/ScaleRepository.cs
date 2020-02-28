@@ -63,5 +63,12 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 
             return Task.FromResult(new PaginatedResult<IScale>(page, results));
         }
+
+        public Task<IScale> GetByName(string name)
+        {
+            IScale scale = _context.Scales
+                .FirstOrDefault(e => e.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            return Task.FromResult(scale);
+        }
     }
 }

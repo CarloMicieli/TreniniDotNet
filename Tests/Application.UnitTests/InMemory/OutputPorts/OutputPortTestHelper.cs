@@ -38,12 +38,12 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
 
         public void ShouldHaveErrorMessage(string expectedMessage)
         {
-            ErrorMethod.InvokedWithArgument(expectedMessage);
+            ErrorMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
         }
 
         public void ShouldHaveStandardOutputEqualTo(TUseCaseOutput expectedOutput)
         {
-            StandardMethod.InvokedWithArgument(expectedOutput);
+            StandardMethod.ShouldBeInvokedWithTheArgument(expectedOutput);
         }
 
         public void ShouldHaveStandardOutput()
@@ -55,6 +55,12 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
         {
             var validationFailures = InvalidRequestMethod.Argument;
             Assert.NotEmpty(validationFailures);
+        }
+
+        public void ShouldHaveNoValidationError()
+        {
+            var validationFailures = InvalidRequestMethod.Argument;
+            Assert.Null(validationFailures);
         }
 
         public void ShouldHaveValidationErrorFor(string name)

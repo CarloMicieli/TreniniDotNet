@@ -18,7 +18,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 
         public void ShouldHaveScaleNotFoundMessage(string expectedMessage)
         {
-            this.ScaleNotFoundMethod.InvokedWithArgument(expectedMessage);
+            this.ScaleNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
         }
     }
 }

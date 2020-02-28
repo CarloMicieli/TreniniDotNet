@@ -27,7 +27,8 @@ namespace TreniniDotNet.Application.InMemory.Repositories
             {
                 Brands = CatalogSeedData.Brands,
                 Railways = CatalogSeedData.Railways,
-                Scales = CatalogSeedData.Scales
+                Scales = CatalogSeedData.Scales,
+                CatalogItems = CatalogSeedData.CatalogItems
             };
         }
     }

@@ -18,7 +18,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 
         public void ShouldHaveRailwayNotFoundMessage(string expectedMessage)
         {
-            this.RailwayNotFoundMethod.InvokedWithArgument(expectedMessage);
+            this.RailwayNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
         }
     }
 }

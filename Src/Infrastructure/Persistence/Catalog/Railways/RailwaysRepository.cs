@@ -97,5 +97,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             return new PaginatedResult<IRailway>(page, results);
         }
+
+        public Task<IRailway?> GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

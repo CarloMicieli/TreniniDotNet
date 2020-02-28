@@ -18,7 +18,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 
         public void ShouldHaveBrandNotFoundMessage(string expectedMessage)
         {
-            this.BrandNotFoundMethod.InvokedWithArgument(expectedMessage);
+            this.BrandNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
         }
     }
 }

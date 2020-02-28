@@ -6,12 +6,17 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Application.SeedData.Catalog
 {
     public static class CatalogSeedData
     {
         #region [ Railways ]
+
+        private readonly static IRailway _fs = Fs();
+        private readonly static IRailway _sbb = Sbb();
+        private readonly static IRailway _dieBahn = DieBahn();
 
         public static ICollection<IRailway> Railways
         {
@@ -23,9 +28,9 @@ namespace TreniniDotNet.Application.SeedData.Catalog
 
         private static readonly ICollection<IRailway> _railways = new List<IRailway>()
         {
-            Fs(),
-            Sbb(),
-            DieBahn()
+            _fs,
+            _sbb,
+            _dieBahn
         };
 
         private static IRailway Fs()
@@ -47,6 +52,10 @@ namespace TreniniDotNet.Application.SeedData.Catalog
 
         #region [ Scales ]
 
+        private readonly static IScale _scaleH0 = ScaleH0();
+        private readonly static IScale _scaleH0m = ScaleH0m();
+        private readonly static IScale _scaleN = ScaleN();
+
         public static ICollection<IScale> Scales
         {
             get
@@ -57,9 +66,9 @@ namespace TreniniDotNet.Application.SeedData.Catalog
 
         private static readonly ICollection<IScale> _scales = new List<IScale>()
         {
-            ScaleH0(),
-            ScaleH0m(),
-            ScaleN()
+            _scaleH0,
+            _scaleH0m,
+            _scaleN
         };
 
         private static IScale ScaleH0()
@@ -152,5 +161,48 @@ namespace TreniniDotNet.Application.SeedData.Catalog
                 BrandKind.Industrial);
         }
         #endregion
+    
+        #region [ Catalog items ]
+
+        public static ICollection<CatalogItem> CatalogItems
+        {
+            get
+            {
+                return _items;
+            }
+        }
+
+        private static readonly ICollection<CatalogItem> _items = new List<CatalogItem>()
+        {
+            Acme_60458()
+        };
+        
+        private static CatalogItem Acme_60458()
+        {
+            var rollingStocks = new List<RollingStock>()
+            {
+                new RollingStock(
+                    _fs,
+                    _scaleH0,
+                    Category.ElectricLocomotive,
+                    Era.VI, 
+                    PowerMethod.DC, 
+                    Length.OfMillimeters(210))
+            };
+
+            return new CatalogItem(
+                CatalogItemId.NewId(),
+                _acme,
+                new ItemNumber("60458"),
+                Slug.Of("acme_60458"), //TODO
+                rollingStocks,
+                @"FS Locomotiva elettrica E 636 117 nella livrea storica blu orientale e grigio 
+                perla con vomere giallo, logo e scritta Trenitalia, nella fase di fine esercizio",
+                null,
+                null);
+        }
+       
+        #endregion
+    
     }
 }

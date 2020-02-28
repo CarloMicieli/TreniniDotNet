@@ -6,15 +6,15 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface IRollingStock
     {
-        Railway Railway  { get; }
+        IRailway Railway  { get; }
 
-        Scale Scale  { get; }
+        IScale Scale  { get; }
         
         Category Category  { get; }
 
         Era Era { get; }
 
-        PowerMethod PowerMethod  { get; }
+        //PowerMethod PowerMethod  { get; }
 
         Length Length { get; }
     }

@@ -13,7 +13,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 
         public void ShouldHaveScaleAlreadyExistsMessage(string expectedMessage)
         {
-            this.ScaleAlreadyExistsMethod.InvokedWithArgument(expectedMessage);
+            this.ScaleAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
         }
 
         public void ScaleAlreadyExists(string message)

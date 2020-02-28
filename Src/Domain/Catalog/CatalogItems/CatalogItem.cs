@@ -8,7 +8,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
     public sealed class CatalogItem
     {
         private readonly CatalogItemId _id;
-        private readonly Brand _brand;
+        private readonly IBrand _brand;
         private readonly Slug _slug;
         private readonly ItemNumber _itemNumber;
         private readonly IEnumerable<RollingStock> _rollingStocks;
@@ -16,7 +16,14 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         private readonly string? _prototypeDescr;
         private readonly string? _modelDescr;
 
-        public CatalogItem(CatalogItemId id, Brand brand, ItemNumber itemNumber, Slug slug, IEnumerable<RollingStock> rollingStocks, string description, string? prototypeDescr, string? modelDescr)
+        public CatalogItem(CatalogItemId id, 
+            IBrand brand, 
+            ItemNumber itemNumber, 
+            Slug slug,
+            IEnumerable<RollingStock> rollingStocks,
+            string description, 
+            string? prototypeDescr, 
+            string? modelDescr)
         {
             _id = id;
             _brand = brand;
@@ -30,7 +37,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         #region [ Properties ]
         public CatalogItemId CatalogItemId => _id;
-        public Brand Brand => _brand;
+        public IBrand Brand => _brand;
         public Slug Slug => _slug;
         public ItemNumber ItemNumber => _itemNumber;
         public IEnumerable<RollingStock> RollingStocks => _rollingStocks;

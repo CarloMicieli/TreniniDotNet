@@ -96,5 +96,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                     b.BrandKind))
                 .FirstOrDefaultAsync();
         }
+
+        public Task<IBrand?> GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

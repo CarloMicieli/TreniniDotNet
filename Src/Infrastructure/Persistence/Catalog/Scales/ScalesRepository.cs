@@ -102,5 +102,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
             return new PaginatedResult<IScale>(page, results);
         }
+
+        public Task<IScale?> GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

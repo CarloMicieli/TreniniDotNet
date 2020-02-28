@@ -4,19 +4,16 @@ using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    /// <summary>
-    /// It represents a rolling stock.
-    /// </summary>
-    public abstract class RollingStock : IRollingStock
+    public sealed class RollingStock : IRollingStock
     {
-        private readonly Railway _railway;
-        private readonly Scale _scale;
+        private readonly IRailway _railway;
+        private readonly IScale _scale;
         private readonly Category _category;
         private readonly Era _era;
         private readonly PowerMethod _powerMethod;
         private readonly Length _length;
 
-        protected RollingStock(Railway railway, Scale scale, Category category, Era era, PowerMethod powerMethod, Length length)
+        public RollingStock(IRailway railway, IScale scale, Category category, Era era, PowerMethod powerMethod, Length length)
         {
             _railway = railway;
             _scale = scale;
@@ -27,9 +24,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         }
 
         #region [ Properties ]
-        public Railway Railway => _railway;
+        public IRailway Railway => _railway;
 
-        public Scale Scale => _scale;
+        public IScale Scale => _scale;
 
         public Category Category => _category;
 

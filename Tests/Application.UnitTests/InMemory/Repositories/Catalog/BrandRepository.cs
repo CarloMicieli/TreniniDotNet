@@ -64,5 +64,12 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             IBrand brand = _context.Brands.FirstOrDefault(e => e.Slug == slug);
             return Task.FromResult(brand);
         }
+
+        public Task<IBrand> GetByName(string name)
+        {
+            IBrand brand = _context.Brands
+                .FirstOrDefault(e => e.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            return Task.FromResult(brand);
+        }
     }
 }

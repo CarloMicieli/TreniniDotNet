@@ -10,48 +10,78 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
     public class CatalogItemService
     {
         private readonly ICatalogItemRepository _catalogItemsRepository;
-        private readonly ICatalogItemFactory _catalogItemFactory;
-
-        private readonly IBrandsRepository _brands;
-        private readonly IRailwaysRepository _railways;
+        private readonly IBrandsRepository _brandsRepository;
         private readonly IScalesRepository _scales;
+        private readonly IRailwaysRepository _railways;
 
         public CatalogItemService(
-            ICatalogItemRepository catalogItemsRepository, 
-            ICatalogItemFactory catalogItemFactory, 
-            IBrandsRepository brands, 
-            IRailwaysRepository railways, 
-            IScalesRepository scales)
+            ICatalogItemRepository catalogItemsRepository,
+            IBrandsRepository brands,
+            IScalesRepository scales,
+            IRailwaysRepository railways)
         {
             _catalogItemsRepository = catalogItemsRepository;
-            _catalogItemFactory = catalogItemFactory;
-            _brands = brands;
+            _brandsRepository = brands;
             _railways = railways;
             _scales = scales;
         }
 
-        public async Task CreateCatalogItem(
-            BrandId brandId,
+        public Task<IBrand?> FindBrandByName(string brandName)
+        {
+            return _brandsRepository.GetByName(brandName.Trim());
+        }
+
+        public async Task<bool> ItemAlreadyExists(IBrand brand, ItemNumber itemNumber)
+        {
+            var item = await _catalogItemsRepository.GetBy(brand, itemNumber);
+            return item != null;
+        }
+
+        public Task CreateCatalogItem(
+            string brandName,
             ItemNumber itemNumber,
-            string? description,
+            string description,
             string? modelDescription,
             string? prototypeDescription,
+            PowerMethod powerMethod,
             IRollingStock rollingStock)
-        {/*
-            IBrand brand = await _brands.GetBy(brandId);
-            IRailway railway = await _railways.GetBy(rollingStock.Railway.Slug);
-            IScale scale = await _scales.GetBy(rollingStock.Scale.Slug);
+        {
+            throw new NotImplementedException("CreateCatalogItem.TODO");
+        }
 
-            CatalogItem item = await _catalogItemsRepository.GetBy(brand, itemNumber);
+        public Task<IScale?> FindScaleByName(string scale)
+        {
+            return _scales.GetByName(scale.Trim());
+        }
 
-            CatalogItem newItem = _catalogItemFactory.NewCatalogItem();
+        public Task<IRailway?> FindRailwayByName(string railwayName)
+        {
+            return _railways.GetByName(railwayName.Trim());
+        }
 
-            await _catalogItemsRepository.Add(newItem);
-            */
+        public Task CreateCatalogItem(
+            string brandName,
+            ItemNumber itemNumber,
+            string description,
+            string? modelDescription,
+            string? prototypeDescription,
+            PowerMethod powerMethod,
+            IRollingStock rollingStock1,
+            IRollingStock rollingStock2)
+        {
+            throw new NotImplementedException("CreateCatalogItem.TODO");
+        }
 
-
-
-            throw new NotImplementedException();
+        public Task CreateCatalogItem(
+            string brandName,
+            ItemNumber itemNumber,
+            string description,
+            string? modelDescription,
+            string? prototypeDescription,
+            PowerMethod powerMethod,
+            params IRollingStock[] rollingStocks)
+        {
+            throw new NotImplementedException("CreateCatalogItem.TODO");
         }
     }
 }

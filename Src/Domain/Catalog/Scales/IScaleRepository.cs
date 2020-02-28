@@ -13,5 +13,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         Task<bool> Exists(Slug slug);
         Task<List<IScale>> GetAll();
         Task<PaginatedResult<IScale>> GetScales(Page page);
+        Task<IScale?> GetByName(string name);
     }
 }
