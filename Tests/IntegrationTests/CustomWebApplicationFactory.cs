@@ -7,6 +7,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using TreniniDotNet.IntegrationTests.Helpers;
+using TreniniDotNet.Web.Identity;
+using TreniniDotNet.IntegrationTests.Helpers.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace TreniniDotNet.IntegrationTests
 {
@@ -18,21 +21,8 @@ namespace TreniniDotNet.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                // Remove the app's ApplicationDbContext registration.
-                var descriptor = services.SingleOrDefault(
-                    d => d.ServiceType ==
-                        typeof(DbContextOptions<ApplicationDbContext>));
-
-                if (descriptor != null)
-                {
-                    services.Remove(descriptor);
-                }
-
-                // Add ApplicationDbContext using an in-memory database for testing.
-                services.AddDbContext<ApplicationDbContext>(options =>
-                {
-                    options.UseInMemoryDatabase("InMemoryDbForTesting");
-                });
+                services.ReplaceWithInMemory<ApplicationDbContext>("InMemoryDatabase");
+                services.ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
 
                 // Build the service provider.
                 var sp = services.BuildServiceProvider();
@@ -46,13 +36,17 @@ namespace TreniniDotNet.IntegrationTests
                     var logger = scopedServices
                         .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
+                    var userManager = scopedServices.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleManager = scopedServices.GetRequiredService<RoleManager<IdentityRole>>();
+
                     // Ensure the database is created.
                     db.Database.EnsureCreated();
 
                     try
                     {
                         // Seed the database with test data.
-                        Utilities.InitializeDbForTests(db);
+                        ApplicationContextSeed.SeedCatalog(db);
+                        AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).Wait();
                     }
                     catch (Exception ex)
                     {
@@ -64,4 +58,26 @@ namespace TreniniDotNet.IntegrationTests
         }
     }
 
+    public static class IServiceCollectionTestExtensions 
+    {
+        public static IServiceCollection ReplaceWithInMemory<TContext>(this IServiceCollection services, string databaseName)
+            where TContext : DbContext
+        {
+            var descriptor = services.SingleOrDefault(
+                d => d.ServiceType == typeof(DbContextOptions<TContext>));
+
+            if (descriptor != null)
+            {
+                services.Remove(descriptor);
+            }
+
+            // Add ApplicationDbContext using an in-memory database for testing.
+            services.AddDbContext<TContext>(options =>
+            {
+                options.UseInMemoryDatabase(databaseName);
+            });
+
+            return services;
+        }
+    }
 }
