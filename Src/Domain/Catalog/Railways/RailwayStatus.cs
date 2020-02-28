@@ -16,9 +16,9 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static RailwayStatus? ToRailwayStatus(this string s)
+        public static RailwayStatus? ToRailwayStatus(this string? s)
         {
-            if (Enum.TryParse<RailwayStatus>(s, false, out RailwayStatus result))
+            if (!string.IsNullOrEmpty(s) && Enum.TryParse<RailwayStatus>(s, false, out RailwayStatus result))
             {
                 return result;
             }
