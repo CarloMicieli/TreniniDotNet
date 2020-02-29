@@ -18,7 +18,8 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 
         public Task<CatalogItemId> Add(CatalogItem catalogItem)
         {
-            throw new System.NotImplementedException();
+            _context.CatalogItems.Add(catalogItem);
+            return Task.FromResult(catalogItem.CatalogItemId);
         }
 
         public Task<CatalogItem> GetBy(IBrand brand, ItemNumber itemNumber)

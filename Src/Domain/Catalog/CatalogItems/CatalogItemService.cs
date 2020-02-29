@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
@@ -37,18 +38,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return item != null;
         }
 
-        public Task CreateCatalogItem(
-            string brandName,
-            ItemNumber itemNumber,
-            string description,
-            string? modelDescription,
-            string? prototypeDescription,
-            PowerMethod powerMethod,
-            IRollingStock rollingStock)
-        {
-            throw new NotImplementedException("CreateCatalogItem.TODO");
-        }
-
         public Task<IScale?> FindScaleByName(string scale)
         {
             return _scales.GetByName(scale.Trim());
@@ -59,29 +48,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return _railways.GetByName(railwayName.Trim());
         }
 
-        public Task CreateCatalogItem(
-            string brandName,
-            ItemNumber itemNumber,
-            string description,
-            string? modelDescription,
-            string? prototypeDescription,
-            PowerMethod powerMethod,
-            IRollingStock rollingStock1,
-            IRollingStock rollingStock2)
+        public Task<CatalogItemId> CreateNewCatalogItem(CatalogItem catalogItem) 
         {
-            throw new NotImplementedException("CreateCatalogItem.TODO");
-        }
-
-        public Task CreateCatalogItem(
-            string brandName,
-            ItemNumber itemNumber,
-            string description,
-            string? modelDescription,
-            string? prototypeDescription,
-            PowerMethod powerMethod,
-            params IRollingStock[] rollingStocks)
-        {
-            throw new NotImplementedException("CreateCatalogItem.TODO");
+            return _catalogItemsRepository.Add(catalogItem);
         }
     }
 }

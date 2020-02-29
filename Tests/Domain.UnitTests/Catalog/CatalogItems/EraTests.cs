@@ -12,5 +12,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Era.III.ToString().ToEra()
             );
         }
+
+        [Fact]
+        public void Era_shouldBeFailToConvertedInvalidStrings()
+        {
+            Assert.Null("not-valid".ToEra());
+        }        
     }
 }

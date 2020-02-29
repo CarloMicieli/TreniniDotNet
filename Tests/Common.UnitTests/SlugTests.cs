@@ -59,6 +59,16 @@ namespace TreniniDotNet.Common.Tests
             Assert.Equal("my-other-slug", s3.ToString());
             Assert.Equal("my-slug", s4.ToString());
         }
+
+        [Fact]
+        public void ItShouldCreateANewSlugFromMultipleValues()
+        {
+            var s1 = Slug.Of("ACME", "12345");
+            var s2 = Slug.Of(new MyClass { V = 42 }, new MyClass { V = 84 });
+
+            Assert.Equal("acme-12345", s1.ToString());
+            Assert.Equal("42-84", s2.ToString());
+        }
     }
 
     class MyClass : ICanConvertToSlug<MyClass>

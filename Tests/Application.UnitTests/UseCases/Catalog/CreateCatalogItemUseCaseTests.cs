@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UnitTests.InMemory.OutputPorts.Catalog;
+using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
@@ -135,6 +137,30 @@ namespace TreniniDotNet.Application.UseCases.Catalog
            
             outputPort.ShouldHaveNoValidationError();
             outputPort.RailwayNotFoundMethod.ShouldBeInvokedWithTheArguments("Any of the railway was not found", new List<string>() { "not found1", "not found2" });
+        }
+
+        [Fact]
+        public async Task CreateCatalogItem_ShouldCreateANewCatalogItem()
+        {
+            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
+
+            var input = new CreateCatalogItemInput(
+                brandName: "acme", 
+                itemNumber: "99999",
+                description: "My new catalog item",
+                prototypeDescription: null,
+                modelDescription: null,
+                powerMethod: "dc",
+                scale: "H0",
+                rollingStocks: RollingStockList(
+                    RollingStock("VI", Category.ElectricLocomotive.ToString(), "fs"),
+                    RollingStock("VI", Category.ElectricLocomotive.ToString(), "fs")));
+
+            await useCase.Execute(input);
+           
+            outputPort.ShouldHaveStandardOutput();
+            Assert.Equal(Slug.Of("acme-99999"), outputPort.UseCaseOutput.Slug);
+            Assert.NotEqual(CatalogItemId.Empty, outputPort.UseCaseOutput.Id);
         }
 
         private CreateCatalogItem NewCreateCatalogItem(CatalogItemService catalogItemService, CreateCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)

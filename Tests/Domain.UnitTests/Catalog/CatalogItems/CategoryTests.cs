@@ -11,5 +11,12 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Category.ElectricMultipleUnit, 
                 Category.ElectricMultipleUnit.ToString().ToCategory());
         }
+
+
+        [Fact]
+        public void Category_shouldBFailToConvertedFromInvalidStrings()
+        {
+            Assert.Null("not-valid".ToCategory());
+        }
     }
 }

@@ -183,11 +183,11 @@ namespace TreniniDotNet.Application.SeedData.Catalog
             {
                 new RollingStock(
                     _fs,
-                    _scaleH0,
                     Category.ElectricLocomotive,
                     Era.VI, 
-                    PowerMethod.DC, 
-                    Length.OfMillimeters(210))
+                    Length.OfMillimeters(210),
+                    "E 636",
+                    "E 636 117")
             };
 
             return new CatalogItem(
@@ -195,7 +195,9 @@ namespace TreniniDotNet.Application.SeedData.Catalog
                 _acme,
                 new ItemNumber("60458"),
                 Slug.Of("acme_60458"), //TODO
+                _scaleH0,
                 rollingStocks,
+                PowerMethod.DC, 
                 @"FS Locomotiva elettrica E 636 117 nella livrea storica blu orientale e grigio 
                 perla con vomere giallo, logo e scritta Trenitalia, nella fase di fine esercizio",
                 null,
