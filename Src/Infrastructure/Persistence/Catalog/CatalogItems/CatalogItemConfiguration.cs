@@ -26,11 +26,6 @@ namespace TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems
                 .IsRequired(true)
                 .HasMaxLength(50);
 
-            builder.Property(e => e.Category)
-                .IsUnicode(false)
-                .IsRequired(true)
-                .HasMaxLength(25);
-
             builder.Property(e => e.Description)
                 .IsUnicode(true)
                 .IsRequired(true)

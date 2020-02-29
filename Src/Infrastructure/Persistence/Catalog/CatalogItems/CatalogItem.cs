@@ -14,8 +14,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
         public string Slug { set; get; } = null!;
 
-        public string Category { set; get; } = "";
-
         public Scale Scale { set; get; } = null!;
 
         public string ItemNumber { set; get; } = null!;
@@ -30,7 +28,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
         public string? DeliveryDate { set; get; }
 
-        public bool? DirectCurrent { set; get; }
+        public string? PowerMethod { set; get; }
 
         public bool? Released { set; get; }
 
