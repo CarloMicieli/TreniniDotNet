@@ -6,7 +6,7 @@ using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public sealed class CatalogItem
+    public sealed class CatalogItem : ICatalogItem
     {
         private readonly CatalogItemId _id;
         private readonly IBrand _brand;

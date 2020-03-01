@@ -25,17 +25,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             return Task.FromResult(catalogItem.CatalogItemId);
         }
 
-        public Task<D.CatalogItem> GetBy(IBrand brand, ItemNumber itemNumber)
+        Task<ICatalogItem?> ICatalogItemRepository.GetBy(IBrand brand, ItemNumber itemNumber)
         {
             throw new NotImplementedException();
         }
 
-        public Task<D.CatalogItem> GetBy(Slug slug)
+        Task<ICatalogItem?> ICatalogItemRepository.GetBy(Slug slug)
         {
             throw new NotImplementedException();
         }
 
-        public Task<D.CatalogItem> GetBy(CatalogItemId id)
+        Task<ICatalogItem?> ICatalogItemRepository.GetBy(CatalogItemId id)
         {
             throw new NotImplementedException();
         }

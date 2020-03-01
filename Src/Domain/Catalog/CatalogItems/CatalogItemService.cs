@@ -27,6 +27,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             _scales = scales;
         }
 
+        public Task<ICatalogItem?> FindBySlug(Slug slug)
+        {
+            return _catalogItemsRepository.GetBy(slug);
+        }
+
         public Task<IBrand?> FindBrandByName(string brandName)
         {
             return _brandsRepository.GetByName(brandName.Trim());

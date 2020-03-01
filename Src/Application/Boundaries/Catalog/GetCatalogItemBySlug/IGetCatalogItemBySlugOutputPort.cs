@@ -2,5 +2,6 @@
 {
     public interface IGetCatalogItemBySlugOutputPort : IOutputPortStandard<GetCatalogItemBySlugOutput>
     {
+        void CatalogItemNotFound(string message);
     }
 }

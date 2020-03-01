@@ -164,7 +164,7 @@ namespace TreniniDotNet.Application.SeedData.Catalog
     
         #region [ Catalog items ]
 
-        public static ICollection<CatalogItem> CatalogItems
+        public static ICollection<ICatalogItem> CatalogItems
         {
             get
             {
@@ -172,12 +172,12 @@ namespace TreniniDotNet.Application.SeedData.Catalog
             }
         }
 
-        private static readonly ICollection<CatalogItem> _items = new List<CatalogItem>()
+        private static readonly ICollection<ICatalogItem> _items = new List<ICatalogItem>()
         {
             Acme_60458()
         };
         
-        private static CatalogItem Acme_60458()
+        private static ICatalogItem Acme_60458()
         {
             var rollingStocks = new List<RollingStock>()
             {
@@ -194,7 +194,7 @@ namespace TreniniDotNet.Application.SeedData.Catalog
                 CatalogItemId.NewId(),
                 _acme,
                 new ItemNumber("60458"),
-                Slug.Of("acme_60458"), //TODO
+                Slug.Of("acme", "60458"),
                 _scaleH0,
                 rollingStocks,
                 PowerMethod.DC, 

@@ -19,24 +19,28 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         public Task<CatalogItemId> Add(CatalogItem catalogItem)
         {
             _context.CatalogItems.Add(catalogItem);
-            return Task.FromResult(catalogItem.CatalogItemId);
+           return Task.FromResult(catalogItem.CatalogItemId);
         }
 
-        public Task<CatalogItem> GetBy(IBrand brand, ItemNumber itemNumber)
+        public Task<ICatalogItem> GetBy(IBrand brand, ItemNumber itemNumber)
+        {
+           var catalogItem = _context.CatalogItems
+               .Where(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber)
+               .FirstOrDefault();
+
+           return Task.FromResult(catalogItem);
+        }
+
+        public Task<ICatalogItem> GetBy(Slug slug)
         {
             var catalogItem = _context.CatalogItems
-                .Where(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber)
+                .Where(it => it.Slug == slug)
                 .FirstOrDefault();
-            
+
             return Task.FromResult(catalogItem);
         }
 
-        public Task<CatalogItem> GetBy(Slug slug)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<CatalogItem> GetBy(CatalogItemId id)
+        public Task<ICatalogItem> GetBy(CatalogItemId id)
         {
             throw new System.NotImplementedException();
         }
