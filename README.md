@@ -2,11 +2,9 @@
 
 ![.NET Core](https://github.com/CarloMicieli/TreniniDotNet/workflows/.NET%20Core/badge.svg)
 
-One Paragraph of project description goes here
+A database for model railways collections (and a Restful web api).
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
@@ -14,6 +12,34 @@ This application is using:
 
 - .NET Core 3.1
 - Postgres SQL 12
+
+### Postgres 
+
+Add the PostgreSQL 12 repository
+
+```
+$ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+$ echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+```
+
+Install both server and client:
+
+```
+$ sudo apt update
+$ sudo apt -y install postgresql-12 postgresql-client-12
+```
+
+Create a new database:
+
+```
+postgres=# CREATE DATABASE TreniniDb;
+CREATE DATABASE
+postgres=# CREATE USER tdbuser WITH ENCRYPTED PASSWORD 'tdbpass';
+CREATE ROLE
+postgres=# GRANT ALL PRIVILEGES ON DATABASE TreniniDb to tdbuser;
+GRANT
+```
+
 
 ## Running the tests
 
