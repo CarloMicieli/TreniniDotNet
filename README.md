@@ -13,7 +13,7 @@ This application is using:
 - .NET Core 3.1
 - Postgres SQL 12
 
-### Postgres 
+### Postgres & Database init
 
 Add the PostgreSQL 12 repository
 
@@ -29,22 +29,52 @@ $ sudo apt update
 $ sudo apt -y install postgresql-12 postgresql-client-12
 ```
 
-Create a new database:
+Create a new database (development *only*):
 
 ```
 postgres=# CREATE DATABASE TreniniDb;
 CREATE DATABASE
 postgres=# CREATE USER tdbuser WITH ENCRYPTED PASSWORD 'tdbpass';
 CREATE ROLE
-postgres=# GRANT ALL PRIVILEGES ON DATABASE TreniniDb to tdbuser;
+postgres=# ALTER USER tdbuser CREATEDB;
 GRANT
 ```
 
+Run the migrations
+
+```
+$ dotnet ef database update --project Src/Web --context ApplicationIdentityDbContext
+$ dotnet ef database update --project Src/Web --context ApplicationDbContext
+```
+
+Run the scripts to seed the database:
+
+```
+$ export PGPASSWORD='tdbpass'; psql -U tdbuser -h localhost -d TreniniDb -a -f ./_Init/brands.sql
+$ export PGPASSWORD='tdbpass'; psql -U tdbuser -h localhost -d TreniniDb -a -f ./_Init/scales.sql
+$ export PGPASSWORD='tdbpass'; psql -U tdbuser -h localhost -d TreniniDb -a -f ./_Init/railways.sql
+```
+
+## Run the application
+
+```
+$ dotnet run --project Src/Web
+[18:57:51 INF] User profile is available. Using '/home/carlo/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+[18:57:52 INF] Now listening on: http://localhost:5000
+[18:57:52 INF] Now listening on: https://localhost:5001
+[18:57:52 INF] Application started. Press Ctrl+C to shut down.
+[18:57:52 INF] Hosting environment: Production
+[18:57:52 INF] Content root path: /home/carlo/Projects/TreniniDotNet/Src/Web
+```
+
+The Swagger documentation page is at [https://localhost:5001/swagger](https://localhost:5001/swagger).
 
 ## Running the tests
 
+This command will run all tests (unit tests and integration tests):
+
 ```
-dotnet test
+$ dotnet test
 ```
 
 ## Built With
