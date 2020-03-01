@@ -28,7 +28,14 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
 
         public override void Standard(CreateCatalogItemOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = Created(
+                nameof(GetCatalogItemBySlug.CatalogItemsController.GetCatalogItemBySlug),
+                new
+                {
+                    slug = output.Slug,
+                    version = "1",
+                },
+                output);
         }
     }
 }

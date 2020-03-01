@@ -7,11 +7,11 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 {
     public class GetCatalogItemBySlug : IGetCatalogItemBySlugUseCase
     {
-        private readonly IOutputPort _outputPort;
+        private readonly IGetCatalogItemBySlugOutputPort _outputPort;
         private readonly IUnitOfWork _unitOfWork;
         private readonly CatalogItemService _catalogItemService;
 
-        public GetCatalogItemBySlug(IOutputPort outputPort, IUnitOfWork unitOfWork, CatalogItemService catalogItemService)
+        public GetCatalogItemBySlug(IGetCatalogItemBySlugOutputPort outputPort, IUnitOfWork unitOfWork, CatalogItemService catalogItemService)
         {
             _outputPort = outputPort;
             _unitOfWork = unitOfWork;

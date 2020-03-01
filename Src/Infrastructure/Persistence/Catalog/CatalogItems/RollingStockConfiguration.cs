@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems
+namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
     public class RollingStockConfiguration : IEntityTypeConfiguration<RollingStock>
     {

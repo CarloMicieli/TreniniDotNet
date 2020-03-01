@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems;
 
-namespace TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems
+namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
     public class CatalogItemConfiguration : IEntityTypeConfiguration<CatalogItem>
     {

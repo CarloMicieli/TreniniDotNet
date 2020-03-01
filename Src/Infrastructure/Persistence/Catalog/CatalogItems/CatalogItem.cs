@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Scales;
 
