@@ -1,25 +1,18 @@
 ﻿using System;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    public interface IRailway
+    public interface IRailway : IRailwayInfo
     {
-        public RailwayId RailwayId { get; }
+        RailwayId RailwayId { get; }
 
-        public Slug Slug { get; }
+        string? CompanyName { get; }
 
-        public string Name { get; }
+        RailwayStatus? Status { get; }
 
-        public string? CompanyName { get; }
+        DateTime? OperatingUntil { get; }
 
-        public string? Country { get; }
-
-        public RailwayStatus? Status { get; }
-
-        public DateTime? OperatingUntil { get; }
-
-        public DateTime? OperatingSince { get; }
+        DateTime? OperatingSince { get; }
     }
 }

@@ -125,6 +125,11 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         }
         #endregion
 
+        public IBrandInfo ToBrandInfo()
+        {
+            return this;
+        }
+
         private static void ValidateBrandName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
