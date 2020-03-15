@@ -1,4 +1,3 @@
-using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +9,9 @@ using Serilog;
 using System.Text.Json;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Web.DependencyInjection;
+using TreniniDotNet.Infrastracture.Extensions.DependencyInjection;
+using TreniniDotNet.Infrastracture.Persistence.Migrations;
+using System;
 
 namespace TreniniDotNet.Web
 {
@@ -35,6 +37,20 @@ namespace TreniniDotNet.Web
                 });
             services.AddHttpContextAccessor();
 
+            var connectionString = Configuration.GetConnectionString("Default");
+
+            services.AddDapper(options =>
+            {
+                options.UsePostgres(connectionString);
+                options.ScanTypeHandlersIn(typeof(GuidTypeHandler).Assembly);
+            });
+
+            services.AddMigrations(options =>
+            {
+                options.UsePostgres(connectionString);
+                options.ScanMigrationsIn(typeof(InitialMigration).Assembly);
+            });
+
             services.AddOpenApi();
             services.AddVersioning();
 
@@ -53,11 +69,15 @@ namespace TreniniDotNet.Web
                 .AddJwtAuthorization();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseExceptionHandler("/error-local-development");
+
+                // Run database migration
+                var migration = serviceProvider.GetRequiredService<IDatabaseMigration>();
+                migration.Up();
             }
             else
             {
