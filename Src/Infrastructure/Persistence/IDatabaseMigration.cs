@@ -1,4 +1,4 @@
-﻿namespace TreniniDotNet.Infrastracture.Persistence.Migrations
+﻿namespace TreniniDotNet.Infrastracture.Persistence
 {
     public interface IDatabaseMigration
     {

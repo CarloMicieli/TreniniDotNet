@@ -10,8 +10,9 @@ using System.Text.Json;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Web.DependencyInjection;
 using TreniniDotNet.Infrastracture.Extensions.DependencyInjection;
-using TreniniDotNet.Infrastracture.Persistence.Migrations;
+using TreniniDotNet.Infrastracture.Persistence;
 using System;
+using TreniniDotNet.Infrastracture.Persistence.Migrations;
 
 namespace TreniniDotNet.Web
 {
