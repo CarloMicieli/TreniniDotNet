@@ -8,17 +8,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public Guid RollingStockId { set; get; }
 
         public Guid CatalogItemId { set; get; }
-        
+
         public CatalogItem CatalogItem { set; get; } = null!;
 
         public string Era { set; get; } = null!;
-        
+
         public decimal? Length { set; get; }
-        
+
         public Railway Railway { set; get; } = null!;
-        
+
         public string? ClassName { set; get; }
-        
+
         public string? RoadNumber { set; get; }
 
         public string? Livery { set; get; }

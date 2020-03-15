@@ -17,6 +17,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public void Era_shouldBeFailToConvertedInvalidStrings()
         {
             Assert.Null("not-valid".ToEra());
-        }        
+        }
     }
 }

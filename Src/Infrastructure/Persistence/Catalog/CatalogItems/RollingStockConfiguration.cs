@@ -25,7 +25,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             builder.Property(e => e.Category)
                 .IsUnicode(false)
                 .IsRequired(true)
-                .HasMaxLength(25);                
+                .HasMaxLength(25);
 
             builder.Property(e => e.Livery)
                 .IsUnicode(true)

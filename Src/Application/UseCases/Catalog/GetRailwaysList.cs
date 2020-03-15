@@ -22,5 +22,5 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         }
 
         private IGetRailwaysListOutputPort OutputPort => _outputPort;
-    }    
+    }
 }

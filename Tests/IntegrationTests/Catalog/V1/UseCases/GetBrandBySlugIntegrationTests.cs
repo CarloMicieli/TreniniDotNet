@@ -10,7 +10,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 {
     public class GetBrandBySlugIntegrationTests : AbstractWebApplicationFixture
     {
-        public GetBrandBySlugIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
+        public GetBrandBySlugIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
         }

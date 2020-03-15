@@ -50,7 +50,7 @@
         /// </summary>
         StarterSet
     }
-    
+
     public static class CategoryExtensions
     {
         public static Category? ToCategory(this string? s)

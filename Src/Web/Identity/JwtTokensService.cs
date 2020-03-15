@@ -10,7 +10,7 @@ namespace TreniniDotNet.Web.Identity
     public class JwtTokensService : ITokensService
     {
         private readonly JwtSettings _jwtSettings;
-        
+
         public JwtTokensService(IOptions<JwtSettings> jwtConfig)
         {
             _jwtSettings = jwtConfig.Value;
@@ -18,12 +18,12 @@ namespace TreniniDotNet.Web.Identity
 
         public string CreateToken(string subject)
         {
-            var authClaims = new[] 
+            var authClaims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, subject),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
-        
+
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
             var signingCredentials = new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256);
 

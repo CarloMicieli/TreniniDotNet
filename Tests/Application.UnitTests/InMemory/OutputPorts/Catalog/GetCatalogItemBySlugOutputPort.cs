@@ -6,7 +6,7 @@ namespace TreniniDotNet.Application.UnitTests.InMemory.OutputPorts.Catalog
     public class GetCatalogItemBySlugOutputPort : OutputPortTestHelper<GetCatalogItemBySlugOutput>, IGetCatalogItemBySlugOutputPort
     {
         public MethodInvocation<string> CatalogItemNotFoundMethod { set; get; }
-        
+
         public GetCatalogItemBySlugOutputPort()
         {
             this.CatalogItemNotFoundMethod = MethodInvocation<string>.NotInvoked(nameof(CatalogItemNotFound));

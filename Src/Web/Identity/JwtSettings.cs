@@ -1,6 +1,6 @@
 namespace TreniniDotNet.Web.Identity
 {
-   public class JwtSettings
+    public class JwtSettings
     {
         public string Secret { get; set; } = "";
         public string Issuer { get; set; } = "";

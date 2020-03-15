@@ -29,7 +29,7 @@ namespace TreniniDotNet.Web.Controllers.V1
                 bool validPassword = await _userManager.CheckPasswordAsync(user, login.Password);
                 if (validPassword)
                 {
-                    return Ok(new 
+                    return Ok(new
                     {
                         token = _tokensService.CreateToken(user.UserName)
                     });

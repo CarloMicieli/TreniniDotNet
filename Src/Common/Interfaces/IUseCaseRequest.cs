@@ -1,6 +1,6 @@
 ﻿namespace TreniniDotNet.Common.Interfaces
 {
-    public interface IUseCaseRequest<out TUseCaseResponse> 
+    public interface IUseCaseRequest<out TUseCaseResponse>
     {
     }
 }

@@ -9,7 +9,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 {
     public class CreateRailwayIntegrationTests : AbstractWebApplicationFixture
     {
-        public CreateRailwayIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
+        public CreateRailwayIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
         }

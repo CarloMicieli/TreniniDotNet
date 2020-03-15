@@ -33,7 +33,7 @@ namespace TreniniDotNet.Application.UnitTests.InMemory.OutputPorts.Catalog
         {
             this.ScaleNotFoundMethod = this.ScaleNotFoundMethod.Invoked(message);
         }
-    
+
         public void RailwayNotFound(string message, IEnumerable<string> railwayNames)
         {
             this.RailwayNotFoundMethod = this.RailwayNotFoundMethod.Invoked(message, railwayNames);

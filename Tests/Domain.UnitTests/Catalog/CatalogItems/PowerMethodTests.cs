@@ -16,6 +16,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public void PowerMethod_shouldBeFailToConvertedInvalidStrings()
         {
             Assert.Null("not-valid".ToPowerMethod());
-        }   
+        }
     }
 }

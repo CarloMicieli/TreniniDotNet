@@ -13,7 +13,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetRailwaysList
     [ApiController]
     public class RailwaysController : UseCaseController<GetRailwaysListRequest, GetRailwaysListPresenter>
     {
-        public RailwaysController(IMediator mediator, GetRailwaysListPresenter presenter) 
+        public RailwaysController(IMediator mediator, GetRailwaysListPresenter presenter)
             : base(mediator, presenter)
         {
         }

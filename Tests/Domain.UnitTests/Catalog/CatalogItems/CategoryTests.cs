@@ -8,7 +8,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public void Category_shouldBeConvertedFromString()
         {
             Assert.Equal(
-                Category.ElectricMultipleUnit, 
+                Category.ElectricMultipleUnit,
                 Category.ElectricMultipleUnit.ToString().ToCategory());
         }
 

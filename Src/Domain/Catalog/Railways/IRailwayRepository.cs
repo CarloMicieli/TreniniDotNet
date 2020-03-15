@@ -10,10 +10,10 @@ namespace TreniniDotNet.Domain.Catalog.Railways
     public interface IRailwaysRepository
     {
         Task<RailwayId> Add(
-            string name, 
+            string name,
             Slug slug,
-            string? companyName, 
-            string? country, 
+            string? companyName,
+            string? country,
             DateTime? operatingSince,
             DateTime? operatingUntil,
             RailwayStatus rs);
@@ -21,11 +21,11 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         Task<IRailway> GetBy(Slug slug);
 
         Task<bool> Exists(Slug slug);
-        
+
         Task<List<IRailway>> GetAll();
-        
+
         Task<PaginatedResult<IRailway>> GetRailways(Page page);
-        
+
         Task<IRailway?> GetByName(string name);
     }
 }

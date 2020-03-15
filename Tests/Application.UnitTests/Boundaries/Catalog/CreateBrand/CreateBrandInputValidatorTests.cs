@@ -6,7 +6,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
     public class CreateBrandInputValidatorTests
     {
         private readonly CreateBrandInputValidator validator;
-        
+
         public CreateBrandInputValidatorTests()
         {
             validator = new CreateBrandInputValidator();
@@ -16,10 +16,10 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         public void CreateBrandInputValidator_ShouldHaveNoError_WhenEverythingIsValid()
         {
             var input = new CreateBrandInput(
-                "ACME", 
-                "Associazione Costruzioni Modellistiche Esatte", 
-                "http://www.acmetreni.com", 
-                "mail@acmetreni.com", 
+                "ACME",
+                "Associazione Costruzioni Modellistiche Esatte",
+                "http://www.acmetreni.com",
+                "mail@acmetreni.com",
                 "Industrial");
 
             var result = validator.TestValidate(input);

@@ -14,7 +14,7 @@ namespace TreniniDotNet.Common.Extensions
 
         public static float ToFloat(this decimal d)
         {
-            return (float) d;
+            return (float)d;
         }
     }
 }

@@ -24,11 +24,11 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         public Task<BrandId> Add(BrandId brandId, string name, Slug slug, string companyName, Uri websiteUrl, MailAddress emailAddress, BrandKind? brandKind)
         {
             var newBrand = _brandsFactory.NewBrand(
-                brandId.ToGuid(), 
-                name, 
-                slug.ToString(), 
+                brandId.ToGuid(),
+                name,
+                slug.ToString(),
                 companyName,
-                websiteUrl?.ToString(), 
+                websiteUrl?.ToString(),
                 emailAddress?.ToString(),
                 brandKind?.ToString());
 

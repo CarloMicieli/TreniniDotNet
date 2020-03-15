@@ -4,8 +4,8 @@ namespace TreniniDotNet.Web.ViewModels.V1
 {
     public class Login
     {
-         public string? Username { set; get; }
-         public string? Password { get; set; }
+        public string? Username { set; get; }
+        public string? Password { get; set; }
     }
 
     internal class LoginValidator : AbstractValidator<Login>
@@ -20,7 +20,7 @@ namespace TreniniDotNet.Web.ViewModels.V1
             RuleFor(x => x.Password)
                 .NotNull()
                 .NotEmpty()
-                .MaximumLength(50);                
+                .MaximumLength(50);
         }
     }
 }

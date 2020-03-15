@@ -92,7 +92,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         [Fact]
         public void ItShouldSumMultipleLenghtsInInches()
         {
-            var lengths = new List<Length>() 
+            var lengths = new List<Length>()
             {
                 Length.OfInches(10f),
                 Length.OfInches(20f),

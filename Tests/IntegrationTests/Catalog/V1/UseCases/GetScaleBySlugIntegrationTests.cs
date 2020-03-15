@@ -10,7 +10,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 {
     public class GetScaleBySlugIntegrationTests : AbstractWebApplicationFixture
     {
-        public GetScaleBySlugIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
+        public GetScaleBySlugIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
         }

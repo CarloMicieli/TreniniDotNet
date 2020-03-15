@@ -12,7 +12,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetCatalogItemBySlug
     [ApiController]
     public sealed class CatalogItemsController : UseCaseController<GetCatalogItemBySlugRequest, GetCatalogItemBySlugPresenter>
     {
-        public CatalogItemsController(IMediator mediator, GetCatalogItemBySlugPresenter presenter) 
+        public CatalogItemsController(IMediator mediator, GetCatalogItemBySlugPresenter presenter)
             : base(mediator, presenter)
         {
         }

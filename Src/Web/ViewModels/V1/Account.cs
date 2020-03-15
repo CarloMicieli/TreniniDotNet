@@ -5,11 +5,11 @@ namespace TreniniDotNet.Web.ViewModels.V1
     public class Account
     {
         public string? Username { get; set; }
-        public string? Password { get; set; }   
+        public string? Password { get; set; }
         public string? Email { get; set; }
     }
 
-    internal class AccountValidator : AbstractValidator<Account> 
+    internal class AccountValidator : AbstractValidator<Account>
     {
         public AccountValidator()
         {

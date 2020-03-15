@@ -13,7 +13,7 @@ namespace TreniniDotNet.Application.UseCases
 {
     public abstract class UseCaseTestHelper<TUseCase, TUseCaseOutput, TOutputPort>
         where TUseCaseOutput : IUseCaseOutput
-        where TOutputPort: IOutputPortStandard<TUseCaseOutput>, new()
+        where TOutputPort : IOutputPortStandard<TUseCaseOutput>, new()
     {
         protected (TUseCase, TOutputPort) ArrangeBrandsUseCase(Start initData, Func<BrandService, TOutputPort, IUnitOfWork, TUseCase> factory)
         {
@@ -66,13 +66,13 @@ namespace TreniniDotNet.Application.UseCases
 
             var catalogItemService = new CatalogItemService(
                 catalogItemRepository,
-                brandRepository, 
-                scaleRepository, 
+                brandRepository,
+                scaleRepository,
                 railwayRepository);
             var outputPort = new TOutputPort();
 
             return (factory.Invoke(catalogItemService, outputPort, unitOfWork), outputPort);
-        }       
+        }
     }
 
     public enum Start

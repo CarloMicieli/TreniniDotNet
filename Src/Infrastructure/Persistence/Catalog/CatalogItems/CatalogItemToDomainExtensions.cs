@@ -12,15 +12,15 @@ namespace Infrastructure.Persistence.Catalog.CatalogItems
 {
     public static class CatalogItemToDomainExtensions
     {
-        public static DomainCatalogItem ToDomain(this EfCatalogItem ci) 
+        public static DomainCatalogItem ToDomain(this EfCatalogItem ci)
         {
             IBrand brand = new Brand(
-                new BrandId(ci.Brand.BrandId), 
-                ci.Brand.Name, 
+                new BrandId(ci.Brand.BrandId),
+                ci.Brand.Name,
                 Slug.Of(ci.Brand.Slug),
                 ci.Brand.CompanyName,
-                ci.Brand.WebsiteUrl != null ? new Uri(ci.Brand.WebsiteUrl) : null, 
-                ci.Brand.EmailAddress != null ? new System.Net.Mail.MailAddress(ci.Brand.EmailAddress) : null, 
+                ci.Brand.WebsiteUrl != null ? new Uri(ci.Brand.WebsiteUrl) : null,
+                ci.Brand.EmailAddress != null ? new System.Net.Mail.MailAddress(ci.Brand.EmailAddress) : null,
                 ci.Brand.BrandKind.ToBrandKind());
 
             IScale scale = new Scale(

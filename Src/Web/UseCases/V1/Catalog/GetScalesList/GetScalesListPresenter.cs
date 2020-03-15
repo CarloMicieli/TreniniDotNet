@@ -31,7 +31,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScalesList
         private ScaleView ToScaleView(IScale scale)
         {
             return new ScaleView(scale, _linksGenerator.GenerateSelfLink(
-                nameof(GetScaleBySlug.ScalesController.GetScaleBySlug), 
+                nameof(GetScaleBySlug.ScalesController.GetScaleBySlug),
                 scale.Slug));
         }
     }

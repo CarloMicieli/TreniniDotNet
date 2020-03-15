@@ -24,7 +24,7 @@ namespace TreniniDotNet.Web.Controllers.V1
         {
             if (ModelState.IsValid)
             {
-                var newUser = new ApplicationUser 
+                var newUser = new ApplicationUser
                 {
                     Email = account.Email,
                     UserName = account.Username

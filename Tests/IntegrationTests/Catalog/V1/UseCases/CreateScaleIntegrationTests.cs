@@ -9,7 +9,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 {
     public class CreateScaleIntegrationTests : AbstractWebApplicationFixture
     {
-        public CreateScaleIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
+        public CreateScaleIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
         }

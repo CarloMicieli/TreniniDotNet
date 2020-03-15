@@ -35,6 +35,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 null,
                 null,
                 RailwayStatus.Active);
-        } 
+        }
     }
 }

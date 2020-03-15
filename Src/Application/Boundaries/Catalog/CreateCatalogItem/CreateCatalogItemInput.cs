@@ -15,13 +15,13 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         private readonly IList<RollingStockInput> _rollingStocks;
 
         public CreateCatalogItemInput(
-            string brandName, 
-            string itemNumber, 
-            string description, 
-            string? prototypeDescription, 
-            string? modelDescription, 
-            string powerMethod, 
-            string scale, 
+            string brandName,
+            string itemNumber,
+            string description,
+            string? prototypeDescription,
+            string? modelDescription,
+            string powerMethod,
+            string scale,
             IList<RollingStockInput> rollingStocks)
         {
             _brandName = brandName;
@@ -51,7 +51,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         public IList<RollingStockInput> RollingStocks => _rollingStocks;
     }
 
-    public class RollingStockInput 
+    public class RollingStockInput
     {
         private readonly string _era;
         private readonly string _category;

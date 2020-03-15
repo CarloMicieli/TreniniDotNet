@@ -22,16 +22,16 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
         public List<RollingStock> RollingStocks { set; get; } = new List<RollingStock>();
     }
 
-    public sealed class RollingStock 
+    public sealed class RollingStock
     {
         public string? Era { set; get; }
-        
+
         public decimal? Length { set; get; }
-        
+
         public string? Railway { set; get; }
-        
+
         public string? ClassName { set; get; }
-        
+
         public string? RoadNumber { set; get; }
 
         public string? Category { set; get; }

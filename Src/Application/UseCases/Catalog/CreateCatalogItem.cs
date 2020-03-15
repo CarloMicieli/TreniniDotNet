@@ -82,11 +82,11 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             var powerMethod = input.PowerMethod.ToPowerMethod() ?? PowerMethod.None;
             var catalogItem = new CatalogItem(
-                brand, 
-                itemNumber, 
-                scale, 
-                rollingStocks, 
-                powerMethod, 
+                brand,
+                itemNumber,
+                scale,
+                rollingStocks,
+                powerMethod,
                 input.Description,
                 input.PrototypeDescription,
                 input.ModelDescription);
@@ -103,7 +103,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             if (railways.TryGetValue(input.Railway, out railway))
             {
                 return new RollingStock(
-                    railway, 
+                    railway,
                     input.Category.ToCategory() ?? Category.DieselLocomotive, //TODO
                     input.Era.ToEra() ?? Era.I, //TODO
                     Length.Of(input.Length ?? 0M),

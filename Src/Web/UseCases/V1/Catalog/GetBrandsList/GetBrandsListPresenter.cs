@@ -30,7 +30,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandsList
 
         private BrandView ToBrandView(IBrand brand)
         {
-            return new BrandView(brand, 
+            return new BrandView(brand,
                 _linksGenerator.GenerateSelfLink(nameof(GetBrandBySlug.BrandsController.GetBrandBySlug), brand.Slug));
         }
     }

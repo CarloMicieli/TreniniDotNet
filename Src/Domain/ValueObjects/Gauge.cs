@@ -35,7 +35,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         public float ToFloat(MeasureUnit mu)
         {
             var self = this;
-            return (float) mu.GetValueOrConvert(() => (self._gauge, self._mu));
+            return (float)mu.GetValueOrConvert(() => (self._gauge, self._mu));
         }
 
         public decimal ToDecimal(MeasureUnit mu)
@@ -130,7 +130,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         /// <returns>a new <em>Gauge</em></returns>
         public static Gauge OfMillimiters(float v)
         {
-            return new Gauge((decimal) v, MeasureUnit.Millimeters);
+            return new Gauge((decimal)v, MeasureUnit.Millimeters);
         }
 
         public static Gauge OfMillimiters(decimal d)
@@ -145,7 +145,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         /// <returns>a new <em>Gauge</em></returns>
         public static Gauge OfInches(float v)
         {
-            return new Gauge((decimal) v, MeasureUnit.Inches);
+            return new Gauge((decimal)v, MeasureUnit.Inches);
         }
 
         public static Gauge OfInches(decimal d)

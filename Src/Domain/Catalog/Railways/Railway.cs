@@ -85,7 +85,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             {
                 return true;
             }
-            
+
             if (obj is Railway that)
             {
                 return AreEquals(this, that);

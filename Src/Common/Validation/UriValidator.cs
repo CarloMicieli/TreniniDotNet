@@ -6,7 +6,7 @@ namespace TreniniDotNet.Domain.Validation
 {
     internal class UriValidator : PropertyValidator
     {
-        public UriValidator() 
+        public UriValidator()
             : base(new LanguageStringSource(nameof(UriValidator)))
         {
         }

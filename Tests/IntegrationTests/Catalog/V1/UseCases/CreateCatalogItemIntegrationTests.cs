@@ -12,7 +12,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 {
     public class CreateCatalogItemIntegrationTests : AbstractWebApplicationFixture
     {
-        public CreateCatalogItemIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
+        public CreateCatalogItemIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
         }
@@ -53,7 +53,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             };
 
             var response = await client.PostJsonAsync("/api/v1/catalogItems", content, Check.IsSuccessful);
-            
+
             response.Headers.Should().NotBeEmpty();
             response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/CatalogItems/acme-60458"));
         }

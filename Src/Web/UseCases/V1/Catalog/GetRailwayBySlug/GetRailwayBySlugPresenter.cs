@@ -23,7 +23,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetRailwayBySlug
         public override void Standard(GetRailwayBySlugOutput output)
         {
             var selfLink = _linksGenerator.GenerateSelfLink(
-                nameof(RailwaysController.GetRailwayBySlug), 
+                nameof(RailwaysController.GetRailwayBySlug),
                 output.Railway.Slug);
 
             var railwayViewModel = new RailwayView(output.Railway, selfLink);

@@ -19,10 +19,10 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
         protected override Task Handle(CreateScaleRequest request, CancellationToken cancellationToken)
         {
             var input = new CreateScaleInput(
-                request.Name, 
+                request.Name,
                 request.Ratio,
                 request.Gauge,
-                request.TrackGauge, 
+                request.TrackGauge,
                 request.Notes);
             return _useCase.Execute(input);
         }

@@ -22,9 +22,9 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             ScaleId scaleId = await _scaleRepository.Add(
                 ScaleId.NewId(),
                 slug,
-                name, 
+                name,
                 ratio,
-                gauge, 
+                gauge,
                 trackGauge,
                 notes);
             return scaleId;

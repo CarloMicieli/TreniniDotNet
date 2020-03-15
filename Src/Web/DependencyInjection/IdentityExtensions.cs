@@ -15,7 +15,7 @@ namespace TreniniDotNet.Web.DependencyInjection
     {
         public static IServiceCollection AddEntityFrameworkIdentity(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationIdentityDbContext>(options => 
+            services.AddDbContext<ApplicationIdentityDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("IdentityConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -32,15 +32,18 @@ namespace TreniniDotNet.Web.DependencyInjection
 
             JwtSettings jwtSettings = jwtConfigSection.Get<JwtSettings>();
 
-            services.AddAuthentication(options => {
+            services.AddAuthentication(options =>
+            {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(options => {
+            .AddJwtBearer(options =>
+            {
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters() {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidAudience = jwtSettings.Audience,
@@ -54,21 +57,21 @@ namespace TreniniDotNet.Web.DependencyInjection
 
         public static IServiceCollection AddJwtAuthorization(this IServiceCollection services)
         {
-            services.AddAuthorization(options => 
+            services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser()
                     .Build();
             });
-/*
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("EditPolicy", policy =>
-                    policy.Requirements.Add(new SameOwnerRequirement()));
-            });
-*/
-  //          services.AddSingleton<IAuthorizationHandler, CollectionAuthorizationHandler>();
-    //        services.AddSingleton<IAuthorizationHandler, CollectionAuthorizationCrudHandler>();
+            /*
+                        services.AddAuthorization(options =>
+                        {
+                            options.AddPolicy("EditPolicy", policy =>
+                                policy.Requirements.Add(new SameOwnerRequirement()));
+                        });
+            */
+            //          services.AddSingleton<IAuthorizationHandler, CollectionAuthorizationHandler>();
+            //        services.AddSingleton<IAuthorizationHandler, CollectionAuthorizationCrudHandler>();
             services.AddSingleton<ITokensService, JwtTokensService>();
 
             return services;

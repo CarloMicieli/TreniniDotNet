@@ -46,7 +46,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         public async Task CreateScale_ShouldNotCreateANewScale_WhenScaleAlreadyExists()
         {
             var (useCase, outputPort) = ArrangeScalesUseCase(Start.WithSeedData, NewCreateScale);
-            
+
             var name = "H0";
             var input = new CreateScaleInput(
                 name,

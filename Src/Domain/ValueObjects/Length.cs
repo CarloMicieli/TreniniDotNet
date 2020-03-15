@@ -78,7 +78,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
         private static bool AreEquals(Length left, Length right)
         {
-            return left._measureUnit == right._measureUnit && 
+            return left._measureUnit == right._measureUnit &&
                 left._value == right._value;
         }
         #endregion
@@ -135,7 +135,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
         public override string ToString()
         {
-      
+
             return _measureUnit.Apply(_value, val => $"{val.ToFloat()}in", val => $"{val.ToFloat()}mm");
 
         }
@@ -155,15 +155,15 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             return new Length(f, MeasureUnit.Millimeters);
         }
 
-/*
-        public static Length OfInches(decimal f)
-        {
-            return new Length(f, MeasureUnit.Inches);
-        }
-*/
+        /*
+                public static Length OfInches(decimal f)
+                {
+                    return new Length(f, MeasureUnit.Inches);
+                }
+        */
         private static Length NewLength(float f, MeasureUnit mu)
         {
-            return new Length((decimal) f, mu);
+            return new Length((decimal)f, mu);
         }
 
         private (decimal, MeasureUnit) ExtractValues()

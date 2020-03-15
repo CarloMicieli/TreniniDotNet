@@ -11,7 +11,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
     [ApiController]
     public sealed class CatalogItemsController : UseCaseController<CreateCatalogItemRequest, CreateCatalogItemPresenter>
     {
-        public CatalogItemsController(IMediator mediator, CreateCatalogItemPresenter presenter) 
+        public CatalogItemsController(IMediator mediator, CreateCatalogItemPresenter presenter)
             : base(mediator, presenter)
         {
         }

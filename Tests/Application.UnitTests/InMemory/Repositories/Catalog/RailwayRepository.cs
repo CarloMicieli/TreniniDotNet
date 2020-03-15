@@ -22,7 +22,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 
         public Task<RailwayId> Add(
             string name,
-            Slug slug, 
+            Slug slug,
             string companyName,
             string country,
             DateTime? operatingSince,

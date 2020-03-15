@@ -112,7 +112,7 @@ namespace TreniniDotNet.Application.SeedData.Catalog
             _bemo,
             _maerklin
         };
-        
+
         private static IBrand Acme()
         {
             return brandFactory.NewBrand(
@@ -161,7 +161,7 @@ namespace TreniniDotNet.Application.SeedData.Catalog
                 BrandKind.Industrial);
         }
         #endregion
-    
+
         #region [ Catalog items ]
 
         public static ICollection<ICatalogItem> CatalogItems
@@ -176,7 +176,7 @@ namespace TreniniDotNet.Application.SeedData.Catalog
         {
             Acme_60458()
         };
-        
+
         private static ICatalogItem Acme_60458()
         {
             var rollingStocks = new List<RollingStock>()
@@ -184,7 +184,7 @@ namespace TreniniDotNet.Application.SeedData.Catalog
                 new RollingStock(
                     _fs,
                     Category.ElectricLocomotive,
-                    Era.VI, 
+                    Era.VI,
                     Length.OfMillimeters(210),
                     "E 636",
                     "E 636 117")
@@ -197,14 +197,14 @@ namespace TreniniDotNet.Application.SeedData.Catalog
                 Slug.Of("acme", "60458"),
                 _scaleH0,
                 rollingStocks,
-                PowerMethod.DC, 
+                PowerMethod.DC,
                 @"FS Locomotiva elettrica E 636 117 nella livrea storica blu orientale e grigio 
                 perla con vomere giallo, logo e scritta Trenitalia, nella fase di fine esercizio",
                 null,
                 null);
         }
-       
+
         #endregion
-    
+
     }
 }

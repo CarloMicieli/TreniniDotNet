@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TreniniDotNet.Web.Identity
 {
-    public class ApplicationIdentityDbContext: IdentityDbContext<ApplicationUser>
+    public class ApplicationIdentityDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationIdentityDbContext(DbContextOptions<ApplicationIdentityDbContext> options)
             : base(options)

@@ -23,12 +23,12 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 .MaximumLength(250);
 
             RuleFor(x => x.PrototypeDescription)
-                .MaximumLength(2500);                
-            
-            RuleFor(x => x.ModelDescription)
-                .MaximumLength(2500);   
+                .MaximumLength(2500);
 
-            RuleFor(x => x.PowerMethod)  
+            RuleFor(x => x.ModelDescription)
+                .MaximumLength(2500);
+
+            RuleFor(x => x.PowerMethod)
                 .NotNull()
                 .IsEnumName(typeof(PowerMethod), caseSensitive: false);
 
@@ -40,8 +40,8 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
             RuleFor(x => x.RollingStocks)
                 .NotNull()
                 .NotEmpty();
-            
-            RuleForEach(x => x.RollingStocks)                
+
+            RuleForEach(x => x.RollingStocks)
                 .SetValidator(new RollingStockInputValidator());
         }
 
@@ -68,9 +68,9 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
 
                 RuleFor(x => x.RoadNumber)
                     .MaximumLength(25);
-                    
+
                 RuleFor(x => x.ClassName)
-                    .MaximumLength(25);                    
+                    .MaximumLength(25);
             }
         }
     }

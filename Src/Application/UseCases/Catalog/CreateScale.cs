@@ -13,8 +13,8 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         private readonly IUnitOfWork _unitOfWork;
 
         public CreateScale(
-            ICreateScaleOutputPort outputPort, 
-            ScaleService scaleService, 
+            ICreateScaleOutputPort outputPort,
+            ScaleService scaleService,
             IUnitOfWork unitOfWork)
             : base(new CreateScaleInputValidator(), outputPort)
         {

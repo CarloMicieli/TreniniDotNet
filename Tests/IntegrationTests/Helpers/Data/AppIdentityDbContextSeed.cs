@@ -9,7 +9,7 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             await SeedUserAsync(userManager, "george@gmail.com", "Rocket$$89");
-        }   
+        }
 
         private static Task SeedUserAsync(UserManager<ApplicationUser> userManager, string username, string password)
         {

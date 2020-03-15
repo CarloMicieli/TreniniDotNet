@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity;
 namespace TreniniDotNet.IntegrationTests
 {
     // ref https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/test/integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/CustomWebApplicationFactory.cs
-    public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> 
+    public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup>
         where TStartup : class
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -58,7 +58,7 @@ namespace TreniniDotNet.IntegrationTests
         }
     }
 
-    public static class IServiceCollectionTestExtensions 
+    public static class IServiceCollectionTestExtensions
     {
         public static IServiceCollection ReplaceWithInMemory<TContext>(this IServiceCollection services, string databaseName)
             where TContext : DbContext

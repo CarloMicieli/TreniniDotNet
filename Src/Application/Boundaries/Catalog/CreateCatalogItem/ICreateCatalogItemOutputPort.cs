@@ -9,7 +9,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         void CatalogItemAlreadyExists(string message);
 
         void ScaleNotFound(string message);
-        
+
         void RailwayNotFound(string message, IEnumerable<string> railwayNames);
     }
 }

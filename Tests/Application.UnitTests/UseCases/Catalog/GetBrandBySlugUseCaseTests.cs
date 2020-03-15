@@ -29,7 +29,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             outputPort.ShouldHaveValidationErrors();
         }
-           
+
         [Fact]
         public async Task GetBrandBySlug_ReturnsTheBrandWithTheProvidedSlug()
         {
@@ -47,7 +47,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         public async Task GetBrandBySlug_WhenBrandIsNotFound_OutputBrandNotFound()
         {
             var (useCase, outputPort) = ArrangeBrandsUseCase(Start.WithSeedData, NewGetBrandBySlug);
-                        
+
             var input = new GetBrandBySlugInput(Slug.Of("not-found"));
             await useCase.Execute(input);
 

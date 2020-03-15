@@ -9,7 +9,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
     /// </summary>
     public readonly struct Ratio : IEquatable<Ratio>
     {
-       // private const Digits DefaultDigits = Digits.One;
+        // private const Digits DefaultDigits = Digits.One;
 
         private readonly decimal _ratio;
 
@@ -24,7 +24,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
         public float ToFloat()
         {
-            return (float) _ratio;
+            return (float)_ratio;
         }
 
         public decimal ToDecimal()
@@ -81,7 +81,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
         public static Ratio Of(float ratio)
         {
-            return new Ratio((decimal) ratio);
+            return new Ratio((decimal)ratio);
         }
     }
 }

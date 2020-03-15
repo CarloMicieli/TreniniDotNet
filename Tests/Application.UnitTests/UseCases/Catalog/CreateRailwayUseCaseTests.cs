@@ -37,7 +37,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.WithSeedData, NewCreateRailway);
 
             var name = "DB";
-            var input = new CreateRailwayInput(name, "Die Bahn", "DE", "active", DateTime.Now.AddDays(-1), null); 
+            var input = new CreateRailwayInput(name, "Die Bahn", "DE", "active", DateTime.Now.AddDays(-1), null);
 
             await useCase.Execute(input);
 

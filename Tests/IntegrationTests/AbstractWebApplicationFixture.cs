@@ -12,7 +12,7 @@ namespace IntegrationTests
     public abstract class AbstractWebApplicationFixture : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private readonly CustomWebApplicationFactory<Startup> _factory;
-        
+
         protected AbstractWebApplicationFixture(CustomWebApplicationFactory<Startup> factory)
         {
             _factory = factory;

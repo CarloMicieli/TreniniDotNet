@@ -2,7 +2,7 @@ using System;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
-    public sealed class Railway 
+    public sealed class Railway
     {
         public Guid RailwayId { set; get; }
         public string Slug { set; get; } = null!;

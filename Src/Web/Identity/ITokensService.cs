@@ -1,6 +1,7 @@
 namespace TreniniDotNet.Web.Identity
 {
-    public interface ITokensService {
+    public interface ITokensService
+    {
         string CreateToken(string subject);
     }
 }

@@ -22,11 +22,11 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
         public LinksView? Links { get; }
 
         public Guid Id { get; }
-        
-        public string Name { get; } 
-        
+
+        public string Name { get; }
+
         public decimal? Ratio { get; }
-        
+
         public decimal? Gauge { get; }
 
         public string? TrackGauge { get; }

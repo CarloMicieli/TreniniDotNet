@@ -10,7 +10,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
         {
             ViewModel = new BadRequestObjectResult(message);
         }
-        
+
         public override void Standard(CreateBrandOutput output)
         {
             ViewModel = Created(

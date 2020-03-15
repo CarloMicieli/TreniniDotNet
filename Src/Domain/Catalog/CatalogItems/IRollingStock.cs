@@ -5,16 +5,16 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface IRollingStock
     {
-        IRailway Railway  { get; }
-       
-        Category Category  { get; }
+        IRailway Railway { get; }
+
+        Category Category { get; }
 
         Era Era { get; }
 
         Length Length { get; }
 
         string? ClassName { get; }
-        
+
         string? RoadNumber { get; }
     }
 }

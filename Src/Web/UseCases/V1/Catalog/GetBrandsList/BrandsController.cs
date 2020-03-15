@@ -11,10 +11,10 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandsList
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiController]    
+    [ApiController]
     public class BrandsController : UseCaseController<GetBrandsListRequest, GetBrandsListPresenter>
     {
-        public BrandsController(IMediator mediator, GetBrandsListPresenter presenter) 
+        public BrandsController(IMediator mediator, GetBrandsListPresenter presenter)
             : base(mediator, presenter)
         {
         }

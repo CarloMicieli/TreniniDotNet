@@ -13,7 +13,7 @@ namespace TreniniDotNet.Domain.Validation
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            Slug? value = (Slug) context.PropertyValue;
+            Slug? value = (Slug)context.PropertyValue;
             return value.HasValue && value.Value != Slug.Empty;
         }
     }

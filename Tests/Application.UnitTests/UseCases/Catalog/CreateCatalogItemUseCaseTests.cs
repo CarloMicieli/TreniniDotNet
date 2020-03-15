@@ -19,7 +19,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "", 
+                brandName: "",
                 itemNumber: "",
                 description: null,
                 prototypeDescription: null,
@@ -39,7 +39,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "not found", 
+                brandName: "not found",
                 itemNumber: "12345",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -59,7 +59,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme", 
+                brandName: "acme",
                 itemNumber: "60458",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -69,7 +69,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 rollingStocks: RollingStockList("VI", Category.ElectricLocomotive.ToString(), "FS"));
 
             await useCase.Execute(input);
-           
+
             outputPort.ShouldHaveNoValidationError();
             outputPort.CatalogItemAlreadyExistsMethod.ShouldBeInvokedWithTheArgument("The catalog item '60458' for 'acme' already exists");
         }
@@ -80,7 +80,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme", 
+                brandName: "acme",
                 itemNumber: "99999",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -90,7 +90,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 rollingStocks: RollingStockList("VI", Category.ElectricLocomotive.ToString(), "FS"));
 
             await useCase.Execute(input);
-           
+
             outputPort.ShouldHaveNoValidationError();
             outputPort.ScaleNotFoundMethod.ShouldBeInvokedWithTheArgument("The scale 'not exists' was not found");
         }
@@ -101,7 +101,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme", 
+                brandName: "acme",
                 itemNumber: "99999",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -111,7 +111,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 rollingStocks: RollingStockList("VI", Category.ElectricLocomotive.ToString(), "not found"));
 
             await useCase.Execute(input);
-           
+
             outputPort.ShouldHaveNoValidationError();
             outputPort.RailwayNotFoundMethod.ShouldBeInvokedWithTheArguments("Any of the railway was not found", new List<string>() { "not found" });
         }
@@ -122,7 +122,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme", 
+                brandName: "acme",
                 itemNumber: "99999",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -134,7 +134,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                     RollingStock("VI", Category.ElectricLocomotive.ToString(), "not found2")));
 
             await useCase.Execute(input);
-           
+
             outputPort.ShouldHaveNoValidationError();
             outputPort.RailwayNotFoundMethod.ShouldBeInvokedWithTheArguments("Any of the railway was not found", new List<string>() { "not found1", "not found2" });
         }
@@ -145,7 +145,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme", 
+                brandName: "acme",
                 itemNumber: "99999",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -157,7 +157,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                     RollingStock("VI", Category.ElectricLocomotive.ToString(), "fs")));
 
             await useCase.Execute(input);
-           
+
             outputPort.ShouldHaveStandardOutput();
             Assert.Equal(Slug.Of("acme-99999"), outputPort.UseCaseOutput.Slug);
             Assert.NotEqual(CatalogItemId.Empty, outputPort.UseCaseOutput.Id);
@@ -176,10 +176,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         private IList<RollingStockInput> RollingStockList(string era, string category, string railway)
         {
             var rollingStockInput = new RollingStockInput(
-                    era: era, 
-                    category: category, 
-                    railway: railway, 
-                    className: null, 
+                    era: era,
+                    category: category,
+                    railway: railway,
+                    className: null,
                     roadNumber: null,
                     length: null);
             return new List<RollingStockInput>() { rollingStockInput };
@@ -188,10 +188,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         private RollingStockInput RollingStock(string era, string category, string railway)
         {
             return new RollingStockInput(
-                    era: era, 
-                    category: category, 
-                    railway: railway, 
-                    className: null, 
+                    era: era,
+                    category: category,
+                    railway: railway,
+                    className: null,
                     roadNumber: null,
                     length: null);
         }

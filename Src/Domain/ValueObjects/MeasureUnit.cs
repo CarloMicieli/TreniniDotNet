@@ -24,8 +24,8 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
     public static class MeasureUnitExtentions
     {
-        public static TReturn Combine<TReturn>(this (MeasureUnit, MeasureUnit) mus, 
-            float left, float right, 
+        public static TReturn Combine<TReturn>(this (MeasureUnit, MeasureUnit) mus,
+            float left, float right,
             Func<float, float, MeasureUnit, TReturn> combineFunction)
         {
             var (lmu, rmu) = mus;
@@ -40,8 +40,8 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             }
         }
 
-        public static TReturn Combine<TReturn>(this (MeasureUnit, MeasureUnit) mus, 
-            decimal left, decimal right, 
+        public static TReturn Combine<TReturn>(this (MeasureUnit, MeasureUnit) mus,
+            decimal left, decimal right,
             Func<decimal, decimal, MeasureUnit, TReturn> combineFunction)
         {
             var (lmu, rmu) = mus;
@@ -65,9 +65,9 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         /// <param name="inFunction">the function applied to inches values</param>
         /// <param name="mmFunction">the function applied to millimeters values</param>
         /// <returns></returns>
-        public static TReturn Apply<TValue, TReturn>(this MeasureUnit mu, 
-            TValue value, 
-            Func<TValue, TReturn> inFunction, 
+        public static TReturn Apply<TValue, TReturn>(this MeasureUnit mu,
+            TValue value,
+            Func<TValue, TReturn> inFunction,
             Func<TValue, TReturn> mmFunction)
         {
             return mu switch

@@ -10,7 +10,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 {
     public class CreateBrandIntegrationTests : AbstractWebApplicationFixture
     {
-        public CreateBrandIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
+        public CreateBrandIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
         }
@@ -20,8 +20,8 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         {
             // Arrange
             var client = CreateHttpClient();
-            var content = JsonContent(new 
-            { 
+            var content = JsonContent(new
+            {
                 Name = "New Brand",
                 CompanyName = "Associazione Costruzioni Modellistiche Esatte",
                 WebsiteUrl = "http://www.acmetreni.com",

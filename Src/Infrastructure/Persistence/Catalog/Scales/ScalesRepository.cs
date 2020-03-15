@@ -25,12 +25,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         }
 
         public Task<ScaleId> Add(
-            ScaleId scaleId, 
-            Slug slug, 
-            string name, 
+            ScaleId scaleId,
+            Slug slug,
+            string name,
             Ratio ratio,
             Gauge gauge,
-            TrackGauge trackGauge, 
+            TrackGauge trackGauge,
             string? notes)
         {
             _context.Scales.Add(new Scale

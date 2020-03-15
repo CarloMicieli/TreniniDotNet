@@ -19,38 +19,38 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         private readonly string? _modelDescr;
         private readonly PowerMethod _powerMethod;
 
-        public CatalogItem(  
-            IBrand brand, 
-            ItemNumber itemNumber, 
+        public CatalogItem(
+            IBrand brand,
+            ItemNumber itemNumber,
             IScale scale,
             IReadOnlyList<IRollingStock> rollingStocks,
             PowerMethod powerMethod,
-            string description, 
-            string? prototypeDescr, 
+            string description,
+            string? prototypeDescr,
             string? modelDescr)
             : this(
                 CatalogItemId.NewId(),
-                brand, 
+                brand,
                 itemNumber,
-                BuildSlug(brand, itemNumber), 
+                BuildSlug(brand, itemNumber),
                 scale,
-                rollingStocks, 
+                rollingStocks,
                 powerMethod,
-                description, 
-                prototypeDescr, 
-                modelDescr)        
+                description,
+                prototypeDescr,
+                modelDescr)
         {
         }
 
-        public CatalogItem(CatalogItemId id, 
-            IBrand brand, 
-            ItemNumber itemNumber, 
+        public CatalogItem(CatalogItemId id,
+            IBrand brand,
+            ItemNumber itemNumber,
             Slug slug,
             IScale scale,
             IReadOnlyList<IRollingStock> rollingStocks,
             PowerMethod powerMethod,
-            string description, 
-            string? prototypeDescr, 
+            string description,
+            string? prototypeDescr,
             string? modelDescr)
         {
             _id = id;

@@ -5,7 +5,7 @@ using TreniniDotNet.Infrastructure.Persistence.Catalog.Scales;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
-    public class CatalogItem 
+    public class CatalogItem
     {
         public Guid CatalogItemId { set; get; }
 

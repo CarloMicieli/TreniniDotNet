@@ -28,9 +28,9 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
                 .ToList();
 
             return new CreateCatalogItemInput(
-                request.BrandName, 
-                request.ItemNumber, 
-                request.Description, 
+                request.BrandName,
+                request.ItemNumber,
+                request.Description,
                 request.PrototypeDescription,
                 request.ModelDescription,
                 request.PowerMethod,

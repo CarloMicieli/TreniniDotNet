@@ -13,9 +13,9 @@ namespace TreniniDotNet.Infrastracture.Extensions.DependencyInjection
         public static IServiceCollection ReplaceMigrations(this IServiceCollection services, Action<MigrationOptions> options)
         {
             var descriptors = services
-                .Where(d => 
-                    d.ServiceType == typeof(IMigrationProcessor) || 
-                    d.ServiceType == typeof(IMigrationGenerator) || 
+                .Where(d =>
+                    d.ServiceType == typeof(IMigrationProcessor) ||
+                    d.ServiceType == typeof(IMigrationGenerator) ||
                     d.ServiceType == typeof(IDatabaseMigration))
                 .ToList();
             foreach (var descriptor in descriptors)

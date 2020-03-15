@@ -7,7 +7,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         [Fact]
         public void ItShouldApplyAFunctionDependingOnTheMeasureUnit()
         {
-            float res1 = MeasureUnit.Inches.Apply(42, 
+            float res1 = MeasureUnit.Inches.Apply(42,
                 v => v * 2,
                 v => v * 3);
             float res2 = MeasureUnit.Millimeters.Apply(42,

@@ -32,7 +32,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             content._links._Self.Should().Be("http://localhost/api/v1/Brands?start=0&limit=50");
 
             content.Results.Should().NotBeEmpty();
-            
+
             var firstResult = content.Results.First();
             firstResult._Links.Should().NotBeNull();
             firstResult._Links._Self.Should().Be("http://localhost/api/v1/Brands/acme");

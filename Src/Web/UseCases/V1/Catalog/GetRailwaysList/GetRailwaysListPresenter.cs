@@ -31,7 +31,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetRailwaysList
         private RailwayView ToRailwayView(IRailway railway)
         {
             return new RailwayView(railway, _linksGenerator.GenerateSelfLink(
-                nameof(GetRailwayBySlug.RailwaysController.GetRailwayBySlug), 
+                nameof(GetRailwayBySlug.RailwaysController.GetRailwayBySlug),
                 railway.Slug));
         }
     }

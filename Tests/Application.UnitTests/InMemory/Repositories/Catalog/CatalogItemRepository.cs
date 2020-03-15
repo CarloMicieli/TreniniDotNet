@@ -19,16 +19,16 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         public Task<CatalogItemId> Add(CatalogItem catalogItem)
         {
             _context.CatalogItems.Add(catalogItem);
-           return Task.FromResult(catalogItem.CatalogItemId);
+            return Task.FromResult(catalogItem.CatalogItemId);
         }
 
         public Task<ICatalogItem> GetBy(IBrand brand, ItemNumber itemNumber)
         {
-           var catalogItem = _context.CatalogItems
-               .Where(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber)
-               .FirstOrDefault();
+            var catalogItem = _context.CatalogItems
+                .Where(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber)
+                .FirstOrDefault();
 
-           return Task.FromResult(catalogItem);
+            return Task.FromResult(catalogItem);
         }
 
         public Task<ICatalogItem> GetBy(Slug slug)

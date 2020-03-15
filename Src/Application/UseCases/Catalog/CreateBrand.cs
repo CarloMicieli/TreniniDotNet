@@ -21,7 +21,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             _brandService = brandService ??
                 throw new ArgumentNullException(nameof(brandService));
 
-            _unitOfWork = unitOfWork ?? 
+            _unitOfWork = unitOfWork ??
                 throw new ArgumentNullException(nameof(unitOfWork));
         }
 

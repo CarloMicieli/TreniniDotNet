@@ -15,7 +15,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddRailwayPresenters();
             services.AddScalePresenters();
             services.AddCatalogItemPresenters();
-            
+
             return services;
         }
 
@@ -55,8 +55,8 @@ namespace TreniniDotNet.Web.DependencyInjection
         }
 
         private static IServiceCollection AddPresenter<TOutputPort, TPresenter>(this IServiceCollection services)
-            where TOutputPort: class
-            where TPresenter: class, TOutputPort
+            where TOutputPort : class
+            where TPresenter : class, TOutputPort
         {
             services.AddScoped<TPresenter, TPresenter>();
             services.AddScoped<TOutputPort>(x => x.GetRequiredService<TPresenter>());

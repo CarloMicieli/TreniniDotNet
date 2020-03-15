@@ -10,7 +10,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
         {
             RailwayAlreadyExistsMethod = MethodInvocation<string>.NotInvoked(nameof(RailwayAlreadyExists));
         }
-        
+
         public void RailwayAlreadyExists(string message)
         {
             this.RailwayAlreadyExistsMethod = this.RailwayAlreadyExistsMethod.Invoked(message);

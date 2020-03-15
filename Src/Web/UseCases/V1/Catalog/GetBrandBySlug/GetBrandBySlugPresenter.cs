@@ -23,7 +23,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug
         public override void Standard(GetBrandBySlugOutput output)
         {
             var selfLink = _linksGenerator.GenerateSelfLink(
-                nameof(BrandsController.GetBrandBySlug), 
+                nameof(BrandsController.GetBrandBySlug),
                 output.Brand.Slug);
             var brandViewModel = new BrandView(output.Brand, selfLink);
             ViewModel = new OkObjectResult(brandViewModel);

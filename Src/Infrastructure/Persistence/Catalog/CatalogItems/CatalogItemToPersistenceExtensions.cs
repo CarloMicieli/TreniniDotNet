@@ -19,7 +19,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             };
             context.Brands.Add(brand);
             context.Entry<Brand>(brand).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-            
+
             var scale = new Scale
             {
                 ScaleId = catalogItem.Scale.ScaleId.ToGuid()
@@ -32,11 +32,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             context.Entry<Railway>(railway).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
 
             IEnumerable<RollingStock> rollingStocks = catalogItem.RollingStocks
-                .Select(rs => new RollingStock {
+                .Select(rs => new RollingStock
+                {
                     RollingStockId = new Guid(),
                     Category = rs.Category.ToString(),
                     Era = rs.Era.ToString(),
-                    Length = (decimal) rs.Length.ToMillimeters(),
+                    Length = (decimal)rs.Length.ToMillimeters(),
                     Railway = railway, //TODO: fixme
                     ClassName = rs.ClassName,
                     RoadNumber = rs.RoadNumber
