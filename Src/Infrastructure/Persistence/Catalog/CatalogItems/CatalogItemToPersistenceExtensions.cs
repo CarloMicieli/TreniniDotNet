@@ -11,17 +11,25 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
     public static class CatalogItemToPersistenceExtensions
     {
-        public static EfCatalogItem ToPersistence(this DomainCatalogItem catalogItem)
+        public static EfCatalogItem ToPersistence(this DomainCatalogItem catalogItem, ApplicationDbContext context)
         {
             var brand = new Brand
             {
                 BrandId = catalogItem.Brand.BrandId.ToGuid()
             };
-
+            context.Brands.Add(brand);
+            context.Entry<Brand>(brand).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+            
             var scale = new Scale
             {
                 ScaleId = catalogItem.Scale.ScaleId.ToGuid()
             };
+            context.Scales.Add(scale);
+            context.Entry<Scale>(scale).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+
+            var railway = new Railway { RailwayId = catalogItem.RollingStocks[0].Railway.RailwayId.ToGuid() };
+            context.Railways.Add(railway);
+            context.Entry<Railway>(railway).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
 
             IEnumerable<RollingStock> rollingStocks = catalogItem.RollingStocks
                 .Select(rs => new RollingStock {
@@ -29,7 +37,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                     Category = rs.Category.ToString(),
                     Era = rs.Era.ToString(),
                     Length = (decimal) rs.Length.ToMillimeters(),
-                    Railway = new Railway { RailwayId = rs.Railway.RailwayId.ToGuid() },
+                    Railway = railway, //TODO: fixme
                     ClassName = rs.ClassName,
                     RoadNumber = rs.RoadNumber
                 });

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 using TreniniDotNet.Web.ViewModels;
@@ -8,22 +9,22 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
     {
         public void BrandNameNotFound(string message)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new UnprocessableEntityObjectResult(message);
         }
 
         public void CatalogItemAlreadyExists(string message)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new UnprocessableEntityObjectResult(message);
         }
 
         public void RailwayNotFound(string message, IEnumerable<string> railwayNames)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new UnprocessableEntityObjectResult(message);
         }
 
         public void ScaleNotFound(string message)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new UnprocessableEntityObjectResult(message);
         }
 
         public override void Standard(CreateCatalogItemOutput output)

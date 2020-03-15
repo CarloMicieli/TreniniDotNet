@@ -99,7 +99,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 
         public Task<IBrand?> GetByName(string name)
         {
-            throw new NotImplementedException();
+            return _context.Brands
+                .Where(b => b.Name == name)
+                .Select(b => _brandsFactory.NewBrand(
+                    b.BrandId,
+                    b.Name,
+                    b.Slug,
+                    b.CompanyName,
+                    b.WebsiteUrl,
+                    b.EmailAddress,
+                    b.BrandKind))
+                .FirstOrDefaultAsync();
         }
     }
 }

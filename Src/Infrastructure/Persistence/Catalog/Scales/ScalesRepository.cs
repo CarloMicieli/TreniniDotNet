@@ -105,7 +105,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
         public Task<IScale?> GetByName(string name)
         {
-            throw new NotImplementedException();
+            return _context.Scales
+                .Where(s => s.Name == name)
+                .Select(scale => _scalesFactory.NewScale(
+                    scale.ScaleId,
+                    scale.Name,
+                    scale.Slug,
+                    scale.Ratio,
+                    scale.Gauge,
+                    scale.TrackGauge,
+                    scale.Notes))
+                .SingleOrDefaultAsync();
         }
     }
 }

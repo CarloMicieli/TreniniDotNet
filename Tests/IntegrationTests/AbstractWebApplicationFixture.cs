@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -20,6 +21,16 @@ namespace IntegrationTests
         protected HttpClient CreateHttpClient()
         {
             return _factory.CreateClient();
+        }
+
+        protected List<object> JsonArray(object element)
+        {
+            return new List<object>() { element };
+        }
+
+        protected List<object> JsonArray(params object[] elements)
+        {
+            return new List<object>(elements);
         }
 
         protected HttpContent JsonContent(object model)
