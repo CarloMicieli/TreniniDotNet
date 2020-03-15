@@ -3,15 +3,9 @@ using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
-    public interface IScale
+    public interface IScale : IScaleInfo
     {
         ScaleId ScaleId { get; }
-
-        Slug Slug { get; }
-
-        string Name { get; }
-
-        Ratio Ratio { get; }
 
         Gauge Gauge { get; }
 

@@ -35,4 +35,15 @@
         /// </summary>
         VI
     }
+
+    public static class EraExtensions
+    {
+        public static Era? ToEra(this string? s)
+        {
+            if (System.Enum.TryParse<Era>(s, true, out Era result))
+                return result;
+
+            return null;
+        }
+    }
 }

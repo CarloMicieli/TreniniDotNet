@@ -150,6 +150,17 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             return NewLength(f, MeasureUnit.Inches);
         }
 
+        public static Length Of(decimal f)
+        {
+            return new Length(f, MeasureUnit.Millimeters);
+        }
+
+/*
+        public static Length OfInches(decimal f)
+        {
+            return new Length(f, MeasureUnit.Inches);
+        }
+*/
         private static Length NewLength(float f, MeasureUnit mu)
         {
             return new Length((decimal) f, mu);

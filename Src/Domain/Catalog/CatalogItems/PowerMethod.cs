@@ -20,4 +20,15 @@
         /// </summary>
         None
     }
+
+    public static class PowerMethodExtensions
+    {
+        public static PowerMethod? ToPowerMethod(this string? s)
+        {
+            if (System.Enum.TryParse<PowerMethod>(s, true, out PowerMethod result))
+                return result;
+
+            return null;
+        }
+    }
 }

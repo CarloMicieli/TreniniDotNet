@@ -25,5 +25,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         Task<List<IBrand>> GetAll();
 
         Task<PaginatedResult<IBrand>> GetBrands(Page page);
+        
+        Task<IBrand?> GetByName(string name);
     }
 }

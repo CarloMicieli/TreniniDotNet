@@ -1,26 +1,32 @@
 ﻿using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.GetCatalogItemBySlug;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
     public class GetCatalogItemBySlug : IGetCatalogItemBySlugUseCase
     {
-        private readonly IOutputPort _outputPort;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IGetCatalogItemBySlugOutputPort _outputPort;
         private readonly CatalogItemService _catalogItemService;
 
-        public GetCatalogItemBySlug(IOutputPort outputPort, IUnitOfWork unitOfWork, CatalogItemService catalogItemService)
+        public GetCatalogItemBySlug(CatalogItemService catalogItemService, IGetCatalogItemBySlugOutputPort outputPort)
         {
             _outputPort = outputPort;
-            _unitOfWork = unitOfWork;
             _catalogItemService = catalogItemService;
         }
 
-        public Task Execute(GetCatalogItemBySlugInput input)
+        public IGetCatalogItemBySlugOutputPort OutputPort => _outputPort;
+
+        public async Task Execute(GetCatalogItemBySlugInput input)
         {
-            throw new System.NotImplementedException("TODO");
+            ICatalogItem? item = await _catalogItemService.FindBySlug(input.Slug);
+            if (item is null)
+            {
+                OutputPort.CatalogItemNotFound($"The catalog item '{input.Slug}' was not found");
+                return;
+            }
+
+            OutputPort.Standard(new GetCatalogItemBySlugOutput(item));
         }
     }
 }

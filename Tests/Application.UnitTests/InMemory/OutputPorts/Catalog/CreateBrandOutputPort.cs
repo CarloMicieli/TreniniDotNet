@@ -18,7 +18,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 
         public void ShouldHaveBrandAlreadyExistsMessage(string expectedMessage)
         {
-            this.BrandAlreadyExistsMethod.InvokedWithArgument(expectedMessage);
+            this.BrandAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
         }
     }
 }

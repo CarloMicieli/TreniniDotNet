@@ -59,6 +59,13 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(railway);
         }
 
+        public Task<IRailway> GetByName(string name)
+        {
+            IRailway railway = _context.Railways
+                .FirstOrDefault(e => e.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            return Task.FromResult(railway);
+        }
+
         public Task<PaginatedResult<IRailway>> GetRailways(Page page)
         {
             var results = _context.Railways

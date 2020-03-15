@@ -5,6 +5,7 @@ using TreniniDotNet.Application.InMemory.Repositories.Catalog;
 using TreniniDotNet.Application.InMemory.Services;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 
@@ -52,6 +53,26 @@ namespace TreniniDotNet.Application.UseCases
 
             return (factory.Invoke(scaleService, outputPort, unitOfWork), outputPort);
         }
+
+        protected (TUseCase, TOutputPort) ArrangeCatalogItemUseCase(Start initData, Func<CatalogItemService, TOutputPort, IUnitOfWork, TUseCase> factory)
+        {
+            var context = initData == Start.WithSeedData ? InMemoryContext.WithCatalogSeedData() : new InMemoryContext();
+            var catalogItemRepository = new CatalogItemRepository(context);
+            var brandRepository = new BrandRepository(context);
+            var scaleRepository = new ScaleRepository(context);
+            var railwayRepository = new RailwayRepository(context);
+
+            IUnitOfWork unitOfWork = new UnitOfWork();
+
+            var catalogItemService = new CatalogItemService(
+                catalogItemRepository,
+                brandRepository, 
+                scaleRepository, 
+                railwayRepository);
+            var outputPort = new TOutputPort();
+
+            return (factory.Invoke(catalogItemService, outputPort, unitOfWork), outputPort);
+        }       
     }
 
     public enum Start

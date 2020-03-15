@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems;
 
-namespace TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems
+namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
     public class CatalogItemConfiguration : IEntityTypeConfiguration<CatalogItem>
     {
@@ -25,11 +25,6 @@ namespace TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems
                 .IsUnicode(false)
                 .IsRequired(true)
                 .HasMaxLength(50);
-
-            builder.Property(e => e.Category)
-                .IsUnicode(false)
-                .IsRequired(true)
-                .HasMaxLength(25);
 
             builder.Property(e => e.Description)
                 .IsUnicode(true)

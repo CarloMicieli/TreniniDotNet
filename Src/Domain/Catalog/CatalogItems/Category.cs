@@ -50,4 +50,15 @@
         /// </summary>
         StarterSet
     }
+    
+    public static class CategoryExtensions
+    {
+        public static Category? ToCategory(this string? s)
+        {
+            if (System.Enum.TryParse<Category>(s, true, out Category result))
+                return result;
+
+            return null;
+        }
+    }
 }

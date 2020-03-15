@@ -1,4 +1,4 @@
-﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
@@ -9,24 +9,40 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 {
     public sealed class CatalogItemRepository : ICatalogItemRepository
     {
+        private readonly InMemoryContext _context;
+
+        public CatalogItemRepository(InMemoryContext context)
+        {
+            _context = context;
+        }
+
         public Task<CatalogItemId> Add(CatalogItem catalogItem)
         {
-            throw new NotImplementedException();
+            _context.CatalogItems.Add(catalogItem);
+           return Task.FromResult(catalogItem.CatalogItemId);
         }
 
-        public Task<CatalogItem> GetBy(IBrand brand, ItemNumber itemNumber)
+        public Task<ICatalogItem> GetBy(IBrand brand, ItemNumber itemNumber)
         {
-            throw new NotImplementedException();
+           var catalogItem = _context.CatalogItems
+               .Where(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber)
+               .FirstOrDefault();
+
+           return Task.FromResult(catalogItem);
         }
 
-        public Task<CatalogItem> GetBy(Slug slug)
+        public Task<ICatalogItem> GetBy(Slug slug)
         {
-            throw new NotImplementedException();
+            var catalogItem = _context.CatalogItems
+                .Where(it => it.Slug == slug)
+                .FirstOrDefault();
+
+            return Task.FromResult(catalogItem);
         }
 
-        public Task<CatalogItem> GetBy(CatalogItemId id)
+        public Task<ICatalogItem> GetBy(CatalogItemId id)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
     }
 }

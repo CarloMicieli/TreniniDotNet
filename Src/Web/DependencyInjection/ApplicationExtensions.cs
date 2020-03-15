@@ -6,6 +6,7 @@ using TreniniDotNet.Domain.Catalog.Railways;
 
 using CatalogUseCases = TreniniDotNet.Application.UseCases.Catalog;
 using CatalogBoundaries = TreniniDotNet.Application.Boundaries.Catalog;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Web.DependencyInjection
 {
@@ -16,6 +17,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddBrandUseCases();
             services.AddScaleUseCases();
             services.AddRailwayUseCases();
+            services.AddCatalogItemUseCases();
 
             services.AddScoped(typeof(IUseCaseInputValidator<>), typeof(UseCaseInputValidator<>));
 
@@ -51,6 +53,16 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddScoped<CatalogBoundaries.GetRailwaysList.IGetRailwaysListUseCase, CatalogUseCases.GetRailwaysList>();
 
             services.AddScoped<RailwayService>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddCatalogItemUseCases(this IServiceCollection services)
+        {
+            services.AddScoped<CatalogBoundaries.CreateCatalogItem.ICreateCatalogItemUseCase, CatalogUseCases.CreateCatalogItem>();
+            services.AddScoped<CatalogBoundaries.GetCatalogItemBySlug.IGetCatalogItemBySlugUseCase, CatalogUseCases.GetCatalogItemBySlug>();
+
+            services.AddScoped<CatalogItemService>();
 
             return services;
         }

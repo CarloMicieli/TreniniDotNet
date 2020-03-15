@@ -1,4 +1,5 @@
-﻿using TreniniDotNet.Domain.Catalog.ValueObjects;
+﻿/*
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 
@@ -12,3 +13,4 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         }
     }
 }
+*/

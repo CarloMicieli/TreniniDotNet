@@ -96,5 +96,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                     b.BrandKind))
                 .FirstOrDefaultAsync();
         }
+
+        public Task<IBrand?> GetByName(string name)
+        {
+            return _context.Brands
+                .Where(b => b.Name == name)
+                .Select(b => _brandsFactory.NewBrand(
+                    b.BrandId,
+                    b.Name,
+                    b.Slug,
+                    b.CompanyName,
+                    b.WebsiteUrl,
+                    b.EmailAddress,
+                    b.BrandKind))
+                .FirstOrDefaultAsync();
+        }
     }
 }

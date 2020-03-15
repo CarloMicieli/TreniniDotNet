@@ -19,7 +19,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories
 
         public ICollection<IRailway> Railways { set; get; } = new List<IRailway>();
 
-        public ICollection<CatalogItem> CatalogItems { set; get; }
+        public ICollection<ICatalogItem> CatalogItems { set; get; } = new List<ICatalogItem>();
 
         public static InMemoryContext WithCatalogSeedData()
         {
@@ -27,7 +27,8 @@ namespace TreniniDotNet.Application.InMemory.Repositories
             {
                 Brands = CatalogSeedData.Brands,
                 Railways = CatalogSeedData.Railways,
-                Scales = CatalogSeedData.Scales
+                Scales = CatalogSeedData.Scales,
+                CatalogItems = CatalogSeedData.CatalogItems
             };
         }
     }

@@ -104,6 +104,11 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         }
         #endregion
 
+        public IScaleInfo ToScaleInfo()
+        {
+            return this;
+        }
+
         private static void ValidateScaleName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
@@ -10,48 +11,51 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
     public class CatalogItemService
     {
         private readonly ICatalogItemRepository _catalogItemsRepository;
-        private readonly ICatalogItemFactory _catalogItemFactory;
-
-        private readonly IBrandsRepository _brands;
-        private readonly IRailwaysRepository _railways;
+        private readonly IBrandsRepository _brandsRepository;
         private readonly IScalesRepository _scales;
+        private readonly IRailwaysRepository _railways;
 
         public CatalogItemService(
-            ICatalogItemRepository catalogItemsRepository, 
-            ICatalogItemFactory catalogItemFactory, 
-            IBrandsRepository brands, 
-            IRailwaysRepository railways, 
-            IScalesRepository scales)
+            ICatalogItemRepository catalogItemsRepository,
+            IBrandsRepository brands,
+            IScalesRepository scales,
+            IRailwaysRepository railways)
         {
             _catalogItemsRepository = catalogItemsRepository;
-            _catalogItemFactory = catalogItemFactory;
-            _brands = brands;
+            _brandsRepository = brands;
             _railways = railways;
             _scales = scales;
         }
 
-        public async Task CreateCatalogItem(
-            BrandId brandId,
-            ItemNumber itemNumber,
-            string? description,
-            string? modelDescription,
-            string? prototypeDescription,
-            IRollingStock rollingStock)
-        {/*
-            IBrand brand = await _brands.GetBy(brandId);
-            IRailway railway = await _railways.GetBy(rollingStock.Railway.Slug);
-            IScale scale = await _scales.GetBy(rollingStock.Scale.Slug);
+        public Task<ICatalogItem?> FindBySlug(Slug slug)
+        {
+            return _catalogItemsRepository.GetBy(slug);
+        }
 
-            CatalogItem item = await _catalogItemsRepository.GetBy(brand, itemNumber);
+        public Task<IBrand?> FindBrandByName(string brandName)
+        {
+            return _brandsRepository.GetByName(brandName.Trim());
+        }
 
-            CatalogItem newItem = _catalogItemFactory.NewCatalogItem();
+        public async Task<bool> ItemAlreadyExists(IBrand brand, ItemNumber itemNumber)
+        {
+            var item = await _catalogItemsRepository.GetBy(brand, itemNumber);
+            return item != null;
+        }
 
-            await _catalogItemsRepository.Add(newItem);
-            */
+        public Task<IScale?> FindScaleByName(string scale)
+        {
+            return _scales.GetByName(scale.Trim());
+        }
 
+        public Task<IRailway?> FindRailwayByName(string railwayName)
+        {
+            return _railways.GetByName(railwayName.Trim());
+        }
 
-
-            throw new NotImplementedException();
+        public Task<CatalogItemId> CreateNewCatalogItem(CatalogItem catalogItem) 
+        {
+            return _catalogItemsRepository.Add(catalogItem);
         }
     }
 }

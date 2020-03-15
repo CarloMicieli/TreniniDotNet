@@ -37,6 +37,18 @@ namespace TreniniDotNet.Common
             return value.ToSlug();
         }
 
+        public static Slug Of(string value1, string value2)
+        {
+            return new Slug(value1.ToSeoFriendly() + "-" + value2.ToSeoFriendly());
+        }
+
+        public static Slug Of<T1, T2>(T1 value1, T2 value2)
+            where T1 : ICanConvertToSlug<T1>
+            where T2 : ICanConvertToSlug<T2>
+        {
+            return new Slug(value1.ToSlug().ToString() + "-" + value2.ToSlug().ToString());
+        }
+
         public override string ToString()
         {
             return _value;

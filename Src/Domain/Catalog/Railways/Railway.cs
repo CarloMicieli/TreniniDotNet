@@ -117,6 +117,11 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         }
         #endregion
 
+        public IRailwayInfo ToRailwayInfo()
+        {
+            return this;
+        }
+
         private static void ValidateCountryCode(string? countryCode)
         {
             if (countryCode != null)

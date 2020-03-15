@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Scales;
 
@@ -13,8 +12,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public Brand Brand { set; get; } = null!;
 
         public string Slug { set; get; } = null!;
-
-        public string Category { set; get; } = "";
 
         public Scale Scale { set; get; } = null!;
 
@@ -30,7 +27,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
         public string? DeliveryDate { set; get; }
 
-        public bool? DirectCurrent { set; get; }
+        public string? PowerMethod { set; get; }
 
         public bool? Released { set; get; }
 

@@ -25,5 +25,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         Task<List<IRailway>> GetAll();
         
         Task<PaginatedResult<IRailway>> GetRailways(Page page);
+        
+        Task<IRailway?> GetByName(string name);
     }
 }

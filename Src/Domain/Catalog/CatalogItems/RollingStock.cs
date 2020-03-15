@@ -1,43 +1,39 @@
 ﻿using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    /// <summary>
-    /// It represents a rolling stock.
-    /// </summary>
-    public abstract class RollingStock : IRollingStock
+    public sealed class RollingStock : IRollingStock
     {
-        private readonly Railway _railway;
-        private readonly Scale _scale;
+        private readonly IRailway _railway;
         private readonly Category _category;
         private readonly Era _era;
-        private readonly PowerMethod _powerMethod;
         private readonly Length _length;
+        private readonly string? _className;
+        private readonly string? _roadNumber;
 
-        protected RollingStock(Railway railway, Scale scale, Category category, Era era, PowerMethod powerMethod, Length length)
+        public RollingStock(IRailway railway, Category category, Era era, Length length, string? className, string? roadNumber)
         {
             _railway = railway;
-            _scale = scale;
             _category = category;
             _era = era;
-            _powerMethod = powerMethod;
             _length = length;
+            _className = className;
+            _roadNumber = roadNumber;
         }
 
         #region [ Properties ]
-        public Railway Railway => _railway;
-
-        public Scale Scale => _scale;
+        public IRailway Railway => _railway;
 
         public Category Category => _category;
 
         public Era Era => _era;
 
-        public PowerMethod PowerMethod => _powerMethod;
-
         public Length Length => _length;
+
+        public string? ClassName => _className;
+
+        public string? RoadNumber => _roadNumber;
         #endregion
     }
 }

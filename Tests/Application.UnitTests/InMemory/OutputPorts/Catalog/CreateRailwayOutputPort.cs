@@ -18,7 +18,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 
         public void ShouldHaveRailwayAlreadyExistsMessage(string expectedMessage)
         {
-            this.RailwayAlreadyExistsMethod.InvokedWithArgument(expectedMessage);
+            this.RailwayAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
         }
     }
 }

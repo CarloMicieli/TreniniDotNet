@@ -25,7 +25,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         {
             var newId = Guid.NewGuid();
 
-            var railway = new Railway 
+            var railway = new Railway
             {
                 RailwayId = newId,
                 Name = name,
@@ -96,6 +96,22 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 .ToListAsync();
 
             return new PaginatedResult<IRailway>(page, results);
+        }
+
+        public Task<IRailway?> GetByName(string name)
+        {
+            return _context.Railways
+                .Where(r => r.Name == name)
+                .Select(r => _railwaysFactory.NewRailway(
+                    new RailwayId(r.RailwayId),
+                    r.Name,
+                    Slug.Of(r.Slug),
+                    r.CompanyName,
+                    r.Country,
+                    r.OperatingSince,
+                    r.OperatingUntil,
+                    r.Status.ToRailwayStatus()))
+                .SingleOrDefaultAsync();
         }
     }
 }

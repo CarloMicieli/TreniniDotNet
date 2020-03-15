@@ -102,5 +102,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
             return new PaginatedResult<IScale>(page, results);
         }
+
+        public Task<IScale?> GetByName(string name)
+        {
+            return _context.Scales
+                .Where(s => s.Name == name)
+                .Select(scale => _scalesFactory.NewScale(
+                    scale.ScaleId,
+                    scale.Name,
+                    scale.Slug,
+                    scale.Ratio,
+                    scale.Gauge,
+                    scale.TrackGauge,
+                    scale.Notes))
+                .SingleOrDefaultAsync();
+        }
     }
 }

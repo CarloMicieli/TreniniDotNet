@@ -19,61 +19,6 @@ namespace TreniniDotNet.Web.Migrations
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems.RollingStock", b =>
-                {
-                    b.Property<Guid>("RollingStockId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("CatalogItemId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("DepotName")
-                        .HasColumnType("character varying(50)")
-                        .HasMaxLength(50)
-                        .IsUnicode(true);
-
-                    b.Property<string>("Era")
-                        .IsRequired()
-                        .HasColumnType("character varying(5)")
-                        .HasMaxLength(5)
-                        .IsUnicode(false);
-
-                    b.Property<decimal?>("Length")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Livery")
-                        .HasColumnType("character varying(50)")
-                        .HasMaxLength(50)
-                        .IsUnicode(true);
-
-                    b.Property<Guid>("RailwayId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("RoadName")
-                        .HasColumnType("character varying(25)")
-                        .HasMaxLength(25)
-                        .IsUnicode(false);
-
-                    b.Property<string>("RoadNumber")
-                        .HasColumnType("character varying(25)")
-                        .HasMaxLength(25)
-                        .IsUnicode(false);
-
-                    b.Property<string>("Series")
-                        .HasColumnType("character varying(25)")
-                        .HasMaxLength(25)
-                        .IsUnicode(false);
-
-                    b.HasKey("RollingStockId");
-
-                    b.HasIndex("CatalogItemId");
-
-                    b.HasIndex("RailwayId");
-
-                    b.ToTable("RollingStock");
-                });
-
             modelBuilder.Entity("TreniniDotNet.Infrastructure.Persistence.Catalog.Brands.Brand", b =>
                 {
                     b.Property<Guid>("BrandId")
@@ -136,12 +81,6 @@ namespace TreniniDotNet.Web.Migrations
                     b.Property<Guid>("BrandId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("character varying(25)")
-                        .HasMaxLength(25)
-                        .IsUnicode(false);
-
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
@@ -156,9 +95,6 @@ namespace TreniniDotNet.Web.Migrations
                         .HasMaxLength(250)
                         .IsUnicode(true);
 
-                    b.Property<bool?>("DirectCurrent")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("ItemNumber")
                         .IsRequired()
                         .HasColumnType("character varying(10)")
@@ -169,6 +105,9 @@ namespace TreniniDotNet.Web.Migrations
                         .HasColumnType("character varying(2500)")
                         .HasMaxLength(2500)
                         .IsUnicode(true);
+
+                    b.Property<string>("PowerMethod")
+                        .HasColumnType("text");
 
                     b.Property<string>("PrototypeDescription")
                         .HasColumnType("character varying(2500)")
@@ -201,6 +140,67 @@ namespace TreniniDotNet.Web.Migrations
                         .HasName("Idx_CatalogItems_Slug");
 
                     b.ToTable("CatalogItems");
+                });
+
+            modelBuilder.Entity("TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems.RollingStock", b =>
+                {
+                    b.Property<Guid>("RollingStockId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CatalogItemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25)
+                        .IsUnicode(false);
+
+                    b.Property<string>("ClassName")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25)
+                        .IsUnicode(false);
+
+                    b.Property<string>("DepotName")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50)
+                        .IsUnicode(true);
+
+                    b.Property<string>("Era")
+                        .IsRequired()
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5)
+                        .IsUnicode(false);
+
+                    b.Property<decimal?>("Length")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Livery")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50)
+                        .IsUnicode(true);
+
+                    b.Property<Guid>("RailwayId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("RoadNumber")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25)
+                        .IsUnicode(false);
+
+                    b.Property<string>("Series")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25)
+                        .IsUnicode(false);
+
+                    b.HasKey("RollingStockId");
+
+                    b.HasIndex("CatalogItemId");
+
+                    b.HasIndex("RailwayId");
+
+                    b.ToTable("RollingStock");
                 });
 
             modelBuilder.Entity("TreniniDotNet.Infrastructure.Persistence.Catalog.Railways.Railway", b =>
@@ -304,19 +304,6 @@ namespace TreniniDotNet.Web.Migrations
                     b.ToTable("Scales");
                 });
 
-            modelBuilder.Entity("TreniniDotNet.Infrastracture.Persistence.Catalog.CatalogItems.RollingStock", b =>
-                {
-                    b.HasOne("TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems.CatalogItem", null)
-                        .WithMany("RollingStocks")
-                        .HasForeignKey("CatalogItemId");
-
-                    b.HasOne("TreniniDotNet.Infrastructure.Persistence.Catalog.Railways.Railway", "Railway")
-                        .WithMany()
-                        .HasForeignKey("RailwayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems.CatalogItem", b =>
                 {
                     b.HasOne("TreniniDotNet.Infrastructure.Persistence.Catalog.Brands.Brand", "Brand")
@@ -328,6 +315,21 @@ namespace TreniniDotNet.Web.Migrations
                     b.HasOne("TreniniDotNet.Infrastructure.Persistence.Catalog.Scales.Scale", "Scale")
                         .WithMany()
                         .HasForeignKey("ScaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems.RollingStock", b =>
+                {
+                    b.HasOne("TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems.CatalogItem", "CatalogItem")
+                        .WithMany("RollingStocks")
+                        .HasForeignKey("CatalogItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TreniniDotNet.Infrastructure.Persistence.Catalog.Railways.Railway", "Railway")
+                        .WithMany()
+                        .HasForeignKey("RailwayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
