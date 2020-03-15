@@ -3,119 +3,134 @@ using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
+using TreniniDotNet.Infrastracture.Dapper;
+using Dapper;
+using System.Linq;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
     public sealed class ScalesRepository : IScalesRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDatabaseContext _dbContext;
         private readonly IScalesFactory _scalesFactory;
 
-        public ScalesRepository(ApplicationDbContext context, IScalesFactory scalesFactory)
+        public ScalesRepository(IDatabaseContext context, IScalesFactory scalesFactory)
         {
-            _context = context ??
+            _dbContext = context ??
                 throw new ArgumentNullException(nameof(context));
 
             _scalesFactory = scalesFactory ??
                 throw new ArgumentNullException(nameof(scalesFactory));
         }
 
-        public Task<ScaleId> Add(
-            ScaleId scaleId,
-            Slug slug,
-            string name,
-            Ratio ratio,
-            Gauge gauge,
-            TrackGauge trackGauge,
-            string? notes)
+        public async Task<ScaleId> Add(IScale scale)
         {
-            _context.Scales.Add(new Scale
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.ExecuteAsync(InsertScaleCommand, scale);
+            return scale.ScaleId;
+        }
+
+        public async Task<bool> Exists(Slug slug)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.ExecuteScalarAsync<string>(
+                GetScaleExistsQuery,
+                new { slug = slug.ToString() });
+
+            return string.IsNullOrEmpty(result);
+        }
+
+        public async Task<List<IScale>> GetAll()
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.QueryAsync<ScaleDto>(
+                GetAllScalesQuery,
+                new { });
+
+            if (result is null)
             {
-                ScaleId = scaleId.ToGuid(),
-                Name = name,
-                Slug = slug.ToString(),
-                Gauge = gauge.ToDecimal(MeasureUnit.Millimeters),
-                Ratio = ratio.ToDecimal(),
-                Notes = notes,
-                TrackGauge = trackGauge.ToString(),
-                Version = 1,
-                CreatedAt = DateTime.Now
-            });
+                return new List<IScale>();
+            }
 
-            return Task.FromResult(scaleId);
+            return result.Select(it => FromScaleDto(it)!).ToList();
         }
 
-        public Task<IScale> GetBy(Slug slug)
+        public async Task<IScale?> GetByName(string name)
         {
-            return _context.Scales
-                .Where(s => s.Slug == slug.ToString())
-                .Select(scale => _scalesFactory.NewScale(
-                    scale.ScaleId,
-                    scale.Name,
-                    scale.Slug,
-                    scale.Ratio,
-                    scale.Gauge,
-                    scale.TrackGauge,
-                    scale.Notes))
-                .SingleOrDefaultAsync();
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.QueryFirstOrDefaultAsync<ScaleDto>(
+                GetScaleByNameQuery,
+                new { name });
+
+            return FromScaleDto(result);
         }
 
-        public Task<List<IScale>> GetAll()
+        public async Task<IScale?> GetBySlug(Slug slug)
         {
-            return _context.Scales
-                .Select(scale => _scalesFactory.NewScale(
-                    scale.ScaleId,
-                    scale.Name,
-                    scale.Slug,
-                    scale.Ratio,
-                    scale.Gauge,
-                    scale.TrackGauge,
-                    scale.Notes))
-                .ToListAsync();
-        }
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
 
-        public Task<bool> Exists(Slug slug)
-        {
-            return _context.Scales
-                .AnyAsync(s => s.Slug == slug.ToString());
+            var result = await connection.QueryFirstOrDefaultAsync<ScaleDto>(
+                GetScaleBySlugQuery,
+                new { @slug = slug.ToString() });
+
+            return FromScaleDto(result);
         }
 
         public async Task<PaginatedResult<IScale>> GetScales(Page page)
         {
-            var results = await _context.Scales
-                .OrderBy(s => s.Name)
-                .Skip(page.Start)
-                .Take(page.Limit + 1)
-                .Select(scale => _scalesFactory.NewScale(
-                    scale.ScaleId,
-                    scale.Name,
-                    scale.Slug,
-                    scale.Ratio,
-                    scale.Gauge,
-                    scale.TrackGauge,
-                    scale.Notes))
-                .ToListAsync();
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
 
-            return new PaginatedResult<IScale>(page, results);
+            var results = await connection.QueryAsync<ScaleDto>(
+                GetAllScalesWithPaginationQuery,
+                new { skip = page.Start, limit = page.Limit + 1 });
+
+            return new PaginatedResult<IScale>(
+                page,
+                results.Select(it => FromScaleDto(it)!).ToList());
         }
 
-        public Task<IScale?> GetByName(string name)
+        private IScale? FromScaleDto(ScaleDto? dto)
         {
-            return _context.Scales
-                .Where(s => s.Name == name)
-                .Select(scale => _scalesFactory.NewScale(
-                    scale.ScaleId,
-                    scale.Name,
-                    scale.Slug,
-                    scale.Ratio,
-                    scale.Gauge,
-                    scale.TrackGauge,
-                    scale.Notes))
-                .SingleOrDefaultAsync();
+            if (dto is null)
+            {
+                return null;
+            }
+
+            return _scalesFactory.NewScale(
+                dto.scale_id,
+                dto.name,
+                dto.slug,
+                dto.ratio,
+                dto.gauge,
+                dto.track_type,
+                dto.notes);
         }
+
+        #region [ Query / Command text ]
+
+        private const string InsertScaleCommand = @"INSERT INTO scales(
+	            scale_id, name, slug, ratio, gauge, track_type, notes, created_at, version)
+            VALUES(
+                @ScaleId, @Name, @Slug, @Ratio, @Gauge, @TrackGauge, @Notes, @CreatedAt, @Version);";
+
+        private const string GetScaleExistsQuery = @"SELECT TOP 1 slug FROM scales WHERE slug = @slug;";
+        private const string GetAllScalesQuery = @"SELECT * FROM scales ORDER BY name;";
+        private const string GetScaleBySlugQuery = @"SELECT TOP 1 * FROM scales WHERE slug = @slug;";
+        private const string GetScaleByNameQuery = @"SELECT TOP 1 * FROM scales WHERE name = @name;";
+        private const string GetAllScalesWithPaginationQuery = @"SELECT * FROM scales ORDER BY name OFFSET @skip LIMIT @limit;";
+
+        #endregion
     }
 }

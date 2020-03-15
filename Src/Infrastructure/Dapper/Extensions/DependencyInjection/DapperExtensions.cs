@@ -14,7 +14,9 @@ namespace TreniniDotNet.Infrastracture.Extensions.DependencyInjection
     {
         public static IServiceCollection ReplaceDapper(this IServiceCollection services, Action<DapperOptions> action)
         {
-            var descriptors = services.Where(d => d.ServiceType == typeof(IDatabaseContext) || d.ServiceType == typeof(IUnitOfWork));
+            var descriptors = services
+                .Where(d => d.ServiceType == typeof(IDatabaseContext))// || d.ServiceType == typeof(IUnitOfWork))
+                .ToList();
             foreach (var descriptor in descriptors)
             {
                 services.Remove(descriptor);
@@ -51,22 +53,6 @@ namespace TreniniDotNet.Infrastracture.Extensions.DependencyInjection
             services.AddScoped<IUnitOfWork, DapperUnitOfWork>();
 
             return services;
-        }
-    }
-
-    public class GuidTypeHandler : SqlMapper.TypeHandler<Guid?>
-    {
-        public override Guid? Parse(object value)
-        {
-            if (value is null)
-                return null;
-
-            return new Guid(value.ToString());
-        }
-
-        public override void SetValue(IDbDataParameter parameter, Guid? value)
-        {
-            parameter.Value = value?.ToString();
         }
     }
 }

@@ -14,5 +14,9 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         DateTime? OperatingUntil { get; }
 
         DateTime? OperatingSince { get; }
+
+        int? Version { get; }
+
+        DateTime? CreatedAt { get; }
     }
 }

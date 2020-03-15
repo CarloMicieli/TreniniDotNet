@@ -5,10 +5,6 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
-    /// <summary>
-    /// It represents a model railways rolling stock manufacturer.
-    /// </summary>
-    /// <remarks>
     public sealed class Brand : IBrand, IEquatable<Brand>
     {
         private readonly BrandId _id;
@@ -18,30 +14,14 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         private readonly Uri? _websiteUrl;
         private readonly MailAddress? _emailAddress;
         private readonly BrandKind _brandType;
+        private readonly DateTime? _createdAt;
+        private readonly int? _version;
 
-        /// <summary>
-        /// Creates a new <em>Brand</em>.
-        /// </summary>
-        /// <param name="name">the name</param>
-        /// <param name="companyName">the full company name</param>
-        /// <param name="websiteUrl">the website url</param>
-        /// <param name="emailAddress">the email address</param>
-        /// <param name="kind">the brand kind</param>
         public Brand(string name, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
             : this(BrandId.NewId(), name, Slug.Empty, companyName, websiteUrl, emailAddress, kind)
         {
         }
 
-        /// <summary>
-        /// Creates a new <em>Brand</em>.
-        /// </summary>
-        /// <param name="id">the brand id</param>
-        /// <param name="name">the name</param>
-        /// <param name="slug">the seo friendly name</param>
-        /// <param name="companyName">the full company name</param>
-        /// <param name="websiteUrl">the website url</param>
-        /// <param name="emailAddress">the email address</param>
-        /// <param name="kind">the brand kind</param>
         public Brand(BrandId id, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
         {
             ValidateBrandName(name);
@@ -53,6 +33,8 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             _emailAddress = emailAddress;
             _companyName = companyName;
             _brandType = kind;
+            _version = 1;
+            _createdAt = DateTime.UtcNow;
         }
 
         #region [ Properties ]
@@ -69,6 +51,10 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         public string? CompanyName => _companyName;
 
         public BrandKind Kind => _brandType;
+
+        public DateTime? CreatedAt => _createdAt;
+
+        public int? Version => _version;
         #endregion
 
         #region [ Equality ]

@@ -15,5 +15,8 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         string? CompanyName { get; }
 
         BrandKind Kind { get; }
+
+        DateTime? CreatedAt { get; }
+        int? Version { get;  }
     }
 }

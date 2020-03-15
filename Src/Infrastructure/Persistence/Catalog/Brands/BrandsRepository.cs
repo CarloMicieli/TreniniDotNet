@@ -1,115 +1,137 @@
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
-using System;
-using System.Net.Mail;
 using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
+using TreniniDotNet.Infrastracture.Dapper;
+using Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
     public sealed class BrandsRepository : IBrandsRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDatabaseContext _dbContext;
         private readonly IBrandsFactory _brandsFactory;
 
-        public BrandsRepository(ApplicationDbContext context, IBrandsFactory brandsFactory)
+        public BrandsRepository(IDatabaseContext dbContext, IBrandsFactory brandsFactory)
         {
-            _context = context ??
-                throw new ArgumentNullException(nameof(context));
-
-            _brandsFactory = brandsFactory ??
-                throw new ArgumentNullException(nameof(brandsFactory));
+            _dbContext = dbContext;
+            _brandsFactory = brandsFactory;
         }
 
-        public Task<BrandId> Add(BrandId brandId, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind? brandKind)
+        public async Task<BrandId> Add(IBrand brand)
         {
-            var newBrand = new Brand
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.ExecuteAsync(InsertBrandCommand, brand);
+            return brand.BrandId;
+        }
+
+        public async Task<bool> Exists(Slug slug)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.ExecuteScalarAsync<string>(
+                GetBrandExistsQuery,
+                new { slug = slug.ToString() });
+
+            return string.IsNullOrEmpty(result);
+        }
+
+        public async Task<List<IBrand>> GetAll()
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.QueryAsync<BrandDto>(
+                GetAllBrandsQuery,
+                new { });
+
+            if (result is null)
             {
-                BrandId = brandId.ToGuid(),
-                Name = name,
-                Slug = slug.ToString(),
-                CompanyName = companyName,
-                WebsiteUrl = websiteUrl?.ToString(),
-                EmailAddress = emailAddress?.ToString(),
-                BrandKind = brandKind?.ToString()
-            };
+                return new List<IBrand>();
+            }
 
-            _context.Brands.Add(newBrand);
-            return Task.FromResult(brandId);
-        }
-
-        public Task<bool> Exists(Slug slug)
-        {
-            return _context.Brands.AnyAsync(b => b.Slug == slug.ToString());
-        }
-
-        public Task<List<IBrand>> GetAll()
-        {
-            return _context.Brands
-                .Select(b => _brandsFactory.NewBrand(
-                    b.BrandId,
-                    b.Name,
-                    b.Slug,
-                    b.CompanyName,
-                    b.WebsiteUrl,
-                    b.EmailAddress,
-                    b.BrandKind))
-                .ToListAsync();
+            return result.Select(b => FromBrandDto(b)!).ToList();
         }
 
         public async Task<PaginatedResult<IBrand>> GetBrands(Page page)
         {
-            var results = await _context.Brands
-                .Skip(page.Start)
-                .Take(page.Limit + 1) //To discover if we have more results
-                .OrderBy(b => b.Name)
-                .Select(b => _brandsFactory.NewBrand(
-                    b.BrandId,
-                    b.Name,
-                    b.Slug,
-                    b.CompanyName,
-                    b.WebsiteUrl,
-                    b.EmailAddress,
-                    b.BrandKind))
-                .ToListAsync();
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var results = await connection.QueryAsync<BrandDto>(
+                GetAllBrandsWithPaginationQuery,
+                new { skip = page.Start, limit = page.Limit + 1 });
 
             return new PaginatedResult<IBrand>(
                 page,
-                results);
+                results.Select(b => FromBrandDto(b)!).ToList());
         }
 
-        public Task<IBrand> GetBy(Slug slug)
+        public async Task<IBrand?> GetByName(string name)
         {
-            return _context.Brands
-                .Where(b => b.Slug == slug.ToString())
-                .Select(b => _brandsFactory.NewBrand(
-                    b.BrandId,
-                    b.Name,
-                    b.Slug,
-                    b.CompanyName,
-                    b.WebsiteUrl,
-                    b.EmailAddress,
-                    b.BrandKind))
-                .FirstOrDefaultAsync();
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.QueryFirstOrDefaultAsync<BrandDto>(
+                GetBrandByNameQuery,
+                new { name });
+
+            return FromBrandDto(result);
         }
 
-        public Task<IBrand?> GetByName(string name)
+        public async Task<IBrand?> GetBySlug(Slug slug)
         {
-            return _context.Brands
-                .Where(b => b.Name == name)
-                .Select(b => _brandsFactory.NewBrand(
-                    b.BrandId,
-                    b.Name,
-                    b.Slug,
-                    b.CompanyName,
-                    b.WebsiteUrl,
-                    b.EmailAddress,
-                    b.BrandKind))
-                .FirstOrDefaultAsync();
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.QueryFirstOrDefaultAsync<BrandDto>(
+                GetBrandBySlugQuery, 
+                new { @slug = slug.ToString() });
+
+            return FromBrandDto(result);
         }
+
+        #region [ Helper methods ]
+
+        private IBrand? FromBrandDto(BrandDto? dto)
+        {
+            if (dto is null)
+            {
+                return null;
+            }
+
+            return _brandsFactory.NewBrand(
+                dto.brand_id, 
+                dto.name,
+                dto.slug, 
+                dto.company_name, 
+                dto.website_url,
+                dto.mail_address,
+                dto.kind);
+        }
+
+        #endregion
+
+        #region [ Query / Commands ]
+
+        private const string GetBrandBySlugQuery = @"SELECT TOP 1 * FROM brands WHERE slug = @slug;";
+        private const string GetBrandByNameQuery = @"SELECT TOP 1 * FROM brands WHERE name = @name;";
+        private const string GetAllBrandsQuery = @"SELECT * FROM brands ORDER BY name;";
+        private const string GetAllBrandsWithPaginationQuery = @"SELECT * FROM brands ORDER BY name OFFSET @skip LIMIT @limit;";
+
+        private const string GetBrandExistsQuery = @"SELECT TOP 1 slug FROM brands WHERE slug = @slug;";
+
+        private const string InsertBrandCommand = @"INSERT INTO brands(
+                brand_id, name, slug, company_name, description, mail_address, website_url, kind, created_at, version)
+            VALUES(
+                @BrandId, @Name, @Slug, @CompanyName, @Description, @MailAddress, @WebsiteUrl, @Kind, @CreatedAt, @Version);";
+
+        #endregion
     }
 }

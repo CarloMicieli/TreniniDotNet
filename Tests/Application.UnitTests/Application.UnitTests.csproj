@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\Src\Common\Common.csproj" />
     <ProjectReference Include="..\..\Src\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\Src\Application\Application.csproj" />
+    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 
 </Project>

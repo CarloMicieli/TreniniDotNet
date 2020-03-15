@@ -36,7 +36,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(scaleId);
         }
 
-        public Task<IScale> GetBy(Slug slug)
+        public Task<IScale> GetBySlug(Slug slug)
         {
             IScale scale = _context.Scales.FirstOrDefault(e => e.Slug == slug);
             return Task.FromResult(scale);
@@ -69,6 +69,12 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             IScale scale = _context.Scales
                 .FirstOrDefault(e => e.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             return Task.FromResult(scale);
+        }
+
+        public Task<ScaleId> Add(IScale scale)
+        {
+            _context.Scales.Add(scale);
+            return Task.FromResult(scale.ScaleId);
         }
     }
 }

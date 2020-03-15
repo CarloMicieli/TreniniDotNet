@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>TreniniDotNet.TestHelpers</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\Common\Common.csproj" />
+    <ProjectReference Include="..\..\Src\Domain\Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -22,6 +22,13 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(catalogItem.CatalogItemId);
         }
 
+        public Task<bool> Exists(IBrand brand, ItemNumber itemNumber)
+        {
+            var exists = _context.CatalogItems
+                .Any(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber);
+            return Task.FromResult(exists);
+        }
+
         public Task<ICatalogItem> GetBy(IBrand brand, ItemNumber itemNumber)
         {
             var catalogItem = _context.CatalogItems
@@ -38,11 +45,6 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
                 .FirstOrDefault();
 
             return Task.FromResult(catalogItem);
-        }
-
-        public Task<ICatalogItem> GetBy(CatalogItemId id)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -41,6 +41,7 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
                 .WithColumn("ratio").AsDecimal().NotNullable()
                 .WithColumn("gauge").AsDecimal().NotNullable()
                 .WithColumn("track_type").AsString(25).NotNullable()
+                .WithColumn("notes").AsString(250).Nullable()
                 .WithColumn("created_at").AsDateTime().Nullable()
                 .WithColumn("version").AsInt32().WithDefaultValue(1);
 

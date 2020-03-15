@@ -1,16 +1,24 @@
-using TreniniDotNet.Infrastructure.Persistence;
-using TreniniDotNet.IntegrationTests.SeedData.Catalog;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.IntegrationTests.Helpers.Data
 {
     public class ApplicationContextSeed
     {
-        public static void SeedCatalog(ApplicationDbContext db)
+        public static void SeedCatalog(IServiceProvider scopedServices)
         {
-            db.SeedBrands();
-            db.SeedScales();
-            db.SeedRailways();
-            db.SaveChanges();
+            IBrandsRepository brands = scopedServices.GetRequiredService<IBrandsRepository>();
+            brands.SeedDatabase();
+
+            IRailwaysRepository railways = scopedServices.GetRequiredService<IRailwaysRepository>();
+            railways.SeedDatabase();
+
+            IScalesRepository scales = scopedServices.GetRequiredService<IScalesRepository>();
+            scales.SeedDatabase();
         }
     }
 }

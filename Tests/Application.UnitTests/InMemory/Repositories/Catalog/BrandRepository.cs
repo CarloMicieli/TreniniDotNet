@@ -37,6 +37,12 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(brandId);
         }
 
+        public Task<BrandId> Add(IBrand brand)
+        {
+            _context.Brands.Add(brand);
+            return Task.FromResult(brand.BrandId);
+        }
+
         public Task<bool> Exists(Slug slug)
         {
             bool exists = _context.Brands.Any(b => b.Slug == slug);
@@ -59,16 +65,16 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(new PaginatedResult<IBrand>(page, results));
         }
 
-        public Task<IBrand> GetBy(Slug slug)
-        {
-            IBrand brand = _context.Brands.FirstOrDefault(e => e.Slug == slug);
-            return Task.FromResult(brand);
-        }
-
         public Task<IBrand> GetByName(string name)
         {
             IBrand brand = _context.Brands
                 .FirstOrDefault(e => e.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            return Task.FromResult(brand);
+        }
+
+        public Task<IBrand> GetBySlug(Slug slug)
+        {
+            IBrand brand = _context.Brands.FirstOrDefault(e => e.Slug == slug);
             return Task.FromResult(brand);
         }
     }

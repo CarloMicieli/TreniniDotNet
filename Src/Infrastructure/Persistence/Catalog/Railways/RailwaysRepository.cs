@@ -1,117 +1,137 @@
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
-using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
+using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Pagination;
+using TreniniDotNet.Infrastracture.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
     public sealed class RailwaysRepository : IRailwaysRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDatabaseContext _dbContext;
         private readonly IRailwaysFactory _railwaysFactory;
 
-        public RailwaysRepository(ApplicationDbContext context, IRailwaysFactory railwaysFactory)
+        public RailwaysRepository(IDatabaseContext context, IRailwaysFactory railwaysFactory)
         {
-            _context = context;
+            _dbContext = context;
             _railwaysFactory = railwaysFactory;
         }
 
-        public Task<RailwayId> Add(string name, Slug slug, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus rs)
+        public async Task<RailwayId> Add(IRailway railway)
         {
-            var newId = Guid.NewGuid();
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
 
-            var railway = new Railway
+            var result = await connection.ExecuteAsync(InsertRailwayCommand, railway);
+            return railway.RailwayId;
+        }
+
+        public async Task<bool> Exists(Slug slug)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.ExecuteScalarAsync<string>(
+                GetRailwayExistsQuery,
+                new { slug = slug.ToString() });
+
+            return string.IsNullOrEmpty(result);
+        }
+
+        public async Task<List<IRailway>> GetAll()
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.QueryAsync<RailwayDto>(
+                GetAllRailwaysQuery,
+                new { });
+
+            if (result is null)
             {
-                RailwayId = newId,
-                Name = name,
-                Slug = slug.ToString(),
-                CompanyName = companyName,
-                Country = country,
-                Status = rs.ToString(),
-                Version = 1,
-                OperatingSince = operatingSince,
-                OperatingUntil = operatingUntil
-            };
+                return new List<IRailway>();
+            }
 
-            _context.Add(railway);
-            return Task.FromResult(new RailwayId(newId));
+            return result.Select(it => FromRailwayDto(it)!).ToList();
         }
 
-        public Task<bool> Exists(Slug slug)
+        public async Task<IRailway?> GetBySlug(Slug slug)
         {
-            return _context.Railways.AnyAsync(r => r.Slug == slug.ToString());
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.QueryFirstOrDefaultAsync<RailwayDto>(
+                GetRailwayBySlugQuery,
+                new { @slug = slug.ToString() });
+
+            return FromRailwayDto(result);
         }
 
-        public Task<IRailway> GetBy(Slug slug)
+        public async Task<IRailway?> GetByName(string name)
         {
-            return _context.Railways
-                .Where(r => r.Slug == slug.ToString())
-                .Select(r => _railwaysFactory.NewRailway(
-                    new RailwayId(r.RailwayId),
-                    r.Name,
-                    Slug.Of(r.Slug),
-                    r.CompanyName,
-                    r.Country,
-                    r.OperatingSince,
-                    r.OperatingUntil,
-                    r.Status.ToRailwayStatus()))
-                .SingleOrDefaultAsync();
-        }
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
 
-        public Task<List<IRailway>> GetAll()
-        {
-            return _context.Railways
-                .Select(r => _railwaysFactory.NewRailway(
-                    new RailwayId(r.RailwayId),
-                    r.Name,
-                    Slug.Of(r.Slug),
-                    r.CompanyName,
-                    r.Country,
-                    r.OperatingSince,
-                    r.OperatingUntil,
-                    r.Status.ToRailwayStatus()))
-                .ToListAsync();
+            var result = await connection.QueryFirstOrDefaultAsync<RailwayDto>(
+                GetRailwayByNameQuery,
+                new { name });
+
+            return FromRailwayDto(result);
         }
 
         public async Task<PaginatedResult<IRailway>> GetRailways(Page page)
         {
-            var results = await _context.Railways
-                .OrderBy(r => r.Name)
-                .Skip(page.Start)
-                .Take(page.Limit + 1)
-                .Select(r => _railwaysFactory.NewRailway(
-                    new RailwayId(r.RailwayId),
-                    r.Name,
-                    Slug.Of(r.Slug),
-                    r.CompanyName,
-                    r.Country,
-                    r.OperatingSince,
-                    r.OperatingUntil,
-                    r.Status.ToRailwayStatus()))
-                .ToListAsync();
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
 
-            return new PaginatedResult<IRailway>(page, results);
+            var results = await connection.QueryAsync<RailwayDto>(
+                GetAllRailwaysWithPaginationQuery,
+                new { skip = page.Start, limit = page.Limit + 1 });
+
+            return new PaginatedResult<IRailway>(
+                page,
+                results.Select(it => FromRailwayDto(it)!).ToList());
         }
 
-        public Task<IRailway?> GetByName(string name)
+        private IRailway? FromRailwayDto(RailwayDto? dto)
         {
-            return _context.Railways
-                .Where(r => r.Name == name)
-                .Select(r => _railwaysFactory.NewRailway(
-                    new RailwayId(r.RailwayId),
-                    r.Name,
-                    Slug.Of(r.Slug),
-                    r.CompanyName,
-                    r.Country,
-                    r.OperatingSince,
-                    r.OperatingUntil,
-                    r.Status.ToRailwayStatus()))
-                .SingleOrDefaultAsync();
+            if (dto is null)
+            {
+                return null;
+            }
+
+            return _railwaysFactory.NewRailway(
+                dto.railway_id,
+                dto.name,
+                dto.slug,
+                dto.company_name,
+                dto.country,
+                dto.operating_since,
+                dto.operating_until,
+                dto.active,
+                dto.created_at,
+                dto.version);
         }
+
+        #region [ Commands / Query text ]
+
+        private const string InsertRailwayCommand = @"INSERT INTO railways(
+	            railway_id, name, company_name, slug, country, operating_since, operating_until, 
+                active, created_at, version)
+            VALUES(@RailwayId, @Name, @CompanyName, @Slug, @Country, @OperatingSince, @OperatingUntil, 
+                @Active, @CreatedAt, @Version);";
+
+        private const string GetRailwayExistsQuery = @"SELECT TOP 1 slug FROM railways WHERE slug = @slug;";
+        private const string GetAllRailwaysQuery = @"SELECT * FROM railways ORDER BY name;";
+        private const string GetRailwayBySlugQuery = @"SELECT TOP 1 * FROM railways WHERE slug = @slug;";
+        private const string GetRailwayByNameQuery = @"SELECT TOP 1 * FROM railways WHERE name = @name;";
+        private const string GetAllRailwaysWithPaginationQuery = @"SELECT * FROM railways ORDER BY name OFFSET @skip LIMIT @limit;";
+
+        #endregion
     }
 }

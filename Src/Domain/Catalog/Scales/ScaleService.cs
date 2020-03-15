@@ -10,24 +10,19 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     public sealed class ScaleService
     {
         private readonly IScalesRepository _scaleRepository;
+        private readonly IScalesFactory _scalesFactory;
 
-        public ScaleService(IScalesRepository scaleRepository)
+        public ScaleService(IScalesRepository scaleRepository, IScalesFactory scalesFactory)
         {
             _scaleRepository = scaleRepository ??
                 throw new ArgumentNullException(nameof(scaleRepository));
+            _scalesFactory = scalesFactory;
         }
 
-        public async Task<ScaleId> CreateScale(string name, Slug slug, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
+        public Task<ScaleId> CreateScale(string name, Slug slug, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
         {
-            ScaleId scaleId = await _scaleRepository.Add(
-                ScaleId.NewId(),
-                slug,
-                name,
-                ratio,
-                gauge,
-                trackGauge,
-                notes);
-            return scaleId;
+            var newScale = _scalesFactory.NewScale(ScaleId.NewId(), name, slug, ratio, gauge, trackGauge, notes);
+            return _scaleRepository.Add(newScale);
         }
 
         public Task<PaginatedResult<IScale>> FindAllScales(Page? page)
@@ -42,7 +37,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 
         public Task<IScale> GetBy(Slug slug)
         {
-            return _scaleRepository.GetBy(slug);
+            return _scaleRepository.GetBySlug(slug);
         }
 
         public Task<bool> ScaleAlreadyExists(Slug slug)

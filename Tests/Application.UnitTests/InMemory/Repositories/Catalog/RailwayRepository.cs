@@ -42,6 +42,12 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(newRailway.RailwayId);
         }
 
+        public Task<RailwayId> Add(IRailway railway)
+        {
+            _context.Railways.Add(railway);
+            return Task.FromResult(railway.RailwayId);
+        }
+
         public Task<bool> Exists(Slug slug)
         {
             var found = _context.Railways.Any(e => e.Slug == slug);
@@ -53,7 +59,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(_context.Railways.ToList());
         }
 
-        public Task<IRailway> GetBy(Slug slug)
+        public Task<IRailway> GetBySlug(Slug slug)
         {
             IRailway railway = _context.Railways.FirstOrDefault(e => e.Slug == slug);
             return Task.FromResult(railway);

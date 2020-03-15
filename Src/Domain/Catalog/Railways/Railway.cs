@@ -18,6 +18,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         private readonly RailwayStatus? _rs;
         private readonly DateTime? _operatingSince;
         private readonly DateTime? _operatingUntil;
+        private readonly DateTime? _createdAt;
+        private readonly int? _version;
 
         public Railway(string name, string? companyName, string? country, RailwayStatus? rs)
             : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, null, null, rs)
@@ -43,6 +45,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             _rs = rs;
             _operatingSince = operatingSince;
             _operatingUntil = operatingUntil;
+            _createdAt = DateTime.UtcNow;
+            _version = 1;
         }
 
         #region [ Properties ]
@@ -61,6 +65,10 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public DateTime? OperatingUntil => _operatingUntil;
 
         public DateTime? OperatingSince => _operatingSince;
+
+        public DateTime? CreatedAt => _createdAt;
+
+        public int? Version => _version;
         #endregion
 
         #region [ Equality ]

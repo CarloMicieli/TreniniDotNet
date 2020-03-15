@@ -1,12 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Railways;
@@ -16,18 +13,9 @@ namespace TreniniDotNet.Web.DependencyInjection
 {
     public static class PersistanceExtensions
     {
-        public static IServiceCollection AddPersistance(this IServiceCollection services, IConfiguration Configuration)
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("ApplicationConnection");
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseNpgsql(connectionString, b => b.MigrationsAssembly("Web"));
-            });
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
             services.AddCatalogPersistence();
-
             return services;
         }
 
@@ -43,6 +31,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddScoped<IScalesFactory, ScalesFactory>();
 
             services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
+            services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();
 
             return services;
         }

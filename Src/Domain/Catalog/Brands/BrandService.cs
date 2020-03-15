@@ -10,15 +10,17 @@ namespace TreniniDotNet.Domain.Catalog.Brands
     public sealed class BrandService
     {
         private readonly IBrandsRepository _brandRepository;
+        private readonly IBrandsFactory _brandsFactory;
 
-        public BrandService(IBrandsRepository brandRepository)
+        public BrandService(IBrandsRepository brandRepository, IBrandsFactory brandsFactory)
         {
             _brandRepository = brandRepository;
+            _brandsFactory = brandsFactory;
         }
 
         public Task<BrandId> CreateBrand(string name, Slug slug, string? companyName, string? websiteUrl, string? emailAddress, BrandKind kind)
         {
-            return _brandRepository.Add(
+            var newBrand = _brandsFactory.NewBrand(
                 BrandId.NewId(),
                 name,
                 slug,
@@ -26,6 +28,8 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 new Uri(websiteUrl),
                 new MailAddress(emailAddress),
                 kind);
+
+            return _brandRepository.Add(newBrand);
         }
 
         public Task<PaginatedResult<IBrand>> FindAllBrands(Page? page)
@@ -33,9 +37,9 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             return _brandRepository.GetBrands(page ?? Page.Default);
         }
 
-        public Task<IBrand> GetBy(Slug slug)
+        public Task<IBrand?> GetBrandBySlug(Slug slug)
         {
-            return _brandRepository.GetBy(slug);
+            return _brandRepository.GetBySlug(slug);
         }
 
         public Task<bool> BrandAlreadyExists(Slug slug)

@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         protected override async Task Handle(GetBrandBySlugInput input)
         {
-            var brand = await _brandService.GetBy(input.Slug);
+            var brand = await _brandService.GetBrandBySlug(input.Slug);
             if (brand is null)
             {
                 OutputPort.BrandNotFound($"Brand '{input.Slug}' not found");

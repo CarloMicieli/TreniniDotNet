@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using TreniniDotNet.Application.SeedData.Catalog;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.Application.InMemory.Repositories
 {
@@ -25,10 +25,10 @@ namespace TreniniDotNet.Application.InMemory.Repositories
         {
             return new InMemoryContext
             {
-                Brands = CatalogSeedData.Brands,
-                Railways = CatalogSeedData.Railways,
-                Scales = CatalogSeedData.Scales,
-                CatalogItems = CatalogSeedData.CatalogItems
+                Brands = CatalogSeedData.Brands.All(),
+                Railways = CatalogSeedData.Railways.All(),
+                Scales = CatalogSeedData.Scales.All(),
+                CatalogItems = CatalogSeedData.CatalogItems.All()
             };
         }
     }

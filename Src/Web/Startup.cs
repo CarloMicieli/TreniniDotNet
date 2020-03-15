@@ -13,6 +13,7 @@ using TreniniDotNet.Infrastracture.Extensions.DependencyInjection;
 using TreniniDotNet.Infrastracture.Persistence;
 using System;
 using TreniniDotNet.Infrastracture.Persistence.Migrations;
+using TreniniDotNet.Infrastracture.Persistence.TypeHandlers;
 
 namespace TreniniDotNet.Web
 {
@@ -57,15 +58,14 @@ namespace TreniniDotNet.Web
 
             services.AddUseCases();
             services.AddPresenters();
+            services.AddRepositories();
 
             services.AddMediatR(typeof(Startup).Assembly);
+            
+            services.AddHealthChecks();
+            //.AddDbContextCheck<ApplicationDbContext>("DbHealthCheck");
 
-            services.AddPersistance(Configuration);
             services.AddEntityFrameworkIdentity(Configuration);
-
-            services.AddHealthChecks()
-                 .AddDbContextCheck<ApplicationDbContext>("DbHealthCheck");
-
             services.AddJwtAuthentication(Configuration)
                 .AddJwtAuthorization();
         }

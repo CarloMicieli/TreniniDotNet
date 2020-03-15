@@ -22,7 +22,7 @@ namespace TreniniDotNet.Application.UseCases
 
             IUnitOfWork unitOfWork = new UnitOfWork();
 
-            var brandService = new BrandService(brandRepository);
+            var brandService = new BrandService(brandRepository, new BrandsFactory());
             var outputPort = new TOutputPort();
 
             return (factory.Invoke(brandService, outputPort, unitOfWork), outputPort);
@@ -35,7 +35,7 @@ namespace TreniniDotNet.Application.UseCases
 
             IUnitOfWork unitOfWork = new UnitOfWork();
 
-            var railwayService = new RailwayService(railwayRepository);
+            var railwayService = new RailwayService(railwayRepository, new RailwaysFactory());
             var outputPort = new TOutputPort();
 
             return (factory.Invoke(railwayService, outputPort, unitOfWork), outputPort);
@@ -48,7 +48,7 @@ namespace TreniniDotNet.Application.UseCases
 
             IUnitOfWork unitOfWork = new UnitOfWork();
 
-            var scaleService = new ScaleService(scaleRepository);
+            var scaleService = new ScaleService(scaleRepository, new ScalesFactory());
             var outputPort = new TOutputPort();
 
             return (factory.Invoke(scaleService, outputPort, unitOfWork), outputPort);

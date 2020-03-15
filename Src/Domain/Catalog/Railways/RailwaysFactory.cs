@@ -34,5 +34,19 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 rs);
             return railway;
         }
+
+        public IRailway? NewRailway(Guid railwayId, string name, string slug, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, bool? active, DateTime? createdAt, int? version)
+        {
+            var railway = new Railway(
+                new RailwayId(railwayId),
+                Slug.Of(slug),
+                name,
+                companyName,
+                country,
+                operatingSince,
+                operatingUntil,
+                active == true ? RailwayStatus.Active : RailwayStatus.Inactive);
+            return railway;
+        }
     }
 }
