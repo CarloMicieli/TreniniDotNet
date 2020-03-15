@@ -9,9 +9,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
     public sealed class CatalogItem : ICatalogItem
     {
         private readonly CatalogItemId _id;
-        private readonly IBrand _brand;
+        private readonly IBrandInfo _brand;
         private readonly Slug _slug;
-        private readonly IScale _scale;
+        private readonly IScaleInfo _scale;
         private readonly ItemNumber _itemNumber;
         private readonly IReadOnlyList<IRollingStock> _rollingStocks;
         private readonly string _description;
@@ -20,9 +20,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         private readonly PowerMethod _powerMethod;
 
         public CatalogItem(
-            IBrand brand,
+            IBrandInfo brand,
             ItemNumber itemNumber,
-            IScale scale,
+            IScaleInfo scale,
             IReadOnlyList<IRollingStock> rollingStocks,
             PowerMethod powerMethod,
             string description,
@@ -42,11 +42,12 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         {
         }
 
-        public CatalogItem(CatalogItemId id,
-            IBrand brand,
+        public CatalogItem(
+            CatalogItemId id,
+            IBrandInfo brand,
             ItemNumber itemNumber,
             Slug slug,
-            IScale scale,
+            IScaleInfo scale,
             IReadOnlyList<IRollingStock> rollingStocks,
             PowerMethod powerMethod,
             string description,
@@ -67,18 +68,18 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         #region [ Properties ]
         public CatalogItemId CatalogItemId => _id;
-        public IBrand Brand => _brand;
+        public IBrandInfo Brand => _brand;
         public Slug Slug => _slug;
         public ItemNumber ItemNumber => _itemNumber;
         public IReadOnlyList<IRollingStock> RollingStocks => _rollingStocks;
         public string Description => _description;
         public string? PrototypeDescription => _prototypeDescr;
         public string? ModelDescription => _modelDescr;
-        public IScale Scale => _scale;
+        public IScaleInfo Scale => _scale;
         public PowerMethod PowerMethod => _powerMethod;
         #endregion
 
-        private static Slug BuildSlug(IBrand brand, ItemNumber itemNumber)
+        private static Slug BuildSlug(IBrandInfo brand, ItemNumber itemNumber)
         {
             return Slug.Of(brand.Name, itemNumber.Value);
         }

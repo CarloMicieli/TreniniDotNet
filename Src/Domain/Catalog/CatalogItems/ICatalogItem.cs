@@ -9,14 +9,14 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
     public interface ICatalogItem
     {
         CatalogItemId CatalogItemId { get; }
-        IBrand Brand { get; }
+        IBrandInfo Brand { get; }
         Slug Slug { get; }
         ItemNumber ItemNumber { get; }
         IReadOnlyList<IRollingStock> RollingStocks { get; }
         string Description { get; }
         string? PrototypeDescription { get; }
         string? ModelDescription { get; }
-        IScale Scale { get; }
+        IScaleInfo Scale { get; }
         PowerMethod PowerMethod { get; }
     }
 }

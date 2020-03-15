@@ -35,7 +35,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             return _scaleRepository.GetAll();
         }
 
-        public Task<IScale> GetBy(Slug slug)
+        public Task<IScale?> GetBy(Slug slug)
         {
             return _scaleRepository.GetBySlug(slug);
         }

@@ -40,7 +40,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 GetRailwayExistsQuery,
                 new { slug = slug.ToString() });
 
-            return string.IsNullOrEmpty(result);
+            return string.IsNullOrEmpty(result) == false;
         }
 
         public async Task<List<IRailway>> GetAll()
@@ -126,10 +126,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             VALUES(@RailwayId, @Name, @CompanyName, @Slug, @Country, @OperatingSince, @OperatingUntil, 
                 @Active, @CreatedAt, @Version);";
 
-        private const string GetRailwayExistsQuery = @"SELECT TOP 1 slug FROM railways WHERE slug = @slug;";
+        private const string GetRailwayExistsQuery = @"SELECT slug FROM railways WHERE slug = @slug LIMIT 1;";
         private const string GetAllRailwaysQuery = @"SELECT * FROM railways ORDER BY name;";
-        private const string GetRailwayBySlugQuery = @"SELECT TOP 1 * FROM railways WHERE slug = @slug;";
-        private const string GetRailwayByNameQuery = @"SELECT TOP 1 * FROM railways WHERE name = @name;";
+        private const string GetRailwayBySlugQuery = @"SELECT * FROM railways WHERE slug = @slug LIMIT 1;";
+        private const string GetRailwayByNameQuery = @"SELECT * FROM railways WHERE name = @name LIMIT 1;";
         private const string GetAllRailwaysWithPaginationQuery = @"SELECT * FROM railways ORDER BY name OFFSET @skip LIMIT @limit;";
 
         #endregion

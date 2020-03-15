@@ -7,9 +7,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface ICatalogItemRepository
     {
-        Task<bool> Exists(IBrand brand, ItemNumber itemNumber);
+        Task<bool> Exists(IBrandInfo brand, ItemNumber itemNumber);
 
-        Task<ICatalogItem?> GetBy(IBrand brand, ItemNumber itemNumber);
+        Task<ICatalogItem?> GetBy(IBrandInfo brand, ItemNumber itemNumber);
 
         Task<ICatalogItem?> GetBy(Slug slug);
 

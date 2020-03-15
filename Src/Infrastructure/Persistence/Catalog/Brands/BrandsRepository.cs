@@ -39,7 +39,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 GetBrandExistsQuery,
                 new { slug = slug.ToString() });
 
-            return string.IsNullOrEmpty(result);
+            return string.IsNullOrEmpty(result) == false;
         }
 
         public async Task<List<IBrand>> GetAll()
@@ -120,17 +120,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 
         #region [ Query / Commands ]
 
-        private const string GetBrandBySlugQuery = @"SELECT TOP 1 * FROM brands WHERE slug = @slug;";
-        private const string GetBrandByNameQuery = @"SELECT TOP 1 * FROM brands WHERE name = @name;";
+        private const string GetBrandBySlugQuery = @"SELECT * FROM brands WHERE slug = @slug LIMIT 1;";
+        private const string GetBrandByNameQuery = @"SELECT * FROM brands WHERE name = @name LIMIT 1;";
         private const string GetAllBrandsQuery = @"SELECT * FROM brands ORDER BY name;";
         private const string GetAllBrandsWithPaginationQuery = @"SELECT * FROM brands ORDER BY name OFFSET @skip LIMIT @limit;";
 
-        private const string GetBrandExistsQuery = @"SELECT TOP 1 slug FROM brands WHERE slug = @slug;";
+        private const string GetBrandExistsQuery = @"SELECT slug FROM brands WHERE slug = @slug LIMIT 1;";
 
         private const string InsertBrandCommand = @"INSERT INTO brands(
-                brand_id, name, slug, company_name, description, mail_address, website_url, kind, created_at, version)
+                brand_id, name, slug, company_name, mail_address, website_url, kind, created_at, version)
             VALUES(
-                @BrandId, @Name, @Slug, @CompanyName, @Description, @MailAddress, @WebsiteUrl, @Kind, @CreatedAt, @Version);";
+                @BrandId, @Name, @Slug, @CompanyName, @EmailAddress, @WebsiteUrl, @Kind, @CreatedAt, @Version);";
 
         #endregion
     }

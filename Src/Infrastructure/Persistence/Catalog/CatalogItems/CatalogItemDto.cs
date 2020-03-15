@@ -2,12 +2,14 @@
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
+#pragma warning disable CA1707 // Identifiers should not contain underscores
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes
+#pragma warning disable IDE1006 // Naming Styles
     internal class CatalogItemDto
     {
-#pragma warning disable CA1707 // Identifiers should not contain underscores
-#pragma warning disable IDE1006 // Naming Styles
         public Guid catalog_item_id { set; get; }
         public Guid brand_id { set; get; }
+        public Guid scale_id { set; get; }
         public string item_number { set; get; } = null!;
         public string slug { set; get; } = null!;
         public string power_method { set; get; } = null!;
@@ -18,6 +20,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public DateTime? created_at { set; get; }
         public int? version { set; get; }
 #pragma warning restore CA1707 // Identifiers should not contain underscores
+#pragma warning restore CA1812 // Avoid uninstantiated internal classes
 #pragma warning restore IDE1006 // Naming Styles
     }
 }

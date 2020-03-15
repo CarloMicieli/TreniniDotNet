@@ -5,7 +5,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface IRollingStock
     {
-        IRailway Railway { get; }
+        IRailwayInfo Railway { get; }
 
         Category Category { get; }
 

@@ -79,6 +79,7 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
             Create.Table(CatalogItems)
                 .WithColumn("catalog_item_id").AsGuid().PrimaryKey()
                 .WithColumn("brand_id").AsGuid().NotNullable()
+                .WithColumn("scale_id").AsGuid().NotNullable()
                 .WithColumn("item_number").AsString(10).NotNullable()
                 .WithColumn("slug").AsString(40).NotNullable()
                 .WithColumn("power_method").AsString(2).NotNullable()
@@ -103,6 +104,10 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
             Create.ForeignKey("FK_CatalogItems_Brands")
                 .FromTable(CatalogItems).ForeignColumn("brand_id")
                 .ToTable(Brands).PrimaryColumn("brand_id");
+
+            Create.ForeignKey("FK_CatalogItems_Scales")
+                .FromTable(CatalogItems).ForeignColumn("scale_id")
+                .ToTable(Scales).PrimaryColumn("scale_id");
 
             Create.Table(RollingStocks)
                 .WithColumn("rolling_stock_id").AsGuid().PrimaryKey()

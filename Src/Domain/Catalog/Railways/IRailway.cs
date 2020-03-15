@@ -5,8 +5,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public interface IRailway : IRailwayInfo
     {
-        RailwayId RailwayId { get; }
-
         string? CompanyName { get; }
 
         RailwayStatus? Status { get; }
