@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TreniniDotNet.IntegrationTests;
+using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -45,6 +46,16 @@ namespace IntegrationTests
             {
                 PropertyNameCaseInsensitive = true
             });
+        }
+
+        protected Task<TContent> GetJsonAsync<TContent>(string requestUri)
+        {
+            return CreateHttpClient().GetJsonAsync<TContent>(requestUri);
+        }
+
+        protected Task<HttpResponseMessage> GetAsync(string requestUri)
+        {
+            return CreateHttpClient().GetAsync(requestUri);
         }
     }
 }

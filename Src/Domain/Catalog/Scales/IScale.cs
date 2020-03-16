@@ -1,3 +1,4 @@
+using System;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
@@ -9,5 +10,9 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         TrackGauge TrackGauge { get; }
 
         string? Notes { get; }
+
+        DateTime? CreatedAt { get; }
+        
+        int? Version { get; }
     }
 }

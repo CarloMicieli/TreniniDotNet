@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using System.IO;
 using TreniniDotNet.Infrastracture.Persistence;
 using TreniniDotNet.Infrastracture.Persistence.Migrations;
+using TreniniDotNet.Infrastracture.Persistence.TypeHandlers;
 
 namespace TreniniDotNet.IntegrationTests
 {
@@ -46,6 +47,7 @@ namespace TreniniDotNet.IntegrationTests
                 services.ReplaceDapper(options =>
                 {
                     options.UseSqlite(connectionString);
+                    options.ScanTypeHandlersIn(typeof(GuidTypeHandler).Assembly);
                 });
 
                 services.ReplaceMigrations(options =>

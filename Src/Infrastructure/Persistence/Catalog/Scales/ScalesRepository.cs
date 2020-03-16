@@ -94,7 +94,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
             var results = await connection.QueryAsync<ScaleDto>(
                 GetAllScalesWithPaginationQuery,
-                new { skip = page.Start, limit = page.Limit + 1 });
+                new { @skip = page.Start, @limit = page.Limit + 1 });
 
             return new PaginatedResult<IScale>(
                 page,
@@ -125,11 +125,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             VALUES(
                 @ScaleId, @Name, @Slug, @Ratio, @Gauge, @TrackGauge, @Notes, @CreatedAt, @Version);";
 
-        private const string GetScaleExistsQuery = @"SELECT slug FROM scales WHERE slug = @slug LIMIT 1;";
+        private const string GetScaleExistsQuery = @"SELECT slug FROM scales WHERE slug = @slug;";
         private const string GetAllScalesQuery = @"SELECT * FROM scales ORDER BY name;";
-        private const string GetScaleBySlugQuery = @"SELECT * FROM scales WHERE slug = @slug LIMIT 1;";
-        private const string GetScaleByNameQuery = @"SELECT * FROM scales WHERE name = @name LIMIT 1;";
-        private const string GetAllScalesWithPaginationQuery = @"SELECT * FROM scales ORDER BY name OFFSET @skip LIMIT @limit;";
+        private const string GetScaleBySlugQuery = @"SELECT * FROM scales WHERE slug = @slug;";
+        private const string GetScaleByNameQuery = @"SELECT * FROM scales WHERE name = @name;";
+        private const string GetAllScalesWithPaginationQuery = @"SELECT * FROM scales ORDER BY name LIMIT @limit OFFSET @skip;";
 
         #endregion
     }

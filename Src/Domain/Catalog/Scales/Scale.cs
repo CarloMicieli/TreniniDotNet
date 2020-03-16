@@ -21,6 +21,8 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         private readonly Gauge _gauge;
         private readonly TrackGauge _trackGauge;
         private readonly string? _notes;
+        private readonly DateTime? _createdAt;
+        private readonly int? _version;
 
         public Scale(string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
             : this(ScaleId.NewId(), Slug.Empty, name, ratio, gauge, trackGauge, notes)
@@ -37,6 +39,8 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             _gauge = gauge;
             _notes = notes;
             _trackGauge = trackGauge;
+            _createdAt = DateTime.UtcNow;
+            _version = 1;
         }
 
         #region [ Properties ]
@@ -53,6 +57,10 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         public TrackGauge TrackGauge => _trackGauge;
 
         public string? Notes => _notes;
+
+        public DateTime? CreatedAt => _createdAt;
+
+        public int? Version => _version;
         #endregion
 
         #region [ Equality ]

@@ -3,7 +3,6 @@ using IntegrationTests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using TreniniDotNet.Web;
 using Xunit;
@@ -20,13 +19,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetBrandsList_ShouldReturnTheBrands()
         {
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync("/api/v1/brands");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await ExtractContent<GetBrandsListResponse>(response);
+            var content = await GetJsonAsync<GetBrandsListResponse>("/api/v1/brands");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be("http://localhost/api/v1/Brands?start=0&limit=50");
@@ -43,12 +36,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         public async Task GetBrandsList_ShouldReturnTheFirstPageOfBrands()
         {
             var limit = 2;
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync($"/api/v1/brands?start=0&limit={limit}");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-            var content = await ExtractContent<GetBrandsListResponse>(response);
+            var content = await GetJsonAsync<GetBrandsListResponse>($"/api/v1/brands?start=0&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Brands?start=0&limit={limit}");
@@ -65,12 +53,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         public async Task GetBrandsList_ShouldReturnAPageOfBrands()
         {
             var limit = 2;
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync($"/api/v1/brands?start=2&limit={limit}");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-            var content = await ExtractContent<GetBrandsListResponse>(response);
+            var content = await GetJsonAsync<GetBrandsListResponse>($"/api/v1/brands?start=2&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Brands?start=2&limit={limit}");

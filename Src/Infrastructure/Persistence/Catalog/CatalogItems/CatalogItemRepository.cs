@@ -44,10 +44,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 CreatedAt = DateTime.UtcNow,
                 Version = 1
             });  ;
-            foreach (var rs in catalogItem.RollingStocks)
+            
+            /*foreach (var rs in catalogItem.RollingStocks)
             {
                 var _rows2 = await connection.ExecuteAsync(InsertNewRollingStock, rs);
-            }
+            }*/
 
             return catalogItem.CatalogItemId;
         }

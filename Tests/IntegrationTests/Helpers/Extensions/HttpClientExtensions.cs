@@ -11,6 +11,23 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Extensions
 {
     public static class HttpClientExtensions
     {
+        public static async Task<TContent> GetJsonAsync<TContent>(this HttpClient httpClient, string requestUri)
+        {
+            HttpResponseMessage response = await httpClient.GetAsync(requestUri);
+            if (response.IsSuccessStatusCode == false)
+            {
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = await response.ExtractContent<ErrorResponse>();
+                    throw new HttpAssertException(error);
+                }
+
+                response.EnsureSuccessStatusCode();
+            }
+
+            return await response.ExtractContent<TContent>();
+        }
+
         public static async Task<HttpResponseMessage> PostJsonAsync(this HttpClient httpClient, string requestUri, object model, Check check)
         {
             HttpContent content = JsonContent(model);

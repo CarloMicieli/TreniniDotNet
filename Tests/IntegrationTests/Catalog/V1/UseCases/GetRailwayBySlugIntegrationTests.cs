@@ -18,15 +18,9 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetRailwayBySlug_ReturnsOk_WhenTheBrandExists()
         {
-            var client = CreateHttpClient();
+            var content = await GetJsonAsync<GetRailwayBySlugResponse>("/api/v1/railways/fs");
 
-            var response = await client.GetAsync("/api/v1/railways/fs");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await ExtractContent<GetRailwayBySlugResponse>(response);
             content.Name.Should().Be("FS");
-
             content._Links.Should().NotBeNull();
             content._Links.Slug.Should().Be("fs");
             content._Links._Self.Should().Be("http://localhost/api/v1/Railways/fs");
@@ -35,10 +29,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetRailwayBySlug_ReturnsNotFound_WhenTheBrandDoesNotExist()
         {
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync("/api/v1/railways/not-found");
-
+            var response = await GetAsync("/api/v1/railways/not-found");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 

@@ -22,7 +22,7 @@ namespace TreniniDotNet.Infrastracture.Persistence.TypeHandlers
 
         public override void SetValue(IDbDataParameter parameter, BrandId? value)
         {
-            parameter.Value = value?.ToString();
+            parameter.Value = value?.ToGuid();
         }
     }
 }

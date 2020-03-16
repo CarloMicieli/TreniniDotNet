@@ -18,13 +18,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetScaleBySlug_ReturnsOk_WhenTheScaleExists()
         {
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync("/api/v1/scales/h0");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await ExtractContent<GetScaleBySlugResponse>(response);
+            var content = await GetJsonAsync<GetScaleBySlugResponse>("/api/v1/scales/h0");
 
             content._Links.Should().NotBeNull();
             content._Links.Slug.Should().Be("h0");
@@ -37,10 +31,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetScaleBySlug_ReturnsNotFound_WhenTheScaleDoesNotExist()
         {
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync("/api/v1/scales/not-found");
-
+            var response = await GetAsync("/api/v1/scales/not-found");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 

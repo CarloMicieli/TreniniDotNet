@@ -66,7 +66,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 
             var results = await connection.QueryAsync<BrandDto>(
                 GetAllBrandsWithPaginationQuery,
-                new { skip = page.Start, limit = page.Limit + 1 });
+                new { @skip = page.Start, @limit = page.Limit + 1 });
 
             return new PaginatedResult<IBrand>(
                 page,
@@ -123,7 +123,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         private const string GetBrandBySlugQuery = @"SELECT * FROM brands WHERE slug = @slug LIMIT 1;";
         private const string GetBrandByNameQuery = @"SELECT * FROM brands WHERE name = @name LIMIT 1;";
         private const string GetAllBrandsQuery = @"SELECT * FROM brands ORDER BY name;";
-        private const string GetAllBrandsWithPaginationQuery = @"SELECT * FROM brands ORDER BY name OFFSET @skip LIMIT @limit;";
+        private const string GetAllBrandsWithPaginationQuery = @"SELECT * FROM brands ORDER BY name LIMIT @limit OFFSET @skip;";
 
         private const string GetBrandExistsQuery = @"SELECT slug FROM brands WHERE slug = @slug LIMIT 1;";
 

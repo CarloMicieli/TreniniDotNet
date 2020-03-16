@@ -20,13 +20,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetRailwaysList_ShouldReturnTheRailways()
         {
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync("/api/v1/railways");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await ExtractContent<GetRailwaysListResponse>(response);
+            var content = await GetJsonAsync<GetRailwaysListResponse>("/api/v1/railways");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be("http://localhost/api/v1/Railways?start=0&limit=50");
@@ -44,13 +38,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         public async Task GetRailwaysList_ShouldReturnTheFirstPageOfRailways()
         {
             var limit = 2;
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync($"/api/v1/railways?start=0&limit={limit}");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await ExtractContent<GetRailwaysListResponse>(response);
+            var content = await GetJsonAsync<GetRailwaysListResponse>($"/api/v1/railways?start=0&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Railways?start=0&limit={limit}");
@@ -65,13 +53,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         public async Task GetRailwaysList_ShouldReturnTheRailways_WithPagination()
         {
             var limit = 2;
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync($"/api/v1/railways?start=2&limit={limit}");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await ExtractContent<GetRailwaysListResponse>(response);
+            var content = await GetJsonAsync<GetRailwaysListResponse>($"/api/v1/railways?start=2&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Railways?start=2&limit={limit}");

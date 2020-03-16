@@ -27,7 +27,19 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
 
-            var result = await connection.ExecuteAsync(InsertRailwayCommand, railway);
+            var result = await connection.ExecuteAsync(InsertRailwayCommand, new
+            {
+                railway.RailwayId,
+                railway.Name,
+                railway.CompanyName,
+                railway.Slug,
+                railway.Country,
+                railway.OperatingSince,
+                railway.OperatingUntil,
+                Active = railway.Status == RailwayStatus.Active,
+                railway.CreatedAt,
+                railway.Version
+            });
             return railway.RailwayId;
         }
 
@@ -38,7 +50,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             var result = await connection.ExecuteScalarAsync<string>(
                 GetRailwayExistsQuery,
-                new { slug = slug.ToString() });
+                new { @slug = slug.ToString() });
 
             return string.IsNullOrEmpty(result) == false;
         }
@@ -91,7 +103,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             var results = await connection.QueryAsync<RailwayDto>(
                 GetAllRailwaysWithPaginationQuery,
-                new { skip = page.Start, limit = page.Limit + 1 });
+                new { @skip = page.Start, @limit = page.Limit + 1 });
 
             return new PaginatedResult<IRailway>(
                 page,
@@ -130,7 +142,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         private const string GetAllRailwaysQuery = @"SELECT * FROM railways ORDER BY name;";
         private const string GetRailwayBySlugQuery = @"SELECT * FROM railways WHERE slug = @slug LIMIT 1;";
         private const string GetRailwayByNameQuery = @"SELECT * FROM railways WHERE name = @name LIMIT 1;";
-        private const string GetAllRailwaysWithPaginationQuery = @"SELECT * FROM railways ORDER BY name OFFSET @skip LIMIT @limit;";
+        private const string GetAllRailwaysWithPaginationQuery = @"SELECT * FROM railways ORDER BY name LIMIT @limit OFFSET @skip;";
 
         #endregion
     }

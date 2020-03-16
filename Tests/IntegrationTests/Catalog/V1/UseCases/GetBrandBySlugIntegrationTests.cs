@@ -18,13 +18,8 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetBrandBySlug_ReturnsOk_WhenTheBrandExists()
         {
-            var client = CreateHttpClient();
+            var content = await GetJsonAsync<GetBrandBySlugResponse>("/api/v1/brands/acme");
 
-            var response = await client.GetAsync("/api/v1/brands/acme");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await ExtractContent<GetBrandBySlugResponse>(response);
             content.Should().NotBeNull();
             content.Id.Should().Be(new Guid("9ed9f089-2053-4a39-b669-a6d603080402"));
             content.Name.Should().Be("ACME");
@@ -36,10 +31,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetBrandBySlug_ReturnsNotFound_WhenTheBrandDoesNotExist()
         {
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync("/api/v1/brands/not-found");
-
+            var response = await GetAsync("/api/v1/brands/not-found");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 

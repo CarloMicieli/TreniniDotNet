@@ -1,7 +1,9 @@
-﻿using IntegrationTests;
+﻿using FluentAssertions;
+using IntegrationTests;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -17,25 +19,21 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task CreateNewRailways_ReturnsOk()
         {
-            // Arrange
             var client = CreateHttpClient();
-            var content = JsonContent(new
+            var content = new
             {
                 Name = "New Railway",
                 CompanyName = "Ferrovie dello stato",
                 Country = "IT",
                 Status = "Active",
                 OperatingSince = new DateTime(1905, 7, 1)
-            });
+            };
 
-            // Act
-            var response = await client.PostAsync("/api/v1/railways", content);
+            var response = await client.PostJsonAsync("/api/v1/railways", content, Check.IsSuccessful);
 
-            // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
-
-            Assert.NotNull(response.Headers.Location);
-            Assert.Equal(new Uri("http://localhost/api/v1/Railways/new-railway"), response.Headers.Location);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+            response.Headers.Location.Should().NotBeNull();
+            response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/Railways/new-railway"));
         }
 
         [Fact]
