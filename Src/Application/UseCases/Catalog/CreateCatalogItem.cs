@@ -103,6 +103,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             if (railways.TryGetValue(input.Railway, out railway))
             {
                 return new RollingStock(
+                    RollingStockId.NewId(),
                     railway,
                     input.Category.ToCategory() ?? Category.DieselLocomotive, //TODO
                     input.Era.ToEra() ?? Era.I, //TODO

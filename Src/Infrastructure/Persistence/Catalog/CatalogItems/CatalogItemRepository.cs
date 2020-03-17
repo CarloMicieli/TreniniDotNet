@@ -45,10 +45,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 Version = 1
             });  ;
             
-            /*foreach (var rs in catalogItem.RollingStocks)
+            foreach (var rs in catalogItem.RollingStocks)
             {
-                var _rows2 = await connection.ExecuteAsync(InsertNewRollingStock, rs);
-            }*/
+                var _rows2 = await connection.ExecuteAsync(InsertNewRollingStock, new 
+                {
+                    rs.RollingStockId, 
+                    rs.Era, 
+                    rs.Category, 
+                    RailwayId = rs.Railway.RailwayId,
+                    catalogItem.CatalogItemId, 
+                    rs.Length, 
+                    rs.ClassName, 
+                    rs.RoadNumber
+                });
+            }
 
             return catalogItem.CatalogItemId;
         }
@@ -186,7 +196,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             VALUES(@CatalogItemId, @BrandId, @ScaleId, @ItemNumber, @Slug, @PowerMethod, @DeliveryDate, 
                 @Description, @ModelDescription, @PrototypeDescription, @CreatedAt, @Version);";
 
-        private const string InsertNewRollingStock = @"";
+        private const string InsertNewRollingStock = @"INSERT INTO rolling_stocks(
+	            rolling_stock_id, era, category, railway_id, catalog_item_id, length, class_name, road_number)
+	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @Length, @ClassName, @RoadNumber);";
 
         #endregion
     }

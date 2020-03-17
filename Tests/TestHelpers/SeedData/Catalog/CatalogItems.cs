@@ -28,6 +28,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             var rollingStocks = new List<RollingStock>()
             {
                 new RollingStock(
+                    RollingStockId.NewId(),
                     CatalogSeedData.Railways.Fs(),
                     Category.ElectricLocomotive,
                     Era.VI,

@@ -39,6 +39,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string? className, string? roadNumber)
         {
             return new RollingStock(
+                new RollingStockId(rollingStockId),
                 railway,
                 category.ToCategory() ?? Category.DieselLocomotive,
                 era.ToEra() ?? Era.I,

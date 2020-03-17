@@ -5,6 +5,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public sealed class RollingStock : IRollingStock
     {
+        private readonly RollingStockId _rollingStockId;
         private readonly IRailwayInfo _railway;
         private readonly Category _category;
         private readonly Era _era;
@@ -12,8 +13,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         private readonly string? _className;
         private readonly string? _roadNumber;
 
-        public RollingStock(IRailwayInfo railway, Category category, Era era, Length length, string? className, string? roadNumber)
+        public RollingStock(RollingStockId rollingStockId, IRailwayInfo railway, Category category, Era era, Length length, string? className, string? roadNumber)
         {
+            _rollingStockId = rollingStockId;
             _railway = railway;
             _category = category;
             _era = era;
@@ -23,6 +25,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         }
 
         #region [ Properties ]
+        public RollingStockId RollingStockId => _rollingStockId;
+
         public IRailwayInfo Railway => _railway;
 
         public Category Category => _category;
