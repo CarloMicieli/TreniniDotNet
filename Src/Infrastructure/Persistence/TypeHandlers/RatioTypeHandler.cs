@@ -13,7 +13,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
                 return null;
             }
 
-            return Ratio.Of((decimal) value);
+            int v = (int)value;
+            return Ratio.Of(v / 10.0f);
         }
 
         public override void SetValue(IDbDataParameter parameter, Ratio? value)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
+using FluentAssertions;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {
@@ -13,8 +13,8 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             var zeroInches = Length.ZeroInches;
             var zeroMms = Length.ZeroMillimeters;
 
-            Assert.Equal(Length.OfInches(0.0f), zeroInches);
-            Assert.Equal(Length.OfMillimeters(0.0f), zeroMms);
+            zeroInches.Should().Be(Length.OfInches(0.0f));
+            zeroMms.Should().Be(Length.OfMillimeters(0.0f));
         }
 
         [Fact]
@@ -27,14 +27,14 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         public void ItShouldCreateAMillimetersLengthValues()
         {
             var l = Length.OfMillimeters(123.4f);
-            Assert.Equal(123.4f, l.ToMillimeters());
+            l.ToMillimeters().Should().Be(123.4f);
         }
 
         [Fact]
         public void ItShouldCreateAInchesLengthValues()
         {
             var l = Length.OfInches(123.4f);
-            Assert.Equal(123.4f, l.ToInches());
+            l.ToInches().Should().Be(123.4f);
         }
 
         [Fact]
@@ -43,8 +43,8 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             var len1 = Length.OfInches(123.4f);
             var len2 = Length.OfInches(123.4f);
 
-            Assert.True(len1 == len2);
-            Assert.True(len1.Equals(len2));
+            (len1 == len2).Should().BeTrue();
+            (len1.Equals(len2)).Should().BeTrue();
         }
 
         [Fact]
@@ -53,9 +53,9 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             var len1 = Length.OfInches(123.4f);
             var len2 = Length.OfInches(321.4f);
 
-            Assert.True(len1 != len2);
-            Assert.False(len1.Equals(len2));
-            Assert.False(len1 == len2);
+            (len1 != len2).Should().BeTrue();
+            (len1.Equals(len2)).Should().BeFalse();
+            (len1 == len2).Should().BeFalse();
         }
 
         [Fact]
@@ -67,8 +67,8 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             var expectedIn = string.Format("{0}in", 123.4M);
             var expectedMm = string.Format("{0}mm", 123.4M);
 
-            Assert.Equal(expectedIn, len1.ToString());
-            Assert.Equal(expectedMm, len2.ToString());
+            len1.ToString().Should().Be(expectedIn);
+            len2.ToString().Should().Be(expectedMm);
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             var tenInches = Length.OfInches(10f);
             var tewntyInches = Length.OfInches(20f);
 
-            Assert.Equal(Length.OfInches(30.0f), tenInches + tewntyInches);
+            (tenInches + tewntyInches).Should().Be(Length.OfInches(30.0f));
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             var tenInches = Length.OfInches(10f);
             var tewntyInches = Length.OfMillimeters(508f);
 
-            Assert.Equal(Length.OfInches(30.0f), tenInches + tewntyInches);
+            (tenInches + tewntyInches).Should().Be(Length.OfInches(30.0f));
         }
 
         [Fact]
@@ -99,8 +99,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
                 Length.OfInches(30f)
             };
 
-            var sixtyInches = lengths.Sum();
-            Assert.Equal(Length.OfInches(60.0f), sixtyInches);
+            lengths.Sum().Should().Be(Length.OfInches(60.0f));
         }
 
         [Fact]
@@ -113,8 +112,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
                 Length.OfMillimeters(30f)
             };
 
-            var sixtyInches = lengths.Sum();
-            Assert.Equal(Length.OfMillimeters(60.0f), sixtyInches);
+            lengths.Sum().Should().Be(Length.OfMillimeters(60.0f));
         }
 
         [Fact]
@@ -127,8 +125,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
                 Length.OfInches(30f)
             };
 
-            var sixtyInches = lengths.Sum();
-            Assert.Equal(Length.OfInches(60.0f), sixtyInches);
+            lengths.Sum().Should().Be(Length.OfInches(60.0f));
         }
 
         [Fact]
@@ -137,11 +134,11 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             var tenInches = Length.OfInches(10f);
             var tewntyInches = Length.OfInches(20f);
 
-            Assert.True(tenInches < tewntyInches);
-            Assert.True(tenInches <= tewntyInches);
+            (tenInches < tewntyInches).Should().BeTrue();
+            (tenInches <= tewntyInches).Should().BeTrue();
 
-            Assert.True(tewntyInches > tenInches);
-            Assert.True(tewntyInches >= tenInches);
+            (tewntyInches > tenInches).Should().BeTrue();
+            (tewntyInches >= tenInches).Should().BeTrue();
         }
 
         [Fact]
@@ -150,11 +147,11 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             var tenInches = Length.OfInches(10f);
             var twentyMillimeters = Length.OfMillimeters(20f);
 
-            Assert.True(tenInches > twentyMillimeters);
-            Assert.True(tenInches >= twentyMillimeters);
+            (tenInches > twentyMillimeters).Should().BeTrue();
+            (tenInches >= twentyMillimeters).Should().BeTrue();
 
-            Assert.True(twentyMillimeters < tenInches);
-            Assert.True(twentyMillimeters <= tenInches);
+            (twentyMillimeters < tenInches).Should().BeTrue();
+            (twentyMillimeters <= tenInches).Should().BeTrue();
         }
     }
 }

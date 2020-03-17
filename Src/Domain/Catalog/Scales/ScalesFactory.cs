@@ -6,14 +6,14 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 {
     public class ScalesFactory : IScalesFactory
     {
-        public IScale NewScale(Guid id, string name, string slug, decimal? ratio, decimal? gauge, string? trackGauge, string? notes)
+        public IScale NewScale(Guid id, string name, string slug, int ratio, decimal gauge, string? trackGauge, string? notes)
         {
             return new Scale(
                 new ScaleId(id),
                 Slug.Of(slug),
                 name,
-                Ratio.Of(ratio ?? 0M),
-                Gauge.OfMillimiters(gauge ?? 0M),
+                Ratio.Of(ratio / 10.0f),
+                Gauge.OfMillimiters(gauge),
                 trackGauge.ToTrackGauge(),
                 notes);
         }

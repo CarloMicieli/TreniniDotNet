@@ -34,8 +34,8 @@ namespace TreniniDotNet.Common.DecimalNumbers
             var value4 = DecimalNumber.Of(3.14f, Digits.Four);
 
             value1.ToString().Should().Be("(value=31, factor=10)");
-            value1.ToString().Should().Be("(value=3140, factor=1000)");
-            value1.ToString().Should().Be("(value=31400, factor=10000)");
+            value3.ToString().Should().Be("(value=3140, factor=1000)");
+            value4.ToString().Should().Be("(value=31400, factor=10000)");
         }
 
         [Fact]

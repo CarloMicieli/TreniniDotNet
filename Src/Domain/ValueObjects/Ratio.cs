@@ -11,7 +11,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
     {
         // private const Digits DefaultDigits = Digits.One;
 
-        private readonly decimal _ratio;
+        private readonly float _ratio;
 
         private Ratio(decimal ratio)
         {
@@ -19,17 +19,17 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             {
                 throw new ArgumentException("ratio value must be positive");
             }
-            _ratio = ratio;
+            _ratio = (float)ratio;
         }
 
         public float ToFloat()
         {
-            return (float)_ratio;
+            return _ratio;
         }
 
         public decimal ToDecimal()
         {
-            return _ratio;
+            return (decimal)_ratio;
         }
 
         #region [ Equality ]

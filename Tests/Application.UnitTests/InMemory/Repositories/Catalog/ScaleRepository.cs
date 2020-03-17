@@ -22,20 +22,6 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             _scalesFactory = new ScalesFactory();
         }
 
-        public Task<ScaleId> Add(
-            ScaleId scaleId, Slug slug, string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string notes)
-        {
-            _context.Scales.Add(_scalesFactory.NewScale(
-                scaleId.ToGuid(),
-                name,
-                slug.Value,
-                ratio.ToDecimal(),
-                gauge.ToDecimal(MeasureUnit.Millimeters),
-                trackGauge.ToString(),
-                notes));
-            return Task.FromResult(scaleId);
-        }
-
         public Task<IScale> GetBySlug(Slug slug)
         {
             IScale scale = _context.Scales.FirstOrDefault(e => e.Slug == slug);

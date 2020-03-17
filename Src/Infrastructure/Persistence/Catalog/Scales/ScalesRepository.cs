@@ -129,7 +129,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         private const string GetAllScalesQuery = @"SELECT * FROM scales ORDER BY name;";
         private const string GetScaleBySlugQuery = @"SELECT * FROM scales WHERE slug = @slug;";
         private const string GetScaleByNameQuery = @"SELECT * FROM scales WHERE name = @name;";
-        private const string GetAllScalesWithPaginationQuery = @"SELECT * FROM scales ORDER BY name LIMIT @limit OFFSET @skip;";
+        private const string GetAllScalesWithPaginationQuery = @"SELECT scale_id, name, slug, ratio, gauge, track_type, notes FROM scales ORDER BY name LIMIT @limit OFFSET @skip;";
 
         #endregion
     }

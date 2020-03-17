@@ -10,7 +10,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         public Guid scale_id { set; get; }
         public string name { set; get; } = null!;
         public string slug { set; get; } = null!;
-        public decimal ratio { set; get; } = default;
+        public int ratio { set; get; } = default;
         public decimal gauge { set; get; } = default;
         public string track_type { set; get; } = null!;
         public string? notes { set; get; }

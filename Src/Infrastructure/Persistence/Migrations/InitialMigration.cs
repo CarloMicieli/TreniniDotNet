@@ -38,7 +38,7 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
                 .WithColumn("scale_id").AsGuid().PrimaryKey()
                 .WithColumn("name").AsString(25).NotNullable()
                 .WithColumn("slug").AsString(25).NotNullable()
-                .WithColumn("ratio").AsDecimal().NotNullable()
+                .WithColumn("ratio").AsInt32().NotNullable()
                 .WithColumn("gauge").AsDecimal().NotNullable()
                 .WithColumn("track_type").AsString(25).NotNullable()
                 .WithColumn("notes").AsString(250).Nullable()

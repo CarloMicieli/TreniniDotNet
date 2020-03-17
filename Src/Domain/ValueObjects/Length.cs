@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TreniniDotNet.Common.Extensions;
-using static TreniniDotNet.Domain.Catalog.ValueObjects.MeasureUnitsConvertions;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {
