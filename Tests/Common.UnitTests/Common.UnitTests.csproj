@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
     <LangVersion>8.0</LangVersion>
     <Nullable>disable</Nullable>
-    <RootNamespace>TreniniDotNet.Domain</RootNamespace>
+    <RootNamespace>TreniniDotNet.Common</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +13,7 @@
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
+    <PackageReference Include="FluentAssertions" Version="5.10.2" />
   </ItemGroup>
 
   <ItemGroup>
