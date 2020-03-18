@@ -31,8 +31,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("AccessFailedCount").AsInt32().NotNullable();
 
             Create.Table("AspNetRoleClaims")
-                // .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                .WithColumn("Id").AsString().NotNullable().PrimaryKey("PK_AspNetRoleClaims")
+                .WithColumn("Id").AsString().NotNullable().PrimaryKey("PK_AspNetRoleClaims").Identity()
                 .WithColumn("RoleId").AsString().NotNullable()
                 .WithColumn("ClaimType").AsString().Nullable()
                 .WithColumn("ClaimValue").AsString().Nullable();
@@ -43,8 +42,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .OnDelete(System.Data.Rule.Cascade);
 
             Create.Table("AspNetUserClaims")
-                // .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                .WithColumn("Id").AsString().NotNullable().PrimaryKey("PK_AspNetUserClaims")
+                .WithColumn("Id").AsString().NotNullable().PrimaryKey("PK_AspNetUserClaims").Identity()
                 .WithColumn("UserId").AsString().NotNullable()
                 .WithColumn("ClaimType").AsString().Nullable()
                 .WithColumn("ClaimValue").AsString().Nullable();

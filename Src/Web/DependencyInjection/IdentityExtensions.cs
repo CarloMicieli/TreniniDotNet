@@ -3,6 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -12,17 +13,17 @@ namespace TreniniDotNet.Web.DependencyInjection
 {
     public static class IdentityExtensions
     {
-        //public static IServiceCollection AddEntityFrameworkIdentity(this IServiceCollection services, IConfiguration configuration)
-        //{
-        //    services.AddDbContext<ApplicationIdentityDbContext>(options =>
-        //        options.UseNpgsql(configuration.GetConnectionString("IdentityConnection")));
+        public static IServiceCollection AddEntityFrameworkIdentity(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<ApplicationIdentityDbContext>(options =>
+                options.UseNpgsql(configuration.GetConnectionString("IdentityConnection")));
 
-        //    services.AddIdentity<ApplicationUser, IdentityRole>()
-        //        .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
-        //        .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
+                .AddDefaultTokenProviders();
 
-        //    return services;
-        //}
+            return services;
+        }
 
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {

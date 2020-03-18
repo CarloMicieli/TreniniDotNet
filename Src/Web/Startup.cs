@@ -7,13 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json;
-using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Web.DependencyInjection;
 using TreniniDotNet.Infrastracture.Extensions.DependencyInjection;
 using TreniniDotNet.Infrastracture.Persistence;
 using System;
 using TreniniDotNet.Infrastracture.Persistence.Migrations;
 using TreniniDotNet.Infrastracture.Persistence.TypeHandlers;
+using TreniniDotNet.Web.Identity;
 
 namespace TreniniDotNet.Web
 {
@@ -62,10 +62,10 @@ namespace TreniniDotNet.Web
 
             services.AddMediatR(typeof(Startup).Assembly);
             
-            services.AddHealthChecks();
-            //.AddDbContextCheck<ApplicationDbContext>("DbHealthCheck");
+            services.AddHealthChecks()
+                .AddDbContextCheck<ApplicationIdentityDbContext>("DbHealthCheck");
 
-            //services.AddEntityFrameworkIdentity(Configuration);
+            services.AddEntityFrameworkIdentity(Configuration);
             services.AddJwtAuthentication(Configuration)
                 .AddJwtAuthorization();
         }
