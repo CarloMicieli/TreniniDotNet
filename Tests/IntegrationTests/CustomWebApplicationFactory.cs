@@ -1,4 +1,3 @@
-using TreniniDotNet.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -6,10 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
-using TreniniDotNet.Web.Identity;
 using TreniniDotNet.IntegrationTests.Helpers.Data;
 using TreniniDotNet.Infrastracture.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Identity;
 using System.IO;
 using TreniniDotNet.Infrastracture.Persistence;
 using TreniniDotNet.Infrastracture.Persistence.Migrations;
@@ -39,8 +36,6 @@ namespace TreniniDotNet.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                services.ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
-
                 string connectionString = $"Data Source={contextId}.db";
 
                 // Replace with sqlite

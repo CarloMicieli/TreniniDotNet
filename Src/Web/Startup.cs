@@ -65,7 +65,7 @@ namespace TreniniDotNet.Web
             services.AddHealthChecks();
             //.AddDbContextCheck<ApplicationDbContext>("DbHealthCheck");
 
-            services.AddEntityFrameworkIdentity(Configuration);
+            //services.AddEntityFrameworkIdentity(Configuration);
             services.AddJwtAuthentication(Configuration)
                 .AddJwtAuthorization();
         }
