@@ -11,6 +11,7 @@ using System.IO;
 using TreniniDotNet.Infrastracture.Persistence;
 using TreniniDotNet.Infrastracture.Persistence.Migrations;
 using TreniniDotNet.Infrastracture.Persistence.TypeHandlers;
+using TreniniDotNet.Web.Identity;
 
 namespace TreniniDotNet.IntegrationTests
 {
@@ -36,6 +37,8 @@ namespace TreniniDotNet.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
+                services.ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
+
                 string connectionString = $"Data Source={contextId}.db";
 
                 // Replace with sqlite
