@@ -24,17 +24,17 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
         private static CreateCatalogItemInput ConvertToInput(CreateCatalogItemRequest request)
         {
             List<RollingStockInput> rollingStocks = request.RollingStocks
-                .Select(rs => new RollingStockInput(rs.Era, rs.Category, rs.Railway, rs.ClassName, rs.RoadNumber, rs.Length))
+                .Select(rs => new RollingStockInput(rs.Era!, rs.Category!, rs.Railway!, rs.ClassName, rs.RoadNumber, rs.Length))
                 .ToList();
 
             return new CreateCatalogItemInput(
-                request.BrandName,
-                request.ItemNumber,
-                request.Description,
+                request.BrandName!,
+                request.ItemNumber!,
+                request.Description!,
                 request.PrototypeDescription,
                 request.ModelDescription,
-                request.PowerMethod,
-                request.Scale,
+                request.PowerMethod!,
+                request.Scale!,
                 rollingStocks);
         }
     }

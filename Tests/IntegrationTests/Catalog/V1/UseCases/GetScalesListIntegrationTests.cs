@@ -17,7 +17,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         {
         }
 
-        //[Fact]
+        [Fact]
         public async Task GetScalesList_ShouldReturnTheScales()
         {
             var content = await GetJsonAsync<GetScalesListResponse>("/api/v1/scales");
@@ -34,7 +34,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             first._Links.Slug.Should().Be("0");
         }
 
-        //[Fact]
+        [Fact]
         public async Task GetScalesList_ShouldReturnTheFirstPageOfScales()
         {
             var limit = 2;
@@ -55,7 +55,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             first._Links.Slug.Should().Be("0");
         }
 
-        //[Fact]
+        [Fact]
         public async Task GetScalesList_ShouldReturnTheScales_WithPagination()
         {
             var limit = 2;

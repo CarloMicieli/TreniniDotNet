@@ -20,7 +20,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         {
             var id = Guid.NewGuid();
 
-            IScale scale = factory.NewScale(id, "name", "slug", 870, 16.5M, "standard", "notes");
+            IScale scale = factory.NewScale(id, "name", "slug", 87M, 16.5M, "standard", "notes");
 
             scale.ScaleId.Should().Be(new ScaleId(id));
             scale.Name.Should().Be("name");
@@ -34,7 +34,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         [Fact]
         public void ScalesFactory_ShouldThrowAnException_WhenRatioIsNotValid()
         {
-            Action act = () => factory.NewScale(Guid.NewGuid(), "name", "slug", -10, 16.5M, "standard", "notes");
+            Action act = () => factory.NewScale(Guid.NewGuid(), "name", "slug", -10M, 16.5M, "standard", "notes");
             act.Should()
                 .Throw<ArgumentException>()
                 .WithMessage("ratio value must be positive");
@@ -43,7 +43,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         [Fact]
         public void ScalesFactory_ShouldThrowAnException_WhenGaugeIsNotValid()
         {
-            Action act = () => factory.NewScale(Guid.NewGuid(), "name", "slug", 10, -16.5M, "standard", "notes");
+            Action act = () => factory.NewScale(Guid.NewGuid(), "name", "slug", 87M, -16.5M, "standard", "notes");
             act.Should()
                 .Throw<ArgumentException>()
                 .WithMessage("gauge value must be positive");
@@ -52,7 +52,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         [Fact]
         public void ScalesFactory_ShouldSetTrackGaugeAsStandard_WhenTrackGaugeIsNotValid()
         {
-            IScale scale = factory.NewScale(Guid.NewGuid(), "name", "slug", 870, 16.5M, "invalid", "notes");
+            IScale scale = factory.NewScale(Guid.NewGuid(), "name", "slug", 87M, 16.5M, "invalid", "notes");
             scale.TrackGauge.Should().Be(TrackGauge.Standard);
         }
 

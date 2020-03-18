@@ -15,17 +15,14 @@ namespace TreniniDotNet.Infrastracture.Extensions.DependencyInjection
         public static IServiceCollection ReplaceDapper(this IServiceCollection services, Action<DapperOptions> action)
         {
             var descriptors = services
-                .Where(d => d.ServiceType == typeof(IDatabaseContext))// || d.ServiceType == typeof(IUnitOfWork))
+                .Where(d => d.ServiceType == typeof(IDatabaseContext) || d.ServiceType == typeof(IUnitOfWork))
                 .ToList();
             foreach (var descriptor in descriptors)
             {
                 services.Remove(descriptor);
             }
 
-            var options = new DapperOptions(services);
-            action?.Invoke(options);
-
-            return services;
+            return services.AddDapper(action);
         }
 
         public static IServiceCollection AddDapper(this IServiceCollection services, Action<DapperOptions> action)

@@ -1,5 +1,5 @@
 ﻿using System.Data.Common;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 using Microsoft.Extensions.Options;
 
 namespace TreniniDotNet.Infrastracture.Dapper
@@ -15,7 +15,7 @@ namespace TreniniDotNet.Infrastracture.Dapper
 
         public DbConnection NewConnection()
         {
-            return new SqliteConnection(_options.ConnectionString);
+            return new SQLiteConnection(_options.ConnectionString);
         }
     }
 }

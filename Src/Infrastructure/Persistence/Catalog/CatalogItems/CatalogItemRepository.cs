@@ -43,7 +43,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 catalogItem.PrototypeDescription,
                 CreatedAt = DateTime.UtcNow,
                 Version = 1
-            });  ;
+            });
             
             foreach (var rs in catalogItem.RollingStocks)
             {
