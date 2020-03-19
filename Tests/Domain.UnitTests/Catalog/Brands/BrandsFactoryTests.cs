@@ -17,6 +17,60 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         }
 
         [Fact]
+        public void BrandsFactory_ShouldCreateBrands_WithValidation()
+        {
+            Guid id = Guid.NewGuid();
+            var success = factory.NewBrandV(
+                id,
+                "name",
+                "slug",
+                "company name",
+                "https://www.website.com",
+                "mail@mail.com",
+                "industrial"
+            );
+
+            success.Match(
+                Succ: succ =>
+                {
+                    succ.WebsiteUrl.Should().Be(new Uri("https://www.website.com"));
+                    succ.EmailAddress.Should().Be(new MailAddress("mail@mail.com"));
+                    succ.Kind.Should().Be(BrandKind.Industrial);
+                },
+                Fail: errors => Assert.True(false, "should never get here"));
+        }
+
+        [Fact]
+        public void BrandsFactory_ShouldReturnsFailure_WhenFailedValidation()
+        {
+            Guid id = Guid.NewGuid();
+            var failure = factory.NewBrandV(
+                id,
+                "name",
+                "slug",
+                null,
+                "---invalid url---",
+                "---invalid mail---",
+                "---invalid kind---"
+            );
+
+            failure.Match(
+                Succ: succ => Assert.True(false, "should never get here"),
+                Fail: errors =>
+                {
+                    errors.Should().HaveCount(3);
+
+                    var errorsList = errors.ToList();
+                    /*
+                    errorsList.Should().ContainInOrder(
+                        "Invalid URI: The format of the URI could not be determined.", 
+                        "The specified string is not in the form required for an e-mail address.", 
+                        "The specified string is not a valid brand kind.");
+                    */
+                });
+        }
+
+        [Fact]
         public void BrandsFactory_Should_CreateNewBrandsFromPrimitives()
         {
             Guid id = Guid.NewGuid();

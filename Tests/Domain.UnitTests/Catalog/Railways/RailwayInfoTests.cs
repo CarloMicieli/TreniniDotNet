@@ -35,8 +35,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 "DE",
                 null,
                 null,
-                RailwayStatus.Active, 
-                DateTime.UtcNow, 
+                RailwayStatus.Active,
+                DateTime.UtcNow,
                 1);
         }
     }
