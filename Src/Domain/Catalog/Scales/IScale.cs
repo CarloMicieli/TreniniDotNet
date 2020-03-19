@@ -12,7 +12,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         string? Notes { get; }
 
         DateTime? CreatedAt { get; }
-        
+
         int? Version { get; }
     }
 }

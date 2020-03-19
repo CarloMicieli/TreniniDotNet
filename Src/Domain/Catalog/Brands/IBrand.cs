@@ -15,6 +15,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         DateTime? CreatedAt { get; }
 
-        int? Version { get;  }
+        int? Version { get; }
     }
 }

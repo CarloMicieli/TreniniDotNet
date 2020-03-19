@@ -14,6 +14,8 @@ using System;
 using TreniniDotNet.Infrastracture.Persistence.Migrations;
 using TreniniDotNet.Infrastracture.Persistence.TypeHandlers;
 using TreniniDotNet.Web.Identity;
+using TreniniDotNet.Infrastructure.Persistence.Seed;
+using Microsoft.Extensions.Logging;
 
 namespace TreniniDotNet.Web
 {
@@ -61,7 +63,7 @@ namespace TreniniDotNet.Web
             services.AddRepositories();
 
             services.AddMediatR(typeof(Startup).Assembly);
-            
+
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationIdentityDbContext>("DbHealthCheck");
 
@@ -70,7 +72,7 @@ namespace TreniniDotNet.Web
                 .AddJwtAuthorization();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -79,6 +81,9 @@ namespace TreniniDotNet.Web
                 // Run database migration
                 var migration = serviceProvider.GetRequiredService<IDatabaseMigration>();
                 migration.Up();
+
+                // Seed database with test data
+                // CatalogSeed.InitDatabase(serviceProvider, logger).GetAwaiter().GetResult();
             }
             else
             {

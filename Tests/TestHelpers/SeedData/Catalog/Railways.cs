@@ -95,7 +95,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         }
 
         public ICollection<IRailway> All() => _all;
-        
+
         public IRailway Fs() => _fs;
 
         public IRailway Sbb() => _sbb;

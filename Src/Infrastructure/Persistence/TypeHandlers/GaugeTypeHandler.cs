@@ -13,7 +13,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
                 return null;
             }
 
-            return Gauge.OfMillimiters((decimal) value);
+            return Gauge.OfMillimiters((decimal)value);
         }
 
         public override void SetValue(IDbDataParameter parameter, Gauge? value)

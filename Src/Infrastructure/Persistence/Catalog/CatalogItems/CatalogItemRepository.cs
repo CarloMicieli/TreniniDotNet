@@ -37,25 +37,25 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 catalogItem.ItemNumber,
                 catalogItem.Slug,
                 catalogItem.PowerMethod,
-                DeliveryDate = (string?) null, //catalogItem.DeliveryDate,
+                DeliveryDate = (string?)null, //catalogItem.DeliveryDate,
                 catalogItem.Description,
                 catalogItem.ModelDescription,
                 catalogItem.PrototypeDescription,
                 CreatedAt = DateTime.UtcNow,
                 Version = 1
             });
-            
+
             foreach (var rs in catalogItem.RollingStocks)
             {
-                var _rows2 = await connection.ExecuteAsync(InsertNewRollingStock, new 
+                var _rows2 = await connection.ExecuteAsync(InsertNewRollingStock, new
                 {
-                    rs.RollingStockId, 
-                    rs.Era, 
-                    rs.Category, 
+                    rs.RollingStockId,
+                    rs.Era,
+                    rs.Category,
                     RailwayId = rs.Railway.RailwayId,
-                    catalogItem.CatalogItemId, 
-                    rs.Length, 
-                    rs.ClassName, 
+                    catalogItem.CatalogItemId,
+                    rs.Length,
+                    rs.ClassName,
                     rs.RoadNumber
                 });
             }
@@ -130,11 +130,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                         it.Key.description,
                         it.Key.model_description,
                         it.Key.prototype_description,
-                        it.Select(rs => 
+                        it.Select(rs =>
                         {
                             var railway = new RailwayInfo(rs.railway_id, rs.railway_slug, rs.railway_name, rs.railway_country);
                             return _factory.NewRollingStock(
-                                rs.rolling_stock_id, railway, rs.era, rs.category, rs.length, rs.class_name, rs.road_number); 
+                                rs.rolling_stock_id, railway, rs.era, rs.category, rs.length, rs.class_name, rs.road_number);
                         }).ToList(),
                         it.Key.created_at,
                         it.Key.version

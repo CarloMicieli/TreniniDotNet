@@ -14,8 +14,8 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 name: name,
                 slug: Slug.Of(slug),
                 companyName: companyName,
-                websiteUrl: websiteUrl != null ? new Uri(websiteUrl) : null,
-                emailAddress: emailAddress != null ? new MailAddress(emailAddress) : null,
+                websiteUrl: !string.IsNullOrWhiteSpace(websiteUrl) ? new Uri(websiteUrl) : null,
+                emailAddress: !string.IsNullOrWhiteSpace(emailAddress) ? new MailAddress(emailAddress) : null,
                 kind: brandKind.ToBrandKind()
                 );
         }

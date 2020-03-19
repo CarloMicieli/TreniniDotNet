@@ -18,6 +18,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         Task<List<IBrand>> GetAll();
 
-        Task<PaginatedResult<IBrand>> GetBrands(Page page);        
+        Task<PaginatedResult<IBrand>> GetBrands(Page page);
     }
 }

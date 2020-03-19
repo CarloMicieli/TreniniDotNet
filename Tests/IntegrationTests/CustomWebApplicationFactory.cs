@@ -65,8 +65,8 @@ namespace TreniniDotNet.IntegrationTests
                     var logger = scopedServices
                         .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
-                  //  var userManager = scopedServices.GetRequiredService<UserManager<ApplicationUser>>();
-                  //  var roleManager = scopedServices.GetRequiredService<RoleManager<IdentityRole>>();
+                    //  var userManager = scopedServices.GetRequiredService<UserManager<ApplicationUser>>();
+                    //  var roleManager = scopedServices.GetRequiredService<RoleManager<IdentityRole>>();
 
                     var migration = scopedServices.GetRequiredService<IDatabaseMigration>();
                     migration.Up();
@@ -75,7 +75,7 @@ namespace TreniniDotNet.IntegrationTests
                     {
                         // Seed the database with test data.
                         ApplicationContextSeed.SeedCatalog(scopedServices);
-                       // AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).Wait();
+                        // AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).Wait();
                     }
                     catch (Exception ex)
                     {

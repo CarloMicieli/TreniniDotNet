@@ -6,14 +6,14 @@ namespace Infrastructure.Persistence.TypeHandlers
 {
     public class LengthTypeHandler : SqlMapper.TypeHandler<Length?>
     {
-        public override Length? Parse(object value) 
+        public override Length? Parse(object value)
         {
             if (value is null)
             {
                 return null;
-            }    
+            }
 
-            return Length.Of((decimal) value);
+            return Length.Of((decimal)value);
         }
 
         public override void SetValue(IDbDataParameter parameter, Length? value)

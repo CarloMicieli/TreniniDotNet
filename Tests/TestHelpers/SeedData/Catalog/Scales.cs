@@ -32,15 +32,15 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 Gauge.OfMillimiters(16.5M),
                 TrackGauge.Standard,
                 null);
-    
-             _scaleH0m = factory.NewScale(
-                new ScaleId(new Guid("0dd13f9d-d730-41bb-b4e9-33218ea14fbc")),
-                "H0m",
-                Slug.Of("H0m"),
-                Ratio.Of(87.0M),
-                Gauge.OfMillimiters(12.0M),
-                TrackGauge.Narrow,
-                null);
+
+            _scaleH0m = factory.NewScale(
+               new ScaleId(new Guid("0dd13f9d-d730-41bb-b4e9-33218ea14fbc")),
+               "H0m",
+               Slug.Of("H0m"),
+               Ratio.Of(87.0M),
+               Gauge.OfMillimiters(12.0M),
+               TrackGauge.Narrow,
+               null);
 
             _scaleH0e = factory.NewScale(
                 new ScaleId(new Guid("b5f2f033-a947-4b86-9d9e-52d7c1903ce0")),
@@ -51,14 +51,14 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 TrackGauge.Narrow,
                 null);
 
-             _scaleTT = factory.NewScale(
-                new ScaleId(new Guid("374f5bb7-e7d1-4995-aa34-072b6b6500f9")),
-                "TT",
-                Slug.Of("TT"),
-                Ratio.Of(120.0M),
-                Gauge.OfMillimiters(12.0M),
-                TrackGauge.Standard,
-                null);
+            _scaleTT = factory.NewScale(
+               new ScaleId(new Guid("374f5bb7-e7d1-4995-aa34-072b6b6500f9")),
+               "TT",
+               Slug.Of("TT"),
+               Ratio.Of(120.0M),
+               Gauge.OfMillimiters(12.0M),
+               TrackGauge.Standard,
+               null);
 
             _scale1 = factory.NewScale(
                 new ScaleId(new Guid("fb7ab3fc-5f15-4e2c-a8d3-7ef2e615dae8")),
@@ -78,23 +78,23 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 TrackGauge.Standard,
                 null);
 
-             _scaleN = factory.NewScale(
-                new ScaleId(new Guid("f02ae69c-6a60-4fd4-bf5b-ac950e696361")),
-                "N",
-                Slug.Of("N"),
-                Ratio.Of(160.0M),
-                Gauge.OfMillimiters(9.0M),
-                TrackGauge.Standard,
-                null);
+            _scaleN = factory.NewScale(
+               new ScaleId(new Guid("f02ae69c-6a60-4fd4-bf5b-ac950e696361")),
+               "N",
+               Slug.Of("N"),
+               Ratio.Of(160.0M),
+               Gauge.OfMillimiters(9.0M),
+               TrackGauge.Standard,
+               null);
 
-             _scaleZ = factory.NewScale(
-                new ScaleId(new Guid("02790f5e-8edc-43f6-8ac1-4c906805d9ba")),
-                "Z",
-                Slug.Of("Z"),
-                Ratio.Of(220.0M),
-                Gauge.OfMillimiters(6.5M),
-                TrackGauge.Standard,
-                null);
+            _scaleZ = factory.NewScale(
+               new ScaleId(new Guid("02790f5e-8edc-43f6-8ac1-4c906805d9ba")),
+               "Z",
+               Slug.Of("Z"),
+               Ratio.Of(220.0M),
+               Gauge.OfMillimiters(6.5M),
+               TrackGauge.Standard,
+               null);
             #endregion
 
             _all = new List<IScale>()

@@ -10,13 +10,13 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public sealed class CatalogItemsFactory : ICatalogItemsFactory
     {
-        public ICatalogItem NewCatalogItem(Guid catalogItemId, IBrandInfo brand, string itemNumber, string slug, 
-            IScaleInfo scale, 
-            string powerMethod, 
-            string? deliveryDate, 
-            string description, string? modelDescription, string? prototypeDescription, 
-            List<IRollingStock> rollingStocks, 
-            DateTime? createdAt, 
+        public ICatalogItem NewCatalogItem(Guid catalogItemId, IBrandInfo brand, string itemNumber, string slug,
+            IScaleInfo scale,
+            string powerMethod,
+            string? deliveryDate,
+            string description, string? modelDescription, string? prototypeDescription,
+            List<IRollingStock> rollingStocks,
+            DateTime? createdAt,
             int? version)
         {
             return new CatalogItem(
@@ -32,9 +32,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 modelDescription);
         }
 
-        public IRollingStock NewRollingStock(Guid rollingStockId, 
-            IRailwayInfo railway, 
-            string era, string category, 
+        public IRollingStock NewRollingStock(Guid rollingStockId,
+            IRailwayInfo railway,
+            string era, string category,
             decimal? length,
             string? className, string? roadNumber)
         {

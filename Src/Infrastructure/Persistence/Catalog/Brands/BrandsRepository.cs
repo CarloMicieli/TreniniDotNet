@@ -91,7 +91,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             await connection.OpenAsync();
 
             var result = await connection.QueryFirstOrDefaultAsync<BrandDto>(
-                GetBrandBySlugQuery, 
+                GetBrandBySlugQuery,
                 new { @slug = slug.ToString() });
 
             return FromBrandDto(result);
@@ -107,10 +107,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             }
 
             return _brandsFactory.NewBrand(
-                dto.brand_id, 
+                dto.brand_id,
                 dto.name,
-                dto.slug, 
-                dto.company_name, 
+                dto.slug,
+                dto.company_name,
                 dto.website_url,
                 dto.mail_address,
                 dto.kind);

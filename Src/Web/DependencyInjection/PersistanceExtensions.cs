@@ -25,10 +25,10 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddScoped<IBrandsFactory, BrandsFactory>();
 
             services.AddScoped<IRailwaysRepository, RailwaysRepository>();
-            services.AddScoped<IRailwaysFactory, RailwaysFactory>();
+            services.AddScoped<IRailwaysFactory, Domain.Catalog.Railways.RailwaysFactory>();
 
             services.AddScoped<IScalesRepository, ScalesRepository>();
-            services.AddScoped<IScalesFactory, ScalesFactory>();
+            services.AddScoped<IScalesFactory, Domain.Catalog.Scales.ScalesFactory>();
 
             services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
             services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();

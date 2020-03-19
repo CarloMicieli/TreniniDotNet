@@ -1,0 +1,35 @@
+RailwayId,Name,Slug,CompanyName,Country,Status,OperatingSince,OperatingUntil,TrackGauge,Length,Website
+"3ee3f78c-5d6a-47f8-9df5-ae1e99b6148a","ÖBB","obb","Österreichische Bundesbahnen","AT","Active","1923",,1435,,"http://www.oebb.at"
+"452ecf0f-0999-443d-a333-7afc23542d38","SNCB","sncb","Société Nationale des Chemins de fer belges","BE","Active","1926",,1435,,"http://belgiantrain.be"
+"eb88a59f-0fa6-4dc9-b02d-0df90a85ec20","SNCB Logistics","sncb-logistics","Société Nationale des Chemins de fer belges","BE","Active",,,1435,,
+"b748e515-ff47-4a1e-a650-deb4e72ba77f","SŽDC","szdc","Správa železniční dopravní cesty,s.o.","CZ","Active","2003-01-01",,1435,,"http://www.szdc.cz"
+"22d13976-b42e-45e8-9e50-4c64c9664014","DSB","dsb","Danske Statsbaner","DK","Active","1885-10-01",,1435,,"http://www.dsb.dk"
+"5cbccdd5-826d-4dc8-a0ff-d80572d43ac5","SNCF","sncf","Société Nationale des Chemins de fer Français","FR","Active","1938-01-01",,1435,,"http://www.sncf.com"
+"f12a3c5b-21f0-4d96-baf0-7bbf67e85e93","DB","db","Die Bahn AG","DE","Active","1994-01-01",,1435,,"https://www.deutschebahn.com"
+"24510242-38f8-4da7-b769-9163ba745f30","DR","dr","Deutsche Reichsbahn","DE","Inactive",,,1435,,
+"13d47808-ecb2-4a44-b38d-d7b1b6e2eefb","DRB","drb","Deutsche Reichsbahn-Gesellschaft","DE","Inactive",,,1435,,
+"0d7ae9ae-6075-4625-a1c2-0f21152ae21c","FS","fs","Ferrovie dello Stato","IT","Active","1905-07-01",,1435,,"http://www.fsitaliane.it"
+"459481c6-ca97-4897-a6fa-205daf0405cf","FNM","fnm","Ferrovie Nord Milano","IT","Active","1877-01-01",,1435,,
+"8a544884-5953-42f8-8d37-af661532596d","Trenord","Trenord","Trenord","IT","Active","2009-01-01",,1435,,"http://www.trenord.it"
+"a1a8b2ef-1b2e-4d66-b8bf-b93ebf3d1871","CFL","cfl","Chemins de Fer Luxembourgeois","LU","Active","1946-05-14",,1435,,"http://www.cfl.lu"
+"a1423324-d37e-4529-8e36-5c4ac9316191","NS","ns","Nederlandse Spoorwegen","NL","Active","1938-01-01",,1435,,"http://www.ns.nl"
+"12cd1791-bb51-476d-bdce-8c452284a31a","Vy","vy","Vygruppen","NO","Active","1996-12-01",,1435,,"https://www.vy.no"
+"f4c5a9d2-92a8-48b6-87ac-728fca41885d","Cp","cp","Comboios de Portugal","PT","Active","1951-01-01",,1435,,"http://www.cp.pt"
+"125cea2c-9dbd-4b7e-916b-8ee78e86b4b6","RENFE","renfe","Renfe Operadora","ES","Active","1941-01-24",,1435,,"http://renfe.com"
+"b4cf4d31-86d4-4f80-a34f-970cf91c4732","BLS","bls","BLS AG","CH","Active","2006,,1435,,"http://www.bls.ch"
+"a455fa06-e35c-4f5f-969c-8371fa54d40a","Bern–Lötschberg–Simplon","bern–lotschberg–simplon","Bern–Lötschberg–Simplon","CH",Inactive,"1913-01-01","2006-01-01",1435,,
+"fa307786-00a9-4257-9274-76f7a0c06fab","RhB","rhb","Rhätische Bahn / Viafier retica","CH","Active","1888-01-01",,1000,384,"http://www.rhb.ch"
+"5410de14-3f6b-4ccc-9705-68b12442992c","MGB","mgb","Matterhorn-Gotthard-Bahn","CH","Active",,,1000,144,"http://www.matterhorngotthardbahn.ch"
+"1c44e65f-bb53-4f14-a368-23daa5bfee05","SBB CFF FFS","sbb-cff-ffs","Schweizerische Bundesbahnen - Chemins de fer fédéraux - Ferrovie federali svizzere","CH","Active","1902-01-01",,1435,,"http://sbb.ch"
+"5ec1da83-b0dc-4ca4-aa04-ecb80d78f8ea","SBB Cargo","sbb-cargo","","CH",Active,,,1435,,
+"b2df7e15-e7ea-4c03-8189-f57b356c6e48","CN","cn","Canadian National Railway","CA",Active,"1919-06-06",,1435,32831,"http://cn.ca"
+"b3b71b8e-cdfe-44b1-b044-5b3a41dd4ae7,"Amtrak","amtrak","National Railroad Passenger Corporation","US",Active,"1971-05-01",,1435,34400,"http://amtrak.com"
+"97e39fa2-1e63-4f76-9e33-e5e94dd10c56","BNSF Railway","bnsf-railway","Burlington Northern and Santa Fe","US",Active,1995-09-22",,1435,52300,"http://bnsf.com"
+"1668875f-bd13-48e6-bd7f-7175744e182e","Union Pacific","union-pacific","Union Pacific Railroad","US",Active,"1862-01-01",,1435,51700,"http://up.com"
+"53d2d814-606a-4448-9ee0-ad498d3b45e9","Caltrain","caltrain","Caltrain","US",Active,"1985-01-01",,1435,124,"http://www.caltrain.com"
+"1c2cb072-d377-4023-8b64-4a5817a0eac8","CSX","csx","CSX Transportation","US",Active,"1986-07-01",,1435,34000,"http://csx.com"
+"b1a856e7-be2d-497d-a17b-b064296e54fd","Norfolk Southern","norfolk-southern","Norfolk Southern Railway","US",Active,"1982-01-01",,1435,34600,"http://nscorp.com"
+"f44cc765-0b1e-4d0a-9738-d12139b26267","KCS","kcs","Kansas City Southern Railway","US",Active,"1887-01-01",,1435,5500,"http://kcsouthern.com"
+"1be0f951-fea6-4476-aeb5-aa8de43c9643","FO","fo","Furka Oberalp Bahn","CH",Inactive,1930,"2001-01-01",1000,,
+"1be0f951-fea6-4476-aeb5-aa8de43c9643","BVZ","bvz","Brig-Visp-Zermatt-Bahn","CH",Inactive,"1890-07-03","2001-01-01",1000,44,
+

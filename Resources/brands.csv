@@ -1,0 +1,32 @@
+BrandId,Slug,Name,WebsiteUrl,MailAddress,CompanyName,BrandKind,Active
+"9ed9f089-2053-4a39-b669-a6d603080402","acme","ACME","http://www.acmetreni.com","mail[AT]acmetreni.com","Associazione Costruzioni Modellistiche Esatte","Industrial",
+"11b39481-d6e4-489f-b346-77c4c3a3cbf5","arnold","Arnold",,,,Industrial,
+"0f227391-ec3b-4be1-b478-f505e36d0601","bachmann","Bachmann","https://www.bachmanntrains.com/home-usa",,"Bachmann Trains","Industrial",
+"ff9f5055-8ae7-4d58-a68f-0cee3adb6656","bemo","Bemo","https://www.bemo-modellbahn.de","mail[AT]bemo-modellbahn.de","BEMO Modelleisenbahnen GmbH u. Co KG","Industrial",
+"c37f8ac1-991b-422c-b273-5c02efe2087e","brawa","Brawa","https://www.brawa.de",,"BRAWA Artur Braun Modellspielwarenfabrik GmbH & Co. KG","Industrial",
+"cdae869a-7896-4161-bdc4-9d27a694b5c7","electrotren","Electrotren","https://www.hornby.com/uk-en/shop/brands/electrotren-h0-1-87.html",,,Industrial,
+"2a916d99-953f-44d6-8115-7e72ca22b081","fleischmann","Fleischmann","https://www.fleischmann.de",,"Modelleisenbahn München GmbH","Industrial",
+"5d5e99f0-5ca9-4e36-bfd4-14bd758e46ef","guetzold","Gützold","https://www.guetzold.de","info[AT]fischer-modell.de","fischer-modell GmbH",Industrial,
+"95417c5d-96bb-4341-9142-54c75534cd98","jagerndorfer","Jagerndorfer","https://www.jaegerndorfer.at/","jc[AT]jaegerndorfer.at","Jägerndorfer Ges.m.b.H.","Industrial",
+"1a58c82d-5996-4aa1-a02f-02c2248aa130","hornby","Hornby","https://www.hornby.com/uk-en","customerservices.uk[AT]hornby.com","Hornby Hobbies Ltd","Industrial",
+"1880232c-2aab-4afc-b4d4-d5278e23224b","kato","Kato","https://www.katomodels.com/",,"Sekisui Kinzoku Co., Ltd.","Industrial",
+"4fea60f1-78c8-4302-b781-076fa409fe30","liliput","Liliput","https://www.liliput.de","service[AT]liliput.de","Bachmann Europe Plc","Industrial",
+"e014a087-249f-4e74-bf74-c61fdbc4372f","lgb","LGB","https://www.lgb.com",,,"Industrial",
+"9391bd6a-d21f-40c8-9600-84ea1e3eb2f0","ls-models","Ls Models","https://www.lsmodels.com","info[AT]lsmodels.com","L.S. MODELS EXCLUSIVE SPRL","Industrial",
+"66fa5a39-7e47-471f-9f92-d2bb01258c31","maerklin","Märklin","https://www.maerklin.de",,"Gebr. Märklin & Cie. GmbH","Industrial",
+"016f97ff-b9aa-4818-b784-76096185db85","piko","Piko","https://www.piko.de","hotline[AT]piko.de","PIKO Spielwaren GmbH","Industrial",
+"9f5ae7e4-12ce-4d84-96b5-164f37f659a0","ree","REE","https://www.ree-modeles.com",,"RAILS EUROP EXPRESS","Industrial",
+"c31b00bf-4335-4687-9699-6a9e203d27ec","rivarossi","Rivarossi","https://www.hornby.com/it-it/",,,Industrial,
+"4b7a619b-65cc-41f5-a003-450537c85dea","roco","Roco","http://www.roco.cc",,"Modelleisenbahn GmbH","Industrial",
+"9d044507-0d00-46aa-8798-ea3c77277c28","tillig","Tillig","https://www.tillig.com","info[AT]tillig.com","TILLIG Modellbahnen GmbH","Industrial",
+"a5d5a4a3-de25-4f7d-9ab0-98803178a8d8","trix","Trix","https://www.trix.de",,,"Industrial",
+"528128c3-7316-44c6-957c-761cecf0920c","vitrains","ViTrains","http://www.vitrains.it",,"ViTrains","Industrial",
+"868554cb-21d9-4ae3-8cdd-6a1e3f35c988","le-models","Le Models",,,"Level Group","Industrial",false
+"86db7648-04ba-4cee-b183-37ee137822ca","oskar","Os.Kar",,,"OsKar Trains","Industrial",false
+"a9e69ca3-218c-40b5-9eb9-d80980b00237","big-models","Big Models",,,,"Industrial",false
+"03a09576-b9bf-4a86-b02d-05e85bb0fa56","lima","Lima",,,,"Industrial",true
+"a06c3945-c9b5-4d1a-8a9f-3bb41e18b4d9","broadway-limited","Broadway Limited","https://www.broadway-limited.com",,"Broadway Limited Imports, LLC","Industrial",true
+"440a45dd-0bda-4f90-959e-993c31acf93a","af-models","AF Models",,,,"Industrial",true
+"e2e5e7dd-6d2f-4096-8f0b-2afb4b5f7ab5","blackstar","Blackstar","http://www.blackstardistribution.it","info[AT]blackstardistribution.it","BLACK STAR S.r.l.","Industrial",true
+"a2e1a9d4-ca3f-4f56-a204-c0319b5218e7","lima-expert","Lima Expert",,,,"Industrial",true
+"6991286c-76ac-4911-b1be-51e200c139d9","pirata","Pirata","https://www.piratamodels.it","info[AT]piratamodels.it",,"Industrial",true
