@@ -17,7 +17,9 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 country,
                 operatingSince,
                 operatingUntil,
-                rs);
+                rs,
+                DateTime.UtcNow,
+                1);
             return railway;
         }
 
@@ -25,13 +27,15 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         {
             var railway = new Railway(
                 id,
-                Slug.Of(name),
+                slug,
                 name,
                 companyName,
                 country,
                 operatingSince,
                 operatingUntil,
-                rs);
+                rs,
+                DateTime.UtcNow,
+                1);
             return railway;
         }
 
@@ -45,7 +49,9 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 country,
                 operatingSince,
                 operatingUntil,
-                active == true ? RailwayStatus.Active : RailwayStatus.Inactive);
+                active == true ? RailwayStatus.Active : RailwayStatus.Inactive,
+                createdAt,
+                version ?? 1);
             return railway;
         }
     }

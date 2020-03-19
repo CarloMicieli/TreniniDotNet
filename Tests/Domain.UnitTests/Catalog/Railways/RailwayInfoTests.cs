@@ -1,3 +1,4 @@
+using System;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using Xunit;
@@ -34,7 +35,9 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 "DE",
                 null,
                 null,
-                RailwayStatus.Active);
+                RailwayStatus.Active, 
+                DateTime.UtcNow, 
+                1);
         }
     }
 }

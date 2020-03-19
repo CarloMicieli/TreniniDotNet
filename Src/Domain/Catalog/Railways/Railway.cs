@@ -22,16 +22,16 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         private readonly int? _version;
 
         public Railway(string name, string? companyName, string? country, RailwayStatus? rs)
-            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, null, null, rs)
+            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, null, null, rs, DateTime.UtcNow, 1)
         {
         }
 
         public Railway(string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs)
-            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, operatingSince, operatingUntil, rs)
+            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, operatingSince, operatingUntil, rs, DateTime.UtcNow, 1)
         {
         }
 
-        public Railway(RailwayId id, Slug slug, string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs)
+        public Railway(RailwayId id, Slug slug, string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs, DateTime? createdAt, int version)
         {
             ValidateCountryCode(country);
             ValidateName(name);
@@ -45,8 +45,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             _rs = rs;
             _operatingSince = operatingSince;
             _operatingUntil = operatingUntil;
-            _createdAt = DateTime.UtcNow;
-            _version = 1;
+            _createdAt = createdAt;
+            _version = version;
         }
 
         #region [ Properties ]
