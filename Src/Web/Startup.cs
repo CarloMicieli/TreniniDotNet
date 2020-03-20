@@ -17,6 +17,7 @@ using TreniniDotNet.Web.Identity;
 using TreniniDotNet.Infrastructure.Persistence.Seed;
 using Microsoft.Extensions.Logging;
 using NodaTime;
+using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Web
 {
@@ -65,6 +66,7 @@ namespace TreniniDotNet.Web
 
             services.AddMediatR(typeof(Startup).Assembly);
 
+            services.AddSingleton<IGuidSource, GuidSource>();
             services.AddSingleton<IClock>(SystemClock.Instance);
 
             services.AddHealthChecks()
