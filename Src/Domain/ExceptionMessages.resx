@@ -133,8 +133,11 @@
     <value>railway name must be non empty</value>
   </data>
   <data name="InvalidRailwayOperatingUntilForInactiveRailway" xml:space="preserve">
-    <value>invalid railway: operating until has a value for an active railway</value>
+    <value>invalid railway: operating until is missing for an inactive railway</value>
   </data>
+  <data name="InvalidRailwayOperatingUntilForActiveRailway" xml:space="preserve">
+    <value>invalid railway: operating until has a value for an active railway</value>
+  </data>  
   <data name="InvalidRailwaySinceLaterThanOperatingUntil" xml:space="preserve">
     <value>invalid railway: operating since &gt; operating until</value>
   </data>

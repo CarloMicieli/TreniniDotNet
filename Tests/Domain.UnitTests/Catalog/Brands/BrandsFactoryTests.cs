@@ -61,12 +61,12 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                     errors.Should().HaveCount(3);
 
                     var errorsList = errors.ToList();
-                    /*
+
                     errorsList.Should().ContainInOrder(
-                        "Invalid URI: The format of the URI could not be determined.", 
-                        "The specified string is not in the form required for an e-mail address.", 
-                        "The specified string is not a valid brand kind.");
-                    */
+                        Error.New("Invalid URI: The format of the URI could not be determined."),
+                        Error.New("The specified string is not in the form required for an e-mail address."),
+                        Error.New("The specified string is not a valid brand kind."));
+
                 });
         }
 

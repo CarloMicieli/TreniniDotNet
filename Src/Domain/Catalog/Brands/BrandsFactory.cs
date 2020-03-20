@@ -9,7 +9,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class BrandsFactory : IBrandsFactory
     {
-
         public Validation<Error, IBrand> NewBrandV(Guid brandId, string name, string slug, string? companyName, string? websiteUrl, string? emailAddress, string? brandKind)
         {
             var websiteV = ToUri(websiteUrl);
