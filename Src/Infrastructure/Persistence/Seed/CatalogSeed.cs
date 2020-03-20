@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NodaTime;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,14 +21,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Seed
             IRailwaysRepository railways = scopedServices.GetRequiredService<IRailwaysRepository>();
             IScalesRepository scales = scopedServices.GetRequiredService<IScalesRepository>();
 
-            await SeedBrands(brands, logger);
-            await SeedRailways(railways, logger);
-            await SeedScales(scales, logger);
+            IClock clock = SystemClock.Instance;
+
+            await SeedBrands(brands, logger, clock);
+            await SeedRailways(railways, logger, clock);
+            await SeedScales(scales, logger, clock);
         }
 
-        private static async Task SeedBrands(IBrandsRepository brandsRepo, ILogger logger)
+        private static async Task SeedBrands(IBrandsRepository brandsRepo, ILogger logger, IClock clock)
         {
-            var brandsFactory = new BrandsFactory();
+            var brandsFactory = new BrandsFactory(clock);
             var brandRecords = CsvLoader.LoadRecords<BrandRecord>(@"..\..\Resources\brands.csv");
             logger.LogInformation("{0} brand(s) found", brandRecords.Count());
 
@@ -54,9 +57,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Seed
             }
         }
 
-        private static async Task SeedScales(IScalesRepository scalesRepo, ILogger logger)
+        private static async Task SeedScales(IScalesRepository scalesRepo, ILogger logger, IClock clock)
         {
-            var scalesFactory = new ScalesFactory();
+            var scalesFactory = new ScalesFactory(clock);
             var scalesRecords = CsvLoader.LoadRecords<ScaleRecord>(@"..\..\Resources\scales.csv");
             logger.LogInformation("{0} scale(s) found", scalesRecords.Count());
 
@@ -84,9 +87,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Seed
             }
         }
 
-        private static async Task SeedRailways(IRailwaysRepository railwaysRepo, ILogger logger)
+        private static async Task SeedRailways(IRailwaysRepository railwaysRepo, ILogger logger, IClock clock)
         {
-            var railwaysFactory = new Domain.Catalog.Railways.RailwaysFactory();
+            var railwaysFactory = new Domain.Catalog.Railways.RailwaysFactory(clock);
             var railwayRecords = CsvLoader.LoadRecords<RailwayRecord>(@"..\..\Resources\railways.csv");
             logger.LogInformation("{0} railway(s) found", railwayRecords.Count());
 

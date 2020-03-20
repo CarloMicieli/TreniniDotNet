@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Mail;
+using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -9,7 +10,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class Brands
     {
-        private readonly static IBrandsFactory brandFactory = new BrandsFactory();
+        private readonly static IBrandsFactory brandFactory = new BrandsFactory(SystemClock.Instance);
 
         private readonly IList<IBrand> _all;
         private readonly IBrand _brawa;

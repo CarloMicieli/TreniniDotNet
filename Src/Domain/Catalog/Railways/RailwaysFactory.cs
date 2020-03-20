@@ -4,11 +4,19 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using LanguageExt;
 using static LanguageExt.Prelude;
 using System.Globalization;
+using NodaTime;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public sealed class RailwaysFactory : IRailwaysFactory
     {
+        private readonly IClock _clock;
+
+        public RailwaysFactory(IClock clock)
+        {
+            _clock = clock;
+        }
+
         public Validation<Error, IRailway> NewRailwayV(
             Guid railwayId,
             string railwayName,

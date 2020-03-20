@@ -5,9 +5,6 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    /// <summary>
-    /// It represents a operator of the rail transport.
-    /// </summary>
     public sealed class Railway : IEquatable<Railway>, IRailway
     {
         private readonly RailwayId _id;

@@ -1,4 +1,6 @@
 ﻿using System;
+using NodaTime;
+using NodaTime.Testing;
 using TreniniDotNet.Application.Boundaries;
 using TreniniDotNet.Application.InMemory.Repositories;
 using TreniniDotNet.Application.InMemory.Repositories.Catalog;
@@ -15,6 +17,8 @@ namespace TreniniDotNet.Application.UseCases
         where TUseCaseOutput : IUseCaseOutput
         where TOutputPort : IOutputPortStandard<TUseCaseOutput>, new()
     {
+        private readonly IClock _fakeClock = new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0));
+
         protected (TUseCase, TOutputPort) ArrangeBrandsUseCase(Start initData, Func<BrandService, TOutputPort, IUnitOfWork, TUseCase> factory)
         {
             var context = initData == Start.WithSeedData ? InMemoryContext.WithCatalogSeedData() : new InMemoryContext();
@@ -22,7 +26,7 @@ namespace TreniniDotNet.Application.UseCases
 
             IUnitOfWork unitOfWork = new UnitOfWork();
 
-            var brandService = new BrandService(brandRepository, new BrandsFactory());
+            var brandService = new BrandService(brandRepository, new BrandsFactory(_fakeClock));
             var outputPort = new TOutputPort();
 
             return (factory.Invoke(brandService, outputPort, unitOfWork), outputPort);
@@ -35,7 +39,7 @@ namespace TreniniDotNet.Application.UseCases
 
             IUnitOfWork unitOfWork = new UnitOfWork();
 
-            var railwayService = new RailwayService(railwayRepository, new Domain.Catalog.Railways.RailwaysFactory());
+            var railwayService = new RailwayService(railwayRepository, new RailwaysFactory(_fakeClock));
             var outputPort = new TOutputPort();
 
             return (factory.Invoke(railwayService, outputPort, unitOfWork), outputPort);
@@ -44,11 +48,11 @@ namespace TreniniDotNet.Application.UseCases
         protected (TUseCase, TOutputPort) ArrangeScalesUseCase(Start initData, Func<ScaleService, TOutputPort, IUnitOfWork, TUseCase> factory)
         {
             var context = initData == Start.WithSeedData ? InMemoryContext.WithCatalogSeedData() : new InMemoryContext();
-            var scaleRepository = new ScaleRepository(context);
+            var scaleRepository = new ScaleRepository(context, new ScalesFactory(_fakeClock));
 
             IUnitOfWork unitOfWork = new UnitOfWork();
 
-            var scaleService = new ScaleService(scaleRepository, new Domain.Catalog.Scales.ScalesFactory());
+            var scaleService = new ScaleService(scaleRepository, new ScalesFactory(_fakeClock));
             var outputPort = new TOutputPort();
 
             return (factory.Invoke(scaleService, outputPort, unitOfWork), outputPort);
@@ -59,7 +63,7 @@ namespace TreniniDotNet.Application.UseCases
             var context = initData == Start.WithSeedData ? InMemoryContext.WithCatalogSeedData() : new InMemoryContext();
             var catalogItemRepository = new CatalogItemRepository(context);
             var brandRepository = new BrandRepository(context);
-            var scaleRepository = new ScaleRepository(context);
+            var scaleRepository = new ScaleRepository(context, new ScalesFactory(_fakeClock));
             var railwayRepository = new RailwayRepository(context);
 
             IUnitOfWork unitOfWork = new UnitOfWork();

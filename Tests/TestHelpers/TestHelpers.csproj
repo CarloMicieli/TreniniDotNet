@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\Src\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NodaTime" Version="2.4.7" />
+  </ItemGroup>
+
 </Project>

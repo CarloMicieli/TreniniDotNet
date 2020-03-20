@@ -4,26 +4,40 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using LanguageExt;
 using static LanguageExt.Prelude;
+using NodaTime;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class BrandsFactory : IBrandsFactory
     {
-        public Validation<Error, IBrand> NewBrandV(Guid brandId, string name, string slug, string? companyName, string? websiteUrl, string? emailAddress, string? brandKind)
+        private readonly IClock _clock;
+
+        public BrandsFactory(IClock clock)
         {
+            _clock = clock;
+        }
+
+        public Validation<Error, IBrand> NewBrandV(Guid brandId, string name, string? companyName, string? websiteUrl, string? emailAddress, string? brandKind)
+        {
+            var nameV = ToBrandName(name);
             var websiteV = ToUri(websiteUrl);
             var mailAddressV = ToMailAddress(emailAddress);
             var kindV = ToBrandKind(brandKind);
 
-            return (websiteV, mailAddressV, kindV).Apply((website, mail, kind) => NewBrand(
-                new BrandId(brandId),
-                name,
-                Slug.Of(slug),
-                companyName,
-                website,
-                mail,
-                kind)
-            );
+            return (nameV, websiteV, mailAddressV, kindV).Apply((_name, _website, _mail, _kind) =>
+            {
+                IBrand brand = new Brand(
+                    new BrandId(brandId),
+                    _name,
+                    Slug.Of(_name),
+                    companyName,
+                    _website,
+                    _mail,
+                    _kind,
+                    _clock.GetCurrentInstant(),
+                    1);
+                return brand;
+            });
         }
 
         public IBrand NewBrand(Guid brandId, string name, string slug, string? companyName, string? websiteUrl, string? emailAddress, string? brandKind)
@@ -51,6 +65,9 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 kind: kind ?? BrandKind.Industrial
                 );
         }
+
+        public static Validation<Error, string> ToBrandName(string? str) =>
+            string.IsNullOrWhiteSpace(str) == false ? Success<Error, string>(str!) : Fail<Error, string>(Error.New("invalid brand: name cannot be empty"));
 
         public static Validation<Error, Uri> ToUri(string? str) =>
             str != null && Uri.TryCreate(str, UriKind.Absolute, out var uri) ?

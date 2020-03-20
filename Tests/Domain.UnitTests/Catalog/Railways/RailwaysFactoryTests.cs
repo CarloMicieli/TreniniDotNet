@@ -3,6 +3,8 @@ using FluentAssertions;
 using System;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
+using NodaTime.Testing;
+using NodaTime;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
@@ -12,7 +14,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public RailwaysFactoryTests()
         {
-            this.factory = new RailwaysFactory();
+            this.factory = new RailwaysFactory(
+                new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)));
         }
 
         [Fact]

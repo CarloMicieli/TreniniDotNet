@@ -10,7 +10,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
     {
         Validation<Error, IBrand> NewBrandV(
             Guid brandId,
-            string name, string slug,
+            string name,
             string? companyName,
             string? websiteUrl,
             string? emailAddress,

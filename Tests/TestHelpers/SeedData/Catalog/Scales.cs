@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -8,7 +9,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class Scales
     {
-        private static readonly IScalesFactory factory = new ScalesFactory();
+        private static readonly IScalesFactory factory = new ScalesFactory(SystemClock.Instance);
 
         private readonly IScale _scaleH0;
         private readonly IScale _scaleH0m;

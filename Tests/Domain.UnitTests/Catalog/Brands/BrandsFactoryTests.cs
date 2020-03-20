@@ -4,6 +4,8 @@ using System;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using System.Net.Mail;
+using NodaTime.Testing;
+using NodaTime;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
@@ -13,7 +15,8 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         public BrandsFactoryTests()
         {
-            this.factory = new BrandsFactory();
+            this.factory = new BrandsFactory(
+                new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)));
         }
 
         [Fact]
@@ -23,7 +26,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             var success = factory.NewBrandV(
                 id,
                 "name",
-                "slug",
                 "company name",
                 "https://www.website.com",
                 "mail@mail.com",
@@ -33,9 +35,12 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             success.Match(
                 Succ: succ =>
                 {
+                    succ.Slug.Should().Be(Slug.Of("name"));
                     succ.WebsiteUrl.Should().Be(new Uri("https://www.website.com"));
                     succ.EmailAddress.Should().Be(new MailAddress("mail@mail.com"));
                     succ.Kind.Should().Be(BrandKind.Industrial);
+                    succ.Version.Should().Be(1);
+                    succ.CreatedAt.Should().Be(Instant.FromUtc(1988, 11, 25, 0, 0).ToDateTimeUtc());
                 },
                 Fail: errors => Assert.True(false, "should never get here"));
         }
@@ -46,8 +51,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             Guid id = Guid.NewGuid();
             var failure = factory.NewBrandV(
                 id,
-                "name",
-                "slug",
+                "    ",
                 null,
                 "---invalid url---",
                 "---invalid mail---",
@@ -58,11 +62,12 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 Succ: succ => Assert.True(false, "should never get here"),
                 Fail: errors =>
                 {
-                    errors.Should().HaveCount(3);
+                    errors.Should().HaveCount(4);
 
                     var errorsList = errors.ToList();
 
                     errorsList.Should().ContainInOrder(
+                        Error.New("invalid brand: name cannot be empty"),
                         Error.New("Invalid URI: The format of the URI could not be determined."),
                         Error.New("The specified string is not in the form required for an e-mail address."),
                         Error.New("The specified string is not a valid brand kind."));
