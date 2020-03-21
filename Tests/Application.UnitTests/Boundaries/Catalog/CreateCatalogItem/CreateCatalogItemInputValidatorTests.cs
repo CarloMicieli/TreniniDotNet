@@ -1,5 +1,4 @@
 using FluentValidation.TestHelper;
-using System;
 using System.Collections.Generic;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using Xunit;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TreniniDotNet.Application.Boundaries;
+using TreniniDotNet.Common;
 using Xunit;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts
@@ -11,12 +12,14 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
         where TUseCaseOutput : IUseCaseOutput
     {
         private MethodInvocation<string> ErrorMethod { set; get; }
+        private MethodInvocation<IEnumerable<Error>> ErrorsMethod { set; get; }
         private MethodInvocation<IList<ValidationFailure>> InvalidRequestMethod { set; get; }
         private MethodInvocation<TUseCaseOutput> StandardMethod { set; get; }
 
         protected OutputPortTestHelper()
         {
             this.ErrorMethod = MethodInvocation<string>.NotInvoked(nameof(Error));
+            this.ErrorsMethod = MethodInvocation<IEnumerable<Error>>.NotInvoked(nameof(ErrorsMethod));
             this.InvalidRequestMethod = MethodInvocation<IList<ValidationFailure>>.NotInvoked(nameof(InvalidRequest));
             this.StandardMethod = MethodInvocation<TUseCaseOutput>.NotInvoked(nameof(Standard));
         }
@@ -24,6 +27,11 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
         public void Error(string message)
         {
             this.ErrorMethod = this.ErrorMethod.Invoked(message);
+        }
+
+        public void Errors(IEnumerable<Error> errors)
+        {
+            this.ErrorsMethod = this.ErrorsMethod.Invoked(errors);
         }
 
         public void InvalidRequest(IList<ValidationFailure> failures)
@@ -70,5 +78,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
         }
 
         public TUseCaseOutput UseCaseOutput => StandardMethod.Argument;
+
+        public IEnumerable<Error> ErrorsList => ErrorsMethod.Argument;
     }
 }

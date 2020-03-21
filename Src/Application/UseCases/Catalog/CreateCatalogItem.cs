@@ -111,7 +111,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 },
                 Fail: errors =>
                 {
-
+                    OutputPort.Errors(errors.ToImmutableList());
                 });
         }
 
