@@ -10,18 +10,26 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface ICatalogItemsFactory
     {
-        Validation<Error, ICatalogItem> NewCatalogItemV(IBrandInfo brand, string itemNumber,
+        Validation<Error, ICatalogItem> NewCatalogItem(
+            IBrandInfo brand, string itemNumber,
             IScaleInfo scale,
-            string powerMethod, string? deliveryDate, bool available,
-            string description, string? modelDescription, string? prototypeDescription);
+            string powerMethod,
+            string? deliveryDate, bool available,
+            string description, string? modelDescription, string? prototypeDescription,
+            IRollingStock rollingStock);
 
+        Validation<Error, ICatalogItem> NewCatalogItem(
+            IBrandInfo brand, string itemNumber,
+            IScaleInfo scale,
+            string powerMethod,
+            string? deliveryDate, bool available,
+            string description, string? modelDescription, string? prototypeDescription,
+            IReadOnlyList<IRollingStock> rollingStock);
 
-
-
-
-
+        [Obsolete]
         IRollingStock NewRollingStock(Guid rollingStockId, IRailwayInfo railway, string era, string category, decimal? length, string? className, string? roadNumber);
 
+        [Obsolete]
         ICatalogItem NewCatalogItem(Guid catalogItemId, IBrandInfo brand, string itemNumber, string slug,
             IScaleInfo scale,
             string powerMethod, string? deliveryDate,

@@ -4,6 +4,7 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using Xunit;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {

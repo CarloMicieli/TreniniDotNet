@@ -8,23 +8,8 @@ using System;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public sealed class CatalogItem : ICatalogItem
+    public sealed class CatalogItem : ICatalogItem, IEquatable<CatalogItem>
     {
-        private readonly CatalogItemId _id;
-        private readonly IBrandInfo _brand;
-        private readonly Slug _slug;
-        private readonly IScaleInfo _scale;
-        private readonly ItemNumber _itemNumber;
-        private readonly IReadOnlyList<IRollingStock> _rollingStocks;
-        private readonly string _description;
-        private readonly string? _prototypeDescr;
-        private readonly string? _modelDescr;
-        private readonly PowerMethod _powerMethod;
-        private readonly DeliveryDate? _deliveryDate;
-        private readonly bool _available = false;
-        private readonly Instant _lastModifiedAt;
-        private readonly int _version;
-
         [Obsolete]
         public CatalogItem(
             IBrandInfo brand,
@@ -62,19 +47,19 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string? prototypeDescr,
             string? modelDescr)
         {
-            _id = id;
-            _brand = brand;
-            _slug = slug;
-            _scale = scale;
-            _itemNumber = itemNumber;
-            _rollingStocks = rollingStocks;
-            _description = description;
-            _prototypeDescr = prototypeDescr;
-            _modelDescr = modelDescr;
-            _powerMethod = powerMethod;
-            _deliveryDate = null;
-            _lastModifiedAt = Instant.FromUtc(2020, 1, 1, 0, 0);
-            _version = 1;
+            CatalogItemId = id;
+            Brand = brand;
+            Slug = slug;
+            Scale = scale;
+            ItemNumber = itemNumber;
+            RollingStocks = rollingStocks;
+            Description = description;
+            PrototypeDescription = prototypeDescr;
+            ModelDescription = modelDescr;
+            PowerMethod = powerMethod;
+            DeliveryDate = null;
+            LastModifiedAt = Instant.FromUtc(2020, 1, 1, 0, 0);
+            Version = 1;
         }
 
         internal CatalogItem(
@@ -91,42 +76,48 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             bool available,
             IReadOnlyList<IRollingStock> rollingStocks,
             Instant lastModifiedAt,
-            int version
-            )
+            int version)
         {
-            _id = id;
-            _brand = brand;
-            _slug = slug;
-            _scale = scale;
-            _itemNumber = itemNumber;
-            _rollingStocks = rollingStocks;
-            _description = description;
-            _prototypeDescr = prototypeDescr;
-            _modelDescr = modelDescr;
-            _powerMethod = powerMethod;
-            _deliveryDate = deliveryDate;
-            _available = available;
-            _lastModifiedAt = lastModifiedAt;
-            _version = version;
+            CatalogItemId = id;
+            Brand = brand;
+            Slug = slug;
+            Scale = scale;
+            ItemNumber = itemNumber;
+            RollingStocks = rollingStocks;
+            Description = description;
+            PrototypeDescription = prototypeDescr;
+            ModelDescription = modelDescr;
+            PowerMethod = powerMethod;
+            DeliveryDate = deliveryDate;
+            LastModifiedAt = lastModifiedAt;
+            Version = version;
         }
 
         #region [ Properties ]
-        public CatalogItemId CatalogItemId => _id;
-        public IBrandInfo Brand => _brand;
-        public Slug Slug => _slug;
-        public ItemNumber ItemNumber => _itemNumber;
-        public IReadOnlyList<IRollingStock> RollingStocks => _rollingStocks;
-        public string Description => _description;
-        public string? PrototypeDescription => _prototypeDescr;
-        public string? ModelDescription => _modelDescr;
-        public IScaleInfo Scale => _scale;
-        public PowerMethod PowerMethod => _powerMethod;
-        public DeliveryDate? DeliveryDate => _deliveryDate;
-        public bool IsAvailable => _available;
-        public int Version => _version;
-        public Instant LastModifiedAt => _lastModifiedAt;
+        public CatalogItemId CatalogItemId { get; }
+        public IBrandInfo Brand { get; }
+        public Slug Slug { get; }
+        public ItemNumber ItemNumber { get; }
+        public IReadOnlyList<IRollingStock> RollingStocks { get; }
+        public string Description { get; }
+        public string? PrototypeDescription { get; }
+        public string? ModelDescription { get; }
+        public IScaleInfo Scale { get; }
+        public PowerMethod PowerMethod { get; }
+        public DeliveryDate? DeliveryDate { get; }
+        public bool IsAvailable { get; }
+        public int Version { get; }
+        public Instant LastModifiedAt { get; }
         #endregion
 
+        #region [ Equality ]
+        public bool Equals(CatalogItem other)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        [Obsolete]
         private static Slug BuildSlug(IBrandInfo brand, ItemNumber itemNumber)
         {
             return Slug.Of(brand.Name, itemNumber.Value);

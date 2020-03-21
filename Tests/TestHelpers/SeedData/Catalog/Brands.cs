@@ -19,6 +19,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         private readonly IBrand _roco;
         private readonly IBrand _maerklin;
         private readonly IBrand _fleischmann;
+        private readonly IBrand _rivarossi;
 
         internal Brands()
         {
@@ -59,6 +60,15 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                null,
                BrandKind.Industrial);
 
+            _rivarossi = brandFactory.NewBrand(
+               new BrandId(new Guid("1e16aee7-3102-4d03-b99f-1a59a8b07202")),
+               "Rivarossi",
+               Slug.Of("Rivarossi"),
+               "Rivarossi",
+               new Uri("https://www.hornby.it/"),
+               null,
+               BrandKind.Industrial);
+
             _maerklin = brandFactory.NewBrand(
                 new BrandId(new Guid("66fa5a39-7e47-471f-9f92-d2bb01258c31")),
                 "Märklin",
@@ -85,13 +95,16 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 _bemo,
                 _brawa,
                 _fleischmann,
-                _maerklin
+                _maerklin,
+                _rivarossi
             };
         }
 
         public IBrand Acme() => _acme;
 
         public IBrand Roco() => _roco;
+
+        public IBrand Rivarossi() => _rivarossi;
 
         public IBrand Bemo() => _bemo;
 

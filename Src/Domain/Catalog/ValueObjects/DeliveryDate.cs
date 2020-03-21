@@ -8,6 +8,8 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         private readonly int _year;
         private readonly Quarter? _quarter;
 
+        private static readonly DeliveryDate _empty = new DeliveryDate(int.MaxValue, null);
+
         private DeliveryDate(int year, Quarter? quarter)
         {
             _year = year;
@@ -17,7 +19,11 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         public int Year => _year;
         public Quarter? Quarter => _quarter;
 
+        public static DeliveryDate Empty => _empty;
+
         public bool HasQuarter => _quarter.HasValue;
+
+        public bool IsEmpty => _year == int.MaxValue;
 
         public override string ToString() => this.HasQuarter ?
             $"{_year}/{_quarter}" : _year.ToString();
@@ -75,6 +81,19 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
             result = default;
             return false;
+        }
+
+        public static bool TryParseOpt(string? str, out DeliveryDate result)
+        {
+            if (str is null)
+            {
+                result = DeliveryDate.Empty;
+                return true;
+            }
+
+            var response = TryParse(str!, out var dd);
+            result = dd;
+            return response;
         }
 
         public static bool TryCreate(int year, Quarter? quarter, out DeliveryDate result)
