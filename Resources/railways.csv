@@ -16,7 +16,7 @@ RailwayId,Name,Slug,CompanyName,Country,Status,OperatingSince,OperatingUntil,Tra
 "12cd1791-bb51-476d-bdce-8c452284a31a","Vy","vy","Vygruppen","NO","Active","1996-12-01",,1435,,"https://www.vy.no"
 "f4c5a9d2-92a8-48b6-87ac-728fca41885d","Cp","cp","Comboios de Portugal","PT","Active","1951-01-01",,1435,,"http://www.cp.pt"
 "125cea2c-9dbd-4b7e-916b-8ee78e86b4b6","RENFE","renfe","Renfe Operadora","ES","Active","1941-01-24",,1435,,"http://renfe.com"
-"b4cf4d31-86d4-4f80-a34f-970cf91c4732","BLS","bls","BLS AG","CH","Active","2006,,1435,,"http://www.bls.ch"
+"b4cf4d31-86d4-4f80-a34f-970cf91c4732","BLS","bls","BLS AG","CH","Active","2006",,1435,,"http://www.bls.ch"
 "a455fa06-e35c-4f5f-969c-8371fa54d40a","Bern–Lötschberg–Simplon","bern–lotschberg–simplon","Bern–Lötschberg–Simplon","CH",Inactive,"1913-01-01","2006-01-01",1435,,
 "fa307786-00a9-4257-9274-76f7a0c06fab","RhB","rhb","Rhätische Bahn / Viafier retica","CH","Active","1888-01-01",,1000,384,"http://www.rhb.ch"
 "5410de14-3f6b-4ccc-9705-68b12442992c","MGB","mgb","Matterhorn-Gotthard-Bahn","CH","Active",,,1000,144,"http://www.matterhorngotthardbahn.ch"
