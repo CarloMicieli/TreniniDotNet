@@ -1,17 +1,7 @@
 using System;
 
-namespace TreniniDotNet.Common
+namespace TreniniDotNet.Common.Uuid
 {
-    public interface IGuidSource
-    {
-        Guid NewGuid();
-    }
-
-    public sealed class GuidSource : IGuidSource
-    {
-        public Guid NewGuid() => Guid.NewGuid();
-    }
-
     public sealed class FakeGuidSource : IGuidSource
     {
         private readonly Guid _fake;

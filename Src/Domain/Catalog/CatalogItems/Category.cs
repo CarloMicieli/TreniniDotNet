@@ -1,4 +1,6 @@
-﻿namespace TreniniDotNet.Domain.Catalog.CatalogItems
+﻿using System;
+
+namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     /// <summary>
     /// The enumeration of the model categories.
@@ -59,6 +61,21 @@
                 return result;
 
             return null;
+        }
+    }
+
+    public static class Categories
+    {
+        public static bool TryParse(string str, out Category result)
+        {
+            if (string.IsNullOrWhiteSpace(str) == false && Enum.TryParse<Category>(str, true, out var r))
+            {
+                result = r;
+                return true;
+            }
+
+            result = default;
+            return false;
         }
     }
 }

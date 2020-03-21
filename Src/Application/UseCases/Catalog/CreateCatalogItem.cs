@@ -107,7 +107,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                     railway,
                     input.Category.ToCategory() ?? Category.DieselLocomotive, //TODO
                     input.Era.ToEra() ?? Era.I, //TODO
-                    Length.Of(input.Length ?? 0M),
+                    Length.OfMillimeters(input.Length ?? 0M),
                     input.ClassName,
                     input.RoadNumber
                 );

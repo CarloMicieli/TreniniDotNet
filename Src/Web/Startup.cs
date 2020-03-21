@@ -18,6 +18,7 @@ using TreniniDotNet.Infrastructure.Persistence.Seed;
 using Microsoft.Extensions.Logging;
 using NodaTime;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Uuid;
 
 namespace TreniniDotNet.Web
 {
