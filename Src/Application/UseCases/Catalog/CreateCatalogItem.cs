@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
+using LanguageExt;
+using static LanguageExt.Prelude;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
@@ -18,13 +21,19 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         private readonly ICreateCatalogItemOutputPort _outputPort;
         private readonly IUnitOfWork _unitOfWork;
         private readonly CatalogItemService _catalogItemService;
+        private readonly IRollingStocksFactory _rollingStocksFactory;
 
-        public CreateCatalogItem(ICreateCatalogItemOutputPort outputPort, CatalogItemService catalogItemService, IUnitOfWork unitOfWork)
+        public CreateCatalogItem(
+            ICreateCatalogItemOutputPort outputPort,
+            CatalogItemService catalogItemService,
+            IRollingStocksFactory rollingStocksFactory,
+            IUnitOfWork unitOfWork)
             : base(new CreateCatalogItemInputValidator(), outputPort)
         {
             _outputPort = outputPort;
             _unitOfWork = unitOfWork;
             _catalogItemService = catalogItemService;
+            _rollingStocksFactory = rollingStocksFactory;
         }
 
         protected override async Task Handle(CreateCatalogItemInput input)
@@ -76,44 +85,68 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 return;
             }
 
-            IReadOnlyList<IRollingStock> rollingStocks = input.RollingStocks
-                .Select(input => ToRollingStock(input, railways))
-                .ToImmutableList();
+            Validation<Error, IEnumerable<IRollingStock>> result = input.RollingStocks
+                .Select(it => ToRollingStock(it, railways))
+                .Sequence();
 
-            var powerMethod = input.PowerMethod.ToPowerMethod() ?? PowerMethod.None;
-            var catalogItem = new CatalogItem(
-                brand,
-                itemNumber,
-                scale,
-                rollingStocks,
-                powerMethod,
-                input.Description,
-                input.PrototypeDescription,
-                input.ModelDescription);
+            result.Match(
+                Succ: async succ =>
+                {
+                    IReadOnlyList<IRollingStock> rollingStocks = succ.ToImmutableList();
+                    var powerMethod = input.PowerMethod.ToPowerMethod() ?? PowerMethod.None;
+                    var catalogItem = new CatalogItem(
+                        brand,
+                        itemNumber,
+                        scale,
+                        rollingStocks,
+                        powerMethod,
+                        input.Description,
+                        input.PrototypeDescription,
+                        input.ModelDescription);
 
-            var catalogItemId = await _catalogItemService.CreateNewCatalogItem(catalogItem);
-            await _unitOfWork.SaveAsync();
+                    var catalogItemId = await _catalogItemService.CreateNewCatalogItem(catalogItem);
+                    await _unitOfWork.SaveAsync();
 
-            CreateStandardOutput(catalogItem);
+                    CreateStandardOutput(catalogItem);
+                },
+                Fail: errors =>
+                {
+
+                });
         }
 
-        private IRollingStock ToRollingStock(RollingStockInput input, Dictionary<string, IRailway> railways)
+        private Validation<Error, IRollingStock> ToRollingStock(RollingStockInput input, Dictionary<string, IRailway> railways)
         {
             IRailway? railway = null;
             if (railways.TryGetValue(input.Railway, out railway))
             {
-                return new RollingStock(
-                    RollingStockId.NewId(),
-                    railway,
-                    input.Category.ToCategory() ?? Category.DieselLocomotive, //TODO
-                    input.Era.ToEra() ?? Era.I, //TODO
-                    Length.OfMillimeters(input.Length ?? 0M),
-                    input.ClassName,
-                    input.RoadNumber
-                );
+                if (Categories.IsLocomotive(input.Category))
+                {
+                    return _rollingStocksFactory.NewLocomotive(
+                        railway,
+                        input.Era,
+                        input.Category,
+                        input.Length,
+                        input.ClassName,
+                        input.RoadNumber,
+                        input.DccInterface,
+                        input.Control
+                    );
+
+                }
+                else
+                {
+                    return _rollingStocksFactory.NewRollingStock(
+                        railway,
+                        input.Era,
+                        input.Category,
+                        input.Length,
+                        input.TypeName
+                    );
+                }
             }
 
-            throw new ApplicationException("FIXME");
+            return Fail<Error, IRollingStock>(Error.New("invalid rolling stock: railway is not valid"));
         }
 
         private void CreateStandardOutput(CatalogItem catalogItem)

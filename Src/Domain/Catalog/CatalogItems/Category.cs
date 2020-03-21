@@ -77,5 +77,28 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             result = default;
             return false;
         }
+
+        public static bool IsLocomotive(string category)
+        {
+            if (TryParse(category, out var cat))
+            {
+                return cat == Category.SteamLocomotive ||
+                    cat == Category.ElectricLocomotive ||
+                    cat == Category.DieselLocomotive;
+            }
+
+            return true;
+        }
+
+        public static bool IsTrain(string category)
+        {
+            if (TryParse(category, out var cat))
+            {
+                return cat == Category.ElectricMultipleUnit ||
+                    cat == Category.Railcar;
+            }
+
+            return true;
+        }
     }
 }

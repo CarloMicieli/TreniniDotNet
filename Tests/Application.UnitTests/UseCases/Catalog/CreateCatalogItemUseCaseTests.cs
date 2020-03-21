@@ -1,10 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NodaTime;
+using NodaTime.Testing;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UnitTests.InMemory.OutputPorts.Catalog;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using Xunit;
@@ -165,7 +169,12 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         private CreateCatalogItem NewCreateCatalogItem(CatalogItemService catalogItemService, CreateCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)
         {
-            return new CreateCatalogItem(outputPort, catalogItemService, unitOfWork);
+            IRollingStocksFactory rollingStocksFactory = new RollingStocksFactory(
+                new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)),
+                FakeGuidSource.NewSource(new Guid("3d02506b-8263-4e14-880d-3f3caf22c562"))
+            );
+
+            return new CreateCatalogItem(outputPort, catalogItemService, rollingStocksFactory, unitOfWork);
         }
 
         private IList<RollingStockInput> EmptyRollingStocks()
@@ -181,7 +190,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                     railway: railway,
                     className: null,
                     roadNumber: null,
-                    length: null);
+                    typeName: null,
+                    length: null,
+                    control: null,
+                    dccInterface: null);
             return new List<RollingStockInput>() { rollingStockInput };
         }
 
@@ -193,7 +205,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                     railway: railway,
                     className: null,
                     roadNumber: null,
-                    length: null);
+                    typeName: null,
+                    length: 999M,
+                    control: null,
+                    dccInterface: null);
         }
 
         private IList<RollingStockInput> RollingStockList(params RollingStockInput[] inputs)

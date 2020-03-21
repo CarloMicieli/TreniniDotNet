@@ -19,6 +19,12 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
     {
         public static bool TryParse(string? str, out DccInterface result)
         {
+            if (str is null)
+            {
+                result = DccInterface.None;
+                return true;
+            }
+
             if (string.IsNullOrWhiteSpace(str) == false && Enum.TryParse<DccInterface>(str, true, out var dcc))
             {
                 result = dcc;

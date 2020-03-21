@@ -24,7 +24,10 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 railway: "FS",
                 className: null,
                 roadNumber: null,
-                length: 303
+                typeName: null,
+                length: 303,
+                control: null,
+                dccInterface: null
             );
 
             var input = new CreateCatalogItemInput(
@@ -198,7 +201,10 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                     railway: "",
                     className: null,
                     roadNumber: null,
-                    length: null)
+                    typeName: null,
+                    length: null,
+                    control: null,
+                    dccInterface: null)
             };
         }
 

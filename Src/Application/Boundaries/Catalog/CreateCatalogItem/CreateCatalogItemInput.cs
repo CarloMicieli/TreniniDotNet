@@ -58,16 +58,27 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         private readonly string _railway;
         private readonly string? _className;
         private readonly string? _roadNumber;
+        private readonly string? _typeName;
         private readonly decimal? _length;
+        private readonly string? _dccInterface;
+        private readonly string? _control;
 
-        public RollingStockInput(string era, string category, string railway, string? className, string? roadNumber, decimal? length)
+        public RollingStockInput(
+            string era, string category,
+            string railway,
+            string? className, string? roadNumber, string? typeName,
+            decimal? length,
+            string? control, string? dccInterface)
         {
             _era = era;
             _category = category;
             _railway = railway;
             _className = className;
             _roadNumber = roadNumber;
+            _typeName = typeName;
             _length = length;
+            _control = control;
+            _dccInterface = dccInterface;
         }
 
         public string Era => _era;
@@ -78,8 +89,14 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
 
         public string? ClassName => _className;
 
+        public string? TypeName => _typeName;
+
         public string? RoadNumber => _roadNumber;
 
         public decimal? Length => _length;
+
+        public string? DccInterface => _dccInterface;
+
+        public string? Control => _control;
     }
 }

@@ -30,5 +30,14 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
             success.Should().BeFalse();
         }
+
+        [Fact]
+        public void Controls_ShouldCreateTheNoneValue_WhenStringIsNull()
+        {
+            bool success = Controls.TryParse(null, out var control);
+
+            success.Should().BeTrue();
+            control.Should().Be(Control.None);
+        }
     }
 }

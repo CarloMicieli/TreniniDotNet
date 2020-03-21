@@ -29,5 +29,13 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             bool failure = DccInterfaces.TryParse("     ", out var _);
             failure.Should().BeFalse();
         }
+
+        [Fact]
+        public void DccInterfaces_ShouldCreateTheNoneValue_WhenStringIsNull()
+        {
+            bool success = DccInterfaces.TryParse(null, out var result);
+            success.Should().BeTrue();
+            result.Should().Be(DccInterface.None);
+        }
     }
 }

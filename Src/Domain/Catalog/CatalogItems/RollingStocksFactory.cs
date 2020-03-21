@@ -29,28 +29,37 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string? className, string? roadNumber,
             string? dccInterface, string? control)
         {
-            var eraV = ToEra(era);
-            var categoryV = ToCategory(category);
-            var lengthV = ToLength(length);
-            var controlV = ToControl(control);
-            var dccInterfaceV = ToDccInterface(dccInterface);
-
-            return (eraV, categoryV, lengthV, controlV, dccInterfaceV).Apply((_era, _category, _length, _control, _dcc) =>
+            if (Categories.IsLocomotive(category) == false)
             {
-                IRollingStock rs = new RollingStock(
-                    new RollingStockId(_guidSource.NewGuid()),
-                    railway,
-                    _category,
-                    _era,
-                    _length,
-                    className,
-                    roadNumber,
-                    null,
-                    _dcc,
-                    _control
-                );
-                return rs;
-            });
+                return Fail<Error, IRollingStock>(Error.New($"'{category}' is not a valid category for a locomotive"));
+            }
+
+            return NewRollingStockWithMotor(
+                railway,
+                era, category,
+                length,
+                className, roadNumber,
+                dccInterface, control);
+        }
+
+        public Validation<Error, IRollingStock> NewTrain(
+            IRailwayInfo railway,
+            string era, string category,
+            decimal? length,
+            string? className, string? roadNumber,
+            string? dccInterface, string? control)
+        {
+            if (Categories.IsTrain(category) == false)
+            {
+                return Fail<Error, IRollingStock>(Error.New($"'{category}' is not a valid category for a train"));
+            }
+
+            return NewRollingStockWithMotor(
+                railway,
+                era, category,
+                length,
+                className, roadNumber,
+                dccInterface, control);
         }
 
         public Validation<Error, IRollingStock> NewRollingStock(
@@ -76,6 +85,37 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                     typeName,
                     DccInterface.None,
                     Control.None
+                );
+                return rs;
+            });
+        }
+
+        private Validation<Error, IRollingStock> NewRollingStockWithMotor(
+            IRailwayInfo railway,
+            string era, string category,
+            decimal? length,
+            string? className, string? roadNumber,
+            string? dccInterface, string? control)
+        {
+            var eraV = ToEra(era);
+            var categoryV = ToCategory(category);
+            var lengthV = ToLength(length);
+            var controlV = ToControl(control);
+            var dccInterfaceV = ToDccInterface(dccInterface);
+
+            return (eraV, categoryV, lengthV, controlV, dccInterfaceV).Apply((_era, _category, _length, _control, _dcc) =>
+            {
+                IRollingStock rs = new RollingStock(
+                    new RollingStockId(_guidSource.NewGuid()),
+                    railway,
+                    _category,
+                    _era,
+                    _length,
+                    className,
+                    roadNumber,
+                    null,
+                    _dcc,
+                    _control
                 );
                 return rs;
             });

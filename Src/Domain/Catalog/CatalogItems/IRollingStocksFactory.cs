@@ -12,6 +12,12 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string? className, string? roadNumber,
             string? dccInterface, string? control);
 
+        Validation<Error, IRollingStock> NewTrain(
+            IRailwayInfo railway, string era, string category,
+            decimal? length,
+            string? className, string? roadNumber,
+            string? dccInterface, string? control);
+
         Validation<Error, IRollingStock> NewRollingStock(
             IRailwayInfo railway, string era, string category,
             decimal? length,
