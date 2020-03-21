@@ -111,11 +111,26 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         #endregion
 
         #region [ Equality ]
+        public override bool Equals(object obj)
+        {
+            if (obj is CatalogItem that)
+            {
+                return this.Equals(that);
+            }
+
+            return false;
+        }
+
         public bool Equals(CatalogItem other)
         {
-            throw new NotImplementedException();
+            return this.CatalogItemId.Equals(other.CatalogItemId);
         }
+
+        public static bool operator ==(CatalogItem left, CatalogItem right) => left.Equals(right);
+        public static bool operator !=(CatalogItem left, CatalogItem right) => !left.Equals(right);
         #endregion
+
+        public override int GetHashCode() => CatalogItemId.GetHashCode();
 
         [Obsolete]
         private static Slug BuildSlug(IBrandInfo brand, ItemNumber itemNumber)
