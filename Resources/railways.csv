@@ -24,7 +24,7 @@ RailwayId,Name,Slug,CompanyName,Country,Status,OperatingSince,OperatingUntil,Tra
 "5ec1da83-b0dc-4ca4-aa04-ecb80d78f8ea","SBB Cargo","sbb-cargo","","CH",Active,,,1435,,
 "b2df7e15-e7ea-4c03-8189-f57b356c6e48","CN","cn","Canadian National Railway","CA",Active,"1919-06-06",,1435,32831,"http://cn.ca"
 "b3b71b8e-cdfe-44b1-b044-5b3a41dd4ae7","Amtrak","amtrak","National Railroad Passenger Corporation","US",Active,"1971-05-01",,1435,34400,"http://amtrak.com"
-"97e39fa2-1e63-4f76-9e33-e5e94dd10c56","BNSF Railway","bnsf-railway","Burlington Northern and Santa Fe","US",Active,1995-09-22",,1435,52300,"http://bnsf.com"
+"97e39fa2-1e63-4f76-9e33-e5e94dd10c56","BNSF Railway","bnsf-railway","Burlington Northern and Santa Fe","US",Active,"1995-09-22",,1435,52300,"http://bnsf.com"
 "1668875f-bd13-48e6-bd7f-7175744e182e","Union Pacific","union-pacific","Union Pacific Railroad","US",Active,"1862-01-01",,1435,51700,"http://up.com"
 "53d2d814-606a-4448-9ee0-ad498d3b45e9","Caltrain","caltrain","Caltrain","US",Active,"1985-01-01",,1435,124,"http://www.caltrain.com"
 "1c2cb072-d377-4023-8b64-4a5817a0eac8","CSX","csx","CSX Transportation","US",Active,"1986-07-01",,1435,34000,"http://csx.com"
