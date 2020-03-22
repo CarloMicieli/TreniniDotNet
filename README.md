@@ -2,6 +2,8 @@
 
 ![.NET Core](https://github.com/CarloMicieli/TreniniDotNet/workflows/.NET%20Core/badge.svg)
 
+![Logo](logo.svg)
+
 An application to manage model railway collections.
 
 ## Setup
