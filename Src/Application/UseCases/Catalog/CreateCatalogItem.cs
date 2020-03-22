@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
-using LanguageExt;
-using static LanguageExt.Prelude;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common;
@@ -13,6 +10,8 @@ using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using LanguageExt;
+using static LanguageExt.Prelude;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
@@ -22,10 +21,12 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         private readonly IUnitOfWork _unitOfWork;
         private readonly CatalogItemService _catalogItemService;
         private readonly IRollingStocksFactory _rollingStocksFactory;
+        private readonly ICatalogItemsFactory _catalogItemsFactory;
 
         public CreateCatalogItem(
             ICreateCatalogItemOutputPort outputPort,
             CatalogItemService catalogItemService,
+            ICatalogItemsFactory catalogItemsFactory,
             IRollingStocksFactory rollingStocksFactory,
             IUnitOfWork unitOfWork)
             : base(new CreateCatalogItemInputValidator(), outputPort)
@@ -34,6 +35,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             _unitOfWork = unitOfWork;
             _catalogItemService = catalogItemService;
             _rollingStocksFactory = rollingStocksFactory;
+            _catalogItemsFactory = catalogItemsFactory;
         }
 
         protected override async Task Handle(CreateCatalogItemInput input)
@@ -90,29 +92,29 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 .Sequence();
 
             result.Match(
-                Succ: async succ =>
+                Succ: rollingStocks =>
                 {
-                    IReadOnlyList<IRollingStock> rollingStocks = succ.ToImmutableList();
-                    var powerMethod = input.PowerMethod.ToPowerMethod() ?? PowerMethod.None;
-                    var catalogItem = new CatalogItem(
+                    Validation<Error, ICatalogItem> catalogItemV = _catalogItemsFactory.NewCatalogItem(
                         brand,
-                        itemNumber,
+                        input.ItemNumber,
                         scale,
-                        rollingStocks,
-                        powerMethod,
-                        input.Description,
-                        input.PrototypeDescription,
-                        input.ModelDescription);
+                        input.PowerMethod,
+                        input.DeliveryDate, input.Available,
+                        input.Description, input.ModelDescription, input.PrototypeDescription,
+                        rollingStocks.ToImmutableList()
+                    );
 
-                    var catalogItemId = await _catalogItemService.CreateNewCatalogItem(catalogItem);
-                    await _unitOfWork.SaveAsync();
+                    catalogItemV.Match(
+                        Succ: async catalogItem =>
+                        {
+                            var catalogItemId = await _catalogItemService.CreateNewCatalogItem(catalogItem);
+                            await _unitOfWork.SaveAsync();
 
-                    CreateStandardOutput(catalogItem);
+                            CreateStandardOutput(catalogItem);
+                        },
+                        Fail: errors => OutputPort.Errors(errors.ToImmutableList()));
                 },
-                Fail: errors =>
-                {
-                    OutputPort.Errors(errors.ToImmutableList());
-                });
+                Fail: errors => OutputPort.Errors(errors.ToImmutableList()));
         }
 
         private Validation<Error, IRollingStock> ToRollingStock(RollingStockInput input, Dictionary<string, IRailway> railways)
@@ -149,7 +151,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             return Fail<Error, IRollingStock>(Error.New("invalid rolling stock: railway is not valid"));
         }
 
-        private void CreateStandardOutput(CatalogItem catalogItem)
+        private void CreateStandardOutput(ICatalogItem catalogItem)
         {
             var output = new CreateCatalogItemOutput(catalogItem.CatalogItemId, catalogItem.Slug);
             OutputPort.Standard(output);

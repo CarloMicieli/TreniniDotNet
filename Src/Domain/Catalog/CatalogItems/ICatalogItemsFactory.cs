@@ -24,7 +24,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string powerMethod,
             string? deliveryDate, bool available,
             string description, string? modelDescription, string? prototypeDescription,
-            IReadOnlyList<IRollingStock> rollingStock);
+            IReadOnlyList<IRollingStock> rollingStocks);
 
         [Obsolete]
         IRollingStock NewRollingStock(Guid rollingStockId, IRailwayInfo railway, string era, string category, decimal? length, string? className, string? roadNumber);

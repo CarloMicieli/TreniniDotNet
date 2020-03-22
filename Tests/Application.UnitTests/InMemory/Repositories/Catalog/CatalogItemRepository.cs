@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             _context = context;
         }
 
-        public Task<CatalogItemId> Add(CatalogItem catalogItem)
+        public Task<CatalogItemId> Add(ICatalogItem catalogItem)
         {
             _context.CatalogItems.Add(catalogItem);
             return Task.FromResult(catalogItem.CatalogItemId);

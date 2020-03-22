@@ -1,4 +1,6 @@
 ﻿using Xunit;
+using FluentAssertions;
+using System;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {
@@ -8,7 +10,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         public void ItShouldCreateItemNumberValues()
         {
             var itemNumber = new ItemNumber("123456");
-            Assert.Equal("123456", itemNumber.Value);
+            itemNumber.Value.Should().Be("123456");
         }
 
         [Fact]
@@ -16,8 +18,8 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         {
             var in1 = new ItemNumber("123456");
             var in2 = new ItemNumber("123456");
-            Assert.True(in1.Equals(in2));
-            Assert.True(in1 == in2);
+            (in1.Equals(in2)).Should().BeTrue();
+            (in1 == in2).Should().BeTrue();
         }
 
         [Fact]
@@ -25,21 +27,41 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         {
             var in1 = new ItemNumber("123456");
             var in2 = new ItemNumber("654321");
-            Assert.True(!in1.Equals(in2));
-            Assert.True(in1 != in2);
+            (!in1.Equals(in2)).Should().BeTrue();
+            (in1 != in2).Should().BeTrue();
         }
 
         [Fact]
         public void ItShouldProduceAStringRepresentationForItemNumbers()
         {
             var itemNumber = new ItemNumber("123456");
-            Assert.Equal("123456", itemNumber.ToString());
+            itemNumber.ToString().Should().Be("123456");
         }
 
         [Fact]
         public void ItShouldThrowAnExceptionForEmptyStringCreatingNewItemNumbers()
         {
-            Assert.Throws<InvalidItemNumberException>(() => new ItemNumber(""));
+            Action act = () => new ItemNumber("");
+
+            act.Should()
+                .Throw<InvalidItemNumberException>()
+                .WithMessage("ItemNumber value must be non null and non empty");
+        }
+
+        [Fact]
+        public void TryCreate_ShouldSuccedsToCreateNewItemNumbers_WhenInputIsNotEmpty()
+        {
+            bool success = ItemNumber.TryCreate("123456", out var itemNumber);
+
+            success.Should().BeTrue();
+            itemNumber.Should().Be(new ItemNumber("123456"));
+        }
+
+        [Fact]
+        public void TryCreate_ShouldFailToCreateNewItemNumbers_WhenInputIsEmpty()
+        {
+            bool success = ItemNumber.TryCreate("    ", out var itemNumber);
+            success.Should().BeFalse();
         }
     }
 }

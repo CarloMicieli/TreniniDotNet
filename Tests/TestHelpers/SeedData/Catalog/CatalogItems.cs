@@ -107,10 +107,9 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 "HR4298",
                 CatalogSeedData.Scales.ScaleH0(),
                 PowerMethod.DC.ToString(),
-                "2020/Q4",
-                false,
-                @"FS Locomotiva elettrica E 636 117 nella livrea storica blu orientale e grigio 
-                perla con vomere giallo, logo e scritta Trenitalia, nella fase di fine esercizio",
+                "2020/Q1",
+                true,
+                @"FS set 2 carrozze a due assi tipo ''Corbellini'' livrea grigio ardesia di 2 cl.",
                 null, null,
                 ImmutableList.Create<IRollingStock>(rollingStock, rollingStock)).IfFail(() => throw new System.InvalidOperationException());
         }

@@ -23,6 +23,20 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
         public string Value => _value;
 
+        public static bool TryCreate(string v, out ItemNumber itemNumber)
+        {
+            if (string.IsNullOrWhiteSpace(v))
+            {
+                itemNumber = default;
+                return false;
+            }
+            else
+            {
+                itemNumber = new ItemNumber(v);
+                return true;
+            }
+        }
+
         #region [ Standard method overrides ]
         public override string ToString()
         {

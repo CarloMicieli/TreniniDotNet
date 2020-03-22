@@ -30,6 +30,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 modelDescription: null,
                 powerMethod: "not valid",
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             await useCase.Execute(input);
@@ -50,6 +51,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 modelDescription: null,
                 powerMethod: "dc",
                 scale: "h0",
+                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList("III", Category.ElectricLocomotive.ToString(), "FS"));
 
             await useCase.Execute(input);
@@ -70,6 +72,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 modelDescription: null,
                 powerMethod: "dc",
                 scale: "h0",
+                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList("VI", Category.ElectricLocomotive.ToString(), "FS"));
 
             await useCase.Execute(input);
@@ -91,6 +94,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 modelDescription: null,
                 powerMethod: "dc",
                 scale: "not exists",
+                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList("VI", Category.ElectricLocomotive.ToString(), "FS"));
 
             await useCase.Execute(input);
@@ -112,6 +116,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 modelDescription: null,
                 powerMethod: "dc",
                 scale: "H0",
+                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList("VI", Category.ElectricLocomotive.ToString(), "not found"));
 
             await useCase.Execute(input);
@@ -133,6 +138,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 modelDescription: null,
                 powerMethod: "dc",
                 scale: "H0",
+                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList(
                     RollingStock("VI", Category.ElectricLocomotive.ToString(), "not found1"),
                     RollingStock("VI", Category.ElectricLocomotive.ToString(), "not found2")));
@@ -156,6 +162,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 modelDescription: null,
                 powerMethod: "dc",
                 scale: "H0",
+                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList(
                     RollingStock("VI", Category.ElectricLocomotive.ToString(), "fs"),
                     RollingStock("VI", Category.ElectricLocomotive.ToString(), "fs")));
@@ -174,7 +181,15 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 FakeGuidSource.NewSource(new Guid("3d02506b-8263-4e14-880d-3f3caf22c562"))
             );
 
-            return new CreateCatalogItem(outputPort, catalogItemService, rollingStocksFactory, unitOfWork);
+            ICatalogItemsFactory catalogItemsFactory = new CatalogItemsFactory(
+                new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)),
+                FakeGuidSource.NewSource(new Guid("3d02506b-8263-4e14-880d-3f3caf22c562"))
+            );
+
+            return new CreateCatalogItem(outputPort,
+                catalogItemService, catalogItemsFactory,
+                rollingStocksFactory,
+                unitOfWork);
         }
 
         private IList<RollingStockInput> EmptyRollingStocks()

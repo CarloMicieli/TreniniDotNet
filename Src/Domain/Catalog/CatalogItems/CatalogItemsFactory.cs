@@ -32,32 +32,13 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string description, string? prototypeDescr, string? modelDescr,
             IRollingStock rollingStock)
         {
-            var toItemNumberV = ToItemNumber(itemNumber);
-            var toPowerMethodV = ToPowerMethod(powerMethod);
-            var toDeliveryDateV = ToDeliveryDate(deliveryDate);
-
-            return (toItemNumberV, toPowerMethodV, toDeliveryDateV).Apply((_itemNumber, _powerMethod, _deliveryDate) =>
-            {
-                var id = new CatalogItemId(_guidSource.NewGuid());
-
-                ICatalogItem item = new CatalogItem(
-                    id,
-                    brand,
-                    _itemNumber,
-                    Slug.Of(brand.Slug.ToString(), _itemNumber.ToString()),
-                    scale,
-                    _powerMethod,
-                    description,
-                    prototypeDescr,
-                    modelDescr,
-                    _deliveryDate,
-                    available,
-                    ImmutableList.Create<IRollingStock>(rollingStock),
-                    _clock.GetCurrentInstant(),
-                    1
-                );
-                return item;
-            });
+            return NewCatalogItem(
+                brand, itemNumber,
+                scale,
+                powerMethod,
+                deliveryDate, available,
+                description, prototypeDescr, modelDescr,
+                ImmutableList.Create<IRollingStock>(rollingStock));
         }
 
         public Validation<Error, ICatalogItem> NewCatalogItem(
@@ -97,7 +78,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         }
 
         private static Validation<Error, ItemNumber> ToItemNumber(string str) =>
-            Success<Error, ItemNumber>(new ItemNumber(str));
+            ItemNumber.TryCreate(str, out var itemNumber) ? Success<Error, ItemNumber>(itemNumber) : Fail<Error, ItemNumber>(Error.New($"'{str}' is not a valid item number"));
 
         private static Validation<Error, PowerMethod> ToPowerMethod(string str) =>
             PowerMethods.TryParse(str, out var pm) ? Success<Error, PowerMethod>(pm) : Fail<Error, PowerMethod>(Error.New($"'{str}' is not a valid power method"));

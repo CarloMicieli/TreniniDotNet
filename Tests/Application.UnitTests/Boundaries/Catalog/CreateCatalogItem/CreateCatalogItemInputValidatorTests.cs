@@ -37,6 +37,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: "dc",
                 scale: "h0",
+                deliveryDate: null, available: false,
                 rollingStocks: new List<RollingStockInput>() { rollingStockInput });
 
             var result = validator.TestValidate(input);
@@ -55,6 +56,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: null,
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -73,6 +75,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: null,
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -91,6 +94,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: null,
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -109,6 +113,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: null,
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -127,6 +132,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: null,
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -145,6 +151,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: "not valid",
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -163,6 +170,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: "not valid",
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -181,6 +189,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: "not valid",
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: NullRollingStockInput());
 
             var result = validator.TestValidate(input);

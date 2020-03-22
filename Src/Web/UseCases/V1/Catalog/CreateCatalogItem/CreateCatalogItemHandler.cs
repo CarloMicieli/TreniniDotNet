@@ -35,6 +35,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
                 request.ModelDescription,
                 request.PowerMethod!,
                 request.Scale!,
+                request.DeliveryDate,
+                request.Available,
                 rollingStocks);
         }
     }
