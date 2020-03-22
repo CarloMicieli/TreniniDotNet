@@ -87,35 +87,44 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 return;
             }
 
-            Validation<Error, IEnumerable<IRollingStock>> result = input.RollingStocks
-                .Select(it => ToRollingStock(it, railways))
-                .Sequence();
+            Validation<Error, ICatalogItem> result =
+            (
+                from rollingStocks in ValidRollingStocks(input, railways)
+                from catalogItem in ValidCatalogItem(brand, scale, input, rollingStocks)
+                select catalogItem
+            );
 
             result.Match(
-                Succ: rollingStocks =>
+                Succ: async catalogItem =>
                 {
-                    Validation<Error, ICatalogItem> catalogItemV = _catalogItemsFactory.NewCatalogItem(
-                        brand,
-                        input.ItemNumber,
-                        scale,
-                        input.PowerMethod,
-                        input.DeliveryDate, input.Available,
-                        input.Description, input.ModelDescription, input.PrototypeDescription,
-                        rollingStocks.ToImmutableList()
-                    );
+                    var catalogItemId = await _catalogItemService.CreateNewCatalogItem(catalogItem);
+                    await _unitOfWork.SaveAsync();
 
-                    catalogItemV.Match(
-                        Succ: async catalogItem =>
-                        {
-                            var catalogItemId = await _catalogItemService.CreateNewCatalogItem(catalogItem);
-                            await _unitOfWork.SaveAsync();
-
-                            CreateStandardOutput(catalogItem);
-                        },
-                        Fail: errors => OutputPort.Errors(errors.ToImmutableList()));
+                    CreateStandardOutput(catalogItem);
                 },
                 Fail: errors => OutputPort.Errors(errors.ToImmutableList()));
         }
+
+        private Validation<Error, ICatalogItem> ValidCatalogItem(
+            IBrandInfo brand, IScaleInfo scale,
+            CreateCatalogItemInput input,
+            IEnumerable<IRollingStock> rollingStocks)
+        {
+            Validation<Error, ICatalogItem> catalogItemV = _catalogItemsFactory.NewCatalogItem(
+                brand,
+                input.ItemNumber,
+                scale,
+                input.PowerMethod,
+                input.DeliveryDate, input.Available,
+                input.Description, input.ModelDescription, input.PrototypeDescription,
+                rollingStocks.ToImmutableList());
+            return catalogItemV;
+        }
+
+        private Validation<Error, IEnumerable<IRollingStock>> ValidRollingStocks(CreateCatalogItemInput input, Dictionary<string, IRailway> railways) =>
+            input.RollingStocks
+                .Select(it => ToRollingStock(it, railways))
+                .Sequence();
 
         private Validation<Error, IRollingStock> ToRollingStock(RollingStockInput input, Dictionary<string, IRailway> railways)
         {
