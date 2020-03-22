@@ -8,6 +8,7 @@ using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
+using System.Linq;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
@@ -301,6 +302,50 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             );
         }
 
+        [Fact]
+        public void RollingStocksFactory_ShouldHydrateLocomotives()
+        {
+            var it = Locomotive();
+            var result = factory.HydrateRollingStock(
+                it.RollingStockId.ToGuid(),
+                it.Railway, it.Era.ToString(), it.Category.ToString(),
+                it.Length.ToMillimeters(),
+                it.ClassName, it.RoadNumber, it.TypeName,
+                it.DccInterface.ToString(), it.Control.ToString());
+
+            result.Match(
+                Succ: rs =>
+                {
+                    rs.Should().Be(it);
+                },
+                Fail: errors => Assert.True(false, "should never get here"));
+        }
+
+        [Fact]
+        public void RollingStocksFactory_ShouldHydrateARollingStockWithoutMotor()
+        {
+            var it = PassengerCar();
+            var result = factory.HydrateRollingStock(
+                it.RollingStockId.ToGuid(),
+                it.Railway, it.Era.ToString(), it.Category.ToString(),
+                it.Length.ToMillimeters(),
+                it.ClassName, it.RoadNumber, it.TypeName,
+                it.DccInterface.ToString(), it.Control.ToString());
+
+            result.Match(
+                Succ: rs =>
+                {
+                    rs.Should().Be(it);
+                },
+                Fail: errors => Assert.True(false, "should never get here"));
+        }
+
         private static IRailwayInfo Fs() => CatalogSeedData.Railways.Fs();
+
+        private static IRollingStock Locomotive() =>
+            CatalogSeedData.CatalogItems.Acme_60392().RollingStocks.First();
+
+        private static IRollingStock PassengerCar() =>
+            CatalogSeedData.CatalogItems.Rivarossi_HR4298().RollingStocks.First();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using LanguageExt;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
@@ -22,5 +23,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             IRailwayInfo railway, string era, string category,
             decimal? length,
             string? typeName);
+
+        Validation<Error, IRollingStock> HydrateRollingStock(Guid rollingStockId,
+            IRailwayInfo railway, string era, string category,
+            decimal? length,
+            string? className, string? roadNumber, string? typeName,
+            string? dccInterface, string? control);
     }
 }

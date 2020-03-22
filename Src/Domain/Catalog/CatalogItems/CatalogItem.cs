@@ -5,10 +5,11 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
 using NodaTime;
 using System;
+using LanguageExt;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public sealed class CatalogItem : ICatalogItem, IEquatable<CatalogItem>
+    public sealed class CatalogItem : Record<CatalogItem>, ICatalogItem
     {
         [Obsolete]
         public CatalogItem(
@@ -109,28 +110,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public int Version { get; }
         public Instant LastModifiedAt { get; }
         #endregion
-
-        #region [ Equality ]
-        public override bool Equals(object obj)
-        {
-            if (obj is CatalogItem that)
-            {
-                return this.Equals(that);
-            }
-
-            return false;
-        }
-
-        public bool Equals(CatalogItem other)
-        {
-            return this.CatalogItemId.Equals(other.CatalogItemId);
-        }
-
-        public static bool operator ==(CatalogItem left, CatalogItem right) => left.Equals(right);
-        public static bool operator !=(CatalogItem left, CatalogItem right) => !left.Equals(right);
-        #endregion
-
-        public override int GetHashCode() => CatalogItemId.GetHashCode();
 
         [Obsolete]
         private static Slug BuildSlug(IBrandInfo brand, ItemNumber itemNumber)

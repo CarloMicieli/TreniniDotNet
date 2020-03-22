@@ -32,6 +32,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public decimal? length { get; set; }
         public string? class_name { get; set; }
         public string? road_number { get; set; }
+        public string? type_name { get; set; }
+        public string? dcc_interface { get; set; }
+        public string? control { get; set; }
         public DateTime? created_at { set; get; }
         public int? version { set; get; }
     }

@@ -22,6 +22,39 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 throw new ArgumentException(nameof(guidSource));
         }
 
+        // Required to hydrate the domain objects with values from persistence
+        public Validation<Error, IRollingStock> HydrateRollingStock(Guid rollingStockId,
+            IRailwayInfo railway, string era, string category,
+            decimal? length,
+            string? className, string? roadNumber, string? typeName,
+            string? dccInterface, string? control)
+        {
+            var eraV = ToEra(era);
+            var categoryV = ToCategory(category);
+            var lengthV = ToLength(length);
+            var controlV = ToControl(control);
+            var dccInterfaceV = ToDccInterface(dccInterface);
+
+            Validation<Error, IRollingStock> result = (eraV, categoryV, lengthV, controlV, dccInterfaceV).Apply((_era, _category, _length, _control, _dcc) =>
+            {
+                IRollingStock rs = new RollingStock(
+                    new RollingStockId(rollingStockId),
+                    railway,
+                    _category,
+                    _era,
+                    _length,
+                    className,
+                    roadNumber,
+                    typeName,
+                    _dcc,
+                    _control
+                );
+                return rs;
+            });
+
+            return result;
+        }
+
         public Validation<Error, IRollingStock> NewLocomotive(
             IRailwayInfo railway,
             string era, string category,
@@ -75,7 +108,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return (eraV, categoryV, lengthV).Apply((_era, _category, _length) =>
             {
                 IRollingStock rs = new RollingStock(
-                    new RollingStockId(_guidSource.NewGuid()),
+                    NewRollingStockId(),
                     railway,
                     _category,
                     _era,
@@ -106,7 +139,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return (eraV, categoryV, lengthV, controlV, dccInterfaceV).Apply((_era, _category, _length, _control, _dcc) =>
             {
                 IRollingStock rs = new RollingStock(
-                    new RollingStockId(_guidSource.NewGuid()),
+                    NewRollingStockId(),
                     railway,
                     _category,
                     _era,
@@ -120,6 +153,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 return rs;
             });
         }
+
+        private RollingStockId NewRollingStockId() => new RollingStockId(_guidSource.NewGuid());
 
         private static Validation<Error, Era> ToEra(string str) =>
             Eras.TryParse(str, out var era) ? Success<Error, Era>(era) : Fail<Error, Era>(Error.New($"'{str}' is not a valid era value"));

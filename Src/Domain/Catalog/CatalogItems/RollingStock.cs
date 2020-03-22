@@ -1,10 +1,11 @@
 ﻿using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Railways;
 using System;
+using LanguageExt;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public sealed class RollingStock : IRollingStock
+    public sealed class RollingStock : Record<RollingStock>, IRollingStock
     {
         private readonly RollingStockId _rollingStockId;
         private readonly IRailwayInfo _railway;

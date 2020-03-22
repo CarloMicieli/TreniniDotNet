@@ -77,6 +77,45 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             });
         }
 
+        public Validation<Error, ICatalogItem> HydrateCatalogItem(
+            Guid catalogItemId,
+            string slug,
+            IBrandInfo brand, string itemNumber,
+            IScaleInfo scale,
+            string powerMethod,
+            string? deliveryDate, bool available,
+            string description, string? modelDescr, string? prototypeDescr,
+            IReadOnlyList<IRollingStock> rollingStocks,
+            DateTime lastModifiedAt, int version)
+        {
+            var toItemNumberV = ToItemNumber(itemNumber);
+            var toPowerMethodV = ToPowerMethod(powerMethod);
+            var toDeliveryDateV = ToDeliveryDate(deliveryDate);
+
+            return (toItemNumberV, toPowerMethodV, toDeliveryDateV).Apply((_itemNumber, _powerMethod, _deliveryDate) =>
+            {
+                var id = new CatalogItemId(catalogItemId);
+
+                ICatalogItem item = new CatalogItem(
+                    id,
+                    brand,
+                    _itemNumber,
+                    Slug.Of(slug),
+                    scale,
+                    _powerMethod,
+                    description,
+                    prototypeDescr,
+                    modelDescr,
+                    _deliveryDate,
+                    available,
+                    rollingStocks,
+                    Instant.FromDateTimeUtc(lastModifiedAt),
+                    version
+                );
+                return item;
+            });
+        }
+
         private static Validation<Error, ItemNumber> ToItemNumber(string str) =>
             ItemNumber.TryCreate(str, out var itemNumber) ? Success<Error, ItemNumber>(itemNumber) : Fail<Error, ItemNumber>(Error.New($"'{str}' is not a valid item number"));
 

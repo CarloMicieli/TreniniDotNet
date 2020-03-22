@@ -26,6 +26,17 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string description, string? modelDescription, string? prototypeDescription,
             IReadOnlyList<IRollingStock> rollingStocks);
 
+        Validation<Error, ICatalogItem> HydrateCatalogItem(
+            Guid catalogItemId,
+            string slug,
+            IBrandInfo brand, string itemNumber,
+            IScaleInfo scale,
+            string powerMethod,
+            string? deliveryDate, bool available,
+            string description, string? modelDescr, string? prototypeDescr,
+            IReadOnlyList<IRollingStock> rollingStocks,
+            DateTime lastModifiedAt, int version);
+
         [Obsolete]
         IRollingStock NewRollingStock(Guid rollingStockId, IRailwayInfo railway, string era, string category, decimal? length, string? className, string? roadNumber);
 
