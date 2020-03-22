@@ -1,8 +1,10 @@
 # Trenini.Net
 
+![GitHub](https://img.shields.io/github/license/CarloMicieli/TreniniDotNet)
+![GitHub last commit](https://img.shields.io/github/last-commit/CarloMicieli/TreniniDotNet)
 ![.NET Core](https://github.com/CarloMicieli/TreniniDotNet/workflows/.NET%20Core/badge.svg)
 
-![Logo](logo.png)
+<img src="logo.png" alt="Logo" width="200"/>
 
 An application to manage model railway collections.
 
