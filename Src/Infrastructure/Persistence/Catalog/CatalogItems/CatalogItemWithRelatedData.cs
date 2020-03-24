@@ -19,6 +19,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public string slug { set; get; } = null!;
         public string power_method { set; get; } = null!;
         public string? delivery_date { set; get; }
+        public bool available { set; get; }
         public string description { set; get; } = null!;
         public string? model_description { set; get; }
         public string? prototype_description { set; get; }
@@ -37,6 +38,15 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public string? control { get; set; }
         public DateTime? created_at { set; get; }
         public int? version { set; get; }
+    }
+
+    internal class CatalogItemGroupingKey
+    {
+        public Guid catalog_item_id { set; get; }
+        public Guid brand_id { set; get; }
+        public Guid scale_id { set; get; }
+        public string item_number { set; get; } = null!;
+        public string slug { set; get; } = null!;
     }
 #pragma warning restore CA1707 // Identifiers should not contain underscores
 #pragma warning restore CA1812 // Avoid uninstantiated internal classes

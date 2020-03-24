@@ -68,7 +68,7 @@ namespace TreniniDotNet.Common.DecimalNumbers
 
             (fortyTwo1 == fortyTwo2).Should().BeTrue();
             (fortyTwo1.Equals(fortyTwo2)).Should().BeTrue();
-            (none == none).Should().BeTrue();
+            (DecimalNumber.NaN == none).Should().BeTrue();
             (none.Equals(none)).Should().BeTrue();
         }
 

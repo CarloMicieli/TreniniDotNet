@@ -7,6 +7,8 @@ using LanguageExt;
 using static LanguageExt.Prelude;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
@@ -30,6 +32,31 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public IScaleInfo? ProjectToScaleInfo(CatalogItemWithRelatedData? dto) =>
             (dto != null) ? new ScaleInfo(dto.scale_id, dto.scale_slug, dto.scale_name, dto.scale_ratio) : null;
 
+        public ICatalogItem? ProjectToCatalogItem(IGrouping<CatalogItemGroupingKey, CatalogItemWithRelatedData> dto)
+        {
+            IReadOnlyList<IRollingStock> rollingStocks = dto
+                .Select(it => this.ProjectToRollingStock(it)!)
+                .ToImmutableList();
+
+            CatalogItemWithRelatedData it = dto.First();
+
+            return _factory.HydrateCatalogItem(
+                it.catalog_item_id,
+                it.slug,
+                new BrandInfo(it.brand_id, it.brand_slug, it.brand_name),
+                it.item_number,
+                new ScaleInfo(it.scale_id, it.scale_slug, it.scale_name, it.scale_ratio),
+                it.power_method,
+                it.delivery_date,
+                it.available,
+                it.description,
+                it.model_description,
+                it.prototype_description,
+                rollingStocks,
+                it.created_at ?? DateTime.UtcNow,
+                it.version ?? 1).IfFail(() => default);
+        }
+
         public IRollingStock? ProjectToRollingStock(CatalogItemWithRelatedData? dto)
         {
             if (dto is null)
@@ -45,7 +72,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                     select rs
                 );
 
-                return result.IfFail(() => default(IRollingStock));
+                return result.IfFail(() => default);
             }
         }
 

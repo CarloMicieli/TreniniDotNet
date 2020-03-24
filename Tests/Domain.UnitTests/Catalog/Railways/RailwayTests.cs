@@ -1,34 +1,19 @@
-﻿using TreniniDotNet.Common;
-using System;
-using Xunit;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+﻿using Xunit;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using FluentAssertions;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public class RailwayTests
     {
         [Fact]
-        public void ItShouldCreateNewRailways()
-        {
-            var dieBahn = new Railway("DB", null, "de", RailwayStatus.Active);
-            Assert.Equal("DB", dieBahn.ToString());
-        }
-
-        [Fact]
-        public void ItShouldSetTheRailwayIdWhenOneIsNotProvided()
-        {
-            var dieBahn = new Railway("die Bahn", null, "de", RailwayStatus.Active);
-            Assert.Equal(Slug.Of("die-bahn"), dieBahn.Slug);
-        }
-
-        [Fact]
         public void ItShouldCheckRailwaysEquality()
         {
             var db1 = DieBahn();
             var db2 = DieBahn();
 
-            Assert.True(db1 == db2);
-            Assert.True(db1.Equals(db2));
+            //(db1 == db2).Should().BeTrue();
+            (db1.Equals(db2)).Should().BeTrue();
         }
 
         [Fact]
@@ -37,68 +22,19 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             var db = DieBahn();
             var fs = Fs();
 
-            Assert.True(db != fs);
-            Assert.False(db.Equals(fs));
+            (db != fs).Should().BeTrue();
+            (db.Equals(fs)).Should().BeFalse();
         }
 
         [Fact]
-        public void ItShouldThrowAnExceptionWhenTheCountyCodeIsInvalid()
+        public void Railways_ShouldProduce_AStringRepresentation()
         {
-            Assert.Throws<ArgumentException>(() => new Railway("die Bahn", null, "sq", null));
+            DieBahn().ToString().Should().Be("DB");
+            DieBahn().ToLabel().Should().Be("DB");
         }
 
-        [Fact]
-        public void ItShouldThrowAnExceptionWhenTheNameIsABlankString()
-        {
-            Assert.Throws<ArgumentException>(() => new Railway(RailwayId.NewId(), Slug.Of("db"), "  ", null, "de", null, null, null, DateTime.UtcNow, 1));
-        }
+        private static IRailway DieBahn() => CatalogSeedData.Railways.DieBahn();
 
-        [Fact]
-        public void ItShouldThrowAnExceptionWhenOperatingSinceIsLaterThanOperatingUntil()
-        {
-            DateTime since = new DateTime(2000, 1, 1);
-            DateTime until = since.AddDays(-5);
-
-            Assert.Throws<ArgumentException>(() => new Railway("Die Bahn", null, "DE", since, until, null));
-        }
-
-        [Fact]
-        public void ItShouldThrowAnExceptionWhenOperatingUntilIsNotNullAndStatusIsActive()
-        {
-            DateTime since = new DateTime(2000, 1, 1);
-            DateTime until = since.AddDays(5);
-
-            Assert.Throws<ArgumentException>((Func<object>)(() => new Railway("Die Bahn", null, "DE", since, until, RailwayStatus.Active)));
-        }
-
-        [Fact]
-        public void ItShouldReturnRailwayProperties()
-        {
-            var name = "Die Bahn";
-            var companyName = "Die Bahn AG";
-            var country = "DE";
-            var status = RailwayStatus.Inactive;
-            var since = new DateTime(1945, 1, 1);
-            var until = DateTime.MaxValue;
-
-            var dieBahn = new Railway(name, companyName, country, since, until, status);
-
-            Assert.Equal(name, dieBahn.Name);
-            Assert.Equal(companyName, dieBahn.CompanyName);
-            Assert.Equal(country, dieBahn.Country);
-            Assert.Equal(status, dieBahn.Status);
-            Assert.Equal(since, dieBahn.OperatingSince);
-            Assert.Equal(until, dieBahn.OperatingUntil);
-        }
-
-        private static Railway DieBahn()
-        {
-            return new Railway("die Bahn", null, "DE", RailwayStatus.Active);
-        }
-
-        private static Railway Fs()
-        {
-            return new Railway("FS", null, "IT", RailwayStatus.Active);
-        }
+        private static IRailway Fs() => CatalogSeedData.Railways.Fs();
     }
 }

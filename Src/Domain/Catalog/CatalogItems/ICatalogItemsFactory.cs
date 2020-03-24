@@ -36,15 +36,5 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string description, string? modelDescr, string? prototypeDescr,
             IReadOnlyList<IRollingStock> rollingStocks,
             DateTime lastModifiedAt, int version);
-
-        [Obsolete]
-        IRollingStock NewRollingStock(Guid rollingStockId, IRailwayInfo railway, string era, string category, decimal? length, string? className, string? roadNumber);
-
-        [Obsolete]
-        ICatalogItem NewCatalogItem(Guid catalogItemId, IBrandInfo brand, string itemNumber, string slug,
-            IScaleInfo scale,
-            string powerMethod, string? deliveryDate,
-            string description, string? modelDescription, string? prototypeDescription,
-            List<IRollingStock> list, DateTime? createdAt, int? version);
     }
 }

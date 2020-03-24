@@ -1,43 +1,31 @@
-using System;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
+using FluentAssertions;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public class RailwayInfoTests
     {
         [Fact]
-        public void ItShouldCreateRailwayInfo_FromRailways()
+        public void Railways_ShouldCreateRailwayInfo_FromRailways()
         {
             IRailwayInfo info = DieBahn().ToRailwayInfo();
-            Assert.NotNull(info);
-            Assert.Equal(DieBahn().Country, info.Country);
-            Assert.Equal(DieBahn().Name, info.Name);
-            Assert.Equal(DieBahn().Slug, info.Slug);
+
+            info.Should().NotBeNull();
+            DieBahn().Country.Should().Be(info.Country);
+            DieBahn().Name.Should().Be(info.Name);
+            DieBahn().Slug.Should().Be(info.Slug);
         }
 
         [Fact]
-        public void ItShouldCreateRailayLabelFromRailwayInfo()
+        public void Railways_ShouldCreateRailayLabelFromRailwayInfo()
         {
             IRailwayInfo info = DieBahn().ToRailwayInfo();
-            Assert.NotNull(info);
-            Assert.Equal("DB", info.ToLabel());
+
+            info.Should().NotBeNull();
+            info.ToLabel().Should().Be("DB");
         }
 
-        private static IRailway DieBahn()
-        {
-            return new Railway(
-                RailwayId.NewId(),
-                Slug.Of("die-bahn"),
-                "DB",
-                "die Bahn",
-                "DE",
-                null,
-                null,
-                RailwayStatus.Active,
-                DateTime.UtcNow,
-                1);
-        }
+        private static IRailway DieBahn() => CatalogSeedData.Railways.DieBahn();
     }
 }

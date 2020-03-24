@@ -1,76 +1,40 @@
-﻿using TreniniDotNet.Common;
-using System;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using Xunit;
+﻿using Xunit;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using FluentAssertions;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
     public class ScaleTests
     {
         [Fact]
-        public void ItShouldCreateANewScale()
-        {
-            var halfZero = new Scale("H0", Ratio.Of(87f), Gauge.OfMillimiters(16.5f), TrackGauge.Standard, null);
-            Assert.Equal("H0 (1:87)", halfZero.ToString());
-        }
-
-        [Fact]
-        public void ItShouldCreateAScaleIdWhenOneIsNotProvided()
-        {
-            var halfZero = new Scale("H0", Ratio.Of(87f), Gauge.OfMillimiters(16.5f), TrackGauge.Standard, null);
-            Assert.Equal(Slug.Of("h0"), halfZero.Slug);
-        }
-
-        [Fact]
-        public void ItShouldReturnBrandPropertiesValues()
-        {
-            var name = "H0";
-            var ratio = Ratio.Of(87f);
-            var gauge = Gauge.OfMillimiters(16.5f);
-            var notes = "The most famous scale";
-
-            var halfZero = new Scale(name, ratio, gauge, TrackGauge.Standard, notes);
-
-            Assert.Equal(name, halfZero.Name);
-            Assert.Equal(ratio, halfZero.Ratio);
-            Assert.Equal(gauge, halfZero.Gauge);
-            Assert.Equal(notes, halfZero.Notes);
-        }
-
-        [Fact]
-        public void ItShouldCheckScalesEquality()
+        public void Scales_ShouldCheckScalesEquality()
         {
             var halfZero1 = HalfZero();
             var halfZero2 = HalfZero();
 
-            Assert.True(halfZero1 == halfZero2);
-            Assert.True(halfZero2.Equals(halfZero2));
+            //(halfZero1 == halfZero2).Should().BeTrue();
+            (halfZero2.Equals(halfZero2)).Should().BeTrue();
         }
 
         [Fact]
-        public void ItShouldCheckScalesInequality()
+        public void Scales_ShouldCheckScalesInequality()
         {
             var halfZero = HalfZero();
             var enne = Enne();
 
-            Assert.True(halfZero != enne);
-            Assert.False(halfZero.Equals(enne));
+            (halfZero != enne).Should().BeTrue();
+            (halfZero.Equals(enne)).Should().BeFalse();
         }
 
         [Fact]
-        public void ItShouldThrowArgumentExceptionWhenScaleNameIsBlank()
+        public void Scales_ShouldProduce_StringRepresentations()
         {
-            Assert.Throws<ArgumentException>(() => new Scale("", Ratio.Of(87f), Gauge.OfMillimiters(1f), TrackGauge.Standard, null));
+            HalfZero().ToString().Should().Be("H0 (1:87)");
+            HalfZero().ToLabel().Should().Be("H0 (1:87)");
         }
 
-        private static Scale HalfZero()
-        {
-            return new Scale("H0", Ratio.Of(87f), Gauge.OfMillimiters(16.5f), TrackGauge.Standard, null);
-        }
-
-        private static Scale Enne()
-        {
-            return new Scale("n", Ratio.Of(160f), Gauge.OfMillimiters(9f), TrackGauge.Standard, null);
-        }
+        private static IScale HalfZero() => CatalogSeedData.Scales.ScaleH0();
+        
+        private static IScale Enne() => CatalogSeedData.Scales.ScaleN();
     }
 }

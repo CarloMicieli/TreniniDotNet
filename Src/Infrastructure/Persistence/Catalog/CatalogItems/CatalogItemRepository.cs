@@ -101,96 +101,21 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             return FromCatalogItemDto(results);
         }
-
+               
         private ICatalogItem? FromCatalogItemDto(IEnumerable<CatalogItemWithRelatedData> results)
         {
             if (results.Any())
             {
                 var catalogItem = results
-                    .GroupBy(it => new
+                    .GroupBy(it => new CatalogItemGroupingKey
                     {
-                        it.catalog_item_id,
-                        brand = new BrandInfo(it.brand_id, it.brand_slug, it.brand_name),
-                        scale = new ScaleInfo(it.scale_id, it.scale_slug, it.scale_name, it.scale_ratio),
-                        it.item_number,
-                        it.slug,
-                        it.power_method,
-                        it.delivery_date,
-                        it.description,
-                        it.model_description,
-                        it.prototype_description,
-                        it.created_at,
-                        it.version
+                        catalog_item_id = it.catalog_item_id,
+                        brand_id = it.brand_id,
+                        scale_id = it.scale_id,
+                        item_number = it.item_number,
+                        slug = it.slug
                     })
-                    .Select(it => _factory.NewCatalogItem(
-                        it.Key.catalog_item_id,
-                        it.Key.brand,
-                        it.Key.item_number,
-                        it.Key.slug,
-                        it.Key.scale,
-                        it.Key.power_method,
-                        it.Key.delivery_date,
-                        it.Key.description,
-                        it.Key.model_description,
-                        it.Key.prototype_description,
-                        it.Select(rs =>
-                        {
-                            var railway = new RailwayInfo(rs.railway_id, rs.railway_slug, rs.railway_name, rs.railway_country);
-                            return _factory.NewRollingStock(
-                                rs.rolling_stock_id, railway, rs.era, rs.category, rs.length, rs.class_name, rs.road_number);
-                        }).ToList(),
-                        it.Key.created_at,
-                        it.Key.version
-                        ))
-                    .FirstOrDefault();
-                return catalogItem;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        private ICatalogItem? FromCatalogItemDtoV2(IEnumerable<CatalogItemWithRelatedData> results)
-        {
-            if (results.Any())
-            {
-                var catalogItem = results
-                    .GroupBy(it => new
-                    {
-                        it.catalog_item_id,
-                        brand = new BrandInfo(it.brand_id, it.brand_slug, it.brand_name),
-                        scale = new ScaleInfo(it.scale_id, it.scale_slug, it.scale_name, it.scale_ratio),
-                        it.item_number,
-                        it.slug,
-                        it.power_method,
-                        it.delivery_date,
-                        it.description,
-                        it.model_description,
-                        it.prototype_description,
-                        it.created_at,
-                        it.version
-                    })
-                    .Select(it => _factory.NewCatalogItem(
-                        it.Key.catalog_item_id,
-                        it.Key.brand,
-                        it.Key.item_number,
-                        it.Key.slug,
-                        it.Key.scale,
-                        it.Key.power_method,
-                        it.Key.delivery_date,
-                        it.Key.description,
-                        it.Key.model_description,
-                        it.Key.prototype_description,
-                        it.Select(rs =>
-                        {
-                            var railway = new RailwayInfo(rs.railway_id, rs.railway_slug, rs.railway_name, rs.railway_country);
-                            return _factory.NewRollingStock(
-                                rs.rolling_stock_id, railway, rs.era, rs.category, rs.length, rs.class_name, rs.road_number);
-                        }).ToList(),
-                        it.Key.created_at,
-                        it.Key.version
-                        ))
+                    .Select(it => _mapper.ProjectToCatalogItem(it))
                     .FirstOrDefault();
                 return catalogItem;
             }

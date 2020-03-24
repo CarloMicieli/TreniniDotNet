@@ -131,45 +131,5 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
             return Fail<Error, DeliveryDate?>(Error.New($"'{str}' is not a valid delivery date"));
         }
-
-        [Obsolete]
-        public IRollingStock NewRollingStock(Guid rollingStockId,
-            IRailwayInfo railway,
-            string era, string category,
-            decimal? length,
-            string? className, string? roadNumber)
-        {
-            return new RollingStock(
-                new RollingStockId(rollingStockId),
-                railway,
-                category.ToCategory() ?? Category.DieselLocomotive,
-                era.ToEra() ?? Era.I,
-                length.HasValue ? Length.OfMillimeters(length.Value) : Length.OfMillimeters(0M), //TODO: fixme
-                category,
-                roadNumber);
-        }
-
-        [Obsolete]
-        public ICatalogItem NewCatalogItem(Guid catalogItemId, IBrandInfo brand, string itemNumber, string slug,
-            IScaleInfo scale,
-            string powerMethod,
-            string? deliveryDate,
-            string description, string? modelDescription, string? prototypeDescription,
-            List<IRollingStock> rollingStocks,
-            DateTime? createdAt,
-            int? version)
-        {
-            return new CatalogItem(
-                new CatalogItemId(catalogItemId),
-                brand,
-                new ItemNumber(itemNumber),
-                Slug.Of(slug),
-                scale,
-                rollingStocks,
-                powerMethod.ToPowerMethod() ?? PowerMethod.None,
-                description,
-                prototypeDescription,
-                modelDescription);
-        }
     }
 }
