@@ -53,7 +53,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return _railways.GetByName(railwayName.Trim());
         }
 
-        public Task<CatalogItemId> CreateNewCatalogItem(CatalogItem catalogItem)
+        public Task<CatalogItemId> CreateNewCatalogItem(ICatalogItem catalogItem)
         {
             return _catalogItemsRepository.Add(catalogItem);
         }

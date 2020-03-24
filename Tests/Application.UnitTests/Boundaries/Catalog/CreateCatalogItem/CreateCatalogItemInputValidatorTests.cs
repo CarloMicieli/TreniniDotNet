@@ -1,5 +1,4 @@
 using FluentValidation.TestHelper;
-using System;
 using System.Collections.Generic;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using Xunit;
@@ -24,7 +23,10 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 railway: "FS",
                 className: null,
                 roadNumber: null,
-                length: 303
+                typeName: null,
+                length: 303,
+                control: null,
+                dccInterface: null
             );
 
             var input = new CreateCatalogItemInput(
@@ -35,6 +37,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: "dc",
                 scale: "h0",
+                deliveryDate: null, available: false,
                 rollingStocks: new List<RollingStockInput>() { rollingStockInput });
 
             var result = validator.TestValidate(input);
@@ -53,6 +56,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: null,
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -71,6 +75,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: null,
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -89,6 +94,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: null,
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -107,6 +113,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: null,
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -125,6 +132,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: null,
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -143,6 +151,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: "not valid",
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -161,6 +170,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: "not valid",
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -179,6 +189,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 modelDescription: null,
                 powerMethod: "not valid",
                 scale: null,
+                deliveryDate: null, available: false,
                 rollingStocks: NullRollingStockInput());
 
             var result = validator.TestValidate(input);
@@ -198,7 +209,10 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                     railway: "",
                     className: null,
                     roadNumber: null,
-                    length: null)
+                    typeName: null,
+                    length: null,
+                    control: null,
+                    dccInterface: null)
             };
         }
 

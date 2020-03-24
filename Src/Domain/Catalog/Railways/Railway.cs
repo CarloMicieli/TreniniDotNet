@@ -5,33 +5,31 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    /// <summary>
-    /// It represents a operator of the rail transport.
-    /// </summary>
     public sealed class Railway : IEquatable<Railway>, IRailway
     {
         private readonly RailwayId _id;
         private readonly Slug _slug;
         private readonly string _name;
         private readonly string? _companyName;
-        private readonly string? _country;
-        private readonly RailwayStatus? _rs;
-        private readonly DateTime? _operatingSince;
-        private readonly DateTime? _operatingUntil;
+        private readonly RegionInfo? _country;
+        private readonly PeriodOfActivity _periodOfActivity;
         private readonly DateTime? _createdAt;
         private readonly int? _version;
 
+        [Obsolete]
         public Railway(string name, string? companyName, string? country, RailwayStatus? rs)
-            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, null, null, rs)
+            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, null, null, rs, DateTime.UtcNow, 1)
         {
         }
 
+        [Obsolete]
         public Railway(string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs)
-            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, operatingSince, operatingUntil, rs)
+            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, operatingSince, operatingUntil, rs, DateTime.UtcNow, 1)
         {
         }
 
-        public Railway(RailwayId id, Slug slug, string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs)
+        [Obsolete]
+        public Railway(RailwayId id, Slug slug, string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs, DateTime? createdAt, int version)
         {
             ValidateCountryCode(country);
             ValidateName(name);
@@ -41,12 +39,22 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             _slug = slug.OrNewIfEmpty(() => Slug.Of(name));
             _name = name;
             _companyName = companyName;
+            _country = new RegionInfo(country);
+            _periodOfActivity = new PeriodOfActivity(operatingSince, operatingUntil, rs ?? RailwayStatus.Active);
+            _createdAt = createdAt;
+            _version = version;
+        }
+
+        internal Railway(RailwayId id, Slug slug, string name, string? companyName, RegionInfo? country, PeriodOfActivity periodOfActivity, DateTime? createdAt, int version)
+        {
+            _id = id;
+            _slug = slug.OrNewIfEmpty(() => Slug.Of(name));
+            _name = name;
+            _companyName = companyName;
             _country = country;
-            _rs = rs;
-            _operatingSince = operatingSince;
-            _operatingUntil = operatingUntil;
-            _createdAt = DateTime.UtcNow;
-            _version = 1;
+            _periodOfActivity = periodOfActivity;
+            _createdAt = createdAt;
+            _version = version;
         }
 
         #region [ Properties ]
@@ -58,13 +66,13 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public string? CompanyName => _companyName;
 
-        public string? Country => _country;
+        public string? Country => _country?.TwoLetterISORegionName;
 
-        public RailwayStatus? Status => _rs;
+        public RailwayStatus? Status => _periodOfActivity.RailwayStatus;
 
-        public DateTime? OperatingUntil => _operatingUntil;
+        public DateTime? OperatingUntil => _periodOfActivity.OperatingUntil;
 
-        public DateTime? OperatingSince => _operatingSince;
+        public DateTime? OperatingSince => _periodOfActivity.OperatingSince;
 
         public DateTime? CreatedAt => _createdAt;
 

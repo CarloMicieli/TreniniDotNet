@@ -1,6 +1,7 @@
 ﻿using TreniniDotNet.Common;
 using System;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using NodaTime;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -24,10 +25,12 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         private readonly DateTime? _createdAt;
         private readonly int? _version;
 
+        [Obsolete]
         public Scale(string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
             : this(ScaleId.NewId(), Slug.Empty, name, ratio, gauge, trackGauge, notes)
         { }
 
+        [Obsolete]
         public Scale(ScaleId id, Slug slug, string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
         {
             ValidateScaleName(name);
@@ -41,6 +44,24 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             _trackGauge = trackGauge;
             _createdAt = DateTime.UtcNow;
             _version = 1;
+        }
+
+        internal Scale(ScaleId id,
+            string name, Slug slug,
+            Ratio ratio,
+            Gauge gauge, TrackGauge trackGauge,
+            string? notes,
+            Instant createdAt, int version)
+        {
+            _id = id;
+            _slug = slug;
+            _name = name;
+            _ratio = ratio;
+            _gauge = gauge;
+            _notes = notes;
+            _trackGauge = trackGauge;
+            _createdAt = createdAt.ToDateTimeUtc();
+            _version = version;
         }
 
         #region [ Properties ]

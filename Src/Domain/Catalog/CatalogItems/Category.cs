@@ -1,4 +1,6 @@
-﻿namespace TreniniDotNet.Domain.Catalog.CatalogItems
+﻿using System;
+
+namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     /// <summary>
     /// The enumeration of the model categories.
@@ -59,6 +61,44 @@
                 return result;
 
             return null;
+        }
+    }
+
+    public static class Categories
+    {
+        public static bool TryParse(string str, out Category result)
+        {
+            if (string.IsNullOrWhiteSpace(str) == false && Enum.TryParse<Category>(str, true, out var r))
+            {
+                result = r;
+                return true;
+            }
+
+            result = default;
+            return false;
+        }
+
+        public static bool IsLocomotive(string category)
+        {
+            if (TryParse(category, out var cat))
+            {
+                return cat == Category.SteamLocomotive ||
+                    cat == Category.ElectricLocomotive ||
+                    cat == Category.DieselLocomotive;
+            }
+
+            return true;
+        }
+
+        public static bool IsTrain(string category)
+        {
+            if (TryParse(category, out var cat))
+            {
+                return cat == Category.ElectricMultipleUnit ||
+                    cat == Category.Railcar;
+            }
+
+            return true;
         }
     }
 }

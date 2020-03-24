@@ -13,7 +13,7 @@ namespace Infrastructure.Persistence.TypeHandlers
                 return null;
             }
 
-            return Length.Of((decimal)value);
+            return Length.OfMillimeters((decimal)value);
         }
 
         public override void SetValue(IDbDataParameter parameter, Length? value)

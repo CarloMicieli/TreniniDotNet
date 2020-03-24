@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -8,7 +9,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class Railways
     {
-        private static readonly IRailwaysFactory factory = new RailwaysFactory();
+        private static readonly IRailwaysFactory factory = new RailwaysFactory(SystemClock.Instance);
 
         private readonly IRailway _fs;
         private readonly IRailway _sbb;

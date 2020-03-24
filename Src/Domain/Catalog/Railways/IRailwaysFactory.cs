@@ -1,4 +1,5 @@
 ﻿using System;
+using LanguageExt;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
@@ -6,10 +7,17 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public interface IRailwaysFactory
     {
+        Validation<Error, IRailway> NewRailwayV(Guid railwayId,
+            string name,
+            string? companyName,
+            string? country,
+            DateTime? operatingSince, DateTime? operatingUntil,
+            bool? active);
+
         IRailway NewRailway(string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus rs);
 
         IRailway NewRailway(RailwayId id, string name, Slug slug, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs);
 
-        IRailway? NewRailway(Guid railway_id, string name, string slug, string? company_name, string? country, DateTime? operating_since, DateTime? operating_until, bool? active, DateTime? created_at, int? version);
+        IRailway? NewRailway(Guid railwayId, string name, string slug, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, bool? active, DateTime? createdAt, int? version);
     }
 }

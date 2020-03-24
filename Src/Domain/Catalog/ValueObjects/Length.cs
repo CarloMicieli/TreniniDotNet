@@ -10,22 +10,21 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
     /// </summary>
     public readonly struct Length : IEquatable<Length>, IComparable<Length>
     {
-        private static readonly Length _zeroMms = new Length(0.0M, MeasureUnit.Millimeters);
-        private static readonly Length _zeroInches = new Length(0.0M, MeasureUnit.Inches);
+        private static readonly Length _zeroMms = new Length(decimal.Zero, MeasureUnit.Millimeters);
+        private static readonly Length _zeroInches = new Length(decimal.Zero, MeasureUnit.Inches);
+        private static readonly Length _nullMms = new Length(decimal.MaxValue, MeasureUnit.Millimeters);
+        private static readonly Length _nullInches = new Length(decimal.MaxValue, MeasureUnit.Inches);
 
         private readonly decimal _value;
         private readonly MeasureUnit _measureUnit;
 
         private Length(decimal value, MeasureUnit measureUnit)
         {
-            if (value.IsNegative())
-            {
-                throw new ArgumentException(ExceptionMessages.InvalidLengthNegativeValue);
-            }
-
             _value = value;
             _measureUnit = measureUnit;
         }
+
+        public bool HasValue => _value != decimal.MaxValue;
 
         public void Deconstruct(out decimal value, out MeasureUnit measureUnit)
         {
@@ -134,35 +133,63 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
         public override string ToString()
         {
-
+            NullCheck();
             return _measureUnit.Apply(_value, val => $"{val.ToFloat()}in", val => $"{val.ToFloat()}mm");
-
         }
 
-        public static Length OfMillimeters(float f)
+        public decimal ToMillimeters()
         {
-            return NewLength(f, MeasureUnit.Millimeters);
+            NullCheck();
+            return MeasureUnit.Millimeters.GetValueOrConvert(ExtractValues);
         }
 
-        public static Length OfInches(float f)
+        public decimal ToInches()
         {
-            return NewLength(f, MeasureUnit.Inches);
+            NullCheck();
+            return MeasureUnit.Inches.GetValueOrConvert(ExtractValues);
         }
 
-        public static Length Of(decimal f)
+        public static Length OfMillimeters(decimal value)
         {
-            return new Length(f, MeasureUnit.Millimeters);
+            return NewLength(value, MeasureUnit.Millimeters);
         }
 
-        /*
-                public static Length OfInches(decimal f)
+        public static Length OfInches(decimal value)
+        {
+            return NewLength(value, MeasureUnit.Inches);
+        }
+
+        public static bool TryCreate(decimal? value, MeasureUnit measureUnit, out Length result)
+        {
+            if (value.HasValue == false)
+            {
+                result = measureUnit == MeasureUnit.Millimeters ? _nullMms : _nullInches;
+                return true;
+            }
+            else
+            {
+                decimal d = value ?? 0M; // Just to make the compiler happy
+                if (d.IsNegative())
                 {
-                    return new Length(f, MeasureUnit.Inches);
+                    result = default;
+                    return false;
                 }
-        */
-        private static Length NewLength(float f, MeasureUnit mu)
+                else
+                {
+                    result = NewLength(d, measureUnit);
+                    return true;
+                }
+            }
+        }
+
+        private static Length NewLength(decimal value, MeasureUnit mu)
         {
-            return new Length((decimal)f, mu);
+            if (value.IsNegative())
+            {
+                throw new ArgumentException(ExceptionMessages.InvalidLengthNegativeValue);
+            }
+
+            return new Length(value, mu);
         }
 
         private (decimal, MeasureUnit) ExtractValues()
@@ -170,14 +197,10 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             return (_value, _measureUnit);
         }
 
-        public float ToMillimeters()
+        private void NullCheck()
         {
-            return MeasureUnit.Millimeters.GetValueOrConvert(ExtractValues).ToFloat();
-        }
-
-        public float ToInches()
-        {
-            return MeasureUnit.Inches.GetValueOrConvert(ExtractValues).ToFloat();
+            if (this.HasValue == false)
+                throw new NullReferenceException();
         }
     }
 

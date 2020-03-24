@@ -16,6 +16,9 @@ using TreniniDotNet.Infrastracture.Persistence.TypeHandlers;
 using TreniniDotNet.Web.Identity;
 using TreniniDotNet.Infrastructure.Persistence.Seed;
 using Microsoft.Extensions.Logging;
+using NodaTime;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.Uuid;
 
 namespace TreniniDotNet.Web
 {
@@ -63,6 +66,9 @@ namespace TreniniDotNet.Web
             services.AddRepositories();
 
             services.AddMediatR(typeof(Startup).Assembly);
+
+            services.AddSingleton<IGuidSource, GuidSource>();
+            services.AddSingleton<IClock>(SystemClock.Instance);
 
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationIdentityDbContext>("DbHealthCheck");

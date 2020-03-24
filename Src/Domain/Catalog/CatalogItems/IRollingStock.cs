@@ -18,5 +18,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         string? ClassName { get; }
 
         string? RoadNumber { get; }
+
+        string? TypeName { get; }
+
+        DccInterface DccInterface { get; }
+
+        Control Control { get; }
     }
 }

@@ -19,6 +19,10 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
 
         public string? Scale { set; get; }
 
+        public string? DeliveryDate { set; get; }
+
+        public bool Available { set; get; } = false;
+
         public List<RollingStock> RollingStocks { set; get; } = new List<RollingStock>();
     }
 

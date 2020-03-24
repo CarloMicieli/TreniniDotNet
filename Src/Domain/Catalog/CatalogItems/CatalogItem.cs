@@ -3,22 +3,15 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
+using NodaTime;
+using System;
+using LanguageExt;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public sealed class CatalogItem : ICatalogItem
+    public sealed class CatalogItem : Record<CatalogItem>, ICatalogItem
     {
-        private readonly CatalogItemId _id;
-        private readonly IBrandInfo _brand;
-        private readonly Slug _slug;
-        private readonly IScaleInfo _scale;
-        private readonly ItemNumber _itemNumber;
-        private readonly IReadOnlyList<IRollingStock> _rollingStocks;
-        private readonly string _description;
-        private readonly string? _prototypeDescr;
-        private readonly string? _modelDescr;
-        private readonly PowerMethod _powerMethod;
-
+        [Obsolete]
         public CatalogItem(
             IBrandInfo brand,
             ItemNumber itemNumber,
@@ -42,6 +35,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         {
         }
 
+        [Obsolete]
         public CatalogItem(
             CatalogItemId id,
             IBrandInfo brand,
@@ -54,31 +48,70 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string? prototypeDescr,
             string? modelDescr)
         {
-            _id = id;
-            _brand = brand;
-            _slug = slug;
-            _scale = scale;
-            _itemNumber = itemNumber;
-            _rollingStocks = rollingStocks;
-            _description = description;
-            _prototypeDescr = prototypeDescr;
-            _modelDescr = modelDescr;
-            _powerMethod = powerMethod;
+            CatalogItemId = id;
+            Brand = brand;
+            Slug = slug;
+            Scale = scale;
+            ItemNumber = itemNumber;
+            RollingStocks = rollingStocks;
+            Description = description;
+            PrototypeDescription = prototypeDescr;
+            ModelDescription = modelDescr;
+            PowerMethod = powerMethod;
+            DeliveryDate = null;
+            LastModifiedAt = Instant.FromUtc(2020, 1, 1, 0, 0);
+            Version = 1;
+        }
+
+        internal CatalogItem(
+            CatalogItemId id,
+            IBrandInfo brand,
+            ItemNumber itemNumber,
+            Slug slug,
+            IScaleInfo scale,
+            PowerMethod powerMethod,
+            string description,
+            string? prototypeDescr,
+            string? modelDescr,
+            DeliveryDate? deliveryDate,
+            bool available,
+            IReadOnlyList<IRollingStock> rollingStocks,
+            Instant lastModifiedAt,
+            int version)
+        {
+            CatalogItemId = id;
+            Brand = brand;
+            Slug = slug;
+            Scale = scale;
+            ItemNumber = itemNumber;
+            RollingStocks = rollingStocks;
+            Description = description;
+            PrototypeDescription = prototypeDescr;
+            ModelDescription = modelDescr;
+            PowerMethod = powerMethod;
+            DeliveryDate = deliveryDate;
+            LastModifiedAt = lastModifiedAt;
+            Version = version;
         }
 
         #region [ Properties ]
-        public CatalogItemId CatalogItemId => _id;
-        public IBrandInfo Brand => _brand;
-        public Slug Slug => _slug;
-        public ItemNumber ItemNumber => _itemNumber;
-        public IReadOnlyList<IRollingStock> RollingStocks => _rollingStocks;
-        public string Description => _description;
-        public string? PrototypeDescription => _prototypeDescr;
-        public string? ModelDescription => _modelDescr;
-        public IScaleInfo Scale => _scale;
-        public PowerMethod PowerMethod => _powerMethod;
+        public CatalogItemId CatalogItemId { get; }
+        public IBrandInfo Brand { get; }
+        public Slug Slug { get; }
+        public ItemNumber ItemNumber { get; }
+        public IReadOnlyList<IRollingStock> RollingStocks { get; }
+        public string Description { get; }
+        public string? PrototypeDescription { get; }
+        public string? ModelDescription { get; }
+        public IScaleInfo Scale { get; }
+        public PowerMethod PowerMethod { get; }
+        public DeliveryDate? DeliveryDate { get; }
+        public bool IsAvailable { get; }
+        public int Version { get; }
+        public Instant LastModifiedAt { get; }
         #endregion
 
+        [Obsolete]
         private static Slug BuildSlug(IBrandInfo brand, ItemNumber itemNumber)
         {
             return Slug.Of(brand.Name, itemNumber.Value);

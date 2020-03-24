@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NodaTime;
+using NodaTime.Testing;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -17,7 +19,8 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         public RailwayRepository(InMemoryContext context)
         {
             _context = context;
-            _railwaysFactory = new RailwaysFactory();
+            _railwaysFactory = new RailwaysFactory(
+                new FakeClock(Instant.FromUtc(1988, 11, 26, 0, 0)));
         }
 
         public Task<RailwayId> Add(

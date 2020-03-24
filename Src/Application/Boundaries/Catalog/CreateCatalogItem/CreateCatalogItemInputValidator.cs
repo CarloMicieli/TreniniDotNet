@@ -44,34 +44,5 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
             RuleForEach(x => x.RollingStocks)
                 .SetValidator(new RollingStockInputValidator());
         }
-
-        public sealed class RollingStockInputValidator : AbstractValidator<RollingStockInput>
-        {
-            public RollingStockInputValidator()
-            {
-                RuleFor(x => x.Era)
-                    .NotNull()
-                    .IsEnumName(typeof(Era), caseSensitive: false);
-
-                RuleFor(x => x.Category)
-                    .NotNull()
-                    .IsEnumName(typeof(Category), caseSensitive: false);
-
-                RuleFor(x => x.Length)
-                    .GreaterThanOrEqualTo(0M);
-
-                RuleFor(x => x.Railway)
-                    .NotEmpty()
-                    .NotNull()
-                    .MinimumLength(2)
-                    .MaximumLength(25);
-
-                RuleFor(x => x.RoadNumber)
-                    .MaximumLength(25);
-
-                RuleFor(x => x.ClassName)
-                    .MaximumLength(25);
-            }
-        }
     }
 }

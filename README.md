@@ -1,19 +1,53 @@
 # Trenini.Net
 
+![GitHub](https://img.shields.io/github/license/CarloMicieli/TreniniDotNet)
+![GitHub last commit](https://img.shields.io/github/last-commit/CarloMicieli/TreniniDotNet)
 ![.NET Core](https://github.com/CarloMicieli/TreniniDotNet/workflows/.NET%20Core/badge.svg)
 
-A database for model railways collections (and a Restful web api).
+<img src="logo.png" alt="Logo" width="200"/>
 
-## Getting Started
+An application to manage model railway collections.
 
-### Prerequisites
+## Use cases
 
-This application is using:
+* Create a new **brand**;
+* Create a new **railway**
+* Create a new **scale**
+* Create a new **catalog item**, with one or more **rolling stock** included
+* Find all **brands**, with paginated results
+* Find all **railways**, with paginated results
+* Find all **scales**, with paginated results
+* Find a **brand**, with its SEO friendly ("slug") identifier
+* Find a **railway**, with its SEO friendly ("slug") identifier
+* Find a **scale**, with its SEO friendly ("slug") identifier
+* Find a **catalog item**, with its SEO friendly ("slug") identifier
 
-- .NET Core 3.1
-- Postgres SQL 12
+## Project layout
 
-### Postgres & Database init
+* `Common` contains the interfaces and utilities classes that don't have a clear place in other projects.
+* `Domain` contains the domain model, with all factories required to create new values. Domain objects are immutable, and the factories are using the `Validation` type from **lang ext** to validate the input. 
+* `Application` contains the application services, and the **use cases** implementation. At this layer, we abstract the database access and depend on this abstraction. Business logic is cleanly separated from infrastructure details.
+* `Infrastructure` is the place where **use cases** are getting their persistence requirement satisfied. The database access is using plain old sql and dapper.
+* `Web` is the top layer - use cases are orchestrated using the IMediatr library and everything is wired together via the built-in dependency injection.
+
+Tests project are in the `Tests` directory.
+
+* `TestHelpers` has the main goal to provide test data. It is getting boring to make the same values for tests over and over again.
+* `Common.UnitTests` contains unit tests for the `Common` project.
+* `Domain.UnitTests` contains unit tests for the `Domain` project. The more relevant tests here are the ones validating domain object constraints and factories.
+* `Application.UnitTests` contains unit tests for the `Application` project. Here we are testing the use cases, running the real use case handlers and services - only persistence is running against an in-memory implementation (just plain .NET collections).
+* `IntegrationTests` - this project contains integration tests, here the application runs inside a fake web container - the persistence code is running against a "real" database (SQLite - with a database file stored on disk). The integration tests have the main goal to validate web apis.
+
+## Setup
+
+### Requirements
+
+- `.NET Core 3.1.2`
+- `Postgres SQL 12`
+
+### Setup
+
+#### Postgres
 
 Add the PostgreSQL 12 repository
 
@@ -29,6 +63,8 @@ $ sudo apt update
 $ sudo apt -y install postgresql-12 postgresql-client-12
 ```
 
+### Database init
+
 Create a new database (development *only*):
 
 ```
@@ -40,26 +76,12 @@ postgres=# ALTER USER tdbuser CREATEDB;
 GRANT
 ```
 
-Run the migrations
-
-```
-$ dotnet ef database update --project Src/Web --context ApplicationIdentityDbContext
-$ dotnet ef database update --project Src/Web --context ApplicationDbContext
-```
-
-Run the scripts to seed the database:
-
-```
-$ export PGPASSWORD='tdbpass'; psql -U tdbuser -h localhost -d TreniniDb -a -f ./_Init/brands.sql
-$ export PGPASSWORD='tdbpass'; psql -U tdbuser -h localhost -d TreniniDb -a -f ./_Init/scales.sql
-$ export PGPASSWORD='tdbpass'; psql -U tdbuser -h localhost -d TreniniDb -a -f ./_Init/railways.sql
-```
+When the application is running with `ASPNETCORE_ENVIRONMENT=Development` mode, both database migration and seeding will run (the first time).
 
 ## Run the application
 
 ```
 $ dotnet run --project Src/Web
-[18:57:51 INF] User profile is available. Using '/home/carlo/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
 [18:57:52 INF] Now listening on: http://localhost:5000
 [18:57:52 INF] Now listening on: https://localhost:5001
 [18:57:52 INF] Application started. Press Ctrl+C to shut down.
@@ -79,7 +101,7 @@ $ dotnet test
 
 ## Built With
 
-* [.NET Core 3.1](http://dot.net) - Back end
+* [.NET Core 3.1.2](http://dot.net) - Back end
 * [Angular](https://www.angular.io/) - Front end 
 
 ## Contributing

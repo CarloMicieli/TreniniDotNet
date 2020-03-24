@@ -7,6 +7,8 @@ using System;
 using System.Net.Mail;
 using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
+using NodaTime.Testing;
+using NodaTime;
 
 namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 {
@@ -18,7 +20,8 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         public BrandRepository(InMemoryContext context)
         {
             _context = context;
-            _brandsFactory = new BrandsFactory();
+            _brandsFactory = new BrandsFactory(
+                new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)));
         }
 
         public Task<BrandId> Add(BrandId brandId, string name, Slug slug, string companyName, Uri websiteUrl, MailAddress emailAddress, BrandKind? brandKind)

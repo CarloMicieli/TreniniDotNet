@@ -14,12 +14,13 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         private readonly InMemoryContext _context;
         private readonly IScalesFactory _scalesFactory;
 
-        public ScaleRepository(InMemoryContext context)
+        public ScaleRepository(InMemoryContext context, IScalesFactory scalesFactory)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
 
-            _scalesFactory = new ScalesFactory();
+            _scalesFactory = scalesFactory ??
+                throw new ArgumentNullException(nameof(scalesFactory));
         }
 
         public Task<IScale> GetBySlug(Slug slug)

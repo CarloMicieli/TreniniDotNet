@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using LanguageExt;
+using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
@@ -8,12 +10,31 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface ICatalogItemsFactory
     {
-        IRollingStock NewRollingStock(Guid rollingStockId, IRailwayInfo railway, string era, string category, decimal? length, string? className, string? roadNumber);
-
-        ICatalogItem NewCatalogItem(Guid catalogItemId, IBrandInfo brand, string itemNumber, string slug,
+        Validation<Error, ICatalogItem> NewCatalogItem(
+            IBrandInfo brand, string itemNumber,
             IScaleInfo scale,
-            string powerMethod, string? deliveryDate,
+            string powerMethod,
+            string? deliveryDate, bool available,
             string description, string? modelDescription, string? prototypeDescription,
-            List<IRollingStock> list, DateTime? createdAt, int? version);
+            IRollingStock rollingStock);
+
+        Validation<Error, ICatalogItem> NewCatalogItem(
+            IBrandInfo brand, string itemNumber,
+            IScaleInfo scale,
+            string powerMethod,
+            string? deliveryDate, bool available,
+            string description, string? modelDescription, string? prototypeDescription,
+            IReadOnlyList<IRollingStock> rollingStocks);
+
+        Validation<Error, ICatalogItem> HydrateCatalogItem(
+            Guid catalogItemId,
+            string slug,
+            IBrandInfo brand, string itemNumber,
+            IScaleInfo scale,
+            string powerMethod,
+            string? deliveryDate, bool available,
+            string description, string? modelDescr, string? prototypeDescr,
+            IReadOnlyList<IRollingStock> rollingStocks,
+            DateTime lastModifiedAt, int version);
     }
 }

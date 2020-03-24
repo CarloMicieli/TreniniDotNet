@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
@@ -11,7 +10,7 @@ using TreniniDotNet.Infrastructure.Persistence.Catalog.Scales;
 
 namespace TreniniDotNet.Web.DependencyInjection
 {
-    public static class PersistanceExtensions
+    public static class PersistenceExtensions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
@@ -32,6 +31,7 @@ namespace TreniniDotNet.Web.DependencyInjection
 
             services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
             services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();
+            services.AddScoped<IRollingStocksFactory, RollingStocksFactory>();
 
             return services;
         }

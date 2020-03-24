@@ -114,6 +114,12 @@ namespace TreniniDotNet.Domain {
             }
         }
         
+        internal static string InvalidRailwayOperatingUntilForActiveRailway {
+            get {
+                return ResourceManager.GetString("InvalidRailwayOperatingUntilForActiveRailway", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to invalid railway: operating since &gt; operating until.
         /// </summary>

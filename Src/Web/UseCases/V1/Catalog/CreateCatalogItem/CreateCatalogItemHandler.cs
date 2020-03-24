@@ -24,7 +24,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
         private static CreateCatalogItemInput ConvertToInput(CreateCatalogItemRequest request)
         {
             List<RollingStockInput> rollingStocks = request.RollingStocks
-                .Select(rs => new RollingStockInput(rs.Era!, rs.Category!, rs.Railway!, rs.ClassName, rs.RoadNumber, rs.Length))
+                .Select(rs => new RollingStockInput(rs.Era!, rs.Category!, rs.Railway!, rs.ClassName, rs.RoadNumber, null, rs.Length, null, null))
                 .ToList();
 
             return new CreateCatalogItemInput(
@@ -35,6 +35,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
                 request.ModelDescription,
                 request.PowerMethod!,
                 request.Scale!,
+                request.DeliveryDate,
+                request.Available,
                 rollingStocks);
         }
     }

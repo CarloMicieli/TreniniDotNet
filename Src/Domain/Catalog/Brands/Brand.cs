@@ -2,6 +2,7 @@
 using System;
 using System.Net.Mail;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using NodaTime;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
@@ -35,6 +36,19 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             _brandType = kind;
             _version = 1;
             _createdAt = DateTime.UtcNow;
+        }
+
+        internal Brand(BrandId id, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind, Instant createdAt, int version)
+        {
+            _id = id;
+            _slug = slug;
+            _name = name;
+            _websiteUrl = websiteUrl;
+            _emailAddress = emailAddress;
+            _companyName = companyName;
+            _brandType = kind;
+            _version = version;
+            _createdAt = createdAt.ToDateTimeUtc();
         }
 
         #region [ Properties ]
