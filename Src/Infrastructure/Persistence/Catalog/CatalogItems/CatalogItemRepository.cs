@@ -101,7 +101,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             return FromCatalogItemDto(results);
         }
-               
+
         private ICatalogItem? FromCatalogItemDto(IEnumerable<CatalogItemWithRelatedData> results)
         {
             if (results.Any())

@@ -22,6 +22,12 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
                 .WithColumn("mail_address").AsString(255).Nullable()
                 .WithColumn("website_url").AsString(255).Nullable()
                 .WithColumn("kind").AsString(25).Nullable()
+                .WithColumn("address_line1").AsString(255).Nullable()
+                .WithColumn("address_line2").AsString(255).Nullable()
+                .WithColumn("address_city").AsString(50).Nullable()
+                .WithColumn("address_region").AsString(50).Nullable()
+                .WithColumn("address_postal_code").AsString(10).Nullable()
+                .WithColumn("address_country").AsString(2).Nullable()
                 .WithColumn("created_at").AsDateTime().Nullable()
                 .WithColumn("version").AsInt32().WithDefaultValue(1);
 
@@ -116,8 +122,11 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
                 .WithColumn("railway_id").AsGuid().NotNullable()
                 .WithColumn("catalog_item_id").AsGuid().NotNullable()
                 .WithColumn("length").AsDecimal().Nullable()
-                .WithColumn("class_name").AsString(50).Nullable()
-                .WithColumn("road_number").AsString(50).Nullable();
+                .WithColumn("class_name").AsString(25).Nullable()
+                .WithColumn("road_number").AsString(25).Nullable()
+                .WithColumn("type_name").AsString(25).Nullable()
+                .WithColumn("dcc_interface").AsString(25).Nullable()
+                .WithColumn("control").AsString(25).Nullable();
 
             Create.ForeignKey("FK_RollingStocks_Railways")
                 .FromTable(RollingStocks).ForeignColumn("railway_id")

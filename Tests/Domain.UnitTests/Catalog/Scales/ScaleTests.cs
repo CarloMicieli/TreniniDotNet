@@ -34,7 +34,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         }
 
         private static IScale HalfZero() => CatalogSeedData.Scales.ScaleH0();
-        
+
         private static IScale Enne() => CatalogSeedData.Scales.ScaleN();
     }
 }
