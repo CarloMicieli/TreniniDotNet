@@ -14,7 +14,5 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         string? Country { get; }
 
         string ToLabel() => Name;
-
-        IRailwayInfo ToRailwayInfo();
     }
 }

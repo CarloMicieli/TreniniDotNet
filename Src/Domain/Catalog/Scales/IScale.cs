@@ -14,5 +14,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         DateTime? CreatedAt { get; }
 
         int? Version { get; }
+
+        IScaleInfo ToScaleInfo();
     }
 }

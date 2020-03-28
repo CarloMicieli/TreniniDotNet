@@ -139,7 +139,7 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                     select = "*";
                 }
 
-                string where = string.Join("AND ",
+                string where = string.Join(" AND ",
                     primaryKeys.GetType()
                         .GetProperties()
                         .Select(it => $"{it.Name} = @{it.Name}"));

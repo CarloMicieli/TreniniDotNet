@@ -5,13 +5,8 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public sealed class RailwayInfo : IRailwayInfo
+    public sealed class RailwayInfo : IRailwayInfo, IEquatable<RailwayInfo>
     {
-        private readonly RailwayId railwayId;
-        private readonly Slug slug;
-        private readonly string name;
-        private readonly string? country;
-
         public RailwayInfo(Guid railwayId, string slug, string name, string? country)
             : this(new RailwayId(railwayId), Slug.Of(slug), name, country)
         {
@@ -19,19 +14,37 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public RailwayInfo(RailwayId railwayId, Slug slug, string name, string? country)
         {
-            this.railwayId = railwayId;
-            this.slug = slug;
-            this.name = name;
-            this.country = country;
+            RailwayId = railwayId;
+            Slug = slug;
+            Name = name;
+            Country = country;
         }
 
-        public RailwayId RailwayId => railwayId;
+        public RailwayId RailwayId { get; }
 
-        public Slug Slug => slug;
+        public Slug Slug { get; }
 
-        public string Name => name;
+        public string Name { get; }
 
-        public string? Country => country;
+        public string? Country { get; }
+
+        public override int GetHashCode() => RailwayId.GetHashCode();
+
+        public override bool Equals(object obj)
+        {
+            if (obj is RailwayInfo that)
+            {
+                return AreEquals(this, that);
+            }
+
+            return false;
+        }
+
+        public bool Equals(RailwayInfo other) =>
+            AreEquals(this, other);
+
+        private static bool AreEquals(RailwayInfo left, RailwayInfo right) =>
+            left.RailwayId.Equals(right.RailwayId);
 
         public IRailwayInfo ToRailwayInfo()
         {

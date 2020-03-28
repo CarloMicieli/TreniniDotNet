@@ -16,5 +16,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         int? Version { get; }
 
         DateTime? CreatedAt { get; }
+
+        IRailwayInfo ToRailwayInfo();
     }
 }

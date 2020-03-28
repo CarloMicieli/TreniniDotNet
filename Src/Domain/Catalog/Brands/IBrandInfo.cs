@@ -12,7 +12,5 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         string Name { get; }
 
         string ToLabel() => Name;
-
-        IBrandInfo ToBrandInfo();
     }
 }

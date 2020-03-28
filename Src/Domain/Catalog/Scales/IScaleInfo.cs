@@ -14,7 +14,5 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         Ratio Ratio { get; }
 
         string ToLabel() => $"{Name} ({Ratio})";
-
-        IScaleInfo ToScaleInfo();
     }
 }
