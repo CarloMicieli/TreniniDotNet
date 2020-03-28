@@ -163,7 +163,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             ON rs.catalog_item_id = ci.catalog_item_id
             JOIN railways AS r
             ON r.railway_id = rs.railway_id
-            WHERE slug = @slug;";
+            WHERE ci.slug = @slug;";
 
         private const string GetCatalogItemWithBrandAndItemNumberExistsQuery = @"SELECT slug FROM catalog_items WHERE brand_id = @brandId AND item_number = @itemNumber LIMIT 1;";
 

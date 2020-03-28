@@ -5,13 +5,8 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public sealed class ScaleInfo : IScaleInfo
+    public sealed class ScaleInfo : IScaleInfo, IEquatable<ScaleInfo>
     {
-        private readonly ScaleId scaleId;
-        private readonly Slug slug;
-        private readonly string name;
-        private readonly Ratio ratio;
-
         public ScaleInfo(Guid scaleId, string slug, string name, decimal ratio)
             : this(new ScaleId(scaleId), Slug.Of(slug), name, Ratio.Of(ratio))
         {
@@ -19,19 +14,37 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public ScaleInfo(ScaleId scaleId, Slug slug, string name, Ratio ratio)
         {
-            this.scaleId = scaleId;
-            this.slug = slug;
-            this.name = name;
-            this.ratio = ratio;
+            ScaleId = scaleId;
+            Slug = slug;
+            Name = name;
+            Ratio = ratio;
         }
 
-        public ScaleId ScaleId => scaleId;
+        public ScaleId ScaleId { get; }
 
-        public Slug Slug => slug;
+        public Slug Slug { get; }
 
-        public string Name => name;
+        public string Name { get; }
 
-        public Ratio Ratio => ratio;
+        public Ratio Ratio { get; }
+
+        public override int GetHashCode() => ScaleId.GetHashCode();
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ScaleInfo that)
+            {
+                return AreEquals(this, that);
+            }
+
+            return false;
+        }
+
+        public bool Equals(ScaleInfo other) =>
+            AreEquals(this, other);
+
+        private static bool AreEquals(ScaleInfo left, ScaleInfo right) =>
+            left.ScaleId.Equals(right.ScaleId);
 
         public IScaleInfo ToScaleInfo()
         {
