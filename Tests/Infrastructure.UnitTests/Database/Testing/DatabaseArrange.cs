@@ -56,6 +56,14 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
             }
         }
 
+        public void InsertMany(string tableName, int count, Func<int, object> f)
+        {
+            object[] objects = Enumerable.Range(1, count)
+                .Select(id => f(id))
+                .ToArray();
+            this.Insert(tableName, objects);
+        }
+
         private int Execute(string commandText, object obj)
         {
             using var connection = DatabaseContext.NewConnection();
