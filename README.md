@@ -36,6 +36,54 @@ Tests project are in the `Tests` directory.
 * `Common.UnitTests` contains unit tests for the `Common` project.
 * `Domain.UnitTests` contains unit tests for the `Domain` project. The more relevant tests here are the ones validating domain object constraints and factories.
 * `Application.UnitTests` contains unit tests for the `Application` project. Here we are testing the use cases, running the real use case handlers and services - only persistence is running against an in-memory implementation (just plain .NET collections).
+* `Infrastructure.UnitTests` contains unit tests to ensure repositories (and mostly hand-written sql queries) are working properly. The tests are running against an in memory instance of Sqlite, using some helper classes to make the testing more nice and clean. 
+
+```csharp
+[Fact]
+public async Task BrandsRepository_Should_InsertNewBrands()
+{
+    Database.Setup.TruncateTable(Brands);
+
+    var testBrand = new TestBrand();
+    var brandId = await BrandsRepository.Add(testBrand);
+
+    brandId.Should().Be(testBrand.BrandId);
+
+    Database.Assert.RowIn(Brands)
+        .WithPrimaryKey(new
+        {
+            brand_id = testBrand.BrandId.ToGuid()
+        })
+        .WithValues(new
+        {
+            slug = "acme",
+            name = "A.C.M.E."
+        })
+        .ShouldExists();
+}
+
+[Fact]
+public async Task BrandsRepository_ShouldFindOneBrandBySlug()
+{
+    Database.Setup.TruncateTable(Brands);
+
+    Database.Arrange.InsertOne(Brands, new
+    {
+        brand_id = Guid.NewGuid(),
+        name = "A.C.M.E.",
+        slug = "acme",
+        company_name = "Associazione Costruzioni Modellistiche Esatte",
+        version = 1,
+        created_at = DateTime.UtcNow
+    });
+
+    var brand = await BrandsRepository.GetBySlug(Slug.Of("acme"));
+
+    brand.Should().NotBeNull();
+    brand.Slug.Should().Be(Slug.Of("acme"));
+}
+```
+
 * `IntegrationTests` - this project contains integration tests, here the application runs inside a fake web container - the persistence code is running against a "real" database (SQLite - with a database file stored on disk). The integration tests have the main goal to validate web apis.
 
 ## Setup
