@@ -2,44 +2,38 @@
 using FluentAssertions;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.Brands;
-using NodaTime;
 using System;
-using NodaTime.Testing;
 using TreniniDotNet.Common;
 using TreniniDotNet.Infrastructure.Database.Testing;
 using System.Net.Mail;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Pagination;
+using TreniniDotNet.Infrastracture.Dapper;
+using NodaTime;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
-    public class BrandsRepositoryTests : IClassFixture<SqliteDatabaseFixture>
+    public class BrandsRepositoryTests : RepositoryUnitTests<IBrandsRepository>
     {
-        private const string Brands = "brands";
-
-        private readonly IBrandsRepository BrandsRepository;
-        private DatabaseTestHelpers Database { get; }
-
         public BrandsRepositoryTests(SqliteDatabaseFixture fixture)
+            : base(fixture, CreateRepository)
         {
-            var fakeClock = new FakeClock(Instant.FromUtc(1988, 11, 25, 9, 0));
-            var factory = new BrandsFactory(fakeClock);
-
-            Database = new DatabaseTestHelpers(fixture.DatabaseContext);
-            BrandsRepository = new BrandsRepository(fixture.DatabaseContext, factory);
         }
+
+        private static IBrandsRepository CreateRepository(IDatabaseContext databaseContext, IClock clock) =>
+            new BrandsRepository(databaseContext, new BrandsFactory(clock));
 
         [Fact]
         public async Task BrandsRepository_Add_ShouldInsertNewBrands()
         {
-            Database.Setup.TruncateTable(Brands);
+            Database.Setup.TruncateTable(Tables.Brands);
 
             var testBrand = new TestBrand();
-            var brandId = await BrandsRepository.Add(testBrand);
+            var brandId = await Repository.Add(testBrand);
 
             brandId.Should().Be(testBrand.BrandId);
 
-            Database.Assert.RowIn(Brands)
+            Database.Assert.RowInTable(Tables.Brands)
                 .WithPrimaryKey(new
                 {
                     brand_id = testBrand.BrandId.ToGuid()
@@ -56,9 +50,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         [Fact]
         public async Task BrandsRepository_GetBySlug_ShouldFindOneBrandBySlug()
         {
-            Database.Setup.TruncateTable(Brands);
+            Database.Setup.TruncateTable(Tables.Brands);
 
-            Database.Arrange.InsertOne(Brands, new
+            Database.Arrange.InsertOne(Tables.Brands, new
             {
                 brand_id = Guid.NewGuid(),
                 name = "A.C.M.E.",
@@ -68,7 +62,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 created_at = DateTime.UtcNow
             });
 
-            var brand = await BrandsRepository.GetBySlug(Slug.Of("acme"));
+            var brand = await Repository.GetBySlug(Slug.Of("acme"));
 
             brand.Should().NotBeNull();
             brand.Slug.Should().Be(Slug.Of("acme"));
@@ -77,9 +71,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         [Fact]
         public async Task BrandsRepository_GetByName_ShouldFindOneBrandByName()
         {
-            Database.Setup.TruncateTable(Brands);
+            Database.Setup.TruncateTable(Tables.Brands);
 
-            Database.Arrange.InsertOne(Brands, new
+            Database.Arrange.InsertOne(Tables.Brands, new
             {
                 brand_id = Guid.NewGuid(),
                 name = "A.C.M.E.",
@@ -89,7 +83,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 created_at = DateTime.UtcNow
             });
 
-            var brand = await BrandsRepository.GetByName("A.C.M.E.");
+            var brand = await Repository.GetByName("A.C.M.E.");
 
             brand.Should().NotBeNull();
             brand.Name.Should().Be("A.C.M.E.");
@@ -98,7 +92,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         [Fact]
         public async Task BrandsRepository_GetAll_ShouldFindAllBrands()
         {
-            Database.Setup.TruncateTable(Brands);
+            Database.Setup.TruncateTable(Tables.Brands);
 
             Database.Arrange.Insert("brands",
                 new
@@ -121,7 +115,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 }
                 );
 
-            var brands = await BrandsRepository.GetAll();
+            var brands = await Repository.GetAll();
 
             brands.Should().NotBeNull();
             brands.Should().HaveCount(2);
@@ -130,7 +124,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         [Fact]
         public async Task BrandsRepository_GetBrands_ShouldFindBrandsPaginated()
         {
-            Database.Setup.TruncateTable(Brands);
+            Database.Setup.TruncateTable(Tables.Brands);
 
             Database.Arrange.InsertMany("brands", 20, id => 
                 new
@@ -143,7 +137,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                     created_at = DateTime.UtcNow
                 });
 
-            var result = await BrandsRepository.GetBrands(new Page(10, 5));
+            var result = await Repository.GetBrands(new Page(10, 5));
 
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(5);
@@ -152,9 +146,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         [Fact]
         public async Task BrandsRepository_ExistsBySlug_ShouldReturnTrueWhenBrandExists()
         {
-            Database.Setup.TruncateTable(Brands);
+            Database.Setup.TruncateTable(Tables.Brands);
 
-            Database.Arrange.InsertOne(Brands, new
+            Database.Arrange.InsertOne(Tables.Brands, new
             {
                 brand_id = Guid.NewGuid(),
                 name = "A.C.M.E.",
@@ -164,7 +158,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 created_at = DateTime.UtcNow
             });
 
-            bool exists = await BrandsRepository.Exists(Slug.Of("acme"));
+            bool exists = await Repository.Exists(Slug.Of("acme"));
 
             exists.Should().BeTrue();
         }
@@ -172,9 +166,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         [Fact]
         public async Task BrandsRepository_ExistsBySlug_ShouldReturnFalseWhenBrandDoesNotExist()
         {
-            Database.Setup.TruncateTable(Brands);
+            Database.Setup.TruncateTable(Tables.Brands);
 
-            bool exists = await BrandsRepository.Exists(Slug.Of("acme"));
+            bool exists = await Repository.Exists(Slug.Of("acme"));
 
             exists.Should().BeFalse();
         }

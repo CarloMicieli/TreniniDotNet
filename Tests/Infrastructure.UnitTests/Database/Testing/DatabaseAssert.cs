@@ -3,6 +3,7 @@ using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using TreniniDotNet.Infrastracture.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Database.Testing
@@ -14,11 +15,7 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
         public DatabaseAssert(IDatabaseContext databaseContext) =>
             DatabaseContext = databaseContext;
 
-        public void RowExists(string tableName, object obj)
-        {
-        }
-
-        public DatabaseAssertionBuilder RowIn(string tableName)
+        public DatabaseAssertionBuilder RowInTable(string tableName)
         {
             return new DatabaseAssertionBuilder(DatabaseContext, tableName);
         }
@@ -72,14 +69,37 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                     dynamic result = connection.QuerySingle(selectText, primaryKeys);
 
                     IDictionary<string, object> resultValues = result;
-                    IDictionary<string, object> expectedValues = values
-                        .GetType()
-                        .GetProperties()
-                        .ToDictionary(it => it.Name, it => it.GetValue(values));
 
-                    if (expectedValues.Count > 0)
+                    if (values != null)
                     {
-                        resultValues.Should().BeEquivalentTo(expectedValues);
+                        IEnumerable<PropertyInfo> props = values
+                            .GetType()
+                            .GetProperties();
+
+                        IDictionary<string, object> expectedValues = props
+                            .ToDictionary(it => it.Name, it => it.GetValue(values));
+
+                        // Sqlite has no boolean data type, need to change it before the assertion
+                        var booleanFields = props
+                            .Where(it => it.PropertyType == typeof(bool) || it.PropertyType == typeof(Nullable<bool>))
+                            .Select(it => it.Name)
+                            .ToList();
+
+                        if (booleanFields.Count > 0)
+                        {
+                            foreach (var field in booleanFields)
+                            {
+                                if (resultValues.TryGetValue(field, out var value))
+                                {
+                                    resultValues[field] = "1" == value?.ToString();
+                                }
+                            }
+                        }
+
+                        if (expectedValues.Count > 0)
+                        {
+                            resultValues.Should().BeEquivalentTo(expectedValues);
+                        }
                     }
                 }
                 catch (InvalidOperationException ex)
