@@ -48,7 +48,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             left.Inches == right.Inches &&
             left.Millimeters == right.Millimeters;
         #endregion
-        
+
         public override int GetHashCode() => HashCode.Combine(TrackGauge, Inches, Millimeters);
     }
 }

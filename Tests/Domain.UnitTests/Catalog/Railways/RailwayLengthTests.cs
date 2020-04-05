@@ -6,7 +6,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public class RailwayLengthTests
     {
-        [Fact]   
+        [Fact]
         public void RailwayLength_Create_ShouldCreateNewRailwayLengths()
         {
             var railwayLength = RailwayLength.Create(100M, 90M);
