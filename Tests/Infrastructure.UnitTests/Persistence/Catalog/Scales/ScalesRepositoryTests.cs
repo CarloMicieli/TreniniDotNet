@@ -135,7 +135,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
             exists.Should().BeFalse();
         }
-    
+
         [Fact]
         public async Task ScalesRepository_GetAll_ShouldReturnAllScales()
         {
@@ -246,7 +246,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
         public string Notes => null;
 
-        public DateTime? CreatedAt => new DateTime(2020, 11, 25);        
+        public DateTime? CreatedAt => new DateTime(2020, 11, 25);
 
         public int? Version => 42;
 

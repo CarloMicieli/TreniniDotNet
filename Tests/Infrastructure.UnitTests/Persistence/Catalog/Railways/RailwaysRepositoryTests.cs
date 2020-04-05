@@ -37,7 +37,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 {
                     railway_id = fs.RailwayId.ToGuid()
                 })
-                .AndValues(new 
+                .AndValues(new
                 {
                     name = fs.Name,
                     company_name = fs.CompanyName,
@@ -152,7 +152,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         {
             Database.Setup.TruncateTable(Tables.Railways);
 
-            Database.Arrange.Insert(Tables.Railways, 
+            Database.Arrange.Insert(Tables.Railways,
                 new
                 {
                     railway_id = Guid.NewGuid(),

@@ -283,10 +283,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
     public static class DatabaseTestHelpersExtensions
     {
-        public static void ArrangeWithOneCatalogItem(this DatabaseTestHelpers db, 
+        public static void ArrangeWithOneCatalogItem(this DatabaseTestHelpers db,
             CatalogItemId catalogItemId,
             BrandId brandId,
-            RailwayId railwayId, 
+            RailwayId railwayId,
             ScaleId scaleId)
         {
             db.Setup.TruncateTable(Tables.RollingStocks);

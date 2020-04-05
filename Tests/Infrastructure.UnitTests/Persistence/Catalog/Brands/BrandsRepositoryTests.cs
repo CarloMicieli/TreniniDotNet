@@ -126,7 +126,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         {
             Database.Setup.TruncateTable(Tables.Brands);
 
-            Database.Arrange.InsertMany("brands", 20, id => 
+            Database.Arrange.InsertMany("brands", 20, id =>
                 new
                 {
                     brand_id = Guid.NewGuid(),
