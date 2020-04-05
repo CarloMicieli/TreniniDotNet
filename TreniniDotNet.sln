@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{31CDEE46
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UnitTests", "Tests\Domain.UnitTests\Domain.UnitTests.csproj", "{DE20EA9F-B464-4DCB-BDF9-9BF500232047}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "Tests\IntegrationTests\IntegrationTests.csproj", "{A763C937-BC3C-47DE-8726-3C5A73EDB356}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.IntegrationTests", "Tests\Web.IntegrationTests\Web.IntegrationTests.csproj", "{A763C937-BC3C-47DE-8726-3C5A73EDB356}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Src\Domain\Domain.csproj", "{02D93CA0-C1CC-4EB8-8411-A7D9FD6C02CD}"
 EndProject
