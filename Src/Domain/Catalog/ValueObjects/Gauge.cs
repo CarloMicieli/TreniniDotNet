@@ -1,4 +1,7 @@
 ﻿using System;
+using LanguageExt;
+using static LanguageExt.Prelude;
+using TreniniDotNet.Common.Extensions;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {
@@ -22,6 +25,9 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             _gauge = gauge;
             _mu = mu;
         }
+
+        public static Option<Gauge> TryConvert(decimal v, MeasureUnit mu) =>
+            v.IsPositive() ? Some(new Gauge(v, mu)) : None;
 
         /// <summary>
         /// Returns this <em>Gauge</em> value as Float, with the provided measure unit.

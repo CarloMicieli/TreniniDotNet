@@ -15,11 +15,11 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
         public static float InchesToMillimiters(float f) => f * Inches2MillimitersF;
 
-        public static decimal InchesToMillimiters(decimal f) => f * Inches2Millimiters;
+        public static decimal InchesToMillimiters(decimal f, int decimals = 2) => decimal.Round(f * Inches2Millimiters, decimals);
 
         public static float MillimitersToInches(float f) => f / Inches2MillimitersF;
 
-        public static decimal MillimitersToInches(decimal f) => f / Inches2Millimiters;
+        public static decimal MillimitersToInches(decimal f, int decimals = 2) => decimal.Round(f / Inches2Millimiters, decimals);
     }
 
     public static class MeasureUnitExtentions
@@ -89,7 +89,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         /// <returns></returns>
         public static float GetValueOrConvert(this MeasureUnit mu, Func<(float, MeasureUnit)> extractFunction)
         {
-            var (value, currentMU) = extractFunction.Invoke();
+            var (value, currentMU) = extractFunction();
 
             return mu switch
             {
@@ -110,7 +110,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         /// <returns></returns>
         public static decimal GetValueOrConvert(this MeasureUnit mu, Func<(decimal, MeasureUnit)> extractFunction)
         {
-            var (value, currentMU) = extractFunction.Invoke();
+            var (value, currentMU) = extractFunction();
 
             return mu switch
             {

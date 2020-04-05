@@ -9,13 +9,17 @@ namespace TreniniDotNet.Common.Lengths
         private static readonly IDictionary<(MeasureUnit from, MeasureUnit to), MeasureUnitConverter> converters = Converters
             (
                 new MeasureUnitConverter(MeasureUnit.Inches, MeasureUnit.Millimeters, Inches2Millimiters),
-                new MeasureUnitConverter(MeasureUnit.Millimeters, MeasureUnit.Inches, Millimiters2Inches)
+                new MeasureUnitConverter(MeasureUnit.Millimeters, MeasureUnit.Inches, Millimiters2Inches),
+                new MeasureUnitConverter(MeasureUnit.Miles, MeasureUnit.Kilometers, Miles2Kilometers),
+                new MeasureUnitConverter(MeasureUnit.Kilometers, MeasureUnit.Miles, Kilometers2Miles)
             );
 
         private static readonly IMeasureUnitConverter sameUnitConvert = new SameUnitConverter();
 
         private const decimal Inches2Millimiters = 25.4M;
         private const decimal Millimiters2Inches = 0.0393701M;
+        private const decimal Miles2Kilometers = 1.60934M;
+        private const decimal Kilometers2Miles = 0.621371M;
 
         public static IMeasureUnitConverter GetConverter(MeasureUnit from, MeasureUnit to)
         {
