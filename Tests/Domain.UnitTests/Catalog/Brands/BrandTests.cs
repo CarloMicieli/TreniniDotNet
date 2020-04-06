@@ -2,6 +2,7 @@
 using System;
 using System.Net.Mail;
 using Xunit;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
@@ -68,7 +69,9 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         private static Brand Acme()
         {
             return new Brand(
+                new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
                 "ACME",
+                Slug.Of("ACME"),
                 "Anonima Costruzione Modelli Esatti",
                 new Uri("http://www.acmetreni.com"),
                 new MailAddress("mail@acmetreni.com"),

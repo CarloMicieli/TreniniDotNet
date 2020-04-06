@@ -4,29 +4,39 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
 {
     public sealed class CreateBrandInput : IUseCaseInput
     {
-        private readonly string? _name;
-        private readonly string? _companyName;
-        private readonly string? _websiteUrl;
-        private readonly string? _emailAddress;
-        private readonly string? _kind;
-
         public CreateBrandInput(string? name, string? companyName, string? websiteUrl, string? emailAddress, string? kind)
         {
-            _name = name;
-            _companyName = companyName;
-            _websiteUrl = websiteUrl;
-            _emailAddress = emailAddress;
-            _kind = kind;
+            Name = name;
+            CompanyName = companyName;
+            WebsiteUrl = websiteUrl;
+            EmailAddress = emailAddress;
+            Kind = kind;
         }
 
-        public string? Name => _name;
+        public string? Name { get; }
 
-        public string? CompanyName => _companyName;
+        public string? CompanyName { get; }
 
-        public string? WebsiteUrl => _websiteUrl;
+        public string? GroupName { get; } = null;
 
-        public string? EmailAddress => _emailAddress;
+        public string? Description { get; } = null;
 
-        public string? Kind => _kind;
+        public string? WebsiteUrl { get; }
+
+        public string? EmailAddress { get; }
+
+        public string? Kind { get; }
+
+        public AddressInput? Address { get; } = null; //TODO fixme
+    }
+
+    public sealed class AddressInput
+    {
+        public string? Line1 { set; get; }
+        public string? Line2 { set; get; }
+        public string? City { set; get; }
+        public string? Region { set; get; }
+        public string? PostalCode { set; get; }
+        public string? Country { set; get; }
     }
 }

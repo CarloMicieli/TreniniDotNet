@@ -1,23 +1,14 @@
-﻿using TreniniDotNet.Common;
-using System;
+﻿using System;
 using System.Net.Mail;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using NodaTime;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class Brand : IBrand, IEquatable<Brand>
     {
-        private readonly BrandId _id;
-        private readonly Slug _slug;
-        private readonly string _name;
-        private readonly string? _companyName;
-        private readonly Uri? _websiteUrl;
-        private readonly MailAddress? _emailAddress;
-        private readonly BrandKind _brandType;
-        private readonly DateTime? _createdAt;
-        private readonly int? _version;
-
         public Brand(string name, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
             : this(BrandId.NewId(), name, Slug.Empty, companyName, websiteUrl, emailAddress, kind)
         {
@@ -27,48 +18,60 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         {
             ValidateBrandName(name);
 
-            _id = id;
-            _slug = slug.OrNewIfEmpty(() => Slug.Of(name));
-            _name = name;
-            _websiteUrl = websiteUrl;
-            _emailAddress = emailAddress;
-            _companyName = companyName;
-            _brandType = kind;
-            _version = 1;
-            _createdAt = DateTime.UtcNow;
+            BrandId = id;
+            Slug = slug.OrNewIfEmpty(() => Slug.Of(name));
+            Name = name;
+            WebsiteUrl = websiteUrl;
+            EmailAddress = emailAddress;
+            CompanyName = companyName;
+            GroupName = null;
+            Description = null;
+            Address = null; // TODO: fixme
+            Kind = kind;
+            Version = 1;
+            CreatedAt = DateTime.UtcNow;
         }
 
         internal Brand(BrandId id, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind, Instant createdAt, int version)
         {
-            _id = id;
-            _slug = slug;
-            _name = name;
-            _websiteUrl = websiteUrl;
-            _emailAddress = emailAddress;
-            _companyName = companyName;
-            _brandType = kind;
-            _version = version;
-            _createdAt = createdAt.ToDateTimeUtc();
+            BrandId = id;
+            Slug = slug;
+            Name = name;
+            WebsiteUrl = websiteUrl;
+            EmailAddress = emailAddress;
+            CompanyName = companyName;
+            GroupName = null;
+            Description = null;
+            Address = null; // TODO: fixme
+            Kind = kind;
+            Version = version;
+            CreatedAt = createdAt.ToDateTimeUtc();
         }
 
         #region [ Properties ]
-        public BrandId BrandId => _id;
+        public BrandId BrandId { get; }
 
-        public Slug Slug => _slug;
+        public Slug Slug { get; }
 
-        public string Name => _name;
+        public string Name { get; }
 
-        public Uri? WebsiteUrl => _websiteUrl;
+        public Uri? WebsiteUrl { get; }
 
-        public MailAddress? EmailAddress => _emailAddress;
+        public MailAddress? EmailAddress { get; }
 
-        public string? CompanyName => _companyName;
+        public string? CompanyName { get; }
+        
+        public string? GroupName { get; }
 
-        public BrandKind Kind => _brandType;
+        public string? Description { get; }
 
-        public DateTime? CreatedAt => _createdAt;
+        public Address? Address { get; }
 
-        public int? Version => _version;
+        public BrandKind Kind { get; }
+
+        public DateTime? CreatedAt { get; }
+
+        public int? Version { get; }
         #endregion
 
         #region [ Equality ]
@@ -109,20 +112,21 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 return true;
             }
 
-            return left.Name == right.Name;
+            return left.BrandId == right.BrandId &&
+                left.Name == right.Name;
         }
         #endregion  
 
         #region [ Standard methods overrides ]
-        public override int GetHashCode()
-        {
-            return _name.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
-        }
+
+        public override int GetHashCode() =>
+            HashCode.Combine(BrandId, Name);
 
         public override string ToString()
         {
-            return $"Brand({_name})";
+            return $"Brand({Name})";
         }
+        
         #endregion
 
         public IBrandInfo ToBrandInfo()
