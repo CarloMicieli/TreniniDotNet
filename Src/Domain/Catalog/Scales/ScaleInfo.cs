@@ -1,9 +1,8 @@
 ﻿using System;
 using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
-namespace TreniniDotNet.Domain.Catalog.CatalogItems
+namespace TreniniDotNet.Domain.Catalog.Scales
 {
     public sealed class ScaleInfo : IScaleInfo, IEquatable<ScaleInfo>
     {

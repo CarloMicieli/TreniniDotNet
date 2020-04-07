@@ -46,7 +46,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                     operating_since = fs.OperatingSince,
                     operating_until = fs.OperatingUntil,
                     active = RailwayStatus.Active == fs.Status,
-                    created_at = fs.CreatedAt,
+                    last_modified = fs.CreatedAt,
                     version = fs.Version
                 })
                 .ShouldExists();

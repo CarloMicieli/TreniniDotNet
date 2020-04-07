@@ -1,9 +1,8 @@
 ﻿using System;
 using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
-namespace TreniniDotNet.Domain.Catalog.CatalogItems
+namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public sealed class RailwayInfo : IRailwayInfo, IEquatable<RailwayInfo>
     {

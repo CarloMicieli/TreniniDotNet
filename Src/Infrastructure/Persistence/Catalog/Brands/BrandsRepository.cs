@@ -128,7 +128,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         private const string GetBrandExistsQuery = @"SELECT slug FROM brands WHERE slug = @slug LIMIT 1;";
 
         private const string InsertBrandCommand = @"INSERT INTO brands(
-                brand_id, name, slug, company_name, mail_address, website_url, kind, created_at, version)
+                brand_id, name, slug, company_name, mail_address, website_url, kind, last_modified, version)
             VALUES(
                 @BrandId, @Name, @Slug, @CompanyName, @EmailAddress, @WebsiteUrl, @Kind, @CreatedAt, @Version);";
 

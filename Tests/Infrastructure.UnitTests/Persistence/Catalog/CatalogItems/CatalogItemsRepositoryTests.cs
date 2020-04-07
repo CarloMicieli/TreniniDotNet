@@ -54,7 +54,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 name = scale.Name,
                 slug = scale.Slug.ToString(),
                 ratio = scale.Ratio.ToDecimal(),
-                gauge = 16.5M,
+                gauge_mm = 16.5M,
+                gauge_in = 0.65M,
                 track_type = TrackGauge.Standard.ToString()
             });
         }

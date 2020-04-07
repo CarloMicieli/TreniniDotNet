@@ -134,7 +134,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
-                ci.created_at, ci.version
+                ci.last_modified, ci.version
             FROM catalog_items AS ci
             JOIN brands AS b
             ON b.brand_id = ci.brand_id 
@@ -153,7 +153,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
-                ci.created_at, ci.version
+                ci.last_modified, ci.version
             FROM catalog_items AS ci
             JOIN brands AS b
             ON b.brand_id = ci.brand_id 
@@ -169,7 +169,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
         private const string InsertNewCatalogItem = @"INSERT INTO catalog_items(
 	            catalog_item_id, brand_id, scale_id, item_number, slug, power_method, delivery_date, 
-                description, model_description, prototype_description, created_at, version)
+                description, model_description, prototype_description, last_modified, version)
             VALUES(@CatalogItemId, @BrandId, @ScaleId, @ItemNumber, @Slug, @PowerMethod, @DeliveryDate, 
                 @Description, @ModelDescription, @PrototypeDescription, @CreatedAt, @Version);";
 

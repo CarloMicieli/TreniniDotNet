@@ -126,7 +126,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 dto.operating_since,
                 dto.operating_until,
                 dto.active,
-                dto.created_at,
+                dto.last_modified,
                 dto.version);
         }
 
@@ -134,7 +134,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
         private const string InsertRailwayCommand = @"INSERT INTO railways(
 	            railway_id, name, company_name, slug, country, operating_since, operating_until, 
-                active, created_at, version)
+                active, last_modified, version)
             VALUES(@RailwayId, @Name, @CompanyName, @Slug, @Country, @OperatingSince, @OperatingUntil, 
                 @Active, @CreatedAt, @Version);";
 

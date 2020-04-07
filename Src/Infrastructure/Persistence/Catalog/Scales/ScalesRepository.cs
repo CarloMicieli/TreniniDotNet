@@ -113,7 +113,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 dto.name,
                 dto.slug,
                 dto.ratio,
-                dto.gauge,
+                dto.gauge_mm,
                 dto.track_type,
                 dto.notes);
         }
@@ -121,15 +121,15 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         #region [ Query / Command text ]
 
         private const string InsertScaleCommand = @"INSERT INTO scales(
-	            scale_id, name, slug, ratio, gauge, track_type, notes, created_at, version)
+	            scale_id, name, slug, ratio, gauge_mm, gauge_in, track_type, notes, last_modified, version)
             VALUES(
-                @ScaleId, @Name, @Slug, @Ratio, @Gauge, @TrackGauge, @Notes, @CreatedAt, @Version);";
+                @ScaleId, @Name, @Slug, @Ratio, @Gauge, 0.65, @TrackGauge, @Notes, @CreatedAt, @Version);";
 
         private const string GetScaleExistsQuery = @"SELECT slug FROM scales WHERE slug = @slug;";
         private const string GetAllScalesQuery = @"SELECT * FROM scales ORDER BY name;";
         private const string GetScaleBySlugQuery = @"SELECT * FROM scales WHERE slug = @slug;";
         private const string GetScaleByNameQuery = @"SELECT * FROM scales WHERE name = @name;";
-        private const string GetAllScalesWithPaginationQuery = @"SELECT scale_id, name, slug, ratio, gauge, track_type, notes FROM scales ORDER BY name LIMIT @limit OFFSET @skip;";
+        private const string GetAllScalesWithPaginationQuery = @"SELECT * FROM scales ORDER BY name LIMIT @limit OFFSET @skip;";
 
         #endregion
     }

@@ -59,7 +59,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 slug = "acme",
                 company_name = "Associazione Costruzioni Modellistiche Esatte",
                 version = 1,
-                created_at = DateTime.UtcNow
+                last_modified = DateTime.UtcNow
             });
 
             var brand = await Repository.GetBySlug(Slug.Of("acme"));
@@ -80,7 +80,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 slug = "acme",
                 company_name = "Associazione Costruzioni Modellistiche Esatte",
                 version = 1,
-                created_at = DateTime.UtcNow
+                last_modified = DateTime.UtcNow
             });
 
             var brand = await Repository.GetByName("A.C.M.E.");
@@ -102,7 +102,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                     slug = "acme",
                     company_name = "Associazione Costruzioni Modellistiche Esatte",
                     version = 1,
-                    created_at = DateTime.UtcNow
+                    last_modified = DateTime.UtcNow
                 },
                 new
                 {
@@ -111,7 +111,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                     slug = "roco",
                     company_name = "Roco AG",
                     version = 1,
-                    created_at = DateTime.UtcNow
+                    last_modified = DateTime.UtcNow
                 }
                 );
 
@@ -134,7 +134,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                     slug = $"brand-{id}",
                     company_name = $"company name {id}",
                     version = 1,
-                    created_at = DateTime.UtcNow
+                    last_modified = DateTime.UtcNow
                 });
 
             var result = await Repository.GetBrands(new Page(10, 5));
@@ -155,7 +155,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 slug = "acme",
                 company_name = "Associazione Costruzioni Modellistiche Esatte",
                 version = 1,
-                created_at = DateTime.UtcNow
+                last_modified = DateTime.UtcNow
             });
 
             bool exists = await Repository.Exists(Slug.Of("acme"));

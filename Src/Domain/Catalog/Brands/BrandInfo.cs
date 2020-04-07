@@ -1,9 +1,8 @@
 ﻿using System;
 using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
-namespace TreniniDotNet.Domain.Catalog.CatalogItems
+namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class BrandInfo : IBrandInfo, IEquatable<BrandInfo>
     {
@@ -25,7 +24,15 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public string Name { get; }
 
-        public override int GetHashCode() => BrandId.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(BrandId, Name, Slug);
+
+        #region [ Equality ]
+
+        public static bool operator ==(BrandInfo left, BrandInfo right) =>
+            AreEquals(left, right);
+
+        public static bool operator !=(BrandInfo left, BrandInfo right) =>
+            !AreEquals(left, right);
 
         public override bool Equals(object obj)
         {
@@ -41,11 +48,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             AreEquals(this, other);
 
         private static bool AreEquals(BrandInfo left, BrandInfo right) =>
-            left.BrandId.Equals(right.BrandId);
+            left.BrandId.Equals(right.BrandId) &&
+            left.Name.Equals(right.Name) &&
+            left.Slug.Equals(right.Slug);
 
-        public IBrandInfo ToBrandInfo()
-        {
-            return this;
-        }
+        #endregion
     }
 }

@@ -43,10 +43,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                     name = scaleH0.Name,
                     slug = scaleH0.Slug.ToString(),
                     ratio = scaleH0.Ratio.ToDecimal(),
-                    gauge = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                    gauge_mm = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                    gauge_in = 0.65M,
                     // track_type = scaleH0.TrackGauge.ToString(),
                     notes = scaleH0.Notes,
-                    created_at = scaleH0.CreatedAt,
+                    last_modified = scaleH0.CreatedAt,
                     version = scaleH0.Version
                 })
                 .ShouldExists();
@@ -64,10 +65,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 name = scaleH0.Name,
                 slug = scaleH0.Slug.ToString(),
                 ratio = scaleH0.Ratio.ToDecimal(),
-                gauge = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                gauge_mm = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                gauge_in = 0.65M,
                 notes = scaleH0.Notes,
                 track_type = scaleH0.TrackGauge.ToString(),
-                created_at = scaleH0.CreatedAt,
+                last_modified = scaleH0.CreatedAt,
                 version = scaleH0.Version
             });
 
@@ -89,10 +91,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 name = scaleH0.Name,
                 slug = scaleH0.Slug.ToString(),
                 ratio = scaleH0.Ratio.ToDecimal(),
-                gauge = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                gauge_mm = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                gauge_in = 0.65M,
                 notes = scaleH0.Notes,
                 track_type = scaleH0.TrackGauge.ToString(),
-                created_at = scaleH0.CreatedAt,
+                last_modified = scaleH0.CreatedAt,
                 version = scaleH0.Version
             });
 
@@ -114,10 +117,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 name = scaleH0.Name,
                 slug = scaleH0.Slug.ToString(),
                 ratio = scaleH0.Ratio.ToDecimal(),
-                gauge = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                gauge_mm = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                gauge_in = 0.65M,
                 notes = scaleH0.Notes,
                 track_type = scaleH0.TrackGauge.ToString(),
-                created_at = scaleH0.CreatedAt,
+                last_modified = scaleH0.CreatedAt,
                 version = scaleH0.Version
             });
 
@@ -151,10 +155,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                     name = scaleH0.Name,
                     slug = scaleH0.Slug.ToString(),
                     ratio = scaleH0.Ratio.ToDecimal(),
-                    gauge = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                    gauge_mm = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                    gauge_in = 0.65M,
                     notes = scaleH0.Notes,
                     track_type = scaleH0.TrackGauge.ToString(),
-                    created_at = scaleH0.CreatedAt,
+                    last_modified = scaleH0.CreatedAt,
                     version = scaleH0.Version
                 },
                 new
@@ -163,10 +168,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                     name = scaleN.Name,
                     slug = scaleN.Slug.ToString(),
                     ratio = scaleN.Ratio.ToDecimal(),
-                    gauge = scaleN.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                    gauge_mm = scaleN.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                    gauge_in = 0.65M,
                     notes = scaleN.Notes,
                     track_type = scaleN.TrackGauge.ToString(),
-                    created_at = scaleN.CreatedAt,
+                    last_modified = scaleN.CreatedAt,
                     version = scaleN.Version
                 });
 
@@ -192,10 +198,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                     name = scaleH0.Name,
                     slug = scaleH0.Slug.ToString(),
                     ratio = scaleH0.Ratio.ToDecimal(),
-                    gauge = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                    gauge_mm = scaleH0.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                    gauge_in = 0.65M,
                     notes = scaleH0.Notes,
                     track_type = scaleH0.TrackGauge.ToString(),
-                    created_at = scaleH0.CreatedAt,
+                    last_modified = scaleH0.CreatedAt,
                     version = scaleH0.Version
                 },
                 new
@@ -204,10 +211,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                     name = scaleN.Name,
                     slug = scaleN.Slug.ToString(),
                     ratio = scaleN.Ratio.ToDecimal(),
-                    gauge = scaleN.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                    gauge_mm = scaleN.Gauge.ToDecimal(MeasureUnit.Millimeters),
+                    gauge_in = 0.65M,
                     notes = scaleN.Notes,
                     track_type = scaleN.TrackGauge.ToString(),
-                    created_at = scaleN.CreatedAt,
+                    last_modified = scaleN.CreatedAt,
                     version = scaleN.Version
                 });
 
