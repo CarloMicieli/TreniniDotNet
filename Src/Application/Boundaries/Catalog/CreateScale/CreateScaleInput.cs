@@ -1,32 +1,39 @@
+using System.Collections.Generic;
 using TreniniDotNet.Common.Interfaces;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
 {
     public sealed class CreateScaleInput : IUseCaseInput
     {
-        private readonly string? _name;
-        private readonly decimal? _ratio;
-        private readonly decimal? _gauge;
-        private readonly string? _trackGauge;
-        private readonly string? _notes;
-
         public CreateScaleInput(string? name, decimal? ratio, decimal? gauge, string? trackGauge, string? notes)
         {
-            _name = name;
-            _ratio = ratio;
-            _gauge = gauge;
-            _trackGauge = trackGauge;
-            _notes = notes;
+            Name = name;
+            Ratio = ratio;
+            Gauge = gauge;
+            TrackGauge = trackGauge;
+            Notes = notes;
+            Weight = null; //TODO: fixme
         }
 
-        public string? Name => _name;
+        public string? Name { get; }
 
-        public decimal? Ratio => _ratio;
+        public decimal? Ratio { get; }
 
-        public decimal? Gauge => _gauge;
+        public decimal? Gauge { get; }
 
-        public string? TrackGauge => _trackGauge;
+        public string? TrackGauge { get; }
 
-        public string? Notes => _notes;
+        public string? Notes { get; }
+
+        public List<string> Standards { get; } = new List<string>();
+
+        public int? Weight { get; }
+    }
+
+    public sealed class ScaleGaugeInput
+    {
+        public string? TrackGauge { set; get; }
+        public decimal? Inches { set; get; }
+        public decimal? Millimeters { set; get; }
     }
 }
