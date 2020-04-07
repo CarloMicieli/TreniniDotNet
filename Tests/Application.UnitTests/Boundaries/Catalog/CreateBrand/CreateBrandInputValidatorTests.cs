@@ -1,5 +1,6 @@
 ﻿using FluentValidation.TestHelper;
 using Xunit;
+using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
 {
@@ -15,12 +16,12 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveNoError_WhenEverythingIsValid()
         {
-            var input = new CreateBrandInput(
-                "ACME",
-                "Associazione Costruzioni Modellistiche Esatte",
-                "http://www.acmetreni.com",
-                "mail@acmetreni.com",
-                "Industrial");
+            var input = NewBrandInput.With(
+                Name: "ACME",
+                CompanyName: "Associazione Costruzioni Modellistiche Esatte",
+                WebsiteUrl: "http://www.acmetreni.com",
+                EmailAddress: "mail@acmetreni.com",
+                BrandType: "Industrial");
 
             var result = validator.TestValidate(input);
 
@@ -30,7 +31,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveError_WhenNameIsNull()
         {
-            var input = new CreateBrandInput(null, null, null, null, null);
+            var input = NewBrandInput.Empty();
 
             var result = validator.TestValidate(input);
 
@@ -40,7 +41,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveError_WhenNameIsBlank()
         {
-            var input = new CreateBrandInput("  ", null, null, null, null);
+            var input = NewBrandInput.With(Name: "  ");
 
             var result = validator.TestValidate(input);
 
@@ -50,7 +51,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveError_WhenEmailIsNotValidMailAddress()
         {
-            var input = new CreateBrandInput(null, null, null, "not a mail", null);
+            var input = NewBrandInput.With(EmailAddress: "not a mail");
 
             var result = validator.TestValidate(input);
 
@@ -60,7 +61,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveError_WhenWebsiteUrlIsNotValidUri()
         {
-            var input = new CreateBrandInput(null, null, "not an url", null, null);
+            var input = NewBrandInput.With(WebsiteUrl: "not an url");
 
             var result = validator.TestValidate(input);
 
@@ -70,7 +71,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveError_WhenBrandKindIsNotValid()
         {
-            var input = new CreateBrandInput(null, null, null, null, "not a kind");
+            var input = NewBrandInput.With(BrandType: "not a valid type");
 
             var result = validator.TestValidate(input);
 

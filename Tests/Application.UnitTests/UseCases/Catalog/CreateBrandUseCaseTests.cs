@@ -5,6 +5,7 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.InMemory.OutputPorts.Catalog;
+using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
@@ -15,7 +16,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
 
-            await useCase.Execute(new CreateBrandInput(null, null, null, null, null));
+            await useCase.Execute(NewBrandInput.Empty());
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -25,13 +26,20 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
 
-            var input = new CreateBrandInput(
-                "ACME",
-                "Associazione Costruzioni Modellistiche Esatte",
-                "http://www.acmetreni.com",
-                "mail@acmetreni.com",
-                BrandKind.Industrial.ToString()
-                );
+            var input = NewBrandInput.With(
+                Name: "ACME",
+                CompanyName: "Associazione Costruzioni Modellistiche Esatte",
+                WebsiteUrl: "http://www.acmetreni.com",
+                EmailAddress: "mail@acmetreni.com",
+                BrandType: BrandKind.Industrial.ToString(),
+                Address: NewAddressInput.With(
+                    Line1: "address line1",
+                    Line2: "address line2",
+                    PostalCode: "123456",
+                    City: "city",
+                    Country: "DE",
+                    Region: "region name"
+                    ));
 
             await useCase.Execute(input);
 
@@ -49,12 +57,12 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeBrandsUseCase(Start.WithSeedData, NewCreateBrand);
 
             var name = "ACME";
-            var input = new CreateBrandInput(
-                name,
-                "Associazione Costruzioni Modellistiche Esatte",
-                "http://www.acmetreni.com",
-                "mail@acmetreni.com",
-                BrandKind.Industrial.ToString()
+            var input = NewBrandInput.With(
+                Name: name,
+                CompanyName: "Associazione Costruzioni Modellistiche Esatte",
+                WebsiteUrl: "http://www.acmetreni.com",
+                EmailAddress: "mail@acmetreni.com",
+                BrandType: BrandKind.Industrial.ToString()
                 );
 
             await useCase.Execute(input);

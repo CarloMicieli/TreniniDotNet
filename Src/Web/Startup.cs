@@ -19,6 +19,8 @@ using Microsoft.Extensions.Logging;
 using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
+using AutoMapper;
+using TreniniDotNet.Web.UseCases.V1.Profiles;
 
 namespace TreniniDotNet.Web
 {
@@ -61,6 +63,7 @@ namespace TreniniDotNet.Web
             services.AddOpenApi();
             services.AddVersioning();
 
+            services.AddAutoMapper(typeof(CatalogProfile));
             services.AddUseCases();
             services.AddPresenters();
             services.AddRepositories();
