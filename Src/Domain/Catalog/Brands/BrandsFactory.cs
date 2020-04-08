@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using LanguageExt;
 using static LanguageExt.Prelude;
@@ -31,9 +32,12 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                     _name,
                     Slug.Of(_name),
                     companyName,
+                    null,
+                    null,
                     _website,
                     _mail,
                     _kind,
+                    null,
                     _clock.GetCurrentInstant(),
                     1);
                 return brand;
@@ -53,7 +57,13 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 );
         }
 
-        public IBrand NewBrand(BrandId brandId, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? mailAddress, BrandKind? kind)
+        public IBrand NewBrand(BrandId brandId,
+            string name,
+            Slug slug,
+            string? companyName,
+            Uri? websiteUrl,
+            MailAddress? mailAddress,
+            BrandKind? kind)
         {
             return new Brand(
                 id: brandId,
@@ -64,6 +74,31 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 emailAddress: mailAddress,
                 kind: kind ?? BrandKind.Industrial
                 );
+        }
+
+        public IBrand NewBrand(BrandId brandId,
+            string name, Slug slug,
+            string? companyName,
+            string? groupName,
+            string? description,
+            Uri? websiteUrl,
+            MailAddress? mailAddress,
+            BrandKind? kind,
+            Address? address)
+        {
+            return new Brand(
+                id: brandId,
+                name: name,
+                slug: slug,
+                companyName: companyName,
+                groupName: groupName,
+                description: description,
+                websiteUrl: websiteUrl,
+                emailAddress: mailAddress,
+                kind: kind ?? BrandKind.Industrial,
+                address: address,
+                _clock.GetCurrentInstant(),
+                1);
         }
 
         public static Validation<Error, string> ToBrandName(string? str) =>

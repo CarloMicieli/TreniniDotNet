@@ -2,6 +2,7 @@
 using System.Net.Mail;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Pagination;
 
@@ -18,16 +19,28 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             _brandsFactory = brandsFactory;
         }
 
-        public Task<BrandId> CreateBrand(string name, Slug slug, string? companyName, string? websiteUrl, string? emailAddress, BrandKind kind)
+        public Task<BrandId> CreateBrand(
+            string name,
+            Slug slug,
+            string? companyName,
+            string? groupName,
+            string? description,
+            Uri? websiteUrl,
+            MailAddress? emailAddress,
+            BrandKind kind,
+            Address? address)
         {
             var newBrand = _brandsFactory.NewBrand(
                 BrandId.NewId(),
                 name,
                 slug,
                 companyName,
-                new Uri(websiteUrl),
-                new MailAddress(emailAddress),
-                kind);
+                groupName,
+                description,
+                websiteUrl,
+                emailAddress,
+                kind,
+                address);
 
             return _brandRepository.Add(newBrand);
         }

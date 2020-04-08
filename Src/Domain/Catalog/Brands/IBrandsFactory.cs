@@ -2,6 +2,7 @@
 using System.Net.Mail;
 using LanguageExt;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
@@ -31,5 +32,15 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             Uri? uri,
             MailAddress? mailAddress,
             BrandKind? industrial);
+
+        IBrand NewBrand(BrandId brandId,
+            string name, Slug slug,
+            string? companyName,
+            string? groupName,
+            string? description,
+            Uri? websiteUrl,
+            MailAddress? mailAddress,
+            BrandKind? kind,
+            Address? address);
     }
 }

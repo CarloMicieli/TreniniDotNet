@@ -32,7 +32,18 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             CreatedAt = DateTime.UtcNow;
         }
 
-        internal Brand(BrandId id, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind, Instant createdAt, int version)
+        internal Brand(BrandId id,
+            string name,
+            Slug slug,
+            string? companyName,
+            string? groupName,
+            string? description,
+            Uri? websiteUrl,
+            MailAddress? emailAddress,
+            BrandKind kind,
+            Address? address,
+            Instant createdAt,
+            int version)
         {
             BrandId = id;
             Slug = slug;
@@ -40,9 +51,9 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             WebsiteUrl = websiteUrl;
             EmailAddress = emailAddress;
             CompanyName = companyName;
-            GroupName = null;
-            Description = null;
-            Address = null; // TODO: fixme
+            GroupName = groupName;
+            Description = description;
+            Address = address;
             Kind = kind;
             Version = version;
             CreatedAt = createdAt.ToDateTimeUtc();
@@ -60,7 +71,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         public MailAddress? EmailAddress { get; }
 
         public string? CompanyName { get; }
-        
+
         public string? GroupName { get; }
 
         public string? Description { get; }
@@ -126,7 +137,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         {
             return $"Brand({Name})";
         }
-        
+
         #endregion
 
         public IBrandInfo ToBrandInfo()
