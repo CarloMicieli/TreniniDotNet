@@ -10,6 +10,7 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Infrastracture.Dapper;
 using NodaTime;
+using TreniniDotNet.Common.Addresses;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
@@ -182,9 +183,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 
         public string CompanyName => "Associazione Costruzioni Modellistiche Esatte";
 
+        public string GroupName => null;
+
+        public string Description => null;
+
+        public Address Address => null;
+
         public BrandKind Kind => BrandKind.Industrial;
 
-        public DateTime? CreatedAt => new DateTime(1988, 11, 25);
+        public Instant? LastModifiedAt =>
+            Instant.FromDateTimeUtc(DateTime.SpecifyKind(new DateTime(1988, 11, 25), DateTimeKind.Utc));
 
         public int? Version => 42;
 

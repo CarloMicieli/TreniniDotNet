@@ -9,11 +9,13 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class Brand : IBrand, IEquatable<Brand>
     {
+        [Obsolete]
         public Brand(string name, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
             : this(BrandId.NewId(), name, Slug.Empty, companyName, websiteUrl, emailAddress, kind)
         {
         }
 
+        [Obsolete]
         public Brand(BrandId id, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
         {
             ValidateBrandName(name);
@@ -29,7 +31,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             Address = null; // TODO: fixme
             Kind = kind;
             Version = 1;
-            CreatedAt = DateTime.UtcNow;
+            LastModifiedAt = Instant.FromDateTimeUtc(DateTime.UtcNow);
         }
 
         internal Brand(BrandId id,
@@ -42,7 +44,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             MailAddress? emailAddress,
             BrandKind kind,
             Address? address,
-            Instant createdAt,
+            Instant lastModified,
             int version)
         {
             BrandId = id;
@@ -56,7 +58,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             Address = address;
             Kind = kind;
             Version = version;
-            CreatedAt = createdAt.ToDateTimeUtc();
+            LastModifiedAt = lastModified;
         }
 
         #region [ Properties ]
@@ -80,7 +82,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         public BrandKind Kind { get; }
 
-        public DateTime? CreatedAt { get; }
+        public Instant? LastModifiedAt { get; }
 
         public int? Version { get; }
         #endregion

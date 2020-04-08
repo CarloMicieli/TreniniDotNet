@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
+using NodaTime;
+using TreniniDotNet.Common.Addresses;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
@@ -11,9 +13,15 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         string? CompanyName { get; }
 
+        string? GroupName { get; }
+
+        string? Description { get; }
+
         BrandKind Kind { get; }
 
-        DateTime? CreatedAt { get; }
+        Address? Address { get; }
+
+        Instant? LastModifiedAt { get; }
 
         int? Version { get; }
 

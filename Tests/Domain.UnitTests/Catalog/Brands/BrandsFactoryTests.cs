@@ -40,7 +40,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                     succ.EmailAddress.Should().Be(new MailAddress("mail@mail.com"));
                     succ.Kind.Should().Be(BrandKind.Industrial);
                     succ.Version.Should().Be(1);
-                    succ.CreatedAt.Should().Be(Instant.FromUtc(1988, 11, 25, 0, 0).ToDateTimeUtc());
+                    succ.LastModifiedAt.Should().Be(Instant.FromUtc(1988, 11, 25, 0, 0));
                 },
                 Fail: errors => Assert.True(false, "should never get here"));
         }

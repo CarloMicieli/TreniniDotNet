@@ -26,7 +26,26 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
 
-            var result = await connection.ExecuteAsync(InsertBrandCommand, brand);
+            var result = await connection.ExecuteAsync(InsertBrandCommand, new
+            {
+                brand.BrandId,
+                brand.Name,
+                brand.Slug,
+                brand.CompanyName,
+                brand.GroupName,
+                brand.Description,
+                brand.EmailAddress,
+                brand.WebsiteUrl,
+                brand.Kind,
+                AddressLine1 = brand.Address?.Line1,
+                AddressLine2 = brand.Address?.Line2,
+                AddressCity = brand.Address?.City,
+                AddressRegion = brand.Address?.Region,
+                AddressPostalCode = brand.Address?.PostalCode,
+                AddressCountry = brand.Address?.Country,
+                LastModifiedAt = brand.LastModifiedAt.Value.ToDateTimeUtc(),
+                brand.Version
+            });
             return brand.BrandId;
         }
 
@@ -128,10 +147,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         private const string GetBrandExistsQuery = @"SELECT slug FROM brands WHERE slug = @slug LIMIT 1;";
 
         private const string InsertBrandCommand = @"INSERT INTO brands(
-                brand_id, name, slug, company_name, mail_address, website_url, kind, last_modified, version)
+                brand_id, name, slug, company_name, group_name, description, 
+                address_line1, address_line2, address_city, address_region, address_postal_code, address_country,
+                mail_address, website_url, kind, last_modified, version)
             VALUES(
-                @BrandId, @Name, @Slug, @CompanyName, @EmailAddress, @WebsiteUrl, @Kind, @CreatedAt, @Version);";
-
+                @BrandId, @Name, @Slug, @CompanyName, @GroupName, @Description, 
+                @AddressLine1, @AddressLine2, @AddressCity, @AddressRegion, @AddressPostalCode, @AddressCountry,
+                @EmailAddress, @WebsiteUrl, @Kind, @LastModifiedAt, @Version);";
         #endregion
     }
 }
