@@ -45,7 +45,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             {
                 railway_id = railway.RailwayId.ToGuid(),
                 name = railway.Name,
-                slug = railway.Slug.ToString()
+                slug = railway.Slug.ToString(),
+                country = "IT"
             });
 
             Database.Arrange.InsertOne(Tables.Scales, new
@@ -255,7 +256,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             public string Name => "FS";
 
-            public string Country => "IT";
+            public Country Country => Country.Of("IT");
 
             public IRailwayInfo ToRailwayInfo()
             {

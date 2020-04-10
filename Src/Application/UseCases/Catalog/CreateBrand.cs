@@ -50,7 +50,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             );
 
             var optUri = input.WebsiteUrl.ToUriOpt();
-            var optEmailAddress = input.WebsiteUrl.ToMailAddressOpt();
+            var optEmailAddress = input.EmailAddress.ToMailAddressOpt();
 
             var _ = await _brandService.CreateBrand(
                 brandName,

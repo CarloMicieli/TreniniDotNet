@@ -23,28 +23,6 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
                 new FakeClock(Instant.FromUtc(1988, 11, 26, 0, 0)));
         }
 
-        public Task<RailwayId> Add(
-            string name,
-            Slug slug,
-            string companyName,
-            string country,
-            DateTime? operatingSince,
-            DateTime? operatingUntil,
-            RailwayStatus rs)
-        {
-            var newRailway = _railwaysFactory.NewRailway(
-                name,
-                companyName,
-                country,
-                operatingSince,
-                operatingUntil,
-                rs);
-
-            _context.Railways.Add(newRailway);
-
-            return Task.FromResult(newRailway.RailwayId);
-        }
-
         public Task<RailwayId> Add(IRailway railway)
         {
             _context.Railways.Add(railway);

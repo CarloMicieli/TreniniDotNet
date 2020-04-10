@@ -15,6 +15,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         public DateTime? operating_since { set; get; }
         public DateTime? operating_until { set; get; }
         public bool? active { set; get; }
+        public decimal? gauge_mm { set; get; }
+        public decimal? gauge_in { set; get; }
+        public string? track_gauge { set; get; }
+        public string? headquarters { set; get; }
+        public decimal? total_length_mi { set; get; }
+        public decimal? total_length_km { set; get; }
+        public string? website_url { set; get; }
         public DateTime? last_modified { set; get; }
         public int? version { set; get; }
     }

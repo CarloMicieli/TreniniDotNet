@@ -13,10 +13,10 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
             this.Id = railway.RailwayId.ToGuid();
             this.Name = railway.Name;
             this.CompanyName = railway.CompanyName;
-            this.Country = railway.Country;
-            this.Status = railway.Status.ToString();
-            this.OperatingSince = railway.OperatingSince;
-            this.OperatingUntil = railway.OperatingUntil;
+            this.Country = railway.Country.ToString();
+            this.Status = railway.PeriodOfActivity.RailwayStatus.ToString();
+            this.OperatingSince = railway.PeriodOfActivity.OperatingSince;
+            this.OperatingUntil = railway.PeriodOfActivity.OperatingUntil;
         }
 
         [JsonPropertyName("_links")]

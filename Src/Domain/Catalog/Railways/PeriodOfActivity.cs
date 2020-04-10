@@ -28,6 +28,19 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public static PeriodOfActivity Default() =>
             new PeriodOfActivity(null, null, RailwayStatus.Active);
 
+        public static PeriodOfActivity Of(string? status, DateTime? operatingSince, DateTime? operatingUntil)
+        {
+            if (status is null &&
+                operatingSince.HasValue == false &&
+                operatingUntil.HasValue == false)
+            {
+                return Default();
+            }
+
+            //TODO: validate here
+            return Default();
+        }
+
         public static Validation<Error, PeriodOfActivity> TryCreate(DateTime? operatingSince, DateTime? operatingUntil, bool? active)
         {
             var rs = active == true ? RailwayStatus.Active : RailwayStatus.Inactive;

@@ -11,7 +11,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         string Name { get; }
 
-        string? Country { get; }
+        Country Country { get; }
 
         string ToLabel() => Name;
     }

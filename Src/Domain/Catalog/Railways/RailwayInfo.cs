@@ -6,12 +6,12 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public sealed class RailwayInfo : IRailwayInfo, IEquatable<RailwayInfo>
     {
-        public RailwayInfo(Guid railwayId, string slug, string name, string? country)
-            : this(new RailwayId(railwayId), Slug.Of(slug), name, country)
+        public RailwayInfo(Guid railwayId, string slug, string name, string country)
+            : this(new RailwayId(railwayId), Slug.Of(slug), name, Country.Of(country))
         {
         }
 
-        public RailwayInfo(RailwayId railwayId, Slug slug, string name, string? country)
+        public RailwayInfo(RailwayId railwayId, Slug slug, string name, Country country)
         {
             RailwayId = railwayId;
             Slug = slug;
@@ -25,7 +25,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public string Name { get; }
 
-        public string? Country { get; }
+        public Country Country { get; }
 
         public override int GetHashCode() => RailwayId.GetHashCode();
 

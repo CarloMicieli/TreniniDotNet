@@ -73,9 +73,11 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
                 .WithColumn("active").AsBoolean().Nullable()
                 .WithColumn("gauge_mm").AsDecimal().Nullable()
                 .WithColumn("gauge_in").AsDecimal().Nullable()
+                .WithColumn("track_gauge").AsString(25).Nullable()
                 .WithColumn("headquarters").AsString(250).Nullable()
                 .WithColumn("total_length_mi").AsDecimal().Nullable()
                 .WithColumn("total_length_km").AsDecimal().Nullable()
+                .WithColumn("website_url").AsString(255).Nullable()
                 .WithColumn("last_modified").AsDateTime().Nullable()
                 .WithColumn("version").AsInt32().WithDefaultValue(1);
 

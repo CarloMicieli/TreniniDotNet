@@ -1,5 +1,5 @@
-﻿using System;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+﻿using NodaTime;
+using System;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
@@ -7,15 +7,19 @@ namespace TreniniDotNet.Domain.Catalog.Railways
     {
         string? CompanyName { get; }
 
-        RailwayStatus? Status { get; }
+        PeriodOfActivity PeriodOfActivity { get; }
 
-        DateTime? OperatingUntil { get; }
+        RailwayGauge? TrackGauge { get; }
 
-        DateTime? OperatingSince { get; }
+        RailwayLength? TotalLength { get; }
+
+        Uri? WebsiteUrl { get; }
+
+        string? Headquarters { get; }
 
         int? Version { get; }
 
-        DateTime? CreatedAt { get; }
+        Instant? LastModifiedAt { get; }
 
         IRailwayInfo ToRailwayInfo();
     }

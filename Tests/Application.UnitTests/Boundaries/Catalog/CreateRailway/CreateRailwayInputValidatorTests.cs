@@ -1,6 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using System;
 using Xunit;
+using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
 {
@@ -16,7 +17,14 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveNoError_WhenInputObjectIsValid()
         {
-            var input = new CreateRailwayInput("DB", "Die Bahn", "DE", "Inactive", DateTime.Now.AddDays(-1), DateTime.Now);
+            var input = NewRailwayInput.With(
+                Name: "DB",
+                CompanyName: "Die Bahn",
+                Country: "DE",
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "Inactive",
+                    OperatingSince: DateTime.Now.AddDays(-1),
+                    OperatingUntil: DateTime.Now));
 
             var result = validator.TestValidate(input);
 
@@ -26,7 +34,14 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenNameIsNull()
         {
-            var input = new CreateRailwayInput(null, "Die Bahn", "DE", "inactive", DateTime.Now.AddDays(-1), DateTime.Now);
+            var input = NewRailwayInput.With(
+                Name: null,
+                CompanyName: "Die Bahn",
+                Country: "DE",
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "inactive",
+                    OperatingSince: DateTime.Now.AddDays(-1),
+                    OperatingUntil: DateTime.Now));
 
             var result = validator.TestValidate(input);
 
@@ -36,7 +51,14 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenNameIsEmpty()
         {
-            var input = new CreateRailwayInput("   ", "Die Bahn", "DE", "inactive", DateTime.Now.AddDays(-1), DateTime.Now);
+            var input = NewRailwayInput.With(
+                Name: "   ",
+                CompanyName: "Die Bahn",
+                Country: "DE",
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "inactive",
+                    OperatingSince: DateTime.Now.AddDays(-1),
+                    OperatingUntil: DateTime.Now));
 
             var result = validator.TestValidate(input);
 
@@ -46,7 +68,14 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenCountryIsNotValid()
         {
-            var input = new CreateRailwayInput(null, "Die Bahn", "YY", "inactive", DateTime.Now.AddDays(-1), DateTime.Now);
+            var input = NewRailwayInput.With(
+                Name: "DB",
+                CompanyName: "Die Bahn",
+                Country: "YY",
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "inactive",
+                    OperatingSince: DateTime.Now.AddDays(-1),
+                    OperatingUntil: DateTime.Now));
 
             var result = validator.TestValidate(input);
 
@@ -56,31 +85,90 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenOperatingUntilIsBeforeOperatingSince()
         {
-            var input = new CreateRailwayInput("DB", "Die Bahn", "DE", "inactive", DateTime.Now.AddDays(1), DateTime.Now);
+            var input = NewRailwayInput.With(
+                Name: "DB",
+                CompanyName: "Die Bahn",
+                Country: "YY",
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "inactive",
+                    OperatingSince: DateTime.Now.AddDays(1),
+                    OperatingUntil: DateTime.Now));
 
             var result = validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.OperatingUntil);
+            result.ShouldHaveValidationErrorFor(x => x.PeriodOfActivity.OperatingUntil);
         }
 
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenStatusIsInvalid()
         {
-            var input = new CreateRailwayInput("DB", "Die Bahn", "DE", "not valid", DateTime.Now.AddDays(-1), DateTime.Now);
+            var input = NewRailwayInput.With(
+                Name: "DB",
+                CompanyName: "Die Bahn",
+                Country: "YY",
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "not valid",
+                    OperatingSince: DateTime.Now.AddDays(-1),
+                    OperatingUntil: DateTime.Now));
 
             var result = validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.Status);
+            result.ShouldHaveValidationErrorFor(x => x.PeriodOfActivity.Status);
         }
 
-        //[Fact]
-        //public void CreateRailwayInputValidator_ShouldHaveError_WhenActiveRailwayHaveTerminateDate()
-        //{
-        //    var input = new CreateRailwayInput(null, "Die Bahn", "DE", "active", DateTime.Now.AddDays(-1), DateTime.Now);
+        [Fact]
+        public void CreateRailwayInputValidator_ShouldHaveError_WhenActiveRailwayHaveTerminateDate()
+        {
+            var input = NewRailwayInput.With(
+                Name: "DB",
+                CompanyName: "Die Bahn",
+                Country: "YY",
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "active",
+                    OperatingSince: DateTime.Now.AddDays(-1),
+                    OperatingUntil: DateTime.Now));
 
-        //    var result = validator.TestValidate(input);
+            var result = validator.TestValidate(input);
 
-        //    result.ShouldHaveValidationErrorFor(x => x.Status);
-        //}
+            result.ShouldHaveValidationErrorFor(x => x.PeriodOfActivity.Status);
+        }
+
+        [Fact]
+        public void CreateRailwayInputValidator_ShouldHaveError_WhenRailwayTotalLengthIsNegative()
+        {
+            var input = NewRailwayInput.With(
+                Name: "DB",
+                Country: "DE",
+                TotalLength: NewTotalRailwayLengthInput.With(
+                    Kilometers: -10M,
+                    Miles: -10M),
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "active",
+                    OperatingSince: DateTime.Now));
+
+            var result = validator.TestValidate(input);
+
+            result.ShouldHaveValidationErrorFor(x => x.TotalLength.Kilometers);
+            result.ShouldHaveValidationErrorFor(x => x.TotalLength.Miles);
+        }
+
+        [Fact]
+        public void CreateRailwayInputValidator_ShouldHaveError_WhenRailwayGaugeIsNegative()
+        {
+            var input = NewRailwayInput.With(
+                Name: "DB",
+                Country: "DE",
+                Gauge: NewRailwayGaugeInput.With(
+                    Inches: -10M,
+                    Millimeters: -10M),
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "active",
+                    OperatingSince: DateTime.Now));
+
+            var result = validator.TestValidate(input);
+
+            result.ShouldHaveValidationErrorFor(x => x.Gauge.Millimeters);
+            result.ShouldHaveValidationErrorFor(x => x.Gauge.Inches);
+        }
     }
 }

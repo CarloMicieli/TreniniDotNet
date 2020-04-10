@@ -100,23 +100,23 @@ namespace TreniniDotNet.Infrastructure.Persistence.Seed
                 return;
             }
 
-            foreach (var r in railwayRecords)
-            {
-                var railway = railwaysFactory.NewRailway(
-                    r.RailwayId,
-                    r.Name,
-                    r.Slug,
-                    r.CompanyName,
-                    r.Country,
-                    null, //r.OperatingSince,
-                    null, ///r.OperatingUntil,
-                    true, //TODO: fixme
-                    DateTime.UtcNow,
-                    1);
+            //foreach (var r in railwayRecords)
+            //{
+            //    var railway = railwaysFactory.NewRailway(
+            //        r.RailwayId,
+            //        r.Name,
+            //        r.Slug,
+            //        r.CompanyName,
+            //        r.Country,
+            //        null, //r.OperatingSince,
+            //        null, ///r.OperatingUntil,
+            //        true, //TODO: fixme
+            //        DateTime.UtcNow,
+            //        1);
 
-                var railwayId = await railwaysRepo.Add(railway!);
-                logger.LogInformation("Inserted railway {0} (id = {1})", r.Name, railwayId);
-            }
+            //    var railwayId = await railwaysRepo.Add(railway!);
+            //    logger.LogInformation("Inserted railway {0} (id = {1})", r.Name, railwayId);
+            //}
         }
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
     }

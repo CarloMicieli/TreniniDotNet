@@ -2,6 +2,7 @@ using LanguageExt;
 using static LanguageExt.Prelude;
 using System;
 using TreniniDotNet.Common.Extensions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TreniniDotNet.Common.Addresses
 {
@@ -56,7 +57,7 @@ namespace TreniniDotNet.Common.Addresses
         {
             if (TryCreate(line1, line2, city, region, postalCode, country, out var address))
             {
-                return Some(address!);
+                return Some(address);
             }
             else
             {
@@ -70,7 +71,7 @@ namespace TreniniDotNet.Common.Addresses
             string? region,
             string? postalCode,
             string? country,
-            out Address? result)
+            [NotNullWhen(true)] out Address? result)
         {
             if (string.IsNullOrWhiteSpace(line1) == false &&
                 string.IsNullOrWhiteSpace(city) == false &&

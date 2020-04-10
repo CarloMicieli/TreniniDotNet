@@ -13,9 +13,6 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateRailway
         public RailwayGaugeRequest? Gauge { get; set; }
         public string? WebsiteUrl { get; set; }
         public string? Headquarters { get; set; }
-        public string? Status { get; set; }
-        public DateTime? OperatingUntil { get; set; }
-        public DateTime? OperatingSince { get; set; }
     }
 
     public sealed class PeriodOfActivityRequest

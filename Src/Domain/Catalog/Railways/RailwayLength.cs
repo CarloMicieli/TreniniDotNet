@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
+using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Common.Lengths;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
@@ -23,6 +25,22 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             return new RailwayLength(lenKm, lenMi);
         }
 
+        public static bool TryCreate(decimal? km, decimal? miles, 
+            [NotNullWhen(true)] out RailwayLength? railwayLength)
+        {
+            if (km.HasValue || miles.HasValue)
+            {
+                if (Validate(km) && Validate(miles))
+                {
+                    railwayLength = RailwayLength.Create(km, miles);
+                    return true;
+                }
+            }
+
+            railwayLength = default;
+            return false;
+        }
+
         #region [ Equality ]
         public override bool Equals(object obj)
         {
@@ -45,5 +63,11 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         #endregion
 
         public override int GetHashCode() => HashCode.Combine(Kilometers, Miles);
+
+        private static bool Validate(decimal? n)
+        {
+            return n.HasValue == false || 
+                (n.HasValue && n.Value.IsPositive());
+        }
     }
 }

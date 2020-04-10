@@ -5,31 +5,11 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
 {
     public sealed class CreateRailwayInput : IUseCaseInput
     {
-        public CreateRailwayInput(string? name, string? companyName, string? country, string? status, DateTime? operatingSince, DateTime? operatingUntil)
-        {
-            Name = name;
-            CompanyName = companyName;
-            Country = country;
-            Status = status;
-            OperatingUntil = operatingUntil;
-            OperatingSince = operatingSince;
-            PeriodOfActivity = PeriodOfActivityInput.Default();
-            TotalLength = TotalRailwayLengthInput.Default();
-            Gauge = RailwayGaugeInput.Default();
-            Headquarters = null;
-        }
-
         public string? Name { get; }
 
         public string? CompanyName { get; }
 
         public string? Country { get; }
-
-        public string? Status { get; }
-
-        public DateTime? OperatingUntil { get; }
-
-        public DateTime? OperatingSince { get; }
 
         public PeriodOfActivityInput PeriodOfActivity { get; }
 
@@ -37,15 +17,35 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
 
         public RailwayGaugeInput Gauge { get; }
 
+        public string? WebsiteUrl { get; }
+
         public string? Headquarters { get; }
+
+        public CreateRailwayInput(
+            string? name, string? companyName,
+            string? country,
+            PeriodOfActivityInput? periodOfActivity,
+            TotalRailwayLengthInput? totalLength,
+            RailwayGaugeInput? gauge,
+            string? websiteUrl, string? headquarters)
+        {
+            Name = name;
+            CompanyName = companyName;
+            Country = country;
+            PeriodOfActivity = periodOfActivity ?? PeriodOfActivityInput.Default();
+            TotalLength = totalLength ?? TotalRailwayLengthInput.Default();
+            Gauge = gauge ?? RailwayGaugeInput.Default();
+            Headquarters = headquarters;
+            WebsiteUrl = websiteUrl;
+        }
     }
 
     public sealed class PeriodOfActivityInput
     {
         public PeriodOfActivityInput(
             string? status,
-            DateTime? operatingUntil,
-            DateTime? operatingSince)
+            DateTime? operatingSince,
+            DateTime? operatingUntil)
         {
             Status = status;
             OperatingUntil = operatingUntil;

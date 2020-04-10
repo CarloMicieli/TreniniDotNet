@@ -2,81 +2,62 @@
 using System;
 using System.Globalization;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using NodaTime;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public sealed class Railway : IEquatable<Railway>, IRailway
     {
-        private readonly RailwayId _id;
-        private readonly Slug _slug;
-        private readonly string _name;
-        private readonly string? _companyName;
-        private readonly RegionInfo? _country;
-        private readonly PeriodOfActivity _periodOfActivity;
-        private readonly DateTime? _createdAt;
-        private readonly int? _version;
-
-        [Obsolete]
-        public Railway(string name, string? companyName, string? country, RailwayStatus? rs)
-            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, null, null, rs, DateTime.UtcNow, 1)
+        internal Railway(
+            RailwayId id,
+            Slug slug, string name,
+            string? companyName,
+            Country country,
+            PeriodOfActivity periodOfActivity,
+            RailwayLength? railwayLength,
+            RailwayGauge? gauge,
+            Uri? websiteUrl,
+            string? headquarters,
+            Instant? lastModified, int version)
         {
-        }
-
-        [Obsolete]
-        public Railway(string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs)
-            : this(RailwayId.NewId(), Slug.Empty, name, companyName, country, operatingSince, operatingUntil, rs, DateTime.UtcNow, 1)
-        {
-        }
-
-        [Obsolete]
-        public Railway(RailwayId id, Slug slug, string name, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus? rs, DateTime? createdAt, int version)
-        {
-            ValidateCountryCode(country);
-            ValidateName(name);
-            ValidateStatusValues(operatingSince, operatingUntil, rs);
-
-            _id = id;
-            _slug = slug.OrNewIfEmpty(() => Slug.Of(name));
-            _name = name;
-            _companyName = companyName;
-            _country = new RegionInfo(country);
-            _periodOfActivity = new PeriodOfActivity(operatingSince, operatingUntil, rs ?? RailwayStatus.Active);
-            _createdAt = createdAt;
-            _version = version;
-        }
-
-        internal Railway(RailwayId id, Slug slug, string name, string? companyName, RegionInfo? country, PeriodOfActivity periodOfActivity, DateTime? createdAt, int version)
-        {
-            _id = id;
-            _slug = slug.OrNewIfEmpty(() => Slug.Of(name));
-            _name = name;
-            _companyName = companyName;
-            _country = country;
-            _periodOfActivity = periodOfActivity;
-            _createdAt = createdAt;
-            _version = version;
+            RailwayId = id;
+            Slug = slug;
+            Name = name;
+            CompanyName = companyName;
+            Country = country;
+            PeriodOfActivity = periodOfActivity;
+            TrackGauge = gauge;
+            TotalLength = railwayLength;
+            WebsiteUrl = websiteUrl;
+            Headquarters = headquarters;
+            LastModifiedAt = lastModified;
+            Version = version;
         }
 
         #region [ Properties ]
-        public RailwayId RailwayId => _id;
+        public RailwayId RailwayId { get; }
 
-        public Slug Slug => _slug;
+        public Slug Slug { get; }
 
-        public string Name => _name;
+        public string Name { get; }
 
-        public string? CompanyName => _companyName;
+        public string? CompanyName { get; }
 
-        public string? Country => _country?.TwoLetterISORegionName;
+        public Country Country { get; }
 
-        public RailwayStatus? Status => _periodOfActivity.RailwayStatus;
+        public PeriodOfActivity PeriodOfActivity { get; }
 
-        public DateTime? OperatingUntil => _periodOfActivity.OperatingUntil;
+        public RailwayGauge? TrackGauge { get; }
 
-        public DateTime? OperatingSince => _periodOfActivity.OperatingSince;
+        public RailwayLength? TotalLength { get; }
 
-        public DateTime? CreatedAt => _createdAt;
+        public Uri? WebsiteUrl { get; }
 
-        public int? Version => _version;
+        public string? Headquarters { get; }
+
+        public Instant? LastModifiedAt { get; }
+
+        public int? Version { get; }
         #endregion
 
         #region [ Equality ]
@@ -124,12 +105,12 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         #region [ Standard methods overrides ]
         public override int GetHashCode()
         {
-            return this._name.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
+            return Name.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
         }
 
         public override string ToString()
         {
-            return $"{_name}";
+            return $"{Name}";
         }
         #endregion
 

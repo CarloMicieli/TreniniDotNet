@@ -1,4 +1,6 @@
+using System;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateRailway;
 
 namespace TreniniDotNet.Application.TestInputs.Catalog
 {
@@ -46,6 +48,48 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
                         PostalCode = PostalCode,
                         Country = Country
                     };
+        }
+
+        public static class NewRailwayInput
+        {
+            public static CreateRailwayInput NewEmpty() => With();
+
+            public static CreateRailwayInput With(
+                string Name = null,
+                string CompanyName = null,
+                string Country = null,
+                PeriodOfActivityInput PeriodOfActivity = null,
+                TotalRailwayLengthInput TotalLength = null,
+                RailwayGaugeInput Gauge = null,
+                string Website = null,
+                string Headquarters = null) => new CreateRailwayInput(
+                    Name, CompanyName, Country, PeriodOfActivity, TotalLength, Gauge, Website, Headquarters);
+        }
+
+        public static class NewPeriodOfActivityInput
+        {
+            public static PeriodOfActivityInput With(
+                string Status = null,
+                DateTime? OperatingUntil = null,
+                DateTime? OperatingSince = null) =>
+                new PeriodOfActivityInput(Status, OperatingSince, OperatingUntil);
+        }
+
+        public static class NewTotalRailwayLengthInput
+        {
+            public static TotalRailwayLengthInput With(
+                decimal? Kilometers = null, 
+                decimal? Miles = null) =>
+                new TotalRailwayLengthInput(Kilometers, Miles);
+        }
+
+        public static class NewRailwayGaugeInput
+        {
+            public static RailwayGaugeInput With(
+                string TrackGauge = null,
+                decimal? Millimeters = null,
+                decimal? Inches = null) => 
+                new RailwayGaugeInput(TrackGauge, Millimeters, Inches);
         }
     }
 }

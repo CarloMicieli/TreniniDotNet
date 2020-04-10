@@ -42,11 +42,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                     name = fs.Name,
                     company_name = fs.CompanyName,
                     slug = fs.Slug.ToString(),
-                    country = fs.Country,
-                    operating_since = fs.OperatingSince,
-                    operating_until = fs.OperatingUntil,
-                    active = RailwayStatus.Active == fs.Status,
-                    last_modified = fs.CreatedAt,
+                    country = fs.Country.Code,
+                    operating_since = fs.PeriodOfActivity.OperatingSince,
+                    operating_until = fs.PeriodOfActivity.OperatingUntil,
+                    active = RailwayStatus.Active == fs.PeriodOfActivity.RailwayStatus,
+                   // last_modified = fs.LastModifiedAt?.ToDateTimeUtc(),
                     version = fs.Version
                 })
                 .ShouldExists();
@@ -205,17 +205,21 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
         public string CompanyName => "Ferrovie dello Stato";
 
-        public RailwayStatus? Status => RailwayStatus.Active;
-
-        public DateTime? OperatingSince => new DateTime(1905, 7, 1);
-
-        public DateTime? OperatingUntil => null;
-
         public int? Version => 42;
 
-        public DateTime? CreatedAt => new DateTime(2020, 11, 25, 0, 0, 0);
+        public Country Country => Country.Of("IT");
 
-        public string Country => "IT";
+        public PeriodOfActivity PeriodOfActivity => PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1));
+
+        public RailwayGauge TrackGauge => null;
+
+        public RailwayLength TotalLength => null;
+
+        public Uri WebsiteUrl => new Uri("https://www.trenitalia.com");
+
+        public string Headquarters => null;
+
+        public Instant? LastModifiedAt => Instant.FromUtc(1988, 11, 25, 9, 0);
 
         public IRailwayInfo ToRailwayInfo()
         {

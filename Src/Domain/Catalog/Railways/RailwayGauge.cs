@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using TreniniDotNet.Common.Lengths;
 using TreniniDotNet.Domain.Catalog.Scales;
 
@@ -24,6 +25,19 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         {
             var (lenIn, lenMm) = TwoLengths.Create(inches, mm);
             return new RailwayGauge(trackGauge.ToTrackGauge(), lenIn, lenMm);
+        }
+
+        public static bool TryCreate(string? trackGauge, decimal? inches, decimal? mm, 
+            [NotNullWhen(true)] out RailwayGauge? railwayGauge)
+        {
+            if (inches.HasValue || mm.HasValue)
+            {
+                railwayGauge = RailwayGauge.Create(trackGauge, inches, mm);
+                return true;
+            }
+
+            railwayGauge = null;
+            return false;
         }
 
         #region [ Equality ]

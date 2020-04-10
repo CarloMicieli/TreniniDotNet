@@ -2,14 +2,15 @@ using LanguageExt;
 using static LanguageExt.Prelude;
 using System;
 using TreniniDotNet.Common.Extensions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TreniniDotNet.Common.Lengths
 {
-    // A pair of lengths, with the chance to automatically convert the second value
-    // from the first if missing
-    public class MultipleValues<TResult>
+    // A pair of values with a <em>MeasureUnit</em>, with the chance to automatically convert 
+    // a missing value to from the other converting to the expected <em>MeasureUnit</em>.
+    public abstract class MultipleValues<TResult>
     {
-        public MultipleValues(MeasureUnit measureUnit1, MeasureUnit measureUnit2,
+        protected MultipleValues(MeasureUnit measureUnit1, MeasureUnit measureUnit2,
             Func<decimal, MeasureUnit, TResult> func)
         {
             if (measureUnit1 == measureUnit2)
@@ -54,6 +55,45 @@ namespace TreniniDotNet.Common.Lengths
             throw new InvalidOperationException();
         }
 
+        public bool TryCreate(decimal? left, decimal? right, 
+            [NotNullWhen(true)] out (TResult, TResult)? result)
+        {
+            if (!ValidateValue(left) || !ValidateValue(right))
+            {
+                result = null;
+                return false;
+            }
+
+            if (left.HasValue && right.HasValue)
+            {
+                result = (
+                    BuildResult(left.Value, MeasureUnit1),
+                    BuildResult(right.Value, MeasureUnit2));
+                return true;
+            }
+            else if (left.HasValue)
+            {
+                decimal rightValue = MeasureUnit2.ConvertTo(MeasureUnit1)
+                    .Convert(left.Value);
+                result = (
+                    BuildResult(left.Value, MeasureUnit1),
+                    BuildResult(rightValue, MeasureUnit2));
+                return true;
+            }
+            else if (right.HasValue)
+            {
+                decimal leftValue = MeasureUnit1.ConvertTo(MeasureUnit2)
+                    .Convert(right.Value);
+                result = (
+                    BuildResult(leftValue, MeasureUnit1),
+                    BuildResult(right.Value, MeasureUnit2));
+                return true;
+            }
+
+            result = null;
+            return false;
+        }
+
         public Validation<Error, (TResult, TResult)> TryCreate(decimal? left, decimal? right)
         {
             if (left.HasValue && right.HasValue)
@@ -78,5 +118,9 @@ namespace TreniniDotNet.Common.Lengths
 
         private static Validation<Error, decimal> NonNegative(decimal value, string because) =>
             value.IsPositive() ? Success<Error, decimal>(value) : Fail<Error, decimal>(because);
+
+
+        private static bool ValidateValue(decimal? val) =>
+            val.HasValue && val.Value.IsPositive();
     }
 }

@@ -18,12 +18,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             _railwaysFactory = railwaysFactory;
         }
 
-        public Task<RailwayId> CreateRailway(string name, Slug slug, string? companyName, string? country, DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus rs)
-        {
-            var newRailway = _railwaysFactory.NewRailway(name, companyName, country, operatingSince, operatingUntil, rs);
-            return _railwayRepository.Add(newRailway);
-        }
-
         public Task<bool> RailwayAlreadyExists(Slug slug)
         {
             return _railwayRepository.Exists(slug);
@@ -42,6 +36,30 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public Task<PaginatedResult<IRailway>> FindAllRailways(Page? page)
         {
             return _railwayRepository.GetRailways(page ?? Page.Default);
+        }
+
+        public Task<RailwayId> CreateRailway(
+            string name,
+            Slug slug, string? companyName,
+            Country country,
+            PeriodOfActivity periodOfActivity,
+            RailwayLength? railwayLength,
+            RailwayGauge? gauge,
+            Uri? websiteUrl,
+            string? headquarters)
+        {
+            var id = RailwayId.NewId();
+
+            var newRailway = _railwaysFactory.NewRailway(id,
+                name, slug,
+                companyName,
+                country,
+                periodOfActivity,
+                railwayLength,
+                gauge,
+                websiteUrl,
+                headquarters);
+            return _railwayRepository.Add(newRailway);
         }
     }
 }

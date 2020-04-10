@@ -96,6 +96,35 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                             }
                         }
 
+                        // Made DateTime to be UTC 
+
+                        var dateTimeFields = props
+                            .Where(it => it.PropertyType == typeof(DateTime) || it.PropertyType == typeof(Nullable<DateTime>))
+                            .Select(it => it.Name)
+                            .ToList();
+
+                        if (dateTimeFields.Count > 0)
+                        {
+                            var expectedUtcDateTimes = expectedValues
+                                .Where(it => IsUtcDateTime(it.Value))
+                                .Select(it => it.Key)
+                                .ToHashSet();
+
+                            foreach (var field in dateTimeFields)
+                            {
+                                if (resultValues.TryGetValue(field, out var value))
+                                {
+                                    if (!(value is null) && expectedUtcDateTimes.Contains(field))
+                                    {
+                                        int hours = (int) DateTime.UtcNow.Subtract(DateTime.Now).TotalHours;
+
+
+                                        resultValues[field] = DateTime.SpecifyKind(Convert.ToDateTime(value), DateTimeKind.Utc);
+                                    }
+                                }
+                            }
+                        }
+
                         if (expectedValues.Count > 0)
                         {
                             resultValues.Should().BeEquivalentTo(expectedValues);
@@ -146,6 +175,9 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 
                 return $"SELECT {select} FROM {TableName} WHERE {where}";
             }
+
+            private static bool IsUtcDateTime(object obj) =>
+                (obj is DateTime that && that.Kind == DateTimeKind.Utc);
         }
     }
 }

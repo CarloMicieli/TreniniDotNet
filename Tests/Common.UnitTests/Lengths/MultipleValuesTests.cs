@@ -3,16 +3,23 @@ using FluentAssertions;
 
 namespace TreniniDotNet.Common.Lengths
 {
+    class TestMultipleValues : MultipleValues<Length>
+    {
+        public TestMultipleValues(MeasureUnit measureUnit1, MeasureUnit measureUnit2) 
+            : base(measureUnit1, measureUnit2, (v, mu) => Length.Of(v, mu))
+        {
+        }
+    }
+
     public class MultipleValuesTests
     {
         private readonly MultipleValues<Length> Subject;
 
         public MultipleValuesTests()
         {
-            Subject = new MultipleValues<Length>(
+            Subject = new TestMultipleValues(
                 MeasureUnit.Inches,
-                MeasureUnit.Millimeters,
-                (v, mu) => Length.Of(v, mu));
+                MeasureUnit.Millimeters);
         }
 
         [Fact]
@@ -76,6 +83,36 @@ namespace TreniniDotNet.Common.Lengths
                     errorsList.Should().Contain(Error.New("-10 Inches is not a valid value (negative)"));
                     errorsList.Should().Contain(Error.New("-10 Millimeters is not a valid value (negative)"));
                 });
+        }
+
+        [Fact]
+        public void MultipleLengths_TryCreate_ShouldReturnTrueAndCreateNewValue()
+        {
+            var result = Subject.TryCreate(11M, 12M, out var ml);
+
+            result.Should().BeTrue();
+            ml.Should().NotBeNull();
+            ml.Value.Item1.Should().Be(Length.OfInches(11M));
+            ml.Value.Item2.Should().Be(Length.OfMillimeters(12M));
+
+        }
+
+        [Fact]
+        public void MultipleLengths_TryCreate_ShouldReturnFalse_WhenBothInputAreNull()
+        {
+            var result = Subject.TryCreate(null, null, out var ml);
+            
+            result.Should().BeFalse();
+            ml.Should().BeNull();
+        }
+
+        [Fact]
+        public void MultipleLengths_TryCreate_ShouldReturnFalse_WhenBothInputAreNegative()
+        {
+            var result = Subject.TryCreate(-10M, -10M, out var ml);
+
+            result.Should().BeFalse();
+            ml.Should().BeNull();
         }
     }
 }
