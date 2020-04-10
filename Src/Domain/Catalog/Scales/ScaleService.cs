@@ -4,6 +4,7 @@ using TreniniDotNet.Common;
 using System;
 using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
+using System.Collections.Immutable;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -19,9 +20,15 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             _scalesFactory = scalesFactory;
         }
 
-        public Task<ScaleId> CreateScale(string name, Slug slug, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
+        public Task<ScaleId> CreateScale(
+            string name, Slug slug,
+            Ratio ratio,
+            ScaleGauge gauge,
+            string? description,
+            ImmutableHashSet<ScaleStandard> standards,
+            int? weight)
         {
-            var newScale = _scalesFactory.NewScale(ScaleId.NewId(), name, slug, ratio, gauge, trackGauge, notes);
+            var newScale = _scalesFactory.NewScale(ScaleId.NewId(), name, slug, ratio, gauge, description, standards, weight);
             return _scaleRepository.Add(newScale);
         }
 

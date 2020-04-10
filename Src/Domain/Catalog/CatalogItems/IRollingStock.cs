@@ -1,3 +1,4 @@
+using TreniniDotNet.Common.Lengths;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
@@ -13,7 +14,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         Era Era { get; }
 
-        Length Length { get; }
+        Length? Length { get; }
 
         string? ClassName { get; }
 

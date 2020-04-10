@@ -3,35 +3,40 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using NodaTime;
 using TreniniDotNet.Common.Extensions;
+using TreniniDotNet.Common.Uuid;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public sealed class RailwaysFactory : IRailwaysFactory
     {
         private readonly IClock _clock;
+        private readonly IGuidSource _guidSource;
 
-        public RailwaysFactory(IClock clock)
+        public RailwaysFactory(IClock clock, IGuidSource guidSource)
         {
-            _clock = clock;
+            _clock = clock ??
+                throw new ArgumentNullException(nameof(clock));
+            _guidSource = guidSource ??
+                throw new ArgumentNullException(nameof(guidSource));
         }
 
-        public IRailway? NewRailway(
-            Guid railwayId, 
-            string name, 
-            string slug, 
-            string? companyName, 
-            string? countryCode, 
-            DateTime? operatingSince, 
-            DateTime? operatingUntil, 
-            bool? active, 
-            decimal? gaugeMm, 
-            decimal? gaugeIn, 
+        public IRailway NewRailway(
+            Guid railwayId,
+            string name,
+            string slug,
+            string? companyName,
+            string? countryCode,
+            DateTime? operatingSince,
+            DateTime? operatingUntil,
+            bool? active,
+            decimal? gaugeMm,
+            decimal? gaugeIn,
             string? trackGauge,
-            string? headquarters, 
+            string? headquarters,
             decimal? totalLengthMi,
-            decimal? totalLengthKm, 
-            string? websiteUrl, 
-            DateTime? lastModified, 
+            decimal? totalLengthKm,
+            string? websiteUrl,
+            DateTime? lastModified,
             int? version)
         {
             var railwayStatus = active == true ? RailwayStatus.Active : RailwayStatus.Inactive;

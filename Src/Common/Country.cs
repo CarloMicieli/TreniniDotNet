@@ -1,5 +1,3 @@
-using LanguageExt;
-using static LanguageExt.Prelude;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -55,25 +53,6 @@ namespace TreniniDotNet.Common
         {
             return !(left == right);
         }
-
-        public static Validation<Error, Country> ValidCountryCode(string? code)
-        {
-            if (code is null)
-            {
-                return Fail<Error, Country>(Error.New($"'null' is not a valid country code."));
-            }
-
-            try
-            {
-                var country = Country.Of(code);
-                return Success<Error, Country>(country);
-            }
-            catch
-            {
-                return Fail<Error, Country>(Error.New($"'{code}' is not a valid country code."));
-            }
-        }
-
     }
 
     public static class Countries

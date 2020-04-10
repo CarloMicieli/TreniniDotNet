@@ -1,7 +1,4 @@
-using LanguageExt;
-using static LanguageExt.Prelude;
 using System;
-using TreniniDotNet.Common.Extensions;
 using System.Diagnostics.CodeAnalysis;
 
 namespace TreniniDotNet.Common.Addresses
@@ -29,41 +26,7 @@ namespace TreniniDotNet.Common.Addresses
         public string PostalCode { get; }
         public string Country { get; }
 
-        public static Validation<Error, Address> TryCreate(
-            string? line1, string? line2,
-            string? city,
-            string? region,
-            string? postalCode,
-            string? country)
-        {
-            var line1V = line1.NonEmptyString("invalid address: the first line is required");
-            var cityV = city.NonEmptyString("invalid address: the town/city is required");
-            var postalCodeV = postalCode.NonEmptyString("invalid address: the postal code is required");
-            var countryV = country.NonEmptyString("invalid address: the country is required");
-
-            return (line1V, cityV, postalCodeV, countryV)
-                .Apply((_line1, _city, _postalCode, _country) =>
-                    new Address(_line1, line2, _city, region, _postalCode, _country));
-        }
-
         public static readonly Address NullAddress = new Address("", null, "", null, "", "");
-
-        public static Option<Address> Create(
-            string? line1, string? line2,
-            string? city,
-            string? region,
-            string? postalCode,
-            string? country)
-        {
-            if (TryCreate(line1, line2, city, region, postalCode, country, out var address))
-            {
-                return Some(address);
-            }
-            else
-            {
-                return None;
-            }
-        }
 
         public static bool TryCreate(
             string? line1, string? line2,
@@ -95,6 +58,22 @@ namespace TreniniDotNet.Common.Addresses
 
             result = default;
             return false;
+        }
+
+        public static Address? With(
+            string? line1 = null,
+            string? line2 = null,
+            string? city = null,
+            string? region = null,
+            string? postalCode = null,
+            string? country = null)
+        {
+            if (TryCreate(line1, line2, city, region, postalCode, country, out var a))
+            {
+                return a;
+            }
+
+            return null;
         }
 
         public override int GetHashCode() => HashCode.Combine(Line1, Line2, City, PostalCode, Region, Country);

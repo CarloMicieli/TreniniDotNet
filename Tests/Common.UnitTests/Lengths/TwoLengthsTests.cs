@@ -11,7 +11,7 @@ namespace TreniniDotNet.Common.Lengths
         {
             InchesMillimeters = new TwoLengths(MeasureUnit.Inches, MeasureUnit.Millimeters);
         }
-            
+
         [Fact]
         public void TwoLengths_ShouldCreateTwoLengths()
         {

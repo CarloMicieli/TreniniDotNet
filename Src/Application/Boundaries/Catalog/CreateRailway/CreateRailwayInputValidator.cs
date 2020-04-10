@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using System;
 using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Validation;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway

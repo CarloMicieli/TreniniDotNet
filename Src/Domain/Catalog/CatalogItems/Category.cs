@@ -53,20 +53,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         StarterSet
     }
 
-    public static class CategoryExtensions
-    {
-        public static Category? ToCategory(this string? s)
-        {
-            if (System.Enum.TryParse<Category>(s, true, out Category result))
-                return result;
-
-            return null;
-        }
-    }
-
     public static class Categories
     {
-        public static bool TryParse(string str, out Category result)
+        private static bool TryParse(string str, out Category result)
         {
             if (string.IsNullOrWhiteSpace(str) == false && Enum.TryParse<Category>(str, true, out var r))
             {

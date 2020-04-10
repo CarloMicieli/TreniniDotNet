@@ -7,7 +7,7 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
 using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
 using Xunit;
-using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
@@ -40,12 +40,12 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             var name = "DB";
             var input = NewRailwayInput.With(
-                Name: name, 
-                CompanyName: "Die Bahn", 
+                Name: name,
+                CompanyName: "Die Bahn",
                 Country: "DE",
                 PeriodOfActivity: NewPeriodOfActivityInput.With(
                     Status: "active",
-                    OperatingSince: DateTime.Now.AddDays(-1), 
+                    OperatingSince: DateTime.Now.AddDays(-1),
                     OperatingUntil: null));
 
             await useCase.Execute(input);
@@ -73,7 +73,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                     TrackGauge: TrackGauge.Standard.ToString(),
                     Millimeters: 1435M,
                     Inches: 56.5M));
-            
+
             await useCase.Execute(input);
 
             outputPort.ShouldHaveStandardOutput();

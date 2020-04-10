@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Infrastracture.Dapper;
 using Dapper;
+using System;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
@@ -129,10 +130,15 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 dto.brand_id,
                 dto.name,
                 dto.slug,
+                dto.kind,
                 dto.company_name,
+                dto.group_name,
+                dto.description,
                 dto.website_url,
                 dto.mail_address,
-                dto.kind);
+                null,
+                dto.last_modified ?? DateTime.UtcNow,
+                dto.version ?? 1); //TODO: fixme
         }
 
         #endregion

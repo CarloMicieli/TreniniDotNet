@@ -9,6 +9,7 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Pagination;
+using TreniniDotNet.Common.Uuid;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
@@ -20,7 +21,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         }
 
         private static IRailwaysRepository CreateRepository(IDatabaseContext databaseContext, IClock clock) =>
-            new RailwaysRepository(databaseContext, new RailwaysFactory(clock));
+            new RailwaysRepository(databaseContext, new RailwaysFactory(clock, new GuidSource()));
 
         [Fact]
         public async Task RailwaysRepository_Add_ShouldCreateANewRailway()
@@ -46,7 +47,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                     operating_since = fs.PeriodOfActivity.OperatingSince,
                     operating_until = fs.PeriodOfActivity.OperatingUntil,
                     active = RailwayStatus.Active == fs.PeriodOfActivity.RailwayStatus,
-                   // last_modified = fs.LastModifiedAt?.ToDateTimeUtc(),
+                    // last_modified = fs.LastModifiedAt?.ToDateTimeUtc(),
                     version = fs.Version
                 })
                 .ShouldExists();

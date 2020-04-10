@@ -1,6 +1,7 @@
 ﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Domain.Catalog.Scales;
 using Xunit;
+using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
 {
@@ -16,7 +17,13 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveNoError_WhenInputObjectIsValid()
         {
-            var input = new CreateScaleInput("H0", 87M, 16.5M, TrackGauge.Standard.ToString(), "my notes");
+            var input = NewScaleInput.With(
+                Name: "H0",
+                Ratio: 87M,
+                Gauge: NewScaleGaugeInput.With(
+                    Millimeters: 16.5M,
+                    TrackGauge: TrackGauge.Standard.ToString()),
+                Description: "my notes");
 
             var result = validator.TestValidate(input);
 
@@ -26,7 +33,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenNameIsNull()
         {
-            var input = new CreateScaleInput(null, null, null, null, null);
+            var input = NewScaleInput.Empty;
 
             var result = validator.TestValidate(input);
 
@@ -36,7 +43,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenNameIsEmpty()
         {
-            var input = new CreateScaleInput("   ", null, null, null, null);
+            var input = NewScaleInput.With(Name: "   ");
 
             var result = validator.TestValidate(input);
 
@@ -46,7 +53,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenNameIsTooLong()
         {
-            var input = new CreateScaleInput("01234567890", null, null, null, null);
+            var input = NewScaleInput.With(Name: "01234567890");
 
             var result = validator.TestValidate(input);
 
@@ -56,7 +63,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenRatioIsNegative()
         {
-            var input = new CreateScaleInput(null, -1M, null, null, null);
+            var input = NewScaleInput.With(Ratio: -1M);
 
             var result = validator.TestValidate(input);
 
@@ -66,7 +73,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenRatioIsZero()
         {
-            var input = new CreateScaleInput(null, 0M, null, null, null);
+            var input = NewScaleInput.With(Ratio: 0M);
 
             var result = validator.TestValidate(input);
 
@@ -76,31 +83,31 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenGaugeIsNegative()
         {
-            var input = new CreateScaleInput(null, null, -1M, null, null);
+            var input = NewScaleInput.With(Gauge: NewScaleGaugeInput.With(Millimeters: -10M));
 
             var result = validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.Gauge);
+            result.ShouldHaveValidationErrorFor(x => x.Gauge.Millimeters);
         }
 
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenGaugeIsZero()
         {
-            var input = new CreateScaleInput(null, null, 0M, null, null);
+            var input = NewScaleInput.With(Gauge: NewScaleGaugeInput.With(Millimeters: 0M));
 
             var result = validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.Gauge);
+            result.ShouldHaveValidationErrorFor(x => x.Gauge.Millimeters);
         }
 
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenTrackGaugeIsInvalid()
         {
-            var input = new CreateScaleInput(null, null, null, "not valid", null);
+            var input = NewScaleInput.With(Gauge: NewScaleGaugeInput.With(TrackGauge: "invalid"));
 
             var result = validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.TrackGauge);
+            result.ShouldHaveValidationErrorFor(x => x.Gauge.TrackGauge);
         }
     }
 }

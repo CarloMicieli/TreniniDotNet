@@ -1,4 +1,5 @@
 using System;
+using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {
@@ -7,7 +8,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
     /// 
     /// It is immutable, and only non empty values are valid to construct new ItemNumber values.
     /// </summary>
-    public readonly struct ItemNumber : IEquatable<ItemNumber>
+    public readonly struct ItemNumber : IEquatable<ItemNumber>, ICanConvertToSlug<ItemNumber>
     {
         private readonly string _value;
 
@@ -76,5 +77,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             return @this.Value == that.Value;
         }
         #endregion
+
+        public Slug ToSlug() => Slug.Of(Value);
     }
 }

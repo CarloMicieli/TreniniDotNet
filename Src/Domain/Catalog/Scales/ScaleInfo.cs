@@ -29,6 +29,10 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 
         public override int GetHashCode() => ScaleId.GetHashCode();
 
+        public static bool operator ==(ScaleInfo left, ScaleInfo right) => AreEquals(left, right);
+
+        public static bool operator !=(ScaleInfo left, ScaleInfo right) => !AreEquals(left, right);
+
         public override bool Equals(object obj)
         {
             if (obj is ScaleInfo that)

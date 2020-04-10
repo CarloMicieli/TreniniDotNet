@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using TreniniDotNet.Common.Extensions;
 
@@ -40,7 +41,7 @@ namespace TreniniDotNet.Common.Lengths
             return new Length(value, MeasureUnit.Inches);
         }
 
-        public static bool TryCreate(decimal? value, MeasureUnit measureUnit, out Length result)
+        public static bool TryCreate(decimal? value, MeasureUnit measureUnit, [NotNullWhen(true)] out Length? result)
         {
             if (value.HasValue == false)
             {

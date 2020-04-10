@@ -25,7 +25,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             return new RailwayLength(lenKm, lenMi);
         }
 
-        public static bool TryCreate(decimal? km, decimal? miles, 
+        public static bool TryCreate(decimal? km, decimal? miles,
             [NotNullWhen(true)] out RailwayLength? railwayLength)
         {
             if (km.HasValue || miles.HasValue)
@@ -66,7 +66,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         private static bool Validate(decimal? n)
         {
-            return n.HasValue == false || 
+            return n.HasValue == false ||
                 (n.HasValue && n.Value.IsPositive());
         }
     }

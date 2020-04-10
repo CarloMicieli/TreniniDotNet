@@ -3,15 +3,14 @@ using System.Collections.Immutable;
 using NodaTime;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class CatalogItems
     {
-        private readonly static ICatalogItemsFactory itemsFactory =
+        private readonly static ICatalogItemsFactory factory =
             new CatalogItemsFactory(SystemClock.Instance, new GuidSource());
-        private readonly static IRollingStocksFactory rsFactory =
-            new RollingStocksFactory(SystemClock.Instance, new GuidSource());
 
         private readonly ICatalogItem _acme_60458;
         private readonly ICatalogItem _acme_60392;
@@ -40,7 +39,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         private static ICatalogItem Build_Acme_60392()
         {
-            var rs = rsFactory.NewLocomotive(
+            var rs = factory.NewLocomotive(
                 CatalogSeedData.Railways.Fs(),
                 Era.IV.ToString(),
                 Category.ElectricLocomotive.ToString(),
@@ -50,23 +49,21 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 DccInterface.Nem652.ToString(),
                 Control.DccReady.ToString());
 
-            IRollingStock rollingStock = rs.IfFail(() => throw new System.InvalidOperationException());
-
-            return itemsFactory.NewCatalogItem(
+            return factory.NewCatalogItem(
                 CatalogSeedData.Brands.Acme(),
-                "60392",
+                new ItemNumber("60392"),
                 CatalogSeedData.Scales.ScaleH0(),
-                PowerMethod.DC.ToString(),
-                "2020/Q4",
-                false,
+                PowerMethod.DC,
+                ImmutableList.Create<IRollingStock>(rs),
                 @"FS Locomotiva elettrica E.656.291 (terza serie). Livrea d’origine con smorzatori",
                 null, null,
-                rollingStock).IfFail(() => throw new System.InvalidOperationException());
+                DeliveryDate.FourthQuarterOf(2020),
+                false);
         }
 
         private static ICatalogItem Build_Acme_60458()
         {
-            var rs = rsFactory.NewLocomotive(
+            var rs = factory.NewLocomotive(
                 CatalogSeedData.Railways.Fs(),
                 Era.IV.ToString(),
                 Category.ElectricLocomotive.ToString(),
@@ -76,42 +73,38 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 DccInterface.Nem652.ToString(),
                 Control.DccReady.ToString());
 
-            IRollingStock rollingStock = rs.IfFail(() => throw new System.InvalidOperationException());
-
-            return itemsFactory.NewCatalogItem(
+            return factory.NewCatalogItem(
                 CatalogSeedData.Brands.Acme(),
-                "60458",
+                new ItemNumber("60458"),
                 CatalogSeedData.Scales.ScaleH0(),
-                PowerMethod.DC.ToString(),
-                "2020/Q4",
-                false,
+                PowerMethod.DC,
+                ImmutableList.Create<IRollingStock>(rs),
                 @"FS Locomotiva elettrica E 636 117 nella livrea storica blu orientale e grigio 
                 perla con vomere giallo, logo e scritta Trenitalia, nella fase di fine esercizio",
                 null, null,
-                rollingStock).IfFail(() => throw new System.InvalidOperationException());
+                DeliveryDate.FourthQuarterOf(2020),
+                false);
         }
 
         private static ICatalogItem Build_Rivarossi_HR4298()
         {
-            var rs = rsFactory.NewRollingStock(
+            var rs = factory.NewRollingStock(
                 CatalogSeedData.Railways.Fs(),
                 Era.IV.ToString(),
                 Category.PassengerCar.ToString(),
                 195M,
                 "Corbellini");
 
-            IRollingStock rollingStock = rs.IfFail(() => throw new System.InvalidOperationException());
-
-            return itemsFactory.NewCatalogItem(
+            return factory.NewCatalogItem(
                 CatalogSeedData.Brands.Rivarossi(),
-                "HR4298",
+                new ItemNumber("HR4298"),
                 CatalogSeedData.Scales.ScaleH0(),
-                PowerMethod.DC.ToString(),
-                "2020/Q1",
-                true,
+                PowerMethod.DC,
+                ImmutableList.Create<IRollingStock>(rs, rs),
                 @"FS set 2 carrozze a due assi tipo ''Corbellini'' livrea grigio ardesia di 2 cl.",
                 null, null,
-                ImmutableList.Create<IRollingStock>(rollingStock, rollingStock)).IfFail(() => throw new System.InvalidOperationException());
+                DeliveryDate.FirstQuarterOf(2020),
+                true);
         }
     }
 }

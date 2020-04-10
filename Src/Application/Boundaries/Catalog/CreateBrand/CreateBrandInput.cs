@@ -4,7 +4,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
 {
     public sealed class CreateBrandInput : IUseCaseInput
     {
-        public string? Name { get; }
+        public string Name { get; }
         public string? CompanyName { get; }
         public string? GroupName { get; }
         public string? Description { get; }
@@ -23,7 +23,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
             string? brandType,
             AddressInput? address)
         {
-            Name = name;
+            Name = name!;
             CompanyName = companyName;
             GroupName = groupName;
             Description = description;

@@ -7,9 +7,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
     {
         public string? Name { set; get; }
         public decimal? Ratio { set; get; }
-        public decimal? Gauge { set; get; }
-        public string? TrackGauge { set; get; }
-        public string? Notes { set; get; }
+        public ScaleGaugeRequest? Gauge { set; get; }
+        public string? Description { set; get; }
         public int? Weight { get; }
         public List<string> Standards { get; set; } = new List<string>();
     }

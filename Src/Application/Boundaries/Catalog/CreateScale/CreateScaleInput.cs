@@ -5,25 +5,29 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
 {
     public sealed class CreateScaleInput : IUseCaseInput
     {
-        public CreateScaleInput(string? name, decimal? ratio, decimal? gauge, string? trackGauge, string? notes)
+        public CreateScaleInput(
+            string? name,
+            decimal? ratio,
+            ScaleGaugeInput? gauge,
+            string? description,
+            List<string> standards,
+            int? weight)
         {
             Name = name;
             Ratio = ratio;
-            Gauge = gauge;
-            TrackGauge = trackGauge;
-            Notes = notes;
-            Weight = null; //TODO: fixme
+            Gauge = gauge ?? ScaleGaugeInput.Default();
+            Description = description;
+            Standards = standards;
+            Weight = weight;
         }
 
         public string? Name { get; }
 
         public decimal? Ratio { get; }
 
-        public decimal? Gauge { get; }
+        public ScaleGaugeInput Gauge { get; }
 
-        public string? TrackGauge { get; }
-
-        public string? Notes { get; }
+        public string? Description { get; }
 
         public List<string> Standards { get; } = new List<string>();
 
@@ -32,8 +36,25 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
 
     public sealed class ScaleGaugeInput
     {
-        public string? TrackGauge { set; get; }
-        public decimal? Inches { set; get; }
-        public decimal? Millimeters { set; get; }
+        public ScaleGaugeInput(string? trackGauge, decimal? inches, decimal? millimeters)
+        {
+            TrackGauge = trackGauge;
+            Inches = inches;
+            Millimeters = millimeters;
+        }
+
+        public string? TrackGauge { get; }
+        public decimal? Inches { get; }
+        public decimal? Millimeters { get; }
+
+        public void Deconstruct(out string? trackGauge, out decimal? inches, out decimal? millimeters)
+        {
+            trackGauge = TrackGauge;
+            inches = Inches;
+            millimeters = Millimeters;
+        }
+
+        public static ScaleGaugeInput Default() =>
+            new ScaleGaugeInput(null, null, null);
     }
 }

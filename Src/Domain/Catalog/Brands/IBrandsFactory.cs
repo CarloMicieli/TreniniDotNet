@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Mail;
-using LanguageExt;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -9,38 +8,37 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public interface IBrandsFactory
     {
-        Validation<Error, IBrand> NewBrandV(
-            Guid brandId,
+        IBrand NewBrand(
             string name,
-            string? companyName,
-            string? websiteUrl,
-            string? emailAddress,
-            string? brandKind);
-
-        IBrand NewBrand(Guid brandId,
-            string name,
-            string slug,
-            string? companyName,
-            string? websiteUrl,
-            string? emailAddress,
-            string? brandKind);
-
-        IBrand NewBrand(BrandId brandId,
-            string name,
-            Slug slug,
-            string? companyName,
-            Uri? uri,
-            MailAddress? mailAddress,
-            BrandKind? industrial);
-
-        IBrand NewBrand(BrandId brandId,
-            string name, Slug slug,
             string? companyName,
             string? groupName,
             string? description,
             Uri? websiteUrl,
-            MailAddress? mailAddress,
-            BrandKind? kind,
+            MailAddress? emailAddress,
+            BrandKind kind,
             Address? address);
+
+        IBrand NewBrand(Guid brandId,
+            string name, string slug,
+            string kind,
+            string? companyName, string? groupName,
+            string? description,
+            string? websiteUrl,
+            string? mailAddress,
+            Address? address,
+            DateTime modified,
+            int version);
+
+        IBrand NewBrandWith(
+            BrandId brandId,
+            string name,
+            Slug? slug = null,
+            BrandKind? kind = null,
+            string? companyName = null,
+            string? groupName = null,
+            string? description = null,
+            Uri? website = null,
+            MailAddress? mailAddress = null,
+            Address? address = null);
     }
 }

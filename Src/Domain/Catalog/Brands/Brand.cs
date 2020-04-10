@@ -9,31 +9,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class Brand : IBrand, IEquatable<Brand>
     {
-        [Obsolete]
-        public Brand(string name, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
-            : this(BrandId.NewId(), name, Slug.Empty, companyName, websiteUrl, emailAddress, kind)
-        {
-        }
-
-        [Obsolete]
-        public Brand(BrandId id, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
-        {
-            ValidateBrandName(name);
-
-            BrandId = id;
-            Slug = slug.OrNewIfEmpty(() => Slug.Of(name));
-            Name = name;
-            WebsiteUrl = websiteUrl;
-            EmailAddress = emailAddress;
-            CompanyName = companyName;
-            GroupName = null;
-            Description = null;
-            Address = null; // TODO: fixme
-            Kind = kind;
-            Version = 1;
-            LastModifiedAt = Instant.FromDateTimeUtc(DateTime.UtcNow);
-        }
-
         internal Brand(BrandId id,
             string name,
             Slug slug,
@@ -145,14 +120,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         public IBrandInfo ToBrandInfo()
         {
             return this;
-        }
-
-        private static void ValidateBrandName(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException(ExceptionMessages.InvalidBrandName);
-            }
         }
     }
 }

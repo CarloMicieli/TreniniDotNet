@@ -19,7 +19,7 @@ namespace TreniniDotNet.Common.Extensions
         public void DateTime_ToUtcOrGetCurrent_ShouldGetTheValue()
         {
             DateTime? date = new DateTime(2020, 11, 25, 10, 0, 0);
-            
+
             var result = date.ToUtcOrGetCurrent(clock);
 
             result.Should().Be(Instant.FromUtc(2020, 11, 25, 10, 0, 0));

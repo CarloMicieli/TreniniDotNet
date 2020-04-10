@@ -49,6 +49,13 @@ namespace TreniniDotNet.Common
             return new Slug(value1.ToSlug().ToString() + "-" + value2.ToSlug().ToString());
         }
 
+        //TODO: TEST ME
+        public Slug CombineWith<T>(T value)
+            where T : ICanConvertToSlug<T>
+        {
+            return new Slug(this.ToString() + "-" + value.ToSlug().ToString());
+        }
+
         public override string ToString()
         {
             return _value;

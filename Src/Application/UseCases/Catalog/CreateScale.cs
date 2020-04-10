@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 using TreniniDotNet.Application.Services;
@@ -34,13 +35,17 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 return;
             }
 
+            var (trackType, inches, mm) = input.Gauge;
+            var scaleGauge = ScaleGauge.Of(mm, inches, trackType ?? TrackGauge.Standard.ToString());
+
             var _ = await _scaleService.CreateScale(
                 scaleName,
                 slug,
                 Ratio.Of(input.Ratio ?? 0M),
-                Gauge.OfMillimiters(input.Gauge ?? 0M),
-                input.TrackGauge.ToTrackGauge(),
-                input.Notes);
+                scaleGauge,
+                input.Description,
+                ImmutableHashSet<ScaleStandard>.Empty,
+                input.Weight);
 
             await _unitOfWork.SaveAsync();
 

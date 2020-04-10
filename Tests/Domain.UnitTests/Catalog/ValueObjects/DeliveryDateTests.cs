@@ -29,11 +29,11 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             bool result2 = DeliveryDate.TryParse(DD(1988, null).ToString(), out var dd2);
 
             result1.Should().BeTrue();
-            dd1.Quarter.Should().Be(Quarter.Q4);
-            dd1.Year.Should().Be(1988);
+            dd1.Value.Quarter.Should().Be(Quarter.Q4);
+            dd1.Value.Year.Should().Be(1988);
 
             result2.Should().BeTrue();
-            dd2.Year.Should().Be(1988);
+            dd2.Value.Year.Should().Be(1988);
         }
 
         [Fact]

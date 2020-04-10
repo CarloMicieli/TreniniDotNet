@@ -1,17 +1,19 @@
-using System;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using NodaTime;
+using System.Collections.Immutable;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
     public interface IScale : IScaleInfo
     {
-        Gauge Gauge { get; }
+        ScaleGauge Gauge { get; }
 
-        TrackGauge TrackGauge { get; }
+        string? Description { get; }
 
-        string? Notes { get; }
+        int? Weight { get; }
 
-        DateTime? CreatedAt { get; }
+        IImmutableSet<ScaleStandard> Standards { get; }
+
+        Instant? LastModifiedAt { get; }
 
         int? Version { get; }
 

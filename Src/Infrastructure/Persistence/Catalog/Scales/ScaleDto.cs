@@ -14,7 +14,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         public decimal gauge_mm { set; get; } = default;
         public decimal gauge_in { set; get; } = default;
         public string track_type { set; get; } = null!;
-        public string? notes { set; get; }
+        public string? description { set; get; }
+        public int? weight { set; get; }
         public DateTime? last_modified { set; get; }
         public int? version { set; get; }
     }

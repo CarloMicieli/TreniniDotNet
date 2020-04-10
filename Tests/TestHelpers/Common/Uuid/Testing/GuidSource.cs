@@ -1,17 +1,17 @@
-using System;
+﻿using System;
 
-namespace TreniniDotNet.Common.Uuid
+namespace TreniniDotNet.Common.Uuid.Testing
 {
     public sealed class FakeGuidSource : IGuidSource
     {
-        private readonly Guid _fake;
+        public Guid FakeGuid { set; get; }
 
         private FakeGuidSource(Guid fake)
         {
-            _fake = fake;
+            FakeGuid = fake;
         }
 
-        public Guid NewGuid() => _fake;
+        public Guid NewGuid() => FakeGuid;
 
         public static IGuidSource NewSource(Guid id) => new FakeGuidSource(id);
     }

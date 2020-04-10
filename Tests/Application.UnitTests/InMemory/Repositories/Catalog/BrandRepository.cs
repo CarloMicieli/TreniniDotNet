@@ -4,40 +4,18 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
-using System.Net.Mail;
 using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
-using NodaTime.Testing;
-using NodaTime;
 
 namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 {
     public class BrandRepository : IBrandsRepository
     {
         private readonly InMemoryContext _context;
-        private readonly IBrandsFactory _brandsFactory;
 
         public BrandRepository(InMemoryContext context)
         {
             _context = context;
-            _brandsFactory = new BrandsFactory(
-                new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)));
-        }
-
-        public Task<BrandId> Add(BrandId brandId, string name, Slug slug, string companyName, Uri websiteUrl, MailAddress emailAddress, BrandKind? brandKind)
-        {
-            var newBrand = _brandsFactory.NewBrand(
-                brandId.ToGuid(),
-                name,
-                slug.ToString(),
-                companyName,
-                websiteUrl?.ToString(),
-                emailAddress?.ToString(),
-                brandKind?.ToString());
-
-            _context.Brands.Add(newBrand);
-
-            return Task.FromResult(brandId);
         }
 
         public Task<BrandId> Add(IBrand brand)

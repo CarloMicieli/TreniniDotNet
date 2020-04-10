@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Mail;
 using NodaTime;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
@@ -10,7 +11,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class Brands
     {
-        private readonly static IBrandsFactory brandFactory = new BrandsFactory(SystemClock.Instance);
+        private readonly static IBrandsFactory brandFactory = new BrandsFactory(SystemClock.Instance, new GuidSource());
 
         private readonly IList<IBrand> _all;
         private readonly IBrand _brawa;
@@ -24,7 +25,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         internal Brands()
         {
             #region [ Init data ]
-            _acme = brandFactory.NewBrand(
+            _acme = NewBrand(
                 new BrandId(new Guid("9ed9f089-2053-4a39-b669-a6d603080402")),
                 "ACME",
                 Slug.Of("acme"),
@@ -33,7 +34,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 new MailAddress("mail@acmetreni.com"),
                 BrandKind.Industrial);
 
-            _roco = brandFactory.NewBrand(
+            _roco = NewBrand(
                 new BrandId(new Guid("4b7a619b-65cc-41f5-a003-450537c85dea")),
                 "Roco",
                 Slug.Of("roco"),
@@ -42,7 +43,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 new MailAddress("webshop@roco.cc"),
                 BrandKind.Industrial);
 
-            _bemo = brandFactory.NewBrand(
+            _bemo = NewBrand(
                 new BrandId(new Guid("ff9f5055-8ae7-4d58-a68f-0cee3adb6656")),
                 "BEMO",
                 Slug.Of("bemo"),
@@ -51,7 +52,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 new MailAddress("mail@bemo-modellbahn.de"),
                 BrandKind.Industrial);
 
-            _brawa = brandFactory.NewBrand(
+            _brawa = NewBrand(
                new BrandId(new Guid("c37f8ac1-991b-422c-b273-5c02efe2087e")),
                "Brawa",
                Slug.Of("Brawa"),
@@ -60,7 +61,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                null,
                BrandKind.Industrial);
 
-            _rivarossi = brandFactory.NewBrand(
+            _rivarossi = NewBrand(
                new BrandId(new Guid("1e16aee7-3102-4d03-b99f-1a59a8b07202")),
                "Rivarossi",
                Slug.Of("Rivarossi"),
@@ -69,7 +70,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                null,
                BrandKind.Industrial);
 
-            _maerklin = brandFactory.NewBrand(
+            _maerklin = NewBrand(
                 new BrandId(new Guid("66fa5a39-7e47-471f-9f92-d2bb01258c31")),
                 "Märklin",
                 Slug.Of("Märklin"),
@@ -78,7 +79,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 null,
                 BrandKind.Industrial);
 
-            _fleischmann = brandFactory.NewBrand(
+            _fleischmann = NewBrand(
                 new BrandId(new Guid("2a916d99-953f-44d6-8115-7e72ca22b081")),
                 "Fleischmann",
                 Slug.Of("Fleischmann"),
@@ -98,6 +99,24 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 _maerklin,
                 _rivarossi
             };
+        }
+
+        private IBrand NewBrand(BrandId brandId,
+            string name,
+            Slug slug,
+            string companyName,
+            Uri website,
+            MailAddress mailAddress,
+            BrandKind kind)
+        {
+            return brandFactory.NewBrandWith(
+                brandId: brandId,
+                name: name,
+                slug: slug,
+                companyName: companyName,
+                website: website,
+                mailAddress: mailAddress,
+                kind: kind);
         }
 
         public IBrand Acme() => _acme;

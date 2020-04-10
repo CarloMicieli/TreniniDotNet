@@ -12,6 +12,18 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
     public static class Controls
     {
+        //TODO: test me
+        public static Control? ValueFor(string? str)
+        {
+            if (string.IsNullOrWhiteSpace(str) == false &&
+                Enum.TryParse<Control>(str, true, out var c))
+            {
+                return c;
+            }
+
+            return null;
+        }
+
         public static bool TryParse(string? v, out Control control)
         {
             if (v is null)

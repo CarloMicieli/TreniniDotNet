@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateRailway;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 
 namespace TreniniDotNet.Application.TestInputs.Catalog
 {
@@ -78,7 +80,7 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
         public static class NewTotalRailwayLengthInput
         {
             public static TotalRailwayLengthInput With(
-                decimal? Kilometers = null, 
+                decimal? Kilometers = null,
                 decimal? Miles = null) =>
                 new TotalRailwayLengthInput(Kilometers, Miles);
         }
@@ -88,8 +90,28 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
             public static RailwayGaugeInput With(
                 string TrackGauge = null,
                 decimal? Millimeters = null,
-                decimal? Inches = null) => 
+                decimal? Inches = null) =>
                 new RailwayGaugeInput(TrackGauge, Millimeters, Inches);
+        }
+
+        public static class NewScaleInput
+        {
+            public static CreateScaleInput Empty => With();
+
+            public static CreateScaleInput With(
+                string Name = null,
+                decimal? Ratio = null,
+                ScaleGaugeInput Gauge = null,
+                string Description = null,
+                List<string> Standards = null,
+                int? Weight = null) =>
+                new CreateScaleInput(Name, Ratio, Gauge, Description, Standards, Weight);
+        }
+
+        public static class NewScaleGaugeInput
+        {
+            public static ScaleGaugeInput With(string TrackGauge = null, decimal? Inches = null, decimal? Millimeters = null) =>
+                new ScaleGaugeInput(TrackGauge, Inches, Millimeters);
         }
     }
 }

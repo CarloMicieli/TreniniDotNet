@@ -30,7 +30,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
 
-            var result = await connection.ExecuteAsync(InsertScaleCommand, scale);
+            var result = await connection.ExecuteAsync(InsertScaleCommand, new
+            {
+                scale.ScaleId,
+                scale.Name,
+                scale.Slug,
+                scale.Ratio,
+                GaugeMm = scale.Gauge.InMillimeters.Value,
+                GaugeIn = scale.Gauge.InInches.Value,
+                TrackGauge = scale.Gauge.TrackGauge.ToString(),
+                scale.Description,
+                scale.Weight,
+                LastModified = scale.LastModifiedAt?.ToDateTimeUtc(),
+                scale.Version
+            });
             return scale.ScaleId;
         }
 
@@ -60,7 +73,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 return new List<IScale>();
             }
 
-            return result.Select(it => FromScaleDto(it)!).ToList();
+            return result.Select(it => ProjectToDomain(it)!).ToList();
         }
 
         public async Task<IScale?> GetByName(string name)
@@ -72,7 +85,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 GetScaleByNameQuery,
                 new { name });
 
-            return FromScaleDto(result);
+            return ProjectToDomain(result);
         }
 
         public async Task<IScale?> GetBySlug(Slug slug)
@@ -84,7 +97,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 GetScaleBySlugQuery,
                 new { @slug = slug.ToString() });
 
-            return FromScaleDto(result);
+            return ProjectToDomain(result);
         }
 
         public async Task<PaginatedResult<IScale>> GetScales(Page page)
@@ -98,10 +111,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
             return new PaginatedResult<IScale>(
                 page,
-                results.Select(it => FromScaleDto(it)!).ToList());
+                results.Select(it => ProjectToDomain(it)!).ToList());
         }
 
-        private IScale? FromScaleDto(ScaleDto? dto)
+        private IScale? ProjectToDomain(ScaleDto? dto)
         {
             if (dto is null)
             {
@@ -114,16 +127,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 dto.slug,
                 dto.ratio,
                 dto.gauge_mm,
+                dto.gauge_in,
                 dto.track_type,
-                dto.notes);
+                dto.description,
+                dto.weight,
+                dto.last_modified,
+                dto.version);
         }
 
         #region [ Query / Command text ]
 
         private const string InsertScaleCommand = @"INSERT INTO scales(
-	            scale_id, name, slug, ratio, gauge_mm, gauge_in, track_type, notes, last_modified, version)
+	            scale_id, name, slug, ratio, gauge_mm, gauge_in, track_type, description, weight, last_modified, version)
             VALUES(
-                @ScaleId, @Name, @Slug, @Ratio, @Gauge, 0.65, @TrackGauge, @Notes, @CreatedAt, @Version);";
+                @ScaleId, @Name, @Slug, @Ratio, @GaugeMm, @GaugeIn, @TrackGauge, @Description, @Weight, @LastModified, @Version);";
 
         private const string GetScaleExistsQuery = @"SELECT slug FROM scales WHERE slug = @slug;";
         private const string GetAllScalesQuery = @"SELECT * FROM scales ORDER BY name;";

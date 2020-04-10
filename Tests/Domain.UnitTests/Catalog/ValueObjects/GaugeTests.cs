@@ -9,7 +9,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         public void ItShouldCreateNewGaugeFromAMillimitersValue()
         {
             var halfZero = Gauge.OfMillimiters(16.5f);
-            var expected = string.Format("{0}mm", 16.5M);
+            var expected = string.Format("{0} mm", 16.5M);
 
             Assert.Equal(expected, halfZero.ToString());
         }
@@ -18,7 +18,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         public void ItShouldCreateNewGaugeFromAnInchesValue()
         {
             var halfZero = Gauge.OfInches(0.65f);
-            var expected = string.Format("{0}in", 0.65M);
+            var expected = string.Format("{0} in", 0.65M);
 
             Assert.Equal(expected, halfZero.ToString());
         }
@@ -52,19 +52,6 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             Assert.True(zero != halfZero);
             Assert.False(halfZero.Equals(zero));
             Assert.False(halfZero.Equals("it fails"));
-        }
-
-        [Fact]
-        public void ItShouldProduceAFloatValueWithMeasureUnit()
-        {
-            var halfZero1 = Gauge.OfMillimiters(16.5f);
-            var halfZero2 = Gauge.OfInches(0.65f);
-
-            Assert.Equal(16.5f, halfZero1.ToFloat(MeasureUnit.Millimeters));
-            Assert.Equal(0.65f, halfZero1.ToFloat(MeasureUnit.Inches), 2);
-
-            Assert.Equal(0.65f, halfZero2.ToFloat(MeasureUnit.Inches));
-            Assert.Equal(16.5f, halfZero2.ToFloat(MeasureUnit.Millimeters), 1);
         }
 
         [Fact]

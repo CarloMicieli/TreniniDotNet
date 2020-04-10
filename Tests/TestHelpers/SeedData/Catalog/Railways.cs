@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NodaTime;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
@@ -9,7 +10,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class Railways
     {
-        private static readonly IRailwaysFactory factory = new RailwaysFactory(SystemClock.Instance);
+        private static readonly IRailwaysFactory factory = new RailwaysFactory(SystemClock.Instance, new GuidSource());
 
         private readonly IRailway _fs;
         private readonly IRailway _sbb;
@@ -96,10 +97,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         }
 
         public static IRailway NewWith(
-            RailwayId id, 
-            string name, 
-            Slug? slug = null, 
-            string companyName = null, 
+            RailwayId id,
+            string name,
+            Slug? slug = null,
+            string companyName = null,
             string country = null,
             DateTime? since = null,
             DateTime? until = null,

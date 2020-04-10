@@ -116,7 +116,7 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                                 {
                                     if (!(value is null) && expectedUtcDateTimes.Contains(field))
                                     {
-                                        int hours = (int) DateTime.UtcNow.Subtract(DateTime.Now).TotalHours;
+                                        int hours = (int)DateTime.UtcNow.Subtract(DateTime.Now).TotalHours;
 
 
                                         resultValues[field] = DateTime.SpecifyKind(Convert.ToDateTime(value), DateTimeKind.Utc);

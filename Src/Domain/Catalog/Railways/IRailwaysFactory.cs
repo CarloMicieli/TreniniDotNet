@@ -10,14 +10,14 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             string name,
             Slug slug,
             string? companyName,
-            Country country, 
+            Country country,
             PeriodOfActivity periodOfActivity,
             RailwayLength? railwayLength,
-            RailwayGauge? gauge, 
-            Uri? websiteUrl, 
+            RailwayGauge? gauge,
+            Uri? websiteUrl,
             string? headquarters);
 
-        IRailway? NewRailway(
+        IRailway NewRailway(
                Guid railwayId,
                string name,
                string slug,

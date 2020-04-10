@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
-using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
+using System.Collections.Generic;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {

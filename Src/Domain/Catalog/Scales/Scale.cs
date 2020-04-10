@@ -2,6 +2,7 @@
 using System;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using NodaTime;
+using System.Collections.Immutable;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -15,73 +16,49 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     /// <seealso cref="Ratio"/>
     public sealed class Scale : IEquatable<Scale>, IScale
     {
-        private readonly ScaleId _id;
-        private readonly Slug _slug;
-        private readonly string _name;
-        private readonly Ratio _ratio;
-        private readonly Gauge _gauge;
-        private readonly TrackGauge _trackGauge;
-        private readonly string? _notes;
-        private readonly DateTime? _createdAt;
-        private readonly int? _version;
-
-        [Obsolete]
-        public Scale(string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
-            : this(ScaleId.NewId(), Slug.Empty, name, ratio, gauge, trackGauge, notes)
-        { }
-
-        [Obsolete]
-        public Scale(ScaleId id, Slug slug, string name, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
-        {
-            ValidateScaleName(name);
-
-            _id = id;
-            _slug = slug.OrNewIfEmpty(() => Slug.Of(name));
-            _name = name;
-            _ratio = ratio;
-            _gauge = gauge;
-            _notes = notes;
-            _trackGauge = trackGauge;
-            _createdAt = DateTime.UtcNow;
-            _version = 1;
-        }
-
         internal Scale(ScaleId id,
             string name, Slug slug,
             Ratio ratio,
-            Gauge gauge, TrackGauge trackGauge,
-            string? notes,
-            Instant createdAt, int version)
+            ScaleGauge gauge,
+            string? description,
+            IImmutableSet<ScaleStandard> standards,
+            int? weight,
+            Instant modifiedAt, int version)
         {
-            _id = id;
-            _slug = slug;
-            _name = name;
-            _ratio = ratio;
-            _gauge = gauge;
-            _notes = notes;
-            _trackGauge = trackGauge;
-            _createdAt = createdAt.ToDateTimeUtc();
-            _version = version;
+            ScaleId = id;
+            Slug = slug;
+            Name = name;
+            Ratio = ratio;
+            Gauge = gauge;
+            Description = description;
+            Standards = standards;
+            Weight = weight;
+            LastModifiedAt = modifiedAt;
+            Version = version;
         }
 
         #region [ Properties ]
-        public ScaleId ScaleId => _id;
 
-        public Slug Slug => _slug;
+        public ScaleId ScaleId { get; }
 
-        public string Name => _name;
+        public Slug Slug { get; }
 
-        public Ratio Ratio => _ratio;
+        public string Name { get; }
 
-        public Gauge Gauge => _gauge;
+        public Ratio Ratio { get; }
 
-        public TrackGauge TrackGauge => _trackGauge;
+        public ScaleGauge Gauge { get; }
 
-        public string? Notes => _notes;
+        public string? Description { get; }
 
-        public DateTime? CreatedAt => _createdAt;
+        public int? Weight { get; }
 
-        public int? Version => _version;
+        public IImmutableSet<ScaleStandard> Standards { get; }
+
+        public Instant? LastModifiedAt { get; }
+
+        public int? Version { get; }
+
         #endregion
 
         #region [ Equality ]
@@ -124,26 +101,18 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         #region [ Standard methods overrides ]
         public override string ToString()
         {
-            return $"{_name} ({_ratio})";
+            return $"{Name} ({Ratio})";
         }
 
         public override int GetHashCode()
         {
-            return this._name.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
+            return this.Name.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
         }
         #endregion
 
         public IScaleInfo ToScaleInfo()
         {
             return this;
-        }
-
-        private static void ValidateScaleName(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException(ExceptionMessages.InvalidScaleName);
-            }
         }
     }
 }

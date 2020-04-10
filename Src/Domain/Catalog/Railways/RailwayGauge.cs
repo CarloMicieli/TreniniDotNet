@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using TreniniDotNet.Common.Lengths;
-using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
@@ -27,7 +27,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             return new RailwayGauge(trackGauge.ToTrackGauge(), lenIn, lenMm);
         }
 
-        public static bool TryCreate(string? trackGauge, decimal? inches, decimal? mm, 
+        public static bool TryCreate(string? trackGauge, decimal? inches, decimal? mm,
             [NotNullWhen(true)] out RailwayGauge? railwayGauge)
         {
             if (inches.HasValue || mm.HasValue)

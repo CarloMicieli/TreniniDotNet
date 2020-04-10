@@ -1,207 +1,124 @@
 using Xunit;
 using FluentAssertions;
 using System;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using System.Net.Mail;
 using NodaTime.Testing;
 using NodaTime;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Common.Uuid.Testing;
+using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public class BrandsFactoryTests
     {
+        private static Instant ExpectedDate = Instant.FromUtc(1988, 11, 25, 0, 0);
+        private static BrandId ExpectedBrandId = new BrandId(new Guid("fab083e5-7c33-4276-9068-e2de39c30281"));
+
+        private readonly IGuidSource guidSource;
         private readonly IBrandsFactory factory;
 
         public BrandsFactoryTests()
         {
-            this.factory = new BrandsFactory(
-                new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)));
+            guidSource = FakeGuidSource.NewSource(ExpectedBrandId.ToGuid());
+            factory = new BrandsFactory(new FakeClock(ExpectedDate), guidSource);
         }
 
         [Fact]
-        public void BrandsFactory_ShouldCreateBrands_WithValidation()
+        public void BrandsFactory_NewBrand_ShouldCreateBrandsFromDomainObjects()
         {
-            Guid id = Guid.NewGuid();
-            var success = factory.NewBrandV(
-                id,
-                "name",
+            Address ExpectedAddress = Address.With(
+                line1: "22 Acacia Avenue",
+                city: "London",
+                postalCode: "123456",
+                country: "UK");
+
+            IBrand b = factory.NewBrand(
+                "NAME",
                 "company name",
-                "https://www.website.com",
-                "mail@mail.com",
-                "industrial"
-            );
-
-            success.Match(
-                Succ: succ =>
-                {
-                    succ.Slug.Should().Be(Slug.Of("name"));
-                    succ.WebsiteUrl.Should().Be(new Uri("https://www.website.com"));
-                    succ.EmailAddress.Should().Be(new MailAddress("mail@mail.com"));
-                    succ.Kind.Should().Be(BrandKind.Industrial);
-                    succ.Version.Should().Be(1);
-                    succ.LastModifiedAt.Should().Be(Instant.FromUtc(1988, 11, 25, 0, 0));
-                },
-                Fail: errors => Assert.True(false, "should never get here"));
-        }
-
-        [Fact]
-        public void BrandsFactory_ShouldReturnsFailure_WhenFailedValidation()
-        {
-            Guid id = Guid.NewGuid();
-            var failure = factory.NewBrandV(
-                id,
-                "    ",
-                null,
-                "---invalid url---",
-                "---invalid mail---",
-                "---invalid kind---"
-            );
-
-            failure.Match(
-                Succ: succ => Assert.True(false, "should never get here"),
-                Fail: errors =>
-                {
-                    errors.Should().HaveCount(4);
-
-                    var errorsList = errors.ToList();
-
-                    errorsList.Should().ContainInOrder(
-                        Error.New("invalid brand: name cannot be empty"),
-                        Error.New("Invalid URI: The format of the URI could not be determined."),
-                        Error.New("The specified string is not in the form required for an e-mail address."),
-                        Error.New("The specified string is not a valid brand kind."));
-
-                });
-        }
-
-        [Fact]
-        public void BrandsFactory_Should_CreateNewBrandsFromPrimitives()
-        {
-            Guid id = Guid.NewGuid();
-            IBrand brand = factory.NewBrand(
-                id,
-                "name",
-                "slug",
-                "company name",
-                "https://www.website.com",
-                "mail@mail.com",
-                "industrial"
-            );
-
-            brand.BrandId.Should().Be(new BrandId(id));
-            brand.Name.Should().Be("name");
-            brand.Slug.Should().Be(Slug.Of("slug"));
-            brand.CompanyName.Should().Be("company name");
-            brand.WebsiteUrl.Should().Be(new Uri("https://www.website.com"));
-            brand.EmailAddress.Should().Be(new MailAddress("mail@mail.com"));
-            brand.Kind.Should().Be(BrandKind.Industrial);
-        }
-
-        [Fact]
-        public void BrandsFactory_ShouldCreateNewBrand_WithIndustialAsDefaultKind()
-        {
-            Guid id = Guid.NewGuid();
-            IBrand brand = factory.NewBrand(
-                id,
-                "name",
-                "slug",
-                "company name",
-                "https://www.website.com",
-                "mail@mail.com",
-                null
-            );
-
-            brand.Kind.Should().Be(BrandKind.Industrial);
-        }
-
-        [Fact]
-        public void BrandsFactory_Should_CreateNewBrandsFromDomainObjects()
-        {
-            BrandId id = new BrandId(Guid.NewGuid());
-            IBrand brand = factory.NewBrand(
-                id,
-                "name",
-                Slug.Of("slug"),
-                "company name",
+                "group name",
+                "description",
                 new Uri("https://www.website.com"),
                 new MailAddress("mail@mail.com"),
-                BrandKind.Industrial
-            );
+                BrandKind.Industrial,
+                ExpectedAddress);
 
-            brand.BrandId.Should().Be(id);
-            brand.Name.Should().Be("name");
-            brand.Slug.Should().Be(Slug.Of("slug"));
-            brand.CompanyName.Should().Be("company name");
-            brand.WebsiteUrl.Should().Be(new Uri("https://www.website.com"));
-            brand.EmailAddress.Should().Be(new MailAddress("mail@mail.com"));
-            brand.Kind.Should().Be(BrandKind.Industrial);
+            b.Should().NotBeNull();
+            b.BrandId.Should().Be(ExpectedBrandId);
+            b.Name.Should().Be("NAME");
+            b.Slug.Should().Be(Slug.Of("name"));
+            b.CompanyName.Should().Be("company name");
+            b.Description.Should().Be("description");
+            b.WebsiteUrl.Should().Be(new Uri("https://www.website.com"));
+            b.EmailAddress.Should().Be(new MailAddress("mail@mail.com"));
+            b.Address.Should().Be(ExpectedAddress);
+            b.Kind.Should().Be(BrandKind.Industrial);
+            b.Version.Should().Be(1);
+            b.LastModifiedAt.Should().Be(ExpectedDate);
         }
 
         [Fact]
-        public void BrandsFactory_ShouldLeaveMailAddressNull_WhenProvidedValueIsBlank()
+        public void BrandsFactory_NewBrand_ShouldCreateBrands()
         {
-            IBrand brand = factory.NewBrand(
-                Guid.NewGuid(),
+            Address ExpectedAddress = Address.With(
+                    line1: "22 Acacia Avenue",
+                    city: "London",
+                    postalCode: "123456",
+                    country: "UK");
+
+            IBrand b = factory.NewBrand(
+                ExpectedBrandId.ToGuid(),
+                "NAME",
                 "name",
-                "slug",
+                BrandKind.Industrial.ToString(),
                 "company name",
+                "group name",
+                "description",
                 "https://www.website.com",
-                "",
-                "industrial"
-            );
-
-            brand.EmailAddress.Should().BeNull();
-        }
-
-        [Fact]
-        public void BrandsFactory_ShouldLeaveWebSiteNull_WhenProvidedValueIsBlank()
-        {
-            IBrand brand = factory.NewBrand(
-                Guid.NewGuid(),
-                "name",
-                "slug",
-                "company name",
-                "",
                 "mail@mail.com",
-                "industrial"
-            );
+                ExpectedAddress,
+                ExpectedDate.ToDateTimeUtc(),
+                2);
 
-            brand.WebsiteUrl.Should().BeNull();
+            b.Should().NotBeNull();
+            b.BrandId.Should().Be(ExpectedBrandId);
+            b.Name.Should().Be("NAME");
+            b.Slug.Should().Be(Slug.Of("name"));
+            b.CompanyName.Should().Be("company name");
+            b.Description.Should().Be("description");
+            b.WebsiteUrl.Should().Be(new Uri("https://www.website.com"));
+            b.EmailAddress.Should().Be(new MailAddress("mail@mail.com"));
+            b.Kind.Should().Be(BrandKind.Industrial);
+            b.Address.Should().Be(ExpectedAddress);
+            b.Version.Should().Be(2);
+            b.LastModifiedAt.Should().Be(ExpectedDate);
         }
 
         [Fact]
-        public void BrandsFactory_ShouldThrowArgumentException_WhenProvidedMailAddressIsInvalid()
+        public void BrandsFactory_NewBrand_ShouldSetNullTheInvalidValues()
         {
-            Action act = () => factory.NewBrand(
-                Guid.NewGuid(),
+            Address ExpectedAddress = Address.With(line1: "", city: "", postalCode: "");
+
+            IBrand b = factory.NewBrand(
+                ExpectedBrandId.ToGuid(),
+                "NAME",
                 "name",
-                "slug",
+                BrandKind.Industrial.ToString(),
                 "company name",
-                null,
-                "invalid email",
-                "industrial"
-            );
+                "group name",
+                "description",
+                "--invalid url--",
+                "--invalid email--",
+                Address.With(),
+                ExpectedDate.ToDateTimeUtc(),
+                2);
 
-            act.Should().Throw<FormatException>()
-                .WithMessage("The specified string is not in the form required for an e-mail address.");
-        }
-
-        [Fact]
-        public void BrandsFactory_ShouldThrowArgumentException_WhenProvidedWebsiteUrlIsInvalid()
-        {
-            Action act = () => factory.NewBrand(
-                Guid.NewGuid(),
-                "name",
-                "slug",
-                "company name",
-                "invalid uri",
-                null,
-                "industrial"
-            );
-
-            act.Should().Throw<UriFormatException>()
-                .WithMessage("Invalid URI: The format of the URI could not be determined.");
+            b.Should().NotBeNull();
+            b.WebsiteUrl.Should().BeNull();
+            b.EmailAddress.Should().BeNull();
+            b.Address.Should().Be(ExpectedAddress);
         }
     }
 }

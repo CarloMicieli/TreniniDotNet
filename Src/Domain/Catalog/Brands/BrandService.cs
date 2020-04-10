@@ -21,7 +21,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         public Task<BrandId> CreateBrand(
             string name,
-            Slug slug,
             string? companyName,
             string? groupName,
             string? description,
@@ -31,9 +30,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             Address? address)
         {
             var newBrand = _brandsFactory.NewBrand(
-                BrandId.NewId(),
                 name,
-                slug,
                 companyName,
                 groupName,
                 description,

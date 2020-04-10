@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using NodaTime;
 using NodaTime.Testing;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Pagination;
@@ -20,7 +21,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
         {
             _context = context;
             _railwaysFactory = new RailwaysFactory(
-                new FakeClock(Instant.FromUtc(1988, 11, 26, 0, 0)));
+                new FakeClock(Instant.FromUtc(1988, 11, 26, 0, 0)), new GuidSource());
         }
 
         public Task<RailwayId> Add(IRailway railway)

@@ -4,37 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using LanguageExt;
-using static LanguageExt.Prelude;
+using System;
+using static TreniniDotNet.Common.Enums.EnumHelpers;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
     public sealed class CreateCatalogItem : ValidatedUseCase<CreateCatalogItemInput, ICreateCatalogItemOutputPort>, ICreateCatalogItemUseCase
     {
-        private readonly ICreateCatalogItemOutputPort _outputPort;
         private readonly IUnitOfWork _unitOfWork;
         private readonly CatalogItemService _catalogItemService;
-        private readonly IRollingStocksFactory _rollingStocksFactory;
         private readonly ICatalogItemsFactory _catalogItemsFactory;
 
         public CreateCatalogItem(
             ICreateCatalogItemOutputPort outputPort,
             CatalogItemService catalogItemService,
             ICatalogItemsFactory catalogItemsFactory,
-            IRollingStocksFactory rollingStocksFactory,
             IUnitOfWork unitOfWork)
             : base(new CreateCatalogItemInputValidator(), outputPort)
         {
-            _outputPort = outputPort;
             _unitOfWork = unitOfWork;
             _catalogItemService = catalogItemService;
-            _rollingStocksFactory = rollingStocksFactory;
             _catalogItemsFactory = catalogItemsFactory;
         }
 
@@ -63,21 +57,21 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             }
 
             var railwaysNotFound = new List<string>();
-            var railways = new Dictionary<string, IRailway>();
+            var railways = new Dictionary<string, IRailwayInfo>();
             var railwayNames = input.RollingStocks
                 .Select(rs => rs.Railway)
-                .Distinct()
-                .ToList();
+                .Distinct();
+
             foreach (var railwayName in railwayNames)
             {
-                IRailway? railway = await _catalogItemService.FindRailwayByName(railwayName);
-                if (railway is null)
+                IRailwayInfo? railwayInfo = await _catalogItemService.FindRailwayByName(railwayName);
+                if (railwayInfo is null)
                 {
                     railwaysNotFound.Add(railwayName);
                 }
                 else
                 {
-                    railways.Add(railwayName, railway);
+                    railways.Add(railwayName, railwayInfo);
                 }
             }
 
@@ -87,54 +81,35 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 return;
             }
 
-            Validation<Error, ICatalogItem> result =
-            (
-                from rollingStocks in ValidRollingStocks(input, railways)
-                from catalogItem in ValidCatalogItem(brand, scale, input, rollingStocks)
-                select catalogItem
-            );
+            var rollingStocks = BuildRollingStocksList(input, railways);
+            var deliveryDate = DeliveryDate.TryParse(input.DeliveryDate, out var dd) ? dd : null;
 
-            result.Match(
-                Succ: async catalogItem =>
-                {
-                    var catalogItemId = await _catalogItemService.CreateNewCatalogItem(catalogItem);
-                    await _unitOfWork.SaveAsync();
-
-                    CreateStandardOutput(catalogItem);
-                },
-                Fail: errors => OutputPort.Errors(errors.ToImmutableList()));
-        }
-
-        private Validation<Error, ICatalogItem> ValidCatalogItem(
-            IBrandInfo brand, IScaleInfo scale,
-            CreateCatalogItemInput input,
-            IEnumerable<IRollingStock> rollingStocks)
-        {
-            Validation<Error, ICatalogItem> catalogItemV = _catalogItemsFactory.NewCatalogItem(
+            var catalogItem = _catalogItemsFactory.NewCatalogItem(
                 brand,
-                input.ItemNumber,
+                itemNumber,
                 scale,
-                input.PowerMethod,
-                input.DeliveryDate, input.Available,
-                input.Description, input.ModelDescription, input.PrototypeDescription,
-                rollingStocks.ToImmutableList());
-            return catalogItemV;
+                RequiredValueFor<PowerMethod>(input.PowerMethod),
+                rollingStocks,
+                input.Description,
+                input.PrototypeDescription,
+                input.ModelDescription,
+                deliveryDate,
+                input.Available);
+
+            var _ = await _catalogItemService.CreateNewCatalogItem(catalogItem);
+            await _unitOfWork.SaveAsync();
+
+            CreateStandardOutput(catalogItem);
         }
 
-        private Validation<Error, IEnumerable<IRollingStock>> ValidRollingStocks(CreateCatalogItemInput input, Dictionary<string, IRailway> railways) =>
-            input.RollingStocks
-                .Select(it => ToRollingStock(it, railways))
-                .Sequence();
-
-        private Validation<Error, IRollingStock> ToRollingStock(RollingStockInput input, Dictionary<string, IRailway> railways)
+        private IRollingStock ToRollingStock(RollingStockInput input, Dictionary<string, IRailwayInfo> railways)
         {
-            IRailway? railway = null;
-            if (railways.TryGetValue(input.Railway, out railway))
+            if (railways.TryGetValue(input.Railway, out var railwayInfo))
             {
                 if (Categories.IsLocomotive(input.Category))
                 {
-                    return _rollingStocksFactory.NewLocomotive(
-                        railway,
+                    return _catalogItemsFactory.NewLocomotive(
+                        railwayInfo,
                         input.Era,
                         input.Category,
                         input.Length,
@@ -143,12 +118,11 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                         input.DccInterface,
                         input.Control
                     );
-
                 }
                 else
                 {
-                    return _rollingStocksFactory.NewRollingStock(
-                        railway,
+                    return _catalogItemsFactory.NewRollingStock(
+                        railwayInfo,
                         input.Era,
                         input.Category,
                         input.Length,
@@ -157,7 +131,16 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 }
             }
 
-            return Fail<Error, IRollingStock>(Error.New("invalid rolling stock: railway is not valid"));
+            throw new InvalidOperationException("FIX ME");
+        }
+
+        private IImmutableList<IRollingStock> BuildRollingStocksList(
+            CreateCatalogItemInput input,
+            Dictionary<string, IRailwayInfo> railways)
+        {
+            return input.RollingStocks
+                .Select(it => ToRollingStock(it, railways))
+                .ToImmutableList();
         }
 
         private void CreateStandardOutput(ICatalogItem catalogItem)

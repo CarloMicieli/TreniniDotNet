@@ -9,6 +9,7 @@ using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UnitTests.InMemory.OutputPorts.Catalog;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Common.Uuid.Testing;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using Xunit;
@@ -176,11 +177,6 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         private CreateCatalogItem NewCreateCatalogItem(CatalogItemService catalogItemService, CreateCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)
         {
-            IRollingStocksFactory rollingStocksFactory = new RollingStocksFactory(
-                new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)),
-                FakeGuidSource.NewSource(new Guid("3d02506b-8263-4e14-880d-3f3caf22c562"))
-            );
-
             ICatalogItemsFactory catalogItemsFactory = new CatalogItemsFactory(
                 new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)),
                 FakeGuidSource.NewSource(new Guid("3d02506b-8263-4e14-880d-3f3caf22c562"))
@@ -188,7 +184,6 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             return new CreateCatalogItem(outputPort,
                 catalogItemService, catalogItemsFactory,
-                rollingStocksFactory,
                 unitOfWork);
         }
 

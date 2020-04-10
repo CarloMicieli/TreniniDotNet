@@ -18,7 +18,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 
         public override void SetValue(IDbDataParameter parameter, Gauge? value)
         {
-            parameter.Value = value?.ToDecimal(MeasureUnit.Millimeters);
+            parameter.Value = value?.Value;
         }
     }
 }

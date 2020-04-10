@@ -11,6 +11,7 @@ using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Infrastracture.Dapper;
 using NodaTime;
 using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Common.Uuid;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
@@ -22,7 +23,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         }
 
         private static IBrandsRepository CreateRepository(IDatabaseContext databaseContext, IClock clock) =>
-            new BrandsRepository(databaseContext, new BrandsFactory(clock));
+            new BrandsRepository(databaseContext, new BrandsFactory(clock, new GuidSource()));
 
         [Fact]
         public async Task BrandsRepository_Add_ShouldInsertNewBrands()

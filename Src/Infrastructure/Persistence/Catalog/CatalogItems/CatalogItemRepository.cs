@@ -1,11 +1,14 @@
 ﻿using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Infrastracture.Dapper;
 
@@ -15,14 +18,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
     {
         private readonly IDatabaseContext _dbContext;
         private readonly ICatalogItemsFactory _factory;
-        private readonly CatalogItemsMapper _mapper;
 
-        public CatalogItemRepository(IDatabaseContext dbContext, ICatalogItemsFactory factory, IRollingStocksFactory rsFactory)
+        public CatalogItemRepository(IDatabaseContext dbContext, ICatalogItemsFactory factory)
         {
             _dbContext = dbContext;
             _factory = factory;
-
-            _mapper = new CatalogItemsMapper(factory, rsFactory);
         }
 
         public async Task<CatalogItemId> Add(ICatalogItem catalogItem)
@@ -55,7 +55,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                     rs.RollingStockId,
                     rs.Era,
                     rs.Category,
-                    RailwayId = rs.Railway.RailwayId,
+                    rs.Railway.RailwayId,
                     catalogItem.CatalogItemId,
                     rs.Length,
                     rs.ClassName,
@@ -115,7 +115,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                         item_number = it.item_number,
                         slug = it.slug
                     })
-                    .Select(it => _mapper.ProjectToCatalogItem(it))
+                    .Select(it => ProjectToCatalogItem(it))
                     .FirstOrDefault();
                 return catalogItem;
             }
@@ -124,6 +124,61 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 return null;
             }
         }
+
+        private ICatalogItem? ProjectToCatalogItem(IGrouping<CatalogItemGroupingKey, CatalogItemWithRelatedData> dto)
+        {
+            IReadOnlyList<IRollingStock> rollingStocks = dto
+                .Select(it => this.ProjectToRollingStock(it)!)
+                .ToImmutableList();
+
+            CatalogItemWithRelatedData it = dto.First();
+
+            return _factory.NewCatalogItem(
+                it.catalog_item_id,
+                it.slug,
+                new BrandInfo(it.brand_id, it.brand_slug, it.brand_name),
+                it.item_number,
+                new ScaleInfo(it.scale_id, it.scale_slug, it.scale_name, it.scale_ratio),
+                it.power_method,
+                it.delivery_date,
+                it.available,
+                it.description,
+                it.model_description,
+                it.prototype_description,
+                rollingStocks,
+                it.created_at ?? DateTime.UtcNow,
+                it.version ?? 1);
+        }
+
+        private IRollingStock? ProjectToRollingStock(CatalogItemWithRelatedData? dto)
+        {
+            if (dto is null)
+            {
+                return null;
+            }
+            else
+            {
+                var railwayInfo = ProjectToRailwayInfo(dto!);
+                return RollingStock(dto!, railwayInfo);
+            }
+        }
+
+        private IRailwayInfo ProjectToRailwayInfo(CatalogItemWithRelatedData dto) =>
+            new RailwayInfo(dto.railway_id, dto.railway_slug, dto.railway_name, dto.railway_country!); //TODO: fixme
+
+        private IRollingStock RollingStock(CatalogItemWithRelatedData dto, IRailwayInfo railway) =>
+            _factory.NewRollingStock(
+                dto.rolling_stock_id,
+                railway,
+                dto.era,
+                dto.category,
+                dto.length,
+                dto.class_name,
+                dto.road_number,
+                dto.type_name,
+                dto.dcc_interface,
+                dto.control
+            );
 
         #region [ Query / Command text ]
 

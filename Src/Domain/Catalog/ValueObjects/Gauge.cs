@@ -1,67 +1,56 @@
 ﻿using System;
-using LanguageExt;
-using static LanguageExt.Prelude;
 using TreniniDotNet.Common.Extensions;
+using TreniniDotNet.Common.Lengths;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {
-    /// <summary>
-    /// A model trains Gauge is the distance between the inner edges of the two rails that it runs on.
-    /// </summary>
+    // Gauge is the distance between the inner edges of the two rails that it runs on.
     public readonly struct Gauge : IEquatable<Gauge>, IComparable<Gauge>
     {
-        private const int DefaultDigits = 2;
+        public decimal Value { get; }
+        public MeasureUnit MeasureUnit { get; }
 
-        private readonly decimal _gauge;
-        private readonly MeasureUnit _mu;
+        private Gauge(float gauge, MeasureUnit mu)
+            : this((decimal)gauge, mu)
+        {
+        }
 
         private Gauge(decimal gauge, MeasureUnit mu)
         {
-            if (gauge <= 0M)
+            if (gauge.IsPositive())
             {
-                throw new ArgumentException(ExceptionMessages.InvalidGaugeValue);
+                Value = gauge;
+                MeasureUnit = mu;
             }
-
-            _gauge = gauge;
-            _mu = mu;
+            else
+            {
+                throw new ArgumentException(ExceptionMessages.InvalidGaugeValue, nameof(gauge));
+            }
         }
 
-        public static Option<Gauge> TryConvert(decimal v, MeasureUnit mu) =>
-            v.IsPositive() ? Some(new Gauge(v, mu)) : None;
+        public static Gauge Of(decimal value, MeasureUnit mu) => new Gauge(value, mu);
 
-        /// <summary>
-        /// Returns this <em>Gauge</em> value as Float, with the provided measure unit.
-        /// </summary>
-        /// <remarks>
-        /// If the provided <em>MeasureUnit</em> is different from the one used to create this value
-        /// the returned value is calculated using a conversion method.
-        /// </remarks>
-        /// <param name="mu"></param>
-        /// <returns></returns>
-        public float ToFloat(MeasureUnit mu)
-        {
-            var self = this;
-            return (float)mu.GetValueOrConvert(() => (self._gauge, self._mu));
-        }
+        public static Gauge OfMillimiters(float mm) => new Gauge(mm, MeasureUnit.Millimeters);
 
-        public decimal ToDecimal(MeasureUnit mu)
-        {
-            var self = this;
-            return mu.GetValueOrConvert(() => (self._gauge, self._mu));
-        }
+        public static Gauge OfMillimiters(decimal mm) => new Gauge(mm, MeasureUnit.Millimeters);
 
-        public void Deconstruct(out decimal v, out MeasureUnit mu)
+        public static Gauge OfInches(float inches) => new Gauge(inches, MeasureUnit.Inches);
+
+        public static Gauge OfInches(decimal inches) => new Gauge(inches, MeasureUnit.Inches);
+
+        public void Deconstruct(out decimal value, out MeasureUnit mu)
         {
-            v = _gauge;
-            mu = _mu;
+            value = Value;
+            mu = MeasureUnit;
         }
 
         #region [ Comparable ]
         public int CompareTo(Gauge other)
         {
-            var (lg, lmu) = this;
-            var (rg, rmu) = other;
-            return (lmu, rmu).Combine(lg, rg, (l, r, mu) => l.CompareTo(r));
+            decimal otherValue = other.MeasureUnit
+                .ConvertTo(this.MeasureUnit)
+                .Convert(other.Value);
+            return Value.CompareTo(otherValue);
         }
 
         public static bool operator >(Gauge left, Gauge right)
@@ -96,67 +85,37 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             return false;
         }
 
-        public static bool operator ==(Gauge left, Gauge right)
-        {
-            return AreEquals(left, right);
-        }
+        public static bool operator ==(Gauge left, Gauge right) => AreEquals(left, right);
 
-        public static bool operator !=(Gauge left, Gauge right)
-        {
-            return !AreEquals(left, right);
-        }
+        public static bool operator !=(Gauge left, Gauge right) => !AreEquals(left, right);
 
-        public bool Equals(Gauge other)
+        public bool Equals(Gauge other) => AreEquals(this, other);
+
+        public bool Equals(Gauge other, bool silentlyConvert)
         {
-            return AreEquals(this, other);
+            if (silentlyConvert)
+            {
+                decimal otherValue = other.MeasureUnit
+                    .ConvertTo(this.MeasureUnit)
+                    .Convert(other.Value);
+
+                return this.Value.Equals(otherValue);
+            }
+            else
+            {
+                return AreEquals(this, other);
+            }
         }
 
         private static bool AreEquals(Gauge left, Gauge right)
         {
-            return left._gauge.Equals(right._gauge);
+            return left.Value.Equals(right.Value) &&
+                left.MeasureUnit.Equals(right.MeasureUnit);
         }
         #endregion
 
-        public override string ToString()
-        {
-            return _mu.Apply<Gauge, string>(this,
-                gauge => $"{gauge.ToFloat(MeasureUnit.Inches)}in",
-                gauge => $"{gauge.ToFloat(MeasureUnit.Millimeters)}mm");
-        }
+        public override string ToString() => MeasureUnit.ToString(Value);
 
-        public override int GetHashCode()
-        {
-            return _gauge.GetHashCode();
-        }
-
-        /// <summary>
-        /// It creates a new <em>Gauge</em> for the provided value expressed in millimeters.
-        /// </summary>
-        /// <param name="v">the value (in millimeters)</param>
-        /// <returns>a new <em>Gauge</em></returns>
-        public static Gauge OfMillimiters(float v)
-        {
-            return new Gauge((decimal)v, MeasureUnit.Millimeters);
-        }
-
-        public static Gauge OfMillimiters(decimal d)
-        {
-            return new Gauge(d, MeasureUnit.Millimeters);
-        }
-
-        /// <summary>
-        /// It creates a new <em>Gauge</em> for the provided value expressed in inches.
-        /// </summary>
-        /// <param name="v">the value (in inches)</param>
-        /// <returns>a new <em>Gauge</em></returns>
-        public static Gauge OfInches(float v)
-        {
-            return new Gauge((decimal)v, MeasureUnit.Inches);
-        }
-
-        public static Gauge OfInches(decimal d)
-        {
-            return new Gauge(d, MeasureUnit.Inches);
-        }
+        public override int GetHashCode() => HashCode.Combine(Value, MeasureUnit);
     }
 }

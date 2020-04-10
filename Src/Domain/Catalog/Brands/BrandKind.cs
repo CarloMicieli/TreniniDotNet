@@ -18,15 +18,4 @@
         /// </summary>
         BrassModels
     }
-
-    public static class BrandKindExtensions
-    {
-        public static BrandKind ToBrandKind(this string? s)
-        {
-            if (System.Enum.TryParse<BrandKind>(s, true, out BrandKind result))
-                return result;
-
-            return BrandKind.Industrial;
-        }
-    }
 }

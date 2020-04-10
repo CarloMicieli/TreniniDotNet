@@ -1,34 +1,31 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {
     public readonly struct DeliveryDate : IEquatable<DeliveryDate>, IComparable<DeliveryDate>
     {
-        private readonly int _year;
-        private readonly Quarter? _quarter;
-
-        private static readonly DeliveryDate _empty = new DeliveryDate(int.MaxValue, null);
-
         private DeliveryDate(int year, Quarter? quarter)
         {
-            _year = year;
-            _quarter = quarter;
+            Year = year;
+            Quarter = quarter;
         }
 
-        public int Year => _year;
-        public Quarter? Quarter => _quarter;
+        public static DeliveryDate FirstQuarterOf(int year) => new DeliveryDate(year, ValueObjects.Quarter.Q1);
+        public static DeliveryDate SecondQuarterOf(int year) => new DeliveryDate(year, ValueObjects.Quarter.Q2);
+        public static DeliveryDate ThirdQuarterOf(int year) => new DeliveryDate(year, ValueObjects.Quarter.Q3);
+        public static DeliveryDate FourthQuarterOf(int year) => new DeliveryDate(year, ValueObjects.Quarter.Q4);
 
-        public static DeliveryDate Empty => _empty;
+        public int Year { get; }
+        public Quarter? Quarter { get; }
 
-        public bool HasQuarter => _quarter.HasValue;
-
-        public bool IsEmpty => _year == int.MaxValue;
+        public bool HasQuarter => Quarter.HasValue;
 
         public override string ToString() => this.HasQuarter ?
-            $"{_year}/{_quarter}" : _year.ToString();
+            $"{Year}/{Quarter}" : Year.ToString();
 
-        public override int GetHashCode() => HashCode.Combine(_year, _quarter);
+        public override int GetHashCode() => HashCode.Combine(Year, Quarter);
 
         #region [ Equality ]
         public override bool Equals(object obj)
@@ -70,8 +67,14 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         public static bool operator <=(DeliveryDate left, DeliveryDate right) => left.CompareTo(right) <= 0;
         #endregion
 
-        public static bool TryParse(string str, out DeliveryDate result)
+        public static bool TryParse(string? str, [NotNullWhen(true)] out DeliveryDate? result)
         {
+            if (str is null)
+            {
+                result = default;
+                return false;
+            }
+
             var dd = DeliveryDateParser.Parse(str);
             if (dd.HasValue)
             {
@@ -81,19 +84,6 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
             result = default;
             return false;
-        }
-
-        public static bool TryParseOpt(string? str, out DeliveryDate result)
-        {
-            if (str is null)
-            {
-                result = DeliveryDate.Empty;
-                return true;
-            }
-
-            var response = TryParse(str!, out var dd);
-            result = dd;
-            return response;
         }
 
         public static bool TryCreate(int year, Quarter? quarter, out DeliveryDate result)

@@ -24,14 +24,13 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddScoped<IBrandsFactory, BrandsFactory>();
 
             services.AddScoped<IRailwaysRepository, RailwaysRepository>();
-            services.AddScoped<IRailwaysFactory, Domain.Catalog.Railways.RailwaysFactory>();
+            services.AddScoped<IRailwaysFactory, RailwaysFactory>();
 
             services.AddScoped<IScalesRepository, ScalesRepository>();
-            services.AddScoped<IScalesFactory, Domain.Catalog.Scales.ScalesFactory>();
+            services.AddScoped<IScalesFactory, ScalesFactory>();
 
             services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
             services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();
-            services.AddScoped<IRollingStocksFactory, RollingStocksFactory>();
 
             return services;
         }

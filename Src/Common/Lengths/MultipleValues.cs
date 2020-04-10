@@ -1,5 +1,3 @@
-using LanguageExt;
-using static LanguageExt.Prelude;
 using System;
 using TreniniDotNet.Common.Extensions;
 using System.Diagnostics.CodeAnalysis;
@@ -27,6 +25,21 @@ namespace TreniniDotNet.Common.Lengths
         public MeasureUnit MeasureUnit2 { get; }
         private Func<decimal, MeasureUnit, TResult> BuildResult { get; }
 
+        public (TResult, TResult) Create(decimal value, MeasureUnit mu)
+        {
+            if (mu == MeasureUnit1)
+            {
+                return Create(value, null);
+            }
+
+            if (mu == MeasureUnit2)
+            {
+                return Create(null, value);
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(mu), $"Invalid measure unit [valid: {MeasureUnit1}, {MeasureUnit2}]");
+        }
+
         public (TResult, TResult) Create(decimal? left, decimal? right)
         {
             if (left.HasValue && right.HasValue)
@@ -37,7 +50,7 @@ namespace TreniniDotNet.Common.Lengths
             }
             else if (left.HasValue)
             {
-                decimal rightValue = MeasureUnit2.ConvertTo(MeasureUnit1)
+                decimal rightValue = MeasureUnit1.ConvertTo(MeasureUnit2)
                     .Convert(left.Value);
                 return (
                     BuildResult(left.Value, MeasureUnit1),
@@ -45,7 +58,7 @@ namespace TreniniDotNet.Common.Lengths
             }
             else if (right.HasValue)
             {
-                decimal leftValue = MeasureUnit1.ConvertTo(MeasureUnit2)
+                decimal leftValue = MeasureUnit2.ConvertTo(MeasureUnit1)
                     .Convert(right.Value);
                 return (
                     BuildResult(leftValue, MeasureUnit1),
@@ -55,7 +68,7 @@ namespace TreniniDotNet.Common.Lengths
             throw new InvalidOperationException();
         }
 
-        public bool TryCreate(decimal? left, decimal? right, 
+        public bool TryCreate(decimal? left, decimal? right,
             [NotNullWhen(true)] out (TResult, TResult)? result)
         {
             if (!ValidateValue(left) || !ValidateValue(right))
@@ -93,32 +106,6 @@ namespace TreniniDotNet.Common.Lengths
             result = null;
             return false;
         }
-
-        public Validation<Error, (TResult, TResult)> TryCreate(decimal? left, decimal? right)
-        {
-            if (left.HasValue && right.HasValue)
-            {
-                var leftV = NonNegative(left.Value, $"{left.Value} {MeasureUnit1} is not a valid value (negative)");
-                var rightV = NonNegative(right.Value, $"{right.Value} {MeasureUnit2} is not a valid value (negative)");
-                return (leftV, rightV).Apply((lhs, rhs) => this.Create(lhs, rhs));
-            }
-            else if (left.HasValue)
-            {
-                var leftV = NonNegative(left.Value, $"{left.Value} {MeasureUnit1} is not a valid value (negative)");
-                return leftV.Select(lhs => this.Create(lhs, null));
-            }
-            else if (right.HasValue)
-            {
-                var rightV = NonNegative(right.Value, $"{right.Value} {MeasureUnit2} is not a valid value (negative)");
-                return rightV.Select(rhs => this.Create(null, rhs));
-            }
-
-            return Fail<Error, (TResult, TResult)>(Error.New("Both left and right values are null"));
-        }
-
-        private static Validation<Error, decimal> NonNegative(decimal value, string because) =>
-            value.IsPositive() ? Success<Error, decimal>(value) : Fail<Error, decimal>(because);
-
 
         private static bool ValidateValue(decimal? val) =>
             val.HasValue && val.Value.IsPositive();

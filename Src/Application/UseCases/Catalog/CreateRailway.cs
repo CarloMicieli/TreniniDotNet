@@ -36,7 +36,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             var (status, since, until) = input.PeriodOfActivity;
             var periodOfActivity = PeriodOfActivity.Of(status, since, until);
-            
+
             var country = Country.Of(input.Country!);
 
             var (km, mi) = input.TotalLength;
