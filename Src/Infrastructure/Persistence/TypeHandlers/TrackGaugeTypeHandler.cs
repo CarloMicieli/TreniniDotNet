@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using System.Data;
-using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Common.Enums;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {
@@ -13,7 +14,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
                 return null;
             }
 
-            return value.ToString().ToTrackGauge();
+            return EnumHelpers.OptionalValueFor<TrackGauge>(value.ToString());
         }
 
         public override void SetValue(IDbDataParameter parameter, TrackGauge? value)

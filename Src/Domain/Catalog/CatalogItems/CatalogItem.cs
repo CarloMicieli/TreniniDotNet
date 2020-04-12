@@ -1,68 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using NodaTime;
+using System;
+using System.Collections.Generic;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
-using NodaTime;
-using System;
-using LanguageExt;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.DeliveryDates;
+using TreniniDotNet.Common.Entities;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public sealed class CatalogItem : Record<CatalogItem>, ICatalogItem
+    public sealed class CatalogItem : ModifiableEntity, IEquatable<CatalogItem>, ICatalogItem
     {
-        [Obsolete]
-        public CatalogItem(
-            IBrandInfo brand,
-            ItemNumber itemNumber,
-            IScaleInfo scale,
-            IReadOnlyList<IRollingStock> rollingStocks,
-            PowerMethod powerMethod,
-            string description,
-            string? prototypeDescr,
-            string? modelDescr)
-            : this(
-                CatalogItemId.NewId(),
-                brand,
-                itemNumber,
-                BuildSlug(brand, itemNumber),
-                scale,
-                rollingStocks,
-                powerMethod,
-                description,
-                prototypeDescr,
-                modelDescr)
-        {
-        }
-
-        [Obsolete]
-        public CatalogItem(
-            CatalogItemId id,
-            IBrandInfo brand,
-            ItemNumber itemNumber,
-            Slug slug,
-            IScaleInfo scale,
-            IReadOnlyList<IRollingStock> rollingStocks,
-            PowerMethod powerMethod,
-            string description,
-            string? prototypeDescr,
-            string? modelDescr)
-        {
-            CatalogItemId = id;
-            Brand = brand;
-            Slug = slug;
-            Scale = scale;
-            ItemNumber = itemNumber;
-            RollingStocks = rollingStocks;
-            Description = description;
-            PrototypeDescription = prototypeDescr;
-            ModelDescription = modelDescr;
-            PowerMethod = powerMethod;
-            DeliveryDate = null;
-            LastModifiedAt = Instant.FromUtc(2020, 1, 1, 0, 0);
-            Version = 1;
-        }
-
         internal CatalogItem(
             CatalogItemId id,
             IBrandInfo brand,
@@ -76,8 +25,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             DeliveryDate? deliveryDate,
             bool available,
             IReadOnlyList<IRollingStock> rollingStocks,
-            Instant lastModifiedAt,
+            Instant created,
+            Instant? modified,
             int version)
+            : base(created, modified, version)
         {
             CatalogItemId = id;
             Brand = brand;
@@ -90,8 +41,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             ModelDescription = modelDescr;
             PowerMethod = powerMethod;
             DeliveryDate = deliveryDate;
-            LastModifiedAt = lastModifiedAt;
-            Version = version;
+            IsAvailable = available;
         }
 
         #region [ Properties ]
@@ -107,14 +57,34 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public PowerMethod PowerMethod { get; }
         public DeliveryDate? DeliveryDate { get; }
         public bool IsAvailable { get; }
-        public int Version { get; }
-        public Instant LastModifiedAt { get; }
         #endregion
 
-        [Obsolete]
-        private static Slug BuildSlug(IBrandInfo brand, ItemNumber itemNumber)
+        public static bool operator ==(CatalogItem left, CatalogItem right) => AreEquals(left, right);
+
+        public static bool operator !=(CatalogItem left, CatalogItem right) => !AreEquals(left, right);
+
+        public override bool Equals(object obj)
         {
-            return Slug.Of(brand.Name, itemNumber.Value);
+            if (obj is CatalogItem other)
+            {
+                return AreEquals(this, other);
+            }
+
+            return false;
         }
+
+        public bool Equals(CatalogItem other) => AreEquals(this, other);
+
+        private static bool AreEquals(CatalogItem left, CatalogItem right) =>
+            left.CatalogItemId == right.CatalogItemId;
+
+        public override int GetHashCode() => HashCode.Combine(CatalogItemId);
+
+        public override string ToString()
+        {
+            return $"CatalogItem({CatalogItemId} {Brand.Name} {ItemNumber})";
+        }
+
+        public ICatalogItemInfo ToCatalogItemInfo() => this;
     }
 }

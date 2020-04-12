@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using Xunit;
+using FluentAssertions;
 
 namespace TreniniDotNet.Domain.Pagination
 {
@@ -14,8 +15,8 @@ namespace TreniniDotNet.Domain.Pagination
 
             var result = new PaginatedResult<string>(page, data);
 
-            Assert.Equal(page, result.CurrentPage);
-            Assert.Equal(page.Limit, result.Results.Count());
+            result.CurrentPage.Should().Be(page);
+            result.Results.Should().HaveCount(page.Limit);
         }
 
         [Fact]
@@ -26,8 +27,8 @@ namespace TreniniDotNet.Domain.Pagination
 
             var result = new PaginatedResult<string>(page, data);
 
-            Assert.True(result.HasNext);
-            Assert.False(result.HasPrevious);
+            result.HasNext.Should().BeTrue();
+            result.HasPrevious.Should().BeFalse();
         }
 
         [Fact]
@@ -38,8 +39,8 @@ namespace TreniniDotNet.Domain.Pagination
 
             var result = new PaginatedResult<string>(page, data);
 
-            Assert.False(result.HasNext);
-            Assert.True(result.HasPrevious);
+            result.HasNext.Should().BeFalse();
+            result.HasPrevious.Should().BeTrue();
         }
 
         [Fact]
@@ -51,7 +52,7 @@ namespace TreniniDotNet.Domain.Pagination
             var result = new PaginatedResult<string>(page, data);
 
             var next = result.Next();
-            Assert.Equal(page.Next(), next);
+            next.Should().Be(page.Next());
         }
 
         [Fact]
@@ -63,7 +64,7 @@ namespace TreniniDotNet.Domain.Pagination
             var result = new PaginatedResult<string>(page, data);
 
             var prev = result.Previous();
-            Assert.Equal(page.Prev(), prev);
+            prev.Should().Be(page.Prev());
         }
 
         private List<string> FakeData(int count)

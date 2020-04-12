@@ -2,7 +2,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace TreniniDotNet.Infrastracture.Dapper.Extensions.DependencyInjection
+namespace TreniniDotNet.Infrastructure.Dapper.Extensions.DependencyInjection
 {
     public sealed class DapperOptions
     {

@@ -1,23 +1,18 @@
 ﻿using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
-using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public interface IBrandsRepository
     {
-        Task<IBrand?> GetBySlug(Slug slug);
+        Task<BrandId> AddAsync(IBrand brand);
 
-        Task<IBrand?> GetByName(string name);
+        Task<bool> ExistsAsync(Slug slug);
 
-        Task<BrandId> Add(IBrand brand);
+        Task<PaginatedResult<IBrand>> GetBrandsAsync(Page page);
 
-        Task<bool> Exists(Slug slug);
-
-        Task<List<IBrand>> GetAll();
-
-        Task<PaginatedResult<IBrand>> GetBrands(Page page);
+        Task<IBrand?> GetBySlugAsync(Slug slug);
     }
 }

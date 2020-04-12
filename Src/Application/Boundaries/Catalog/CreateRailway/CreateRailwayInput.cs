@@ -5,38 +5,110 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
 {
     public sealed class CreateRailwayInput : IUseCaseInput
     {
-        private readonly string? _name;
+        public string? Name { get; }
 
-        private readonly string? _companyName;
+        public string? CompanyName { get; }
 
-        private readonly string? _country;
+        public string? Country { get; }
 
-        private readonly string? _status;
+        public PeriodOfActivityInput PeriodOfActivity { get; }
 
-        private readonly DateTime? _operatingUntil;
+        public TotalRailwayLengthInput TotalLength { get; }
 
-        private readonly DateTime? _operatingSince;
+        public RailwayGaugeInput Gauge { get; }
 
-        public CreateRailwayInput(string? name, string? companyName, string? country, string? status, DateTime? operatingSince, DateTime? operatingUntil)
+        public string? WebsiteUrl { get; }
+
+        public string? Headquarters { get; }
+
+        public CreateRailwayInput(
+            string? name, string? companyName,
+            string? country,
+            PeriodOfActivityInput? periodOfActivity,
+            TotalRailwayLengthInput? totalLength,
+            RailwayGaugeInput? gauge,
+            string? websiteUrl, string? headquarters)
         {
-            _name = name;
-            _companyName = companyName;
-            _country = country;
-            _status = status;
-            _operatingUntil = operatingUntil;
-            _operatingSince = operatingSince;
+            Name = name;
+            CompanyName = companyName;
+            Country = country;
+            PeriodOfActivity = periodOfActivity ?? PeriodOfActivityInput.Default();
+            TotalLength = totalLength ?? TotalRailwayLengthInput.Default();
+            Gauge = gauge ?? RailwayGaugeInput.Default();
+            Headquarters = headquarters;
+            WebsiteUrl = websiteUrl;
+        }
+    }
+
+    public sealed class PeriodOfActivityInput
+    {
+        public PeriodOfActivityInput(
+            string? status,
+            DateTime? operatingSince,
+            DateTime? operatingUntil)
+        {
+            Status = status;
+            OperatingUntil = operatingUntil;
+            OperatingSince = operatingSince;
         }
 
-        public string? Name => _name;
+        public string? Status { get; }
+        public DateTime? OperatingUntil { get; }
+        public DateTime? OperatingSince { get; }
 
-        public string? CompanyName => _companyName;
+        public void Deconstruct(out string? status, out DateTime? since, out DateTime? until)
+        {
+            status = Status;
+            since = OperatingSince;
+            until = OperatingUntil;
+        }
 
-        public string? Country => _country;
+        public static PeriodOfActivityInput Default() =>
+            new PeriodOfActivityInput(null, null, null);
+    }
 
-        public string? Status => _status;
+    public sealed class TotalRailwayLengthInput
+    {
+        public TotalRailwayLengthInput(decimal? kilometers, decimal? miles)
+        {
+            Kilometers = kilometers;
+            Miles = miles;
+        }
 
-        public DateTime? OperatingUntil => _operatingUntil;
+        public decimal? Kilometers { get; }
+        public decimal? Miles { get; }
 
-        public DateTime? OperatingSince => _operatingSince;
+        public void Deconstruct(out decimal? km, out decimal? mi)
+        {
+            km = Kilometers;
+            mi = Miles;
+        }
+
+        public static TotalRailwayLengthInput Default() =>
+            new TotalRailwayLengthInput(null, null);
+    }
+
+    public sealed class RailwayGaugeInput
+    {
+        public RailwayGaugeInput(string? trackGauge, decimal? millimeters, decimal? inches)
+        {
+            TrackGauge = trackGauge;
+            Millimeters = millimeters;
+            Inches = inches;
+        }
+
+        public string? TrackGauge { get; }
+        public decimal? Millimeters { get; }
+        public decimal? Inches { get; }
+
+        public void Deconstruct(out string? trackGauge, out decimal? mm, out decimal? inches)
+        {
+            trackGauge = TrackGauge;
+            mm = Millimeters;
+            inches = Inches;
+        }
+
+        public static RailwayGaugeInput Default() =>
+            new RailwayGaugeInput(null, null, null);
     }
 }

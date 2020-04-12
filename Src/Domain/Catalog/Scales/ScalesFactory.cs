@@ -1,85 +1,70 @@
-using System;
-using LanguageExt;
-using static LanguageExt.Prelude;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using NodaTime;
+using System;
+using System.Collections.Immutable;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.Extensions;
+using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
     public class ScalesFactory : IScalesFactory
     {
         private readonly IClock _clock;
+        private readonly IGuidSource _guidSource;
 
-        public ScalesFactory(IClock clock)
+        public ScalesFactory(IClock clock, IGuidSource guidSource)
         {
-            _clock = clock;
+            _clock = clock ??
+                throw new ArgumentNullException(nameof(clock));
+            _guidSource = guidSource ??
+                throw new ArgumentNullException(nameof(guidSource));
         }
 
-        [Obsolete]
-        public IScale NewScale(Guid id, string name, string slug, decimal ratio, decimal gauge, string? trackGauge, string? notes)
-        {
-            return new Scale(
-                new ScaleId(id),
-                Slug.Of(slug),
-                name,
-                Ratio.Of(ratio),
-                Gauge.OfMillimiters(gauge),
-                trackGauge.ToTrackGauge(),
-                notes);
-        }
-
-        [Obsolete]
-        public IScale NewScale(ScaleId id, string name, Slug slug, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
+        public IScale NewScale(ScaleId id,
+            string name, Slug slug,
+            Ratio ratio,
+            ScaleGauge gauge,
+            string? description,
+            IImmutableSet<ScaleStandard> standards,
+            int? weight)
         {
             return new Scale(
                 id,
-                slug,
-                name,
+                name, slug,
                 ratio,
                 gauge,
-                trackGauge,
-                notes);
+                description,
+                 standards,
+                weight,
+                _clock.GetCurrentInstant(),
+                null,
+                1);
         }
 
-        public Validation<Error, IScale> NewScaleV(
-            Guid id,
-            string name,
+        public IScale? NewScale(Guid id,
+            string name, string slug,
             decimal ratio,
-            decimal gauge, string? trackGauge,
-            string? notes)
+            decimal gaugeMm, decimal gaugeIn, string trackType,
+            string? description,
+            int? weight,
+            DateTime created,
+            DateTime? modified,
+            int? version)
         {
-            var nameV = ToScaleName(name);
-            var ratioV = ToRatio(ratio);
-            var gaugeV = ToGauge(gauge);
-            var trackGaugeV = ToTrackGauge(trackGauge);
+            var scaleGauge = ScaleGauge.Of(gaugeMm, gaugeIn, trackType);
 
-            return (nameV, ratioV, gaugeV, trackGaugeV).Apply((_name, _ratio, _gauge, _trackGauge) =>
-            {
-                IScale scale = new Scale(
-                    new ScaleId(id),
-                    _name,
-                    Slug.Of(_name),
-                    _ratio,
-                    _gauge,
-                    _trackGauge,
-                    notes,
-                    _clock.GetCurrentInstant(),
-                    1);
-                return scale;
-            });
+            return new Scale(
+                new ScaleId(id),
+                name, Slug.Of(slug),
+                Ratio.Of(ratio),
+                scaleGauge,
+                description,
+                ImmutableHashSet<ScaleStandard>.Empty,
+                weight,
+                created.ToUtc(),
+                null,
+                version ?? 1);
         }
-
-        public static Validation<Error, string> ToScaleName(string? str) =>
-            string.IsNullOrWhiteSpace(str) == false ? Success<Error, string>(str!) : Fail<Error, string>(Error.New("invalid scale: name cannot be empty"));
-
-        private static Validation<Error, Ratio> ToRatio(decimal ratio) =>
-            ratio > 0M ? Success<Error, Ratio>(Ratio.Of(ratio)) : Fail<Error, Ratio>(Error.New("ratio value must be positive"));
-
-        private static Validation<Error, Gauge> ToGauge(decimal gauge) =>
-            gauge > 0M ? Success<Error, Gauge>(Gauge.OfMillimiters(gauge)) : Fail<Error, Gauge>(Error.New("gauge value must be positive"));
-
-        private static Validation<Error, TrackGauge> ToTrackGauge(string? str) =>
-            TrackGauges.TryParse(str, out var trackGauge) ? Success<Error, TrackGauge>(trackGauge) : Fail<Error, TrackGauge>(Error.New($"'{str}' is not a valid track gauge"));
     }
 }

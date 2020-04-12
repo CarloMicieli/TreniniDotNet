@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TreniniDotNet.Application.Services;
 
-namespace TreniniDotNet.Infrastracture.Dapper
+namespace TreniniDotNet.Infrastructure.Dapper
 {
     public sealed class DapperUnitOfWork : IUnitOfWork
     {

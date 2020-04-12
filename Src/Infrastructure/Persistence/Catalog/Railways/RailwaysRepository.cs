@@ -1,13 +1,11 @@
 using Dapper;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Pagination;
-using TreniniDotNet.Infrastracture.Dapper;
+using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
@@ -34,16 +32,24 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 railway.CompanyName,
                 railway.Slug,
                 railway.Country,
-                railway.OperatingSince,
-                railway.OperatingUntil,
-                Active = railway.Status == RailwayStatus.Active,
-                railway.CreatedAt,
+                railway.PeriodOfActivity?.OperatingSince,
+                railway.PeriodOfActivity?.OperatingUntil,
+                Active = railway.PeriodOfActivity?.RailwayStatus == RailwayStatus.Active,
+                GaugeMm = railway.TrackGauge?.Millimeters,
+                GaugeIn = railway.TrackGauge?.Inches,
+                railway.TrackGauge?.TrackGauge,
+                railway.Headquarters,
+                TotalLengthMi = railway.TotalLength?.Miles,
+                TotalLengthKm = railway.TotalLength?.Kilometers,
+                railway.WebsiteUrl,
+                Created = railway.CreatedDate.ToDateTimeUtc(),
+                Modified = railway.ModifiedDate?.ToDateTimeUtc(),
                 railway.Version
             });
             return railway.RailwayId;
         }
 
-        public async Task<bool> Exists(Slug slug)
+        public async Task<bool> ExistsAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -55,24 +61,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             return string.IsNullOrEmpty(result) == false;
         }
 
-        public async Task<List<IRailway>> GetAll()
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.QueryAsync<RailwayDto>(
-                GetAllRailwaysQuery,
-                new { });
-
-            if (result is null)
-            {
-                return new List<IRailway>();
-            }
-
-            return result.Select(it => FromRailwayDto(it)!).ToList();
-        }
-
-        public async Task<IRailway?> GetBySlug(Slug slug)
+        public async Task<IRailway?> GetBySlugAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -81,22 +70,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 GetRailwayBySlugQuery,
                 new { @slug = slug.ToString() });
 
-            return FromRailwayDto(result);
+            return ProjectToDomain(result);
         }
 
-        public async Task<IRailway?> GetByName(string name)
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.QueryFirstOrDefaultAsync<RailwayDto>(
-                GetRailwayByNameQuery,
-                new { name });
-
-            return FromRailwayDto(result);
-        }
-
-        public async Task<PaginatedResult<IRailway>> GetRailways(Page page)
+        public async Task<PaginatedResult<IRailway>> GetRailwaysAsync(Page page)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -107,10 +84,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             return new PaginatedResult<IRailway>(
                 page,
-                results.Select(it => FromRailwayDto(it)!).ToList());
+                results.Select(it => ProjectToDomain(it)!).ToList());
         }
 
-        private IRailway? FromRailwayDto(RailwayDto? dto)
+        private IRailway? ProjectToDomain(RailwayDto? dto)
         {
             if (dto is null)
             {
@@ -126,7 +103,15 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 dto.operating_since,
                 dto.operating_until,
                 dto.active,
-                dto.created_at,
+                dto.gauge_mm,
+                dto.gauge_in,
+                dto.track_gauge,
+                dto.headquarters,
+                dto.total_length_mi,
+                dto.total_length_km,
+                dto.website_url,
+                dto.created,
+                dto.last_modified,
                 dto.version);
         }
 
@@ -134,9 +119,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
         private const string InsertRailwayCommand = @"INSERT INTO railways(
 	            railway_id, name, company_name, slug, country, operating_since, operating_until, 
-                active, created_at, version)
+                active, gauge_mm, gauge_in, track_gauge, headquarters, total_length_mi, total_length_km, 
+                website_url, created, last_modified, version)
             VALUES(@RailwayId, @Name, @CompanyName, @Slug, @Country, @OperatingSince, @OperatingUntil, 
-                @Active, @CreatedAt, @Version);";
+                @Active, @GaugeMm, @GaugeIn, @TrackGauge, @Headquarters, @TotalLengthMi, @TotalLengthKm, 
+                @WebsiteUrl, @Created, @Modified, @Version);";
 
         private const string GetRailwayExistsQuery = @"SELECT slug FROM railways WHERE slug = @slug LIMIT 1;";
         private const string GetAllRailwaysQuery = @"SELECT * FROM railways ORDER BY name;";

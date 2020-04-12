@@ -1,32 +1,60 @@
+using System.Collections.Generic;
 using TreniniDotNet.Common.Interfaces;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
 {
     public sealed class CreateScaleInput : IUseCaseInput
     {
-        private readonly string? _name;
-        private readonly decimal? _ratio;
-        private readonly decimal? _gauge;
-        private readonly string? _trackGauge;
-        private readonly string? _notes;
-
-        public CreateScaleInput(string? name, decimal? ratio, decimal? gauge, string? trackGauge, string? notes)
+        public CreateScaleInput(
+            string? name,
+            decimal? ratio,
+            ScaleGaugeInput? gauge,
+            string? description,
+            List<string> standards,
+            int? weight)
         {
-            _name = name;
-            _ratio = ratio;
-            _gauge = gauge;
-            _trackGauge = trackGauge;
-            _notes = notes;
+            Name = name;
+            Ratio = ratio;
+            Gauge = gauge ?? ScaleGaugeInput.Default();
+            Description = description;
+            Standards = standards;
+            Weight = weight;
         }
 
-        public string? Name => _name;
+        public string? Name { get; }
 
-        public decimal? Ratio => _ratio;
+        public decimal? Ratio { get; }
 
-        public decimal? Gauge => _gauge;
+        public ScaleGaugeInput Gauge { get; }
 
-        public string? TrackGauge => _trackGauge;
+        public string? Description { get; }
 
-        public string? Notes => _notes;
+        public List<string> Standards { get; } = new List<string>();
+
+        public int? Weight { get; }
+    }
+
+    public sealed class ScaleGaugeInput
+    {
+        public ScaleGaugeInput(string? trackGauge, decimal? inches, decimal? millimeters)
+        {
+            TrackGauge = trackGauge;
+            Inches = inches;
+            Millimeters = millimeters;
+        }
+
+        public string? TrackGauge { get; }
+        public decimal? Inches { get; }
+        public decimal? Millimeters { get; }
+
+        public void Deconstruct(out string? trackGauge, out decimal? inches, out decimal? millimeters)
+        {
+            trackGauge = TrackGauge;
+            inches = Inches;
+            millimeters = Millimeters;
+        }
+
+        public static ScaleGaugeInput Default() =>
+            new ScaleGaugeInput(null, null, null);
     }
 }

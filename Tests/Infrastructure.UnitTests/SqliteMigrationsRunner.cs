@@ -2,8 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
-using TreniniDotNet.Infrastracture.Dapper;
-using TreniniDotNet.Infrastracture.Persistence.Migrations;
+using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.Infrastructure.Persistence.Migrations;
 
 namespace TreniniDotNet.Infrastructure
 {

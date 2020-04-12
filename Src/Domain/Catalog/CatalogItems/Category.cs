@@ -53,31 +53,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         StarterSet
     }
 
-    public static class CategoryExtensions
-    {
-        public static Category? ToCategory(this string? s)
-        {
-            if (System.Enum.TryParse<Category>(s, true, out Category result))
-                return result;
-
-            return null;
-        }
-    }
-
     public static class Categories
     {
-        public static bool TryParse(string str, out Category result)
-        {
-            if (string.IsNullOrWhiteSpace(str) == false && Enum.TryParse<Category>(str, true, out var r))
-            {
-                result = r;
-                return true;
-            }
-
-            result = default;
-            return false;
-        }
-
         public static bool IsLocomotive(string category)
         {
             if (TryParse(category, out var cat))
@@ -99,6 +76,18 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             }
 
             return true;
+        }
+
+        private static bool TryParse(string str, out Category result)
+        {
+            if (string.IsNullOrWhiteSpace(str) == false && Enum.TryParse<Category>(str, true, out var r))
+            {
+                result = r;
+                return true;
+            }
+
+            result = default;
+            return false;
         }
     }
 }

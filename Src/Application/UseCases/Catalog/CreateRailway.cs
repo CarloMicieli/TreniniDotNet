@@ -34,16 +34,29 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 return;
             }
 
-            var status = input.Status ?? RailwayStatus.Active.ToString();
+            var (status, since, until) = input.PeriodOfActivity;
+            var periodOfActivity = PeriodOfActivity.Of(status, since, until);
+
+            var country = Country.Of(input.Country!);
+
+            var (km, mi) = input.TotalLength;
+            var railwayLength = RailwayLength.TryCreate(km, mi, out var rl) ? rl : null;
+
+            var website = Uri.TryCreate(input.WebsiteUrl, UriKind.Absolute, out var uri) ? uri : null;
+
+            var (trackGauge, mm, inches) = input.Gauge;
+            var railwayGauge = RailwayGauge.TryCreate(trackGauge, inches, mm, out var rg) ? rg : null;
 
             var _ = await _railwayService.CreateRailway(
                 railwayName,
                 slug,
                 input.CompanyName,
-                input.Country,
-                input.OperatingSince,
-                input.OperatingUntil,
-                status.ToRailwayStatus() ?? RailwayStatus.Active); //TODO: fixme
+                country,
+                periodOfActivity,
+                railwayLength,
+                railwayGauge,
+                website,
+                input.Headquarters);
 
             await _unitOfWork.SaveAsync();
 

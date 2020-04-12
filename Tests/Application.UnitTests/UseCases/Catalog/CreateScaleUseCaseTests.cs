@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using Xunit;
+using FluentAssertions;
+using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 using TreniniDotNet.Application.InMemory.OutputPorts.Catalog;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
-using Xunit;
+using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
@@ -15,7 +18,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewCreateScale);
 
-            await useCase.Execute(new CreateScaleInput(null, null, null, null, null));
+            await useCase.Execute(NewScaleInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -25,21 +28,22 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewCreateScale);
 
-            var input = new CreateScaleInput(
-                "H0",
-                87M,
-                16.5M,
-                TrackGauge.Standard.ToString(),
-                "notes");
+            var input = NewScaleInput.With(
+                Name: "H0",
+                Ratio: 87M,
+                Gauge: NewScaleGaugeInput.With(
+                    Millimeters: 16.5M,
+                    TrackGauge: TrackGauge.Standard.ToString()),
+                Description: "notes");
 
             await useCase.Execute(input);
 
             outputPort.ShouldHaveStandardOutput();
 
             var output = outputPort.UseCaseOutput;
-            Assert.NotNull(output);
-            Assert.True(output!.Slug != null);
-            Assert.Equal(Slug.Of("h0"), output!.Slug);
+            output.Should().NotBeNull();
+            output.Slug.Should().NotBeNull();
+            output.Slug.Should().Be(Slug.Of("H0"));
         }
 
         [Fact]
@@ -48,12 +52,13 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeScalesUseCase(Start.WithSeedData, NewCreateScale);
 
             var name = "H0";
-            var input = new CreateScaleInput(
-                name,
-                87M,
-                16.5M,
-                TrackGauge.Standard.ToString(),
-                "notes");
+            var input = NewScaleInput.With(
+                Name: name,
+                Ratio: 87M,
+                Gauge: NewScaleGaugeInput.With(
+                    Millimeters: 16.5M,
+                    TrackGauge: TrackGauge.Standard.ToString()),
+                Description: "notes");
 
             await useCase.Execute(input);
 

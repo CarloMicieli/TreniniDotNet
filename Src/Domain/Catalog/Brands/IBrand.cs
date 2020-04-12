@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Net.Mail;
+using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Common.Entities;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
-    public interface IBrand : IBrandInfo
+    public interface IBrand : IBrandInfo, IModifiableEntity
     {
         Uri? WebsiteUrl { get; }
 
@@ -11,11 +13,13 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         string? CompanyName { get; }
 
+        string? GroupName { get; }
+
+        string? Description { get; }
+
         BrandKind Kind { get; }
 
-        DateTime? CreatedAt { get; }
-
-        int? Version { get; }
+        Address? Address { get; }
 
         IBrandInfo ToBrandInfo();
     }

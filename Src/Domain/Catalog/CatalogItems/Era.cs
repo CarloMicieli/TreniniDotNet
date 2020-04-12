@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TreniniDotNet.Domain.Catalog.CatalogItems
+﻿namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     /// <summary>
     /// The model railways Era enumeration.
@@ -36,31 +34,5 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         /// Era VI
         /// </summary>
         VI
-    }
-
-    public static class EraExtensions
-    {
-        public static Era? ToEra(this string? s)
-        {
-            if (System.Enum.TryParse<Era>(s, true, out Era result))
-                return result;
-
-            return null;
-        }
-    }
-
-    public static class Eras
-    {
-        public static bool TryParse(string s, out Era result)
-        {
-            if (string.IsNullOrWhiteSpace(s) == false && Enum.TryParse<Era>(s, true, out var e))
-            {
-                result = e;
-                return true;
-            }
-
-            result = default;
-            return false;
-        }
     }
 }

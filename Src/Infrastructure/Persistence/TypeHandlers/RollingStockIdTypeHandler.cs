@@ -3,7 +3,7 @@ using System.Data;
 using Dapper;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
-namespace Infrastructure.Persistence.TypeHandlers
+namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {
     public class RollingStockIdTypeHandler : SqlMapper.TypeHandler<RollingStockId?>
     {

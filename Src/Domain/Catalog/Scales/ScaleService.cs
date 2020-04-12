@@ -4,6 +4,7 @@ using TreniniDotNet.Common;
 using System;
 using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
+using System.Collections.Immutable;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -16,33 +17,35 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         {
             _scaleRepository = scaleRepository ??
                 throw new ArgumentNullException(nameof(scaleRepository));
-            _scalesFactory = scalesFactory;
+            _scalesFactory = scalesFactory ??
+                throw new ArgumentNullException(nameof(scalesFactory));
         }
 
-        public Task<ScaleId> CreateScale(string name, Slug slug, Ratio ratio, Gauge gauge, TrackGauge trackGauge, string? notes)
+        public Task<ScaleId> CreateScale(
+            string name, Slug slug,
+            Ratio ratio,
+            ScaleGauge gauge,
+            string? description,
+            ImmutableHashSet<ScaleStandard> standards,
+            int? weight)
         {
-            var newScale = _scalesFactory.NewScale(ScaleId.NewId(), name, slug, ratio, gauge, trackGauge, notes);
+            var newScale = _scalesFactory.NewScale(ScaleId.NewId(), name, slug, ratio, gauge, description, standards, weight);
             return _scaleRepository.Add(newScale);
         }
 
         public Task<PaginatedResult<IScale>> FindAllScales(Page? page)
         {
-            return _scaleRepository.GetScales(page ?? Page.Default);
-        }
-
-        public Task<List<IScale>> GetAll()
-        {
-            return _scaleRepository.GetAll();
+            return _scaleRepository.GetScalesAsync(page ?? Page.Default);
         }
 
         public Task<IScale?> GetBy(Slug slug)
         {
-            return _scaleRepository.GetBySlug(slug);
+            return _scaleRepository.GetBySlugAsync(slug);
         }
 
         public Task<bool> ScaleAlreadyExists(Slug slug)
         {
-            return _scaleRepository.Exists(slug);
+            return _scaleRepository.ExistsAsync(slug);
         }
     }
 }

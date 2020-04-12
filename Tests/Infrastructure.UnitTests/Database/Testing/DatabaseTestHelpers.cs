@@ -1,4 +1,4 @@
-﻿using TreniniDotNet.Infrastracture.Dapper;
+﻿using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Database.Testing
 {

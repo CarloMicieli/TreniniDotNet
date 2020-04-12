@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace TreniniDotNet.Infrastracture.Persistence.Migrations
+namespace TreniniDotNet.Infrastructure.Persistence.Migrations
 {
     [Migration(20200315000000)]
     public sealed class InitialMigration : Migration
@@ -18,17 +18,19 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
                 .WithColumn("name").AsString(25).NotNullable()
                 .WithColumn("slug").AsString(25).NotNullable()
                 .WithColumn("company_name").AsString(100).Nullable()
+                .WithColumn("group_name").AsString(100).Nullable()
                 .WithColumn("description").AsString(1000).Nullable()
                 .WithColumn("mail_address").AsString(255).Nullable()
                 .WithColumn("website_url").AsString(255).Nullable()
-                .WithColumn("kind").AsString(25).Nullable()
+                .WithColumn("kind").AsString(25).NotNullable()
                 .WithColumn("address_line1").AsString(255).Nullable()
                 .WithColumn("address_line2").AsString(255).Nullable()
                 .WithColumn("address_city").AsString(50).Nullable()
                 .WithColumn("address_region").AsString(50).Nullable()
                 .WithColumn("address_postal_code").AsString(10).Nullable()
                 .WithColumn("address_country").AsString(2).Nullable()
-                .WithColumn("created_at").AsDateTime().Nullable()
+                .WithColumn("created").AsDateTime().NotNullable()
+                .WithColumn("last_modified").AsDateTime().Nullable()
                 .WithColumn("version").AsInt32().WithDefaultValue(1);
 
             Create.Index("Idx_Brands_Slug")
@@ -45,10 +47,13 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
                 .WithColumn("name").AsString(25).NotNullable()
                 .WithColumn("slug").AsString(25).NotNullable()
                 .WithColumn("ratio").AsInt32().NotNullable()
-                .WithColumn("gauge").AsDecimal().NotNullable()
+                .WithColumn("gauge_mm").AsDecimal().NotNullable()
+                .WithColumn("gauge_in").AsDecimal().NotNullable()
                 .WithColumn("track_type").AsString(25).NotNullable()
-                .WithColumn("notes").AsString(250).Nullable()
-                .WithColumn("created_at").AsDateTime().Nullable()
+                .WithColumn("description").AsString(250).Nullable()
+                .WithColumn("weight").AsInt32().Nullable()
+                .WithColumn("created").AsDateTime().NotNullable()
+                .WithColumn("last_modified").AsDateTime().Nullable()
                 .WithColumn("version").AsInt32().WithDefaultValue(1);
 
             Create.Index("Idx_Scales_Name")
@@ -69,7 +74,15 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
                 .WithColumn("operating_since").AsDateTime().Nullable()
                 .WithColumn("operating_until").AsDateTime().Nullable()
                 .WithColumn("active").AsBoolean().Nullable()
-                .WithColumn("created_at").AsDateTime().Nullable()
+                .WithColumn("gauge_mm").AsDecimal().Nullable()
+                .WithColumn("gauge_in").AsDecimal().Nullable()
+                .WithColumn("track_gauge").AsString(25).Nullable()
+                .WithColumn("headquarters").AsString(250).Nullable()
+                .WithColumn("total_length_mi").AsDecimal().Nullable()
+                .WithColumn("total_length_km").AsDecimal().Nullable()
+                .WithColumn("website_url").AsString(255).Nullable()
+                .WithColumn("created").AsDateTime().NotNullable()
+                .WithColumn("last_modified").AsDateTime().Nullable()
                 .WithColumn("version").AsInt32().WithDefaultValue(1);
 
             Create.Index("Idx_Railways_Name")
@@ -90,10 +103,12 @@ namespace TreniniDotNet.Infrastracture.Persistence.Migrations
                 .WithColumn("slug").AsString(40).NotNullable()
                 .WithColumn("power_method").AsString(2).NotNullable()
                 .WithColumn("delivery_date").AsString(10).Nullable()
+                .WithColumn("available").AsBoolean().Nullable()
                 .WithColumn("description").AsString(250).NotNullable()
                 .WithColumn("model_description").AsString(2500).Nullable()
                 .WithColumn("prototype_description").AsString(2500).Nullable()
-                .WithColumn("created_at").AsDateTime().Nullable()
+                .WithColumn("created").AsDateTime().NotNullable()
+                .WithColumn("last_modified").AsDateTime().Nullable()
                 .WithColumn("version").AsInt32().WithDefaultValue(1);
 
             Create.Index("Idx_CatalogItems_Slug")

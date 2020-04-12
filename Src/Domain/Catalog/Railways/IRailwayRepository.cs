@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -11,14 +9,10 @@ namespace TreniniDotNet.Domain.Catalog.Railways
     {
         Task<RailwayId> Add(IRailway railway);
 
-        Task<IRailway?> GetBySlug(Slug slug);
+        Task<IRailway?> GetBySlugAsync(Slug slug);
 
-        Task<bool> Exists(Slug slug);
+        Task<bool> ExistsAsync(Slug slug);
 
-        Task<List<IRailway>> GetAll();
-
-        Task<PaginatedResult<IRailway>> GetRailways(Page page);
-
-        Task<IRailway?> GetByName(string name);
+        Task<PaginatedResult<IRailway>> GetRailwaysAsync(Page page);
     }
 }

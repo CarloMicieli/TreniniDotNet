@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 
-namespace TreniniDotNet.Infrastracture.Persistence.TypeHandlers
+namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {
     public class GuidTypeHandler : SqlMapper.TypeHandler<Guid?>
     {

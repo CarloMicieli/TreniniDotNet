@@ -5,7 +5,9 @@ using TreniniDotNet.Application.InMemory.OutputPorts.Catalog;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
+using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
 using Xunit;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
@@ -16,7 +18,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
 
-            await useCase.Execute(new CreateRailwayInput(null, null, null, null, null, null));
+            await useCase.Execute(NewRailwayInput.NewEmpty());
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -37,7 +39,14 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.WithSeedData, NewCreateRailway);
 
             var name = "DB";
-            var input = new CreateRailwayInput(name, "Die Bahn", "DE", "active", DateTime.Now.AddDays(-1), null);
+            var input = NewRailwayInput.With(
+                Name: name,
+                CompanyName: "Die Bahn",
+                Country: "DE",
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "active",
+                    OperatingSince: DateTime.Now.AddDays(-1),
+                    OperatingUntil: null));
 
             await useCase.Execute(input);
 
@@ -49,7 +58,21 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
 
-            var input = new CreateRailwayInput("DB", "Die Bahn", "DE", "active", DateTime.Now.AddDays(-1), null);
+            var input = NewRailwayInput.With(
+                Name: "DB",
+                CompanyName: "Die Bahn",
+                Country: "DE",
+                PeriodOfActivity: NewPeriodOfActivityInput.With(
+                    Status: "active",
+                    OperatingSince: DateTime.Now.AddDays(-1),
+                    OperatingUntil: null),
+                TotalLength: NewTotalRailwayLengthInput.With(
+                    Kilometers: 1000M,
+                    Miles: 3445M),
+                Gauge: NewRailwayGaugeInput.With(
+                    TrackGauge: TrackGauge.Standard.ToString(),
+                    Millimeters: 1435M,
+                    Inches: 56.5M));
 
             await useCase.Execute(input);
 

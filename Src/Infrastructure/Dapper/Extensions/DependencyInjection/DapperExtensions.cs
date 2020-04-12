@@ -4,11 +4,11 @@ using System.Linq;
 using Dapper;
 using Microsoft.Extensions.DependencyInjection;
 using TreniniDotNet.Application.Services;
-using TreniniDotNet.Infrastracture.Dapper;
-using TreniniDotNet.Infrastracture.Dapper.Extensions.DependencyInjection;
+using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.Infrastructure.Dapper.Extensions.DependencyInjection;
 using static Dapper.SqlMapper;
 
-namespace TreniniDotNet.Infrastracture.Extensions.DependencyInjection
+namespace TreniniDotNet.Infrastructure.Persistence
 {
     public static class DapperExtensions
     {

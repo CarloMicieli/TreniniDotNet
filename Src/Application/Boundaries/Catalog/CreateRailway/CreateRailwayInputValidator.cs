@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using System;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Validation;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
@@ -17,6 +18,48 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
             RuleFor(x => x.Country)
                 .CountryCode();
 
+            RuleFor(x => x.PeriodOfActivity)
+                .SetValidator(new PeriodOfActivityInputValidator());
+
+            RuleFor(x => x.TotalLength)
+                .SetValidator(new TotalRailwayLengthInputValidator());
+
+            RuleFor(x => x.Gauge)
+                .SetValidator(new RailwayGaugeInputValidator());
+        }
+    }
+
+    public sealed class RailwayGaugeInputValidator : AbstractValidator<RailwayGaugeInput>
+    {
+        public RailwayGaugeInputValidator()
+        {
+            RuleFor(x => x.TrackGauge)
+                .IsEnumName(typeof(TrackGauge), caseSensitive: false);
+
+            RuleFor(x => x.Millimeters)
+                .GreaterThan(0M);
+
+            RuleFor(x => x.Inches)
+                .GreaterThan(0M);
+        }
+    }
+
+    public sealed class TotalRailwayLengthInputValidator : AbstractValidator<TotalRailwayLengthInput>
+    {
+        public TotalRailwayLengthInputValidator()
+        {
+            RuleFor(x => x.Kilometers)
+                .GreaterThan(0);
+
+            RuleFor(x => x.Miles)
+                .GreaterThan(0);
+        }
+    }
+
+    public sealed class PeriodOfActivityInputValidator : AbstractValidator<PeriodOfActivityInput>
+    {
+        public PeriodOfActivityInputValidator()
+        {
             RuleFor(x => x.OperatingUntil)
                 .GreaterThan(x => x.OperatingSince);
 

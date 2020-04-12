@@ -3,10 +3,9 @@ using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
-using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
-using TreniniDotNet.Infrastracture.Dapper;
 using Dapper;
+using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
@@ -21,16 +20,36 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             _brandsFactory = brandsFactory;
         }
 
-        public async Task<BrandId> Add(IBrand brand)
+        public async Task<BrandId> AddAsync(IBrand brand)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
 
-            var result = await connection.ExecuteAsync(InsertBrandCommand, brand);
+            var result = await connection.ExecuteAsync(InsertBrandCommand, new
+            {
+                brand.BrandId,
+                brand.Name,
+                brand.Slug,
+                brand.CompanyName,
+                brand.GroupName,
+                brand.Description,
+                brand.EmailAddress,
+                brand.WebsiteUrl,
+                brand.Kind,
+                AddressLine1 = brand.Address?.Line1,
+                AddressLine2 = brand.Address?.Line2,
+                AddressCity = brand.Address?.City,
+                AddressRegion = brand.Address?.Region,
+                AddressPostalCode = brand.Address?.PostalCode,
+                AddressCountry = brand.Address?.Country,
+                Created = brand.CreatedDate.ToDateTimeUtc(),
+                Modified = brand.ModifiedDate?.ToDateTimeUtc(),
+                brand.Version
+            });
             return brand.BrandId;
         }
 
-        public async Task<bool> Exists(Slug slug)
+        public async Task<bool> ExistsAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -42,24 +61,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             return string.IsNullOrEmpty(result) == false;
         }
 
-        public async Task<List<IBrand>> GetAll()
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.QueryAsync<BrandDto>(
-                GetAllBrandsQuery,
-                new { });
-
-            if (result is null)
-            {
-                return new List<IBrand>();
-            }
-
-            return result.Select(b => FromBrandDto(b)!).ToList();
-        }
-
-        public async Task<PaginatedResult<IBrand>> GetBrands(Page page)
+        public async Task<PaginatedResult<IBrand>> GetBrandsAsync(Page page)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -73,19 +75,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 results.Select(b => FromBrandDto(b)!).ToList());
         }
 
-        public async Task<IBrand?> GetByName(string name)
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.QueryFirstOrDefaultAsync<BrandDto>(
-                GetBrandByNameQuery,
-                new { name });
-
-            return FromBrandDto(result);
-        }
-
-        public async Task<IBrand?> GetBySlug(Slug slug)
+        public async Task<IBrand?> GetBySlugAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -110,10 +100,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 dto.brand_id,
                 dto.name,
                 dto.slug,
+                dto.kind,
                 dto.company_name,
+                dto.group_name,
+                dto.description,
                 dto.website_url,
                 dto.mail_address,
-                dto.kind);
+                null,
+                dto.created,
+                dto.last_modified,
+                dto.version ?? 1); //TODO: fixme
         }
 
         #endregion
@@ -128,10 +124,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         private const string GetBrandExistsQuery = @"SELECT slug FROM brands WHERE slug = @slug LIMIT 1;";
 
         private const string InsertBrandCommand = @"INSERT INTO brands(
-                brand_id, name, slug, company_name, mail_address, website_url, kind, created_at, version)
+                brand_id, name, slug, company_name, group_name, description, 
+                address_line1, address_line2, address_city, address_region, address_postal_code, address_country,
+                mail_address, website_url, kind, created, last_modified, version)
             VALUES(
-                @BrandId, @Name, @Slug, @CompanyName, @EmailAddress, @WebsiteUrl, @Kind, @CreatedAt, @Version);";
-
+                @BrandId, @Name, @Slug, @CompanyName, @GroupName, @Description, 
+                @AddressLine1, @AddressLine2, @AddressCity, @AddressRegion, @AddressPostalCode, @AddressCountry,
+                @EmailAddress, @WebsiteUrl, @Kind, @Created, @Modified, @Version);";
         #endregion
     }
 }

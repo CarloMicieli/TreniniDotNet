@@ -3,8 +3,8 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Reflection;
-using TreniniDotNet.Infrastracture.Dapper;
-using TreniniDotNet.Infrastracture.Persistence.TypeHandlers;
+using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using static Dapper.SqlMapper;
 
 namespace TreniniDotNet.Infrastructure

@@ -2,13 +2,27 @@
 
 namespace TreniniDotNet.Domain.Pagination
 {
-    public readonly struct Page
+    public readonly struct Page : IEquatable<Page>
     {
         public Page(int start, int limit)
         {
+            if (start < 0)
+            {
+                throw new ArgumentException($"Invalid page: {start} is not valid, it must be positive", nameof(start));
+            }
+
+            if (limit < 0)
+            {
+                throw new ArgumentException($"Invalid page: {limit} is not valid, it must be positive", nameof(limit));
+            }
+
             this.Limit = limit;
             this.Start = start;
         }
+
+        public int Limit { get; }
+
+        public int Start { get; }
 
         public static Page Default => new Page(0, 50);
 
@@ -23,30 +37,28 @@ namespace TreniniDotNet.Domain.Pagination
             return new Page(newStart, Limit);
         }
 
-        public int Limit { get; }
-
-        public int Start { get; }
-
         public override bool Equals(object? obj)
         {
-            return obj is Page page &&
-                   Limit == page.Limit &&
-                   Start == page.Start;
+            if (obj is Page that)
+            {
+                return AreEquals(this, that);
+            }
+
+            return false;
         }
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Limit, Start);
-        }
+        public bool Equals(Page other) => AreEquals(this, other);
 
-        public static bool operator ==(Page left, Page right)
-        {
-            return left.Equals(right);
-        }
+        public static bool operator ==(Page left, Page right) => AreEquals(left, right);
 
-        public static bool operator !=(Page left, Page right)
-        {
-            return !(left == right);
-        }
+        public static bool operator !=(Page left, Page right) => !AreEquals(left, right);
+
+        private static bool AreEquals(Page left, Page right) =>
+            left.Limit == right.Limit &&
+            left.Start == right.Start;
+
+        public override int GetHashCode() => HashCode.Combine(Limit, Start);
+
+        public override string ToString() => $"Page(start: {Start}, limit: {Limit})";
     }
 }

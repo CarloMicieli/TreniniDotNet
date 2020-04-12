@@ -1,84 +1,69 @@
-﻿using TreniniDotNet.Common;
-using System;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Net.Mail;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using NodaTime;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Common.Entities;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
+[assembly: InternalsVisibleTo("Domain.UnitTests")]
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
-    public sealed class Brand : IBrand, IEquatable<Brand>
+    public sealed class Brand : ModifiableEntity, IBrand, IEquatable<Brand>
     {
-        private readonly BrandId _id;
-        private readonly Slug _slug;
-        private readonly string _name;
-        private readonly string? _companyName;
-        private readonly Uri? _websiteUrl;
-        private readonly MailAddress? _emailAddress;
-        private readonly BrandKind _brandType;
-        private readonly DateTime? _createdAt;
-        private readonly int? _version;
-
-        public Brand(string name, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
-            : this(BrandId.NewId(), name, Slug.Empty, companyName, websiteUrl, emailAddress, kind)
+        internal Brand(BrandId brandId,
+            string name,
+            Slug slug,
+            string? companyName,
+            string? groupName,
+            string? description,
+            Uri? websiteUrl,
+            MailAddress? emailAddress,
+            BrandKind kind,
+            Address? address,
+            Instant created,
+            Instant? modified,
+            int version)
+            : base(created, modified, version)
         {
-        }
-
-        public Brand(BrandId id, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind)
-        {
-            ValidateBrandName(name);
-
-            _id = id;
-            _slug = slug.OrNewIfEmpty(() => Slug.Of(name));
-            _name = name;
-            _websiteUrl = websiteUrl;
-            _emailAddress = emailAddress;
-            _companyName = companyName;
-            _brandType = kind;
-            _version = 1;
-            _createdAt = DateTime.UtcNow;
-        }
-
-        internal Brand(BrandId id, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? emailAddress, BrandKind kind, Instant createdAt, int version)
-        {
-            _id = id;
-            _slug = slug;
-            _name = name;
-            _websiteUrl = websiteUrl;
-            _emailAddress = emailAddress;
-            _companyName = companyName;
-            _brandType = kind;
-            _version = version;
-            _createdAt = createdAt.ToDateTimeUtc();
+            BrandId = brandId;
+            Slug = slug;
+            Name = name;
+            WebsiteUrl = websiteUrl;
+            EmailAddress = emailAddress;
+            CompanyName = companyName;
+            GroupName = groupName;
+            Description = description;
+            Address = address;
+            Kind = kind;
         }
 
         #region [ Properties ]
-        public BrandId BrandId => _id;
+        public BrandId BrandId { get; }
 
-        public Slug Slug => _slug;
+        public Slug Slug { get; }
 
-        public string Name => _name;
+        public string Name { get; } = null!;
 
-        public Uri? WebsiteUrl => _websiteUrl;
+        public Uri? WebsiteUrl { get; }
 
-        public MailAddress? EmailAddress => _emailAddress;
+        public MailAddress? EmailAddress { get; }
 
-        public string? CompanyName => _companyName;
+        public string? CompanyName { get; }
 
-        public BrandKind Kind => _brandType;
+        public string? GroupName { get; }
 
-        public DateTime? CreatedAt => _createdAt;
+        public string? Description { get; }
 
-        public int? Version => _version;
+        public Address? Address { get; }
+
+        public BrandKind Kind { get; }
         #endregion
 
         #region [ Equality ]
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
             if (obj is Brand that)
             {
                 return AreEquals(this, that);
@@ -87,20 +72,11 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             return false;
         }
 
-        public static bool operator ==(Brand left, Brand right)
-        {
-            return AreEquals(left, right);
-        }
+        public static bool operator ==(Brand left, Brand right) => AreEquals(left, right);
 
-        public static bool operator !=(Brand left, Brand right)
-        {
-            return !AreEquals(left, right);
-        }
+        public static bool operator !=(Brand left, Brand right) => !AreEquals(left, right);
 
-        public bool Equals(Brand other)
-        {
-            return AreEquals(this, other);
-        }
+        public bool Equals(Brand other) => AreEquals(this, other);
 
         private static bool AreEquals(Brand left, Brand right)
         {
@@ -109,33 +85,20 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 return true;
             }
 
-            return left.Name == right.Name;
+            return left.BrandId == right.BrandId &&
+                left.Name == right.Name;
         }
         #endregion  
 
         #region [ Standard methods overrides ]
-        public override int GetHashCode()
-        {
-            return _name.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
-        }
 
-        public override string ToString()
-        {
-            return $"Brand({_name})";
-        }
+        public override int GetHashCode() =>
+            HashCode.Combine(BrandId, Name);
+
+        public override string ToString() => $"Brand({Name})";
+
         #endregion
 
-        public IBrandInfo ToBrandInfo()
-        {
-            return this;
-        }
-
-        private static void ValidateBrandName(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException(ExceptionMessages.InvalidBrandName);
-            }
-        }
+        public IBrandInfo ToBrandInfo() => this;
     }
 }

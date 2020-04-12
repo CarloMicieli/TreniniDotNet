@@ -1,99 +1,111 @@
 ﻿using System;
 using System.Net.Mail;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using LanguageExt;
-using static LanguageExt.Prelude;
 using NodaTime;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Common.Extensions;
+using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
+using static TreniniDotNet.Common.Enums.EnumHelpers;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class BrandsFactory : IBrandsFactory
     {
         private readonly IClock _clock;
+        private readonly IGuidSource _guidSource;
 
-        public BrandsFactory(IClock clock)
+        public BrandsFactory(IClock clock, IGuidSource guidSource)
         {
-            _clock = clock;
+            _clock = clock ??
+                throw new ArgumentNullException(nameof(clock));
+            _guidSource = guidSource ??
+                throw new ArgumentNullException(nameof(guidSource));
         }
 
-        public Validation<Error, IBrand> NewBrandV(Guid brandId, string name, string? companyName, string? websiteUrl, string? emailAddress, string? brandKind)
+        public IBrand NewBrand(
+            string name,
+            string? companyName,
+            string? groupName,
+            string? description,
+            Uri? websiteUrl,
+            MailAddress? emailAddress,
+            BrandKind kind,
+            Address? address)
         {
-            var nameV = ToBrandName(name);
-            var websiteV = ToUri(websiteUrl);
-            var mailAddressV = ToMailAddress(emailAddress);
-            var kindV = ToBrandKind(brandKind);
+            var brandId = new BrandId(_guidSource.NewGuid());
+            Slug slug = Slug.Of(name);
 
-            return (nameV, websiteV, mailAddressV, kindV).Apply((_name, _website, _mail, _kind) =>
-            {
-                IBrand brand = new Brand(
-                    new BrandId(brandId),
-                    _name,
-                    Slug.Of(_name),
-                    companyName,
-                    _website,
-                    _mail,
-                    _kind,
-                    _clock.GetCurrentInstant(),
-                    1);
-                return brand;
-            });
+            return new Brand(
+                brandId,
+                name,
+                slug,
+                companyName,
+                groupName,
+                description,
+                websiteUrl,
+                emailAddress,
+                kind,
+                address,
+                _clock.GetCurrentInstant(),
+                null,
+                1);
         }
 
-        public IBrand NewBrand(Guid brandId, string name, string slug, string? companyName, string? websiteUrl, string? emailAddress, string? brandKind)
+        public IBrand NewBrand(Guid brandId,
+            string name, string slug,
+            string kind,
+            string? companyName, string? groupName,
+            string? description,
+            string? websiteUrl,
+            string? mailAddress,
+            Address? address,
+            DateTime created,
+            DateTime? modified,
+            int version)
         {
             return new Brand(
-                id: new BrandId(brandId),
-                name: name,
-                slug: Slug.Of(slug),
-                companyName: companyName,
-                websiteUrl: !string.IsNullOrWhiteSpace(websiteUrl) ? new Uri(websiteUrl) : null,
-                emailAddress: !string.IsNullOrWhiteSpace(emailAddress) ? new MailAddress(emailAddress) : null,
-                kind: brandKind.ToBrandKind()
-                );
+                new BrandId(brandId),
+                name,
+                Slug.Of(slug),
+                companyName,
+                groupName,
+                description,
+                websiteUrl.ToUriOpt(),
+                mailAddress.ToMailAddressOpt(),
+                RequiredValueFor<BrandKind>(kind),
+                address,
+                created.ToUtc(),
+                null,
+                version);
         }
 
-        public IBrand NewBrand(BrandId brandId, string name, Slug slug, string? companyName, Uri? websiteUrl, MailAddress? mailAddress, BrandKind? kind)
+        public IBrand NewBrandWith(
+            BrandId brandId,
+            string name,
+            Slug? slug = null,
+            BrandKind? kind = null,
+            string? companyName = null,
+            string? groupName = null,
+            string? description = null,
+            Uri? website = null,
+            MailAddress? mailAddress = null,
+            Address? address = null)
         {
             return new Brand(
-                id: brandId,
-                name: name,
-                slug: slug,
-                companyName: companyName,
-                websiteUrl: websiteUrl,
-                emailAddress: mailAddress,
-                kind: kind ?? BrandKind.Industrial
-                );
-        }
-
-        public static Validation<Error, string> ToBrandName(string? str) =>
-            string.IsNullOrWhiteSpace(str) == false ? Success<Error, string>(str!) : Fail<Error, string>(Error.New("invalid brand: name cannot be empty"));
-
-        public static Validation<Error, Uri> ToUri(string? str) =>
-            str != null && Uri.TryCreate(str, UriKind.Absolute, out var uri) ?
-                Success<Error, Uri>(uri) : Fail<Error, Uri>(Error.New("Invalid URI: The format of the URI could not be determined."));
-
-
-        public static Validation<Error, MailAddress> ToMailAddress(string? str) =>
-            str != null && MailAddress_TryCreate(str, out var mailAddress) ?
-                Success<Error, MailAddress>(mailAddress!) : Fail<Error, MailAddress>(Error.New("The specified string is not in the form required for an e-mail address."));
-
-        public static Validation<Error, BrandKind> ToBrandKind(string? str) =>
-            str != null && Enum.TryParse<BrandKind>(str, true, out var kind) ?
-                Success<Error, BrandKind>(kind) : Fail<Error, BrandKind>(Error.New("The specified string is not a valid brand kind."));
-
-        private static bool MailAddress_TryCreate(string address, out MailAddress? result)
-        {
-            try
-            {
-                result = new MailAddress(address);
-                return true;
-            }
-            catch
-            {
-                result = null;
-                return false;
-            }
+                brandId,
+                name,
+                slug ?? Slug.Of(name),
+                companyName,
+                groupName,
+                description,
+                website,
+                mailAddress,
+                kind ?? BrandKind.Industrial,
+                null,
+                _clock.GetCurrentInstant(),
+                null,
+                1);
         }
     }
 }

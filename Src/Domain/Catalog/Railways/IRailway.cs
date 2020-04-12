@@ -1,21 +1,21 @@
 ﻿using System;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Common.Entities;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    public interface IRailway : IRailwayInfo
+    public interface IRailway : IModifiableEntity, IRailwayInfo
     {
         string? CompanyName { get; }
 
-        RailwayStatus? Status { get; }
+        PeriodOfActivity PeriodOfActivity { get; }
 
-        DateTime? OperatingUntil { get; }
+        RailwayGauge? TrackGauge { get; }
 
-        DateTime? OperatingSince { get; }
+        RailwayLength? TotalLength { get; }
 
-        int? Version { get; }
+        Uri? WebsiteUrl { get; }
 
-        DateTime? CreatedAt { get; }
+        string? Headquarters { get; }
 
         IRailwayInfo ToRailwayInfo();
     }

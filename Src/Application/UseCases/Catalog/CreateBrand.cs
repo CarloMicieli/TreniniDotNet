@@ -3,7 +3,10 @@ using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Common.Extensions;
+using TreniniDotNet.Common.Enums;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
@@ -27,7 +30,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
         protected override async Task Handle(CreateBrandInput input)
         {
-            string brandName = input.Name!;
+            string brandName = input.Name;
             Slug slug = Slug.Of(brandName);
 
             bool brandExists = await _brandService.BrandAlreadyExists(slug);
@@ -37,13 +40,27 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                 return;
             }
 
+            var optAddress = Address.TryCreate(
+                input.Address?.Line1,
+                input.Address?.Line2,
+                input.Address?.City,
+                input.Address?.Region,
+                input.Address?.PostalCode,
+                input.Address?.Country,
+                out var address) ? address : null;
+
+            var optUri = input.WebsiteUrl.ToUriOpt();
+            var optEmailAddress = input.EmailAddress.ToMailAddressOpt();
+
             var _ = await _brandService.CreateBrand(
                 brandName,
-                slug,
                 input.CompanyName,
-                input.WebsiteUrl,
-                input.EmailAddress,
-                input.Kind.ToBrandKind());
+                input.GroupName,
+                input.Description,
+                optUri,
+                optEmailAddress,
+                EnumHelpers.OptionalValueFor<BrandKind>(input.Kind) ?? BrandKind.Industrial,
+                optAddress);
 
             await _unitOfWork.SaveAsync();
 

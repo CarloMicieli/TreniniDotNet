@@ -2,7 +2,7 @@
 using System.Data.SQLite;
 using Microsoft.Extensions.Options;
 
-namespace TreniniDotNet.Infrastracture.Dapper
+namespace TreniniDotNet.Infrastructure.Dapper
 {
     public class SqliteDatabaseContext : IDatabaseContext
     {
