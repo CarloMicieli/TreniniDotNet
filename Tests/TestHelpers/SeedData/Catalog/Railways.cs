@@ -142,7 +142,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             var railways = CatalogSeedData.Railways.All();
             foreach (var railway in railways)
             {
-                repo.Add(railway);
+                repo.AddAsync(railway);
             }
         }
     }

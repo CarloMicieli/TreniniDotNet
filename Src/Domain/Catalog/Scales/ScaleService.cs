@@ -30,7 +30,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             int? weight)
         {
             var newScale = _scalesFactory.NewScale(ScaleId.NewId(), name, slug, ratio, gauge, description, standards, weight);
-            return _scaleRepository.Add(newScale);
+            return _scaleRepository.AddAsync(newScale);
         }
 
         public Task<PaginatedResult<IScale>> FindAllScales(Page? page)

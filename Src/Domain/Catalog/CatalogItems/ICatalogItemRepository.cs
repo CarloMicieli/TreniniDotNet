@@ -13,6 +13,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         Task<ICatalogItem?> GetBySlugAsync(Slug slug);
 
-        Task<CatalogItemId> Add(ICatalogItem catalogItem);
+        Task<CatalogItemId> AddAsync(ICatalogItem catalogItem);
     }
 }

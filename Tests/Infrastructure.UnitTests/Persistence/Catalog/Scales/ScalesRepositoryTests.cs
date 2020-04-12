@@ -31,7 +31,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
             var scaleH0 = new TestScale();
 
-            var scaleId = await Repository.Add(scaleH0);
+            var scaleId = await Repository.AddAsync(scaleH0);
 
             scaleId.Should().NotBeNull();
 

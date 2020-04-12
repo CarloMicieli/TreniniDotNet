@@ -7,7 +7,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 {
     public interface IScalesRepository
     {
-        Task<ScaleId> Add(IScale scale);
+        Task<ScaleId> AddAsync(IScale scale);
         Task<IScale?> GetBySlugAsync(Slug slug);
         Task<bool> ExistsAsync(Slug slug);
         Task<PaginatedResult<IScale>> GetScalesAsync(Page page);

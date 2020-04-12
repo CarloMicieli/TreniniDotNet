@@ -24,7 +24,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 throw new ArgumentNullException(nameof(scalesFactory));
         }
 
-        public async Task<ScaleId> Add(IScale scale)
+        public async Task<ScaleId> AddAsync(IScale scale)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -115,9 +115,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 @ScaleId, @Name, @Slug, @Ratio, @GaugeMm, @GaugeIn, @TrackGauge, @Description, @Weight, @Created, @Modified, @Version);";
 
         private const string GetScaleExistsQuery = @"SELECT slug FROM scales WHERE slug = @slug;";
-        private const string GetAllScalesQuery = @"SELECT * FROM scales ORDER BY name;";
         private const string GetScaleBySlugQuery = @"SELECT * FROM scales WHERE slug = @slug;";
-        private const string GetScaleByNameQuery = @"SELECT * FROM scales WHERE name = @name;";
         private const string GetAllScalesWithPaginationQuery = @"SELECT * FROM scales ORDER BY name LIMIT @limit OFFSET @skip;";
 
         #endregion

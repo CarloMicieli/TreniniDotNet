@@ -55,7 +55,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 gauge,
                 websiteUrl,
                 headquarters);
-            return _railwayRepository.Add(newRailway);
+            return _railwayRepository.AddAsync(newRailway);
         }
     }
 }

@@ -59,7 +59,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public Task<CatalogItemId> CreateNewCatalogItem(ICatalogItem catalogItem)
         {
-            return _catalogItemsRepository.Add(catalogItem);
+            return _catalogItemsRepository.AddAsync(catalogItem);
         }
     }
 }

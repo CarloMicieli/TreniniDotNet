@@ -25,7 +25,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             _factory = factory;
         }
 
-        public async Task<CatalogItemId> Add(ICatalogItem catalogItem)
+        public async Task<CatalogItemId> AddAsync(ICatalogItem catalogItem)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();

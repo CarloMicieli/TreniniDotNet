@@ -30,7 +30,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             var fs = new TestRailway();
 
-            var railwayId = await Repository.Add(fs);
+            var railwayId = await Repository.AddAsync(fs);
 
             railwayId.Should().NotBeNull();
             Database.Assert.RowInTable(Tables.Railways)

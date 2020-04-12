@@ -143,7 +143,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             var scales = CatalogSeedData.Scales.All();
             foreach (var scale in scales)
             {
-                repo.Add(scale);
+                repo.AddAsync(scale);
             }
         }
     }

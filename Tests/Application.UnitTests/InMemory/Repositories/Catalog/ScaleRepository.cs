@@ -41,7 +41,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(new PaginatedResult<IScale>(page, results));
         }
 
-        public Task<ScaleId> Add(IScale scale)
+        public Task<ScaleId> AddAsync(IScale scale)
         {
             _context.Scales.Add(scale);
             return Task.FromResult(scale.ScaleId);

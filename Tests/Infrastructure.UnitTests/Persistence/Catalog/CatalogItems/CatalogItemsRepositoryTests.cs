@@ -79,7 +79,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             Database.Setup.TruncateTable(Tables.CatalogItems);
 
             var catalogItem = new TestCatalogItem(brand);
-            var catalogItemId = await Repository.Add(catalogItem);
+            var catalogItemId = await Repository.AddAsync(catalogItem);
 
             catalogItemId.Should().Be(catalogItem.CatalogItemId);
 

@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             _context = context;
         }
 
-        public Task<RailwayId> Add(IRailway railway)
+        public Task<RailwayId> AddAsync(IRailway railway)
         {
             _context.Railways.Add(railway);
             return Task.FromResult(railway.RailwayId);

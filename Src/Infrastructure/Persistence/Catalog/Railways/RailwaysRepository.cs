@@ -20,7 +20,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             _railwaysFactory = railwaysFactory;
         }
 
-        public async Task<RailwayId> Add(IRailway railway)
+        public async Task<RailwayId> AddAsync(IRailway railway)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -126,9 +126,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 @WebsiteUrl, @Created, @Modified, @Version);";
 
         private const string GetRailwayExistsQuery = @"SELECT slug FROM railways WHERE slug = @slug LIMIT 1;";
-        private const string GetAllRailwaysQuery = @"SELECT * FROM railways ORDER BY name;";
         private const string GetRailwayBySlugQuery = @"SELECT * FROM railways WHERE slug = @slug LIMIT 1;";
-        private const string GetRailwayByNameQuery = @"SELECT * FROM railways WHERE name = @name LIMIT 1;";
         private const string GetAllRailwaysWithPaginationQuery = @"SELECT * FROM railways ORDER BY name LIMIT @limit OFFSET @skip;";
 
         #endregion
