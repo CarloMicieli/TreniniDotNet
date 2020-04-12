@@ -34,6 +34,8 @@ namespace TreniniDotNet.IntegrationTests
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
+            builder.UseEnvironment("testing");
+
             builder.ConfigureServices(services =>
             {
                 services.ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");

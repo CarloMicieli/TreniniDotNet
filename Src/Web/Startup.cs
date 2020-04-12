@@ -82,7 +82,7 @@ namespace TreniniDotNet.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, ILogger<Startup> logger)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopmentOrTesting())
             {
                 app.UseExceptionHandler("/error-local-development");
 
@@ -91,7 +91,10 @@ namespace TreniniDotNet.Web
                 migration.Up();
 
                 // Seed database with test data
-                CatalogSeed.InitDatabase(serviceProvider, logger).GetAwaiter().GetResult();
+                if (env.IsDevelopment())
+                {
+                    CatalogSeed.InitDatabase(serviceProvider, logger).GetAwaiter().GetResult();
+                }
             }
             else
             {
@@ -122,11 +125,17 @@ namespace TreniniDotNet.Web
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
+                if (env.IsDevelopmentOrTesting())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
         }
+    }
+
+    public static class HostEnvironmentEnvExtensions
+    {
+        public static bool IsDevelopmentOrTesting(this IHostEnvironment hostEnvironment) =>
+            hostEnvironment.IsDevelopment() || "testing" == hostEnvironment.EnvironmentName;
     }
 }
