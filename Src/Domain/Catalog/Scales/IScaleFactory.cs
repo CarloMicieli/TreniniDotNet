@@ -15,10 +15,10 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             IImmutableSet<ScaleStandard> standards,
             int? weight);
 
-        IScale? NewScale(Guid scaleId,
+        IScale NewScale(Guid scaleId,
             string name, string slug,
             decimal ratio,
-            decimal gaugeMm, decimal gaugeIn, string trackType,
+            decimal? gaugeMm, decimal? gaugeIn, string trackType,
             string? description,
             int? weight,
             DateTime created,

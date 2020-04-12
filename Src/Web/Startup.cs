@@ -19,6 +19,7 @@ using TreniniDotNet.Web.DependencyInjection;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence;
+using TreniniDotNet.Infrastructure.Persistence.Seed;
 
 namespace TreniniDotNet.Web
 {
@@ -90,7 +91,7 @@ namespace TreniniDotNet.Web
                 migration.Up();
 
                 // Seed database with test data
-                // CatalogSeed.InitDatabase(serviceProvider, logger).GetAwaiter().GetResult();
+                CatalogSeed.InitDatabase(serviceProvider, logger).GetAwaiter().GetResult();
             }
             else
             {

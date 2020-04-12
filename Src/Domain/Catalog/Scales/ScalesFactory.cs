@@ -42,10 +42,10 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 1);
         }
 
-        public IScale? NewScale(Guid id,
+        public IScale NewScale(Guid id,
             string name, string slug,
             decimal ratio,
-            decimal gaugeMm, decimal gaugeIn, string trackType,
+            decimal? gaugeMm, decimal? gaugeIn, string trackType,
             string? description,
             int? weight,
             DateTime created,
