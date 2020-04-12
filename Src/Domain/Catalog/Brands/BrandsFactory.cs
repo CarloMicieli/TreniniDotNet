@@ -102,7 +102,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 website,
                 mailAddress,
                 kind ?? BrandKind.Industrial,
-                null,
+                address,
                 _clock.GetCurrentInstant(),
                 null,
                 1);

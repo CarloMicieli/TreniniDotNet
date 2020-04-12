@@ -18,7 +18,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetCatalogItemBySlug
 
         protected override Task Handle(GetCatalogItemBySlugRequest request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            return _useCase.Execute(new GetCatalogItemBySlugInput(request.Slug));
         }
     }
 }

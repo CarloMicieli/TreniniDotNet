@@ -28,7 +28,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         internal Scales()
         {
             #region [ Init data ]
-            _scaleH0 = NewScale(
+            _scaleH0 = NewWith(
                 new ScaleId(new Guid("7edfb586-218c-4997-8820-f61d3a81ce66")),
                 "H0",
                 Slug.Of("H0"),
@@ -36,7 +36,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 Gauge.OfMillimiters(16.5M),
                 TrackGauge.Standard);
 
-            _scaleH0m = NewScale(
+            _scaleH0m = NewWith(
                new ScaleId(new Guid("0dd13f9d-d730-41bb-b4e9-33218ea14fbc")),
                "H0m",
                Slug.Of("H0m"),
@@ -44,7 +44,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                Gauge.OfMillimiters(12.0M),
                TrackGauge.Narrow);
 
-            _scaleH0e = NewScale(
+            _scaleH0e = NewWith(
                 new ScaleId(new Guid("b5f2f033-a947-4b86-9d9e-52d7c1903ce0")),
                 "H0e",
                 Slug.Of("H0e"),
@@ -52,7 +52,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 Gauge.OfMillimiters(9.0M),
                 TrackGauge.Narrow);
 
-            _scaleTT = NewScale(
+            _scaleTT = NewWith(
                new ScaleId(new Guid("374f5bb7-e7d1-4995-aa34-072b6b6500f9")),
                "TT",
                Slug.Of("TT"),
@@ -60,7 +60,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                Gauge.OfMillimiters(12.0M),
                TrackGauge.Standard);
 
-            _scale1 = NewScale(
+            _scale1 = NewWith(
                 new ScaleId(new Guid("fb7ab3fc-5f15-4e2c-a8d3-7ef2e615dae8")),
                 "1",
                 Slug.Of("1"),
@@ -68,7 +68,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 Gauge.OfMillimiters(45.0M),
                 TrackGauge.Standard);
 
-            _scale0 = NewScale(
+            _scale0 = NewWith(
                 new ScaleId(new Guid("efc1fdb5-93aa-4a52-bbce-5ab67e92980c")),
                 "0",
                 Slug.Of("0"),
@@ -76,7 +76,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 Gauge.OfMillimiters(32.0M),
                 TrackGauge.Standard);
 
-            _scaleN = NewScale(
+            _scaleN = NewWith(
                new ScaleId(new Guid("f02ae69c-6a60-4fd4-bf5b-ac950e696361")),
                "N",
                Slug.Of("N"),
@@ -84,7 +84,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                Gauge.OfMillimiters(9.0M),
                TrackGauge.Standard);
 
-            _scaleZ = NewScale(
+            _scaleZ = NewWith(
                new ScaleId(new Guid("02790f5e-8edc-43f6-8ac1-4c906805d9ba")),
                "Z",
                Slug.Of("Z"),
@@ -106,9 +106,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             };
         }
 
-        private IScale NewScale(ScaleId scaleId, string name, Slug slug, Ratio ratio, Gauge gauge, TrackGauge trackGauge)
+        public static IScale NewWith(ScaleId scaleId, string name, Slug slug, Ratio ratio, Gauge gauge, TrackGauge trackGauge)
         {
-            return factory.NewScale(scaleId,
+            return factory.NewScale(
+                scaleId,
                 name, slug,
                 ratio,
                 ScaleGauge.Of(gauge.Value, MeasureUnit.Millimeters, trackGauge),
