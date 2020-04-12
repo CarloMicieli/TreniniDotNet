@@ -6,7 +6,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
             string era, string category,
             string railway,
             string? className, string? roadNumber, string? typeName,
-            decimal? length,
+            LengthOverBufferInput? length,
             string? control, string? dccInterface)
         {
             Era = era;
@@ -15,7 +15,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
             ClassName = className;
             RoadNumber = roadNumber;
             TypeName = typeName;
-            Length = length;
+            Length = length ?? LengthOverBufferInput.Default();
             Control = control;
             DccInterface = dccInterface;
         }
@@ -32,10 +32,31 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
 
         public string? RoadNumber { get; }
 
-        public decimal? Length { get; }
+        public LengthOverBufferInput Length { get; }
 
         public string? DccInterface { get; }
 
         public string? Control { get; }
+    }
+
+    public sealed class LengthOverBufferInput
+    {
+        public LengthOverBufferInput(decimal? millimeters, decimal? inches)
+        {
+            Millimeters = millimeters;
+            Inches = inches;
+        }
+
+        public decimal? Millimeters { get; }
+        public decimal? Inches { get; }
+
+        public void Deconstruct(out decimal? mm, out decimal? inches)
+        {
+            mm = Millimeters;
+            inches = Inches;
+        }
+
+        public static LengthOverBufferInput Default() =>
+            new LengthOverBufferInput(null, null);
     }
 }

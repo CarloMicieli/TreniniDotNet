@@ -2,6 +2,7 @@ using FluentValidation.TestHelper;
 using System.Collections.Generic;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using Xunit;
+using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
 {
@@ -24,7 +25,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 className: null,
                 roadNumber: null,
                 typeName: null,
-                length: 303,
+                length: new LengthOverBufferInput(303M, null),
                 control: null,
                 dccInterface: null
             );
@@ -46,18 +47,11 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         }
 
         [Fact]
-        public void CreateCatalogItemInputValidator_ShouldHaveError_WhenBrandNameIsNull()
+        public void CreateCatalogItemInputValidator_ShouldHaveError_WhenBrandNameIsEmpty()
         {
-            var input = new CreateCatalogItemInput(
-                brandName: "",
-                itemNumber: "",
-                description: null,
-                prototypeDescription: null,
-                modelDescription: null,
-                powerMethod: null,
-                scale: null,
-                deliveryDate: null, available: false,
-                rollingStocks: EmptyRollingStocks());
+            var input = NewCatalogItemInput.With(
+                BrandName: "",
+                RollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
 
@@ -67,16 +61,9 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenItemNumberIsNull()
         {
-            var input = new CreateCatalogItemInput(
-                brandName: "",
-                itemNumber: "",
-                description: null,
-                prototypeDescription: null,
-                modelDescription: null,
-                powerMethod: null,
-                scale: null,
-                deliveryDate: null, available: false,
-                rollingStocks: EmptyRollingStocks());
+            var input = NewCatalogItemInput.With(
+                ItemNumber: null,
+                RollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
 
@@ -86,16 +73,9 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenItemNumberIsTooShort()
         {
-            var input = new CreateCatalogItemInput(
-                brandName: "",
-                itemNumber: "123",
-                description: null,
-                prototypeDescription: null,
-                modelDescription: null,
-                powerMethod: null,
-                scale: null,
-                deliveryDate: null, available: false,
-                rollingStocks: EmptyRollingStocks());
+            var input = NewCatalogItemInput.With(
+                ItemNumber: "123",
+                RollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
 
@@ -105,16 +85,9 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenDescriptionIsNull()
         {
-            var input = new CreateCatalogItemInput(
-                brandName: "",
-                itemNumber: "",
-                description: null,
-                prototypeDescription: null,
-                modelDescription: null,
-                powerMethod: null,
-                scale: null,
-                deliveryDate: null, available: false,
-                rollingStocks: EmptyRollingStocks());
+            var input = NewCatalogItemInput.With(
+                Description: null,
+                RollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
 
@@ -124,16 +97,9 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenScaleIsNull()
         {
-            var input = new CreateCatalogItemInput(
-                brandName: "",
-                itemNumber: "",
-                description: null,
-                prototypeDescription: null,
-                modelDescription: null,
-                powerMethod: null,
-                scale: null,
-                deliveryDate: null, available: false,
-                rollingStocks: EmptyRollingStocks());
+            var input = NewCatalogItemInput.With(
+                Scale: null,
+                RollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
 
@@ -143,16 +109,9 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenPowerMethodIsInvalid()
         {
-            var input = new CreateCatalogItemInput(
-                brandName: "",
-                itemNumber: "",
-                description: null,
-                prototypeDescription: null,
-                modelDescription: null,
-                powerMethod: "not valid",
-                scale: null,
-                deliveryDate: null, available: false,
-                rollingStocks: EmptyRollingStocks());
+            var input = NewCatalogItemInput.With(
+                PowerMethod: "not valid",
+                RollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
 
@@ -162,16 +121,12 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenHasNoRollingStocks()
         {
-            var input = new CreateCatalogItemInput(
-                brandName: "",
-                itemNumber: "",
-                description: null,
-                prototypeDescription: null,
-                modelDescription: null,
-                powerMethod: "not valid",
-                scale: null,
-                deliveryDate: null, available: false,
-                rollingStocks: EmptyRollingStocks());
+            var input = NewCatalogItemInput.With(
+                BrandName: "",
+                ItemNumber: "",
+                PowerMethod: "not valid",
+                Available: false,
+                RollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
 
@@ -181,16 +136,12 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenAnyRollingStocksIsInvalid()
         {
-            var input = new CreateCatalogItemInput(
-                brandName: "",
-                itemNumber: "",
-                description: null,
-                prototypeDescription: null,
-                modelDescription: null,
-                powerMethod: "not valid",
-                scale: null,
-                deliveryDate: null, available: false,
-                rollingStocks: NullRollingStockInput());
+            var input = NewCatalogItemInput.With(
+                BrandName: "",
+                ItemNumber: "",
+                PowerMethod: "not valid",
+                Available: false,
+                RollingStocks: NullRollingStockInput());
 
             var result = validator.TestValidate(input);
 
@@ -199,26 +150,42 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
             result.ShouldHaveValidationErrorFor("RollingStocks[0].Railway");
         }
 
+        [Fact]
+        public void CreateCatalogItemInputValidator_ShouldHaveError_WhenAnyRollingStocksHasNegativeLength()
+        {
+            var input = NewCatalogItemInput.With(
+                BrandName: "",
+                ItemNumber: "",
+                PowerMethod: "not valid",
+                Available: false,
+                RollingStocks: ListOf(NewRollingStockInput.With(
+                    Era: "III",
+                    Category: Category.ElectricLocomotive.ToString(),
+                    Railway: "FS",
+                    Length: new LengthOverBufferInput(-10, -10))));
+
+            var result = validator.TestValidate(input);
+
+            result.ShouldHaveValidationErrorFor("RollingStocks[0].Length.Millimeters");
+            result.ShouldHaveValidationErrorFor("RollingStocks[0].Length.Inches");
+        }
+
         private IList<RollingStockInput> NullRollingStockInput()
         {
             return new List<RollingStockInput>()
             {
-                new RollingStockInput(
-                    era: "",
-                    category: "",
-                    railway: "",
-                    className: null,
-                    roadNumber: null,
-                    typeName: null,
-                    length: null,
-                    control: null,
-                    dccInterface: null)
+                NewRollingStockInput.Empty
             };
         }
 
         private IList<RollingStockInput> EmptyRollingStocks()
         {
             return new List<RollingStockInput>();
+        }
+
+        private IList<RollingStockInput> ListOf(params RollingStockInput[] values)
+        {
+            return new List<RollingStockInput>(values);
         }
     }
 }

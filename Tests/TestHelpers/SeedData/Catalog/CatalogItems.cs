@@ -44,7 +44,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 CatalogSeedData.Railways.Fs(),
                 Era.IV.ToString(),
                 Category.ElectricLocomotive.ToString(),
-                210M,
+                LengthOverBuffer.OfMillimeters(210M),
                 "E 656",
                 "E 656 291",
                 DccInterface.Nem652.ToString(),
@@ -68,7 +68,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 CatalogSeedData.Railways.Fs(),
                 Era.IV.ToString(),
                 Category.ElectricLocomotive.ToString(),
-                210M,
+                LengthOverBuffer.OfMillimeters(210M),
                 "E 636",
                 "E 636 117",
                 DccInterface.Nem652.ToString(),
@@ -93,7 +93,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 CatalogSeedData.Railways.Fs(),
                 Era.IV.ToString(),
                 Category.PassengerCar.ToString(),
-                195M,
+                LengthOverBuffer.OfMillimeters(195M),
                 "Corbellini");
 
             return factory.NewCatalogItem(
@@ -106,6 +106,18 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 null, null,
                 DeliveryDate.FirstQuarterOf(2020),
                 true);
+        }
+    }
+
+    public static class ICatalogItemsRepositoryExtensions
+    {
+        public static void SeedDatabase(this ICatalogItemRepository repo)
+        {
+            var catalogItems = CatalogSeedData.CatalogItems.All();
+            foreach (var item in catalogItems)
+            {
+                repo.AddAsync(item);
+            }
         }
     }
 }

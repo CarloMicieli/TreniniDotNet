@@ -35,7 +35,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             var content = new
             {
                 brandName = "ACME", //TODO: case sensitive now!
-                itemNumber = "60458",
+                itemNumber = "123456",
                 description = "My new catalog item",
                 prototypeDescription = (string)null,
                 modelDescription = (string)null,
@@ -46,7 +46,10 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
                     era = "VI",
                     category = "ElectricLocomotive",
                     railway = "FS", //TODO: case sensitive now!
-                    length = 210,
+                    length = new
+                    {
+                        Millimeters = 210
+                    },
                     className = "",
                     roadNumber = ""
                 })
@@ -55,7 +58,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
             var response = await client.PostJsonAsync("/api/v1/catalogItems", content, Check.IsSuccessful);
 
             response.Headers.Should().NotBeEmpty();
-            response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/CatalogItems/acme-60458"));
+            response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/CatalogItems/acme-123456"));
         }
     }
 }

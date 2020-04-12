@@ -107,13 +107,15 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         {
             if (railways.TryGetValue(input.Railway, out var railwayInfo))
             {
+                var length = LengthOverBuffer.CreateOrDefault(input.Length?.Inches, input.Length?.Millimeters);
+
                 if (Categories.IsLocomotive(input.Category))
                 {
                     return _catalogItemsFactory.NewLocomotive(
                         railwayInfo,
                         input.Era,
                         input.Category,
-                        input.Length,
+                        length,
                         input.ClassName,
                         input.RoadNumber,
                         input.DccInterface,
@@ -126,7 +128,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                         railwayInfo,
                         input.Era,
                         input.Category,
-                        input.Length,
+                        length,
                         input.TypeName
                     );
                 }

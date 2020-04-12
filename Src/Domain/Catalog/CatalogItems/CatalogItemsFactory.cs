@@ -2,7 +2,6 @@
 using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Common.Lengths;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
@@ -59,7 +58,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public IRollingStock NewLocomotive(
             IRailwayInfo railway, string era, string category,
-            decimal? length,
+            LengthOverBuffer? length,
             string? className, string? roadNumber,
             string? dccInterface, string? control)
         {
@@ -77,7 +76,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public IRollingStock NewTrain(
             IRailwayInfo railway, string era, string category,
-            decimal? length,
+            LengthOverBuffer? length,
             string? className, string? roadNumber,
             string? dccInterface, string? control)
         {
@@ -95,7 +94,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public IRollingStock NewRollingStock(
             IRailwayInfo railway, string era, string category,
-            decimal? length,
+            LengthOverBuffer? length,
             string? typeName)
         {
             return NewRollingStock(
@@ -112,19 +111,18 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             IRailwayInfo railway,
             string era,
             string category,
-            decimal? length = null,
+            LengthOverBuffer? length,
             string? className = null, string? roadNumber = null, string? typeName = null,
             string? dccInterface = null, string? control = null)
         {
             RollingStockId rollingStockId = new RollingStockId(id);
-            Length? lenghtOverBuffers = Length.TryCreate(length, MeasureUnit.Millimeters, out var len) ? len : null;
 
             return new RollingStock(
                 rollingStockId,
                 railway,
                 RequiredValueFor<Category>(category),
                 RequiredValueFor<Era>(era),
-                lenghtOverBuffers,
+                length,
                 className,
                 roadNumber,
                 typeName,

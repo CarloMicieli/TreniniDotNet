@@ -26,6 +26,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Profiles
             CreateMap<ScaleGaugeRequest, ScaleGaugeInput>();
 
             CreateMap<RollingStockRequest, RollingStockInput>();
+            CreateMap<LengthOverBufferRequest, LengthOverBufferInput>();
             CreateMap<CreateCatalogItemRequest, CreateCatalogItemInput>();
         }
     }

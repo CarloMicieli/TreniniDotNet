@@ -12,7 +12,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             IRailwayInfo railway,
             Category category,
             Era era,
-            Length? length,
+            LengthOverBuffer? length,
             string? className, string? roadNumber, string? typeName,
             DccInterface dccInterface, Control control)
         {
@@ -37,7 +37,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public Era Era { get; }
 
-        public Length? Length { get; }
+        public LengthOverBuffer? Length { get; }
 
         public string? ClassName { get; }
 

@@ -24,19 +24,19 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         IRollingStock NewLocomotive(
             IRailwayInfo railway, string era, string category,
-            decimal? length,
+            LengthOverBuffer? length,
             string? className, string? roadNumber,
             string? dccInterface, string? control);
 
         IRollingStock NewTrain(
             IRailwayInfo railway, string era, string category,
-            decimal? length,
+            LengthOverBuffer? length,
             string? className, string? roadNumber,
             string? dccInterface, string? control);
 
         IRollingStock NewRollingStock(
             IRailwayInfo railway, string era, string category,
-            decimal? length,
+            LengthOverBuffer? length,
             string? typeName);
 
         // From persistance
@@ -46,7 +46,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             IRailwayInfo railway,
             string era,
             string category,
-            decimal? length,
+            LengthOverBuffer? length,
             string? className, string? roadNumber, string? typeName,
             string? dccInterface, string? control);
 

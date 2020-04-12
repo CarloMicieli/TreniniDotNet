@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 .IsEnumName(typeof(Category), caseSensitive: false);
 
             RuleFor(x => x.Length)
-                .GreaterThanOrEqualTo(0M);
+                .SetValidator(new LengthOverBufferInputValidator());
 
             RuleFor(x => x.Railway)
                 .NotEmpty()
@@ -35,6 +35,18 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
 
             RuleFor(x => x.Control)
                 .IsEnumName(typeof(Control), caseSensitive: false);
+        }
+    }
+
+    public sealed class LengthOverBufferInputValidator : AbstractValidator<LengthOverBufferInput>
+    {
+        public LengthOverBufferInputValidator()
+        {
+            RuleFor(x => x.Millimeters)
+                .GreaterThan(0);
+
+            RuleFor(x => x.Inches)
+                .GreaterThan(0);
         }
     }
 }

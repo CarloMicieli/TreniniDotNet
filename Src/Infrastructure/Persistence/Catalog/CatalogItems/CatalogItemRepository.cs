@@ -59,7 +59,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                     rs.Category,
                     rs.Railway.RailwayId,
                     catalogItem.CatalogItemId,
-                    rs.Length,
+                    LengthMm = rs.Length?.Millimeters,
+                    LengthIn = rs.Length?.Inches,
                     rs.ClassName,
                     rs.RoadNumber,
                     rs.TypeName,
@@ -177,7 +178,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 railway,
                 dto.era,
                 dto.category,
-                dto.length,
+                LengthOverBuffer.CreateOrDefault(dto.length_in, dto.length_mm),
                 dto.class_name,
                 dto.road_number,
                 dto.type_name,
@@ -190,7 +191,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         private const string GetCatalogItemByBrandAndItemNumberQuery = @"SELECT 
                 ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, 
                 ci.description, ci.model_description, ci.prototype_description, 
-                rs.rolling_stock_id, rs.era, rs.category, rs.length, rs.class_name, rs.road_number,
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, rs.class_name, rs.road_number,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
@@ -209,7 +210,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         private const string GetCatalogItemBySlug = @"SELECT 
                 ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, 
                 ci.description, ci.model_description, ci.prototype_description, 
-                rs.rolling_stock_id, rs.era, rs.category, rs.length, rs.class_name, rs.road_number,
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, rs.class_name, rs.road_number,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
@@ -234,9 +235,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 @Description, @ModelDescription, @PrototypeDescription, @Created, @Modified, @Version);";
 
         private const string InsertNewRollingStock = @"INSERT INTO rolling_stocks(
-	            rolling_stock_id, era, category, railway_id, catalog_item_id, length, 
+	            rolling_stock_id, era, category, railway_id, catalog_item_id, length_mm, length_in,
                 class_name, road_number, type_name, dcc_interface, control)
-	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @Length, 
+	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @LengthMm, @LengthIn, 
                 @ClassName, @RoadNumber, @TypeName, @DccInterface, @Control);";
 
         #endregion

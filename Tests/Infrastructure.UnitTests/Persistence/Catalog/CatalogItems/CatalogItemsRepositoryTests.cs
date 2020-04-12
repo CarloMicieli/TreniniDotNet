@@ -250,8 +250,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             public Era Era => Era.IV;
 
-            public Length Length => Length.OfMillimeters(210M);
-
             public string ClassName => "class name";
 
             public string RoadNumber => "road num";
@@ -262,7 +260,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             public Control Control => Control.DccReady;
 
-            Length? IRollingStock.Length => null;
+            public LengthOverBuffer Length => LengthOverBuffer.Create(null, 210M);
         }
 
         public class TestRailwayInfo : IRailwayInfo

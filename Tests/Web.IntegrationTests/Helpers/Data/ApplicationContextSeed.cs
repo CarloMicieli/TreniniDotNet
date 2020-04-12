@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
@@ -19,6 +20,9 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
 
             IScalesRepository scales = scopedServices.GetRequiredService<IScalesRepository>();
             scales.SeedDatabase();
+
+            ICatalogItemRepository catalogItems = scopedServices.GetRequiredService<ICatalogItemRepository>();
+            catalogItems.SeedDatabase();
         }
     }
 }

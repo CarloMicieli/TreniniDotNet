@@ -216,7 +216,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
                     className: null,
                     roadNumber: null,
                     typeName: null,
-                    length: 999M,
+                    length: new LengthOverBufferInput(999M, null),
                     control: null,
                     dccInterface: null);
         }

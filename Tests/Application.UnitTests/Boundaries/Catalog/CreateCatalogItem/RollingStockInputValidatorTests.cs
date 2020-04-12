@@ -76,7 +76,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
                 className: "E 656",
                 roadNumber: "E 656 210",
                 typeName: null,
-                length: length,
+                length: new LengthOverBufferInput(length, null),
                 control: control,
                 dccInterface: dccInterface
             );

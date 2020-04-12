@@ -30,7 +30,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
     {
         public string? Era { set; get; }
 
-        public decimal? Length { set; get; }
+        public LengthOverBufferRequest? Length { set; get; }
 
         public string? Railway { set; get; }
 
@@ -45,5 +45,11 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
         public string? Control { get; }
 
         public string? Category { set; get; }
+    }
+
+    public sealed class LengthOverBufferRequest
+    {
+        public decimal? Millimeters { get; set; }
+        public decimal? Inches { get; set; }
     }
 }

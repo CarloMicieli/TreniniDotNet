@@ -12,7 +12,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public string category { set; get; } = null!;
         public Guid railway_id { get; set; } = default;
         public Guid catalog_item_id { get; set; } = default;
-        public decimal? length { get; set; }
+        public decimal? length_mm { get; set; }
+        public decimal? length_in { get; set; }
         public string? class_name { get; set; }
         public string? road_number { get; set; }
         public string? type_name { get; set; }

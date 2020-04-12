@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateRailway;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 
@@ -112,6 +113,39 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
         {
             public static ScaleGaugeInput With(string TrackGauge = null, decimal? Inches = null, decimal? Millimeters = null) =>
                 new ScaleGaugeInput(TrackGauge, Inches, Millimeters);
+        }
+
+        public static class NewCatalogItemInput
+        {
+            public static CreateCatalogItemInput Empty = With();
+
+            public static CreateCatalogItemInput With(
+                string BrandName = null,
+                string ItemNumber = null,
+                string Description = null,
+                string PrototypeDescription = null,
+                string ModelDescription = null,
+                string PowerMethod = null,
+                string Scale = null,
+                string DeliveryDate = null,
+                bool Available = true,
+                IList<RollingStockInput> RollingStocks = null) =>
+                new CreateCatalogItemInput(BrandName, ItemNumber, Description, PrototypeDescription, ModelDescription,
+                    PowerMethod, Scale, DeliveryDate, Available, RollingStocks);
+        }
+
+        public static class NewRollingStockInput
+        {
+            public static RollingStockInput Empty => With();
+
+            public static RollingStockInput With(
+                string Era = null, string Category = null, string Railway = null,
+                string ClassName = null, string RoadNumber = null, string TypeName = null,
+                LengthOverBufferInput Length = null,
+                string Control = null, string DccInterface = null) =>
+                new RollingStockInput(Era, Category, Railway,
+                    ClassName, RoadNumber, TypeName, Length,
+                    Control, DccInterface);
         }
     }
 }
