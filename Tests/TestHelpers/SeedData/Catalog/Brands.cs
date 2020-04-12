@@ -146,7 +146,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             var brands = CatalogSeedData.Brands.All();
             foreach (var brand in brands)
             {
-                repo.Add(brand);
+                repo.AddAsync(brand);
             }
         }
     }

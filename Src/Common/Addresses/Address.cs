@@ -5,7 +5,11 @@ namespace TreniniDotNet.Common.Addresses
 {
     public sealed class Address : IEquatable<Address>
     {
-        public Address(string line1, string? line2, string city, string? region, string postalCode, string country)
+        public Address(string line1, string? line2,
+            string city,
+            string? region,
+            string postalCode,
+            string country)
         {
             Line1 = line1;
             Line2 = line2;
@@ -75,6 +79,9 @@ namespace TreniniDotNet.Common.Addresses
 
             return null;
         }
+
+        public override string ToString() =>
+            $"{Line1}, {Line2}, {City}, {Region}, {PostalCode}, {Country}";
 
         public override int GetHashCode() => HashCode.Combine(Line1, Line2, City, PostalCode, Region, Country);
 

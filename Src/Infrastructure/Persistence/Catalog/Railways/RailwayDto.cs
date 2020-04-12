@@ -22,6 +22,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         public decimal? total_length_mi { set; get; }
         public decimal? total_length_km { set; get; }
         public string? website_url { set; get; }
+        public DateTime created { set; get; }
         public DateTime? last_modified { set; get; }
         public int? version { set; get; }
     }

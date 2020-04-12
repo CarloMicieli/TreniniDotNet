@@ -51,7 +51,7 @@ namespace TreniniDotNet.Application.UseCases
         {
             var scalesFactory = new ScalesFactory(_fakeClock, _guidSource);
             var context = initData == Start.WithSeedData ? InMemoryContext.WithCatalogSeedData() : new InMemoryContext();
-            var scaleRepository = new ScaleRepository(context, scalesFactory);
+            var scaleRepository = new ScaleRepository(context);
 
             IUnitOfWork unitOfWork = new UnitOfWork();
 
@@ -66,7 +66,7 @@ namespace TreniniDotNet.Application.UseCases
             var context = initData == Start.WithSeedData ? InMemoryContext.WithCatalogSeedData() : new InMemoryContext();
             var catalogItemRepository = new CatalogItemRepository(context);
             var brandRepository = new BrandRepository(context);
-            var scaleRepository = new ScaleRepository(context, new ScalesFactory(_fakeClock, _guidSource));
+            var scaleRepository = new ScaleRepository(context);
             var railwayRepository = new RailwayRepository(context);
 
             IUnitOfWork unitOfWork = new UnitOfWork();

@@ -5,55 +5,59 @@ namespace TreniniDotNet.Common.Addresses
 {
     public class AddressTests
     {
-        //[Fact]
-        //public void Address_TryCreate_ShouldFailToCreateInvalidAddresses()
-        //{
-        //    Validation<Error, Address> result = Address.TryCreate(null, null, null, null, null, null);
-        //    result.Match(
-        //        Succ: succ => Assert.True(false, "It should never arrive here"),
-        //        Fail: errors =>
-        //        {
-        //            var errorsList = errors.ToList();
+        [Fact]
+        public void Address_With_CreateAddresses()
+        {
+            var a = Address.With(
+                line1: "22 Acacia Avenue",
+                line2: "West End",
+                city: "London",
+                postalCode: "12345",
+                country: "UK");
 
-        //            errorsList.Should().HaveCount(4);
-        //            errorsList.Should().ContainInOrder(
-        //                Error.New("invalid address: the first line is required"),
-        //                Error.New("invalid address: the town/city is required"),
-        //                Error.New("invalid address: the postal code is required"),
-        //                Error.New("invalid address: the country is required")
-        //                );
-        //        });
-        //}
-
-        //[Fact]
-        //public void Address_TryCreate_ShouldCreateAddressesFromValidValues()
-        //{
-        //    Validation<Error, Address> result = Address.TryCreate(
-        //        "address line 1", "address line 2",
-        //        "city name",
-        //        "region",
-        //        "postal code",
-        //        "IT");
-
-        //    result.Match(
-        //        Succ: address =>
-        //        {
-        //            address.Line1.Should().Be("address line 1");
-        //            address.Line2.Should().Be("address line 2");
-        //            address.City.Should().Be("city name");
-        //            address.Region.Should().Be("region");
-        //            address.PostalCode.Should().Be("postal code");
-        //            address.Country.Should().Be("IT");
-        //        },
-        //        Fail: errors => Assert.True(false, "It should never arrive here"));
-        //}
+            a.Should().NotBeNull();
+            a.Line1.Should().Be("22 Acacia Avenue");
+            a.Line2.Should().Be("West End");
+            a.City.Should().Be("London");
+            a.PostalCode.Should().Be("12345");
+            a.Country.Should().Be("UK");
+        }
 
         [Fact]
-        public void AddressEquals_ShouldReturnTrue_WhenAddressesAreEquals()
+        public void Address_TryCreate_CreateAddresses()
+        {
+            var result = Address.TryCreate(
+                "22 Acacia Avenue",
+                "West End",
+                "London",
+                null,
+                "12345",
+                "UK",
+                out var a);
+
+            a.Should().NotBeNull();
+            a.Line1.Should().Be("22 Acacia Avenue");
+            a.Line2.Should().Be("West End");
+            a.Region.Should().BeNull();
+            a.City.Should().Be("London");
+            a.PostalCode.Should().Be("12345");
+            a.Country.Should().Be("UK");
+        }
+
+        [Fact]
+        public void Address_Equals_ShouldReturnTrue_WhenAddressesAreEquals()
         {
             var (left, right) = TwoEqualsAddresses();
             (left.Equals(right)).Should().BeTrue();
             (left == right).Should().BeTrue();
+            (left != right).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Address_ToString_ShouldProduceStringRepresentations()
+        {
+            var address = NewAddress();
+            address.ToString().Should().Be("address line 1, address line 2, city name, region, postal code, IT");
         }
 
         private static (Address left, Address right) TwoEqualsAddresses()
@@ -61,14 +65,11 @@ namespace TreniniDotNet.Common.Addresses
             return (NewAddress(), NewAddress());
         }
 
-        private static Address NewAddress()
-        {
-            return new Address(
+        private static Address NewAddress() => Address.With(
                 "address line 1", "address line 2",
                 "city name",
                 "region",
                 "postal code",
                 "IT");
-        }
     }
 }

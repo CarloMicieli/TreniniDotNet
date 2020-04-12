@@ -33,6 +33,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                decimal? totalLengthMi,
                decimal? totalLengthKm,
                string? websiteUrl,
+               DateTime created,
                DateTime? lastModified,
                int? version);
     }

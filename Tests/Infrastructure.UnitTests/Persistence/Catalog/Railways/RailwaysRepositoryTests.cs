@@ -2,7 +2,6 @@
 using FluentAssertions;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Infrastructure.Database.Testing;
-using TreniniDotNet.Infrastracture.Dapper;
 using NodaTime;
 using System;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -10,6 +9,7 @@ using TreniniDotNet.Common;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
@@ -62,10 +62,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             {
                 railway_id = Guid.NewGuid(),
                 slug = Slug.Of("FS").ToString(),
-                name = "FS"
+                name = "FS",
+                created = DateTime.UtcNow,
+                version = 1
             });
 
-            var exists = await Repository.Exists(Slug.Of("FS"));
+            var exists = await Repository.ExistsAsync(Slug.Of("FS"));
 
             exists.Should().BeTrue();
         }
@@ -82,10 +84,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 railway_id = Guid.NewGuid(),
                 slug = expectedSlug.ToString(),
                 name = "FS",
-                country = "IT"
+                country = "IT",
+                active = true,
+                created = DateTime.UtcNow,
+                version = 1
             });
 
-            var railway = await Repository.GetBySlug(expectedSlug);
+            var railway = await Repository.GetBySlugAsync(expectedSlug);
 
             railway.Should().NotBeNull();
             railway.Slug.Should().Be(expectedSlug);
@@ -101,78 +106,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 railway_id = Guid.NewGuid(),
                 slug = Slug.Of("FS").ToString(),
                 name = "FS",
-                country = "IT"
+                country = "IT",
+                created = DateTime.UtcNow,
+                version = 1
             });
 
-            var railway = await Repository.GetBySlug(Slug.Of("not found"));
+            var railway = await Repository.GetBySlugAsync(Slug.Of("not found"));
 
             railway.Should().BeNull();
-        }
-
-        [Fact]
-        public async Task RailwaysRepository_GetByName_ShouldReturnTheRailwayWhenExists()
-        {
-            Database.Setup.TruncateTable(Tables.Railways);
-
-            string expectedName = "FS";
-
-            Database.Arrange.InsertOne(Tables.Railways, new
-            {
-                railway_id = Guid.NewGuid(),
-                slug = Slug.Of(expectedName).ToString(),
-                name = expectedName,
-                country = "IT"
-            });
-
-            var railway = await Repository.GetByName(expectedName);
-
-            railway.Should().NotBeNull();
-            railway.Name.Should().Be(expectedName);
-        }
-
-        [Fact]
-        public async Task RailwaysRepository_GetByName_ShouldReturnNullWhenTheRailwayDoesNotExist()
-        {
-            Database.Setup.TruncateTable(Tables.Railways);
-
-            Database.Arrange.InsertOne(Tables.Railways, new
-            {
-                railway_id = Guid.NewGuid(),
-                slug = Slug.Of("FS").ToString(),
-                name = "FS",
-                country = "IT"
-            });
-
-            var railway = await Repository.GetByName("not found");
-
-            railway.Should().BeNull();
-        }
-
-        [Fact]
-        public async Task RailwaysRepository_GetAll_ShouldReturnAllRailways()
-        {
-            Database.Setup.TruncateTable(Tables.Railways);
-
-            Database.Arrange.Insert(Tables.Railways,
-                new
-                {
-                    railway_id = Guid.NewGuid(),
-                    slug = Slug.Of("FS").ToString(),
-                    name = "FS",
-                    country = "IT"
-                },
-                new
-                {
-                    railway_id = Guid.NewGuid(),
-                    slug = Slug.Of("DB").ToString(),
-                    name = "DB",
-                    country = "DE"
-                });
-
-            var railways = await Repository.GetAll();
-
-            railways.Should().NotBeNull();
-            railways.Should().HaveCount(2);
         }
 
         [Fact]
@@ -186,10 +127,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                     railway_id = Guid.NewGuid(),
                     slug = Slug.Of($"Railway{id}").ToString(),
                     name = $"Railway{id}",
-                    country = "IT"
+                    country = "IT",
+                    created = DateTime.UtcNow,
+                    active = true,
+                    version = 1
                 });
 
-            var result = await Repository.GetRailways(new Page(10, 5));
+            var result = await Repository.GetRailwaysAsync(new Page(10, 5));
 
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(5);
@@ -206,7 +150,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
         public string CompanyName => "Ferrovie dello Stato";
 
-        public int? Version => 42;
+        public int Version => 42;
 
         public Country Country => Country.Of("IT");
 
@@ -220,7 +164,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
         public string Headquarters => null;
 
-        public Instant? LastModifiedAt => Instant.FromUtc(1988, 11, 25, 9, 0);
+        public Instant CreatedDate => Instant.FromUtc(1988, 11, 25, 9, 0);
+
+        public Instant? ModifiedDate => null;
 
         public IRailwayInfo ToRailwayInfo()
         {

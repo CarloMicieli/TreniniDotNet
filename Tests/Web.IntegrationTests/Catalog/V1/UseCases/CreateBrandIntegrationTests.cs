@@ -3,6 +3,7 @@ using IntegrationTests;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -18,22 +19,19 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task CreateNewBrands_ReturnsOk()
         {
-            // Arrange
             var client = CreateHttpClient();
-            var content = JsonContent(new
+            var content = new
             {
                 Name = "New Brand",
                 CompanyName = "Associazione Costruzioni Modellistiche Esatte",
                 WebsiteUrl = "http://www.acmetreni.com",
                 EmailAddress = "mail@acmetreni.com",
                 BrandType = "Industrial"
-            });
+            };
 
-            // Act
-            var response = await client.PostAsync("/api/v1/brands", content);
+            var response = await client.PostJsonAsync("/api/v1/brands", content, Check.IsSuccessful);
 
-            // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
+            response.EnsureSuccessStatusCode();
 
             response.Headers.Should().NotBeEmpty();
             response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/Brands/new-brand"));

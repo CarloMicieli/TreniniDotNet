@@ -1,9 +1,9 @@
-﻿using NodaTime;
-using System;
+﻿using System;
+using TreniniDotNet.Common.Entities;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    public interface IRailway : IRailwayInfo
+    public interface IRailway : IModifiableEntity, IRailwayInfo
     {
         string? CompanyName { get; }
 
@@ -16,10 +16,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         Uri? WebsiteUrl { get; }
 
         string? Headquarters { get; }
-
-        int? Version { get; }
-
-        Instant? LastModifiedAt { get; }
 
         IRailwayInfo ToRailwayInfo();
     }

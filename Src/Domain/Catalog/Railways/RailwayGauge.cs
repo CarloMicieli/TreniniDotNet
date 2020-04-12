@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using static TreniniDotNet.Common.Enums.EnumHelpers;
 using TreniniDotNet.Common.Lengths;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
@@ -24,7 +25,11 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public static RailwayGauge Create(string? trackGauge, decimal? inches, decimal? mm)
         {
             var (lenIn, lenMm) = TwoLengths.Create(inches, mm);
-            return new RailwayGauge(trackGauge.ToTrackGauge(), lenIn, lenMm);
+
+            return new RailwayGauge(
+                OptionalValueFor<TrackGauge>(trackGauge) ?? TrackGauge.Standard,
+                lenIn,
+                lenMm);
         }
 
         public static bool TryCreate(string? trackGauge, decimal? inches, decimal? mm,

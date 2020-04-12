@@ -21,36 +21,40 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             IScalesRepository scales,
             IRailwaysRepository railways)
         {
-            _catalogItemsRepository = catalogItemsRepository;
-            _brandsRepository = brands;
-            _railways = railways;
-            _scales = scales;
+            _catalogItemsRepository = catalogItemsRepository ??
+                throw new ArgumentNullException(nameof(catalogItemsRepository));
+            _brandsRepository = brands ??
+                throw new ArgumentNullException(nameof(brands));
+            _railways = railways ??
+                throw new ArgumentNullException(nameof(railways));
+            _scales = scales ??
+                throw new ArgumentNullException(nameof(scales));
         }
 
         public Task<ICatalogItem?> FindBySlug(Slug slug)
         {
-            return _catalogItemsRepository.GetBy(slug);
+            return _catalogItemsRepository.GetBySlugAsync(slug);
         }
 
         public Task<IBrand?> FindBrandByName(string brandName)
         {
-            return _brandsRepository.GetByName(brandName.Trim());
+            return _brandsRepository.GetBySlugAsync(Slug.Of(brandName.Trim()));
         }
 
         public async Task<bool> ItemAlreadyExists(IBrand brand, ItemNumber itemNumber)
         {
-            var item = await _catalogItemsRepository.GetBy(brand, itemNumber);
+            var item = await _catalogItemsRepository.GetByAsync(brand, itemNumber);
             return item != null;
         }
 
         public Task<IScale?> FindScaleByName(string scale)
         {
-            return _scales.GetByName(scale.Trim());
+            return _scales.GetBySlugAsync(Slug.Of(scale));
         }
 
         public Task<IRailway?> FindRailwayByName(string railwayName)
         {
-            return _railways.GetByName(railwayName.Trim());
+            return _railways.GetBySlugAsync(Slug.Of(railwayName));
         }
 
         public Task<CatalogItemId> CreateNewCatalogItem(ICatalogItem catalogItem)

@@ -4,9 +4,8 @@ using FluentMigrator;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using TreniniDotNet.Infrastracture.FluentMigrator.Extensions.DependencyInjection;
-using TreniniDotNet.Infrastracture.Persistence;
 
-namespace TreniniDotNet.Infrastracture.Extensions.DependencyInjection
+namespace TreniniDotNet.Infrastructure.Persistence.Migrations
 {
     public static class FluentMigratorExtensions
     {

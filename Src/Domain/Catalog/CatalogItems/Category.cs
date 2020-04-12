@@ -55,18 +55,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
     public static class Categories
     {
-        private static bool TryParse(string str, out Category result)
-        {
-            if (string.IsNullOrWhiteSpace(str) == false && Enum.TryParse<Category>(str, true, out var r))
-            {
-                result = r;
-                return true;
-            }
-
-            result = default;
-            return false;
-        }
-
         public static bool IsLocomotive(string category)
         {
             if (TryParse(category, out var cat))
@@ -88,6 +76,18 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             }
 
             return true;
+        }
+
+        private static bool TryParse(string str, out Category result)
+        {
+            if (string.IsNullOrWhiteSpace(str) == false && Enum.TryParse<Category>(str, true, out var r))
+            {
+                result = r;
+                return true;
+            }
+
+            result = default;
+            return false;
         }
     }
 }

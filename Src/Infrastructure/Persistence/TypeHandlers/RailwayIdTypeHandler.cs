@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
-namespace TreniniDotNet.Infrastracture.Persistence.TypeHandlers
+namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {
     public class RailwayIdTypeHandler : SqlMapper.TypeHandler<RailwayId?>
     {

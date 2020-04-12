@@ -17,7 +17,8 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         {
             _scaleRepository = scaleRepository ??
                 throw new ArgumentNullException(nameof(scaleRepository));
-            _scalesFactory = scalesFactory;
+            _scalesFactory = scalesFactory ??
+                throw new ArgumentNullException(nameof(scalesFactory));
         }
 
         public Task<ScaleId> CreateScale(
@@ -34,22 +35,17 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 
         public Task<PaginatedResult<IScale>> FindAllScales(Page? page)
         {
-            return _scaleRepository.GetScales(page ?? Page.Default);
-        }
-
-        public Task<List<IScale>> GetAll()
-        {
-            return _scaleRepository.GetAll();
+            return _scaleRepository.GetScalesAsync(page ?? Page.Default);
         }
 
         public Task<IScale?> GetBy(Slug slug)
         {
-            return _scaleRepository.GetBySlug(slug);
+            return _scaleRepository.GetBySlugAsync(slug);
         }
 
         public Task<bool> ScaleAlreadyExists(Slug slug)
         {
-            return _scaleRepository.Exists(slug);
+            return _scaleRepository.ExistsAsync(slug);
         }
     }
 }

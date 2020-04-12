@@ -5,22 +5,20 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Text.Json;
-using TreniniDotNet.Web.DependencyInjection;
-using TreniniDotNet.Infrastracture.Extensions.DependencyInjection;
-using TreniniDotNet.Infrastracture.Persistence;
 using System;
-using TreniniDotNet.Infrastracture.Persistence.Migrations;
-using TreniniDotNet.Infrastracture.Persistence.TypeHandlers;
-using TreniniDotNet.Web.Identity;
-using TreniniDotNet.Infrastructure.Persistence.Seed;
-using Microsoft.Extensions.Logging;
 using NodaTime;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.Uuid;
 using AutoMapper;
+using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Application;
 using TreniniDotNet.Web.UseCases.V1.Profiles;
+using TreniniDotNet.Web.Identity;
+using TreniniDotNet.Web.DependencyInjection;
+using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
+using TreniniDotNet.Infrastructure.Persistence.Migrations;
+using TreniniDotNet.Infrastructure.Persistence;
 
 namespace TreniniDotNet.Web
 {
@@ -64,11 +62,11 @@ namespace TreniniDotNet.Web
             services.AddVersioning();
 
             services.AddAutoMapper(typeof(CatalogProfile));
+            services.AddMediatR(typeof(Startup).Assembly);
+
             services.AddUseCases();
             services.AddPresenters();
             services.AddRepositories();
-
-            services.AddMediatR(typeof(Startup).Assembly);
 
             services.AddSingleton<IGuidSource, GuidSource>();
             services.AddSingleton<IClock>(SystemClock.Instance);

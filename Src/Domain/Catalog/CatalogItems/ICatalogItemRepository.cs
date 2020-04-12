@@ -7,11 +7,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface ICatalogItemRepository
     {
-        Task<bool> Exists(IBrandInfo brand, ItemNumber itemNumber);
+        Task<bool> ExistsAsync(IBrandInfo brand, ItemNumber itemNumber);
 
-        Task<ICatalogItem?> GetBy(IBrandInfo brand, ItemNumber itemNumber);
+        Task<ICatalogItem?> GetByAsync(IBrandInfo brand, ItemNumber itemNumber);
 
-        Task<ICatalogItem?> GetBy(Slug slug);
+        Task<ICatalogItem?> GetBySlugAsync(Slug slug);
 
         Task<CatalogItemId> Add(ICatalogItem catalogItem);
     }

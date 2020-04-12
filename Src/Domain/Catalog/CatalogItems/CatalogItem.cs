@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using NodaTime;
+using System;
+using System.Collections.Generic;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
-using NodaTime;
-using System;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.DeliveryDates;
+using TreniniDotNet.Common.Entities;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public sealed class CatalogItem : IEquatable<CatalogItem>, ICatalogItem
+    public sealed class CatalogItem : ModifiableEntity, IEquatable<CatalogItem>, ICatalogItem
     {
         internal CatalogItem(
             CatalogItemId id,
@@ -23,8 +25,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             DeliveryDate? deliveryDate,
             bool available,
             IReadOnlyList<IRollingStock> rollingStocks,
-            Instant lastModifiedAt,
+            Instant created,
+            Instant? modified,
             int version)
+            : base(created, modified, version)
         {
             CatalogItemId = id;
             Brand = brand;
@@ -38,8 +42,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             PowerMethod = powerMethod;
             DeliveryDate = deliveryDate;
             IsAvailable = available;
-            LastModifiedAt = lastModifiedAt;
-            Version = version;
         }
 
         #region [ Properties ]
@@ -55,8 +57,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public PowerMethod PowerMethod { get; }
         public DeliveryDate? DeliveryDate { get; }
         public bool IsAvailable { get; }
-        public int Version { get; }
-        public Instant LastModifiedAt { get; }
         #endregion
 
         public static bool operator ==(CatalogItem left, CatalogItem right) => AreEquals(left, right);

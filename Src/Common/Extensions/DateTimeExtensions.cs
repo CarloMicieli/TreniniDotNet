@@ -25,5 +25,8 @@ namespace TreniniDotNet.Common.Extensions
 
             return clock.GetCurrentInstant();
         }
+
+        public static Instant ToUtc(this DateTime dt) =>
+            Instant.FromUtc(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second);
     }
 }

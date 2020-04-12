@@ -49,9 +49,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         private static bool AreEquals(ScaleInfo left, ScaleInfo right) =>
             left.ScaleId.Equals(right.ScaleId);
 
-        public IScaleInfo ToScaleInfo()
-        {
-            return this;
-        }
+        public IScaleInfo ToScaleInfo() => this;
     }
 }

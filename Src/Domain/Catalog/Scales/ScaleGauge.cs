@@ -1,6 +1,7 @@
 using System;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common.Lengths;
+using static TreniniDotNet.Common.Enums.EnumHelpers;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -24,7 +25,10 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         public static ScaleGauge Of(decimal? millimeters, decimal? inches, string trackGauge)
         {
             var (mm, ins) = gauges.Create(millimeters, inches);
-            return new ScaleGauge(millimetres: mm, inches: ins, trackGauge.ToTrackGauge());
+            return new ScaleGauge(
+                millimetres: mm,
+                inches: ins,
+                RequiredValueFor<TrackGauge>(trackGauge));
         }
 
         public Gauge InMillimeters { get; }

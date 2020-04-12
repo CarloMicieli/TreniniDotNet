@@ -39,22 +39,22 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 kind,
                 address);
 
-            return _brandRepository.Add(newBrand);
+            return _brandRepository.AddAsync(newBrand);
         }
 
         public Task<PaginatedResult<IBrand>> FindAllBrands(Page? page)
         {
-            return _brandRepository.GetBrands(page ?? Page.Default);
+            return _brandRepository.GetBrandsAsync(page ?? Page.Default);
         }
 
         public Task<IBrand?> GetBrandBySlug(Slug slug)
         {
-            return _brandRepository.GetBySlug(slug);
+            return _brandRepository.GetBySlugAsync(slug);
         }
 
         public Task<bool> BrandAlreadyExists(Slug slug)
         {
-            return _brandRepository.Exists(slug);
+            return _brandRepository.ExistsAsync(slug);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         public string? address_region { set; get; }
         public string? address_postal_code { set; get; }
         public string? address_country { set; get; }
+        public DateTime created { set; get; }
         public DateTime? last_modified { set; get; }
         public int? version { set; get; }
     }

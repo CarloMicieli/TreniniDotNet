@@ -8,9 +8,9 @@ using CatalogUseCases = TreniniDotNet.Application.UseCases.Catalog;
 using CatalogBoundaries = TreniniDotNet.Application.Boundaries.Catalog;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 
-namespace TreniniDotNet.Web.DependencyInjection
+namespace TreniniDotNet.Application
 {
-    public static class ApplicationExtensions
+    public static class IServiceCollectionExtensions
     {
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
@@ -29,6 +29,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddScoped<CatalogBoundaries.CreateBrand.ICreateBrandUseCase, CatalogUseCases.CreateBrand>();
             services.AddScoped<CatalogBoundaries.GetBrandBySlug.IGetBrandBySlugUseCase, CatalogUseCases.GetBrandBySlug>();
             services.AddScoped<CatalogBoundaries.GetBrandsList.IGetBrandsListUseCase, CatalogUseCases.GetBrandsList>();
+            services.AddScoped<IBrandsFactory, BrandsFactory>();
 
             services.AddScoped<BrandService>();
 
@@ -40,6 +41,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddScoped<CatalogBoundaries.CreateScale.ICreateScaleUseCase, CatalogUseCases.CreateScale>();
             services.AddScoped<CatalogBoundaries.GetScaleBySlug.IGetScaleBySlugUseCase, CatalogUseCases.GetScaleBySlug>();
             services.AddScoped<CatalogBoundaries.GetScalesList.IGetScalesListUseCase, CatalogUseCases.GetScalesList>();
+            services.AddScoped<IScalesFactory, ScalesFactory>();
 
             services.AddScoped<ScaleService>();
 
@@ -51,6 +53,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddScoped<CatalogBoundaries.CreateRailway.ICreateRailwayUseCase, CatalogUseCases.CreateRailway>();
             services.AddScoped<CatalogBoundaries.GetRailwayBySlug.IGetRailwayBySlugUseCase, CatalogUseCases.GetRailwayBySlug>();
             services.AddScoped<CatalogBoundaries.GetRailwaysList.IGetRailwaysListUseCase, CatalogUseCases.GetRailwaysList>();
+            services.AddScoped<IRailwaysFactory, RailwaysFactory>();
 
             services.AddScoped<RailwayService>();
 
@@ -61,6 +64,7 @@ namespace TreniniDotNet.Web.DependencyInjection
         {
             services.AddScoped<CatalogBoundaries.CreateCatalogItem.ICreateCatalogItemUseCase, CatalogUseCases.CreateCatalogItem>();
             services.AddScoped<CatalogBoundaries.GetCatalogItemBySlug.IGetCatalogItemBySlugUseCase, CatalogUseCases.GetCatalogItemBySlug>();
+            services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();
 
             services.AddScoped<CatalogItemService>();
 

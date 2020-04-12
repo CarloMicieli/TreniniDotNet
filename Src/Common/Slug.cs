@@ -3,14 +3,11 @@ using System;
 
 namespace TreniniDotNet.Common
 {
-    public readonly struct Slug
+    public readonly struct Slug : IEquatable<Slug>
     {
-        private readonly string _value;
-        private static Slug EmptySlug = new Slug(string.Empty);
-
         private Slug(string slug)
         {
-            _value = slug ??
+            Value = slug ??
                 throw new ArgumentNullException(nameof(slug));
         }
 
@@ -24,7 +21,9 @@ namespace TreniniDotNet.Common
             return new Slug(value.ToSeoFriendly());
         }
 
-        public string Value => _value;
+        public string Value { get; }
+
+        private static readonly Slug EmptySlug = new Slug(string.Empty);
 
         public static Slug Of(string s)
         {
@@ -49,27 +48,19 @@ namespace TreniniDotNet.Common
             return new Slug(value1.ToSlug().ToString() + "-" + value2.ToSlug().ToString());
         }
 
-        //TODO: TEST ME
         public Slug CombineWith<T>(T value)
             where T : ICanConvertToSlug<T>
         {
             return new Slug(this.ToString() + "-" + value.ToSlug().ToString());
         }
 
-        public override string ToString()
-        {
-            return _value;
-        }
+        public static Slug Empty => EmptySlug;
 
-        public static bool operator ==(Slug left, Slug right)
-        {
-            return AreEquals(left, right);
-        }
+        public override string ToString() => Value;
 
-        public static bool operator !=(Slug left, Slug right)
-        {
-            return !AreEquals(left, right);
-        }
+        public static bool operator ==(Slug left, Slug right) => AreEquals(left, right);
+
+        public static bool operator !=(Slug left, Slug right) => !AreEquals(left, right);
 
         public override bool Equals(object obj)
         {
@@ -81,34 +72,7 @@ namespace TreniniDotNet.Common
             return false;
         }
 
-        /// <summary>
-        /// It returns <em>this</em> value if not empty, otherwise it
-        /// will produce a fresh value from the generation function.
-        /// </summary>
-        /// <param name="func">a <em>Slug</em> generation function</param>
-        /// <returns>a <em>Slug</em></returns>
-        public Slug OrNewIfEmpty(Func<Slug> func)
-        {
-            if (this == Slug.Empty)
-            {
-                return func.Invoke();
-            }
-            else
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Returns an empty <em>Slug</em>.
-        /// </summary>
-        public static Slug Empty
-        {
-            get
-            {
-                return EmptySlug;
-            }
-        }
+        public bool Equals(Slug other) => AreEquals(this, other);
 
         private static bool AreEquals(Slug left, Slug right)
         {
@@ -117,7 +81,7 @@ namespace TreniniDotNet.Common
 
         public override int GetHashCode()
         {
-            return _value.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
+            return Value.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Infrastracture.Dapper;
 using TreniniDotNet.Infrastructure.Database.Testing;
 using NodaTime;
 using Xunit;
@@ -16,6 +14,8 @@ using System.Threading.Tasks;
 using System.Collections.Immutable;
 using TreniniDotNet.Common.Lengths;
 using TreniniDotNet.Common.Uuid.Testing;
+using TreniniDotNet.Common.DeliveryDates;
+using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
@@ -40,7 +40,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             {
                 brand_id = brand.BrandId.ToGuid(),
                 name = brand.Name,
-                slug = brand.Slug.ToString()
+                slug = brand.Slug.ToString(),
+                kind = BrandKind.Industrial.ToString(),
+                created = DateTime.UtcNow
             });
 
             Database.Arrange.InsertOne(Tables.Railways, new
@@ -48,7 +50,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 railway_id = railway.RailwayId.ToGuid(),
                 name = railway.Name,
                 slug = railway.Slug.ToString(),
-                country = "IT"
+                country = "IT",
+                created = DateTime.UtcNow
             });
 
             Database.Arrange.InsertOne(Tables.Scales, new
@@ -59,7 +62,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 ratio = scale.Ratio.ToDecimal(),
                 gauge_mm = 16.5M,
                 gauge_in = 0.65M,
-                track_type = TrackGauge.Standard.ToString()
+                track_type = TrackGauge.Standard.ToString(),
+                created = DateTime.UtcNow
             });
         }
 
@@ -104,7 +108,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 railwayId: railway.RailwayId,
                 scaleId: scale.ScaleId);
 
-            var exists = await Repository.Exists(brand, new ItemNumber("123456"));
+            var exists = await Repository.ExistsAsync(brand, new ItemNumber("123456"));
 
             exists.Should().BeTrue();
         }
@@ -118,12 +122,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 railwayId: railway.RailwayId,
                 scaleId: scale.ScaleId);
 
-            var exists = await Repository.Exists(brand, new ItemNumber("654321"));
+            var exists = await Repository.ExistsAsync(brand, new ItemNumber("654321"));
 
             exists.Should().BeFalse();
         }
 
-        [Fact(Skip = "Fix me")]
+        [Fact]
         public async Task CatalogItemRepository_GetBySlug_ShouldReturnsCatalogItem()
         {
             Database.ArrangeWithOneCatalogItem(
@@ -133,7 +137,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 scaleId: scale.ScaleId);
 
             var slug = Slug.Of("acme", "123456");
-            var catalogItem = await Repository.GetBy(slug);
+            var catalogItem = await Repository.GetBySlugAsync(slug);
 
             catalogItem.Should().NotBeNull();
             catalogItem.Slug.Should().Be(slug);
@@ -149,12 +153,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 scaleId: scale.ScaleId);
 
             var slug = Slug.Of("acme", "654321");
-            var catalogItem = await Repository.GetBy(slug);
+            var catalogItem = await Repository.GetBySlugAsync(slug);
 
             catalogItem.Should().BeNull();
         }
 
-        [Fact(Skip = "Fix me")]
+        [Fact]
         public async Task CatalogItemRepository_GetByBrandAndItemNumber_ShouldReturnsCatalogItem()
         {
             Database.ArrangeWithOneCatalogItem(
@@ -163,7 +167,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 railwayId: railway.RailwayId,
                 scaleId: scale.ScaleId);
 
-            var catalogItem = await Repository.GetBy(brand, new ItemNumber("123456"));
+            var catalogItem = await Repository.GetByAsync(brand, new ItemNumber("123456"));
 
             catalogItem.Should().NotBeNull();
             catalogItem.Brand.Should().Be(brand);
@@ -179,7 +183,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 railwayId: railway.RailwayId,
                 scaleId: scale.ScaleId);
 
-            var catalogItem = await Repository.GetBy(brand, new ItemNumber("654321"));
+            var catalogItem = await Repository.GetByAsync(brand, new ItemNumber("654321"));
 
             catalogItem.Should().BeNull();
         }
@@ -216,14 +220,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             public PowerMethod PowerMethod => PowerMethod.DC;
 
-            public DeliveryDate? DeliveryDate => throw new NotImplementedException();
+            public DeliveryDate? DeliveryDate => null;
 
-            public bool IsAvailable => throw new NotImplementedException();
+            public bool IsAvailable => false;
 
-            public ICatalogItemInfo ToCatalogItemInfo()
-            {
-                throw new NotImplementedException();
-            }
+            public Instant CreatedDate => Instant.FromUtc(1988, 11, 25, 9, 0);
+
+            public Instant? ModifiedDate => null;
+
+            public int Version => 1;
+
+            public ICatalogItemInfo ToCatalogItemInfo() => this;
         }
 
         public class TestRollingStock : IRollingStock
@@ -255,7 +262,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             public Control Control => Control.DccReady;
 
-            Length? IRollingStock.Length => throw new NotImplementedException();
+            Length? IRollingStock.Length => null;
         }
 
         public class TestRailwayInfo : IRailwayInfo
@@ -270,10 +277,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             public Country Country => Country.Of("IT");
 
-            public IRailwayInfo ToRailwayInfo()
-            {
-                throw new NotImplementedException();
-            }
+            public IRailwayInfo ToRailwayInfo() => this;
         }
 
         public class TestScaleInfo : IScaleInfo
@@ -288,10 +292,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             public Ratio Ratio => Ratio.Of(87M);
 
-            public IScaleInfo ToScaleInfo()
-            {
-                throw new NotImplementedException();
-            }
+            public IScaleInfo ToScaleInfo() => this;
         }
     }
 
@@ -314,7 +315,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 item_number = "123456",
                 slug = "acme-123456",
                 power_method = "dc",
-                description = ""
+                description = "",
+                created = DateTime.UtcNow
             });
 
             db.Arrange.Insert(Tables.RollingStocks, new

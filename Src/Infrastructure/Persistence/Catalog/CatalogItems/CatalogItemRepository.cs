@@ -10,7 +10,7 @@ using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Infrastracture.Dapper;
+using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
@@ -40,12 +40,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 catalogItem.ItemNumber,
                 catalogItem.Slug,
                 catalogItem.PowerMethod,
-                DeliveryDate = (string?)null, //catalogItem.DeliveryDate,
+                DeliveryDate = catalogItem.DeliveryDate?.ToString(),
+                Available = catalogItem.IsAvailable,
                 catalogItem.Description,
                 catalogItem.ModelDescription,
                 catalogItem.PrototypeDescription,
-                CreatedAt = DateTime.UtcNow,
-                Version = 1
+                Created = catalogItem.CreatedDate.ToDateTimeUtc(),
+                Modified = catalogItem.ModifiedDate?.ToDateTimeUtc(),
+                catalogItem.Version
             });
 
             foreach (var rs in catalogItem.RollingStocks)
@@ -59,14 +61,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                     catalogItem.CatalogItemId,
                     rs.Length,
                     rs.ClassName,
-                    rs.RoadNumber
+                    rs.RoadNumber,
+                    rs.TypeName,
+                    DccInterface = rs.DccInterface.ToString(),
+                    Control = rs.Control.ToString()
                 });
             }
 
             return catalogItem.CatalogItemId;
         }
 
-        public async Task<bool> Exists(IBrandInfo brand, ItemNumber itemNumber)
+        public async Task<bool> ExistsAsync(IBrandInfo brand, ItemNumber itemNumber)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -78,7 +83,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             return string.IsNullOrEmpty(result) == false;
         }
 
-        public async Task<ICatalogItem?> GetBy(IBrandInfo brand, ItemNumber itemNumber)
+        public async Task<ICatalogItem?> GetByAsync(IBrandInfo brand, ItemNumber itemNumber)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -90,7 +95,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             return FromCatalogItemDto(results);
         }
 
-        public async Task<ICatalogItem?> GetBy(Slug slug)
+        public async Task<ICatalogItem?> GetBySlugAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -189,7 +194,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
-                ci.last_modified, ci.version
+                ci.created, ci.last_modified, ci.version
             FROM catalog_items AS ci
             JOIN brands AS b
             ON b.brand_id = ci.brand_id 
@@ -208,7 +213,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
-                ci.last_modified, ci.version
+                ci.created, ci.last_modified, ci.version
             FROM catalog_items AS ci
             JOIN brands AS b
             ON b.brand_id = ci.brand_id 
@@ -223,14 +228,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         private const string GetCatalogItemWithBrandAndItemNumberExistsQuery = @"SELECT slug FROM catalog_items WHERE brand_id = @brandId AND item_number = @itemNumber LIMIT 1;";
 
         private const string InsertNewCatalogItem = @"INSERT INTO catalog_items(
-	            catalog_item_id, brand_id, scale_id, item_number, slug, power_method, delivery_date, 
-                description, model_description, prototype_description, last_modified, version)
-            VALUES(@CatalogItemId, @BrandId, @ScaleId, @ItemNumber, @Slug, @PowerMethod, @DeliveryDate, 
-                @Description, @ModelDescription, @PrototypeDescription, @CreatedAt, @Version);";
+	            catalog_item_id, brand_id, scale_id, item_number, slug, power_method, delivery_date, available,
+                description, model_description, prototype_description, created, last_modified, version)
+            VALUES(@CatalogItemId, @BrandId, @ScaleId, @ItemNumber, @Slug, @PowerMethod, @DeliveryDate, @Available,
+                @Description, @ModelDescription, @PrototypeDescription, @Created, @Modified, @Version);";
 
         private const string InsertNewRollingStock = @"INSERT INTO rolling_stocks(
-	            rolling_stock_id, era, category, railway_id, catalog_item_id, length, class_name, road_number)
-	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @Length, @ClassName, @RoadNumber);";
+	            rolling_stock_id, era, category, railway_id, catalog_item_id, length, 
+                class_name, road_number, type_name, dcc_interface, control)
+	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @Length, 
+                @ClassName, @RoadNumber, @TypeName, @DccInterface, @Control);";
 
         #endregion
     }

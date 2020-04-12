@@ -3,11 +3,10 @@ using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
-using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
-using TreniniDotNet.Infrastracture.Dapper;
 using Dapper;
 using System.Linq;
+using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
@@ -41,13 +40,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 TrackGauge = scale.Gauge.TrackGauge.ToString(),
                 scale.Description,
                 scale.Weight,
-                LastModified = scale.LastModifiedAt?.ToDateTimeUtc(),
+                Created = scale.CreatedDate.ToDateTimeUtc(),
+                Modified = scale.ModifiedDate?.ToDateTimeUtc(),
                 scale.Version
             });
             return scale.ScaleId;
         }
 
-        public async Task<bool> Exists(Slug slug)
+        public async Task<bool> ExistsAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -59,36 +59,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             return string.IsNullOrEmpty(result) == false;
         }
 
-        public async Task<List<IScale>> GetAll()
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.QueryAsync<ScaleDto>(
-                GetAllScalesQuery,
-                new { });
-
-            if (result is null)
-            {
-                return new List<IScale>();
-            }
-
-            return result.Select(it => ProjectToDomain(it)!).ToList();
-        }
-
-        public async Task<IScale?> GetByName(string name)
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.QueryFirstOrDefaultAsync<ScaleDto>(
-                GetScaleByNameQuery,
-                new { name });
-
-            return ProjectToDomain(result);
-        }
-
-        public async Task<IScale?> GetBySlug(Slug slug)
+        public async Task<IScale?> GetBySlugAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -100,7 +71,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             return ProjectToDomain(result);
         }
 
-        public async Task<PaginatedResult<IScale>> GetScales(Page page)
+        public async Task<PaginatedResult<IScale>> GetScalesAsync(Page page)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -131,6 +102,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 dto.track_type,
                 dto.description,
                 dto.weight,
+                dto.created,
                 dto.last_modified,
                 dto.version);
         }
@@ -138,9 +110,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         #region [ Query / Command text ]
 
         private const string InsertScaleCommand = @"INSERT INTO scales(
-	            scale_id, name, slug, ratio, gauge_mm, gauge_in, track_type, description, weight, last_modified, version)
+	            scale_id, name, slug, ratio, gauge_mm, gauge_in, track_type, description, weight, created, last_modified, version)
             VALUES(
-                @ScaleId, @Name, @Slug, @Ratio, @GaugeMm, @GaugeIn, @TrackGauge, @Description, @Weight, @LastModified, @Version);";
+                @ScaleId, @Name, @Slug, @Ratio, @GaugeMm, @GaugeIn, @TrackGauge, @Description, @Weight, @Created, @Modified, @Version);";
 
         private const string GetScaleExistsQuery = @"SELECT slug FROM scales WHERE slug = @slug;";
         private const string GetAllScalesQuery = @"SELECT * FROM scales ORDER BY name;";

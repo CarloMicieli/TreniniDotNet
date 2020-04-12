@@ -1,7 +1,5 @@
 ﻿using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.GetScaleBySlug;
@@ -14,7 +12,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
 
         public GetScaleBySlugHandler(IGetScaleBySlugUseCase useCase)
         {
-            _useCase = useCase;
+            _useCase = useCase ??
+                throw new ArgumentNullException(nameof(useCase));
         }
 
         protected override Task Handle(GetScaleBySlugRequest request, CancellationToken cancellationToken)

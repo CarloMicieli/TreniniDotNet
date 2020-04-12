@@ -1,12 +1,11 @@
 using Dapper;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Pagination;
-using TreniniDotNet.Infrastracture.Dapper;
+using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
@@ -26,8 +25,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
 
-            var dt = railway.LastModifiedAt?.ToDateTimeUtc();
-
             var result = await connection.ExecuteAsync(InsertRailwayCommand, new
             {
                 railway.RailwayId,
@@ -45,13 +42,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 TotalLengthMi = railway.TotalLength?.Miles,
                 TotalLengthKm = railway.TotalLength?.Kilometers,
                 railway.WebsiteUrl,
-                LastModified = railway.LastModifiedAt?.ToDateTimeUtc(),
+                Created = railway.CreatedDate.ToDateTimeUtc(),
+                Modified = railway.ModifiedDate?.ToDateTimeUtc(),
                 railway.Version
             });
             return railway.RailwayId;
         }
 
-        public async Task<bool> Exists(Slug slug)
+        public async Task<bool> ExistsAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -63,24 +61,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             return string.IsNullOrEmpty(result) == false;
         }
 
-        public async Task<List<IRailway>> GetAll()
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.QueryAsync<RailwayDto>(
-                GetAllRailwaysQuery,
-                new { });
-
-            if (result is null)
-            {
-                return new List<IRailway>();
-            }
-
-            return result.Select(it => ProjectToDomain(it)!).ToList();
-        }
-
-        public async Task<IRailway?> GetBySlug(Slug slug)
+        public async Task<IRailway?> GetBySlugAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -92,19 +73,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             return ProjectToDomain(result);
         }
 
-        public async Task<IRailway?> GetByName(string name)
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.QueryFirstOrDefaultAsync<RailwayDto>(
-                GetRailwayByNameQuery,
-                new { name });
-
-            return ProjectToDomain(result);
-        }
-
-        public async Task<PaginatedResult<IRailway>> GetRailways(Page page)
+        public async Task<PaginatedResult<IRailway>> GetRailwaysAsync(Page page)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -141,6 +110,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 dto.total_length_mi,
                 dto.total_length_km,
                 dto.website_url,
+                dto.created,
                 dto.last_modified,
                 dto.version);
         }
@@ -150,10 +120,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         private const string InsertRailwayCommand = @"INSERT INTO railways(
 	            railway_id, name, company_name, slug, country, operating_since, operating_until, 
                 active, gauge_mm, gauge_in, track_gauge, headquarters, total_length_mi, total_length_km, 
-                website_url, last_modified, version)
+                website_url, created, last_modified, version)
             VALUES(@RailwayId, @Name, @CompanyName, @Slug, @Country, @OperatingSince, @OperatingUntil, 
                 @Active, @GaugeMm, @GaugeIn, @TrackGauge, @Headquarters, @TotalLengthMi, @TotalLengthKm, 
-                @WebsiteUrl, @LastModified, @Version);";
+                @WebsiteUrl, @Created, @Modified, @Version);";
 
         private const string GetRailwayExistsQuery = @"SELECT slug FROM railways WHERE slug = @slug LIMIT 1;";
         private const string GetAllRailwaysQuery = @"SELECT * FROM railways ORDER BY name;";

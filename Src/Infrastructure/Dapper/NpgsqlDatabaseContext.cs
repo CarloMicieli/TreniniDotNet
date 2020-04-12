@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using Npgsql;
 
-namespace TreniniDotNet.Infrastracture.Dapper
+namespace TreniniDotNet.Infrastructure.Dapper
 {
     public class NpgsqlDatabaseContext : IDatabaseContext
     {

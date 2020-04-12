@@ -2,7 +2,7 @@
 using System.Data;
 using System.Net.Mail;
 
-namespace TreniniDotNet.Infrastracture.Persistence.TypeHandlers
+namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {
     public class MailAddressTypeHandler : SqlMapper.TypeHandler<MailAddress?>
     {

@@ -4,7 +4,6 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System;
-using System.Collections.Generic;
 using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
@@ -18,24 +17,19 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             _context = context;
         }
 
-        public Task<BrandId> Add(IBrand brand)
+        public Task<BrandId> AddAsync(IBrand brand)
         {
             _context.Brands.Add(brand);
             return Task.FromResult(brand.BrandId);
         }
 
-        public Task<bool> Exists(Slug slug)
+        public Task<bool> ExistsAsync(Slug slug)
         {
             bool exists = _context.Brands.Any(b => b.Slug == slug);
             return Task.FromResult(exists);
         }
 
-        public Task<List<IBrand>> GetAll()
-        {
-            return Task.FromResult(_context.Brands.ToList());
-        }
-
-        public Task<PaginatedResult<IBrand>> GetBrands(Page page)
+        public Task<PaginatedResult<IBrand>> GetBrandsAsync(Page page)
         {
             var results = _context.Brands
                 .OrderBy(r => r.Name)
@@ -46,14 +40,14 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(new PaginatedResult<IBrand>(page, results));
         }
 
-        public Task<IBrand> GetByName(string name)
+        public Task<IBrand> GetByNameAsync(string name)
         {
             IBrand brand = _context.Brands
                 .FirstOrDefault(e => e.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             return Task.FromResult(brand);
         }
 
-        public Task<IBrand> GetBySlug(Slug slug)
+        public Task<IBrand> GetBySlugAsync(Slug slug)
         {
             IBrand brand = _context.Brands.FirstOrDefault(e => e.Slug == slug);
             return Task.FromResult(brand);

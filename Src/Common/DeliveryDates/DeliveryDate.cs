@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
-namespace TreniniDotNet.Domain.Catalog.ValueObjects
+namespace TreniniDotNet.Common.DeliveryDates
 {
     public readonly struct DeliveryDate : IEquatable<DeliveryDate>, IComparable<DeliveryDate>
     {
@@ -12,10 +12,10 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             Quarter = quarter;
         }
 
-        public static DeliveryDate FirstQuarterOf(int year) => new DeliveryDate(year, ValueObjects.Quarter.Q1);
-        public static DeliveryDate SecondQuarterOf(int year) => new DeliveryDate(year, ValueObjects.Quarter.Q2);
-        public static DeliveryDate ThirdQuarterOf(int year) => new DeliveryDate(year, ValueObjects.Quarter.Q3);
-        public static DeliveryDate FourthQuarterOf(int year) => new DeliveryDate(year, ValueObjects.Quarter.Q4);
+        public static DeliveryDate FirstQuarterOf(int year) => new DeliveryDate(year, DeliveryDates.Quarter.Q1);
+        public static DeliveryDate SecondQuarterOf(int year) => new DeliveryDate(year, DeliveryDates.Quarter.Q2);
+        public static DeliveryDate ThirdQuarterOf(int year) => new DeliveryDate(year, DeliveryDates.Quarter.Q3);
+        public static DeliveryDate FourthQuarterOf(int year) => new DeliveryDate(year, DeliveryDates.Quarter.Q4);
 
         public int Year { get; }
         public Quarter? Quarter { get; }
@@ -66,6 +66,16 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
         public static bool operator <=(DeliveryDate left, DeliveryDate right) => left.CompareTo(right) <= 0;
         #endregion
+
+        public static DeliveryDate? Parse(string? str)
+        {
+            if (TryParse(str, out var res))
+            {
+                return res;
+            }
+
+            throw new InvalidOperationException("Invalid value for a delivery date");
+        }
 
         public static bool TryParse(string? str, [NotNullWhen(true)] out DeliveryDate? result)
         {
@@ -134,26 +144,5 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
                 return null;
             }
         }
-    }
-
-    public enum Quarter
-    {
-        Q1,
-        Q2,
-        Q3,
-        Q4
-    }
-
-    internal static class Quarters
-    {
-        internal static int QuarterToInt(Quarter? qtr) =>
-            qtr switch
-            {
-                Quarter.Q1 => 1,
-                Quarter.Q2 => 2,
-                Quarter.Q3 => 3,
-                Quarter.Q4 => 4,
-                _ => Int32.MaxValue
-            };
     }
 }

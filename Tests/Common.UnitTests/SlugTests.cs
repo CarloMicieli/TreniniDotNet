@@ -1,24 +1,27 @@
 ﻿using Xunit;
+using FluentAssertions;
+using System;
 
 namespace TreniniDotNet.Common.Tests
 {
     public class SlugTests
     {
         [Fact]
-        public void ItShouldCreateASlugFromStringValues()
+        public void Slug_Of_ShouldCreateASlugFromStringValues()
         {
             var s = Slug.Of("Hello world");
-            Assert.Equal("hello-world", s.ToString());
+            s.ToString().Should().Be("hello-world");
         }
 
         [Fact]
-        public void ItShouldThrowAnExceptionWhenSlugValueIsEmpty()
+        public void Slug_Of_ShouldThrowAnExceptionWhenSlugValueIsEmpty()
         {
-            Assert.Throws<InvalidSlugException>(() => Slug.Of(string.Empty));
+            Action act = () => Slug.Of(string.Empty);
+            act.Should().Throw<InvalidSlugException>();
         }
 
         [Fact]
-        public void ItShouldCreateForObjectsThatImplementsIConvertToSlugInterface()
+        public void Slug_Of_ShouldCreateForObjectsThatImplementsIConvertToSlugInterface()
         {
             var v = new MyClass
             {
@@ -26,48 +29,45 @@ namespace TreniniDotNet.Common.Tests
             };
 
             var s = Slug.Of(v);
-            Assert.Equal("42", s.ToString());
+            s.ToString().Should().Be("42");
         }
 
         [Fact]
-        public void ItShouldCompareTwoSlugValues()
+        public void Slug_ItShouldCompareTwoSlugValues()
         {
             var s1 = Slug.Of("HELLO world");
             var s2 = Slug.Of("hello WORLD");
-            Assert.Equal(s1, s2);
-            Assert.True(s1 == s2);
-            Assert.True(s1.Equals(s2));
+
+            s1.Equals(s2).Should().BeTrue();
+            (s1 == s2).Should().BeTrue();
+            (s1 != s2).Should().BeFalse();
         }
 
         [Fact]
-        public void ItShouldCreateEmptySlugsAndTheyAreTheSameInstance()
+        public void Slug_ShouldCreateEmptySlugsAndTheyAreTheSameInstance()
         {
             var s1 = Slug.Empty;
             var s2 = Slug.Empty;
-            Assert.True(s1 == s2);
+            (s1 == s2).Should().BeTrue();
         }
 
         [Fact]
-        public void ItShouldRunTheFunctionToGenerateSlugWhenTheValueIsEmpty()
-        {
-            var s1 = Slug.Empty;
-            var s2 = Slug.Of("my slug");
-
-            var s3 = s1.OrNewIfEmpty(() => Slug.Of("my other slug"));
-            var s4 = s2.OrNewIfEmpty(() => Slug.Of("my other slug"));
-
-            Assert.Equal("my-other-slug", s3.ToString());
-            Assert.Equal("my-slug", s4.ToString());
-        }
-
-        [Fact]
-        public void ItShouldCreateANewSlugFromMultipleValues()
+        public void Slug_ShouldCreateANewSlugFromMultipleValues()
         {
             var s1 = Slug.Of("ACME", "12345");
             var s2 = Slug.Of(new MyClass { V = 42 }, new MyClass { V = 84 });
 
-            Assert.Equal("acme-12345", s1.ToString());
-            Assert.Equal("42-84", s2.ToString());
+            s1.ToString().Should().Be("acme-12345");
+            s2.ToString().Should().Be("42-84");
+        }
+
+        [Fact]
+        public void Slug_Combine_ShouldCombineASlugWithAValue()
+        {
+            var slug = Slug.Of("my slug");
+            var otherValue = new MyClass { V = 42 };
+
+            slug.CombineWith(otherValue).Value.Should().Be("my-slug-42");
         }
     }
 

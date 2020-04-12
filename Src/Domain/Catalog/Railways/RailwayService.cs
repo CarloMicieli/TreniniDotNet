@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -14,28 +13,25 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public RailwayService(IRailwaysRepository railwayRepository, IRailwaysFactory railwaysFactory)
         {
-            _railwayRepository = railwayRepository;
-            _railwaysFactory = railwaysFactory;
+            _railwayRepository = railwayRepository ??
+                throw new ArgumentNullException(nameof(railwayRepository));
+            _railwaysFactory = railwaysFactory ??
+                throw new ArgumentNullException(nameof(railwaysFactory));
         }
 
         public Task<bool> RailwayAlreadyExists(Slug slug)
         {
-            return _railwayRepository.Exists(slug);
+            return _railwayRepository.ExistsAsync(slug);
         }
 
         public Task<IRailway?> GetBy(Slug slug)
         {
-            return _railwayRepository.GetBySlug(slug);
-        }
-
-        public Task<List<IRailway>> GetAll()
-        {
-            return _railwayRepository.GetAll();
+            return _railwayRepository.GetBySlugAsync(slug);
         }
 
         public Task<PaginatedResult<IRailway>> FindAllRailways(Page? page)
         {
-            return _railwayRepository.GetRailways(page ?? Page.Default);
+            return _railwayRepository.GetRailwaysAsync(page ?? Page.Default);
         }
 
         public Task<RailwayId> CreateRailway(

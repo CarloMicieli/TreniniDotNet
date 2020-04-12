@@ -1,39 +1,39 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
-using TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems;
-using TreniniDotNet.Infrastructure.Persistence.Catalog.Railways;
-using TreniniDotNet.Infrastructure.Persistence.Catalog.Scales;
+﻿//using Microsoft.Extensions.DependencyInjection;
+//using TreniniDotNet.Domain.Catalog.Brands;
+//using TreniniDotNet.Domain.Catalog.CatalogItems;
+//using TreniniDotNet.Domain.Catalog.Railways;
+//using TreniniDotNet.Domain.Catalog.Scales;
+//using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
+//using TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems;
+//using TreniniDotNet.Infrastructure.Persistence.Catalog.Railways;
+//using TreniniDotNet.Infrastructure.Persistence.Catalog.Scales;
 
-namespace TreniniDotNet.Web.DependencyInjection
-{
-    public static class PersistenceExtensions
-    {
-        public static IServiceCollection AddRepositories(this IServiceCollection services)
-        {
-            services.AddCatalogPersistence();
-            return services;
-        }
+//namespace TreniniDotNet.Web.DependencyInjection
+//{
+//    public static class PersistenceExtensions
+//    {
+//        public static IServiceCollection AddRepositories(this IServiceCollection services)
+//        {
+//            services.AddCatalogPersistence();
+//            return services;
+//        }
 
-        private static IServiceCollection AddCatalogPersistence(this IServiceCollection services)
-        {
-            services.AddScoped<IBrandsRepository, BrandsRepository>();
-            services.AddScoped<IBrandsFactory, BrandsFactory>();
+//        private static IServiceCollection AddCatalogPersistence(this IServiceCollection services)
+//        {
+//            services.AddScoped<IBrandsRepository, BrandsRepository>();
+//            services.AddScoped<IBrandsFactory, BrandsFactory>();
 
-            services.AddScoped<IRailwaysRepository, RailwaysRepository>();
-            services.AddScoped<IRailwaysFactory, RailwaysFactory>();
+//            services.AddScoped<IRailwaysRepository, RailwaysRepository>();
+//            services.AddScoped<IRailwaysFactory, RailwaysFactory>();
 
-            services.AddScoped<IScalesRepository, ScalesRepository>();
-            services.AddScoped<IScalesFactory, ScalesFactory>();
+//            services.AddScoped<IScalesRepository, ScalesRepository>();
+//            services.AddScoped<IScalesFactory, ScalesFactory>();
 
-            services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
-            services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();
+//            services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
+//            services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();
 
-            return services;
-        }
-    }
-}
+//            return services;
+//        }
+//    }
+//}
 

@@ -3,6 +3,7 @@ using System;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using NodaTime;
 using System.Collections.Immutable;
+using TreniniDotNet.Common.Entities;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -14,7 +15,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     /// </summary>
     /// <seealso cref="Gauge"/>
     /// <seealso cref="Ratio"/>
-    public sealed class Scale : IEquatable<Scale>, IScale
+    public sealed class Scale : ModifiableEntity, IEquatable<Scale>, IScale
     {
         internal Scale(ScaleId id,
             string name, Slug slug,
@@ -23,7 +24,10 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             string? description,
             IImmutableSet<ScaleStandard> standards,
             int? weight,
-            Instant modifiedAt, int version)
+            Instant created,
+            Instant? modified,
+            int version)
+            : base(created, modified, version)
         {
             ScaleId = id;
             Slug = slug;
@@ -33,8 +37,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             Description = description;
             Standards = standards;
             Weight = weight;
-            LastModifiedAt = modifiedAt;
-            Version = version;
         }
 
         #region [ Properties ]
@@ -54,23 +56,12 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         public int? Weight { get; }
 
         public IImmutableSet<ScaleStandard> Standards { get; }
-
-        public Instant? LastModifiedAt { get; }
-
-        public int? Version { get; }
-
         #endregion
 
         #region [ Equality ]
-        public static bool operator ==(Scale left, Scale right)
-        {
-            return AreEquals(left, right);
-        }
+        public static bool operator ==(Scale left, Scale right) => AreEquals(left, right);
 
-        public static bool operator !=(Scale left, Scale right)
-        {
-            return !AreEquals(left, right);
-        }
+        public static bool operator !=(Scale left, Scale right) => !AreEquals(left, right);
 
         public override bool Equals(object obj)
         {
@@ -82,10 +73,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             return false;
         }
 
-        public bool Equals(Scale other)
-        {
-            return AreEquals(this, other);
-        }
+        public bool Equals(Scale other) => AreEquals(this, other);
 
         private static bool AreEquals(Scale left, Scale right)
         {
@@ -99,20 +87,12 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         #endregion
 
         #region [ Standard methods overrides ]
-        public override string ToString()
-        {
-            return $"{Name} ({Ratio})";
-        }
+        public override string ToString() => $"{Name} ({Ratio})";
 
-        public override int GetHashCode()
-        {
-            return this.Name.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
-        }
+        public override int GetHashCode() => HashCode.Combine(Name);
+
         #endregion
 
-        public IScaleInfo ToScaleInfo()
-        {
-            return this;
-        }
+        public IScaleInfo ToScaleInfo() => this;
     }
 }

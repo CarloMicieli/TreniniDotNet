@@ -2,7 +2,6 @@
 using FluentAssertions;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Infrastructure.Database.Testing;
-using TreniniDotNet.Infrastracture.Dapper;
 using NodaTime;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using System;
@@ -11,6 +10,7 @@ using System.Threading.Tasks;
 using TreniniDotNet.Domain.Pagination;
 using System.Collections.Immutable;
 using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
@@ -71,40 +71,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 gauge_in = scaleH0.Gauge.InInches.Value,
                 track_type = scaleH0.Gauge.TrackGauge.ToString(),
                 description = scaleH0.Description,
-                last_modified = scaleH0.LastModifiedAt?.ToDateTimeUtc(),
+                created = scaleH0.CreatedDate.ToDateTimeUtc(),
                 version = scaleH0.Version
             });
 
-            var scale = await Repository.GetBySlug(scaleH0.Slug);
+            var scale = await Repository.GetBySlugAsync(scaleH0.Slug);
 
             scale.Should().NotBeNull();
             scale.Slug.Should().Be(scaleH0.Slug);
-        }
-
-        [Fact]
-        public async Task ScalesRepository_GetByName_ShouldReturnScaleWithName()
-        {
-            Database.Setup.TruncateTable(Tables.Scales);
-
-            var scaleH0 = new TestScale();
-            Database.Arrange.InsertOne(Tables.Scales, new
-            {
-                scale_id = scaleH0.ScaleId.ToGuid(),
-                name = scaleH0.Name,
-                slug = scaleH0.Slug.ToString(),
-                ratio = scaleH0.Ratio.ToDecimal(),
-                gauge_mm = scaleH0.Gauge.InMillimeters.Value,
-                gauge_in = scaleH0.Gauge.InInches.Value,
-                track_type = scaleH0.Gauge.TrackGauge.ToString(),
-                description = scaleH0.Description,
-                last_modified = scaleH0.LastModifiedAt?.ToDateTimeUtc(),
-                version = scaleH0.Version
-            });
-
-            var scale = await Repository.GetByName(scaleH0.Name);
-
-            scale.Should().NotBeNull();
-            scale.Name.Should().Be(scaleH0.Name);
         }
 
         [Fact]
@@ -123,11 +97,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 gauge_in = scaleH0.Gauge.InInches.Value,
                 track_type = scaleH0.Gauge.TrackGauge.ToString(),
                 description = scaleH0.Description,
-                last_modified = scaleH0.LastModifiedAt?.ToDateTimeUtc(),
+                created = scaleH0.CreatedDate.ToDateTimeUtc(),
                 version = scaleH0.Version
             });
 
-            var exists = await Repository.Exists(scaleH0.Slug);
+            var exists = await Repository.ExistsAsync(scaleH0.Slug);
 
             exists.Should().BeTrue();
         }
@@ -137,53 +111,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var exists = await Repository.Exists(Slug.Of("not found"));
+            var exists = await Repository.ExistsAsync(Slug.Of("not found"));
 
             exists.Should().BeFalse();
         }
-
-        [Fact]
-        public async Task ScalesRepository_GetAll_ShouldReturnAllScales()
-        {
-            Database.Setup.TruncateTable(Tables.Scales);
-
-            var scaleH0 = new TestScale(new Guid("da2bfd8b-86e8-4531-b12b-7d442d4a4a75"), "H0");
-            var scaleN = new TestScale(new Guid("d3410d06-a2fb-4050-ad8c-4c4377fec4db"), "N");
-
-            Database.Arrange.Insert(Tables.Scales,
-                new
-                {
-                    scale_id = scaleH0.ScaleId.ToGuid(),
-                    name = scaleH0.Name,
-                    slug = scaleH0.Slug.ToString(),
-                    ratio = scaleH0.Ratio.ToDecimal(),
-                    gauge_mm = scaleH0.Gauge.InMillimeters.Value,
-                    gauge_in = scaleH0.Gauge.InInches.Value,
-                    track_type = scaleH0.Gauge.TrackGauge.ToString(),
-                    description = scaleH0.Description,
-                    last_modified = scaleH0.LastModifiedAt?.ToDateTimeUtc(),
-                    version = scaleH0.Version
-                },
-                new
-                {
-                    scale_id = scaleN.ScaleId.ToGuid(),
-                    name = scaleN.Name,
-                    slug = scaleN.Slug.ToString(),
-                    ratio = scaleN.Ratio.ToDecimal(),
-                    gauge_mm = scaleN.Gauge.InMillimeters.Value,
-                    gauge_in = scaleN.Gauge.InInches.Value,
-                    track_type = scaleN.Gauge.TrackGauge.ToString(),
-                    description = scaleN.Description,
-                    last_modified = scaleN.LastModifiedAt?.ToDateTimeUtc(),
-                    version = scaleN.Version
-                });
-
-            var scales = await Repository.GetAll();
-
-            scales.Should().NotBeNull();
-            scales.Should().HaveCount(2);
-        }
-
 
         [Fact]
         public async Task ScalesRepository_GetScales_ShouldReturnAllScalesPaginated()
@@ -204,7 +135,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                     gauge_in = scaleH0.Gauge.InInches.Value,
                     track_type = scaleH0.Gauge.TrackGauge.ToString(),
                     description = scaleH0.Description,
-                    last_modified = scaleH0.LastModifiedAt?.ToDateTimeUtc(),
+                    created = scaleH0.CreatedDate.ToDateTimeUtc(),
                     version = scaleH0.Version
                 },
                 new
@@ -217,11 +148,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                     gauge_in = scaleN.Gauge.InInches.Value,
                     track_type = scaleN.Gauge.TrackGauge.ToString(),
                     description = scaleN.Description,
-                    last_modified = scaleN.LastModifiedAt?.ToDateTimeUtc(),
+                    created = scaleN.CreatedDate.ToDateTimeUtc(),
                     version = scaleN.Version
                 });
 
-            var result = await Repository.GetScales(new Page(1, 1));
+            var result = await Repository.GetScalesAsync(new Page(1, 1));
 
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(1);
@@ -254,9 +185,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
         public string Description => null;
 
-        public Instant? LastModifiedAt => Instant.FromUtc(1988, 11, 25, 9, 0);
+        public Instant CreatedDate => Instant.FromUtc(1988, 11, 25, 9, 0);
 
-        public int? Version => 42;
+        public Instant? ModifiedDate => null;
+
+        public int Version => 42;
 
         public Ratio Ratio => Ratio.Of(87M);
 

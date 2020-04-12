@@ -9,6 +9,7 @@ using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
 using System;
+using TreniniDotNet.Common.DeliveryDates;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
@@ -52,6 +53,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 available,
                 rollingStocks,
                 _clock.GetCurrentInstant(),
+                null,
                 1);
         }
 
@@ -137,7 +139,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             IScaleInfo scale, string powerMethod, string? deliveryDate, bool available,
             string description, string? modelDescription, string? prototypeDescription,
             IReadOnlyList<IRollingStock> rollingStocks,
-            DateTime modified, int version)
+            DateTime created, int version)
         {
             CatalogItemId id = new CatalogItemId(catalogItemId);
             Slug itemSlug = Slug.Of(slug);
@@ -155,8 +157,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 DeliveryDate.TryParse(deliveryDate, out var dd) ? dd : null,
                 available,
                 rollingStocks,
-                _clock.GetCurrentInstant(),
-                1);
+                Instant.FromDateTimeUtc(created),
+                null,
+                version);
         }
     }
 }

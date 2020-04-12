@@ -48,6 +48,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 kind,
                 address,
                 _clock.GetCurrentInstant(),
+                null,
                 1);
         }
 
@@ -59,7 +60,8 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             string? websiteUrl,
             string? mailAddress,
             Address? address,
-            DateTime modified,
+            DateTime created,
+            DateTime? modified,
             int version)
         {
             return new Brand(
@@ -73,7 +75,8 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 mailAddress.ToMailAddressOpt(),
                 RequiredValueFor<BrandKind>(kind),
                 address,
-                Instant.FromDateTimeUtc(modified),
+                created.ToUtc(),
+                null,
                 version);
         }
 
@@ -101,6 +104,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 kind ?? BrandKind.Industrial,
                 null,
                 _clock.GetCurrentInstant(),
+                null,
                 1);
         }
     }

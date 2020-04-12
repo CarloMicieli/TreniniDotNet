@@ -3,6 +3,7 @@ using IntegrationTests;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using TreniniDotNet.IntegrationTests.Catalog.V1.Responses;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -18,7 +19,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetScaleBySlug_ReturnsOk_WhenTheScaleExists()
         {
-            var content = await GetJsonAsync<GetScaleBySlugResponse>("/api/v1/scales/h0");
+            var content = await GetJsonAsync<ScaleResponse>("/api/v1/scales/h0");
 
             content._Links.Should().NotBeNull();
             content._Links.Slug.Should().Be("h0");
@@ -33,23 +34,6 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         {
             var response = await GetAsync("/api/v1/scales/not-found");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
-
-        class GetScaleBySlugResponseLinks
-        {
-            public string Slug { set; get; }
-            public string _Self { set; get; }
-        }
-
-        class GetScaleBySlugResponse
-        {
-            public Guid Id { set; get; }
-            public GetScaleBySlugResponseLinks _Links { set; get; }
-            public string Slug { set; get; }
-            public string Name { set; get; }
-            public decimal? Ratio { set; get; }
-            public decimal? Gauge { set; get; }
-            public string TrackGauge { set; get; }
         }
     }
 }

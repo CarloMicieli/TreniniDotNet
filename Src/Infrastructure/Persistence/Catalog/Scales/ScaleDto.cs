@@ -16,6 +16,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         public string track_type { set; get; } = null!;
         public string? description { set; get; }
         public int? weight { set; get; }
+        public DateTime created { set; get; }
         public DateTime? last_modified { set; get; }
         public int? version { set; get; }
     }

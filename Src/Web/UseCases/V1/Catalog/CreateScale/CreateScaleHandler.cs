@@ -16,7 +16,6 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
         {
             _useCase = useCase ??
                 throw new ArgumentNullException(nameof(useCase));
-
             _mapper = mapper ??
                 throw new ArgumentNullException(nameof(mapper));
         }

@@ -21,6 +21,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             decimal gaugeMm, decimal gaugeIn, string trackType,
             string? description,
             int? weight,
+            DateTime created,
             DateTime? lastModified,
             int? version);
     }

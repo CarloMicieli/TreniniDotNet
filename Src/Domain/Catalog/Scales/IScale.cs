@@ -1,9 +1,9 @@
-using NodaTime;
 using System.Collections.Immutable;
+using TreniniDotNet.Common.Entities;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
-    public interface IScale : IScaleInfo
+    public interface IScale : IModifiableEntity, IScaleInfo
     {
         ScaleGauge Gauge { get; }
 
@@ -12,10 +12,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         int? Weight { get; }
 
         IImmutableSet<ScaleStandard> Standards { get; }
-
-        Instant? LastModifiedAt { get; }
-
-        int? Version { get; }
 
         IScaleInfo ToScaleInfo();
     }

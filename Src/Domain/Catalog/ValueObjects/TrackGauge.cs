@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TreniniDotNet.Domain.Catalog.ValueObjects
+﻿namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {
     /// <summary>
     /// In rail transport, track gauge or track gage is the spacing of the rails on a 
@@ -27,18 +25,5 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         /// built over or through (valleys and hills)
         /// </summary>
         Narrow,
-    }
-
-    public static class StringToTrackGaugeExtensions
-    {
-        public static TrackGauge ToTrackGauge(this string? str)
-        {
-            if (Enum.TryParse<TrackGauge>(str, out TrackGauge result))
-            {
-                return result;
-            }
-
-            return TrackGauge.Standard;
-        }
     }
 }

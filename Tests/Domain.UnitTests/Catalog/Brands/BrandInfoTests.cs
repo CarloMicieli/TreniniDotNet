@@ -1,24 +1,26 @@
 using TreniniDotNet.Common;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
+using FluentAssertions;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public class BrandInfoTests
     {
         [Fact]
-        public void IsShouldExtract_BrandInfo_FromBrands()
+        public void BrandInfo_ShouldExtract_FromBrands()
         {
             var brand = CatalogSeedData.Brands.Roco();
-            Assert.Equal(Slug.Of("roco"), brand.ToBrandInfo().Slug);
-            Assert.Equal("Roco", brand.ToBrandInfo().Name);
+
+            brand.ToBrandInfo().Slug.Should().Be(Slug.Of("roco"));
+            brand.ToBrandInfo().Name.Should().Be("Roco");
         }
 
         [Fact]
-        public void IsShouldReturnTheNameAsLabelFromBrandInfo()
+        public void BrandInfo_ShouldReturnTheNameAsLabelFromBrandInfo()
         {
             var brand = CatalogSeedData.Brands.Roco();
-            Assert.Equal("Roco", brand.ToBrandInfo().ToLabel());
+            brand.ToBrandInfo().ToLabel().Should().Be("Roco");
         }
     }
 }

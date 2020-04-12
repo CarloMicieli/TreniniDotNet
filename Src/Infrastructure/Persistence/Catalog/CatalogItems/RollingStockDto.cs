@@ -15,6 +15,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public decimal? length { get; set; }
         public string? class_name { get; set; }
         public string? road_number { get; set; }
+        public string? type_name { get; set; }
+        public string? dcc_interface { get; set; }
+        public string? control { get; set; }
     }
 #pragma warning restore CA1707 // Identifiers should not contain underscores
 #pragma warning restore CA1812 // Avoid uninstantiated internal classes

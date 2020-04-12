@@ -38,6 +38,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                  standards,
                 weight,
                 _clock.GetCurrentInstant(),
+                null,
                 1);
         }
 
@@ -47,7 +48,8 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             decimal gaugeMm, decimal gaugeIn, string trackType,
             string? description,
             int? weight,
-            DateTime? lastModified,
+            DateTime created,
+            DateTime? modified,
             int? version)
         {
             var scaleGauge = ScaleGauge.Of(gaugeMm, gaugeIn, trackType);
@@ -60,7 +62,8 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 description,
                 ImmutableHashSet<ScaleStandard>.Empty,
                 weight,
-                lastModified.ToUtcOrGetCurrent(_clock),
+                created.ToUtc(),
+                null,
                 version ?? 1);
         }
     }

@@ -1,7 +1,7 @@
 using System.Data;
 using Dapper;
 
-namespace Infrastructure.Persistence.TypeHandlers
+namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {
     public class LengthTypeHandler : SqlMapper.TypeHandler<TreniniDotNet.Common.Lengths.Length?>
     {

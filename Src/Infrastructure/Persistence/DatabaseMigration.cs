@@ -1,6 +1,6 @@
 ﻿using FluentMigrator.Runner;
 
-namespace TreniniDotNet.Infrastracture.Persistence
+namespace TreniniDotNet.Infrastructure.Persistence
 {
     public sealed class DatabaseMigration : IDatabaseMigration
     {

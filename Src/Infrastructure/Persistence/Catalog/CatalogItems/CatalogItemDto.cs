@@ -14,9 +14,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public string slug { set; get; } = null!;
         public string power_method { set; get; } = null!;
         public string? delivery_date { set; get; }
+        public bool? available { set; get; }
         public string description { set; get; } = null!;
         public string? model_description { set; get; }
         public string? prototype_description { set; get; }
+        public DateTime created { set; get; }
         public DateTime? last_modified { set; get; }
         public int? version { set; get; }
 #pragma warning restore CA1707 // Identifiers should not contain underscores

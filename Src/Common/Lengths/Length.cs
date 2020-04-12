@@ -41,6 +41,10 @@ namespace TreniniDotNet.Common.Lengths
             return new Length(value, MeasureUnit.Inches);
         }
 
+        public static Length OfMiles(decimal value) => new Length(value, MeasureUnit.Miles);
+
+        public static Length OfKilometers(decimal value) => new Length(value, MeasureUnit.Kilometers);
+
         public static bool TryCreate(decimal? value, MeasureUnit measureUnit, [NotNullWhen(true)] out Length? result)
         {
             if (value.HasValue == false)

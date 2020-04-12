@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 
@@ -10,34 +10,20 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
     public sealed class CreateCatalogItemHandler : AsyncRequestHandler<CreateCatalogItemRequest>
     {
         private readonly ICreateCatalogItemUseCase _useCase;
+        private readonly IMapper _mapper;
 
-        public CreateCatalogItemHandler(ICreateCatalogItemUseCase useCase)
+        public CreateCatalogItemHandler(ICreateCatalogItemUseCase useCase, IMapper mapper)
         {
-            _useCase = useCase;
+            _useCase = useCase ??
+                throw new ArgumentNullException(nameof(useCase));
+            _mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
         }
 
         protected override Task Handle(CreateCatalogItemRequest request, CancellationToken cancellationToken)
         {
-            return _useCase.Execute(ConvertToInput(request));
-        }
-
-        private static CreateCatalogItemInput ConvertToInput(CreateCatalogItemRequest request)
-        {
-            List<RollingStockInput> rollingStocks = request.RollingStocks
-                .Select(rs => new RollingStockInput(rs.Era!, rs.Category!, rs.Railway!, rs.ClassName, rs.RoadNumber, null, rs.Length, null, null))
-                .ToList();
-
-            return new CreateCatalogItemInput(
-                request.BrandName!,
-                request.ItemNumber!,
-                request.Description!,
-                request.PrototypeDescription,
-                request.ModelDescription,
-                request.PowerMethod!,
-                request.Scale!,
-                request.DeliveryDate,
-                request.Available,
-                rollingStocks);
+            var input = _mapper.Map<CreateCatalogItemInput>(request);
+            return _useCase.Execute(input);
         }
     }
 }

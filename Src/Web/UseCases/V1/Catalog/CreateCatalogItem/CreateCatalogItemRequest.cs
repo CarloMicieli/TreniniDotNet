@@ -23,10 +23,10 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
 
         public bool Available { set; get; } = false;
 
-        public List<RollingStock> RollingStocks { set; get; } = new List<RollingStock>();
+        public List<RollingStockRequest> RollingStocks { set; get; } = new List<RollingStockRequest>();
     }
 
-    public sealed class RollingStock
+    public sealed class RollingStockRequest
     {
         public string? Era { set; get; }
 
@@ -37,6 +37,12 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
         public string? ClassName { set; get; }
 
         public string? RoadNumber { set; get; }
+
+        public string? TypeName { get; }
+
+        public string? DccInterface { get; }
+
+        public string? Control { get; }
 
         public string? Category { set; get; }
     }

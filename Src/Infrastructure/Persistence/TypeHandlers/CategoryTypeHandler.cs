@@ -3,7 +3,7 @@ using Dapper;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 
-namespace Infrastructure.Persistence.TypeHandlers
+namespace Infrastructure.Infrastructure.TypeHandlers
 {
     public class CategoryTypeHandler : SqlMapper.TypeHandler<Category?>
     {

@@ -56,7 +56,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             b.Address.Should().Be(ExpectedAddress);
             b.Kind.Should().Be(BrandKind.Industrial);
             b.Version.Should().Be(1);
-            b.LastModifiedAt.Should().Be(ExpectedDate);
+            b.CreatedDate.Should().Be(ExpectedDate);
         }
 
         [Fact]
@@ -80,6 +80,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 "mail@mail.com",
                 ExpectedAddress,
                 ExpectedDate.ToDateTimeUtc(),
+                null,
                 2);
 
             b.Should().NotBeNull();
@@ -93,7 +94,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             b.Kind.Should().Be(BrandKind.Industrial);
             b.Address.Should().Be(ExpectedAddress);
             b.Version.Should().Be(2);
-            b.LastModifiedAt.Should().Be(ExpectedDate);
+            b.CreatedDate.Should().Be(ExpectedDate);
         }
 
         [Fact]
@@ -113,6 +114,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 "--invalid email--",
                 Address.With(),
                 ExpectedDate.ToDateTimeUtc(),
+                null,
                 2);
 
             b.Should().NotBeNull();

@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace TreniniDotNet.Infrastracture.Dapper
+namespace TreniniDotNet.Infrastructure.Dapper
 {
     public interface IDatabaseContext
     {

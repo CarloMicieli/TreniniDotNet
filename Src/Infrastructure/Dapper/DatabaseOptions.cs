@@ -1,4 +1,4 @@
-﻿namespace TreniniDotNet.Infrastracture.Dapper
+﻿namespace TreniniDotNet.Infrastructure.Dapper
 {
     public sealed class DatabaseOptions
     {

@@ -22,14 +22,14 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(catalogItem.CatalogItemId);
         }
 
-        public Task<bool> Exists(IBrandInfo brand, ItemNumber itemNumber)
+        public Task<bool> ExistsAsync(IBrandInfo brand, ItemNumber itemNumber)
         {
             var exists = _context.CatalogItems
                 .Any(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber);
             return Task.FromResult(exists);
         }
 
-        public Task<ICatalogItem> GetBy(IBrandInfo brand, ItemNumber itemNumber)
+        public Task<ICatalogItem> GetByAsync(IBrandInfo brand, ItemNumber itemNumber)
         {
             var catalogItem = _context.CatalogItems
                 .Where(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber)
@@ -38,7 +38,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(catalogItem);
         }
 
-        public Task<ICatalogItem> GetBy(Slug slug)
+        public Task<ICatalogItem> GetBySlugAsync(Slug slug)
         {
             var catalogItem = _context.CatalogItems
                 .Where(it => it.Slug == slug)

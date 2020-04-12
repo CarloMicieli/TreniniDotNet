@@ -1,7 +1,7 @@
 using Xunit;
 using FluentAssertions;
 
-namespace TreniniDotNet.Domain.Catalog.ValueObjects
+namespace TreniniDotNet.Common.DeliveryDates
 {
     public class DeliveryDateTests
     {

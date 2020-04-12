@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Net.Mail;
 using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
+[assembly: InternalsVisibleTo("Domain.UnitTests")]
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
-    public sealed class Brand : IBrand, IEquatable<Brand>
+    public sealed class Brand : ModifiableEntity, IBrand, IEquatable<Brand>
     {
-        internal Brand(BrandId id,
+        internal Brand(BrandId brandId,
             string name,
             Slug slug,
             string? companyName,
@@ -19,10 +22,12 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             MailAddress? emailAddress,
             BrandKind kind,
             Address? address,
-            Instant lastModified,
+            Instant created,
+            Instant? modified,
             int version)
+            : base(created, modified, version)
         {
-            BrandId = id;
+            BrandId = brandId;
             Slug = slug;
             Name = name;
             WebsiteUrl = websiteUrl;
@@ -32,8 +37,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             Description = description;
             Address = address;
             Kind = kind;
-            Version = version;
-            LastModifiedAt = lastModified;
         }
 
         #region [ Properties ]
@@ -41,7 +44,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         public Slug Slug { get; }
 
-        public string Name { get; }
+        public string Name { get; } = null!;
 
         public Uri? WebsiteUrl { get; }
 
@@ -56,20 +59,11 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         public Address? Address { get; }
 
         public BrandKind Kind { get; }
-
-        public Instant? LastModifiedAt { get; }
-
-        public int? Version { get; }
         #endregion
 
         #region [ Equality ]
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
             if (obj is Brand that)
             {
                 return AreEquals(this, that);
@@ -78,20 +72,11 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             return false;
         }
 
-        public static bool operator ==(Brand left, Brand right)
-        {
-            return AreEquals(left, right);
-        }
+        public static bool operator ==(Brand left, Brand right) => AreEquals(left, right);
 
-        public static bool operator !=(Brand left, Brand right)
-        {
-            return !AreEquals(left, right);
-        }
+        public static bool operator !=(Brand left, Brand right) => !AreEquals(left, right);
 
-        public bool Equals(Brand other)
-        {
-            return AreEquals(this, other);
-        }
+        public bool Equals(Brand other) => AreEquals(this, other);
 
         private static bool AreEquals(Brand left, Brand right)
         {
@@ -110,16 +95,10 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         public override int GetHashCode() =>
             HashCode.Combine(BrandId, Name);
 
-        public override string ToString()
-        {
-            return $"Brand({Name})";
-        }
+        public override string ToString() => $"Brand({Name})";
 
         #endregion
 
-        public IBrandInfo ToBrandInfo()
-        {
-            return this;
-        }
+        public IBrandInfo ToBrandInfo() => this;
     }
 }

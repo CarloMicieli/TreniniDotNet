@@ -6,12 +6,11 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using TreniniDotNet.IntegrationTests.Helpers.Data;
-using TreniniDotNet.Infrastracture.Extensions.DependencyInjection;
 using System.IO;
-using TreniniDotNet.Infrastracture.Persistence;
-using TreniniDotNet.Infrastracture.Persistence.Migrations;
-using TreniniDotNet.Infrastracture.Persistence.TypeHandlers;
 using TreniniDotNet.Web.Identity;
+using TreniniDotNet.Infrastructure.Persistence;
+using TreniniDotNet.Infrastructure.Persistence.Migrations;
+using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 
 namespace TreniniDotNet.IntegrationTests
 {

@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using IntegrationTests;
-using System;
 using System.Net;
 using System.Threading.Tasks;
+using TreniniDotNet.IntegrationTests.Catalog.V1.Responses;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -18,7 +18,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetRailwayBySlug_ReturnsOk_WhenTheBrandExists()
         {
-            var content = await GetJsonAsync<GetRailwayBySlugResponse>("/api/v1/railways/fs");
+            var content = await GetJsonAsync<RailwayResponse>("/api/v1/railways/fs");
 
             content.Name.Should().Be("FS");
             content._Links.Should().NotBeNull();
@@ -31,25 +31,6 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         {
             var response = await GetAsync("/api/v1/railways/not-found");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
-
-        class GetRailwayBySlugLinks
-        {
-            public string Slug { set; get; }
-            public string _Self { set; get; }
-        }
-
-        class GetRailwayBySlugResponse
-        {
-            public Guid Id { set; get; }
-            public GetRailwayBySlugLinks _Links { set; get; }
-            public string Slug { set; get; }
-            public string Name { set; get; }
-            public string CompanyName { set; get; }
-            public string Country { set; get; }
-            public string Status { set; get; }
-            public DateTime? OperatingSince { set; get; }
-            public DateTime? OperatingUntil { set; get; }
         }
     }
 }

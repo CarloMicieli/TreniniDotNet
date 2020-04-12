@@ -1,91 +1,124 @@
-﻿//using TreniniDotNet.Common;
-//using System;
-//using System.Net.Mail;
-//using Xunit;
-//using TreniniDotNet.Domain.Catalog.ValueObjects;
+﻿using System;
+using System.Net.Mail;
+using Xunit;
+using NodaTime;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
+using FluentAssertions;
 
-//namespace TreniniDotNet.Domain.Catalog.Brands
-//{
-//    public class BrandTests
-//    {
-//        //[Fact]
-//        //public void ItShouldCreateNewBrands()
-//        //{
-//        //    var b = new Brand("ACME", null, new Uri("http://www.acmetreni.com"), new MailAddress("mail@acmetreni.com"), BrandKind.Industrial);
-//        //    Assert.Equal("Brand(ACME)", b.ToString());
-//        //}
+namespace TreniniDotNet.Domain.Catalog.Brands
+{
+    public class BrandTests
+    {
+        [Fact]
+        public void Brand_ShouldCreateNewValues()
+        {
+            var b = NewBrandWith(
+                brandId: new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
+                name: "ACME",
+                companyName: "Anonima Costruzione Modelli Esatti",
+                websiteUrl: "https://www.acmetreni.com",
+                mailAddress: "mail@acmetreni.com",
+                kind: BrandKind.Industrial);
 
-//        //[Fact]
-//        //public void ItShouldCreateANewBrandIdWhenNotProvided()
-//        //{
-//        //    var acme = new Brand("ACME", null, new Uri("http://www.acmetreni.com"), new MailAddress("mail@acmetreni.com"), BrandKind.Industrial);
-//        //    Assert.Equal(Slug.Of("acme"), acme.Slug);
-//        //}
+            b.Should().NotBeNull();
+            b.Name.Should().Be("ACME");
+        }
 
-//        //[Fact]
-//        //public void ItShouldReturnBrandPropertiesValues()
-//        //{
-//        //    var name = "ACME";
-//        //    var companyName = "Anonima Costruzione Modelli Esatti";
-//        //    var website = new Uri("http://www.acmetreni.com");
-//        //    var emailAddress = new MailAddress("mail@acmetreni.com");
-//        //    var kind = BrandKind.Industrial;
+        [Fact]
+        public void Brand_ToBrandInfo_ShouldReturnTheBrandInfo()
+        {
+            var b = NewBrandWith(
+                brandId: new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
+                name: "ACME");
 
-//        //    var b = new Brand(name, companyName, website, emailAddress, kind);
-//        //    Assert.Equal(name, b.Name);
-//        //    Assert.Equal(companyName, b.CompanyName);
-//        //    Assert.Equal(website, b.WebsiteUrl);
-//        //    Assert.Equal(emailAddress, b.EmailAddress);
-//        //    Assert.Equal(kind, b.Kind);
-//        //}
+            var info = b.ToBrandInfo();
 
-//        [Fact]
-//        public void ItShouldCheckForBrandsEquality()
-//        {
-//            var acme1 = Acme();
-//            var acme2 = Acme();
+            info.Should().NotBeNull();
+            info.BrandId.Should().Be(b.BrandId);
+            info.Slug.Should().Be(b.Slug);
+            info.Name.Should().Be(b.Name);
+        }
 
-//            Assert.True(acme1 == acme2);
-//            Assert.True(acme1.Equals(acme2));
-//        }
+        [Fact]
+        public void Brand_Equals_ShouldCheckForBrandsEquality()
+        {
+            var acme1 = NewBrandWith(
+                brandId: new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
+                name: "ACME",
+                companyName: "Anonima Costruzione Modelli Esatti",
+                websiteUrl: "https://www.acmetreni.com",
+                mailAddress: "mail@acmetreni.com",
+                kind: BrandKind.Industrial);
+            var acme2 = NewBrandWith(
+                brandId: new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
+                name: "ACME",
+                companyName: "Anonima Costruzione Modelli Esatti",
+                websiteUrl: "https://www.acmetreni.com",
+                mailAddress: "mail@acmetreni.com",
+                kind: BrandKind.Industrial);
 
-//        [Fact]
-//        public void ItShouldCheckForBrandsInequality()
-//        {
-//            var acme = Acme();
-//            var roco = Roco();
+            (acme1 == acme2).Should().BeTrue();
+            acme1.Equals(acme2).Should().BeTrue();
+        }
 
-//            Assert.True(acme != roco);
-//            Assert.False(acme.Equals(roco));
-//            Assert.False(acme.Equals("it fails"));
-//        }
+        [Fact]
+        public void Brand_Equals_ShouldCheckForBrandsInequality()
+        {
+            var acme = NewBrandWith(
+                brandId: new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
+                name: "ACME",
+                companyName: "Anonima Costruzione Modelli Esatti",
+                websiteUrl: "https://www.acmetreni.com",
+                mailAddress: "mail@acmetreni.com",
+                kind: BrandKind.Industrial);
+            var roco = NewBrandWith(
+                brandId: new BrandId(new Guid("ec168962-6191-474a-bec9-a07b74539307")),
+                name: "Roco",
+                companyName: "Roco Gmbh",
+                websiteUrl: "https://www.roco.cc",
+                kind: BrandKind.Industrial);
 
-//        [Fact]
-//        public void ItShouldThrowAnExceptionIfBrandNameIsBlank()
-//        {
-//            Assert.Throws<ArgumentException>(() => new Brand("", null, null, null, BrandKind.Industrial));
-//        }
+            (acme != roco).Should().BeTrue();
+            acme.Equals(roco).Should().BeFalse();
+            acme.Equals("it fails").Should().BeFalse();
+        }
 
-//        private static Brand Acme()
-//        {
-//            return new Brand(
-//                new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
-//                "ACME",
-//                Slug.Of("ACME"),
-//                "Anonima Costruzione Modelli Esatti",
-//                new Uri("http://www.acmetreni.com"),
-//                new MailAddress("mail@acmetreni.com"),
-//                BrandKind.Industrial);
-//        }
+        [Fact]
+        public void Brand_ToString_ShouldProduceStringRepresentation()
+        {
+            var b = NewBrandWith(name: "ACME");
+            b.ToString().Should().Be("Brand(ACME)");
+        }
 
-//        private static Brand Roco()
-//        {
-//            return new Brand(
-//                "Roco",
-//                null,
-//                new Uri("http://www.roco.cc"),
-//                new MailAddress("mail@roco.cc"),
-//                BrandKind.Industrial);
-//        }
-//    }
-//}
+        private static Brand NewBrandWith(
+            BrandId? brandId = null,
+            string name = null,
+            string companyName = null,
+            string websiteUrl = null,
+            string mailAddress = null,
+            BrandKind? kind = BrandKind.Industrial)
+        {
+            return new Brand(
+                brandId ?? new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
+                name ?? "ACME",
+                Slug.Of(name ?? "ACME"),
+                companyName ?? "Anonima Costruzione Modelli Esatti",
+                null,
+                null,
+                websiteUrl == null ? new Uri("http://www.acmetreni.com") : new Uri(websiteUrl),
+                mailAddress == null ? new MailAddress("mail@acmetreni.com") : new MailAddress(mailAddress),
+                kind ?? BrandKind.Industrial,
+                Address.With(
+                    "address line 1", "address line 2",
+                    "city name",
+                    "region",
+                    "postal code",
+                    "IT"),
+                Instant.FromUtc(1988, 11, 25, 9, 0),
+                null,
+                1);
+        }
+    }
+}

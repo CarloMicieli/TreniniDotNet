@@ -1,9 +1,9 @@
 ﻿using System;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using NodaTime;
+using TreniniDotNet.Common;
 using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
@@ -36,6 +36,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             decimal? totalLengthMi,
             decimal? totalLengthKm,
             string? websiteUrl,
+            DateTime created,
             DateTime? lastModified,
             int? version)
         {
@@ -63,7 +64,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 railwayGauge,
                 website,
                 headquarters,
-                modified,
+                created.ToUtc(),
+                null,
                 version ?? 1);
         }
 
@@ -90,6 +92,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 websiteUrl,
                 headquarters,
                 _clock.GetCurrentInstant(),
+                null,
                 1);
         }
     }

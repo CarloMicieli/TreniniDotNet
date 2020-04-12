@@ -26,7 +26,8 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             string? websiteUrl,
             string? mailAddress,
             Address? address,
-            DateTime modified,
+            DateTime created,
+            DateTime? modified,
             int version);
 
         IBrand NewBrandWith(

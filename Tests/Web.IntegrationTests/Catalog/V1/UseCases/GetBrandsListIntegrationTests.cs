@@ -1,9 +1,8 @@
 ﻿using FluentAssertions;
 using IntegrationTests;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TreniniDotNet.IntegrationTests.Catalog.V1.Responses;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -19,7 +18,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task GetBrandsList_ShouldReturnTheBrands()
         {
-            var content = await GetJsonAsync<GetBrandsListResponse>("/api/v1/brands");
+            var content = await GetJsonAsync<BrandsListResponse>("/api/v1/brands");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be("http://localhost/api/v1/Brands?start=0&limit=50");
@@ -36,7 +35,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         public async Task GetBrandsList_ShouldReturnTheFirstPageOfBrands()
         {
             var limit = 2;
-            var content = await GetJsonAsync<GetBrandsListResponse>($"/api/v1/brands?start=0&limit={limit}");
+            var content = await GetJsonAsync<BrandsListResponse>($"/api/v1/brands?start=0&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Brands?start=0&limit={limit}");
@@ -53,7 +52,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         public async Task GetBrandsList_ShouldReturnAPageOfBrands()
         {
             var limit = 2;
-            var content = await GetJsonAsync<GetBrandsListResponse>($"/api/v1/brands?start=2&limit={limit}");
+            var content = await GetJsonAsync<BrandsListResponse>($"/api/v1/brands?start=2&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Brands?start=2&limit={limit}");
@@ -64,38 +63,6 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
             content.Results.Should().NotBeEmpty();
             content.Results.Should().HaveCount(limit);
-        }
-
-        class GetBrandsListLinks
-        {
-            public string _Self { set; get; }
-            public string Prev { set; get; }
-            public string Next { set; get; }
-        }
-
-        class GetBrandsListResponse
-        {
-            public GetBrandsListLinks _links { get; set; }
-            public int? Limit { get; set; }
-            public List<GetBrandsListElement> Results { get; set; }
-        }
-
-        class GetBrandsListElementLinks
-        {
-            public string Slug { set; get; }
-            public string _Self { set; get; }
-        }
-
-        class GetBrandsListElement
-        {
-            public GetBrandsListElementLinks _Links { set; get; }
-            public Guid BrandId { set; get; }
-            public string Name { get; set; }
-            public string CompanyName { get; set; }
-            public string MailAddress { get; set; }
-            public string WebsiteUrl { get; set; }
-            public string Kind { get; set; }
-            public bool? Active { get; set; }
         }
     }
 }
