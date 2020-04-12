@@ -40,44 +40,46 @@ Tests project are in the `Tests` directory.
 
 ```csharp
 [Fact]
-public async Task BrandsRepository_Should_InsertNewBrands()
+public async Task BrandsRepository_Add_ShouldInsertNewBrands()
 {
-    Database.Setup.TruncateTable(Brands);
+    Database.Setup.TruncateTable(Tables.Brands);
 
     var testBrand = new TestBrand();
-    var brandId = await BrandsRepository.Add(testBrand);
+    var brandId = await Repository.AddAsync(testBrand);
 
     brandId.Should().Be(testBrand.BrandId);
 
-    Database.Assert.RowIn(Brands)
+    Database.Assert.RowInTable(Tables.Brands)
         .WithPrimaryKey(new
         {
             brand_id = testBrand.BrandId.ToGuid()
         })
         .WithValues(new
         {
-            slug = "acme",
-            name = "A.C.M.E."
+            slug = testBrand.Slug.ToString(),
+            name = testBrand.Name,
+            version = testBrand.Version,
         })
         .ShouldExists();
 }
 
 [Fact]
-public async Task BrandsRepository_ShouldFindOneBrandBySlug()
+public async Task BrandsRepository_GetBySlug_ShouldFindOneBrandBySlug()
 {
-    Database.Setup.TruncateTable(Brands);
+    Database.Setup.TruncateTable(Tables.Brands);
 
-    Database.Arrange.InsertOne(Brands, new
+    Database.Arrange.InsertOne(Tables.Brands, new
     {
         brand_id = Guid.NewGuid(),
         name = "A.C.M.E.",
         slug = "acme",
         company_name = "Associazione Costruzioni Modellistiche Esatte",
+        kind = BrandKind.Industrial.ToString(),
         version = 1,
-        created_at = DateTime.UtcNow
+        created = DateTime.UtcNow
     });
 
-    var brand = await BrandsRepository.GetBySlug(Slug.Of("acme"));
+    var brand = await Repository.GetBySlugAsync(Slug.Of("acme"));
 
     brand.Should().NotBeNull();
     brand.Slug.Should().Be(Slug.Of("acme"));
