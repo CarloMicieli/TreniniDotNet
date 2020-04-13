@@ -86,6 +86,9 @@ namespace TreniniDotNet.Application
             services.AddScoped<CollectionBoundaries.EditCollectionItem.IEditCollectionItemUseCase, CollectionUseCases.EditCollectionItem>();
             services.AddScoped<CollectionBoundaries.GetUserCollection.IGetUserCollectionUseCase, CollectionUseCases.GetUserCollection>();
             services.AddScoped<CollectionBoundaries.CreateCollection.ICreateCollectionUseCase, CollectionUseCases.CreateCollection>();
+            services.AddScoped<CollectionBoundaries.RemoveItemFromCollection.IRemoveItemFromCollectionUseCase, CollectionUseCases.RemoveItemFromCollection>();
+            services.AddScoped<CollectionBoundaries.GetCollectionStatistics.IGetCollectionStatisticsUseCase, CollectionUseCases.GetCollectionStatistics>();
+
             services.AddScoped<ICollectionsFactory, CollectionsFactory>();
 
             return services;
@@ -110,6 +113,7 @@ namespace TreniniDotNet.Application
             services.AddScoped<CollectionBoundaries.EditWishlistItem.IEditWishlistItemUseCase, CollectionUseCases.EditWishlistItem>();
             services.AddScoped<CollectionBoundaries.GetWishlistById.IGetWishlistByIdUseCase, CollectionUseCases.GetWishlistById>();
             services.AddScoped<CollectionBoundaries.GetWishlistsList.IGetWishlistsListUseCase, CollectionUseCases.GetWishlistsList>();
+            services.AddScoped<CollectionBoundaries.RemoveItemFromWishlist.IRemoveItemFromWishlistUseCase, CollectionUseCases.RemoveItemFromWishlist>();
             services.AddScoped<IWishlistsFactory, WishlistsFactory>();
 
             return services;

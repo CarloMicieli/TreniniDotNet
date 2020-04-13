@@ -66,6 +66,8 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CollectionBoundaries.CreateCollection.ICreateCollectionOutputPort, CollectionUseCases.CreateCollection.CreateCollectionPresenter>();
             services.AddPresenter<CollectionBoundaries.EditCollectionItem.IEditCollectionItemOutputPort, CollectionUseCases.EditCollectionItem.EditCollectionItemPresenter>();
             services.AddPresenter<CollectionBoundaries.GetUserCollection.IGetUserCollectionOutputPort, CollectionUseCases.GetUserCollection.GetUserCollectionPresenter>();
+            services.AddPresenter<CollectionBoundaries.RemoveItemFromCollection.IRemoveItemFromCollectionOutputPort, CollectionUseCases.RemoveItemFromCollection.RemoveItemFromCollectionPresenter>();
+            services.AddPresenter<CollectionBoundaries.GetCollectionStatistics.IGetCollectionStatisticsOutputPort, CollectionUseCases.GetCollectionStatistics.GetCollectionStatisticsPresenter>();
 
             return services;
         }
@@ -78,6 +80,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CollectionBoundaries.EditWishlistItem.IEditWishlistItemOutputPort, CollectionUseCases.EditWishlistItem.EditWishlistItemPresenter>();
             services.AddPresenter<CollectionBoundaries.GetWishlistById.IGetWishlistByIdOutputPort, CollectionUseCases.GetWishlistById.GetWishlistByIdPresenter>();
             services.AddPresenter<CollectionBoundaries.GetWishlistsList.IGetWishlistsListOutputPort, CollectionUseCases.GetWishlistsList.GetWishlistsListPresenter>();
+            services.AddPresenter<CollectionBoundaries.RemoveItemFromWishlist.IRemoveItemFromWishlistOutputPort, CollectionUseCases.RemoveItemFromWishlist.RemoveItemFromWishlistPresenter>();
 
             return services;
         }

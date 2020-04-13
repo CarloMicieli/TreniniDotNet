@@ -113,7 +113,11 @@ namespace TreniniDotNet.Web
             });
 
             app.UseOpenApi();
-            app.UseSwaggerUi3();
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.TagsSorter = "alpha";
+                settings.OperationsSorter = "alpha";
+            });
 
             app.UseHealthChecks("/health");
 
