@@ -13,7 +13,6 @@ using NodaTime;
 using AutoMapper;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Application;
-using TreniniDotNet.Web.UseCases.V1.Profiles;
 using TreniniDotNet.Web.Identity;
 using TreniniDotNet.Web.DependencyInjection;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
@@ -62,7 +61,7 @@ namespace TreniniDotNet.Web
             services.AddOpenApi();
             services.AddVersioning();
 
-            services.AddAutoMapper(typeof(CatalogProfile));
+            services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup).Assembly);
 
             services.AddUseCases();

@@ -8,11 +8,11 @@ using TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem;
 using TreniniDotNet.Web.UseCases.V1.Catalog.CreateRailway;
 using TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale;
 
-namespace TreniniDotNet.Web.UseCases.V1.Profiles
+namespace TreniniDotNet.Web.UseCases.V1.Catalog
 {
-    public class CatalogProfile : Profile
+    public class AutoMapperProfile : Profile
     {
-        public CatalogProfile()
+        public AutoMapperProfile()
         {
             CreateMap<CreateBrandRequest, CreateBrandInput>();
             CreateMap<AddressRequest, AddressInput>();
