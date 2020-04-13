@@ -9,6 +9,9 @@ using CatalogUseCases = TreniniDotNet.Application.UseCases.Catalog;
 using CatalogBoundaries = TreniniDotNet.Application.Boundaries.Catalog;
 using CollectionUseCases = TreniniDotNet.Application.UseCases.Collection;
 using CollectionBoundaries = TreniniDotNet.Application.Boundaries.Collection;
+using TreniniDotNet.Domain.Collection.Collections;
+using TreniniDotNet.Domain.Collection.Shops;
+using TreniniDotNet.Domain.Collection.Wishlists;
 
 namespace TreniniDotNet.Application
 {
@@ -83,6 +86,7 @@ namespace TreniniDotNet.Application
             services.AddScoped<CollectionBoundaries.EditCollectionItem.IEditCollectionItemUseCase, CollectionUseCases.EditCollectionItem>();
             services.AddScoped<CollectionBoundaries.GetUserCollection.IGetUserCollectionUseCase, CollectionUseCases.GetUserCollection>();
             services.AddScoped<CollectionBoundaries.CreateCollection.ICreateCollectionUseCase, CollectionUseCases.CreateCollection>();
+            services.AddScoped<ICollectionsFactory, CollectionsFactory>();
 
             return services;
         }
@@ -93,6 +97,7 @@ namespace TreniniDotNet.Application
             services.AddScoped<CollectionBoundaries.CreateShop.ICreateShopUseCase, CollectionUseCases.CreateShop>();
             services.AddScoped<CollectionBoundaries.RemoveShopFromFavourites.IRemoveShopFromFavouritesUseCase, CollectionUseCases.RemoveShopFromFavourites>();
             services.AddScoped<CollectionBoundaries.GetFavouriteShops.IGetFavouriteShopsUseCase, CollectionUseCases.GetFavouriteShops>();
+            services.AddScoped<IShopsFactory, ShopsFactory>();
 
             return services;
         }
@@ -105,6 +110,7 @@ namespace TreniniDotNet.Application
             services.AddScoped<CollectionBoundaries.EditWishlistItem.IEditWishlistItemUseCase, CollectionUseCases.EditWishlistItem>();
             services.AddScoped<CollectionBoundaries.GetWishlistById.IGetWishlistByIdUseCase, CollectionUseCases.GetWishlistById>();
             services.AddScoped<CollectionBoundaries.GetWishlistsList.IGetWishlistsListUseCase, CollectionUseCases.GetWishlistsList>();
+            services.AddScoped<IWishlistsFactory, WishlistsFactory>();
 
             return services;
         }
