@@ -2,6 +2,8 @@
 using TreniniDotNet.Web.ViewModels.Links;
 using CatalogBoundaries = TreniniDotNet.Application.Boundaries.Catalog;
 using CatalogUseCases = TreniniDotNet.Web.UseCases.V1.Catalog;
+using CollectionBoundaries = TreniniDotNet.Application.Boundaries.Collection;
+using CollectionUseCases = TreniniDotNet.Web.UseCases.V1.Collection;
 
 namespace TreniniDotNet.Web.DependencyInjection
 {
@@ -15,6 +17,10 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddRailwayPresenters();
             services.AddScalePresenters();
             services.AddCatalogItemPresenters();
+
+            services.AddCollectionPresenters();
+            services.AddWishlistPresenters();
+            services.AddShopPresenters();
 
             return services;
         }
@@ -50,6 +56,38 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CatalogBoundaries.CreateRailway.ICreateRailwayOutputPort, CatalogUseCases.CreateRailway.CreateRailwayPresenter>();
             services.AddPresenter<CatalogBoundaries.GetRailwayBySlug.IGetRailwayBySlugOutputPort, CatalogUseCases.GetRailwayBySlug.GetRailwayBySlugPresenter>();
             services.AddPresenter<CatalogBoundaries.GetRailwaysList.IGetRailwaysListOutputPort, CatalogUseCases.GetRailwaysList.GetRailwaysListPresenter>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddCollectionPresenters(this IServiceCollection services)
+        {
+            services.AddPresenter<CollectionBoundaries.AddItemToCollection.IAddItemToCollectionOutputPort, CollectionUseCases.AddItemToCollection.AddItemToCollectionPresenter>();
+            services.AddPresenter<CollectionBoundaries.CreateCollection.ICreateCollectionOutputPort, CollectionUseCases.CreateCollection.CreateCollectionPresenter>();
+            services.AddPresenter<CollectionBoundaries.EditCollectionItem.IEditCollectionItemOutputPort, CollectionUseCases.EditCollectionItem.EditCollectionItemPresenter>();
+            services.AddPresenter<CollectionBoundaries.GetUserCollection.IGetUserCollectionOutputPort, CollectionUseCases.GetUserCollection.GetUserCollectionPresenter>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddWishlistPresenters(this IServiceCollection services)
+        {
+            services.AddPresenter<CollectionBoundaries.AddItemToWishlist.IAddItemToWishlistOutputPort, CollectionUseCases.AddItemToWishlist.AddItemToWishlistPresenter>();
+            services.AddPresenter<CollectionBoundaries.CreateWishlist.ICreateWishlistOutputPort, CollectionUseCases.CreateWishlist.CreateWishlistPresenter>();
+            services.AddPresenter<CollectionBoundaries.DeleteWishlist.IDeleteWishlistOutputPort, CollectionUseCases.DeleteWishlist.DeleteWishlistPresenter>();
+            services.AddPresenter<CollectionBoundaries.EditWishlistItem.IEditWishlistItemOutputPort, CollectionUseCases.EditWishlistItem.EditWishlistItemPresenter>();
+            services.AddPresenter<CollectionBoundaries.GetWishlistById.IGetWishlistByIdOutputPort, CollectionUseCases.GetWishlistById.GetWishlistByIdPresenter>();
+            services.AddPresenter<CollectionBoundaries.GetWishlistsList.IGetWishlistsListOutputPort, CollectionUseCases.GetWishlistsList.GetWishlistsListPresenter>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddShopPresenters(this IServiceCollection services)
+        {
+            services.AddPresenter<CollectionBoundaries.AddShopToFavourites.IAddShopToFavouritesOutputPort, CollectionUseCases.AddShopToFavourites.AddShopToFavouritesPresenter>();
+            services.AddPresenter<CollectionBoundaries.CreateShop.ICreateShopOutputPort, CollectionUseCases.CreateShop.CreateShopPresenter>();
+            services.AddPresenter<CollectionBoundaries.GetFavouriteShops.IGetFavouriteShopsOutputPort, CollectionUseCases.GetFavouriteShops.GetFavouriteShopsPresenter>();
+            services.AddPresenter<CollectionBoundaries.RemoveShopFromFavourites.IRemoveShopFromFavouritesOutputPort, CollectionUseCases.RemoveShopFromFavourites.RemoveShopFromFavouritesPresenter>();
 
             return services;
         }

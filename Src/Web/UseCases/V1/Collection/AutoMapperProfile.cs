@@ -14,6 +14,7 @@ using TreniniDotNet.Application.Boundaries.Collection.GetWishlistById;
 using TreniniDotNet.Application.Boundaries.Collection.GetWishlistsList;
 using TreniniDotNet.Application.Boundaries.Collection.RemoveShopFromFavourites;
 using TreniniDotNet.Web.UseCases.V1.Collection.AddItemToCollection;
+using TreniniDotNet.Web.UseCases.V1.Collection.AddItemToWishlist;
 using TreniniDotNet.Web.UseCases.V1.Collection.AddShopToFavourites;
 using TreniniDotNet.Web.UseCases.V1.Collection.CreateCollection;
 using TreniniDotNet.Web.UseCases.V1.Collection.CreateShop;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TreniniDotNet.Web.UseCases.V1.Collection.AddItemToCollection
+namespace TreniniDotNet.Web.UseCases.V1.Collection.AddItemToWishlist
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
