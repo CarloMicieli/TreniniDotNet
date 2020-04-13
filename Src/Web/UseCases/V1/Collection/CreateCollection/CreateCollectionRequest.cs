@@ -1,6 +1,8 @@
-﻿namespace TreniniDotNet.Web.UseCases.V1.Collection.CreateCollection
+﻿using MediatR;
+
+namespace TreniniDotNet.Web.UseCases.V1.Collection.CreateCollection
 {
-    public sealed class CreateCollectionRequest
+    public sealed class CreateCollectionRequest : IRequest
     {
     }
 }

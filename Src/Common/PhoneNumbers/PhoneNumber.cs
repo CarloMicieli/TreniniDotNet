@@ -20,7 +20,7 @@ namespace TreniniDotNet.Common.PhoneNumbers
             Value = value;
         }
 
-        public static PhoneNumber Of(string phone) => 
+        public static PhoneNumber Of(string phone) =>
             new PhoneNumber(phone);
 
         public override string ToString() => Value;
