@@ -12,6 +12,7 @@ using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using System.Net.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace TreniniDotNet.IntegrationTests
 {
@@ -40,6 +41,18 @@ namespace TreniniDotNet.IntegrationTests
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("testing");
+
+            builder.ConfigureAppConfiguration((hostingContext, config) => 
+            {
+                config.Sources.Clear();
+
+                var env = hostingContext.HostingEnvironment;
+
+                config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+                      .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: false);
+
+                config.AddEnvironmentVariables();                      
+            });
 
             builder.ConfigureServices(services =>
             {
