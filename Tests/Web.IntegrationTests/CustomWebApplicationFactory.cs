@@ -11,6 +11,7 @@ using TreniniDotNet.Web.Identity;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
+using System.Net.Http;
 
 namespace TreniniDotNet.IntegrationTests
 {
@@ -24,11 +25,15 @@ namespace TreniniDotNet.IntegrationTests
         public CustomWebApplicationFactory()
         {
             this.contextId = Guid.NewGuid();
+            this.Client = this.CreateClient();
         }
+
+        public HttpClient Client { get; }
 
         public new void Dispose()
         {
             File.Delete($"{contextId}.db");
+            this.Client.Dispose();
             base.Dispose();
         }
 

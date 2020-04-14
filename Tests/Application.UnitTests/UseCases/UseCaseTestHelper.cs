@@ -23,7 +23,7 @@ namespace TreniniDotNet.Application.UseCases
 
         protected (TUseCase, TOutputPort) ArrangeBrandsUseCase(Start initData, Func<BrandService, TOutputPort, IUnitOfWork, TUseCase> factory)
         {
-            var context = initData == Start.WithSeedData ? InMemoryContext.WithCatalogSeedData() : new InMemoryContext();
+            var context = initData == Start.WithSeedData ? InMemoryContext.WithSeedData() : new InMemoryContext();
             var brandRepository = new BrandRepository(context);
 
             IUnitOfWork unitOfWork = new UnitOfWork();
@@ -36,7 +36,7 @@ namespace TreniniDotNet.Application.UseCases
 
         protected (TUseCase, TOutputPort) ArrangeRailwaysUseCase(Start initData, Func<RailwayService, TOutputPort, IUnitOfWork, TUseCase> factory)
         {
-            var context = initData == Start.WithSeedData ? InMemoryContext.WithCatalogSeedData() : new InMemoryContext();
+            var context = initData == Start.WithSeedData ? InMemoryContext.WithSeedData() : new InMemoryContext();
             var railwayRepository = new RailwayRepository(context);
 
             IUnitOfWork unitOfWork = new UnitOfWork();
@@ -50,7 +50,7 @@ namespace TreniniDotNet.Application.UseCases
         protected (TUseCase, TOutputPort) ArrangeScalesUseCase(Start initData, Func<ScaleService, TOutputPort, IUnitOfWork, TUseCase> factory)
         {
             var scalesFactory = new ScalesFactory(_fakeClock, _guidSource);
-            var context = initData == Start.WithSeedData ? InMemoryContext.WithCatalogSeedData() : new InMemoryContext();
+            var context = initData == Start.WithSeedData ? InMemoryContext.WithSeedData() : new InMemoryContext();
             var scaleRepository = new ScaleRepository(context);
 
             IUnitOfWork unitOfWork = new UnitOfWork();
@@ -63,7 +63,7 @@ namespace TreniniDotNet.Application.UseCases
 
         protected (TUseCase, TOutputPort) ArrangeCatalogItemUseCase(Start initData, Func<CatalogItemService, TOutputPort, IUnitOfWork, TUseCase> factory)
         {
-            var context = initData == Start.WithSeedData ? InMemoryContext.WithCatalogSeedData() : new InMemoryContext();
+            var context = initData == Start.WithSeedData ? InMemoryContext.WithSeedData() : new InMemoryContext();
             var catalogItemRepository = new CatalogItemRepository(context);
             var brandRepository = new BrandRepository(context);
             var scaleRepository = new ScaleRepository(context);

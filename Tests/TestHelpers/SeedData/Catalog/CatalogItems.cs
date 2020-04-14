@@ -32,7 +32,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             };
         }
 
-        public ICollection<ICatalogItem> All() => _all;
+        public IList<ICatalogItem> All() => _all;
 
         public ICatalogItem Acme_60458() => _acme_60458;
         public ICatalogItem Acme_60392() => _acme_60392;

@@ -120,7 +120,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 website,
                 headquarters);
 
-        public ICollection<IRailway> All() => _all;
+        public IList<IRailway> All() => _all;
 
         public IRailway Fs() => _fs;
 

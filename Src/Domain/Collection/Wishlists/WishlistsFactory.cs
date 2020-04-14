@@ -1,6 +1,9 @@
 ﻿using NodaTime;
 using System;
+using System.Collections.Immutable;
+using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Wishlists
 {
@@ -18,9 +21,19 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
                 throw new ArgumentNullException(nameof(guidSource));
         }
 
-        public IWishList NewWishlist()
+        public IWishList NewWishlist(string owner, Visibility visibility, string? listName)
         {
-            throw new NotImplementedException();
+            Slug slug = string.IsNullOrWhiteSpace(listName) ? Slug.Empty : Slug.Of(listName);
+            return new WishList(
+                new WishlistId(_guidSource.NewGuid()),
+                owner,
+                slug,
+                listName,
+                visibility,
+                ImmutableList<IWishlistItem>.Empty,
+                _clock.GetCurrentInstant(),
+                null,
+                1);
         }
 
         public IWishlistItem NewWishlistItem()
