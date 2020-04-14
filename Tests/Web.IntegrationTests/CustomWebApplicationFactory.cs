@@ -42,7 +42,7 @@ namespace TreniniDotNet.IntegrationTests
         {
             builder.UseEnvironment("testing");
 
-            builder.ConfigureAppConfiguration((hostingContext, config) => 
+            builder.ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.Sources.Clear();
 
@@ -51,7 +51,7 @@ namespace TreniniDotNet.IntegrationTests
                 config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
                       .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: false);
 
-                config.AddEnvironmentVariables();                      
+                config.AddEnvironmentVariables();
             });
 
             builder.ConfigureServices(services =>

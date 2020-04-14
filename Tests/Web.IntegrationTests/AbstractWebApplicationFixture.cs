@@ -22,10 +22,10 @@ namespace IntegrationTests
         protected HttpClient CreateHttpClient() => _factory.Client;
 
         protected List<object> JsonArray(object element) => new List<object>() { element };
-        
+
         protected List<object> JsonArray(params object[] elements) => new List<object>(elements);
 
-        protected HttpContent JsonContent(object model) => 
+        protected HttpContent JsonContent(object model) =>
             new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
 
         protected async Task<TContent> ExtractContent<TContent>(HttpResponseMessage response)
