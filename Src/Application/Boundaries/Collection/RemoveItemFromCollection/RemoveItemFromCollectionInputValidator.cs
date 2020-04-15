@@ -6,7 +6,14 @@ namespace TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromCollecti
     {
         public RemoveItemFromCollectionInputValidator()
         {
+            RuleFor(x => x.Id)
+                .NotEmpty();
 
+            RuleFor(x => x.ItemId)
+                .NotEmpty();
+
+            RuleFor(x => x.Notes)
+                .MaximumLength(150);
         }
     }
 }

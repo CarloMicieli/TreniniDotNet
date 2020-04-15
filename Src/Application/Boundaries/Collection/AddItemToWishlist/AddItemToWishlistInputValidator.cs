@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist
 {
@@ -6,6 +7,25 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist
     {
         public AddItemToWishlistInputValidator()
         {
+            RuleFor(x => x.Id)
+                .NotEmpty();
+
+            RuleFor(x => x.Brand)
+                .NotEmpty()
+                .MaximumLength(50);
+
+            RuleFor(x => x.ItemNumber)
+                .NotEmpty()
+                .MaximumLength(10);
+
+            RuleFor(x => x.Price)
+                .GreaterThan(0M);
+
+            RuleFor(x => x.Priority)
+                .IsEnumName(typeof(Priority), caseSensitive: false);
+
+            RuleFor(x => x.Notes)
+                .MaximumLength(150);
         }
     }
 }

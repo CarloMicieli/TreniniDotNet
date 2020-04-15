@@ -6,6 +6,11 @@ namespace TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromWishlist
     {
         public RemoveItemFromWishlistInputValidator()
         {
+            RuleFor(x => x.Id)
+                .NotEmpty();
+
+            RuleFor(x => x.ItemId)
+                .NotEmpty();
         }
     }
 }

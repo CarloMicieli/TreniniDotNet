@@ -1,5 +1,5 @@
 ﻿using NodaMoney;
-using NodaTime;
+using TreniniDotNet.Common.DeliveryDates;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
@@ -15,7 +15,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
 
         ICatalogItem CatalogItem { get; }
 
-        Instant AddedDate { get; }
+        DeliveryDate? DeliveryDate { get; }
 
         string? Notes { get; }
     }
