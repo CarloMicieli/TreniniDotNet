@@ -38,23 +38,29 @@ namespace TreniniDotNet.Application.TestInputs.Collection
 
         public static class CreateCollection
         {
-            public static CreateCollectionInput Empty => null;
+            public static CreateCollectionInput Empty => With();
 
-            public static CreateCollectionInput With() => null;
+            public static CreateCollectionInput With(string Owner = null, string Notes = null) =>
+                new CreateCollectionInput(Owner, Notes);
         }
 
         public static class CreateShop
         {
-            public static CreateShopInput Empty => null;
+            public static CreateShopInput Empty => With();
 
-            public static CreateShopInput With() => null;
+            public static CreateShopInput With(
+                string Name = null, string WebsiteUrl = null,
+                string EmailAddress = null, ShopAddressInput Address = null,
+                string PhoneNumber = null) =>
+                new CreateShopInput(Name, WebsiteUrl, EmailAddress, Address, PhoneNumber);
         }
 
         public static class CreateWishlist
         {
-            public static CreateWishlistInput Empty => null;
+            public static CreateWishlistInput Empty => With();
 
-            public static CreateWishlistInput With() => null;
+            public static CreateWishlistInput With(string Owner = null, string ListName = null, string Visibility = null) =>
+                new CreateWishlistInput(Owner, ListName, Visibility);
         }
 
         public static class DeleteWishlist

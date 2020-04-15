@@ -20,6 +20,19 @@ namespace TreniniDotNet.Common.PhoneNumbers
             Value = value;
         }
 
+        public static bool IsValid(string value)
+        {
+            try
+            {
+                var _ = phoneNumberUtil.Parse(value, null);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static PhoneNumber Of(string phone) =>
             new PhoneNumber(phone);
 

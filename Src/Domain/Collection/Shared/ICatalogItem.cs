@@ -2,7 +2,7 @@
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
-namespace TreniniDotNet.Domain.Collection
+namespace TreniniDotNet.Domain.Collection.Shared
 {
     public interface ICatalogItem
     {

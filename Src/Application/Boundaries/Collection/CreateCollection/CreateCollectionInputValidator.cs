@@ -6,6 +6,12 @@ namespace TreniniDotNet.Application.Boundaries.Collection.CreateCollection
     {
         public CreateCollectionInputValidator()
         {
+            RuleFor(x => x.Owner)
+                .NotNull()
+                .NotEmpty();
+
+            RuleFor(x => x.Notes)
+                .MaximumLength(150);
         }
     }
 }
