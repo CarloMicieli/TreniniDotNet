@@ -1,6 +1,6 @@
 ﻿using NodaMoney;
 using NodaTime;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.Shops;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
@@ -16,9 +16,9 @@ namespace TreniniDotNet.Domain.Collection.Collections
 
         Money Price { get; }
 
-        IShop? PurchasedAt { get; }
+        IShopInfo? PurchasedAt { get; }
 
-        Instant AddedDate { get; }
+        LocalDate AddedDate { get; }
 
         string? Notes { get; }
     }

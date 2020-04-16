@@ -9,5 +9,10 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.CreateCollection
         {
             throw new System.NotImplementedException();
         }
+
+        public void UserHasAlreadyOneCollection(string message)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

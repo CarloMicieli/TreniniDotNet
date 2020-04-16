@@ -2,5 +2,8 @@
 {
     public interface IAddItemToCollectionOutputPort : IOutputPortStandard<AddItemToCollectionOutput>
     {
+        void CollectionNotFound(string message);
+
+        void ShopNotFound(string message);
     }
 }

@@ -26,7 +26,6 @@
     <Folder Include="Collection\Collections\" />
     <Folder Include="Collection\ValueObjects\" />
     <Folder Include="Collection\Wishlists\" />
-    <Folder Include="Collection\Shops\" />
   </ItemGroup>
 
 </Project>

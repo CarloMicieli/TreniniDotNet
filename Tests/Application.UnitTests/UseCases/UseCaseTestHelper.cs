@@ -4,13 +4,16 @@ using NodaTime.Testing;
 using TreniniDotNet.Application.Boundaries;
 using TreniniDotNet.Application.InMemory.Repositories;
 using TreniniDotNet.Application.InMemory.Repositories.Catalog;
+using TreniniDotNet.Application.InMemory.Repositories.Collection;
 using TreniniDotNet.Application.InMemory.Services;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Common.Uuid.Testing;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Collection.Collections;
 
 namespace TreniniDotNet.Application.UseCases
 {
@@ -19,7 +22,12 @@ namespace TreniniDotNet.Application.UseCases
         where TOutputPort : IOutputPortStandard<TUseCaseOutput>, new()
     {
         private readonly IClock _fakeClock = new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0));
-        private readonly IGuidSource _guidSource = new GuidSource();
+        private readonly IGuidSource _guidSource = FakeGuidSource.NewSource(new Guid("4a12d7b3-0e6b-4eee-8583-5b2da24c6fe3"));
+
+        protected void SetNextId(Guid id)
+        {
+            ((FakeGuidSource)_guidSource).FakeGuid = id;
+        }
 
         protected (TUseCase, TOutputPort) ArrangeBrandsUseCase(Start initData, Func<BrandService, TOutputPort, IUnitOfWork, TUseCase> factory)
         {
@@ -79,6 +87,22 @@ namespace TreniniDotNet.Application.UseCases
             var outputPort = new TOutputPort();
 
             return (factory.Invoke(catalogItemService, outputPort, unitOfWork), outputPort);
+        }
+
+        protected (TUseCase, TOutputPort) ArrangeCollectionsUseCase(Start initData, Func<CollectionsService, TOutputPort, IUnitOfWork, TUseCase> factory)
+        {
+            var context = initData == Start.WithSeedData ? InMemoryContext.WithSeedData() : new InMemoryContext();
+            var collectionsRepository = new CollectionsRepository(context);
+            var shopsRepository = new ShopsRepository(context);
+            var collectionsFactory = new CollectionsFactory(_fakeClock, _guidSource);
+
+            IUnitOfWork unitOfWork = new UnitOfWork();
+
+            var collectionsService = new CollectionsService(collectionsFactory, collectionsRepository, shopsRepository);
+
+            var outputPort = new TOutputPort();
+
+            return (factory.Invoke(collectionsService, outputPort, unitOfWork), outputPort);
         }
     }
 

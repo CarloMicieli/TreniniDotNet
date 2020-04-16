@@ -2,5 +2,6 @@
 {
     public interface ICreateCollectionOutputPort : IOutputPortStandard<CreateCollectionOutput>
     {
+        void UserHasAlreadyOneCollection(string message);
     }
 }

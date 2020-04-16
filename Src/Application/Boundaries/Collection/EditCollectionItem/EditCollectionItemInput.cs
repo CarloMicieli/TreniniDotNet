@@ -8,7 +8,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.EditCollectionItem
         public EditCollectionItemInput(
             Guid id,
             Guid itemId,
-            DateTime addedDate,
+            DateTime? addedDate,
             decimal? price,
             string? condition,
             string? shop,
@@ -28,7 +28,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.EditCollectionItem
         public string? Shop { get; }
         public decimal? Price { get; }
         public string? Condition { get; }
-        public DateTime AddedDate { get; }
+        public DateTime? AddedDate { get; }
         public string? Notes { get; }
     }
 }

@@ -1,18 +1,40 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Collection.CreateCollection;
+using TreniniDotNet.Application.Services;
+using TreniniDotNet.Domain.Collection.Collections;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Application.UseCases.Collection
 {
     public sealed class CreateCollection : ValidatedUseCase<CreateCollectionInput, ICreateCollectionOutputPort>, ICreateCollectionUseCase
     {
-        public CreateCollection(ICreateCollectionOutputPort output)
+        private readonly CollectionsService _collectionService;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CreateCollection(ICreateCollectionOutputPort output, CollectionsService collectionService, IUnitOfWork unitOfWork)
             : base(new CreateCollectionInputValidator(), output)
         {
+            _collectionService = collectionService ??
+                throw new ArgumentNullException();
+            _unitOfWork = unitOfWork ??
+                throw new ArgumentNullException();
         }
 
-        protected override Task Handle(CreateCollectionInput input)
+        protected override async Task Handle(CreateCollectionInput input)
         {
-            throw new System.NotImplementedException();
+            var userHasCollection = await _collectionService.UserAlredyOwnCollectionAsync(input.Owner);
+            if (userHasCollection)
+            {
+                OutputPort.UserHasAlreadyOneCollection("The user already owns a collection");
+                return;
+            }
+
+            var id = await _collectionService.CreateAsync(input.Owner, input.Notes);
+            CollectionCreated(id, input.Owner);
         }
+
+        private void CollectionCreated(CollectionId id, string owner) =>
+            OutputPort.Standard(new CreateCollectionOutput(id.ToGuid(), owner));
     }
 }

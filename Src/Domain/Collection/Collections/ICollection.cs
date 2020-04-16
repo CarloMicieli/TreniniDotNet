@@ -10,8 +10,6 @@ namespace TreniniDotNet.Domain.Collection.Collections
 
         string Owner { get; }
 
-        string? Notes { get; }
-
         IImmutableList<ICollectionItem> Items { get; }
     }
 }

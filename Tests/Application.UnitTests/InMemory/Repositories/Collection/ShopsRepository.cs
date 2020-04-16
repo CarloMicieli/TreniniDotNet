@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collection.Shops;
@@ -24,6 +25,12 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
         public Task AddToFavouritesAsync(string user, ShopId shopId)
         {
             throw new System.NotImplementedException();
+        }
+
+        public Task<IShopInfo> GetShopInfoBySlugAsync(Slug slug)
+        {
+            IShopInfo result = _context.Shops.FirstOrDefault(it => it.Slug == slug);
+            return Task.FromResult(result);
         }
 
         public Task<IEnumerable<IShopInfo>> GetFavouritesAsync(string user)
