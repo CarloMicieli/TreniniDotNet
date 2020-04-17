@@ -65,7 +65,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CollectionBoundaries.AddItemToCollection.IAddItemToCollectionOutputPort, CollectionUseCases.AddItemToCollection.AddItemToCollectionPresenter>();
             services.AddPresenter<CollectionBoundaries.CreateCollection.ICreateCollectionOutputPort, CollectionUseCases.CreateCollection.CreateCollectionPresenter>();
             services.AddPresenter<CollectionBoundaries.EditCollectionItem.IEditCollectionItemOutputPort, CollectionUseCases.EditCollectionItem.EditCollectionItemPresenter>();
-            services.AddPresenter<CollectionBoundaries.GetUserCollection.IGetUserCollectionOutputPort, CollectionUseCases.GetUserCollection.GetUserCollectionPresenter>();
+            services.AddPresenter<CollectionBoundaries.GetCollectionByOwner.IGetCollectionByOwnerOutputPort, CollectionUseCases.GetCollectionByOwner.GetCollectionByOwnerPresenter>();
             services.AddPresenter<CollectionBoundaries.RemoveItemFromCollection.IRemoveItemFromCollectionOutputPort, CollectionUseCases.RemoveItemFromCollection.RemoveItemFromCollectionPresenter>();
             services.AddPresenter<CollectionBoundaries.GetCollectionStatistics.IGetCollectionStatisticsOutputPort, CollectionUseCases.GetCollectionStatistics.GetCollectionStatisticsPresenter>();
 

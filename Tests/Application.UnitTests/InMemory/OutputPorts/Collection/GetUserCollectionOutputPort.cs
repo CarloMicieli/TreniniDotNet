@@ -1,8 +1,8 @@
-﻿using TreniniDotNet.Application.Boundaries.Collection.GetUserCollection;
+﻿using TreniniDotNet.Application.Boundaries.Collection.GetCollectionByOwner;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts.Collection
 {
-    public sealed class GetUserCollectionOutputPort : OutputPortTestHelper<GetUserCollectionOutput>, IGetUserCollectionOutputPort
+    public sealed class GetCollectionByOwnerOutputPort : OutputPortTestHelper<GetCollectionByOwnerOutput>, IGetCollectionByOwnerOutputPort
     {
     }
 }

@@ -82,12 +82,12 @@ namespace TreniniDotNet.Application
 
         private static IServiceCollection AddCollectionUseCases(this IServiceCollection services)
         {
-            services.AddScoped<CollectionBoundaries.AddItemToCollection.IAddItemToCollectionUseCase, CollectionUseCases.AddItemToCollection>();
-            services.AddScoped<CollectionBoundaries.EditCollectionItem.IEditCollectionItemUseCase, CollectionUseCases.EditCollectionItem>();
-            services.AddScoped<CollectionBoundaries.GetUserCollection.IGetUserCollectionUseCase, CollectionUseCases.GetUserCollection>();
-            services.AddScoped<CollectionBoundaries.CreateCollection.ICreateCollectionUseCase, CollectionUseCases.CreateCollection>();
-            services.AddScoped<CollectionBoundaries.RemoveItemFromCollection.IRemoveItemFromCollectionUseCase, CollectionUseCases.RemoveItemFromCollection>();
-            services.AddScoped<CollectionBoundaries.GetCollectionStatistics.IGetCollectionStatisticsUseCase, CollectionUseCases.GetCollectionStatistics>();
+            services.AddScoped<CollectionBoundaries.AddItemToCollection.IAddItemToCollectionUseCase, CollectionUseCases.Collections.AddItemToCollection>();
+            services.AddScoped<CollectionBoundaries.EditCollectionItem.IEditCollectionItemUseCase, CollectionUseCases.Collections.EditCollectionItem>();
+            services.AddScoped<CollectionBoundaries.GetCollectionByOwner.IGetCollectionByOwnerUseCase, CollectionUseCases.Collections.GetCollectionByOwner>();
+            services.AddScoped<CollectionBoundaries.CreateCollection.ICreateCollectionUseCase, CollectionUseCases.Collections.CreateCollection>();
+            services.AddScoped<CollectionBoundaries.RemoveItemFromCollection.IRemoveItemFromCollectionUseCase, CollectionUseCases.Collections.RemoveItemFromCollection>();
+            services.AddScoped<CollectionBoundaries.GetCollectionStatistics.IGetCollectionStatisticsUseCase, CollectionUseCases.Collections.GetCollectionStatistics>();
 
             services.AddScoped<ICollectionsFactory, CollectionsFactory>();
 
@@ -96,10 +96,11 @@ namespace TreniniDotNet.Application
 
         private static IServiceCollection AddShopUseCases(this IServiceCollection services)
         {
-            services.AddScoped<CollectionBoundaries.AddShopToFavourites.IAddShopToFavouritesUseCase, CollectionUseCases.AddShopToFavourites>();
-            services.AddScoped<CollectionBoundaries.CreateShop.ICreateShopUseCase, CollectionUseCases.CreateShop>();
-            services.AddScoped<CollectionBoundaries.RemoveShopFromFavourites.IRemoveShopFromFavouritesUseCase, CollectionUseCases.RemoveShopFromFavourites>();
-            services.AddScoped<CollectionBoundaries.GetFavouriteShops.IGetFavouriteShopsUseCase, CollectionUseCases.GetFavouriteShops>();
+            services.AddScoped<CollectionBoundaries.AddShopToFavourites.IAddShopToFavouritesUseCase, CollectionUseCases.Shops.AddShopToFavourites>();
+            services.AddScoped<CollectionBoundaries.CreateShop.ICreateShopUseCase, CollectionUseCases.Shops.CreateShop>();
+            services.AddScoped<CollectionBoundaries.RemoveShopFromFavourites.IRemoveShopFromFavouritesUseCase, CollectionUseCases.Shops.RemoveShopFromFavourites>();
+            services.AddScoped<CollectionBoundaries.GetFavouriteShops.IGetFavouriteShopsUseCase, CollectionUseCases.Shops.GetFavouriteShops>();
+
             services.AddScoped<IShopsFactory, ShopsFactory>();
 
             return services;
@@ -107,13 +108,14 @@ namespace TreniniDotNet.Application
 
         private static IServiceCollection AddWishListUseCases(this IServiceCollection services)
         {
-            services.AddScoped<CollectionBoundaries.AddItemToWishlist.IAddItemToWishlistUseCase, CollectionUseCases.AddItemToWishlist>();
-            services.AddScoped<CollectionBoundaries.CreateWishlist.ICreateWishlistUseCase, CollectionUseCases.CreateWishlist>();
-            services.AddScoped<CollectionBoundaries.DeleteWishlist.IDeleteWishlistUseCase, CollectionUseCases.DeleteWishlist>();
-            services.AddScoped<CollectionBoundaries.EditWishlistItem.IEditWishlistItemUseCase, CollectionUseCases.EditWishlistItem>();
-            services.AddScoped<CollectionBoundaries.GetWishlistById.IGetWishlistByIdUseCase, CollectionUseCases.GetWishlistById>();
-            services.AddScoped<CollectionBoundaries.GetWishlistsList.IGetWishlistsListUseCase, CollectionUseCases.GetWishlistsList>();
-            services.AddScoped<CollectionBoundaries.RemoveItemFromWishlist.IRemoveItemFromWishlistUseCase, CollectionUseCases.RemoveItemFromWishlist>();
+            services.AddScoped<CollectionBoundaries.AddItemToWishlist.IAddItemToWishlistUseCase, CollectionUseCases.Wishlists.AddItemToWishlist>();
+            services.AddScoped<CollectionBoundaries.CreateWishlist.ICreateWishlistUseCase, CollectionUseCases.Wishlists.CreateWishlist>();
+            services.AddScoped<CollectionBoundaries.DeleteWishlist.IDeleteWishlistUseCase, CollectionUseCases.Wishlists.DeleteWishlist>();
+            services.AddScoped<CollectionBoundaries.EditWishlistItem.IEditWishlistItemUseCase, CollectionUseCases.Wishlists.EditWishlistItem>();
+            services.AddScoped<CollectionBoundaries.GetWishlistById.IGetWishlistByIdUseCase, CollectionUseCases.Wishlists.GetWishlistById>();
+            services.AddScoped<CollectionBoundaries.GetWishlistsList.IGetWishlistsListUseCase, CollectionUseCases.Wishlists.GetWishlistsList>();
+            services.AddScoped<CollectionBoundaries.RemoveItemFromWishlist.IRemoveItemFromWishlistUseCase, CollectionUseCases.Wishlists.RemoveItemFromWishlist>();
+
             services.AddScoped<IWishlistsFactory, WishlistsFactory>();
 
             return services;
