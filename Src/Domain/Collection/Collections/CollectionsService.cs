@@ -14,11 +14,13 @@ namespace TreniniDotNet.Domain.Collection.Collections
         private readonly ICollectionsFactory _factory;
         private readonly ICollectionsRepository _collections;
         private readonly IShopsRepository _shops;
+        private readonly ICatalogRefsRepository _catalog;
 
         public CollectionsService(
             ICollectionsFactory factory,
             ICollectionsRepository collections,
-            IShopsRepository shops)
+            IShopsRepository shops,
+            ICatalogRefsRepository catalog)
         {
             _factory = factory ??
                 throw new ArgumentNullException(nameof(factory));
@@ -26,6 +28,13 @@ namespace TreniniDotNet.Domain.Collection.Collections
                 throw new ArgumentNullException(nameof(collections));
             _shops = shops ??
                 throw new ArgumentNullException(nameof(shops));
+            _catalog = catalog ??
+                throw new ArgumentNullException(nameof(catalog));
+        }
+
+        public Task<ICollection> GetCollectionByUserAsync(Owner owner)
+        {
+            return _collections.GetByOwnerAsync(owner);
         }
 
         public Task<CollectionId> CreateAsync(string owner, string? notes)
@@ -39,20 +48,30 @@ namespace TreniniDotNet.Domain.Collection.Collections
 
         public Task<CollectionItemId> AddItemAsync(
             CollectionId id,
-            ICatalogItem catalogItem,
+            ICatalogRef catalogItem,
             Condition condition,
             Money price,
             LocalDate added,
             IShopInfo? shop,
             string? notes)
         {
-            var item = _factory.NewCollectionItem(catalogItem, condition, price, added, shop, notes);
+            var item = _factory.NewCollectionItem(catalogItem, null, condition, price, added, shop, notes);
             return _collections.AddItemAsync(id, item);
+        }
+
+        public Task<CollectionId?> GetIdByOwnerAsync(Owner owner)
+        {
+            return _collections.GetIdByOwnerAsync(owner);
         }
 
         public Task<ICollectionItem> GetItemByIdAsync(CollectionId collectionId, CollectionItemId itemId)
         {
             return _collections.GetCollectionItemByIdAsync(collectionId, itemId);
+        }
+
+        public Task<ICatalogRef> GetCatalogRefAsync(Slug catalogItemSlug)
+        {
+            return _catalog.GetBySlugAsync(catalogItemSlug);
         }
 
         public Task<bool> ExistAsync(CollectionId id)
@@ -63,14 +82,14 @@ namespace TreniniDotNet.Domain.Collection.Collections
         public Task EditItemAsync(
             CollectionId id,
             CollectionItemId itemId,
-            ICatalogItem catalogItem,
+            ICatalogRef catalogItem,
             Condition condition,
             Money price,
             LocalDate added,
             IShop? shop,
             string? notes)
         {
-            var item = _factory.NewCollectionItem(catalogItem, condition, price, added, shop, notes);
+            var item = _factory.NewCollectionItem(catalogItem, null, condition, price, added, shop, notes);
             return _collections.EditItemAsync(id, item);
         }
 

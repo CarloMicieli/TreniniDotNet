@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Collections
 {
     public interface ICollectionsRepository
     {
-        Task<ICollection> GetByOwnerAsync(string owner);
+        Task<ICollection> GetByOwnerAsync(Owner owner);
 
         Task<bool> AnyByOwnerAsync(string owner);
 
@@ -20,5 +21,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
         Task<ICollectionStats> GetStatisticsAsync(string owner);
 
         Task<ICollectionItem> GetCollectionItemByIdAsync(CollectionId collectionId, CollectionItemId itemId);
+
+        Task<CollectionId?> GetIdByOwnerAsync(Owner owner);
     }
 }

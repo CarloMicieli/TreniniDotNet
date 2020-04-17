@@ -20,11 +20,16 @@ namespace TreniniDotNet.Application.UseCases
 
             var collectionsRepository = new CollectionsRepository(context);
             var shopsRepository = new ShopsRepository(context);
+            var catalogRepository = new CatalogRefsRepository(context);
             var collectionsFactory = new CollectionsFactory(_fakeClock, _guidSource);
 
             IUnitOfWork unitOfWork = new UnitOfWork();
 
-            var collectionsService = new CollectionsService(collectionsFactory, collectionsRepository, shopsRepository);
+            var collectionsService = new CollectionsService(
+                collectionsFactory,
+                collectionsRepository,
+                shopsRepository,
+                catalogRepository);
 
             var outputPort = new TOutputPort();
 

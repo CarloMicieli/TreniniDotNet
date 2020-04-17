@@ -4,7 +4,6 @@ using NodaTime.Testing;
 using System;
 using Xunit;
 using FluentAssertions;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common.Uuid.Testing;
 using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
@@ -38,7 +37,8 @@ namespace TreniniDotNet.Domain.Collection.Collections
         public void CollectionsFactory_ShouldCreateNewCollectionItems()
         {
             var collectionItem = Factory.NewCollectionItem(
-                CatalogItem.Of("ACME", new ItemNumber("123456")),
+                CatalogRef.Of(Guid.NewGuid(), "acme-123456"),
+                null,
                 Condition.New,
                 Money.Euro(450),
                 new LocalDate(2020, 11, 25),

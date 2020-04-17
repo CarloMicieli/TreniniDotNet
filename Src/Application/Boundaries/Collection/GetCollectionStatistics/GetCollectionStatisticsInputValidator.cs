@@ -6,6 +6,8 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetCollectionStatistic
     {
         public GetCollectionStatisticsInputValidator()
         {
+            RuleFor(x => x.Owner)
+                .NotEmpty();
         }
     }
 }

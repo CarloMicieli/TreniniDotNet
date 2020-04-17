@@ -3,12 +3,10 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Shared
 {
-    public interface ICatalogItem
+    public interface ICatalogRef
     {
+        CatalogItemId CatalogItemId { get; }
+
         Slug Slug { get; }
-
-        string Brand { get; }
-
-        ItemNumber ItemNumber { get; }
     }
 }

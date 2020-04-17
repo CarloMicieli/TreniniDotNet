@@ -54,7 +54,8 @@ namespace TreniniDotNet.Domain.Collection.Collections
         }
 
         public ICollectionItem NewCollectionItem(
-            ICatalogItem catalogItem,
+            ICatalogRef catalogItem,
+            ICatalogItemDetails? details,
             Condition condition,
             Money price,
             LocalDate added,
@@ -64,6 +65,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
             return NewCollectionItem(
                 new CollectionItemId(_guidSource.NewGuid()),
                 catalogItem,
+                details,
                 condition,
                 price,
                 added,
@@ -73,7 +75,8 @@ namespace TreniniDotNet.Domain.Collection.Collections
 
         public ICollectionItem NewCollectionItem(
             CollectionItemId itemId,
-            ICatalogItem catalogItem,
+            ICatalogRef catalogItem,
+            ICatalogItemDetails? details,
             Condition condition,
             Money price,
             LocalDate added,
@@ -83,6 +86,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
             return new CollectionItem(
                 itemId,
                 catalogItem,
+                details,
                 condition,
                 price,
                 purchasedAt,

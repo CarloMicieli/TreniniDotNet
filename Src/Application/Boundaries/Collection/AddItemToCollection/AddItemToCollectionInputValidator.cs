@@ -7,15 +7,12 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
     {
         public AddItemToCollectionInputValidator()
         {
-            RuleFor(x => x.Id)
+            RuleFor(x => x.CollectionOwner)
                 .NotEmpty();
 
-            RuleFor(x => x.Brand)
-                .NotEmpty();
-
-            RuleFor(x => x.ItemNumber)
+            RuleFor(x => x.CatalogItem)
                 .NotEmpty()
-                .MaximumLength(10);
+                .MaximumLength(60);
 
             RuleFor(x => x.Price)
                 .NotEmpty()

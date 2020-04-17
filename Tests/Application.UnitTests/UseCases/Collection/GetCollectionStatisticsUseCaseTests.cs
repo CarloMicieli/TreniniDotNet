@@ -2,10 +2,55 @@
 using FluentAssertions;
 using TreniniDotNet.Application.InMemory.OutputPorts.Collection;
 using TreniniDotNet.Application.Boundaries.Collection.GetCollectionStatistics;
+using TreniniDotNet.Domain.Collection.Collections;
+using TreniniDotNet.Application.Services;
+using System.Threading.Tasks;
+using TreniniDotNet.Domain.Collection.Shared;
 
 namespace TreniniDotNet.Application.UseCases.Collection
 {
-    public class GetCollectionStatisticsUseCaseTests : UseCaseTestHelper<GetCollectionStatistics, GetCollectionStatisticsOutput, GetCollectionStatisticsOutputPort>
+    public class GetCollectionStatisticsUseCaseTests : CollectionUseCaseTests<GetCollectionStatistics, GetCollectionStatisticsOutput, GetCollectionStatisticsOutputPort>
     {
+        [Fact]
+        public async Task GetCollectionStatistics_ShouldOutputAnError_WhenInputIsNull()
+        {
+            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewGetCollectionStatistics);
+
+            await useCase.Execute(null);
+
+            outputPort.ShouldHaveErrorMessage("The use case input is null");
+        }
+
+        [Fact]
+        public async Task GetCollectionStatistics_ShouldOutputValidationErrors_WhenInputIsInvalid()
+        {
+            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewGetCollectionStatistics);
+
+            await useCase.Execute(InputWithOwner("    "));
+
+            outputPort.ShouldHaveValidationErrorFor("Owner");
+        }
+
+        [Fact]
+        public async Task GetCollectionStatistics_ShouldOutputAnError_WhenTheUserHasNoCollection()
+        {
+            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewGetCollectionStatistics);
+
+            await useCase.Execute(InputWithOwner("George"));
+
+            outputPort.ShouldHaveNoValidationError();
+            outputPort.AssertCollectionWasNotFoundForOwner(new Owner("George"));
+        }
+
+        private GetCollectionStatisticsInput InputWithOwner(string owner) =>
+            new GetCollectionStatisticsInput(owner);
+
+        private GetCollectionStatistics NewGetCollectionStatistics(
+            CollectionsService collectionService,
+            GetCollectionStatisticsOutputPort outputPort,
+            IUnitOfWork unitOfWork)
+        {
+            return new GetCollectionStatistics(outputPort, collectionService);
+        }
     }
 }

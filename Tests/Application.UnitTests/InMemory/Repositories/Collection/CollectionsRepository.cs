@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Collection.Collections;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Application.InMemory.Repositories.Collection
@@ -42,9 +43,11 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             return Task.FromResult(result);
         }
 
-        public Task<ICollection> GetByOwnerAsync(string owner)
+        public Task<ICollection> GetByOwnerAsync(Owner owner)
         {
-            throw new System.NotImplementedException();
+            var result = _context.Collections
+                .FirstOrDefault(it => it.Owner.Equals(owner.Value, System.StringComparison.InvariantCultureIgnoreCase));
+            return Task.FromResult(result);
         }
 
         public Task<ICollectionItem> GetCollectionItemByIdAsync(CollectionId collectionId, CollectionItemId itemId)
@@ -54,6 +57,24 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
                 .SelectMany(it => it.Items)
                 .Where(it => it.ItemId == itemId)
                 .FirstOrDefault();
+            return Task.FromResult(result);
+        }
+
+        public Task<CollectionId?> GetIdByOwnerAsync(Owner owner)
+        {
+            var collection = _context.Collections
+                .FirstOrDefault(it => it.Owner.Equals(owner, System.StringComparison.InvariantCultureIgnoreCase));
+
+            CollectionId? result = null;
+            if (collection is null)
+            {
+                result = null;
+            }
+            else
+            {
+                result = collection.CollectionId;
+            }
+
             return Task.FromResult(result);
         }
 

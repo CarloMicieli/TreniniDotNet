@@ -1,5 +1,4 @@
 ﻿using FluentValidation.TestHelper;
-using System;
 using TreniniDotNet.Application.TestInputs.Collection;
 using TreniniDotNet.TestHelpers.Common;
 using Xunit;
@@ -19,9 +18,8 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
         public void AddItemToCollectionInput_ShouldSucceedValidation()
         {
             var input = CollectionInputs.AddItemToCollection.With(
-                Id: Guid.NewGuid(),
-                Brand: "ACME",
-                ItemNumber: "123456",
+                Owner: "George",
+                CatalogItem: "123456",
                 Price: 199M);
 
             var result = Validator.TestValidate(input);
@@ -32,13 +30,12 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
         [Fact]
         public void AddItemToCollectionInput_ShouldFailValidation_WhenEmpty()
         {
-            var input = CollectionInputs.AddItemToCollection.With();
+            var input = CollectionInputs.AddItemToCollection.Empty;
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.Id);
-            result.ShouldHaveValidationErrorFor(x => x.Brand);
-            result.ShouldHaveValidationErrorFor(x => x.ItemNumber);
+            result.ShouldHaveValidationErrorFor(x => x.CollectionOwner);
+            result.ShouldHaveValidationErrorFor(x => x.CatalogItem);
         }
 
         [Fact]
@@ -65,11 +62,11 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
         public void AddItemToCollectionInput_ShouldFailValidation_WhenItemNumberIsTooLong()
         {
             var input = CollectionInputs.AddItemToCollection.With(
-                ItemNumber: RandomString.WithLengthOf(11));
+                CatalogItem: RandomString.WithLengthOf(61));
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.ItemNumber);
+            result.ShouldHaveValidationErrorFor(x => x.CatalogItem);
         }
 
         [Fact]

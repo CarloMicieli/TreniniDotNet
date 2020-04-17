@@ -21,17 +21,16 @@ namespace TreniniDotNet.Application.TestInputs.Collection
             public static AddItemToCollectionInput Empty => With();
 
             public static AddItemToCollectionInput With(
-                Guid? Id = null,
-                string Brand = null,
-                string ItemNumber = null,
+                string Owner = null,
+                string CatalogItem = null,
                 DateTime? AddedDate = null,
                 decimal? Price = null,
                 string Condition = null,
                 string Shop = null,
                 string Notes = null) =>
                 new AddItemToCollectionInput(
-                    Id ?? Guid.Empty,
-                    Brand, ItemNumber,
+                    Owner,
+                    CatalogItem,
                     AddedDate ?? DateTime.MinValue,
                     Price ?? 0M,
                     Condition,

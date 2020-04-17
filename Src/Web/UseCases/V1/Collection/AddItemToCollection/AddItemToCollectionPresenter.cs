@@ -1,11 +1,18 @@
 ﻿using TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Web.ViewModels;
 
 namespace TreniniDotNet.Web.UseCases.V1.Collection.AddItemToCollection
 {
     public sealed class AddItemToCollectionPresenter : DefaultHttpResultPresenter<AddItemToCollectionOutput>, IAddItemToCollectionOutputPort
     {
-        public void CollectionNotFound(string message)
+        public void CatalogItemNotFound(Slug catalogItem)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CollectionNotFound(Owner owner)
         {
             throw new System.NotImplementedException();
         }

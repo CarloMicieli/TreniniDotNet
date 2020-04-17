@@ -24,14 +24,14 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         {
             Categories.IsTrain(Category.Railcar.ToString()).Should().BeTrue();
             Categories.IsTrain(Category.ElectricMultipleUnit.ToString()).Should().BeTrue();
+            Categories.IsTrain(Category.StarterSet.ToString()).Should().BeTrue();
+            Categories.IsTrain(Category.TrainSet.ToString()).Should().BeTrue();
 
             Categories.IsTrain(Category.DieselLocomotive.ToString()).Should().BeFalse();
             Categories.IsTrain(Category.ElectricLocomotive.ToString()).Should().BeFalse();
             Categories.IsTrain(Category.SteamLocomotive.ToString()).Should().BeFalse();
             Categories.IsTrain(Category.PassengerCar.ToString()).Should().BeFalse();
             Categories.IsTrain(Category.FreightCar.ToString()).Should().BeFalse();
-            Categories.IsTrain(Category.TrainSet.ToString()).Should().BeFalse();
-
         }
     }
 }

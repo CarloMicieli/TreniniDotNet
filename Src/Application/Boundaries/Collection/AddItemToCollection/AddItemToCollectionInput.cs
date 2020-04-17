@@ -5,17 +5,17 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
 {
     public sealed class AddItemToCollectionInput : IUseCaseInput
     {
-        public AddItemToCollectionInput(Guid id,
-            string brand, string itemNumber,
+        public AddItemToCollectionInput(
+            string collectionOwner,
+            string catalogItem,
             DateTime addedDate,
             decimal price,
             string condition,
             string? shop,
             string? notes)
         {
-            Id = id;
-            Brand = brand;
-            ItemNumber = itemNumber;
+            CollectionOwner = collectionOwner;
+            CatalogItem = catalogItem;
             Shop = shop;
             Price = price;
             AddedDate = addedDate;
@@ -23,9 +23,8 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
             Condition = condition;
         }
 
-        public Guid Id { get; }
-        public string Brand { get; }
-        public string ItemNumber { get; }
+        public string CollectionOwner { get; }
+        public string CatalogItem { get; }
         public string? Shop { get; }
         public decimal Price { get; }
         public string Condition { get; }

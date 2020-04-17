@@ -10,7 +10,9 @@ namespace TreniniDotNet.Domain.Collection.Collections
     {
         CollectionItemId ItemId { get; }
 
-        ICatalogItem CatalogItem { get; }
+        ICatalogRef CatalogItem { get; }
+
+        ICatalogItemDetails? Details { get; }
 
         Condition Condition { get; }
 

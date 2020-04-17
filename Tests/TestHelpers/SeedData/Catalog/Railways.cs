@@ -18,6 +18,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         private readonly IRailway _sncb;
         private readonly IRailway _sncf;
         private readonly IRailway _rhb;
+        private readonly IRailway _dr;
 
         private readonly IList<IRailway> _all;
 
@@ -83,6 +84,16 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 since: null,
                 until: null,
                 status: RailwayStatus.Active);
+
+            _dr = NewWith(
+                id: new RailwayId(new Guid("93a911d8-0422-41b0-80a4-9f4650f1e8b4")),
+                name: "DR",
+                slug: Slug.Of("DR"),
+                companyName: "Deutsche Reichsbahn (East Germany)",
+                country: "DE",
+                since: new DateTime(1949, 1, 1),
+                until: new DateTime(1993, 12, 31),
+                status: RailwayStatus.Inactive);
             #endregion
 
             _all = new List<IRailway>()
@@ -92,7 +103,8 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 _dieBahn,
                 _sncb,
                 _sncf,
-                _rhb
+                _rhb,
+                _dr
             };
         }
 
@@ -133,6 +145,8 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         public IRailway Sncf() => _sncf;
 
         public IRailway RhB() => _rhb;
+
+        public IRailway DR() => _dr;
     }
 
     public static class IRailwaysRepositoryExtensions

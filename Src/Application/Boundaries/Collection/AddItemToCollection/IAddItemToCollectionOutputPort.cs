@@ -1,9 +1,14 @@
-﻿namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
+﻿using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Collection.Shared;
+
+namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
 {
     public interface IAddItemToCollectionOutputPort : IOutputPortStandard<AddItemToCollectionOutput>
     {
-        void CollectionNotFound(string message);
+        void CollectionNotFound(Owner owner);
 
-        void ShopNotFound(string message);
+        void ShopNotFound(string shopName);
+
+        void CatalogItemNotFound(Slug catalogItem);
     }
 }

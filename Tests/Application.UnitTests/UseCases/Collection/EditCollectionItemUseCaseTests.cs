@@ -115,7 +115,7 @@ namespace TreniniDotNet.Application.UseCases.Collection
             var output = outputPort.UseCaseOutput;
             output.CollectionId.Should().Be(id);
             output.ItemId.Should().Be(itemId);
-            output.CatalogItem.Should().Be(Slug.Of("acme-123456"));
+            output.CatalogItem.Should().Be(Slug.Of("acme-60458"));
         }
 
         private EditCollectionItem NewEditCollectionItem(

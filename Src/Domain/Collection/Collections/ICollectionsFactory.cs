@@ -21,7 +21,8 @@ namespace TreniniDotNet.Domain.Collection.Collections
             int version);
 
         ICollectionItem NewCollectionItem(
-            ICatalogItem catalogItem,
+            ICatalogRef catalogItem,
+            ICatalogItemDetails? details,
             Condition condition,
             Money price,
             LocalDate added,
@@ -30,7 +31,8 @@ namespace TreniniDotNet.Domain.Collection.Collections
 
         ICollectionItem NewCollectionItem(
             CollectionItemId id,
-            ICatalogItem catalogItem,
+            ICatalogRef catalogItem,
+            ICatalogItemDetails? details,
             Condition condition,
             Money price,
             LocalDate added,

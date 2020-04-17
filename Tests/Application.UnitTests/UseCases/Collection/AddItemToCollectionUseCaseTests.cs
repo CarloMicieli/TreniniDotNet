@@ -10,6 +10,7 @@ using TreniniDotNet.TestHelpers.SeedData.Collection;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Domain.Collection.Collections;
+using TreniniDotNet.Domain.Collection.Shared;
 
 namespace TreniniDotNet.Application.UseCases.Collection
 {
@@ -40,18 +41,19 @@ namespace TreniniDotNet.Application.UseCases.Collection
         {
             var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewAddItemToCollection);
 
+            var owner = new Owner("not-found");
+
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
             var input = CollectionInputs.AddItemToCollection.With(
-                Id: id.ToGuid(),
-                Brand: "ACME",
-                ItemNumber: "123456",
+                Owner: owner,
+                CatalogItem: "acme-60392",
                 Price: 450M);
 
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
-            outputPort.ShouldHaveCollectionNotFoundMessage($"Collection with id {id} does not exist");
+            outputPort.AssertCollectionWasNotFoundForOwner(owner);
         }
 
         [Fact]
@@ -62,16 +64,34 @@ namespace TreniniDotNet.Application.UseCases.Collection
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
             var input = CollectionInputs.AddItemToCollection.With(
-                Id: id.ToGuid(),
-                Brand: "ACME",
-                ItemNumber: "123456",
+                Owner: "George",
+                CatalogItem: "acme-60392",
                 Shop: "Not found",
                 Price: 450M);
 
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
-            outputPort.ShouldHaveShopNotFoundMessage($"Shop 'Not found' does not exist");
+            outputPort.ShouldHaveShopNotFoundMessage("Not found");
+        }
+
+        [Fact]
+        public async Task AddItemToCollection_ShouldFail_WhenTheCatalogItemNotExists()
+        {
+            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewAddItemToCollection);
+
+            var catalogItem = Slug.Of("acme-123456");
+            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var id = collection.CollectionId;
+            var input = CollectionInputs.AddItemToCollection.With(
+                Owner: "George",
+                CatalogItem: catalogItem.ToString(),
+                Price: 450M);
+
+            await useCase.Execute(input);
+
+            outputPort.ShouldHaveNoValidationError();
+            outputPort.AssertCatalogItemNotFoundForSlug(catalogItem);
         }
 
         [Fact]
@@ -85,9 +105,8 @@ namespace TreniniDotNet.Application.UseCases.Collection
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
             var input = CollectionInputs.AddItemToCollection.With(
-                Id: id.ToGuid(),
-                Brand: "ACME",
-                ItemNumber: "123456",
+                Owner: "George",
+                CatalogItem: "acme-60392",
                 Price: 450M);
 
             await useCase.Execute(input);
@@ -100,7 +119,7 @@ namespace TreniniDotNet.Application.UseCases.Collection
             var output = outputPort.UseCaseOutput;
             output.CollectionId.Should().Be(id);
             output.ItemId.Should().Be(new CollectionItemId(itemId));
-            output.CatalogItem.Should().Be(Slug.Of("acme-123456"));
+            output.CatalogItem.Should().Be(Slug.Of("acme-60392"));
         }
 
         private AddItemToCollection NewAddItemToCollection(

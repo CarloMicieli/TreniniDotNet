@@ -10,7 +10,8 @@ namespace TreniniDotNet.Domain.Collection.Collections
     {
         internal CollectionItem(
             CollectionItemId itemId,
-            ICatalogItem catalogItem,
+            ICatalogRef catalogItem,
+            ICatalogItemDetails? details,
             Condition condition,
             Money price,
             IShopInfo? purchasedAt,
@@ -19,6 +20,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
         {
             ItemId = itemId;
             CatalogItem = catalogItem;
+            Details = details;
             Condition = condition;
             Price = price;
             PurchasedAt = purchasedAt;
@@ -28,7 +30,9 @@ namespace TreniniDotNet.Domain.Collection.Collections
 
         public CollectionItemId ItemId { get; }
 
-        public ICatalogItem CatalogItem { get; }
+        public ICatalogRef CatalogItem { get; }
+
+        public ICatalogItemDetails? Details { get; }
 
         public Condition Condition { get; }
 

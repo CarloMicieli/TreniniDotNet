@@ -4,10 +4,11 @@ using NodaTime.Testing;
 using System;
 using System.Collections.Generic;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collection.Collections;
 using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.TestHelpers.SeedData.Collection
 {
@@ -27,7 +28,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collection
                 "George",
                 new List<ICollectionItem>()
                 {
-                    NewItem(CatalogItem.Of("ACME", new ItemNumber("123456")))
+                    NewItem(CatalogSeedData.CatalogItems.Acme_60458())
                 });
 
             _all = new List<ICollection>()
@@ -47,7 +48,12 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collection
 
         private static ICollectionItem NewItem(ICatalogItem catalogItem)
         {
-            return factory.NewCollectionItem(catalogItem,
+            var catalogRef = CatalogRef.From(catalogItem);
+            var details = CatalogItemDetails.FromCatalogItem(catalogItem);
+
+            return factory.NewCollectionItem(
+                catalogRef,
+                details,
                 Condition.New,
                 Money.Euro(450),
                 new LocalDate(2019, 11, 25),
