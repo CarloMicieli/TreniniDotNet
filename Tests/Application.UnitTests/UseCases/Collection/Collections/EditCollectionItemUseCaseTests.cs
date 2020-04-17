@@ -18,7 +18,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task EditCollectionItem_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewEditCollectionItem);
 
             await useCase.Execute(null);
 
@@ -28,7 +28,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task EditCollectionItem_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewEditCollectionItem);
 
             await useCase.Execute(CollectionInputs.EditCollectionItem.Empty);
 
@@ -38,7 +38,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task EditCollectionItem_ShouldFail_WhenTheCollectionNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewEditCollectionItem);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
@@ -56,7 +56,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task EditCollectionItem_ShouldFail_WhenTheCollectionItemNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
@@ -75,7 +75,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task EditCollectionItem_ShouldFail_WhenTheShopNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
@@ -95,7 +95,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task EditCollectionItem_ShouldEditCatalogItem()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeCollectionsUseCase(Start.WithSeedData, NewEditCollectionItem);
+            var (useCase, outputPort, unitOfWork) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;

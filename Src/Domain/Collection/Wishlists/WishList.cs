@@ -2,6 +2,7 @@ using System;
 using System.Collections.Immutable;
 using NodaTime;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Wishlists
@@ -9,7 +10,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
     public sealed class WishList : IWishList, IEquatable<WishList>
     {
         public WishList(WishlistId wishlistId,
-            string owner,
+            Owner owner,
             Slug slug, string? listName,
             Visibility visibility,
             IImmutableList<IWishlistItem> items,
@@ -28,7 +29,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
             Version = version;
         }
 
-        public string Owner { get; }
+        public Owner Owner { get; }
 
         public IImmutableList<IWishlistItem> Items { get; }
 

@@ -11,7 +11,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Collection
         {
             CollectionNotFoundMethod = MethodInvocation<Owner>.NotInvoked(nameof(CollectionNotFound));
         }
-        
+
         public void CollectionNotFound(Owner owner)
         {
             CollectionNotFoundMethod = CollectionNotFoundMethod.Invoked(owner);

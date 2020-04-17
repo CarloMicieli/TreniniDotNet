@@ -82,4 +82,52 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
             Assert.NotNull(_value2);
         }
     }
+
+    public readonly struct MethodInvocation<T1, T2, T3>
+    {
+        private readonly string _methodName;
+        private readonly bool _invoked;
+        private readonly T1 _value1;
+        private readonly T2 _value2;
+        private readonly T3 _value3;
+
+        public MethodInvocation(string methodName, bool invoked, T1 value1, T2 value2, T3 value3)
+        {
+            _methodName = methodName;
+            _invoked = invoked;
+            _value1 = value1;
+            _value2 = value2;
+            _value3 = value3;
+        }
+
+        public static MethodInvocation<T1, T2, T3> NotInvoked(string methodName)
+        {
+            return new MethodInvocation<T1, T2, T3>(methodName, false, default, default, default);
+        }
+
+        public MethodInvocation<T1, T2, T3> Invoked(T1 value1, T2 value2, T3 value3)
+        {
+            return new MethodInvocation<T1, T2, T3>(_methodName, true, value1, value2, value3);
+        }
+
+        public T1 Argument1 => _value1;
+        public T2 Argument2 => _value2;
+        public T3 Argument3 => _value3;
+
+        public void ShouldBeInvokedWithTheArguments(T1 expected1, T2 expected2, T3 expected3)
+        {
+            Assert.True(_invoked, $"Expected {_methodName} to be invoked, it was never called");
+            Assert.Equal(expected1, _value1);
+            Assert.Equal(expected2, _value2);
+            Assert.Equal(expected3, _value3);
+        }
+
+        public void ArgumentsAreNotNull()
+        {
+            Assert.True(_invoked, $"Expected {_methodName} to be invoked, it was never called");
+            Assert.NotNull(_value1);
+            Assert.NotNull(_value2);
+            Assert.NotNull(_value3);
+        }
+    }
 }

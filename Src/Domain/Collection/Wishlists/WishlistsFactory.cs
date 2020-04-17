@@ -3,6 +3,7 @@ using System;
 using System.Collections.Immutable;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Wishlists
@@ -21,9 +22,8 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
                 throw new ArgumentNullException(nameof(guidSource));
         }
 
-        public IWishList NewWishlist(string owner, Visibility visibility, string? listName)
+        public IWishList NewWishlist(Owner owner, Slug slug, string? listName, Visibility visibility)
         {
-            Slug slug = string.IsNullOrWhiteSpace(listName) ? Slug.Empty : Slug.Of(listName);
             return new WishList(
                 new WishlistId(_guidSource.NewGuid()),
                 owner,

@@ -15,7 +15,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task CreateCollection_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewCreateCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewCreateCollection);
 
             await useCase.Execute(null);
 
@@ -25,7 +25,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task CreateCollection_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewCreateCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewCreateCollection);
 
             await useCase.Execute(CollectionInputs.CreateCollection.Empty);
 
@@ -35,7 +35,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task CreateCollection_ShouldFail_WhenUserHasAlreadyCollection()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewCreateCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewCreateCollection);
 
             await useCase.Execute(CollectionInputs.CreateCollection.With(Owner: "George"));
 
@@ -48,7 +48,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             var expectedId = Guid.NewGuid();
             SetNextGeneratedGuid(expectedId);
 
-            var (useCase, outputPort, unitOfWork) = ArrangeCollectionsUseCase(Start.WithSeedData, NewCreateCollection);
+            var (useCase, outputPort, unitOfWork) = ArrangeCollectionUseCase(Start.WithSeedData, NewCreateCollection);
 
             await useCase.Execute(CollectionInputs.CreateCollection.With(
                 Owner: "John",

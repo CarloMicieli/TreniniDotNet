@@ -15,7 +15,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task GetCollectionStatistics_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewGetCollectionStatistics);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewGetCollectionStatistics);
 
             await useCase.Execute(null);
 
@@ -25,7 +25,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task GetCollectionStatistics_ShouldOutputValidationErrors_WhenInputIsInvalid()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewGetCollectionStatistics);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewGetCollectionStatistics);
 
             await useCase.Execute(InputWithOwner("    "));
 
@@ -35,7 +35,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task GetCollectionStatistics_ShouldOutputAnError_WhenTheUserHasNoCollection()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewGetCollectionStatistics);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewGetCollectionStatistics);
 
             await useCase.Execute(InputWithOwner("George"));
 
@@ -46,7 +46,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task GetCollectionStatistics_ShouldOutputCollectionStatistics()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewGetCollectionStatistics);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewGetCollectionStatistics);
 
             await useCase.Execute(InputWithOwner("George"));
 

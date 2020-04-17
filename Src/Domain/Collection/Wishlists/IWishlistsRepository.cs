@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Wishlists
@@ -16,5 +17,9 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
         Task EditItemAsync(WishlistId id, IWishlistItem item);
 
         Task DeleteItemAsync(WishlistId id, WishlistItemId itemId);
+
+        Task<bool> ExistAsync(Owner owner, Slug wishlistSlug);
+
+        Task<WishlistId> AddAsync(IWishList wishList);
     }
 }

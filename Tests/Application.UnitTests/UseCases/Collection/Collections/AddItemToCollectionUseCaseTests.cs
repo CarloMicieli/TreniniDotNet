@@ -19,7 +19,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task AddItemToCollection_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewAddItemToCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewAddItemToCollection);
 
             await useCase.Execute(null);
 
@@ -29,7 +29,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task AddItemToCollection_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewAddItemToCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewAddItemToCollection);
 
             await useCase.Execute(CollectionInputs.AddItemToCollection.Empty);
 
@@ -39,7 +39,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task AddItemToCollection_ShouldFail_WhenTheCollectionNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewAddItemToCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewAddItemToCollection);
 
             var owner = new Owner("not-found");
 
@@ -59,7 +59,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task AddItemToCollection_ShouldFail_WhenTheShopNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewAddItemToCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewAddItemToCollection);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
@@ -78,7 +78,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task AddItemToCollection_ShouldFail_WhenTheCatalogItemNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewAddItemToCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewAddItemToCollection);
 
             var catalogItem = Slug.Of("acme-123456");
             var collection = CollectionSeedData.Collections.GeorgeCollection();
@@ -97,7 +97,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task AddItemToCollection_ShouldAddItemsToCollection()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeCollectionsUseCase(Start.WithSeedData, NewAddItemToCollection);
+            var (useCase, outputPort, unitOfWork) = ArrangeCollectionUseCase(Start.WithSeedData, NewAddItemToCollection);
 
             var itemId = Guid.NewGuid();
             SetNextGeneratedGuid(itemId);

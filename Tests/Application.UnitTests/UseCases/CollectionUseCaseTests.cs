@@ -4,6 +4,7 @@ using TreniniDotNet.Application.InMemory.Repositories.Collection;
 using TreniniDotNet.Application.InMemory.Services;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Collection.Collections;
+using TreniniDotNet.Domain.Collection.Wishlists;
 
 namespace TreniniDotNet.Application.UseCases
 {
@@ -12,7 +13,7 @@ namespace TreniniDotNet.Application.UseCases
             where TUseCaseOutput : IUseCaseOutput
             where TOutputPort : IOutputPortStandard<TUseCaseOutput>, new()
     {
-        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeCollectionsUseCase(
+        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeCollectionUseCase(
             Start initData,
             Func<CollectionsService, TOutputPort, IUnitOfWork, TUseCase> factory)
         {
@@ -37,6 +38,29 @@ namespace TreniniDotNet.Application.UseCases
 
             return new UseCaseFixture<TUseCase, TOutputPort>(
                 factory.Invoke(collectionsService, outputPort, unitOfWork),
+                outputPort,
+                unitOfWork);
+        }
+
+        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeWishlistUseCase(
+            Start initData,
+            Func<WishlistService, TOutputPort, IUnitOfWork, TUseCase> factory)
+        {
+            var context = NewMemoryContext(initData);
+
+            var wishlistsRepository = new WishlistsRepository(context);
+            var wishlistsFactory = new WishlistsFactory(_fakeClock, _guidSource);
+
+            IUnitOfWork unitOfWork = new UnitOfWork();
+
+            var wishlistsService = new WishlistService(
+                wishlistsRepository,
+                wishlistsFactory);
+
+            var outputPort = new TOutputPort();
+
+            return new UseCaseFixture<TUseCase, TOutputPort>(
+                factory.Invoke(wishlistsService, outputPort, unitOfWork),
                 outputPort,
                 unitOfWork);
         }

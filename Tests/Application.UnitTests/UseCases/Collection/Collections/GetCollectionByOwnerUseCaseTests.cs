@@ -14,7 +14,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task GetCollectionByOwner_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewGetCollectionByOwner);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewGetCollectionByOwner);
 
             await useCase.Execute(null);
 
@@ -24,7 +24,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task GetCollectionByOwner_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewGetCollectionByOwner);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewGetCollectionByOwner);
 
             await useCase.Execute(new GetCollectionByOwnerInput("  "));
 
@@ -35,7 +35,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task GetCollectionByOwner_ShouldOutputError_WhenCollectionNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewGetCollectionByOwner);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewGetCollectionByOwner);
 
             await useCase.Execute(new GetCollectionByOwnerInput("Not found"));
 
@@ -46,7 +46,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task GetCollectionByOwner_ShouldOutputTheCollection()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewGetCollectionByOwner);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewGetCollectionByOwner);
 
             await useCase.Execute(new GetCollectionByOwnerInput("George"));
 

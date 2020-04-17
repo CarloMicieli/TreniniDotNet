@@ -10,7 +10,6 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Collection
         private MethodInvocation<string> ShopNotFoundMethod { set; get; }
         private MethodInvocation<Slug> CatalogItemNotFoundMethod { set; get; }
 
-
         public AddItemToCollectionOutputPort()
         {
             CollectionNotFoundMethod = MethodInvocation<Owner>.NotInvoked(nameof(CollectionNotFound));

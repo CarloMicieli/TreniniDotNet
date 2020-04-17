@@ -19,7 +19,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task RemoveItemFromCollection_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewRemoveItemFromCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewRemoveItemFromCollection);
 
             await useCase.Execute(null);
 
@@ -29,7 +29,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task RemoveItemFromCollection_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewRemoveItemFromCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewRemoveItemFromCollection);
 
             await useCase.Execute(CollectionInputs.RemoveItemFromCollection.Empty);
 
@@ -39,7 +39,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task RemoveItemFromCollection_ShouldOutputError_WhenCollectionIsNotFound()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.Empty, NewRemoveItemFromCollection);
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewRemoveItemFromCollection);
 
             var collectionId = new CollectionId(Guid.NewGuid());
             var itemId = new CollectionItemId(Guid.NewGuid());
@@ -56,7 +56,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         [Fact]
         public async Task RemoveItemFromCollection_ShouldRemoveTheItemFromTheCollection()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeCollectionsUseCase(Start.WithSeedData, NewRemoveItemFromCollection);
+            var (useCase, outputPort, unitOfWork) = ArrangeCollectionUseCase(Start.WithSeedData, NewRemoveItemFromCollection);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
 

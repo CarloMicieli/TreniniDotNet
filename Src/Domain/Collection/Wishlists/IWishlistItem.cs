@@ -1,6 +1,6 @@
 ﻿using NodaMoney;
 using TreniniDotNet.Common.DeliveryDates;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Wishlists
@@ -13,7 +13,9 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
 
         Money? Price { get; }
 
-        ICatalogItem CatalogItem { get; }
+        ICatalogRef CatalogItem { get; }
+
+        ICatalogItemDetails? Details { get; }
 
         DeliveryDate? DeliveryDate { get; }
 
