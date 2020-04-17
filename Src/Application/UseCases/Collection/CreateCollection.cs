@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Collection.CreateCollection;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Collection.Collections;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Application.UseCases.Collection
@@ -23,7 +24,9 @@ namespace TreniniDotNet.Application.UseCases.Collection
 
         protected override async Task Handle(CreateCollectionInput input)
         {
-            var userHasCollection = await _collectionService.UserAlredyOwnCollectionAsync(input.Owner);
+            var owner = new Owner(input.Owner);
+
+            var userHasCollection = await _collectionService.UserAlredyOwnCollectionAsync(owner);
             if (userHasCollection)
             {
                 OutputPort.UserHasAlreadyOneCollection("The user already owns a collection");

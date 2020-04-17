@@ -1,14 +1,17 @@
-﻿using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
+﻿using NodaMoney;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Collection.Shared;
 
 namespace TreniniDotNet.Domain.Collection.Collections
 {
     public interface ICollectionStatsItem
     {
-        Category Category { get; }
+        CollectionCategory Category { get; }
 
         int Count { get; }
 
         Year Year { get; }
+
+        Money TotalValue { get; }
     }
 }

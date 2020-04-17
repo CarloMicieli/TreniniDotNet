@@ -29,7 +29,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
         {
             return new Collection(
                 new CollectionId(_guidSource.NewGuid()),
-                owner,
+                new Owner(owner),
                 ImmutableList<ICollectionItem>.Empty,
                 _clock.GetCurrentInstant(),
                 null,
@@ -46,7 +46,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
         {
             return new Collection(
                 new CollectionId(collectionId),
-                owner,
+                new Owner(owner),
                 items.ToImmutableList(),
                 createdDate.ToUtc(),
                 modifiedDate.ToUtcOrDefault(),

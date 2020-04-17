@@ -6,6 +6,7 @@ using TreniniDotNet.Domain.Collection.Collections;
 using TreniniDotNet.Application.Services;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Collection.Shared;
+using NodaMoney;
 
 namespace TreniniDotNet.Application.UseCases.Collection
 {
@@ -40,6 +41,23 @@ namespace TreniniDotNet.Application.UseCases.Collection
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertCollectionWasNotFoundForOwner(new Owner("George"));
+        }
+
+        [Fact]
+        public async Task GetCollectionStatistics_ShouldOutputCollectionStatistics()
+        {
+            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewGetCollectionStatistics);
+
+            await useCase.Execute(InputWithOwner("George"));
+
+            outputPort.ShouldHaveNoValidationError();
+            outputPort.ShouldHaveStandardOutput();
+
+            var stats = outputPort.UseCaseOutput;
+            stats.Statistics.Should().NotBeNull();
+            stats.Statistics.Owner.Should().Be(new Owner("George"));
+            stats.Statistics.TotalValue.Should().Be(Money.Euro(450M));
+            stats.Statistics.CategoriesByYear.Should().HaveCount(1);
         }
 
         private GetCollectionStatisticsInput InputWithOwner(string owner) =>

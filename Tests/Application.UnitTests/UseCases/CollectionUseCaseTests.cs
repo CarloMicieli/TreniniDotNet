@@ -19,6 +19,7 @@ namespace TreniniDotNet.Application.UseCases
             var context = NewMemoryContext(initData);
 
             var collectionsRepository = new CollectionsRepository(context);
+            var collectionItemsRepository = new CollectionItemsRepository(context);
             var shopsRepository = new ShopsRepository(context);
             var catalogRepository = new CatalogRefsRepository(context);
             var collectionsFactory = new CollectionsFactory(_fakeClock, _guidSource);
@@ -28,6 +29,7 @@ namespace TreniniDotNet.Application.UseCases
             var collectionsService = new CollectionsService(
                 collectionsFactory,
                 collectionsRepository,
+                collectionItemsRepository,
                 shopsRepository,
                 catalogRepository);
 

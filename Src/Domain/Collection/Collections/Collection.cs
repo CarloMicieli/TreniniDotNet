@@ -1,6 +1,7 @@
 ﻿using NodaTime;
 using System;
 using System.Collections.Immutable;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Collections
@@ -8,7 +9,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
     public sealed class Collection : ICollection, IEquatable<Collection>
     {
         internal Collection(CollectionId collectionId,
-            string owner,
+            Owner owner,
             IImmutableList<ICollectionItem> items,
             Instant createdDate,
             Instant? modifiedDate,
@@ -24,7 +25,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
 
         public CollectionId CollectionId { get; }
 
-        public string Owner { get; }
+        public Owner Owner { get; }
 
         public IImmutableList<ICollectionItem> Items { get; }
 
