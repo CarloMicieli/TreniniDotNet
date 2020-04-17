@@ -28,7 +28,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         {
             var owner = new Owner(input.Owner);
 
-            ICollection collection = await _collectionService.GetCollectionByUserAsync(owner);
+            ICollection collection = await _collectionService.GetByOwnerAsync(owner);
             if (collection is null)
             {
                 OutputPort.CollectionNotFound(owner);

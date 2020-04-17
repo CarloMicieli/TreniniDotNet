@@ -36,7 +36,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
                 throw new ArgumentNullException(nameof(catalog));
         }
 
-        public Task<ICollection> GetCollectionByUserAsync(Owner owner)
+        public Task<ICollection> GetByOwnerAsync(Owner owner)
         {
             return _collections.GetByOwnerAsync(owner);
         }
