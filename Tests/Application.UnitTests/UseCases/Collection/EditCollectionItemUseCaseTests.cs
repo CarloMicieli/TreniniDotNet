@@ -13,7 +13,7 @@ using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Application.UseCases.Collection
 {
-    public class EditCollectionItemUseCaseTests : UseCaseTestHelper<EditCollectionItem, EditCollectionItemOutput, EditCollectionItemOutputPort>
+    public class EditCollectionItemUseCaseTests : CollectionUseCaseTests<EditCollectionItem, EditCollectionItemOutput, EditCollectionItemOutputPort>
     {
         [Fact]
         public async Task EditCollectionItem_ShouldOutputAnError_WhenInputIsNull()
@@ -95,7 +95,7 @@ namespace TreniniDotNet.Application.UseCases.Collection
         [Fact]
         public async Task EditCollectionItem_ShouldEditCatalogItem()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewEditCollectionItem);
+            var (useCase, outputPort, unitOfWork) = ArrangeCollectionsUseCase(Start.WithSeedData, NewEditCollectionItem);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
@@ -109,6 +109,8 @@ namespace TreniniDotNet.Application.UseCases.Collection
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();
+
+            unitOfWork.EnsureUnitOfWorkWasSaved();
 
             var output = outputPort.UseCaseOutput;
             output.CollectionId.Should().Be(id);

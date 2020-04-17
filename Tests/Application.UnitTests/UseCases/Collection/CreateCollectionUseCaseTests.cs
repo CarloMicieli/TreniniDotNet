@@ -10,7 +10,7 @@ using System;
 
 namespace TreniniDotNet.Application.UseCases.Collection
 {
-    public class CreateCollectionUseCaseTests : UseCaseTestHelper<CreateCollection, CreateCollectionOutput, CreateCollectionOutputPort>
+    public class CreateCollectionUseCaseTests : CollectionUseCaseTests<CreateCollection, CreateCollectionOutput, CreateCollectionOutputPort>
     {
         [Fact]
         public async Task CreateCollection_ShouldOutputAnError_WhenInputIsNull()
@@ -46,15 +46,18 @@ namespace TreniniDotNet.Application.UseCases.Collection
         public async Task CreateCollection_ShouldCreateCollections()
         {
             var expectedId = Guid.NewGuid();
-            SetNextId(expectedId);
+            SetNextGeneratedGuid(expectedId);
 
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewCreateCollection);
+            var (useCase, outputPort, unitOfWork) = ArrangeCollectionsUseCase(Start.WithSeedData, NewCreateCollection);
 
             await useCase.Execute(CollectionInputs.CreateCollection.With(
                 Owner: "John",
                 Notes: "My notes"));
 
             outputPort.ShouldHaveStandardOutput();
+            outputPort.ShouldHaveNoValidationError();
+
+            unitOfWork.EnsureUnitOfWorkWasSaved();
 
             var output = outputPort.UseCaseOutput;
             output.Id.Should().Be(expectedId);

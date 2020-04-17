@@ -8,7 +8,7 @@ using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class GetScaleBySlugUseCaseTests : UseCaseTestHelper<GetScaleBySlug, GetScaleBySlugOutput, GetScaleBySlugOutputPort>
+    public class GetScaleBySlugUseCaseTests : CatalogUseCaseTests<GetScaleBySlug, GetScaleBySlugOutput, GetScaleBySlugOutputPort>
     {
         [Fact]
         public async Task GetScaleBySlug_ShouldValidateInput()

@@ -9,7 +9,7 @@ using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public sealed class GetRailwaysListUseCaseTests : UseCaseTestHelper<GetRailwaysList, GetRailwaysListOutput, GetRailwaysListOutputPort>
+    public sealed class GetRailwaysListUseCaseTests : CatalogUseCaseTests<GetRailwaysList, GetRailwaysListOutput, GetRailwaysListOutputPort>
     {
         [Fact]
         public async Task GetRailwaysList_ShouldReturnEmptyResult_WhenNoRailwayExists()

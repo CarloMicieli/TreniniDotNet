@@ -13,7 +13,7 @@ using TreniniDotNet.Domain.Collection.Collections;
 
 namespace TreniniDotNet.Application.UseCases.Collection
 {
-    public class AddItemToCollectionUseCaseTests : UseCaseTestHelper<AddItemToCollection, AddItemToCollectionOutput, AddItemToCollectionOutputPort>
+    public class AddItemToCollectionUseCaseTests : CollectionUseCaseTests<AddItemToCollection, AddItemToCollectionOutput, AddItemToCollectionOutputPort>
     {
         [Fact]
         public async Task AddItemToCollection_ShouldOutputAnError_WhenInputIsNull()
@@ -77,10 +77,10 @@ namespace TreniniDotNet.Application.UseCases.Collection
         [Fact]
         public async Task AddItemToCollection_ShouldAddItemsToCollection()
         {
-            var (useCase, outputPort) = ArrangeCollectionsUseCase(Start.WithSeedData, NewAddItemToCollection);
+            var (useCase, outputPort, unitOfWork) = ArrangeCollectionsUseCase(Start.WithSeedData, NewAddItemToCollection);
 
             var itemId = Guid.NewGuid();
-            SetNextId(itemId);
+            SetNextGeneratedGuid(itemId);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
@@ -94,6 +94,8 @@ namespace TreniniDotNet.Application.UseCases.Collection
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();
+
+            unitOfWork.EnsureUnitOfWorkWasSaved();
 
             var output = outputPort.UseCaseOutput;
             output.CollectionId.Should().Be(id);

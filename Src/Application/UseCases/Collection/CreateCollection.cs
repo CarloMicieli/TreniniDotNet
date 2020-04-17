@@ -31,6 +31,9 @@ namespace TreniniDotNet.Application.UseCases.Collection
             }
 
             var id = await _collectionService.CreateAsync(input.Owner, input.Notes);
+
+            var _ = await _unitOfWork.SaveAsync();
+
             CollectionCreated(id, input.Owner);
         }
 

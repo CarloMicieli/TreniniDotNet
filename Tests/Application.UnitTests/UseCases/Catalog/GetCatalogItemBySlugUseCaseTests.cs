@@ -8,7 +8,7 @@ using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class GetCatalogItemBySlugUseCaseTests : UseCaseTestHelper<GetCatalogItemBySlug, GetCatalogItemBySlugOutput, GetCatalogItemBySlugOutputPort>
+    public class GetCatalogItemBySlugUseCaseTests : CatalogUseCaseTests<GetCatalogItemBySlug, GetCatalogItemBySlugOutput, GetCatalogItemBySlugOutputPort>
     {
         [Fact]
         public async Task GetCatalogItemBySlug_ShouldReturnNotFound_WhenTheCatalogItemDoesNotExist()

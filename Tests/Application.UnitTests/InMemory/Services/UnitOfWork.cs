@@ -14,7 +14,7 @@ namespace TreniniDotNet.Application.InMemory.Services
             return await Task.FromResult<int>(0);
         }
 
-        public void ShouldBeSaved()
+        public void EnsureUnitOfWorkWasSaved()
         {
             Assert.True(_saved, "IUnitOfWork.SaveAsync was not called.");
         }
