@@ -5,6 +5,7 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Common.PhoneNumbers;
 using TreniniDotNet.Domain.Collection.ValueObjects;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Domain.Collection.Shops
 {
@@ -24,6 +25,12 @@ namespace TreniniDotNet.Domain.Collection.Shops
         public Task<bool> ExistsAsync(Slug slug) =>
             _shops.ExistsAsync(slug);
 
+        public async Task<PaginatedResult<IShop>> GetShopsAsync(Page page)
+        {
+            var results = await _shops.GetShopsAsync(page);
+            return new PaginatedResult<IShop>(page, results);
+        }
+
         public Task<ShopId> CreateShop(
             string name,
             Uri? websiteUrl,
@@ -40,5 +47,8 @@ namespace TreniniDotNet.Domain.Collection.Shops
 
             return _shops.AddAsync(newShop);
         }
+
+        public Task<IShop> GetBySlugAsync(Slug slug) =>
+            _shops.GetBySlugAsync(slug);
     }
 }

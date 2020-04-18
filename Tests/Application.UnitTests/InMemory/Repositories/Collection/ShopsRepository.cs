@@ -33,14 +33,10 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             throw new System.NotImplementedException();
         }
 
-        public Task<IShop> GetShopBySlugAsync(Slug slug)
+        public Task<IShop> GetBySlugAsync(Slug slug)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IEnumerable<IShopInfo>> GetShopsAsync(Page page)
-        {
-            throw new System.NotImplementedException();
+            var result = _context.Shops.FirstOrDefault(it => it.Slug == slug);
+            return Task.FromResult(result);
         }
 
         public Task RemoveFromFavouritesAsync(string user, ShopId shopId)
@@ -56,5 +52,11 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
 
         public Task<ShopId> AddAsync(IShop shop) =>
             Task.FromResult(shop.ShopId);
+
+        public Task<IEnumerable<IShop>> GetShopsAsync(Page page)
+        {
+            var result = _context.Shops.Skip(page.Start).Take(page.Limit);
+            return Task.FromResult(result);
+        }
     }
 }

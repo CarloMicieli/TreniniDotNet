@@ -5,11 +5,11 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetShopBySlug
 {
     public sealed class GetShopBySlugInput : IUseCaseInput
     {
-        public GetShopBySlugInput(Slug slug)
+        public GetShopBySlugInput(string slug)
         {
             Slug = slug;
         }
 
-        public Slug Slug { get; }
+        public string Slug { get; }
     }
 }

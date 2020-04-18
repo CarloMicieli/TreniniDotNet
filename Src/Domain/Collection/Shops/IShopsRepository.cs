@@ -8,21 +8,20 @@ namespace TreniniDotNet.Domain.Collection.Shops
 {
     public interface IShopsRepository
     {
-        Task<IEnumerable<IShopInfo>> GetShopsAsync(Page page);
-
         Task<IEnumerable<IShopInfo>> GetFavouritesAsync(string user);
 
         Task AddToFavouritesAsync(string user, ShopId shopId);
 
         Task RemoveFromFavouritesAsync(string user, ShopId shopId);
 
-        Task<IShop> GetShopBySlugAsync(Slug slug);
-
         Task<IShopInfo> GetShopInfoBySlugAsync(Slug slug);
 
-        // USATI
         Task<bool> ExistsAsync(Slug slug);
 
         Task<ShopId> AddAsync(IShop shop);
+
+        Task<IShop> GetBySlugAsync(Slug slug);
+
+        Task<IEnumerable<IShop>> GetShopsAsync(Page page);
     }
 }
