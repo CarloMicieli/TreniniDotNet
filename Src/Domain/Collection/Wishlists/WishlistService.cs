@@ -37,6 +37,9 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
         public Task<IWishlistItem> GetItemByIdAsync(WishlistId id, WishlistItemId itemId) =>
             _wishlistItems.GetItemByIdAsync(id, itemId);
 
+        public Task DeleteAsync(WishlistId id) =>
+            _wishlists.DeleteAsync(id);
+
         public Task<bool> ExistAsync(Owner owner, Slug wishlistSlug) =>
             _wishlists.ExistAsync(owner, wishlistSlug);
 

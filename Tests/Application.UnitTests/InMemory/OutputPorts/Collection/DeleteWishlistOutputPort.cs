@@ -1,24 +1,23 @@
 ﻿using TreniniDotNet.Application.Boundaries.Collection.DeleteWishlist;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Collection.Shared;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts.Collection
 {
     public sealed class DeleteWishlistOutputPort : OutputPortTestHelper<DeleteWishlistOutput>, IDeleteWishlistOutputPort
     {
-        private MethodInvocation<Owner, Slug> WishlistNotFoundMethod { set; get; }
+        private MethodInvocation<WishlistId> WishlistNotFoundMethod { set; get; }
 
         public DeleteWishlistOutputPort()
         {
-            WishlistNotFoundMethod = MethodInvocation<Owner, Slug>.NotInvoked(nameof(WishlistNotFound));
+            WishlistNotFoundMethod = MethodInvocation<WishlistId>.NotInvoked(nameof(WishlistNotFound));
         }
 
-        public void WishlistNotFound(Owner owner, Slug wishlistSlug)
+        public void WishlistNotFound(WishlistId id)
         {
-            WishlistNotFoundMethod = WishlistNotFoundMethod.Invoked(owner, wishlistSlug);
+            WishlistNotFoundMethod = WishlistNotFoundMethod.Invoked(id);
         }
 
-        public void AssertWishlistNotFound(Owner owner, Slug wishlistSlug) =>
-            WishlistNotFoundMethod.ShouldBeInvokedWithTheArguments(owner, wishlistSlug);
+        public void AssertWishlistNotFound(WishlistId expectedId) =>
+            WishlistNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedId);
     }
 }

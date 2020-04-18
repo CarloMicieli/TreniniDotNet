@@ -6,6 +6,8 @@ namespace TreniniDotNet.Application.Boundaries.Collection.DeleteWishlist
     {
         public DeleteWishlistInputValidator()
         {
+            RuleFor(x => x.Id)
+                .NotEmpty();
         }
     }
 }

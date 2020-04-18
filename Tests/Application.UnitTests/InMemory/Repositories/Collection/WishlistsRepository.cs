@@ -22,6 +22,9 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             return Task.FromResult(wishList.WishlistId);
         }
 
+        public Task DeleteAsync(WishlistId id) =>
+            Task.CompletedTask;
+
         public Task DeleteItemAsync(WishlistId id, WishlistItemId itemId)
         {
             throw new System.NotImplementedException();

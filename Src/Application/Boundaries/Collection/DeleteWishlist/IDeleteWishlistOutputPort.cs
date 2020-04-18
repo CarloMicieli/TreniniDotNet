@@ -1,10 +1,9 @@
-﻿using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Collection.Shared;
+﻿using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Application.Boundaries.Collection.DeleteWishlist
 {
     public interface IDeleteWishlistOutputPort : IOutputPortStandard<DeleteWishlistOutput>
     {
-        void WishlistNotFound(Owner owner, Slug wishlistSlug);
+        void WishlistNotFound(WishlistId id);
     }
 }

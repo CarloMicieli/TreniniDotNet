@@ -12,12 +12,12 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
 
         Task<IWishlist> GetBySlugAsync(Slug slug);
 
-        Task DeleteItemAsync(WishlistId id, WishlistItemId itemId);
-
         Task<bool> ExistAsync(Owner owner, Slug wishlistSlug);
 
         Task<bool> ExistAsync(WishlistId id);
 
         Task<WishlistId> AddAsync(IWishlist wishList);
+
+        Task DeleteAsync(WishlistId id);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using TreniniDotNet.Application.Boundaries.Collection.DeleteWishlist;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Collection.Shared;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Web.ViewModels;
 
 namespace TreniniDotNet.Web.UseCases.V1.Collection.DeleteWishlist
@@ -12,7 +11,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.DeleteWishlist
             throw new System.NotImplementedException();
         }
 
-        public void WishlistNotFound(Owner owner, Slug wishlistSlug)
+        public void WishlistNotFound(WishlistId id)
         {
             throw new System.NotImplementedException();
         }

@@ -94,9 +94,10 @@ namespace TreniniDotNet.Application.TestInputs.Collection
 
         public static class DeleteWishlist
         {
-            public static DeleteWishlistInput Empty => null;
+            public static DeleteWishlistInput Empty => With();
 
-            public static DeleteWishlistInput With() => null;
+            public static DeleteWishlistInput With(Guid? Id = null) =>
+                new DeleteWishlistInput(Id ?? Guid.Empty);
         }
 
         public static class EditCollectionItem

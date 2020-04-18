@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Collection.DeleteWishlist;
 using TreniniDotNet.Application.Services;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Domain.Collection.Wishlists;
 
 namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
@@ -20,9 +21,22 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
                 throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        protected override Task Handle(DeleteWishlistInput input)
+        protected override async Task Handle(DeleteWishlistInput input)
         {
-            throw new System.NotImplementedException();
+            var id = new WishlistId(input.Id);
+
+            var wishlistExists = await _wishlistService.ExistAsync(id);
+            if (wishlistExists == false)
+            {
+                OutputPort.WishlistNotFound(id);
+                return;
+            }
+
+            await _wishlistService.DeleteAsync(id);
+
+            var _ = await _unitOfWork.SaveAsync();
+
+            OutputPort.Standard(new DeleteWishlistOutput(id));
         }
     }
 }
