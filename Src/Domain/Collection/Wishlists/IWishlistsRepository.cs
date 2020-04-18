@@ -19,5 +19,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
         Task<WishlistId> AddAsync(IWishlist wishList);
 
         Task DeleteAsync(WishlistId id);
+
+        Task<IWishlist> GetByIdAsync(WishlistId id);
     }
 }

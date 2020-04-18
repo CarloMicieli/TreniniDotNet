@@ -77,11 +77,11 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         }
 
         private EditWishlistItem NewEditWishlistItem(
-            WishlistService collectionService,
+            WishlistService wishlistsService,
             EditWishlistItemOutputPort outputPort,
             IUnitOfWork unitOfWork)
         {
-            return new EditWishlistItem(outputPort, collectionService, unitOfWork);
+            return new EditWishlistItem(outputPort, wishlistsService, unitOfWork);
         }
     }
 }

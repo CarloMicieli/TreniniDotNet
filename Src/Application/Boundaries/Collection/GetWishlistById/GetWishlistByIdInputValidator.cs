@@ -6,6 +6,8 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistById
     {
         public GetWishlistByIdInputValidator()
         {
+            RuleFor(x => x.Id)
+                .NotEmpty();
         }
     }
 }

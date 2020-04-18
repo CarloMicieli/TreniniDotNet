@@ -13,11 +13,11 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
 
 
         private GetWishlistsList NewGetWishlistsList(
-            WishlistService collectionService,
+            WishlistService wishlistsService,
             GetWishlistsListOutputPort outputPort,
             IUnitOfWork unitOfWork)
         {
-            return new GetWishlistsList(outputPort, collectionService);
+            return new GetWishlistsList(outputPort, wishlistsService);
         }
     }
 }

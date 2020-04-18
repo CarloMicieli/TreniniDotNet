@@ -5,11 +5,11 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistById
 {
     public sealed class GetWishlistByIdInput : IUseCaseInput
     {
-        public GetWishlistByIdInput(Guid wishlistId)
+        public GetWishlistByIdInput(Guid id)
         {
-            WishlistId = wishlistId;
+            Id = id;
         }
 
-        public Guid WishlistId { get; }
+        public Guid Id { get; }
     }
 }

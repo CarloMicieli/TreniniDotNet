@@ -76,11 +76,11 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         }
 
         private CreateWishlist NewCreateWishlist(
-            WishlistService collectionService,
+            WishlistService wishlistsService,
             CreateWishlistOutputPort outputPort,
             IUnitOfWork unitOfWork)
         {
-            return new CreateWishlist(outputPort, collectionService, unitOfWork);
+            return new CreateWishlist(outputPort, wishlistsService, unitOfWork);
         }
     }
 }

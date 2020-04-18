@@ -68,11 +68,11 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
 
 
         private DeleteWishlist NewDeleteWishlist(
-            WishlistService collectionService,
+            WishlistService wishlistsService,
             DeleteWishlistOutputPort outputPort,
             IUnitOfWork unitOfWork)
         {
-            return new DeleteWishlist(outputPort, collectionService, unitOfWork);
+            return new DeleteWishlist(outputPort, wishlistsService, unitOfWork);
         }
     }
 }

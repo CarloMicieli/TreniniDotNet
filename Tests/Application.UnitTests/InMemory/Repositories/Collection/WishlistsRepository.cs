@@ -44,6 +44,13 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             return Task.FromResult(result);
         }
 
+        public Task<IWishlist> GetByIdAsync(WishlistId id)
+        {
+            var result = _context.WishLists
+                .FirstOrDefault(it => it.WishlistId == id);
+            return Task.FromResult(result);
+        }
+
         public Task<IWishlist> GetBySlugAsync(Slug slug)
         {
             throw new System.NotImplementedException();

@@ -77,11 +77,11 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         }
 
         private RemoveItemFromWishlist NewRemoveItemFromWishlist(
-            WishlistService collectionService,
+            WishlistService wishlistsService,
             RemoveItemFromWishlistOutputPort outputPort,
             IUnitOfWork unitOfWork)
         {
-            return new RemoveItemFromWishlist(outputPort, collectionService, unitOfWork);
+            return new RemoveItemFromWishlist(outputPort, wishlistsService, unitOfWork);
         }
     }
 }

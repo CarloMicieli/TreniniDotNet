@@ -31,6 +31,9 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
                 throw new ArgumentNullException(nameof(catalog));
         }
 
+        public Task<IWishlist> GetByIdAsync(WishlistId id) =>
+            _wishlists.GetByIdAsync(id);
+
         public Task<bool> ExistAsync(WishlistId id) =>
             _wishlists.ExistAsync(id);
 
