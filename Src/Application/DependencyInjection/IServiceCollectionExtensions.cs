@@ -100,6 +100,8 @@ namespace TreniniDotNet.Application
             services.AddScoped<CollectionBoundaries.CreateShop.ICreateShopUseCase, CollectionUseCases.Shops.CreateShop>();
             services.AddScoped<CollectionBoundaries.RemoveShopFromFavourites.IRemoveShopFromFavouritesUseCase, CollectionUseCases.Shops.RemoveShopFromFavourites>();
             services.AddScoped<CollectionBoundaries.GetFavouriteShops.IGetFavouriteShopsUseCase, CollectionUseCases.Shops.GetFavouriteShops>();
+            services.AddScoped<CollectionBoundaries.GetShopBySlug.IGetShopBySlugUseCase, CollectionUseCases.Shops.GetShopBySlug>();
+            services.AddScoped<CollectionBoundaries.GetShopsList.IGetShopsListUseCase, CollectionUseCases.Shops.GetShopsList>();
 
             services.AddScoped<IShopsFactory, ShopsFactory>();
 

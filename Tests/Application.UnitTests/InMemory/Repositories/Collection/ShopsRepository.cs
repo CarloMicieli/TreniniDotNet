@@ -17,11 +17,6 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             _context = context;
         }
 
-        public Task<ShopId> AddAsync(IShop shop)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public Task AddToFavouritesAsync(string user, ShopId shopId)
         {
             throw new System.NotImplementedException();
@@ -52,5 +47,14 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
         {
             throw new System.NotImplementedException();
         }
+
+        public Task<bool> ExistsAsync(Slug slug)
+        {
+            var result = _context.Shops.Any(it => it.Slug == slug);
+            return Task.FromResult(result);
+        }
+
+        public Task<ShopId> AddAsync(IShop shop) =>
+            Task.FromResult(shop.ShopId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mail;
+using TreniniDotNet.Common.PhoneNumbers;
 
 namespace TreniniDotNet.Common.Extensions
 {
@@ -29,5 +30,16 @@ namespace TreniniDotNet.Common.Extensions
         public static Uri? ToUriOpt(this string? str) =>
             str != null && Uri.TryCreate(str, UriKind.Absolute, out var uri) ?
                 uri : null;
+
+
+        public static PhoneNumber? ToPhoneNumberOpt(this string? str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return null;
+            }
+
+            return PhoneNumber.Of(str);
+        }
     }
 }

@@ -4,6 +4,7 @@ using TreniniDotNet.Application.InMemory.Repositories.Collection;
 using TreniniDotNet.Application.InMemory.Services;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Domain.Collection.Collections;
+using TreniniDotNet.Domain.Collection.Shops;
 using TreniniDotNet.Domain.Collection.Wishlists;
 
 namespace TreniniDotNet.Application.UseCases
@@ -65,6 +66,27 @@ namespace TreniniDotNet.Application.UseCases
 
             return new UseCaseFixture<TUseCase, TOutputPort>(
                 factory.Invoke(wishlistsService, outputPort, unitOfWork),
+                outputPort,
+                unitOfWork);
+        }
+
+        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeShopUseCase(
+            Start initData,
+            Func<ShopsService, TOutputPort, IUnitOfWork, TUseCase> factory)
+        {
+            var context = NewMemoryContext(initData);
+
+            var shopsRepository = new ShopsRepository(context);
+            var shopsFactory = new ShopsFactory(_fakeClock, _guidSource);
+
+            IUnitOfWork unitOfWork = new UnitOfWork();
+
+            var shopsService = new ShopsService(shopsRepository, shopsFactory);
+
+            var outputPort = new TOutputPort();
+
+            return new UseCaseFixture<TUseCase, TOutputPort>(
+                factory.Invoke(shopsService, outputPort, unitOfWork),
                 outputPort,
                 unitOfWork);
         }

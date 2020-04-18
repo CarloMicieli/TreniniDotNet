@@ -16,10 +16,13 @@ namespace TreniniDotNet.Domain.Collection.Shops
 
         Task RemoveFromFavouritesAsync(string user, ShopId shopId);
 
-        Task<ShopId> AddAsync(IShop shop);
-
         Task<IShop> GetShopBySlugAsync(Slug slug);
 
         Task<IShopInfo> GetShopInfoBySlugAsync(Slug slug);
+
+        // USATI
+        Task<bool> ExistsAsync(Slug slug);
+
+        Task<ShopId> AddAsync(IShop shop);
     }
 }
