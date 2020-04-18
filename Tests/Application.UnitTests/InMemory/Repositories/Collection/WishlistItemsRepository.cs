@@ -15,10 +15,11 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             _context = context;
         }
 
-        public Task<WishlistItemId> AddItemAsync(WishlistId id, IWishlistItem newItem)
-        {
-            return Task.FromResult(newItem.ItemId);
-        }
+        public Task<WishlistItemId> AddItemAsync(WishlistId id, IWishlistItem newItem) =>
+            Task.FromResult(newItem.ItemId);
+
+        public Task DeleteItemAsync(WishlistId id, WishlistItemId itemId) =>
+            Task.CompletedTask;
 
         public Task EditItemAsync(WishlistId id, IWishlistItem modifiedItem) =>
             Task.CompletedTask;

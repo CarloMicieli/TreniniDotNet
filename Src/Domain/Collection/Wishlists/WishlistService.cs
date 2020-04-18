@@ -40,6 +40,9 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
         public Task<bool> ExistAsync(Owner owner, Slug wishlistSlug) =>
             _wishlists.ExistAsync(owner, wishlistSlug);
 
+        public Task DeleteItemAsync(WishlistId id, WishlistItemId itemId) =>
+            _wishlistItems.DeleteItemAsync(id, itemId);
+
         public Task<WishlistId> CreateWishlist(Owner owner, Slug slug, string listName, Visibility visibility)
         {
             var wishList = _wishlistsFactory.NewWishlist(owner, slug, listName, visibility);
