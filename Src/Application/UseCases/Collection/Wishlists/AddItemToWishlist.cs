@@ -1,7 +1,12 @@
-﻿using System;
+﻿using NodaMoney;
+using System;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist;
 using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.Enums;
+using TreniniDotNet.Common.Extensions;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Domain.Collection.Wishlists;
 
 namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
@@ -20,9 +25,48 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
                 throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        protected override Task Handle(AddItemToWishlistInput input)
+        protected override async Task Handle(AddItemToWishlistInput input)
         {
-            throw new System.NotImplementedException();
+            var id = new WishlistId(input.Id);
+
+            var wishlistExists = await _wishlistService.ExistAsync(id);
+            if (wishlistExists == false)
+            {
+                OutputPort.WishlistNotFound(id);
+                return;
+            }
+
+            var catalogItemSlug = Slug.Of(input.CatalogItem);
+            var catalogRef = await _wishlistService.GetCatalogRef(catalogItemSlug);
+            if (catalogRef is null)
+            {
+                OutputPort.CatalogItemNotFound(catalogItemSlug);
+                return;
+            }
+
+            var item = await _wishlistService.GetItemByCatalogRefAsync(id, catalogRef);
+            if (!(item is null))
+            {
+                OutputPort.CatalogItemAlreadyPresent(id, item.ItemId, catalogRef);
+                return;
+            }
+
+            Money? price = input.Price.HasValue ?
+                Money.Euro(input.Price.Value) : (Money?)null; //TODO: fix currency management
+
+            Priority priority = EnumHelpers.OptionalValueFor<Priority>(input.Priority) ??
+                Priority.Normal;
+
+            var itemId = await _wishlistService.AddItemAsync(id,
+                catalogRef,
+                priority,
+                input.AddedDate.ToLocalDate(),
+                price,
+                input.Notes);
+
+            var _ = await _unitOfWork.SaveAsync();
+
+            OutputPort.Standard(new AddItemToWishlistOutput(id, itemId));
         }
     }
 }

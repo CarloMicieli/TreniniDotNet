@@ -10,13 +10,9 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist
             RuleFor(x => x.Id)
                 .NotEmpty();
 
-            RuleFor(x => x.Brand)
+            RuleFor(x => x.CatalogItem)
                 .NotEmpty()
                 .MaximumLength(50);
-
-            RuleFor(x => x.ItemNumber)
-                .NotEmpty()
-                .MaximumLength(10);
 
             RuleFor(x => x.Price)
                 .GreaterThan(0M);

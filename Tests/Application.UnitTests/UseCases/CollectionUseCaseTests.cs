@@ -48,14 +48,18 @@ namespace TreniniDotNet.Application.UseCases
         {
             var context = NewMemoryContext(initData);
 
+            var catalogRefsRepository = new CatalogRefsRepository(context);
             var wishlistsRepository = new WishlistsRepository(context);
+            var wishlistItemsRepository = new WishlistItemsRepository(context);
             var wishlistsFactory = new WishlistsFactory(_fakeClock, _guidSource);
 
             IUnitOfWork unitOfWork = new UnitOfWork();
 
             var wishlistsService = new WishlistService(
                 wishlistsRepository,
-                wishlistsFactory);
+                wishlistItemsRepository,
+                wishlistsFactory,
+                catalogRefsRepository);
 
             var outputPort = new TOutputPort();
 

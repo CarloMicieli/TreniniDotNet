@@ -5,23 +5,25 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist
 {
     public sealed class AddItemToWishlistInput : IUseCaseInput
     {
-        public AddItemToWishlistInput(Guid id,
-            string brand, string itemNumber,
+        public AddItemToWishlistInput(
+            Guid id,
+            string catalogItem,
+            DateTime addedDate,
             decimal? price,
             string? priority,
             string? notes)
         {
             Id = id;
-            Brand = brand;
-            ItemNumber = itemNumber;
+            CatalogItem = catalogItem;
+            AddedDate = addedDate;
             Price = price;
             Priority = priority;
             Notes = notes;
         }
 
         public Guid Id { get; }
-        public string Brand { get; }
-        public string ItemNumber { get; }
+        public string CatalogItem { get; }
+        public DateTime AddedDate { get; }
         public decimal? Price { get; }
         public string? Priority { get; }
         public string? Notes { get; }

@@ -9,7 +9,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
 {
     public sealed class WishList : IWishList, IEquatable<WishList>
     {
-        public WishList(WishlistId wishlistId,
+        internal WishList(WishlistId wishlistId,
             Owner owner,
             Slug slug, string? listName,
             Visibility visibility,

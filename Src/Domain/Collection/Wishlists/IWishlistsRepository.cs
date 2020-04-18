@@ -8,7 +8,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
 {
     public interface IWishlistsRepository
     {
-        Task<IEnumerable<IWishListInfo>> GetWishListsByOwnerAsync(string owner);
+        Task<IEnumerable<IWishlistInfo>> GetWishListsByOwnerAsync(string owner);
 
         Task<IWishList> GetBySlugAsync(Slug slug);
 
@@ -19,6 +19,8 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
         Task DeleteItemAsync(WishlistId id, WishlistItemId itemId);
 
         Task<bool> ExistAsync(Owner owner, Slug wishlistSlug);
+
+        Task<bool> ExistAsync(WishlistId id);
 
         Task<WishlistId> AddAsync(IWishList wishList);
     }

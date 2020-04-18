@@ -20,8 +20,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist
         {
             var input = CollectionInputs.AddItemToWishlist.With(
                 Id: Guid.NewGuid(),
-                Brand: "ACME",
-                ItemNumber: "123456");
+                CatalogItem: "acme-123456");
 
             var result = Validator.TestValidate(input);
 
@@ -36,8 +35,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist
             var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Id);
-            result.ShouldHaveValidationErrorFor(x => x.Brand);
-            result.ShouldHaveValidationErrorFor(x => x.ItemNumber);
+            result.ShouldHaveValidationErrorFor(x => x.CatalogItem);
         }
 
         [Fact]
@@ -64,22 +62,11 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist
         public void AddItemToWishlistInput_ShouldFailValidation_WhenItemNumberIsTooLong()
         {
             var input = CollectionInputs.AddItemToWishlist.With(
-                ItemNumber: RandomString.WithLengthOf(11));
+                CatalogItem: RandomString.WithLengthOf(51));
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.ItemNumber);
-        }
-
-        [Fact]
-        public void AddItemToWishlistInput_ShouldFailValidation_WhenBrandIsTooLong()
-        {
-            var input = CollectionInputs.AddItemToWishlist.With(
-                Brand: RandomString.WithLengthOf(51));
-
-            var result = Validator.TestValidate(input);
-
-            result.ShouldHaveValidationErrorFor(x => x.Brand);
+            result.ShouldHaveValidationErrorFor(x => x.CatalogItem);
         }
 
         [Fact]

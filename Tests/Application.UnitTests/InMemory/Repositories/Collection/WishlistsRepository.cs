@@ -44,12 +44,19 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             return Task.FromResult(result);
         }
 
+        public Task<bool> ExistAsync(WishlistId id)
+        {
+            var result = _context.WishLists
+                .Any(it => it.WishlistId == id);
+            return Task.FromResult(result);
+        }
+
         public Task<IWishList> GetBySlugAsync(Slug slug)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<IWishListInfo>> GetWishListsByOwnerAsync(string owner)
+        public Task<IEnumerable<IWishlistInfo>> GetWishListsByOwnerAsync(string owner)
         {
             throw new System.NotImplementedException();
         }

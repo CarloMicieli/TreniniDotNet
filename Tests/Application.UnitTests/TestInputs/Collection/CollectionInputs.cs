@@ -44,15 +44,15 @@ namespace TreniniDotNet.Application.TestInputs.Collection
 
             public static AddItemToWishlistInput With(
                 Guid? Id = null,
-                string Brand = null,
-                string ItemNumber = null,
+                string CatalogItem = null,
                 decimal? Price = null,
+                DateTime? AddedDate = null,
                 string Priority = null,
                 string Notes = null) =>
                 new AddItemToWishlistInput(
                     Id ?? Guid.Empty,
-                    Brand,
-                    ItemNumber,
+                    CatalogItem,
+                    AddedDate ?? DateTime.Now,
                     Price,
                     Priority,
                     Notes);

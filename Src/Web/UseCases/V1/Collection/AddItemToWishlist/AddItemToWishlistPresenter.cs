@@ -1,13 +1,14 @@
 ﻿using TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collection.Shared;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Web.ViewModels;
 
 namespace TreniniDotNet.Web.UseCases.V1.Collection.AddItemToWishlist
 {
     public sealed class AddItemToWishlistPresenter : DefaultHttpResultPresenter<AddItemToWishlistOutput>, IAddItemToWishlistOutputPort
     {
-        public void CatalogItemAlreadyPresent(Owner owner, Slug wishlistSlug, Slug catalogItem)
+        public void CatalogItemAlreadyPresent(WishlistId wishlistId, WishlistItemId itemId, ICatalogRef catalogRef)
         {
             throw new System.NotImplementedException();
         }
@@ -22,7 +23,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.AddItemToWishlist
             throw new System.NotImplementedException();
         }
 
-        public void WishlistNotFound(Owner owner, Slug wishlistSlug)
+        public void WishlistNotFound(WishlistId wishlistId)
         {
             throw new System.NotImplementedException();
         }

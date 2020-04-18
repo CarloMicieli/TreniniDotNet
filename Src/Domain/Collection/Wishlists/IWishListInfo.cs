@@ -4,7 +4,7 @@ using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Wishlists
 {
-    public interface IWishListInfo : IModifiableEntity
+    public interface IWishlistInfo : IModifiableEntity
     {
         WishlistId WishlistId { get; }
 
