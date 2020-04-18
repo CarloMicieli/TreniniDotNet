@@ -23,7 +23,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
                 throw new ArgumentNullException(nameof(guidSource));
         }
 
-        public IWishList NewWishlist(Owner owner, Slug slug, string? listName, Visibility visibility) =>
+        public IWishlist NewWishlist(Owner owner, Slug slug, string? listName, Visibility visibility) =>
             NewWishlist(
                 new WishlistId(_guidSource.NewGuid()),
                 owner,
@@ -35,7 +35,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
                 null,
                 1);
 
-        public IWishList NewWishlist(
+        public IWishlist NewWishlist(
             WishlistId wishlistId,
             Owner owner,
             Slug slug, string? listName,

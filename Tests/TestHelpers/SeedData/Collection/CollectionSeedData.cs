@@ -6,6 +6,6 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collection
 
         public static Shops Shops = new Shops();
 
-        public static WishLists WishLists = new WishLists();
+        public static WishLists Wishlists = new WishLists();
     }
 }

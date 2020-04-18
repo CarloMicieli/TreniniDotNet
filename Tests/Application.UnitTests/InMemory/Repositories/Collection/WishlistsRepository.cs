@@ -17,22 +17,12 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             _context = context;
         }
 
-        public Task<WishlistId> AddAsync(IWishList wishList)
+        public Task<WishlistId> AddAsync(IWishlist wishList)
         {
             return Task.FromResult(wishList.WishlistId);
         }
 
-        public Task AddItemAsync(WishlistId id, IWishlistItem newItem)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public Task DeleteItemAsync(WishlistId id, WishlistItemId itemId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task EditItemAsync(WishlistId id, IWishlistItem item)
         {
             throw new System.NotImplementedException();
         }
@@ -51,7 +41,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             return Task.FromResult(result);
         }
 
-        public Task<IWishList> GetBySlugAsync(Slug slug)
+        public Task<IWishlist> GetBySlugAsync(Slug slug)
         {
             throw new System.NotImplementedException();
         }

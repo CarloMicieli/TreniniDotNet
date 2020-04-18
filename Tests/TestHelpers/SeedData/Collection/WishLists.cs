@@ -19,9 +19,9 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collection
             FakeClock.FromUtc(1988, 11, 25),
             new GuidSource());
 
-        private readonly IWishList _george_list1;
+        private readonly IWishlist _george_list1;
 
-        private readonly IList<IWishList> _all;
+        private readonly IList<IWishlist> _all;
 
         internal WishLists()
         {
@@ -32,17 +32,17 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collection
                 visibility: Visibility.Private,
                 ListOf(Item(CatalogRef.From(CatalogSeedData.CatalogItems.Acme_60392()))));
 
-            _all = new List<IWishList>()
+            _all = new List<IWishlist>()
             {
                 _george_list1
             };
         }
 
-        public IList<IWishList> All() => _all;
+        public IList<IWishlist> All() => _all;
 
-        public IWishList George_First_List() => _george_list1;
+        public IWishlist George_First_List() => _george_list1;
 
-        private static IWishList NewWishlist(Guid id, string owner, string listTitle, Visibility visibility, IEnumerable<IWishlistItem> items)
+        private static IWishlist NewWishlist(Guid id, string owner, string listTitle, Visibility visibility, IEnumerable<IWishlistItem> items)
         {
             return factory.NewWishlist(
                 new WishlistId(id),

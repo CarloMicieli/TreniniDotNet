@@ -27,7 +27,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories
 
         public IList<ICollection> Collections { set; get; } = new List<ICollection>();
 
-        public IList<IWishList> WishLists { set; get; } = new List<IWishList>();
+        public IList<IWishlist> WishLists { set; get; } = new List<IWishlist>();
 
         public IList<IShop> Shops { set; get; } = new List<IShop>();
 
@@ -41,7 +41,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories
                 CatalogItems = CatalogSeedData.CatalogItems.All(),
                 Collections = CollectionSeedData.Collections.All(),
                 Shops = CollectionSeedData.Shops.All(),
-                WishLists = CollectionSeedData.WishLists.All()
+                WishLists = CollectionSeedData.Wishlists.All()
             };
         }
     }

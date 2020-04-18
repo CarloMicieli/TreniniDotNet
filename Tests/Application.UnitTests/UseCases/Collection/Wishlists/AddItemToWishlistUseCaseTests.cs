@@ -58,7 +58,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         {
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewAddItemToWishlist);
 
-            var id = CollectionSeedData.WishLists.George_First_List().WishlistId;
+            var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
             var input = CollectionInputs.AddItemToWishlist.With(
                 Id: id.ToGuid(),
                 CatalogItem: "acme-123456");
@@ -74,7 +74,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         {
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewAddItemToWishlist);
 
-            var wishlist = CollectionSeedData.WishLists.George_First_List();
+            var wishlist = CollectionSeedData.Wishlists.George_First_List();
             var id = wishlist.WishlistId;
             var item = wishlist.Items.First();
 
@@ -93,7 +93,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         {
             var (useCase, outputPort, unitOfWork) = ArrangeWishlistUseCase(Start.WithSeedData, NewAddItemToWishlist);
 
-            var wishlist = CollectionSeedData.WishLists.George_First_List();
+            var wishlist = CollectionSeedData.Wishlists.George_First_List();
             var id = wishlist.WishlistId;
             var item = CatalogSeedData.CatalogItems.Bemo_1254134();
 

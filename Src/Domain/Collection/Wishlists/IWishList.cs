@@ -3,7 +3,7 @@ using TreniniDotNet.Domain.Collection.Shared;
 
 namespace TreniniDotNet.Domain.Collection.Wishlists
 {
-    public interface IWishList : IWishlistInfo
+    public interface IWishlist : IWishlistInfo
     {
         Owner Owner { get; }
 

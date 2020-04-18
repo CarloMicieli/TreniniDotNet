@@ -10,11 +10,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
     {
         Task<IEnumerable<IWishlistInfo>> GetWishListsByOwnerAsync(string owner);
 
-        Task<IWishList> GetBySlugAsync(Slug slug);
-
-        Task AddItemAsync(WishlistId id, IWishlistItem newItem);
-
-        Task EditItemAsync(WishlistId id, IWishlistItem item);
+        Task<IWishlist> GetBySlugAsync(Slug slug);
 
         Task DeleteItemAsync(WishlistId id, WishlistItemId itemId);
 
@@ -22,6 +18,6 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
 
         Task<bool> ExistAsync(WishlistId id);
 
-        Task<WishlistId> AddAsync(IWishList wishList);
+        Task<WishlistId> AddAsync(IWishlist wishList);
     }
 }

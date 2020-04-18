@@ -1,35 +1,23 @@
 ﻿using TreniniDotNet.Application.Boundaries.Collection.EditWishlistItem;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts.Collection
 {
     public sealed class EditWishlistItemOutputPort : OutputPortTestHelper<EditWishlistItemOutput>, IEditWishlistItemOutputPort
     {
-        private MethodInvocation<Owner, Slug> WishlistNotFoundMethod { set; get; }
-        private MethodInvocation<Owner, Slug, WishlistItemId> WishlistItemNotFoundMethod { set; get; }
+        private MethodInvocation<WishlistId, WishlistItemId> WishlistItemNotFoundMethod { set; get; }
 
         public EditWishlistItemOutputPort()
         {
-            WishlistNotFoundMethod = MethodInvocation<Owner, Slug>.NotInvoked(nameof(WishlistNotFound));
-            WishlistItemNotFoundMethod = MethodInvocation<Owner, Slug, WishlistItemId>.NotInvoked(nameof(WishlistItemNotFound));
+            WishlistItemNotFoundMethod = MethodInvocation<WishlistId, WishlistItemId>.NotInvoked(nameof(WishlistItemNotFound));
         }
 
-        public void WishlistItemNotFound(Owner owner, Slug wishlistSlug, WishlistItemId itemId)
+        public void WishlistItemNotFound(WishlistId id, WishlistItemId itemId)
         {
-            WishlistItemNotFoundMethod = WishlistItemNotFoundMethod.Invoked(owner, wishlistSlug, itemId);
+            WishlistItemNotFoundMethod = WishlistItemNotFoundMethod.Invoked(id, itemId);
         }
 
-        public void WishlistNotFound(Owner owner, Slug wishlistSlug)
-        {
-            WishlistNotFoundMethod = WishlistNotFoundMethod.Invoked(owner, wishlistSlug);
-        }
-
-        public void AssertWishlistNotFound(Owner owner, Slug wishlistSlug) =>
-            WishlistNotFoundMethod.ShouldBeInvokedWithTheArguments(owner, wishlistSlug);
-
-        public void AssertWishlistItemNotFound(Owner owner, Slug wishlistSlug, WishlistItemId itemId) =>
-            WishlistItemNotFoundMethod.ShouldBeInvokedWithTheArguments(owner, wishlistSlug, itemId);
+        public void AssertWishlistItemNotFound(WishlistId expectedId, WishlistItemId expectedItemId) =>
+            WishlistItemNotFoundMethod.ShouldBeInvokedWithTheArguments(expectedId, expectedItemId);
     }
 }

@@ -34,6 +34,9 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
         public Task<bool> ExistAsync(WishlistId id) =>
             _wishlists.ExistAsync(id);
 
+        public Task<IWishlistItem> GetItemByIdAsync(WishlistId id, WishlistItemId itemId) =>
+            _wishlistItems.GetItemByIdAsync(id, itemId);
+
         public Task<bool> ExistAsync(Owner owner, Slug wishlistSlug) =>
             _wishlists.ExistAsync(owner, wishlistSlug);
 
@@ -41,6 +44,20 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
         {
             var wishList = _wishlistsFactory.NewWishlist(owner, slug, listName, visibility);
             return _wishlists.AddAsync(wishList);
+        }
+
+        public Task EditItemAsync(WishlistId id, IWishlistItem item, LocalDate? addedDate, Money? price, Priority? priority, string? notes)
+        {
+            var modifiedItem = _wishlistsFactory.NewWishlistItem(
+                item.ItemId,
+                item.CatalogItem,
+                null,
+                priority ?? item.Priority,
+                addedDate ?? item.AddedDate,
+                price ?? item.Price,
+                notes ?? item.Notes);
+
+            return _wishlistItems.EditItemAsync(id, modifiedItem);
         }
 
         public Task<ICatalogRef> GetCatalogRef(Slug catalogItemSlug) =>

@@ -8,8 +8,12 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
     {
         Task<IWishlistItem> GetItemByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef);
 
+        Task<IWishlistItem> GetItemByIdAsync(WishlistId id, WishlistItemId itemId);
+
         Task<WishlistItemId> AddItemAsync(
             WishlistId id,
             IWishlistItem newItem);
+
+        Task EditItemAsync(WishlistId id, IWishlistItem modifiedItem);
     }
 }

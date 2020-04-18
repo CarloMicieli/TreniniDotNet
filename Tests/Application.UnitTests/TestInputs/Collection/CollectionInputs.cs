@@ -127,11 +127,13 @@ namespace TreniniDotNet.Application.TestInputs.Collection
             public static EditWishlistItemInput With(
                 Guid? Id = null,
                 Guid? ItemId = null,
+                DateTime? AddedDate = null,
                 decimal? Price = null,
                 string Priority = null,
                 string Notes = null) => new EditWishlistItemInput(
                     Id ?? Guid.Empty,
                     ItemId ?? Guid.Empty,
+                    AddedDate,
                     Price,
                     Priority,
                     Notes);

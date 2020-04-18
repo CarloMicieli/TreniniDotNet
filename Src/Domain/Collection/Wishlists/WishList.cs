@@ -7,7 +7,7 @@ using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Wishlists
 {
-    public sealed class WishList : IWishList, IEquatable<WishList>
+    public sealed class WishList : IWishlist, IEquatable<WishList>
     {
         internal WishList(WishlistId wishlistId,
             Owner owner,

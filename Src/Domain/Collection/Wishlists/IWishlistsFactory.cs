@@ -9,9 +9,9 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
 {
     public interface IWishlistsFactory
     {
-        IWishList NewWishlist(Owner owner, Slug slug, string? listName, Visibility visibility);
+        IWishlist NewWishlist(Owner owner, Slug slug, string? listName, Visibility visibility);
 
-        IWishList NewWishlist(
+        IWishlist NewWishlist(
             WishlistId wishlistId,
             Owner owner,
             Slug slug, string? listName,
