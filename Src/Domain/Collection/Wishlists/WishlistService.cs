@@ -1,6 +1,7 @@
 ﻿using NodaMoney;
 using NodaTime;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collection.Shared;
@@ -30,6 +31,9 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
             _catalog = catalog ??
                 throw new ArgumentNullException(nameof(catalog));
         }
+
+        public Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, Visibility visibility) =>
+            _wishlists.GetByOwnerAsync(owner, visibility);
 
         public Task<IWishlist> GetByIdAsync(WishlistId id) =>
             _wishlists.GetByIdAsync(id);

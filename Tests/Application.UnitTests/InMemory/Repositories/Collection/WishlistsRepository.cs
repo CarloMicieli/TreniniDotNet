@@ -51,14 +51,13 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             return Task.FromResult(result);
         }
 
-        public Task<IWishlist> GetBySlugAsync(Slug slug)
+        public Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, Visibility visibility)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IEnumerable<IWishlistInfo>> GetWishListsByOwnerAsync(string owner)
-        {
-            throw new System.NotImplementedException();
+            IEnumerable<IWishlistInfo> result = _context.WishLists
+                .Where(it => it.Owner == owner && it.Visibility == visibility)
+                .Select(it => (IWishlistInfo)it)
+                .ToList();
+            return Task.FromResult(result);
         }
     }
 }

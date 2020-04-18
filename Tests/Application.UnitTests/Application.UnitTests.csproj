@@ -25,4 +25,8 @@
     <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Boundaries\Collection\GetWishlistsByOwner\" />
+  </ItemGroup>
+
 </Project>

@@ -113,7 +113,7 @@ namespace TreniniDotNet.Application
             services.AddScoped<CollectionBoundaries.DeleteWishlist.IDeleteWishlistUseCase, CollectionUseCases.Wishlists.DeleteWishlist>();
             services.AddScoped<CollectionBoundaries.EditWishlistItem.IEditWishlistItemUseCase, CollectionUseCases.Wishlists.EditWishlistItem>();
             services.AddScoped<CollectionBoundaries.GetWishlistById.IGetWishlistByIdUseCase, CollectionUseCases.Wishlists.GetWishlistById>();
-            services.AddScoped<CollectionBoundaries.GetWishlistsList.IGetWishlistsListUseCase, CollectionUseCases.Wishlists.GetWishlistsList>();
+            services.AddScoped<CollectionBoundaries.GetWishlistsByOwner.IGetWishlistsByOwnerUseCase, CollectionUseCases.Wishlists.GetWishlistsByOwner>();
             services.AddScoped<CollectionBoundaries.RemoveItemFromWishlist.IRemoveItemFromWishlistUseCase, CollectionUseCases.Wishlists.RemoveItemFromWishlist>();
 
             services.AddScoped<IWishlistsFactory, WishlistsFactory>();

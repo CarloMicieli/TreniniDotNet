@@ -1,11 +1,11 @@
 ﻿using TreniniDotNet.Common.Interfaces;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
-namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistsList
+namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistsByOwner
 {
-    public sealed class GetWishlistsListInput : IUseCaseInput
+    public sealed class GetWishlistsByOwnerInput : IUseCaseInput
     {
-        public GetWishlistsListInput(string owner, Visibility visibility)
+        public GetWishlistsByOwnerInput(string owner, Visibility visibility)
         {
             Owner = owner;
             Visibility = visibility;

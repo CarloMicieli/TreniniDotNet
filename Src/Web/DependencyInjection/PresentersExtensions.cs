@@ -79,7 +79,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CollectionBoundaries.DeleteWishlist.IDeleteWishlistOutputPort, CollectionUseCases.DeleteWishlist.DeleteWishlistPresenter>();
             services.AddPresenter<CollectionBoundaries.EditWishlistItem.IEditWishlistItemOutputPort, CollectionUseCases.EditWishlistItem.EditWishlistItemPresenter>();
             services.AddPresenter<CollectionBoundaries.GetWishlistById.IGetWishlistByIdOutputPort, CollectionUseCases.GetWishlistById.GetWishlistByIdPresenter>();
-            services.AddPresenter<CollectionBoundaries.GetWishlistsList.IGetWishlistsListOutputPort, CollectionUseCases.GetWishlistsList.GetWishlistsListPresenter>();
+            services.AddPresenter<CollectionBoundaries.GetWishlistsByOwner.IGetWishlistsByOwnerOutputPort, CollectionUseCases.GetWishlistsByOwner.GetWishlistsByOwnerPresenter>();
             services.AddPresenter<CollectionBoundaries.RemoveItemFromWishlist.IRemoveItemFromWishlistOutputPort, CollectionUseCases.RemoveItemFromWishlist.RemoveItemFromWishlistPresenter>();
 
             return services;
