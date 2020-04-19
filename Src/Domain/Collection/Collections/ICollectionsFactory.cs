@@ -1,7 +1,7 @@
 ﻿using NodaMoney;
 using NodaTime;
 using System;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.Shops;
 using TreniniDotNet.Domain.Collection.ValueObjects;
@@ -15,7 +15,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
         ICollection NewCollection(
             Guid collectionId,
             string owner,
-            IEnumerable<ICollectionItem> items,
+            IImmutableList<ICollectionItem> items,
             DateTime createdDate,
             DateTime? modifiedDate,
             int version);

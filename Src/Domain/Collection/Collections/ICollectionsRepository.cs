@@ -6,12 +6,14 @@ namespace TreniniDotNet.Domain.Collection.Collections
 {
     public interface ICollectionsRepository
     {
-        Task<ICollection> GetByOwnerAsync(Owner owner);
+        Task<ICollection?> GetByOwnerAsync(Owner owner);
 
-        Task<bool> AnyByOwnerAsync(Owner owner);
+        Task<bool> ExistsAsync(Owner owner);
 
         Task<bool> ExistsAsync(CollectionId id);
 
         Task<CollectionId?> GetIdByOwnerAsync(Owner owner);
+
+        Task<CollectionId> AddAsync(ICollection collection);
     }
 }

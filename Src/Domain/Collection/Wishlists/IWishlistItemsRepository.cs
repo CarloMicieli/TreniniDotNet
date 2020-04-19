@@ -6,9 +6,9 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
 {
     public interface IWishlistItemsRepository
     {
-        Task<IWishlistItem> GetItemByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef);
+        Task<IWishlistItem?> GetItemByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef);
 
-        Task<IWishlistItem> GetItemByIdAsync(WishlistId id, WishlistItemId itemId);
+        Task<IWishlistItem?> GetItemByIdAsync(WishlistId id, WishlistItemId itemId);
 
         Task<WishlistItemId> AddItemAsync(
             WishlistId id,

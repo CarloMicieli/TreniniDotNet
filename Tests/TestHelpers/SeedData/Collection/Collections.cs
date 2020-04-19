@@ -3,6 +3,7 @@ using NodaTime;
 using NodaTime.Testing;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collection.Collections;
@@ -43,7 +44,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collection
 
         private static ICollection NewWith(Guid id, string owner, IEnumerable<ICollectionItem> items)
         {
-            return factory.NewCollection(id, owner, items, DateTime.UtcNow, null, 1);
+            return factory.NewCollection(id, owner, items.ToImmutableList(), DateTime.UtcNow, null, 1);
         }
 
         private static ICollectionItem NewItem(ICatalogItem catalogItem)

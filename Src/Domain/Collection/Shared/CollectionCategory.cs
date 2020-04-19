@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Domain.Collection.Shared
@@ -14,6 +15,24 @@ namespace TreniniDotNet.Domain.Collection.Shared
 
     public static class CollectionCategories
     {
+        public static CollectionCategory From(string? cat1, string? cat2)
+        {
+            Category? category1 = EnumHelpers.OptionalValueFor<Category>(cat1);
+            Category? category2 = EnumHelpers.OptionalValueFor<Category>(cat2);
+
+            if (category1.HasValue && category2.HasValue)
+            {
+                if (category1.Value == category2.Value)
+                {
+                    return FromCategory(category1.Value);
+                }
+
+                return CollectionCategory.Trains;
+            }
+
+            return CollectionCategory.Unspecified;
+        }
+
         public static CollectionCategory FromCatalogItem(ICatalogItem item)
         {
             if (item.RollingStocks.Count == 0)

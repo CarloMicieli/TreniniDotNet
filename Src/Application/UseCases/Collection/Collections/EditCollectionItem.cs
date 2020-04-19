@@ -38,7 +38,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
                 return;
             }
 
-            ICollectionItem item = await _collectionService.GetItemByIdAsync(collectionId, itemId);
+            ICollectionItem? item = await _collectionService.GetItemByIdAsync(collectionId, itemId);
             if (item is null)
             {
                 OutputPort.CollectionItemNotFound($"Collection item with id {itemId} does not exist");

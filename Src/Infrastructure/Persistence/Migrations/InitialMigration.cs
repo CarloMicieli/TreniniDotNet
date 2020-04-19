@@ -10,6 +10,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
         private const string Railways = "railways";
         private const string Brands = "brands";
         private const string Scales = "scales";
+        private const string Collections = "collections";
+        private const string CollectionItems = "collection_items";
+        private const string Wishlists = "wishlists";
+        private const string WishlistItems = "wishlist_items";
+        private const string Shops = "shops";
 
         public override void Up()
         {
@@ -20,8 +25,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("company_name").AsString(100).Nullable()
                 .WithColumn("group_name").AsString(100).Nullable()
                 .WithColumn("description").AsString(1000).Nullable()
-                .WithColumn("mail_address").AsString(255).Nullable()
-                .WithColumn("website_url").AsString(255).Nullable()
+                .WithColumn("mail_address").AsString(100).Nullable()
+                .WithColumn("website_url").AsString(100).Nullable()
                 .WithColumn("kind").AsString(25).NotNullable()
                 .WithColumn("address_line1").AsString(255).Nullable()
                 .WithColumn("address_line2").AsString(255).Nullable()
@@ -95,6 +100,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .OnColumn("slug")
                 .Unique();
 
+            #region [ Catalog items ]
             Create.Table(CatalogItems)
                 .WithColumn("catalog_item_id").AsGuid().PrimaryKey()
                 .WithColumn("brand_id").AsGuid().NotNullable()
@@ -151,10 +157,118 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
             Create.ForeignKey("FK_RollingStocks_CatalogItems")
                 .FromTable(RollingStocks).ForeignColumn("catalog_item_id")
                 .ToTable(CatalogItems).PrimaryColumn("catalog_item_id");
+            #endregion
+
+            #region [ Shops ]
+
+            Create.Table(Shops)
+                .WithColumn("shop_id").AsGuid().PrimaryKey()
+                .WithColumn("name").AsString(50).NotNullable()
+                .WithColumn("slug").AsString(50).NotNullable()
+                .WithColumn("website_url").AsString(100).Nullable()
+                .WithColumn("phone_number").AsString(50).Nullable()
+                .WithColumn("mail_address").AsString(100).Nullable()
+                .WithColumn("address_line1").AsString(255).Nullable()
+                .WithColumn("address_line2").AsString(255).Nullable()
+                .WithColumn("address_city").AsString(50).Nullable()
+                .WithColumn("address_region").AsString(50).Nullable()
+                .WithColumn("address_postal_code").AsString(10).Nullable()
+                .WithColumn("address_country").AsString(2).Nullable()
+                .WithColumn("created").AsDateTime().NotNullable()
+                .WithColumn("last_modified").AsDateTime().Nullable()
+                .WithColumn("version").AsInt32().WithDefaultValue(1);
+
+            Create.Index("Idx_Shops_Slug")
+                .OnTable(Shops)
+                .OnColumn("slug");
+
+            #endregion
+
+            #region [ Collections ]
+
+            Create.Table(Collections)
+                .WithColumn("collection_id").AsGuid().PrimaryKey()
+                .WithColumn("owner").AsString(50).NotNullable()
+                .WithColumn("created").AsDateTime().NotNullable()
+                .WithColumn("last_modified").AsDateTime().Nullable()
+                .WithColumn("version").AsInt32().WithDefaultValue(1);
+
+            Create.Index("Idx_Collections_Owner")
+                .OnTable(Collections)
+                .OnColumn("owner");
+
+            Create.Table(CollectionItems)
+                .WithColumn("item_id").AsGuid().PrimaryKey()
+                .WithColumn("collection_id").AsGuid().NotNullable()
+                .WithColumn("catalog_item_id").AsGuid().NotNullable()
+                .WithColumn("catalog_item_slug").AsString(40).NotNullable()
+                .WithColumn("condition").AsString(15).NotNullable()
+                .WithColumn("price").AsDecimal().NotNullable()
+                .WithColumn("currency").AsString(3).NotNullable()
+                .WithColumn("shop_id").AsGuid().Nullable()
+                .WithColumn("added_date").AsDateTime().Nullable()
+                .WithColumn("removed_date").AsDateTime().Nullable()
+                .WithColumn("notes").AsString(150).Nullable();
+
+            Create.ForeignKey("FK_CollectionItems_Collections")
+                .FromTable(CollectionItems).ForeignColumn("collection_id")
+                .ToTable(Collections).PrimaryColumn("collection_id");
+
+            Create.ForeignKey("FK_CollectionItems_CatalogItems")
+                .FromTable(CollectionItems).ForeignColumn("catalog_item_id")
+                .ToTable(CatalogItems).PrimaryColumn("catalog_item_id");
+
+            Create.ForeignKey("FK_CollectionItems_Shops")
+                .FromTable(CollectionItems).ForeignColumn("shop_id")
+                .ToTable(Shops).PrimaryColumn("shop_id");
+
+            #endregion
+
+            #region [ Wishlists ]
+
+            Create.Table(Wishlists)
+                .WithColumn("wishlist_id").AsGuid().PrimaryKey()
+                .WithColumn("owner").AsString(50).NotNullable()
+                .WithColumn("slug").AsString(100).NotNullable()
+                .WithColumn("wishlist_name").AsString(100).Nullable()
+                .WithColumn("visibility").AsString(15).NotNullable()
+                .WithColumn("created").AsDateTime().NotNullable()
+                .WithColumn("last_modified").AsDateTime().Nullable()
+                .WithColumn("version").AsInt32().WithDefaultValue(1);
+
+            Create.Index("Idx_Wishlists_Slug")
+                .OnTable(Wishlists)
+                .OnColumn("slug");
+
+            Create.Table(WishlistItems)
+                .WithColumn("item_id").AsGuid().PrimaryKey()
+                .WithColumn("wishlist_id").AsGuid().NotNullable()
+                .WithColumn("catalog_item_id").AsGuid().NotNullable()
+                .WithColumn("catalog_item_slug").AsString(40).NotNullable()
+                .WithColumn("priority").AsString(10).NotNullable()
+                .WithColumn("added_data").AsDateTime().NotNullable()
+                .WithColumn("removed_data").AsDateTime().Nullable()
+                .WithColumn("price").AsDecimal().Nullable()
+                .WithColumn("notes").AsString(150).Nullable();
+
+            Create.ForeignKey("FK_WishlistItems_Wishlists")
+                .FromTable(WishlistItems).ForeignColumn("wishlist_id")
+                .ToTable(Wishlists).PrimaryColumn("wishlist_id");
+
+            Create.ForeignKey("FK_WishlistItems_CatalogItems")
+                .FromTable(WishlistItems).ForeignColumn("catalog_item_id")
+                .ToTable(CatalogItems).PrimaryColumn("catalog_item_id");
+
+            #endregion
         }
 
         public override void Down()
         {
+            Delete.Table(WishlistItems);
+            Delete.Table(Wishlists);
+            Delete.Table(CollectionItems);
+            Delete.Table(Collections);
+            Delete.Table(Shops);
             Delete.Table(RollingStocks);
             Delete.Table(CatalogItems);
             Delete.Table(Scales);

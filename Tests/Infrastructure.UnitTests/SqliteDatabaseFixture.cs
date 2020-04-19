@@ -19,7 +19,7 @@ namespace TreniniDotNet.Infrastructure
 
             var options = Options.Create(new DatabaseOptions
             {
-                ConnectionString = $"Data Source={contextId};Mode=Memory;Cache=Shared;Version=3;Pooling=False"
+                ConnectionString = $"Data Source={contextId};Mode=Memory;Cache=Shared;Version=3;Pooling=False;PRAGMA foreign_keys=ON;"
             });
 
             this.DatabaseContext = new SqliteDatabaseContext(options);

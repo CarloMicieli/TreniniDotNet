@@ -8,7 +8,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
     {
         Task<bool> ItemExistsAsync(CollectionId id, CollectionItemId itemId);
 
-        Task<ICollectionItem> GetItemByIdAsync(CollectionId collectionId, CollectionItemId itemId);
+        Task<ICollectionItem?> GetItemByIdAsync(CollectionId collectionId, CollectionItemId itemId);
 
         Task<CollectionItemId> AddItemAsync(CollectionId id, ICollectionItem newItem);
 

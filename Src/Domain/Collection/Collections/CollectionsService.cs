@@ -36,7 +36,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
                 throw new ArgumentNullException(nameof(catalog));
         }
 
-        public Task<ICollection> GetByOwnerAsync(Owner owner)
+        public Task<ICollection?> GetByOwnerAsync(Owner owner)
         {
             return _collections.GetByOwnerAsync(owner);
         }
@@ -44,11 +44,11 @@ namespace TreniniDotNet.Domain.Collection.Collections
         public Task<CollectionId> CreateAsync(string owner, string? notes)
         {
             var collection = _factory.NewCollection(owner);
-            return Task.FromResult(collection.CollectionId);
+            return _collections.AddAsync(collection);
         }
 
         public Task<bool> UserAlredyOwnCollectionAsync(Owner owner) =>
-            _collections.AnyByOwnerAsync(owner);
+            _collections.ExistsAsync(owner);
 
         public Task<CollectionItemId> AddItemAsync(
             CollectionId id,
@@ -88,7 +88,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
             IShop? shop,
             string? notes)
         {
-            var item = _factory.NewCollectionItem(catalogItem, null, condition, price, added, shop, notes);
+            var item = _factory.NewCollectionItem(catalogItem, null, condition, price, added, shop, notes);  //TODO Fixme
             return _collectionItems.EditItemAsync(id, item);
         }
 
@@ -97,7 +97,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
             return _collectionItems.RemoveItemAsync(collectionId, itemId, removed, notes);
         }
 
-        public Task<ICollectionItem> GetItemByIdAsync(CollectionId collectionId, CollectionItemId itemId)
+        public Task<ICollectionItem?> GetItemByIdAsync(CollectionId collectionId, CollectionItemId itemId)
         {
             return _collectionItems.GetItemByIdAsync(collectionId, itemId);
         }

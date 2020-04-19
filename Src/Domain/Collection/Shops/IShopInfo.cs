@@ -1,10 +1,9 @@
 ﻿using TreniniDotNet.Common;
-using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Shops
 {
-    public interface IShopInfo : IModifiableEntity
+    public interface IShopInfo
     {
         ShopId ShopId { get; }
 

@@ -1,5 +1,4 @@
-﻿using NodaTime;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Collection.Collections;
 using TreniniDotNet.Domain.Collection.Shared;
@@ -16,7 +15,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             _context = context;
         }
 
-        public Task<bool> AnyByOwnerAsync(Owner owner)
+        public Task<bool> ExistsAsync(Owner owner)
         {
             var result = _context.Collections
                 .Any(it => it.Owner == owner);
@@ -58,5 +57,8 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
 
             return Task.FromResult(result);
         }
+
+        public Task<CollectionId> AddAsync(ICollection collection) =>
+            Task.FromResult(collection.CollectionId);
     }
 }

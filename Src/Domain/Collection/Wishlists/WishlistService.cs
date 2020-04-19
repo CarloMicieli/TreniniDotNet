@@ -35,13 +35,13 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
         public Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, Visibility visibility) =>
             _wishlists.GetByOwnerAsync(owner, visibility);
 
-        public Task<IWishlist> GetByIdAsync(WishlistId id) =>
+        public Task<IWishlist?> GetByIdAsync(WishlistId id) =>
             _wishlists.GetByIdAsync(id);
 
         public Task<bool> ExistAsync(WishlistId id) =>
             _wishlists.ExistAsync(id);
 
-        public Task<IWishlistItem> GetItemByIdAsync(WishlistId id, WishlistItemId itemId) =>
+        public Task<IWishlistItem?> GetItemByIdAsync(WishlistId id, WishlistItemId itemId) =>
             _wishlistItems.GetItemByIdAsync(id, itemId);
 
         public Task DeleteAsync(WishlistId id) =>
@@ -76,7 +76,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
         public Task<ICatalogRef> GetCatalogRef(Slug catalogItemSlug) =>
             _catalog.GetBySlugAsync(catalogItemSlug);
 
-        public Task<IWishlistItem> GetItemByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef) =>
+        public Task<IWishlistItem?> GetItemByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef) =>
             _wishlistItems.GetItemByCatalogRefAsync(id, catalogRef);
 
         public Task<WishlistItemId> AddItemAsync(

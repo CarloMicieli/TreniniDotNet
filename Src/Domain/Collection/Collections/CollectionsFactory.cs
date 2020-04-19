@@ -1,7 +1,6 @@
 ﻿using NodaMoney;
 using NodaTime;
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Common.Uuid;
@@ -39,7 +38,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
         public ICollection NewCollection(
             Guid collectionId,
             string owner,
-            IEnumerable<ICollectionItem> items,
+            IImmutableList<ICollectionItem> items,
             DateTime createdDate,
             DateTime? modifiedDate,
             int version)
@@ -47,7 +46,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
             return new Collection(
                 new CollectionId(collectionId),
                 new Owner(owner),
-                items.ToImmutableList(),
+                items,
                 createdDate.ToUtc(),
                 modifiedDate.ToUtcOrDefault(),
                 version);

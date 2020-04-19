@@ -16,7 +16,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
 
         Task DeleteAsync(WishlistId id);
 
-        Task<IWishlist> GetByIdAsync(WishlistId id);
+        Task<IWishlist?> GetByIdAsync(WishlistId id);
 
         Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, Visibility visibility);
     }

@@ -27,11 +27,10 @@ namespace TreniniDotNet.Domain.Collection.Shops
             Uri? websiteUrl,
             MailAddress? emailAddress,
             Address? address,
-            PhoneNumber? phoneNumber) =>
-            new Shop(
+            PhoneNumber? phoneNumber) => NewShop(
                 new ShopId(_guidSource.NewGuid()),
-                Slug.Of(name),
                 name,
+                Slug.Of(name),
                 websiteUrl,
                 emailAddress,
                 address,
@@ -39,5 +38,26 @@ namespace TreniniDotNet.Domain.Collection.Shops
                 _clock.GetCurrentInstant(),
                 null,
                 1);
+
+        public IShop NewShop(
+            ShopId id,
+            string name, Slug slug,
+            Uri? websiteUrl,
+            MailAddress? emailAddress,
+            Address? address,
+            PhoneNumber? phoneNumber,
+            Instant created,
+            Instant? modified,
+            int version) => new Shop(
+                id,
+                slug,
+                name,
+                websiteUrl,
+                emailAddress,
+                address,
+                phoneNumber,
+                created,
+                modified,
+                version);
     }
 }
