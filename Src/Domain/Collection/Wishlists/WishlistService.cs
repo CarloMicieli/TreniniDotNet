@@ -76,8 +76,8 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
         public Task<ICatalogRef> GetCatalogRef(Slug catalogItemSlug) =>
             _catalog.GetBySlugAsync(catalogItemSlug);
 
-        public Task<IWishlistItem?> GetItemByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef) =>
-            _wishlistItems.GetItemByCatalogRefAsync(id, catalogRef);
+        public Task<WishlistItemId?> GetItemIdByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef) =>
+            _wishlistItems.GetItemIdByCatalogRefAsync(id, catalogRef);
 
         public Task<WishlistItemId> AddItemAsync(
             WishlistId id,

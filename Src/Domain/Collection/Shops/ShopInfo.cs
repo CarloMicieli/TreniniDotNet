@@ -33,8 +33,11 @@ namespace TreniniDotNet.Domain.Collection.Shops
                 return false;
             }
 
-            info = new ShopInfo(new ShopId(id!.Value), Slug.Of(slug), name);
+            info = ShopInfo.Create(id!.Value, name, slug);
             return true;
         }
+
+        public static IShopInfo Create(Guid id, string name, string slug) =>
+            new ShopInfo(new ShopId(id), Slug.Of(slug), name);
     }
 }

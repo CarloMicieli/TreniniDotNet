@@ -44,10 +44,10 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
                 return;
             }
 
-            var item = await _wishlistService.GetItemByCatalogRefAsync(id, catalogRef);
-            if (!(item is null))
+            var itemIdForCatalogItem = await _wishlistService.GetItemIdByCatalogRefAsync(id, catalogRef);
+            if (itemIdForCatalogItem.HasValue)
             {
-                OutputPort.CatalogItemAlreadyPresent(id, item.ItemId, catalogRef);
+                OutputPort.CatalogItemAlreadyPresent(id, itemIdForCatalogItem.Value, catalogRef);
                 return;
             }
 

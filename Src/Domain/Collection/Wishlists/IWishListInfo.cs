@@ -1,10 +1,9 @@
 ﻿using TreniniDotNet.Common;
-using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collection.Wishlists
 {
-    public interface IWishlistInfo : IModifiableEntity
+    public interface IWishlistInfo
     {
         WishlistId WishlistId { get; }
 

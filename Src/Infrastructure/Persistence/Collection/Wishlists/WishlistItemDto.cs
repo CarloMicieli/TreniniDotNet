@@ -12,9 +12,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Wishlists
         public Guid catalog_item_id { get; set; }
         public string catalog_item_slug { get; set; } = null!;
         public string priority { get; set; } = null!;
-        public DateTime added_data { get; set; }
-        public DateTime? removed_data { get; set; }
+        public DateTime added_date { get; set; }
+        public DateTime? removed_date { get; set; }
         public decimal? price { get; set; }
+        public string? currency { get; set; }
         public string? notes { get; set; }
     }
 #pragma warning restore CA1707 // Identifiers should not contain underscores

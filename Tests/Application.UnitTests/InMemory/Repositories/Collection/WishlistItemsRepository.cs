@@ -24,14 +24,18 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
         public Task EditItemAsync(WishlistId id, IWishlistItem modifiedItem) =>
             Task.CompletedTask;
 
-        public Task<IWishlistItem> GetItemByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef)
+        public Task<WishlistItemId?> GetItemIdByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef)
         {
-            var result = _context.WishLists
+            var item = _context.WishLists
                 .Where(it => it.WishlistId == id)
                 .SelectMany(it => it.Items)
                 .Where(it => it.CatalogItem.Slug.Equals(catalogRef.Slug))
                 .FirstOrDefault();
-            return Task.FromResult(result);
+
+            WishlistItemId? itemId = (item is null) ?
+                (WishlistItemId?)null : item.ItemId;
+
+            return Task.FromResult(itemId);
         }
 
         public Task<IWishlistItem> GetItemByIdAsync(WishlistId id, WishlistItemId itemId)

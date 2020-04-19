@@ -48,7 +48,7 @@ namespace TreniniDotNet.Domain.Collection.Shops
             return _shops.AddAsync(newShop);
         }
 
-        public Task<IShop> GetBySlugAsync(Slug slug) =>
+        public Task<IShop?> GetBySlugAsync(Slug slug) =>
             _shops.GetBySlugAsync(slug);
     }
 }

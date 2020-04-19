@@ -246,9 +246,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("catalog_item_id").AsGuid().NotNullable()
                 .WithColumn("catalog_item_slug").AsString(40).NotNullable()
                 .WithColumn("priority").AsString(10).NotNullable()
-                .WithColumn("added_data").AsDateTime().NotNullable()
-                .WithColumn("removed_data").AsDateTime().Nullable()
+                .WithColumn("added_date").AsDateTime().NotNullable()
+                .WithColumn("removed_date").AsDateTime().Nullable()
                 .WithColumn("price").AsDecimal().Nullable()
+                .WithColumn("currency").AsString(3).Nullable()
                 .WithColumn("notes").AsString(150).Nullable();
 
             Create.ForeignKey("FK_WishlistItems_Wishlists")

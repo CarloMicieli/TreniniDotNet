@@ -65,7 +65,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Shops
             return string.IsNullOrEmpty(result) == false;
         }
 
-        public async Task<IShop> GetBySlugAsync(Slug slug)
+        public async Task<IShop?> GetBySlugAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -82,7 +82,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Shops
             return ProjectToDomain(result);
         }
 
-        public async Task<IShopInfo> GetShopInfoBySlugAsync(Slug slug)
+        public async Task<IShopInfo?> GetShopInfoBySlugAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -155,17 +155,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Shops
                 dto.version);
         }
 
-        private IShopInfo ProjectToDomain(ShopInfoDto dto)
-        {
-            throw new NotImplementedException();
-            //return _shopsFactory.NewShopInfo(
-            //    new ShopId(dto.shop_id),
-            //    dto.name,
-            //    Slug.Of(dto.slug),
-            //    dto.created.ToUtc(),
-            //    dto.last_modified.ToUtcOrDefault(),
-            //    dto.version);
-        }
+        private static IShopInfo ProjectToDomain(ShopInfoDto dto) =>
+            ShopInfo.Create(dto.shop_id, dto.name, dto.slug);
 
 
         #region [ Query / Commands ]

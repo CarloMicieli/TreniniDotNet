@@ -107,7 +107,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
             return _collectionItems.ItemExistsAsync(id, itemId);
         }
 
-        public Task<IShopInfo> GetShopInfo(string shop)
+        public Task<IShopInfo?> GetShopInfo(string shop)
         {
             return _shops.GetShopInfoBySlugAsync(Slug.Of(shop));
         }
