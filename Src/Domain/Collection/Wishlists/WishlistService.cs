@@ -73,7 +73,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
             return _wishlistItems.EditItemAsync(id, modifiedItem);
         }
 
-        public Task<ICatalogRef> GetCatalogRef(Slug catalogItemSlug) =>
+        public Task<ICatalogRef?> GetCatalogRef(Slug catalogItemSlug) =>
             _catalog.GetBySlugAsync(catalogItemSlug);
 
         public Task<WishlistItemId?> GetItemIdByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef) =>

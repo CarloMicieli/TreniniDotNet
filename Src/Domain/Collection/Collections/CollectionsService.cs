@@ -68,7 +68,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
             return _collections.GetIdByOwnerAsync(owner);
         }
 
-        public Task<ICatalogRef> GetCatalogRefAsync(Slug catalogItemSlug)
+        public Task<ICatalogRef?> GetCatalogRefAsync(Slug catalogItemSlug)
         {
             return _catalog.GetBySlugAsync(catalogItemSlug);
         }
