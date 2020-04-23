@@ -16,12 +16,12 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetCollectionByOwner
         {
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetCollectionByOwner")]
         [ProducesResponseType(typeof(GetCollectionByOwnerOutput), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> Get(GetCollectionByOwnerRequest request)
+        public Task<IActionResult> GetCollectionByOwner(GetCollectionByOwnerRequest request)
         {
             return HandleRequest(request);
         }

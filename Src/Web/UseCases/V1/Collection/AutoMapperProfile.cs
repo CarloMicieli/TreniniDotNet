@@ -40,11 +40,13 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection
     {
         public AutoMapperProfile()
         {
-            CreateMap<AddItemToCollectionRequest, AddItemToCollectionInput>();
-            CreateMap<AddItemToWishlistRequest, AddItemToWishlistInput>();
-            CreateMap<AddShopToFavouritesRequest, AddShopToFavouritesInput>();
             CreateMap<CreateCollectionRequest, CreateCollectionInput>();
+            CreateMap<AddItemToCollectionRequest, AddItemToCollectionInput>();
 
+            CreateMap<AddItemToWishlistRequest, AddItemToWishlistInput>();
+
+            CreateMap<AddShopToFavouritesRequest, AddShopToFavouritesInput>();
+           
             CreateMap<CreateShopRequest, CreateShopInput>();
             CreateMap<ShopAddressRequest, ShopAddressInput>();
 

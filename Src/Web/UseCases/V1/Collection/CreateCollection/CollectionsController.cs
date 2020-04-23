@@ -19,6 +19,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.CreateCollection
         [HttpPost]
         [ProducesResponseType(typeof(CreateCollectionOutput), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> Post(CreateCollectionRequest request)
         {

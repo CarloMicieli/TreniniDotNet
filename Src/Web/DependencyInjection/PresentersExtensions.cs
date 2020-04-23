@@ -91,6 +91,8 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CollectionBoundaries.CreateShop.ICreateShopOutputPort, CollectionUseCases.CreateShop.CreateShopPresenter>();
             services.AddPresenter<CollectionBoundaries.GetFavouriteShops.IGetFavouriteShopsOutputPort, CollectionUseCases.GetFavouriteShops.GetFavouriteShopsPresenter>();
             services.AddPresenter<CollectionBoundaries.RemoveShopFromFavourites.IRemoveShopFromFavouritesOutputPort, CollectionUseCases.RemoveShopFromFavourites.RemoveShopFromFavouritesPresenter>();
+            services.AddPresenter<CollectionBoundaries.GetShopBySlug.IGetShopBySlugOutputPort, CollectionUseCases.GetShopBySlug.GetShopBySlugPresenter>();
+            services.AddPresenter<CollectionBoundaries.GetShopsList.IGetShopsListOutputPort, CollectionUseCases.GetShopsList.GetShopsListPresenter>();
 
             return services;
         }

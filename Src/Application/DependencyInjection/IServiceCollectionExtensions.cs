@@ -90,6 +90,7 @@ namespace TreniniDotNet.Application
             services.AddScoped<CollectionBoundaries.GetCollectionStatistics.IGetCollectionStatisticsUseCase, CollectionUseCases.Collections.GetCollectionStatistics>();
 
             services.AddScoped<ICollectionsFactory, CollectionsFactory>();
+            services.AddScoped<CollectionsService>();
 
             return services;
         }
@@ -104,6 +105,7 @@ namespace TreniniDotNet.Application
             services.AddScoped<CollectionBoundaries.GetShopsList.IGetShopsListUseCase, CollectionUseCases.Shops.GetShopsList>();
 
             services.AddScoped<IShopsFactory, ShopsFactory>();
+            services.AddScoped<ShopsService>();
 
             return services;
         }
@@ -119,6 +121,7 @@ namespace TreniniDotNet.Application
             services.AddScoped<CollectionBoundaries.RemoveItemFromWishlist.IRemoveItemFromWishlistUseCase, CollectionUseCases.Wishlists.RemoveItemFromWishlist>();
 
             services.AddScoped<IWishlistsFactory, WishlistsFactory>();
+            services.AddScoped<WishlistService>();
 
             return services;
         }
