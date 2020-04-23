@@ -5,6 +5,6 @@ namespace TreniniDotNet.Domain.Collection.Shared
 {
     public interface ICatalogRefsRepository
     {
-        Task<ICatalogRef> GetBySlugAsync(Slug slug);
+        Task<ICatalogRef?> GetBySlugAsync(Slug slug);
     }
 }

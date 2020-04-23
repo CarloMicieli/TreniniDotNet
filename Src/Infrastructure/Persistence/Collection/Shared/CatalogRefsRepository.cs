@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collection.Shared;
@@ -8,17 +9,35 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Shared
 {
     public sealed class CatalogRefsRepository : ICatalogRefsRepository
     {
-        private readonly IDatabaseContext _databaseContext;
+        private readonly IDatabaseContext _dbContext;
 
         public CatalogRefsRepository(IDatabaseContext databaseContext)
         {
-            _databaseContext = databaseContext ??
+            _dbContext = databaseContext ??
                 throw new ArgumentNullException(nameof(databaseContext));
         }
 
-        public Task<ICatalogRef> GetBySlugAsync(Slug slug)
+        public async Task<ICatalogRef?> GetBySlugAsync(Slug slug)
         {
-            throw new System.NotImplementedException();
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.QueryFirstOrDefaultAsync<Guid?>(
+                GetCatalogItemRef, new { Slug = slug.Value });
+
+            if (result.HasValue)
+            {
+                return CatalogRef.Of(result.Value, slug.Value);
+            }
+
+            return null;
         }
+
+
+        #region [ Query / Command ]
+
+        private const string GetCatalogItemRef = @"SELECT catalog_item_id FROM catalog_items WHERE slug = @Slug;";
+
+        #endregion
     }
 }
