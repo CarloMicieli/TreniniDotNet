@@ -1,0 +1,593 @@
+Description: 'The list of model railway brands'
+Version: 1
+ModifiedAt: 2020-04-01T12:35:26.6418089Z
+Elements:
+- BrandId: 9ed9f089-2053-4a39-b669-a6d603080402
+  Slug: acme
+  Name: ACME
+  BrandLogo: ./img/acme.png
+  WebsiteUrl: http://www.acmetreni.com
+  MailAddress: mail[AT]acmetreni.com
+  CompanyName: Associazione Costruzioni Modellistiche Esatte
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6429205Z
+- BrandId: 11b39481-d6e4-489f-b346-77c4c3a3cbf5
+  Slug: arnold
+  Name: Arnold
+  BrandLogo: ./img/arnold.png
+  WebsiteUrl: ''
+  MailAddress: ''
+  CompanyName: ''
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443329Z
+- BrandId: 0f227391-ec3b-4be1-b478-f505e36d0601
+  Slug: bachmann
+  Name: Bachmann
+  BrandLogo: ./img/bachmann.png
+  WebsiteUrl: https://www.bachmanntrains.com/home-usa
+  MailAddress: ''
+  CompanyName: Bachmann Trains
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443610Z
+- BrandId: ff9f5055-8ae7-4d58-a68f-0cee3adb6656
+  Slug: bemo
+  Name: Bemo
+  BrandLogo: ./img/bemo.png
+  WebsiteUrl: https://www.bemo-modellbahn.de
+  MailAddress: mail[AT]bemo-modellbahn.de
+  CompanyName: BEMO Modelleisenbahnen GmbH u. Co KG
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443619Z
+- BrandId: c37f8ac1-991b-422c-b273-5c02efe2087e
+  Slug: brawa
+  Name: Brawa
+  BrandLogo: ./img/brawa.png
+  WebsiteUrl: https://www.brawa.de
+  MailAddress: ''
+  CompanyName: BRAWA Artur Braun Modellspielwarenfabrik GmbH & Co. KG
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443624Z
+- BrandId: cdae869a-7896-4161-bdc4-9d27a694b5c7
+  Slug: electrotren
+  Name: Electrotren
+  BrandLogo: ./img/electrotren.png
+  WebsiteUrl: https://www.hornby.com/uk-en/shop/brands/electrotren-h0-1-87.html
+  MailAddress: ''
+  CompanyName: ''
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443628Z
+- BrandId: 2a916d99-953f-44d6-8115-7e72ca22b081
+  Slug: fleischmann
+  Name: Fleischmann
+  BrandLogo: ./img/fleischmann.png
+  WebsiteUrl: https://www.fleischmann.de
+  MailAddress: ''
+  CompanyName: Modelleisenbahn M�nchen GmbH
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443637Z
+- BrandId: 5d5e99f0-5ca9-4e36-bfd4-14bd758e46ef
+  Slug: guetzold
+  Name: G�tzold
+  BrandLogo: ./img/guetzold.png
+  WebsiteUrl: https://www.guetzold.de
+  MailAddress: info[AT]fischer-modell.de
+  CompanyName: fischer-modell GmbH
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443641Z
+- BrandId: 95417c5d-96bb-4341-9142-54c75534cd98
+  Slug: jagerndorfer
+  Name: Jagerndorfer
+  BrandLogo: ./img/jagerndorfer.png
+  WebsiteUrl: https://www.jaegerndorfer.at/
+  MailAddress: jc[AT]jaegerndorfer.at
+  CompanyName: J�gerndorfer Ges.m.b.H.
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443646Z
+- BrandId: 1a58c82d-5996-4aa1-a02f-02c2248aa130
+  Slug: hornby
+  Name: Hornby
+  BrandLogo: ./img/hornby.png
+  WebsiteUrl: https://www.hornby.com/uk-en
+  MailAddress: customerservices.uk[AT]hornby.com
+  CompanyName: Hornby Hobbies Ltd
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443650Z
+- BrandId: 1880232c-2aab-4afc-b4d4-d5278e23224b
+  Slug: kato
+  Name: Kato
+  BrandLogo: ./img/kato.png
+  WebsiteUrl: https://www.katomodels.com/
+  MailAddress: ''
+  CompanyName: Sekisui Kinzoku Co., Ltd.
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443655Z
+- BrandId: 4fea60f1-78c8-4302-b781-076fa409fe30
+  Slug: liliput
+  Name: Liliput
+  BrandLogo: ./img/liliput.png
+  WebsiteUrl: https://www.liliput.de
+  MailAddress: service[AT]liliput.de
+  CompanyName: Bachmann Europe Plc
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443659Z
+- BrandId: e014a087-249f-4e74-bf74-c61fdbc4372f
+  Slug: lgb
+  Name: LGB
+  BrandLogo: ./img/lgb.png
+  WebsiteUrl: https://www.lgb.com
+  MailAddress: ''
+  CompanyName: ''
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443664Z
+- BrandId: 9391bd6a-d21f-40c8-9600-84ea1e3eb2f0
+  Slug: ls-models
+  Name: Ls Models
+  BrandLogo: ./img/ls-models.png
+  WebsiteUrl: https://www.lsmodels.com
+  MailAddress: info[AT]lsmodels.com
+  CompanyName: L.S. MODELS EXCLUSIVE SPRL
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443673Z
+- BrandId: 66fa5a39-7e47-471f-9f92-d2bb01258c31
+  Slug: maerklin
+  Name: M�rklin
+  BrandLogo: ./img/maerklin.png
+  WebsiteUrl: https://www.maerklin.de
+  MailAddress: ''
+  CompanyName: Gebr. M�rklin & Cie. GmbH
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443677Z
+- BrandId: 016f97ff-b9aa-4818-b784-76096185db85
+  Slug: piko
+  Name: Piko
+  BrandLogo: ./img/piko.png
+  WebsiteUrl: https://www.piko.de
+  MailAddress: hotline[AT]piko.de
+  CompanyName: PIKO Spielwaren GmbH
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443682Z
+- BrandId: 9f5ae7e4-12ce-4d84-96b5-164f37f659a0
+  Slug: ree
+  Name: REE
+  BrandLogo: ./img/ree.png
+  WebsiteUrl: https://www.ree-modeles.com
+  MailAddress: ''
+  CompanyName: RAILS EUROP EXPRESS
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443686Z
+- BrandId: c31b00bf-4335-4687-9699-6a9e203d27ec
+  Slug: rivarossi
+  Name: Rivarossi
+  BrandLogo: ./img/rivarossi.png
+  WebsiteUrl: https://www.hornby.com/it-it/
+  MailAddress: ''
+  CompanyName: ''
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443691Z
+- BrandId: 4b7a619b-65cc-41f5-a003-450537c85dea
+  Slug: roco
+  Name: Roco
+  BrandLogo: ./img/roco.png
+  WebsiteUrl: http://www.roco.cc
+  MailAddress: ''
+  CompanyName: Modelleisenbahn GmbH
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443699Z
+- BrandId: 9d044507-0d00-46aa-8798-ea3c77277c28
+  Slug: tillig
+  Name: Tillig
+  BrandLogo: ./img/tillig.png
+  WebsiteUrl: https://www.tillig.com
+  MailAddress: info[AT]tillig.com
+  CompanyName: TILLIG Modellbahnen GmbH
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443704Z
+- BrandId: a5d5a4a3-de25-4f7d-9ab0-98803178a8d8
+  Slug: trix
+  Name: Trix
+  BrandLogo: ./img/trix.png
+  WebsiteUrl: https://www.trix.de
+  MailAddress: ''
+  CompanyName: ''
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443708Z
+- BrandId: 528128c3-7316-44c6-957c-761cecf0920c
+  Slug: vitrains
+  Name: ViTrains
+  BrandLogo: ./img/vitrains.png
+  WebsiteUrl: http://www.vitrains.it
+  MailAddress: ''
+  CompanyName: ViTrains
+  GroupName: 
+  BrandKind: Industrial
+  Active: 
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443865Z
+- BrandId: 868554cb-21d9-4ae3-8cdd-6a1e3f35c988
+  Slug: le-models
+  Name: Le Models
+  BrandLogo: ./img/le-models.png
+  WebsiteUrl: ''
+  MailAddress: ''
+  CompanyName: Level Group
+  GroupName: 
+  BrandKind: Industrial
+  Active: false
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443869Z
+- BrandId: 86db7648-04ba-4cee-b183-37ee137822ca
+  Slug: oskar
+  Name: Os.Kar
+  BrandLogo: ./img/oskar.png
+  WebsiteUrl: ''
+  MailAddress: ''
+  CompanyName: OsKar Trains
+  GroupName: 
+  BrandKind: Industrial
+  Active: false
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443874Z
+- BrandId: a9e69ca3-218c-40b5-9eb9-d80980b00237
+  Slug: big-models
+  Name: Big Models
+  BrandLogo: ./img/big-models.png
+  WebsiteUrl: ''
+  MailAddress: ''
+  CompanyName: ''
+  GroupName: 
+  BrandKind: Industrial
+  Active: false
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443878Z
+- BrandId: 03a09576-b9bf-4a86-b02d-05e85bb0fa56
+  Slug: lima
+  Name: Lima
+  BrandLogo: ./img/lima.png
+  WebsiteUrl: ''
+  MailAddress: ''
+  CompanyName: ''
+  GroupName: 
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443882Z
+- BrandId: a06c3945-c9b5-4d1a-8a9f-3bb41e18b4d9
+  Slug: broadway-limited
+  Name: Broadway Limited
+  BrandLogo: ./img/broadway-limited.png
+  WebsiteUrl: https://www.broadway-limited.com
+  MailAddress: ''
+  CompanyName: Broadway Limited Imports, LLC
+  GroupName: 
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443887Z
+- BrandId: 440a45dd-0bda-4f90-959e-993c31acf93a
+  Slug: af-models
+  Name: AF Models
+  BrandLogo: ./img/af-models.png
+  WebsiteUrl: ''
+  MailAddress: ''
+  CompanyName: ''
+  GroupName: 
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443896Z
+- BrandId: e2e5e7dd-6d2f-4096-8f0b-2afb4b5f7ab5
+  Slug: blackstar
+  Name: Blackstar
+  BrandLogo: ./img/blackstar.png
+  WebsiteUrl: http://www.blackstardistribution.it
+  MailAddress: info[AT]blackstardistribution.it
+  CompanyName: BLACK STAR S.r.l.
+  GroupName: 
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443900Z
+- BrandId: a2e1a9d4-ca3f-4f56-a204-c0319b5218e7
+  Slug: lima-expert
+  Name: Lima Expert
+  BrandLogo: ./img/lima-expert.png
+  WebsiteUrl: ''
+  MailAddress: ''
+  CompanyName: ''
+  GroupName: 
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443905Z
+- BrandId: 6991286c-76ac-4911-b1be-51e200c139d9
+  Slug: pirata
+  Name: Pirata
+  BrandLogo: ./img/pirata.png
+  WebsiteUrl: https://www.piratamodels.it
+  MailAddress: info[AT]piratamodels.it
+  CompanyName: ''
+  GroupName: 
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: 
+    Line2: 
+    City: 
+    Region: 
+    PostalCode: 
+    Country: 
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.6443909Z
