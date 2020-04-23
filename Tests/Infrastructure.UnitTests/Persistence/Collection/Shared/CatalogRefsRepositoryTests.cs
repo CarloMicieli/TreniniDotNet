@@ -10,7 +10,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Shared
 {
     public class CatalogRefsRepositoryTests : CollectionRepositoryUnitTests<ICatalogRefsRepository>
     {
-        public CatalogRefsRepositoryTests(SqliteDatabaseFixture fixture) 
+        public CatalogRefsRepositoryTests(SqliteDatabaseFixture fixture)
             : base(fixture, CreateRepository)
         {
         }

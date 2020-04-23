@@ -46,7 +46,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection
             CreateMap<AddItemToWishlistRequest, AddItemToWishlistInput>();
 
             CreateMap<AddShopToFavouritesRequest, AddShopToFavouritesInput>();
-           
+
             CreateMap<CreateShopRequest, CreateShopInput>();
             CreateMap<ShopAddressRequest, ShopAddressInput>();
 

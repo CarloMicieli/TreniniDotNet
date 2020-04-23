@@ -20,8 +20,11 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetCollectionStatistics
         [ProducesResponseType(typeof(GetCollectionStatisticsOutput), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> Get(GetCollectionStatisticsRequest request)
+        public Task<IActionResult> Get()
         {
+            var request = new GetCollectionStatisticsRequest();
+            request.Owner = HttpContext.User.Identity.Name;
+
             return HandleRequest(request);
         }
     }

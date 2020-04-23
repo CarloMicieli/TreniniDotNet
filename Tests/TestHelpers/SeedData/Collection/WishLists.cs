@@ -3,6 +3,7 @@ using NodaTime.Testing;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Collection.Shared;
@@ -59,6 +60,23 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collection
         private static IWishlistItem Item(ICatalogRef catalogRef)
         {
             return factory.NewWishlistItem(catalogRef, Priority.Normal, new LocalDate(2019, 11, 25), null, null);
+        }
+    }
+
+    public static class IWishlistsRepositoryExtensions
+    {
+        public static async Task SeedDatabase(this IWishlistsRepository repo, IWishlistItemsRepository itemsRepo)
+        {
+            var wishlists = CollectionSeedData.Wishlists.All();
+            foreach (var wl in wishlists)
+            {
+                var id = await repo.AddAsync(wl);
+
+                foreach (var item in wl.Items)
+                {
+                    await itemsRepo.AddItemAsync(id, item);
+                }
+            }
         }
     }
 }

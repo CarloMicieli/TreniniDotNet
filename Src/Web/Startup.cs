@@ -19,6 +19,8 @@ using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Seed;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace TreniniDotNet.Web
 {
@@ -37,7 +39,13 @@ namespace TreniniDotNet.Web
                 .ReadFrom.Configuration(Configuration)
                 .CreateLogger();
 
-            services.AddControllers()
+            services.AddControllers(o =>
+                {
+                    var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+                    o.Filters.Add(new AuthorizeFilter(policy));
+                })
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
@@ -75,6 +83,7 @@ namespace TreniniDotNet.Web
                 .AddDbContextCheck<ApplicationIdentityDbContext>("DbHealthCheck");
 
             services.AddEntityFrameworkIdentity(Configuration);
+
             services.AddJwtAuthentication(Configuration)
                 .AddJwtAuthorization();
         }

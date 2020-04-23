@@ -27,5 +27,7 @@ namespace TreniniDotNet.Web.UseCases
             await _mediator.Send(request);
             return _presenter.ViewModel;
         }
+
+        protected string? CurrentUser => HttpContext.User.Identity.Name;
     }
 }

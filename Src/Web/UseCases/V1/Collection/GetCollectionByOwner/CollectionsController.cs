@@ -21,8 +21,13 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetCollectionByOwner
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> GetCollectionByOwner(GetCollectionByOwnerRequest request)
+        public Task<IActionResult> GetCollectionByOwner()
         {
+            var request = new GetCollectionByOwnerRequest
+            {
+                Owner = CurrentUser
+            };
+
             return HandleRequest(request);
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -19,7 +20,17 @@ namespace IntegrationTests
             _factory = factory;
         }
 
-        protected HttpClient CreateHttpClient() => _factory.Client;
+        protected HttpClient CreateHttpClient() => _factory.CreateClient();
+
+        protected async Task<HttpClient> CreateHttpClientAsync(string username, string password)
+        {
+            var client = _factory.CreateClient();
+
+            var token = await client.GenerateJwtTokenAsync(username, password);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            return client;
+        }
 
         protected List<object> JsonArray(object element) => new List<object>() { element };
 

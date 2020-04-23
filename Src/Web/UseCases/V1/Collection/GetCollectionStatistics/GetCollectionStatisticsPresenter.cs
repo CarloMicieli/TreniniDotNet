@@ -1,6 +1,8 @@
-﻿using TreniniDotNet.Application.Boundaries.Collection.GetCollectionStatistics;
+﻿using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Boundaries.Collection.GetCollectionStatistics;
 using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Web.ViewModels;
+using TreniniDotNet.Web.ViewModels.V1.Collection;
 
 namespace TreniniDotNet.Web.UseCases.V1.Collection.GetCollectionStatistics
 {
@@ -8,12 +10,12 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetCollectionStatistics
     {
         public void CollectionNotFound(Owner owner)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new { Owner = owner.Value });
         }
 
         public override void Standard(GetCollectionStatisticsOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new OkObjectResult(new CollectionStatisticsView(output.Statistics));
         }
     }
 }

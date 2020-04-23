@@ -23,6 +23,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.CreateCollection
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> Post(CreateCollectionRequest request)
         {
+            request.Owner = HttpContext.User.Identity.Name;
             return HandleRequest(request);
         }
     }

@@ -4,6 +4,7 @@ using NodaTime.Testing;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Threading.Tasks;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collection.Collections;
@@ -60,6 +61,23 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collection
                 new LocalDate(2019, 11, 25),
                 null,
                 null);
+        }
+    }
+
+    public static class ICollectionsRepositoryExtensions
+    {
+        public static async Task SeedDatabase(this ICollectionsRepository repo, ICollectionItemsRepository itemsRepo)
+        {
+            var collections = CollectionSeedData.Collections.All();
+            foreach (var c in collections)
+            {
+                var id = await repo.AddAsync(c);
+
+                foreach (var item in c.Items)
+                {
+                    await itemsRepo.AddItemAsync(id, item);
+                }
+            }
         }
     }
 }

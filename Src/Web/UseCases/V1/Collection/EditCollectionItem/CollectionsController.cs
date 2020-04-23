@@ -22,6 +22,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.EditCollectionItem
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> Put(EditCollectionItemRequest request)
         {
+            //  request.Owner = HttpContext.User.Identity.Name;
             return HandleRequest(request);
         }
     }

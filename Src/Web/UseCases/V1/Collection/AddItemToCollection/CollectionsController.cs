@@ -23,6 +23,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.AddItemToCollection
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> Post(AddItemToCollectionRequest request)
         {
+            request.CollectionOwner = HttpContext.User.Identity.Name;
             return HandleRequest(request);
         }
     }

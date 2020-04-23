@@ -11,8 +11,8 @@ using TreniniDotNet.Web.Identity;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
-using System.Net.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 
 namespace TreniniDotNet.IntegrationTests
 {
@@ -26,15 +26,11 @@ namespace TreniniDotNet.IntegrationTests
         public CustomWebApplicationFactory()
         {
             this.contextId = Guid.NewGuid();
-            this.Client = this.CreateClient();
         }
-
-        public HttpClient Client { get; }
 
         public new void Dispose()
         {
             File.Delete($"{contextId}.db");
-            this.Client.Dispose();
             base.Dispose();
         }
 
@@ -84,8 +80,8 @@ namespace TreniniDotNet.IntegrationTests
                     var logger = scopedServices
                         .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
-                    //  var userManager = scopedServices.GetRequiredService<UserManager<ApplicationUser>>();
-                    //  var roleManager = scopedServices.GetRequiredService<RoleManager<IdentityRole>>();
+                    var userManager = scopedServices.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleManager = scopedServices.GetRequiredService<RoleManager<IdentityRole>>();
 
                     var migration = scopedServices.GetRequiredService<IDatabaseMigration>();
                     migration.Up();
@@ -94,7 +90,8 @@ namespace TreniniDotNet.IntegrationTests
                     {
                         // Seed the database with test data.
                         ApplicationContextSeed.SeedCatalog(scopedServices);
-                        // AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).Wait();
+                        ApplicationContextSeed.SeedCollections(scopedServices).Wait();
+                        AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).Wait();
                     }
                     catch (Exception ex)
                     {
@@ -105,6 +102,7 @@ namespace TreniniDotNet.IntegrationTests
             });
         }
     }
+#pragma warning restore CA1063 // Implement IDisposable Correctly
 
     public static class IServiceCollectionTestExtensions
     {
@@ -128,5 +126,4 @@ namespace TreniniDotNet.IntegrationTests
             return services;
         }
     }
-#pragma warning restore CA1063 // Implement IDisposable Correctly
 }

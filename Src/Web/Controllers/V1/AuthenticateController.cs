@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Web.Identity;
@@ -6,6 +7,7 @@ using TreniniDotNet.Web.ViewModels.V1;
 
 namespace TreniniDotNet.Web.Controllers.V1
 {
+    [AllowAnonymous]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
