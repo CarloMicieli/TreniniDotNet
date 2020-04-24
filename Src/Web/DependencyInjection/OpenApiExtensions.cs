@@ -10,14 +10,15 @@ namespace TreniniDotNet.Web.DependencyInjection
         {
             services.AddOpenApiDocument(config =>
             {
-                config.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT Token",
-                    new OpenApiSecurityScheme
-                    {
-                        Type = OpenApiSecuritySchemeType.ApiKey,
-                        Name = "Authorization",
-                        Description = "Copy 'Bearer ' + valid JWT token into field",
-                        In = OpenApiSecurityApiKeyLocation.Header
-                    }));
+                config.DocumentProcessors.Add(
+                    new SecurityDefinitionAppender("JWT Token",
+                        new OpenApiSecurityScheme
+                        {
+                            Type = OpenApiSecuritySchemeType.ApiKey,
+                            Name = "Authorization",
+                            Description = "Copy 'Bearer ' + valid JWT token into field",
+                            In = OpenApiSecurityApiKeyLocation.Header
+                        }));
 
                 config.PostProcess = document =>
                 {

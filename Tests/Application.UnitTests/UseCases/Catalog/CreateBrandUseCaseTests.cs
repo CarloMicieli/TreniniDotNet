@@ -9,7 +9,7 @@ using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public sealed class CreateBrandUseCaseTests : UseCaseTestHelper<CreateBrand, CreateBrandOutput, CreateBrandOutputPort>
+    public sealed class CreateBrandUseCaseTests : CatalogUseCaseTests<CreateBrand, CreateBrandOutput, CreateBrandOutputPort>
     {
         [Fact]
         public async Task CreateBrand_ShouldValidateInput()
@@ -24,7 +24,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         [Fact]
         public async Task CreateBrand_Should_CreateANewBrand()
         {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
+            var (useCase, outputPort, unitOfWork) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
 
             var input = NewBrandInput.With(
                 Name: "ACME",
@@ -44,6 +44,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
             await useCase.Execute(input);
 
             outputPort.ShouldHaveStandardOutput();
+            unitOfWork.EnsureUnitOfWorkWasSaved();
 
             var output = outputPort.UseCaseOutput;
             Assert.NotNull(output);

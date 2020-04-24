@@ -13,13 +13,14 @@ using NodaTime;
 using AutoMapper;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Application;
-using TreniniDotNet.Web.UseCases.V1.Profiles;
 using TreniniDotNet.Web.Identity;
 using TreniniDotNet.Web.DependencyInjection;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Seed;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace TreniniDotNet.Web
 {
@@ -38,7 +39,13 @@ namespace TreniniDotNet.Web
                 .ReadFrom.Configuration(Configuration)
                 .CreateLogger();
 
-            services.AddControllers()
+            services.AddControllers(o =>
+                {
+                    var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+                    o.Filters.Add(new AuthorizeFilter(policy));
+                })
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
@@ -62,7 +69,7 @@ namespace TreniniDotNet.Web
             services.AddOpenApi();
             services.AddVersioning();
 
-            services.AddAutoMapper(typeof(CatalogProfile));
+            services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup).Assembly);
 
             services.AddUseCases();
@@ -76,6 +83,7 @@ namespace TreniniDotNet.Web
                 .AddDbContextCheck<ApplicationIdentityDbContext>("DbHealthCheck");
 
             services.AddEntityFrameworkIdentity(Configuration);
+
             services.AddJwtAuthentication(Configuration)
                 .AddJwtAuthorization();
         }
@@ -114,7 +122,11 @@ namespace TreniniDotNet.Web
             });
 
             app.UseOpenApi();
-            app.UseSwaggerUi3();
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.TagsSorter = "alpha";
+                settings.OperationsSorter = "alpha";
+            });
 
             app.UseHealthChecks("/health");
 

@@ -1,0 +1,499 @@
+Description: ''
+Version: 1
+ModifiedAt: 2020-04-01T12:35:26.8448202Z
+Elements:
+- RailwayId: 3ee3f78c-5d6a-47f8-9df5-ae1e99b6148a
+  Name: ÖBB
+  Slug: obb
+  RailwayLogo: ./img/obb.png
+  CompanyName: Österreichische Bundesbahnen
+  Country: AT
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1923
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://www.oebb.at
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8456926Z
+- RailwayId: 452ecf0f-0999-443d-a333-7afc23542d38
+  Name: SNCB
+  Slug: sncb
+  RailwayLogo: ./img/sncb.png
+  CompanyName: Société Nationale des Chemins de fer belges
+  Country: BE
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1926
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://belgiantrain.be
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8470728Z
+- RailwayId: eb88a59f-0fa6-4dc9-b02d-0df90a85ec20
+  Name: SNCB Logistics
+  Slug: sncb-logistics
+  RailwayLogo: ./img/sncb-logistics.png
+  CompanyName: Société Nationale des Chemins de fer belges
+  Country: BE
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: ''
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: ''
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472643Z
+- RailwayId: b748e515-ff47-4a1e-a650-deb4e72ba77f
+  Name: SŽDC
+  Slug: szdc
+  RailwayLogo: ./img/szdc.png
+  CompanyName: Správa železniční dopravní cesty,s.o.
+  Country: CZ
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 2003-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://www.szdc.cz
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472669Z
+- RailwayId: 22d13976-b42e-45e8-9e50-4c64c9664014
+  Name: DSB
+  Slug: dsb
+  RailwayLogo: ./img/dsb.png
+  CompanyName: Danske Statsbaner
+  Country: DK
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1885-10-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://www.dsb.dk
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472674Z
+- RailwayId: 5cbccdd5-826d-4dc8-a0ff-d80572d43ac5
+  Name: SNCF
+  Slug: sncf
+  RailwayLogo: ./img/sncf.png
+  CompanyName: Société Nationale des Chemins de fer Français
+  Country: FR
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1938-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://www.sncf.com
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472683Z
+- RailwayId: f12a3c5b-21f0-4d96-baf0-7bbf67e85e93
+  Name: DB
+  Slug: db
+  RailwayLogo: ./img/db.png
+  CompanyName: Die Bahn AG
+  Country: DE
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1994-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: https://www.deutschebahn.com
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472799Z
+- RailwayId: 24510242-38f8-4da7-b769-9163ba745f30
+  Name: DR
+  Slug: dr
+  RailwayLogo: ./img/dr.png
+  CompanyName: Deutsche Reichsbahn
+  Country: DE
+  PeriodOfActivity:
+    Status: Inactive
+    OperatingSince: ''
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: ''
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472808Z
+- RailwayId: 13d47808-ecb2-4a44-b38d-d7b1b6e2eefb
+  Name: DRB
+  Slug: drb
+  RailwayLogo: ./img/drb.png
+  CompanyName: Deutsche Reichsbahn-Gesellschaft
+  Country: DE
+  PeriodOfActivity:
+    Status: Inactive
+    OperatingSince: ''
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: ''
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472812Z
+- RailwayId: 0d7ae9ae-6075-4625-a1c2-0f21152ae21c
+  Name: FS
+  Slug: fs
+  RailwayLogo: ./img/fs.png
+  CompanyName: Ferrovie dello Stato
+  Country: IT
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1905-07-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://www.fsitaliane.it
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472817Z
+- RailwayId: 459481c6-ca97-4897-a6fa-205daf0405cf
+  Name: FNM
+  Slug: fnm
+  RailwayLogo: ./img/fnm.png
+  CompanyName: Ferrovie Nord Milano
+  Country: IT
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1877-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: ''
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472826Z
+- RailwayId: 8a544884-5953-42f8-8d37-af661532596d
+  Name: Trenord
+  Slug: Trenord
+  RailwayLogo: ./img/Trenord.png
+  CompanyName: Trenord
+  Country: IT
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 2009-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://www.trenord.it
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472830Z
+- RailwayId: a1a8b2ef-1b2e-4d66-b8bf-b93ebf3d1871
+  Name: CFL
+  Slug: cfl
+  RailwayLogo: ./img/cfl.png
+  CompanyName: Chemins de Fer Luxembourgeois
+  Country: LU
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1946-05-14
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://www.cfl.lu
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472839Z
+- RailwayId: a1423324-d37e-4529-8e36-5c4ac9316191
+  Name: NS
+  Slug: ns
+  RailwayLogo: ./img/ns.png
+  CompanyName: Nederlandse Spoorwegen
+  Country: NL
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1938-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://www.ns.nl
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472843Z
+- RailwayId: 12cd1791-bb51-476d-bdce-8c452284a31a
+  Name: Vy
+  Slug: vy
+  RailwayLogo: ./img/vy.png
+  CompanyName: Vygruppen
+  Country: NO
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1996-12-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: https://www.vy.no
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472848Z
+- RailwayId: f4c5a9d2-92a8-48b6-87ac-728fca41885d
+  Name: Cp
+  Slug: cp
+  RailwayLogo: ./img/cp.png
+  CompanyName: Comboios de Portugal
+  Country: PT
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1951-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://www.cp.pt
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472861Z
+- RailwayId: 125cea2c-9dbd-4b7e-916b-8ee78e86b4b6
+  Name: RENFE
+  Slug: renfe
+  RailwayLogo: ./img/renfe.png
+  CompanyName: Renfe Operadora
+  Country: ES
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1941-01-24
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://renfe.com
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472866Z
+- RailwayId: b4cf4d31-86d4-4f80-a34f-970cf91c4732
+  Name: BLS
+  Slug: bls
+  RailwayLogo: ./img/bls.png
+  CompanyName: BLS AG
+  Country: CH
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 2006
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://www.bls.ch
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472875Z
+- RailwayId: a455fa06-e35c-4f5f-969c-8371fa54d40a
+  Name: Bern–Lötschberg–Simplon
+  Slug: bern–lotschberg–simplon
+  RailwayLogo: ./img/bern–lotschberg–simplon.png
+  CompanyName: Bern–Lötschberg–Simplon
+  Country: CH
+  PeriodOfActivity:
+    Status: Inactive
+    OperatingSince: 1913-01-01
+    OperatingUntil: 2006-01-01
+  TrackGauge: 1435
+  Length: 
+  Website: ''
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472879Z
+- RailwayId: fa307786-00a9-4257-9274-76f7a0c06fab
+  Name: RhB
+  Slug: rhb
+  RailwayLogo: ./img/rhb.png
+  CompanyName: Rhätische Bahn / Viafier retica
+  Country: CH
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1888-01-01
+    OperatingUntil: ''
+  TrackGauge: 1000
+  Length: 384
+  Website: http://www.rhb.ch
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472888Z
+- RailwayId: 5410de14-3f6b-4ccc-9705-68b12442992c
+  Name: MGB
+  Slug: mgb
+  RailwayLogo: ./img/mgb.png
+  CompanyName: Matterhorn-Gotthard-Bahn
+  Country: CH
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: ''
+    OperatingUntil: ''
+  TrackGauge: 1000
+  Length: 144
+  Website: http://www.matterhorngotthardbahn.ch
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472897Z
+- RailwayId: 1c44e65f-bb53-4f14-a368-23daa5bfee05
+  Name: SBB CFF FFS
+  Slug: sbb-cff-ffs
+  RailwayLogo: ./img/sbb-cff-ffs.png
+  CompanyName: Schweizerische Bundesbahnen - Chemins de fer fédéraux - Ferrovie federali svizzere
+  Country: CH
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1902-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: http://sbb.ch
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472901Z
+- RailwayId: 5ec1da83-b0dc-4ca4-aa04-ecb80d78f8ea
+  Name: SBB Cargo
+  Slug: sbb-cargo
+  RailwayLogo: ./img/sbb-cargo.png
+  CompanyName: ''
+  Country: CH
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: ''
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 
+  Website: ''
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472910Z
+- RailwayId: b2df7e15-e7ea-4c03-8189-f57b356c6e48
+  Name: CN
+  Slug: cn
+  RailwayLogo: ./img/cn.png
+  CompanyName: Canadian National Railway
+  Country: CA
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1919-06-06
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 32831
+  Website: http://cn.ca
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472915Z
+- RailwayId: b3b71b8e-cdfe-44b1-b044-5b3a41dd4ae7
+  Name: Amtrak
+  Slug: amtrak
+  RailwayLogo: ./img/amtrak.png
+  CompanyName: National Railroad Passenger Corporation
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1971-05-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 34400
+  Website: http://amtrak.com
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472924Z
+- RailwayId: 97e39fa2-1e63-4f76-9e33-e5e94dd10c56
+  Name: BNSF Railway
+  Slug: bnsf-railway
+  RailwayLogo: ./img/bnsf-railway.png
+  CompanyName: Burlington Northern and Santa Fe
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1995-09-22
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 52300
+  Website: http://bnsf.com
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472928Z
+- RailwayId: 1668875f-bd13-48e6-bd7f-7175744e182e
+  Name: Union Pacific
+  Slug: union-pacific
+  RailwayLogo: ./img/union-pacific.png
+  CompanyName: Union Pacific Railroad
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1862-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 51700
+  Website: http://up.com
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472937Z
+- RailwayId: 53d2d814-606a-4448-9ee0-ad498d3b45e9
+  Name: Caltrain
+  Slug: caltrain
+  RailwayLogo: ./img/caltrain.png
+  CompanyName: Caltrain
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1985-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 124
+  Website: http://www.caltrain.com
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472946Z
+- RailwayId: 1c2cb072-d377-4023-8b64-4a5817a0eac8
+  Name: CSX
+  Slug: csx
+  RailwayLogo: ./img/csx.png
+  CompanyName: CSX Transportation
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1986-07-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 34000
+  Website: http://csx.com
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472950Z
+- RailwayId: b1a856e7-be2d-497d-a17b-b064296e54fd
+  Name: Norfolk Southern
+  Slug: norfolk-southern
+  RailwayLogo: ./img/norfolk-southern.png
+  CompanyName: Norfolk Southern Railway
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1982-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 34600
+  Website: http://nscorp.com
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472955Z
+- RailwayId: f44cc765-0b1e-4d0a-9738-d12139b26267
+  Name: KCS
+  Slug: kcs
+  RailwayLogo: ./img/kcs.png
+  CompanyName: Kansas City Southern Railway
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1887-01-01
+    OperatingUntil: ''
+  TrackGauge: 1435
+  Length: 5500
+  Website: http://kcsouthern.com
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472959Z
+- RailwayId: 1be0f951-fea6-4476-aeb5-aa8de43c9643
+  Name: FO
+  Slug: fo
+  RailwayLogo: ./img/fo.png
+  CompanyName: Furka Oberalp Bahn
+  Country: CH
+  PeriodOfActivity:
+    Status: Inactive
+    OperatingSince: 1930
+    OperatingUntil: 2001-01-01
+  TrackGauge: 1000
+  Length: 
+  Website: ''
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472968Z
+- RailwayId: 1be0f951-fea6-4476-aeb5-aa8de43c9643
+  Name: BVZ
+  Slug: bvz
+  RailwayLogo: ./img/bvz.png
+  CompanyName: Brig-Visp-Zermatt-Bahn
+  Country: CH
+  PeriodOfActivity:
+    Status: Inactive
+    OperatingSince: 1890-07-03
+    OperatingUntil: 2001-01-01
+  TrackGauge: 1000
+  Length: 44
+  Website: ''
+  Version: 1
+  LastModified: 2020-04-01T12:35:26.8472973Z

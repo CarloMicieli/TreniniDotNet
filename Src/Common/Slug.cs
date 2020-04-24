@@ -25,6 +25,8 @@ namespace TreniniDotNet.Common
 
         private static readonly Slug EmptySlug = new Slug(string.Empty);
 
+        public static implicit operator string(Slug slug) { return slug.Value; }
+
         public static Slug Of(string s)
         {
             return NewSlug(s);
@@ -79,9 +81,6 @@ namespace TreniniDotNet.Common
             return left.Value == right.Value;
         }
 
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
-        }
+        public override int GetHashCode() => Value.GetHashCode();
     }
 }

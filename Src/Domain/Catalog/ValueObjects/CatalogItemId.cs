@@ -6,6 +6,11 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
     {
         private readonly Guid _id;
 
+        public CatalogItemId(Guid id)
+        {
+            _id = id;
+        }
+
         public static CatalogItemId NewId()
         {
             return new CatalogItemId(Guid.NewGuid());
@@ -13,14 +18,11 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
 
         public static CatalogItemId Empty => new CatalogItemId(Guid.Empty);
 
-        public CatalogItemId(Guid id)
-        {
-            _id = id;
-        }
+        public static implicit operator Guid(CatalogItemId id) { return id.ToGuid(); }
 
         public Guid ToGuid() => _id;
 
-        public override string ToString() => _id.ToString();
+        public override string ToString() => $"CatalogItemId({_id})";
 
         public override int GetHashCode() => _id.GetHashCode();
 

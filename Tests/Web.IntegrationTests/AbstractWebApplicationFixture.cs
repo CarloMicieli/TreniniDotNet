@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -19,25 +20,24 @@ namespace IntegrationTests
             _factory = factory;
         }
 
-        protected HttpClient CreateHttpClient()
+        protected HttpClient CreateHttpClient() => _factory.CreateClient();
+
+        protected async Task<HttpClient> CreateHttpClientAsync(string username, string password)
         {
-            return _factory.CreateClient();
+            var client = _factory.CreateClient();
+
+            var token = await client.GenerateJwtTokenAsync(username, password);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            return client;
         }
 
-        protected List<object> JsonArray(object element)
-        {
-            return new List<object>() { element };
-        }
+        protected List<object> JsonArray(object element) => new List<object>() { element };
 
-        protected List<object> JsonArray(params object[] elements)
-        {
-            return new List<object>(elements);
-        }
+        protected List<object> JsonArray(params object[] elements) => new List<object>(elements);
 
-        protected HttpContent JsonContent(object model)
-        {
-            return new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-        }
+        protected HttpContent JsonContent(object model) =>
+            new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
 
         protected async Task<TContent> ExtractContent<TContent>(HttpResponseMessage response)
         {

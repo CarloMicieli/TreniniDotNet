@@ -9,7 +9,7 @@ using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public sealed class GetBrandsListUseCaseTests : UseCaseTestHelper<GetBrandsList, GetBrandsListOutput, GetBrandsListOutputPort>
+    public sealed class GetBrandsListUseCaseTests : CatalogUseCaseTests<GetBrandsList, GetBrandsListOutput, GetBrandsListOutputPort>
     {
         [Fact]
         public async Task GetBrandsList_ShouldReturnEmptyResult_WhenNoBrandIsFound()

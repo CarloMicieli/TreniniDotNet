@@ -1,0 +1,5134 @@
+Description: 'The list of model railway brands'
+Version: 1
+ModifiedAt: 2020-04-01T12:35:26.6418089Z
+Elements:
+- ItemId: 89dcae1c-d1e8-452a-ac48-7249f36868e9
+  Brand: ACME
+  ItemNumber: "40152"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro bagagliaio tipo Dm 99000 in livrea grigio ardesia delle FS"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: bae4e7ec-5739-4f41-9b30-f0627e156b62
+    Railway: FS
+    Category: FreightCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6929880+02:00
+  Version: 1
+- ItemId: 37f42512-c792-47ef-aebf-2ee19b38fdc6
+  Brand: ACME
+  ItemNumber: "40153"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro bagagliaio tipo Dm 99000 in livrea grigio ardesia delle FS"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: a2fbd208-423e-4c1e-bed8-1834231829dd
+    Railway: FS
+    Category: FreightCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971286+02:00
+  Version: 1
+- ItemId: 9b3b03b3-4037-46f4-a8f4-bdff6e001d15
+  Brand: ACME
+  ItemNumber: "40241"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro chiuso FS tipo Ghkrs a passo lungo con 12 sportelli bassi"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 3f7bbd4e-8e06-44ab-ac1c-b0f10cf126a6
+    Railway: FS
+    Category: FreightCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971395+02:00
+  Version: 1
+- ItemId: eec1b125-68b2-40ce-a9de-43e83e98cc6b
+  Brand: ACME
+  ItemNumber: "40246"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro chiuso FS tipo Ghs a passo lungo con 20 sportelli bassi"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: e46d9bd7-c12b-458f-9393-e3843281cda1
+    Railway: FS
+    Category: FreightCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971434+02:00
+  Version: 1
+- ItemId: a0220d1e-93b6-420f-830b-3fb610da4ae9
+  Brand: ACME
+  ItemNumber: "45040"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set di tre carri refrigeranti   Interfrigo   "
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: a15701cb-54b6-4b35-b29d-9ed2007793f4
+    Railway: FS
+    Category: FreightCars
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971460+02:00
+  Version: 1
+- ItemId: 83a92e5e-7629-4da8-b256-db8ecb9a6e49
+  Brand: ACME
+  ItemNumber: "45041"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set di tre carri refrigeranti   Interfrigo   "
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: ad19f603-09e8-4d4a-9d61-562464b94f49
+    Railway: FS
+    Category: FreightCars
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971516+02:00
+  Version: 1
+- ItemId: e70171b7-5251-4f37-b053-c69a43e8cfd5
+  Brand: ACME
+  ItemNumber: "45043"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set di tre carri refrigeranti con logo   Interfrigo   "
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: 0bf6b242-af6f-44c5-ab46-f5f65dbaea13
+    Railway: FS
+    Category: FreightCars
+    Era: IV/V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971541+02:00
+  Version: 1
+- ItemId: c66d748f-1a5d-41a1-9798-b5d71e2ef6ac
+  Brand: ACME
+  ItemNumber: "50029"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Snack bar - livrea bigrigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 1fa23f29-2d65-4e7e-809a-86ff1dda4e7f
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971602+02:00
+  Version: 1
+- ItemId: 9bdebb98-966e-42ae-8050-3cb8a27cf3f7
+  Brand: ACME
+  ItemNumber: "50072"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza FS Tipo nBz 2cl   Piano ribassato    - livrea MDVC beige fasce arancio/viola "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: fab7a07a-0566-43a2-9881-c2e3eabf48c3
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971627+02:00
+  Version: 1
+- ItemId: a6ecd68a-62b2-4605-9043-337f4e29e28c
+  Brand: ACME
+  ItemNumber: "50114"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo 1957 serie Bz 45000 - 2cl - livrea rosso fegato/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 3663a55f-f22e-4929-b798-665eda1f7a39
+    Railway: FS
+    Category: PassengerCars
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971650+02:00
+  Version: 1
+- ItemId: 75abc6a4-d5cb-4619-af22-20311dbe3f05
+  Brand: ACME
+  ItemNumber: "50115"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo 1957 serie Bz 45000 - 2cl - livrea rosso fegato/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 5a13e2b1-1eed-4656-a9b9-d6681bc81a7d
+    Railway: FS
+    Category: PassengerCars
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971672+02:00
+  Version: 1
+- ItemId: db84d9d4-91e4-4b4e-86d9-86099854787e
+  Brand: ACME
+  ItemNumber: "50134"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo 1957 serie ABz 64191 - mista 1cl/2cl - livrea rosso fegato/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 096bf809-ba93-46e7-a46a-5b34b7aa4e38
+    Railway: FS
+    Category: PassengerCars
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971831+02:00
+  Version: 1
+- ItemId: acde80c4-8ba1-4e53-adce-e6afd0971669
+  Brand: ACME
+  ItemNumber: "50135"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo 1957 serie ABz 64191 - mista 1cl/2cl - livrea rosso fegato/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 1867da0f-c01c-4470-8ec6-475637a45c2d
+    Railway: FS
+    Category: PassengerCars
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971890+02:00
+  Version: 1
+- ItemId: 81806fe8-78e3-4929-a35e-dc744a3aa141
+  Brand: ACME
+  ItemNumber: "50150"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza di 1° KL. tipo 1955 Az 20500 per servizio internazionale nella livrea castano-isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: ffc6c776-6e5a-4156-939d-fbd2cf60f086
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6971999+02:00
+  Version: 1
+- ItemId: b7a2f8c6-860b-4067-a787-0b922dbdfaf5
+  Brand: ACME
+  ItemNumber: "50154"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo 1955R serie Az 20500 - 1cl - livrea rosso fegato/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 6bdfce9e-33df-4253-961a-f90bd62ce877
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972024+02:00
+  Version: 1
+- ItemId: 5dac032c-da47-4fa4-a5d3-615a35530e66
+  Brand: ACME
+  ItemNumber: "50163"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo 1956R - 2cl - livrea rosso fegato/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 24a21340-af97-4188-bc54-3beb57219eec
+    Railway: FS
+    Category: PassengerCars
+    Era: IV/V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972051+02:00
+  Version: 1
+- ItemId: 5e156653-ac6b-4e78-be8a-2835075fb371
+  Brand: ACME
+  ItemNumber: "50164"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo 1956R - 2cl - livrea rosso fegato/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 95a9e2af-e48a-4cc6-b93a-98c2f217fa7d
+    Railway: FS
+    Category: PassengerCars
+    Era: IV/V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972074+02:00
+  Version: 1
+- ItemId: 8f817d0c-8ff8-4610-907d-72d37b4d43c8
+  Brand: ACME
+  ItemNumber: "50171"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza Buffet-bar Tipo 1951R delle FS nella inusuale livrea verde e grigia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: d5add81f-1e0d-4cb3-a723-db670c46b22d
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972131+02:00
+  Version: 1
+- ItemId: 86a87c4b-cc68-4676-97ab-437286d0aa30
+  Brand: ACME
+  ItemNumber: "55210"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set tre carrozze Rapido R954/955 'Tergeste'"
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: 9d177523-082a-4eb1-8de9-c3a97c002f64
+    Railway: FS
+    Category: PassengerCars
+    Era: IVb
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972155+02:00
+  Version: 1
+- ItemId: 657e3108-a0e2-4bdf-b6bd-08c41b0bb076
+  Brand: ACME
+  ItemNumber: "50233"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Bagagliaio tipo 1946"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 8e00e4e5-df05-42de-be93-73a7fc78cc3b
+    Railway: FS
+    Category: PassengerCars
+    Era: nella livrea castano-isabella carrelli in livrea castano delle FS
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972183+02:00
+  Version: 1
+- ItemId: 11d94b02-c672-42f0-84be-7f0b6ada5af6
+  Brand: ACME
+  ItemNumber: "50243"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Bagagliaio posta FS tipo 1946 - livrea grigio ardesia."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 8fa05cc2-d134-4f24-b356-9d5bb2159e5a
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972206+02:00
+  Version: 1
+- ItemId: 3332ad28-b12f-405b-82d5-7970cbc034bb
+  Brand: ACME
+  ItemNumber: "50300"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z1 BH per disabili - 2cl - livrea bigrigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 752889b3-c61c-4063-ae69-9242c3802ba5
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972228+02:00
+  Version: 1
+- ItemId: 76be9bc5-6915-4aac-9561-be1f705495f6
+  Brand: ACME
+  ItemNumber: "50310"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Bagagliaio FS Tipo UIC-Z - livrea bigrigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: ed77e57e-b172-496b-b8f1-12c1fdd99fcb
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972348+02:00
+  Version: 1
+- ItemId: 5e1695f2-1679-4906-bd61-7f26d78d5151
+  Brand: ACME
+  ItemNumber: "50320"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z1 a scompartimenti - 2cl - livrea bigrigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 082a3d74-d532-4f15-a266-feb66075493c
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972374+02:00
+  Version: 1
+- ItemId: dd326d55-e472-4e64-9764-aa4a231e06df
+  Brand: ACME
+  ItemNumber: "50322"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z1 2cl - livrea bandiera"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 113f72d5-eeaa-4f19-9d29-6ea624f98d5e
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972397+02:00
+  Version: 1
+- ItemId: 2fa34d0d-f935-45c1-ac8c-b6532f5cee4e
+  Brand: ACME
+  ItemNumber: "50323"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z1 2cl - livrea bandiera"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: ed616f88-b5fc-499d-b17c-156ab8d694d2
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972419+02:00
+  Version: 1
+- ItemId: 1975e45d-0d55-4e34-91c1-d4d676fed457
+  Brand: ACME
+  ItemNumber: "50328"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z1 a scompartimenti 2cl - livrea bigrigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: d139440a-5743-4948-a14a-34f2c72e8081
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972442+02:00
+  Version: 1
+- ItemId: 0f257492-2c7a-4e5f-8893-53e29d9d25ab
+  Brand: ACME
+  ItemNumber: "50330"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z1 2cl - livrea bigrigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 4c21af3b-883e-45e5-a6da-efa9d00edbcb
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972466+02:00
+  Version: 1
+- ItemId: ab7a9a34-40ff-4375-9a20-f2b3698eb224
+  Brand: ACME
+  ItemNumber: "50334"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z1 2cl - livrea bigrigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 16e26ad2-d665-4376-902f-270053aeda80
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972522+02:00
+  Version: 1
+- ItemId: 0be352c0-cdf6-4615-af88-7100b8b728f0
+  Brand: ACME
+  ItemNumber: "50340"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z1 1cl - livrea bigrigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 13e73564-8dd7-4a9d-a6f5-02cc476a2a88
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972545+02:00
+  Version: 1
+- ItemId: 461e9a82-5a82-469e-a3bf-cb77d5586ea8
+  Brand: ACME
+  ItemNumber: "50350"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z1 a scompartimenti 1cl - livrea bigrigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 7622425c-115c-4262-94a6-476cac2483f9
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972567+02:00
+  Version: 1
+- ItemId: 0bfdc28d-ffca-4c8c-b1b5-5fd3648a2668
+  Brand: ACME
+  ItemNumber: "50411"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza FS Tipo Gran Confort   Press & Conference   - livrea rossa con fasce oro  "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: b5c590df-a513-44d4-83a2-65a753019dc9
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972592+02:00
+  Version: 1
+- ItemId: d5d9d123-4d44-4f3d-8bb1-54fb3ea11328
+  Brand: ACME
+  ItemNumber: "50490"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza di 2 KL. tipo 1985R a cuccette"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: f5dec6bc-d8f6-43cc-bd47-5eb5c2d2d99c
+    Railway: FS
+    Category: PassengerCars
+    Era: in livrea rosso fegato
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972617+02:00
+  Version: 1
+- ItemId: a49def5b-b595-453d-b3c7-be66ec012d57
+  Brand: ACME
+  ItemNumber: "50500"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-X '70 a cuccette 2cl - livrea grigio ardesia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 9c4b2e5c-c494-43a0-a320-e9fb6ee5ddb5
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972673+02:00
+  Version: 1
+- ItemId: 362ae97b-ee7b-4858-8b81-d4e569089d3a
+  Brand: ACME
+  ItemNumber: "50501"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-X '70 a cuccette 2cl - livrea rosso/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 2f152ee9-c4dc-4806-a9df-4db99013c8df
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972697+02:00
+  Version: 1
+- ItemId: 220a9fe9-7405-408f-8128-b11e82edb96c
+  Brand: ACME
+  ItemNumber: "50510"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-X '75 a cuccette 2cl - livrea grigio ardesia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: bba35371-de99-44fc-9e42-22f9a60b899f
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972721+02:00
+  Version: 1
+- ItemId: 3edff1fb-6b20-4043-8558-828682b0801c
+  Brand: ACME
+  ItemNumber: "50511"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Cuccetta FS Tipo UIC-X '75 a cuccette 2cl - livrea rosso/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 3a3a8775-b62d-4b59-9ae7-2c962887f279
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972744+02:00
+  Version: 1
+- ItemId: 3e6fa34e-0eca-4944-8aca-b86c3ff468d2
+  Brand: ACME
+  ItemNumber: "50520"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Bagagliaio FS Tipo UIC-X '75 - livrea grigio ardesia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 85bf62d4-d2be-42ac-83c5-98880908025d
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972855+02:00
+  Version: 1
+- ItemId: 6e2b9984-3376-48bd-9ffa-8f4233d22488
+  Brand: ACME
+  ItemNumber: "50521"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Bagagliaio FS Tipo UIC-X '75 con carenature - livrea eurofima"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 66823ef5-fcb8-4f70-92cc-38d55c55f2e7
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972911+02:00
+  Version: 1
+- ItemId: efaad196-8824-4951-b277-fae44b2b2a46
+  Brand: ACME
+  ItemNumber: "50522"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Bagagliaio FS Tipo UIC-X '75 con carenature - livrea rosso fegato/grigio beige"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 6d7bad17-c15e-4f62-962b-574046d92a90
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6972937+02:00
+  Version: 1
+- ItemId: e741a1e8-f611-4c42-bdf7-52f82b3d5e7c
+  Brand: ACME
+  ItemNumber: "50561"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo MU 1981 a letti - livrea blu righe gialle"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 3ac9bae5-8583-4d58-a495-507ef787f88c
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973020+02:00
+  Version: 1
+- ItemId: dff0bba6-d4c2-447c-a861-c508dc564a05
+  Brand: ACME
+  ItemNumber: "50562"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo MU 1981 a letti - livrea blu ex TEN"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: c5442d88-3a29-4c3f-8f54-4208220d10a4
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973045+02:00
+  Version: 1
+- ItemId: 84d4d46b-d7ee-40e4-b6e6-7e2c29d9c5c0
+  Brand: ACME
+  ItemNumber: "50652"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza di 1° KL. tipo 1910 'centoporte' cassa in legno Az 50.368 in livrea castano con coprigiunto"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: e547a804-bd81-4e05-be28-3a06fa582394
+    Railway: FS
+    Category: PassengerCars
+    Era: ep.III"
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973070+02:00
+  Version: 1
+- ItemId: 1f78d4a2-b944-465d-b138-b10769c35df7
+  Brand: ACME
+  ItemNumber: "50700"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-X '70 2cl con comparto ristoro - livrea grigio ardesia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: d979eb9e-352e-4166-afd5-aba1b71ea7fb
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973129+02:00
+  Version: 1
+- ItemId: 4d79951f-dfff-4aa5-a4ac-71c77ec68670
+  Brand: ACME
+  ItemNumber: "50730"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-X '70 di 2cl con carenatura - livrea grigio ardesia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 97987367-f211-4ac0-b8f0-12fac08b70f6
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973153+02:00
+  Version: 1
+- ItemId: bf73e9b5-e95d-49a1-b4a3-d28c441a6607
+  Brand: ACME
+  ItemNumber: "50738"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza Bagagliaio FS tipo X 1970 senza carenature"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 70908fa3-7ed8-47d5-8977-88411b4b3ce4
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973180+02:00
+  Version: 1
+- ItemId: 0e1faa99-89bc-46d7-ab8b-64147a4d519c
+  Brand: ACME
+  ItemNumber: "50753"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-X '68 di 1cl - livrea rosso fegato/grigio beige"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 5d9d6f2a-e741-48ca-82d8-2390294e5615
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973202+02:00
+  Version: 1
+- ItemId: 96510238-1c18-4d03-88e1-2793eb7d7ef1
+  Brand: ACME
+  ItemNumber: "50760"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-X '68 di 2cl - livrea grigio ardesia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: fd55cd62-0773-486b-bd4b-12cbe980d708
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973226+02:00
+  Version: 1
+- ItemId: e7fc5396-fe7b-4111-b5f1-e3b64ff6b36f
+  Brand: ACME
+  ItemNumber: "50763"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-X '68 di 2cl - livrea rosso fegato/grigio beige"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: b4dbd2a0-b4f9-4c3e-ab9f-59271774b4ba
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973249+02:00
+  Version: 1
+- ItemId: 4e52526a-5d1c-4ec9-9d4e-d78c000fd8da
+  Brand: ACME
+  ItemNumber: "50764"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-X '68 di 2cl - livrea rosso fegato/grigio beige"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: cdd07db4-26ce-402b-a53e-704236293b22
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973335+02:00
+  Version: 1
+- ItemId: b904e496-fc6c-454c-9325-6bcc51cd2945
+  Brand: ACME
+  ItemNumber: "50782"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza di 2° KL. tipo UIC-X stato 1982 nella livrea rosso fegato"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: b53256e6-f9b1-4605-8c4d-8c43887ff1d5
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973360+02:00
+  Version: 1
+- ItemId: a6c936fc-edf1-4976-9929-9691588fa153
+  Brand: ACME
+  ItemNumber: "50784"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza di 2° KL. tipo UIC-X stato 1982 nella livrea rosso fegato"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: a4ed6cde-1a09-45d9-9b62-41f80ff7c025
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973384+02:00
+  Version: 1
+- ItemId: 2962853b-0eb9-4132-9a9c-dc503178819f
+  Brand: ACME
+  ItemNumber: "50801"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Bagagliaio a due assi tipo DI 90000 nella livrea castano-isabella delle FS ep. III."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 23cd0d4f-f0be-4c9e-a5a6-d0592739b529
+    Railway: FS
+    Category: PassengerCars
+    Era: III
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973473+02:00
+  Version: 1
+- ItemId: b68797ce-6c5b-4db4-86f9-5217383812d5
+  Brand: ACME
+  ItemNumber: "50921"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza letti tipo T2s nella livrea blu logo TEN delle FS ep. IV."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: cec50862-0a6a-486a-8409-d986cc6f3613
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973496+02:00
+  Version: 1
+- ItemId: ee5c71c4-3bb0-4d53-81f1-4a8dced4d5f8
+  Brand: ACME
+  ItemNumber: "50950"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza letti"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: df99a8c8-1237-4bd0-a0f4-f0c25ff8af5e
+    Railway: FS
+    Category: PassengerCars
+    Era: in livrea blu con logo TEN
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973555+02:00
+  Version: 1
+- ItemId: 0cc63059-2efe-4aa6-b9f3-af9e11202b06
+  Brand: ACME
+  ItemNumber: "55010"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set Corbellini 1951R (mista 1cl/2cl + 2cl ex mista + 2cl) - livrea grigio ardersia"
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: cfc53575-bd35-440e-9104-6c6d804293fd
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973581+02:00
+  Version: 1
+- ItemId: 2c930367-a399-44fc-ac0e-e15d0b0acb61
+  Brand: ACME
+  ItemNumber: "55011"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set Intercity   Vesuvio   (1GC scompartimenti + 1GC salone + 2 UIC-Z 2cl) - livrea bandiera "
+  DeliveryDate: 
+  Available: true
+  Count: 4
+  RollingStocks: 
+  - Id: 7fa97b7a-4935-4af0-bc19-65dbf3960a46
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973604+02:00
+  Version: 1
+- ItemId: a436016e-4a3a-4810-84ec-9c94df44ebd9
+  Brand: ACME
+  ItemNumber: "55024"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set Intercity   Vesuvio   (Tipo Gran Confort 1cl + UIC-Z 2cl + Bagagliaio) - livrea bandiera "
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: a491e547-9805-4a7c-af8e-553bd8d937ec
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973627+02:00
+  Version: 1
+- ItemId: ea937642-f5f2-43c2-9cc3-bad690ef58a0
+  Brand: ACME
+  ItemNumber: "55030"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set   Rapido 394/395   Milano-Venezia (UIC-X '70 1cl + 2 UIC-X '70 2cl) - livrea grigio ardesia "
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: e8fb9453-a3ad-434a-96be-f368ffddfeac
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973668+02:00
+  Version: 1
+- ItemId: 1f2ecb8b-eaa1-4be1-b251-cf6c2ea59d38
+  Brand: ACME
+  ItemNumber: "55039"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set di due carrozze tipo centoporte cassa di legno Cz 44000 lin ivrea castano delle FS"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: b56f0a76-7bf7-4b94-926f-1462f46b5979
+    Railway: FS
+    Category: PassengerCars
+    Era: III
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973694+02:00
+  Version: 1
+- ItemId: 01d98788-cdf7-4f98-b658-059e94d6d130
+  Brand: ACME
+  ItemNumber: "50051"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set   Piano ribassato   - (3 Tipo nB + pilota) - livrea MDVC beige fasce arancio/viola "
+  DeliveryDate: 
+  Available: true
+  Count: 4
+  RollingStocks: 
+  - Id: 8ae218cf-4d80-4893-92fe-0eb85860ea64
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973717+02:00
+  Version: 1
+- ItemId: 6360ea2e-c159-483c-97b2-29ed438378c3
+  Brand: ACME
+  ItemNumber: "50541"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza a cuccette Tipo X mista 1/2cl livrea beige/rosso fegato"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 41defac8-3462-47c6-9abf-2002293d873e
+    Railway: FS
+    Category: PassengerCars
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973739+02:00
+  Version: 1
+- ItemId: 276ec3d8-45f6-4b2b-b603-bb75b8bee17a
+  Brand: ACME
+  ItemNumber: "55065"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set due carrozze FS centoporte di 2 cl. livrea grigio ardesia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: d9eb7eba-3eb4-4466-8eb8-a78fa718d97e
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973819+02:00
+  Version: 1
+- ItemId: 7943a504-2a97-4a72-a834-c374dfb10b60
+  Brand: ACME
+  ItemNumber: "55164"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set 4 carrozze ''Adria Express'' ep.IV-V"
+  DeliveryDate: 
+  Available: true
+  Count: 4
+  RollingStocks: 
+  - Id: 189172c7-dfc8-44af-ab88-31beeba67ffe
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973844+02:00
+  Version: 1
+- ItemId: cff2a4f9-20fa-4ba3-a816-0525d331a5f8
+  Brand: ACME
+  ItemNumber: "55180"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set complementare ''Adria Express'' ep.IV-V composto da 2 carrozze OBB Bmoz/Bmz"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: 09b13273-0884-4a35-a80d-30345db603c8
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973867+02:00
+  Version: 1
+- ItemId: 887782e9-f557-4070-8b2a-ae2114d6c00d
+  Brand: ACME
+  ItemNumber: "55213"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set quattro carrozze FS Intercity 524/525 ''Benedetto Croce'' livrea bandiera"
+  DeliveryDate: 
+  Available: true
+  Count: 4
+  RollingStocks: 
+  - Id: 2b4a7870-eacf-4849-8a9b-bebbecf900af
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973890+02:00
+  Version: 1
+- ItemId: fb42bd74-375d-4ff0-8f71-1c94633a0aa2
+  Brand: ACME
+  ItemNumber: "55214"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set tre carrozze FS Intercity 524/525 ''Benedetto Croce'' livrea bandiera"
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: 21eae52c-cee6-4f12-8650-334ddb768b31
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6973975+02:00
+  Version: 1
+- ItemId: 1328798c-2ae0-4187-8b0d-8887e355855e
+  Brand: ACME
+  ItemNumber: "55215"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Acme 55215 Set due carrozze FS Intercity 524/525 ''Benedetto Croce'' livrea bandiera ep.V - I grandi treni degli anni '90"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: 68992320-bfc8-4178-bcf6-9fb8f7ab7fdd
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6974035+02:00
+  Version: 1
+- ItemId: 355ef4fb-c2eb-40ae-accd-4c39e59d28fb
+  Brand: ACME
+  ItemNumber: "55229"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "FS set due carrozze Tipo X 1970 a cuccette con carenatura grande"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: 9b5a1149-33f9-4f82-8912-85ccb187ec44
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6974057+02:00
+  Version: 1
+- ItemId: 9df0f2d1-89b7-40b0-807f-cc26492a3add
+  Brand: ACME
+  ItemNumber: "55240"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "FS set due carrozze a tre assi Biy 34400 + BDiy 67000 livrea grigio ardesia"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: 8fc99bf9-b61b-495f-9144-89bb770722e3
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6974080+02:00
+  Version: 1
+- ItemId: dcc3323a-2e63-4f49-8777-26ea81ffb080
+  Brand: ACME
+  ItemNumber: "60101"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 444.003 - livrea blu/grigio senza modanature"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: b47a8aa0-8818-435b-a1c4-82c697ddd01f
+    Railway: FS
+    Category: Locomotives
+    Era: IVb/V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974103+02:00
+  Version: 1
+- ItemId: fc9c3d47-d06f-4716-abc7-79520e34b7a3
+  Brand: ACME
+  ItemNumber: "60109"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 444.005   Tartaruga   (IIa serie)   Elettronica   nella livrea d'origine "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 3af8a33b-4652-4167-99b4-3c905f976d35
+    Railway: FS
+    Category: Locomotives
+    Era: IV/V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974162+02:00
+  Version: 1
+- ItemId: 7bbf3121-6e4c-4c8b-b1a4-a36a47458102
+  Brand: ACME
+  ItemNumber: "60120"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 645.054 (2a serie) - livrea castano/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 35347ae8-df27-4865-86b6-06616b9622f5
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974185+02:00
+  Version: 1
+- ItemId: 3d99e6ea-b24c-48df-8ee1-a87086af9a03
+  Brand: ACME
+  ItemNumber: "60131"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 646.199 (2a serie) - livrea verde/grigio navetta senza modanature"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 64e763da-17ba-41e7-a9ab-b690cfc959f9
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974208+02:00
+  Version: 1
+- ItemId: 46128e6b-d860-4f42-ae7b-a2548954bc64
+  Brand: ACME
+  ItemNumber: "60135"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 646.129 (2a serie) - livrea MDVC Navetta beige/arancio/viola"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: b1621036-28be-4112-b9b1-14ec69c8f67f
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974231+02:00
+  Version: 1
+- ItemId: 4b015743-c462-4a52-9f0e-fe1910b298d5
+  Brand: ACME
+  ItemNumber: "60141"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 645.011 (1a serie) - livrea castano/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 5f814485-c87f-45f0-b553-a15361e48929
+    Railway: FS
+    Category: Locomotives
+    Era: III
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974255+02:00
+  Version: 1
+- ItemId: 1554a49a-54b8-4e8f-a581-95329a5e73d0
+  Brand: ACME
+  ItemNumber: "60150"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 646.014 (1a serie) - livrea verde e grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 3877fb5c-41d0-4c1a-b768-74e34545944a
+    Railway: FS
+    Category: Locomotives
+    Era: III
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974277+02:00
+  Version: 1
+- ItemId: ccf5b804-da07-4b48-ab85-53dcfac8db7c
+  Brand: ACME
+  ItemNumber: "60151"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 646.015 (1a serie) - livrea verde e grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 0458b833-62fa-4450-90e5-fb95caa774a4
+    Railway: FS
+    Category: Locomotives
+    Era: III
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974333+02:00
+  Version: 1
+- ItemId: 3eaa911f-80cc-4445-80cf-0679cb60be5e
+  Brand: ACME
+  ItemNumber: "60160"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 645.057 (2a serie) - livrea castano/isabella con modanaure"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 23cef71b-d154-479c-a8f0-d175be5e9ee5
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974356+02:00
+  Version: 1
+- ItemId: 4f15239b-a7ec-40b6-8607-0795eed567db
+  Brand: ACME
+  ItemNumber: "60161"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 646.030 (2a serie) - livrea verde/grigio con modanature"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 9caf68e5-aab1-40a4-8f66-00ff6f01bdd8
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974380+02:00
+  Version: 1
+- ItemId: dd5557f9-e346-4b8f-96e7-1df0a81a81f6
+  Brand: ACME
+  ItemNumber: "60250"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva diesel FS D 143 3019   Truman   "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 4c4af4f1-9435-4178-80a2-24642e95a36d
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974403+02:00
+  Version: 1
+- ItemId: 9b9bdf2e-bb03-4a82-8bf7-085a394ff18c
+  Brand: ACME
+  ItemNumber: "60253"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "FS D143 3022 locomotiva Diesel elettrica da manovra pesante"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 615fb281-b314-489f-9b8e-6a19e30d7100
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974493+02:00
+  Version: 1
+- ItemId: 466b832a-a685-4a18-8cac-9b5851fc7a82
+  Brand: ACME
+  ItemNumber: "60260"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 656.544   Caimano   (5a serie) - livrea d'origine. Senza smorzatori"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 4149aff6-c929-4ed9-924c-d51919c35b6a
+    Railway: FS
+    Category: Locomotives
+    Era: striscianti curvi"
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974597+02:00
+  Version: 1
+- ItemId: c0a89a4d-df14-48b4-84c1-f42f83080861
+  Brand: ACME
+  ItemNumber: "60262"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 656.306   Caimano   (3a serie) -  livrea d'origine con respingenti tondi. Senza smorzatori"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 63466588-8bea-44c0-bfb8-69cb8de023b9
+    Railway: FS
+    Category: Locomotives
+    Era: striscianti curvi."
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974626+02:00
+  Version: 1
+- ItemId: f3b291f8-7a68-4259-baaa-ede64698ffc9
+  Brand: ACME
+  ItemNumber: "60280"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 656.569   Caimano   (4a serie) - livrea d'origine. Smorzatori"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 0e6a5e9e-df0d-4c65-811c-1504fa91316e
+    Railway: FS
+    Category: Locomotives
+    Era: striscianti curvi."
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974650+02:00
+  Version: 1
+- ItemId: 2b508b51-79ee-4fa7-8b0f-11ff4cb38261
+  Brand: ACME
+  ItemNumber: "60431"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 636.080"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 9a71649d-11e7-4669-9595-954a0905c6bf
+    Railway: FS
+    Category: Locomotives
+    Era: nello stato di servizio degli anni novanta
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974675+02:00
+  Version: 1
+- ItemId: 0379e54b-1a20-4867-bcbd-c9eb9ed84dc5
+  Brand: ACME
+  ItemNumber: "60456"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " FS locomotiva elettrica E636 123 del deposito di Trieste"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 19152cda-185b-499a-bb7c-78389cdae2a6
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974733+02:00
+  Version: 1
+- ItemId: 286b4dd8-8c59-478a-aa5e-5973b23c6827
+  Brand: ACME
+  ItemNumber: "60473"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E632 001 'Tigre' ep.IV senza logotipo   Tigre   pantografi monobraccio Faiveley "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 0b067f0b-b4f5-49f5-b1e2-6884c5ead670
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974759+02:00
+  Version: 1
+- ItemId: 4a6bf2fd-1237-4984-8402-23c1b781721b
+  Brand: ACME
+  ItemNumber: "60481"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica E.645.018 con griglie laterali supplementari"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 9e2cd434-b370-4998-8138-61c4fe24c31a
+    Railway: FS
+    Category: Locomotives
+    Era: in livrea isabella"
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974782+02:00
+  Version: 1
+- ItemId: 8327cb19-1156-4ecc-bdcf-3055f38d52bb
+  Brand: ACME
+  ItemNumber: "60491"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 652.109 (Tigre) in livrea grigio perla e blu orientale con pantografi FS 52."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 7b5db326-f7c5-4ba7-afee-144a1c29be1f
+    Railway: FS
+    Category: Locomotives
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974805+02:00
+  Version: 1
+- ItemId: 66ceb8c2-bd1b-4c0f-95dd-51dde0b35852
+  Brand: ACME
+  ItemNumber: "70050"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set elettromotrici tipo Ale.801/940 e rimorchiate tipo Le.108 nella livrea originale arancio-gialla"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 82c0ca42-eb01-48d8-ae82-a8ae5f70fa80
+    Railway: FS
+    Category: Trains
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974861+02:00
+  Version: 1
+- ItemId: 2640750f-498b-4a75-9590-f0460ae2df43
+  Brand: BigModels
+  ItemNumber: "91401"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Elettromotrice ALe803.106 + Le803.108 + Le803.01"
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: 0c7b0025-86cc-4632-9298-eaa265da3bc6
+    Railway: FS
+    Category: Trains
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6974887+02:00
+  Version: 1
+- ItemId: 8970f15d-ed39-44e5-be33-8c9db871c658
+  Brand: Duegi
+  ItemNumber: ""
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro F con Garitta TTM - Kit"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 7d2f6f69-4662-4a7a-83e9-385f51a06d93
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6974911+02:00
+  Version: 1
+- ItemId: 781344b2-7fde-4302-82bc-25be103a1be9
+  Brand: Duegi
+  ItemNumber: ""
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Cisterna TTM - Kit"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: cda884ce-28d1-4411-b9de-80171d1c801d
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6974933+02:00
+  Version: 1
+- ItemId: b12d8622-1ad8-4b89-b4ba-ee867e7d5d72
+  Brand: Electrotren
+  ItemNumber: "5840"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Cisterna a carrelli FS   Mobil   "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 4174451d-d4e7-4bd5-adcb-6f843bcbe946
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6974956+02:00
+  Version: 1
+- ItemId: effd0841-7de3-421c-9a72-a1848a4d695d
+  Brand: Electrotren
+  ItemNumber: "5841"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Cisterna a carrelli FS   Agip   "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: c3a4a465-e9eb-49d2-813a-dc9e25db8bd3
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6975045+02:00
+  Version: 1
+- ItemId: 2527b856-95b4-4e03-9e5c-57bd6dc566a9
+  Brand: Electrotren
+  ItemNumber: "6207"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set due carri FS con telone scorrevole   AUSILIARE Milano   "
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: fed41ab0-2fba-481e-a23d-efd989f1b652
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6975101+02:00
+  Version: 1
+- ItemId: caa1d63e-0da0-41ea-901c-e8599a607b7b
+  Brand: Level
+  ItemNumber: "LE15230"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Elettrotreno ETR.231 con condizionatori   Stone   nello stato fine anni 70' inizio anni 80' nella livrea verde-magnolia grigio-nebbia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 3838cad6-3d24-4c49-80a5-c1d2418967f6
+    Railway: FS
+    Category: Trains
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975142+02:00
+  Version: 1
+- ItemId: 6573edbd-e83c-4760-a83f-07cc889886bd
+  Brand: Level
+  ItemNumber: "LE20510"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 626.089 (2a serie) in castano-isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 1d79c90b-e0cf-446d-ad54-25920e07374e
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975167+02:00
+  Version: 1
+- ItemId: 5e0fe95d-f96b-4c59-87ed-f51d5fb9f74f
+  Brand: Level
+  ItemNumber: "LE20513"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 626.076 (2a serie) con avancorpi di quarta serie"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 7bb4fbd9-91ea-4a63-9fb0-d04112336380
+    Railway: FS
+    Category: Locomotives
+    Era: seconda metà anni 70"
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975226+02:00
+  Version: 1
+- ItemId: b386ec07-c27c-41b1-9021-1e207741fb08
+  Brand: Level
+  ItemNumber: "LE20652"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 646.005 nello stato di fine anni ’70"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: cd037b9d-4a8a-4477-a3f3-c6fe41639df6
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975252+02:00
+  Version: 1
+- ItemId: e2139117-456e-4012-9dc6-6e36cc5b3d82
+  Brand: MGM
+  ItemNumber: "CONF4G"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Confezione 4 carri G FS"
+  DeliveryDate: 
+  Available: true
+  Count: 4
+  RollingStocks: 
+  - Id: ef42714d-cf5c-49de-a30f-9cf3be59c3e1
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6975299+02:00
+  Version: 1
+- ItemId: 44a4912a-fc00-4e84-9167-25132251055a
+  Brand: Oskar
+  ItemNumber: "1004"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D 341.1020 (2a serie) - livrea verde vagone/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 4468a98f-3ed1-40fa-b5d2-c2db169f0393
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975322+02:00
+  Version: 1
+- ItemId: 5f547c72-f929-4ae9-9b96-4cf16b62cc27
+  Brand: Oskar
+  ItemNumber: "1009"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D 341.4001 Ansaldo - livrea verde magnolia/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 1444ce64-973d-47d2-93d4-5cb09504d58f
+    Railway: FS
+    Category: Locomotives
+    Era: III/IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975348+02:00
+  Version: 1
+- ItemId: 395a3aea-56fe-4d40-842f-7a211c832428
+  Brand: Oskar
+  ItemNumber: "1100"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D 443.1007 Fiat - livrea verde magnolia/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: d0174e8b-fda6-44f7-bd4a-6f500bbc94ec
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975405+02:00
+  Version: 1
+- ItemId: c9c3ce7c-8e2f-46f6-917d-feff3eb5ee0c
+  Brand: Oskar
+  ItemNumber: "1101"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D443 1013"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 98f1fb8d-9570-4b23-a199-0880ea0a6185
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975427+02:00
+  Version: 1
+- ItemId: 85571fe2-87ab-4d16-85f4-d27cf46fddfb
+  Brand: Oskar
+  ItemNumber: "1105"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D443 1030"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 131fb441-65d8-4225-b899-02e3b0660d69
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975449+02:00
+  Version: 1
+- ItemId: b6b014cb-95fd-4ecd-abde-ab03137a2f6b
+  Brand: Oskar
+  ItemNumber: "1108"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D 443.1001 - livrea verde magnolia/isabella - con carreli color bruno."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 6cd4df34-0291-49ce-9c7f-385527389641
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975474+02:00
+  Version: 1
+- ItemId: d7e5aa75-9742-4644-ba8c-ed7a70db5fdc
+  Brand: Oskar
+  ItemNumber: "1120"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D 445 1042 (2a serie) - livrea MDVC"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 58f1b89b-4f2c-4f11-af99-11d56d6bbdb6
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975496+02:00
+  Version: 1
+- ItemId: 74deb838-ad81-4bc2-a028-88ede67a0fb6
+  Brand: Oskar
+  ItemNumber: "1121"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D 445 1039 (2a serie) con vomere"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 12e9b4bf-29be-4f6d-8e24-bc14dc3940d3
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975520+02:00
+  Version: 1
+- ItemId: d4de23a9-000c-4221-9fc3-d56b5a129200
+  Brand: Oskar
+  ItemNumber: "1124"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D 445.1025 (1a serie) - vetri frontali curvi con filetti in alluminio verniciati"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: b5823f2e-77c6-42cb-bac6-8b881535663a
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975657+02:00
+  Version: 1
+- ItemId: 1362fa7c-cf13-429f-a98c-658674f07bfd
+  Brand: Oskar
+  ItemNumber: "1125"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D445 1017 dep Bari"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: c18f55fe-9d1a-40df-8524-c307ba93efd1
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975683+02:00
+  Version: 1
+- ItemId: 2a7106ad-34e5-4033-9895-18d66658b5f5
+  Brand: Oskar
+  ItemNumber: "1126"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva diesel FS D445 1031"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: b46df148-0f33-42dd-967b-ede1ddf9d28c
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975704+02:00
+  Version: 1
+- ItemId: e4622ddc-6cc1-4c12-9be9-f81b3d60c826
+  Brand: Oskar
+  ItemNumber: "1625"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva a vapore FS Gr 625.100 con fanali ad olio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 1cd60e4d-2483-401a-bc0c-d1964792e5aa
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975727+02:00
+  Version: 1
+- ItemId: 65c1ccaa-f2ab-4472-8586-2098bb3f41c7
+  Brand: Oskar
+  ItemNumber: "1626"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore FS Gr 625.062 con fanali elettrici tender a tre assi e Bissel anteriore a razze."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 8810e018-e971-4e07-ade2-16d41967da7b
+    Railway: FS
+    Category: Locomotives
+    Era: III/IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975750+02:00
+  Version: 1
+- ItemId: 957e5c62-3690-41bb-93a9-e94c53c6b84f
+  Brand: Oskar
+  ItemNumber: "1627"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore FS Gr 625.002 con fanali ad olio tender a tre assi e Bissel anteriore a vela piena."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 825ed9be-dd32-45a2-8ce3-0c3343b467c2
+    Railway: FS
+    Category: Locomotives
+    Era: III
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975809+02:00
+  Version: 1
+- ItemId: 4435a786-fd7e-4e3d-8d62-adf955e847a2
+  Brand: Oskar
+  ItemNumber: "1628"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore FS Gr 625.091 con fanali elettrici targhe rosse tender a tre assi e Bissel anteriore a vela piena."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 7e05b3ec-09da-4ce6-81cf-052718189435
+    Railway: FS
+    Category: Locomotives
+    Era: III/IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975832+02:00
+  Version: 1
+- ItemId: de4580cf-3d07-4160-a27f-25081f083550
+  Brand: Oskar
+  ItemNumber: "1641"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore FS Gr 640.019 con fanali elettrici non illuminati"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: e91aa341-7c97-403a-b10e-10226d225727
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975854+02:00
+  Version: 1
+- ItemId: 82adeff0-5dc9-4faf-b370-756a28e5f81d
+  Brand: Oskar
+  ItemNumber: "1642"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore FS Gr 640.088 con fanali elettrici"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 6b744b41-00e4-465e-86e7-568d45c82513
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975876+02:00
+  Version: 1
+- ItemId: e2b1f144-220f-4553-87fb-f49ffeef2101
+  Brand: Oskar
+  ItemNumber: "1643"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore FS Gr 640.008 con fanali a petrolio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: b6e572a8-90b0-4c8b-a34c-ee0836e26b6c
+    Railway: FS
+    Category: Locomotives
+    Era: III/IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975900+02:00
+  Version: 1
+- ItemId: 3874a980-ba85-4972-acd5-3b7e38a94323
+  Brand: Oskar
+  ItemNumber: "2002"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Automotrici FS Aln 772 Seria FIAT - Tromba lunga"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: c6093eac-503b-4e29-9207-9f08115077f9
+    Railway: FS
+    Category: Trains
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6975980+02:00
+  Version: 1
+- ItemId: 8f365434-ec2b-408d-b9a5-e1c5c0faf607
+  Brand: Oskar
+  ItemNumber: "2024"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Automotrici ALn 773 3540 + 3522 delle FS"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: 973c0d97-3752-48fa-aeb6-a5ab20d6cfd1
+    Railway: FS
+    Category: Trains
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976004+02:00
+  Version: 1
+- ItemId: 6d0c8a65-15a1-4cbe-a930-3b5aefebf672
+  Brand: Oskar
+  ItemNumber: "2040"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Coppia di automotrici diesel FS ALn 990.3031 + rimorchiata Ln 990.3027 OM - livrea castano isabella - dep. Pavia"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: 4e1ad160-df02-4613-a938-8122cc838d8a
+    Railway: FS
+    Category: Trains
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976026+02:00
+  Version: 1
+- ItemId: b8c13b54-9698-47ab-a372-34908c424b21
+  Brand: Oskar
+  ItemNumber: "4113"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro tipo Gabs nella classica livrea rosso vagone con porte in lega di alluminio e terrazzino"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 5e803140-7793-4d00-a698-661032378853
+    Railway: FS
+    Category: FreightCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6976052+02:00
+  Version: 1
+- ItemId: a393b785-caa2-4350-9318-0093d97e6c62
+  Brand: Oskar
+  ItemNumber: "4210S"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set di due carro VGbhs 40 83 168 4 042-5 con tetto in livrea rosso vagone e porte in lega d'alluminio"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: 6551e755-1f4b-4947-90bf-e5b3f0331632
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6976139+02:00
+  Version: 1
+- ItemId: 2241d43b-48b7-482d-858a-4bb36d4dd6ed
+  Brand: Oskar
+  ItemNumber: "4219"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set di quattro carri ad assi tipo Gbhs di prima serie con differenti numerazioni"
+  DeliveryDate: 
+  Available: true
+  Count: 4
+  RollingStocks: 
+  - Id: 10831867-15f8-4f91-820f-0c0d82515080
+    Railway: FS
+    Category: FreightCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6976196+02:00
+  Version: 1
+- ItemId: acfd3ce3-25f4-48b8-9ea2-630a5c63314c
+  Brand: Oskar
+  ItemNumber: "4220"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " FS set di 4 carri di cui due Hbchs e due Gbhqs con Rec"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: f9693b7a-26c7-444b-9716-f8b5d122d782
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6976220+02:00
+  Version: 1
+- ItemId: 3bedd548-8072-41cc-be34-14eec1a191b3
+  Brand: Oskar
+  ItemNumber: "5014"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza pilota per automotrici Aln 773/873"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 5a5ffbae-ab05-4bed-8b27-dd05cd9a2903
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6976245+02:00
+  Version: 1
+- ItemId: 9342ccbd-26bf-402b-990a-b998ebe243a0
+  Brand: Oskar
+  ItemNumber: "2073"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " FS set elettromotrice Ale 642 per servizi regionali livrea MDVE composto da quattro elementi"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 5ccd02d7-9478-478c-b4bc-1a6d0ea538a5
+    Railway: FS
+    Category: Trains
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976269+02:00
+  Version: 1
+- ItemId: 133e4684-1bc3-4a21-9025-6042cb26a727
+  Brand: Piko
+  ItemNumber: "52840"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "FS locomotiva diesel D.145 2018 dep.loc. Milano Sm.to ep.V"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 3d879a8a-baa2-4b2b-8b8a-4d31182cb0be
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976291+02:00
+  Version: 1
+- ItemId: e2de3125-850b-4857-936a-c370f20c81b7
+  Brand: Rivarossi
+  ItemNumber: "HR2022"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 645.064 - livrea castano/isabella con modanature"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 12f8bed1-370b-4d7c-bbae-42511b0b6f66
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976367+02:00
+  Version: 1
+- ItemId: a19435f6-8149-46a8-a1c2-565aad7ea852
+  Brand: Rivarossi
+  ItemNumber: "HR2026"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 428 099 (2a serie) - livrea castano/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: d8d90426-9ab7-4610-ae7d-0bf5247935ff
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976394+02:00
+  Version: 1
+- ItemId: d1ceaffb-18ef-4baf-b14f-b6c12135c78e
+  Brand: Rivarossi
+  ItemNumber: "HR2028"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore Gr. 740.108 con vomere ripiegabile"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 6dec550e-259f-415b-8a7b-5e64f9f9e02f
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976417+02:00
+  Version: 1
+- ItemId: 58f8a8ee-c094-4822-bac6-50cbfc9eb499
+  Brand: Rivarossi
+  ItemNumber: "HR2032"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore Gr. 740.451 senza spartineve - museo di Pistoia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: e488ab76-a397-4498-8ae3-79018b0dd29f
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976441+02:00
+  Version: 1
+- ItemId: 5d2cdcf2-2e3e-40ab-8118-e748048498c5
+  Brand: Rivarossi
+  ItemNumber: "HR2034"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 428.226   Pirata   - livrea MDVC beige fasce arancio/viola "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 7a48cafc-cf87-48fc-be9c-ca3328936ac5
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976464+02:00
+  Version: 1
+- ItemId: 6f836eeb-646d-4439-8673-4b0d62ced5f7
+  Brand: Rivarossi
+  ItemNumber: "HR2071"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 656.588   Caimano   (6a serie) - livrea blu/grigio. Con condizionatore"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: a9b5fc93-a2db-4631-98a7-5aada67b4e90
+    Railway: FS
+    Category: Locomotives
+    Era: Genova Brignole
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976525+02:00
+  Version: 1
+- ItemId: 9851d981-3de1-46d1-9f94-c70c527681ac
+  Brand: Rivarossi
+  ItemNumber: "HR2073"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 632.030 - livrea blu/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 16e0329e-1ec2-4b21-9027-3fd6927fab38
+    Railway: FS
+    Category: Locomotives
+    Era: IV/V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976548+02:00
+  Version: 1
+- ItemId: 53d5e414-179f-4e58-90c1-8e66d7dda5ee
+  Brand: Rivarossi
+  ItemNumber: "HR2074"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 633.092 - livrea blu/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 6946dc08-6659-4071-8a39-86f1cb712b2f
+    Railway: FS
+    Category: Locomotives
+    Era: IV/V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976571+02:00
+  Version: 1
+- ItemId: a0c66613-604f-46d0-85dd-fe8c4372e9b0
+  Brand: Rivarossi
+  ItemNumber: "HR2075"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 652.073 - livrea blu/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: d45c4e70-5f12-41b9-a996-e5806c58f657
+    Railway: FS
+    Category: Locomotives
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976593+02:00
+  Version: 1
+- ItemId: aa5ba982-d47d-4e80-abbd-3e10df42c0f5
+  Brand: Rivarossi
+  ItemNumber: "HR2078"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore Gr. 743.301 con preriscaldatori Franco Crosti"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 1804bac7-2368-4f28-9067-d0819f02b871
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976682+02:00
+  Version: 1
+- ItemId: 20b9be14-9bd5-4e76-8339-d8fb68d21022
+  Brand: Rivarossi
+  ItemNumber: "HR2112"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 646.028 - livrea verde magnolia/grigio nebbia con modanature"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: b4b758ee-178b-4aa9-87a0-f26c1f1bd578
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976738+02:00
+  Version: 1
+- ItemId: 43c935f1-38bb-4b89-a29f-1f1a9994e208
+  Brand: Rivarossi
+  ItemNumber: "HR2162"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotore diesel FS D 445.1025 - livrea d'origine verde-isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 581ba930-d4a9-4afc-8de2-77aedfbb2aca
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976761+02:00
+  Version: 1
+- ItemId: 736c0bc2-a3ce-40a2-b97d-3b95581dd11c
+  Brand: Rivarossi
+  ItemNumber: "HR2172"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Automotrici FS Aln668 3111 + Aln 668 3142 in livrea d'origine azzurro/crema"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: bd03402e-cd29-4b8e-85d1-695485cd96ac
+    Railway: FS
+    Category: Trains
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976784+02:00
+  Version: 1
+- ItemId: fe9f9ce1-84a9-4156-879b-9ecdb95a0982
+  Brand: Rivarossi
+  ItemNumber: "HR2175"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 428.102 (1a serie) - con avancorpi e compressore con biellino"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: d4b9f176-56f4-433a-bf04-87e240605564
+    Railway: FS
+    Category: Locomotives
+    Era: III
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976809+02:00
+  Version: 1
+- ItemId: 33a1eeb4-4bb0-4e9c-883c-c7dbfc856106
+  Brand: Rivarossi
+  ItemNumber: "HR2177"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 428.225 (4a serie) - livrea castano/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: c230665f-221c-476f-a92a-b1ee791802dd
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976831+02:00
+  Version: 1
+- ItemId: cfee56b5-c796-4e88-94cd-59fad42c14bb
+  Brand: Rivarossi
+  ItemNumber: "HR2179"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 424.358 - livrea MDVE grigio fasce rosso/arancio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 93c91c7f-1e14-41d7-a1d5-123ddc9ee1aa
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976888+02:00
+  Version: 1
+- ItemId: d802a3e0-2557-4177-97ed-e4d4e0a2aa7f
+  Brand: Rivarossi
+  ItemNumber: "HR2185"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 428.113 (2a serie) - livrea castano/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 06bbde38-95ea-41c3-9947-953c3d039cba
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976911+02:00
+  Version: 1
+- ItemId: 484ce221-e9f9-41ba-8108-f29dcb9f639c
+  Brand: Rivarossi
+  ItemNumber: "HR2186"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 424.108 con citofono   Perego   - livrea castano/isabella "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 5ab6bfd3-c942-4af9-997c-d839c0fbb3f9
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976936+02:00
+  Version: 1
+- ItemId: 242e67b8-9b30-4c76-b622-0ad1f5fb26e0
+  Brand: Rivarossi
+  ItemNumber: "HR2233"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 428.140 (2a serie) - livrea castano/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 36f7c464-c2c3-4415-8ed9-8a2903c26ca9
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976958+02:00
+  Version: 1
+- ItemId: 6d970fd3-a6bc-4259-a7e1-f3da851c2f94
+  Brand: Rivarossi
+  ItemNumber: "HR2235"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set composto da: locomotiva elettrica FS E 652 003 + E652 058"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: efbf35f1-f036-4e97-97d0-9e5381ec7562
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6976980+02:00
+  Version: 1
+- ItemId: d104f43b-e78e-470c-912d-bf6df397deb0
+  Brand: Rivarossi
+  ItemNumber: "HR2240"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore FS Gr 740.144"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: cfd353b2-cd0c-4baf-b459-dc6a50bd9cb4
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977036+02:00
+  Version: 1
+- ItemId: 4e45957e-e763-42a0-92d1-ec2a9f50a268
+  Brand: Rivarossi
+  ItemNumber: "HR2263"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 424.330   navetta   - livrea MDVE - con pantografi tipo 42 "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 2bd7ab30-f779-4bd1-b7d8-002ff1a8fcf2
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977062+02:00
+  Version: 1
+- ItemId: 3af3bd89-aca0-40c6-b750-be19716db53f
+  Brand: Rivarossi
+  ItemNumber: "HR2269"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 444R.107 - livrea d'origine"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: a951f20c-7558-4a64-972a-3d870f83713a
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977084+02:00
+  Version: 1
+- ItemId: 65f75294-874f-4087-a877-67a64fe9cd8a
+  Brand: Rivarossi
+  ItemNumber: "HR2273"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 447.074 - livrea d'origine"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 09471c9d-bb32-470d-8c4f-bee4ace86811
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977213+02:00
+  Version: 1
+- ItemId: 67babe85-1698-4095-a6c6-1607c9aa8562
+  Brand: Rivarossi
+  ItemNumber: "HR2275"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva a vapore FS Gr 743.366"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 8d564aa4-7215-4834-87a2-32e73a47a258
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977237+02:00
+  Version: 1
+- ItemId: 815c390b-d837-479c-bdd9-53698b17bb9e
+  Brand: Rivarossi
+  ItemNumber: "HR2317"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica E.453 001 nella livrea d'origine delle FS ep. IV."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: a1cd7425-a0fa-433e-a8c7-a50e7e91b593
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977296+02:00
+  Version: 1
+- ItemId: 4f025937-6235-4187-9b5f-01a1c503f79a
+  Brand: Rivarossi
+  ItemNumber: "HR2318"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica E.454 002 nella livrea d'origine delle FS ep. IV."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: d66beabc-dad3-4fcf-82ee-ac8705bce7c4
+    Railway: FS
+    Category: Locomotives
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977319+02:00
+  Version: 1
+- ItemId: 6a56beff-095a-405e-a0c3-dfde202e0b5f
+  Brand: Rivarossi
+  ItemNumber: "HR2327"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 428.117 (1a serie) -  livrea castano/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: ca5ee342-7b57-42aa-9379-b2c21bc33328
+    Railway: FS
+    Category: Locomotives
+    Era: III
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977341+02:00
+  Version: 1
+- ItemId: ffcd203d-d270-40a2-9173-c75b29ce258a
+  Brand: RIvarossi
+  ItemNumber: "HR2330"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 428.239 (3a serie) - livrea castano/isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 16268d94-49ec-4188-a3e1-d278b559af0b
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977363+02:00
+  Version: 1
+- ItemId: b1ecf98c-f152-4a05-95dd-207af8fa655f
+  Brand: Rivarossi
+  ItemNumber: "HR2346"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 632.011 - livrea d’origine"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: deaf5e6e-5bf2-421b-afa6-84844518edb5
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977386+02:00
+  Version: 1
+- ItemId: bc26a287-45ab-40ad-b7d2-d414898a0860
+  Brand: Rivarossi
+  ItemNumber: "HR2347"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 633.018 - livrea d’origine"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: ed1e7e54-b6f9-46ff-aaf8-cbfd1d44f673
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977408+02:00
+  Version: 1
+- ItemId: 958b5993-b522-4e48-88f6-57757c082b93
+  Brand: Rivarossi
+  ItemNumber: "HR2348"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 428.184 (2a serie) - livrea castano-isabella - con carrelli AP1110"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: f75ec8aa-dfdf-495c-90a1-10792f8b0cfa
+    Railway: FS
+    Category: Locomotives
+    Era: III
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977464+02:00
+  Version: 1
+- ItemId: d76ade7d-8e3c-48e6-be26-89c6e145faaa
+  Brand: Rivarossi
+  ItemNumber: "HR2724"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva a vapore FS Gr. 940 022 in versione per treni storici"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 921a49a2-68db-449c-bc44-9ceadfa0cdcf
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977487+02:00
+  Version: 1
+- ItemId: 1f8656ec-31c3-474b-9e44-6f8508d1ca5a
+  Brand: Rivarossi
+  ItemNumber: "HR2727D"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 424 010 serie Breda livrea castano isabella con cacciapietre d'origine"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: dde13564-4386-4bfa-ac34-f760e3022045
+    Railway: FS
+    Category: Locomotives
+    Era: Va
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977512+02:00
+  Version: 1
+- ItemId: 91ea953e-801b-4b3e-a145-37c13581b036
+  Brand: Rivarossi
+  ItemNumber: "HR4173"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza di 2 Kl. tipo 1959 Con   Servizio Ristoro   annesso"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 92070bce-41e6-4341-8f56-d54f260feca0
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977536+02:00
+  Version: 1
+- ItemId: 45cb304d-da39-41db-928a-83dc8dc01285
+  Brand: Rivarossi
+  ItemNumber: "HR6001"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro tramoggia a carrelli tipo Tadgs FS"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: b698ca67-1378-4ca5-807b-388246bb65f8
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977592+02:00
+  Version: 1
+- ItemId: 7b9f05ab-a01a-4601-b3a3-4a396568176f
+  Brand: Rivarossi
+  ItemNumber: "HR6003"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro a carrelli con telone scorrevole tipo Rils FS"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 531f6a9f-4670-4b10-b70b-72c7eec5d944
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977616+02:00
+  Version: 1
+- ItemId: 6b2208d0-4981-4fa0-b1af-7c9e52636499
+  Brand: Rivarossi
+  ItemNumber: "HR6092"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro pianale FS tipo Rgmms a stanti"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 16c15266-12bb-4c74-b491-854bb776dd9f
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977640+02:00
+  Version: 1
+- ItemId: 6ac8cbdf-0ed0-4a8f-b0fe-1669b6406e3f
+  Brand: Rivarossi
+  ItemNumber: "HR6166"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro FS pianale con stanti mobili tipo Rgs"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 74afec41-3f4d-42d8-ac65-df7e4605eeb2
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977727+02:00
+  Version: 1
+- ItemId: 0307aa0d-445e-42c9-af34-53cb4fa1d765
+  Brand: Rivarossi
+  ItemNumber: "HR6226"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carro tramoggia a carrelli tipo Tadgns"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 7200fa8b-327e-402e-8a40-6e629c4dcbd0
+    Railway: FS
+    Category: FreightCars
+    Era: in livrea rosso vagone"
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977752+02:00
+  Version: 1
+- ItemId: 55e06a6b-c64d-460d-8802-303299ed723d
+  Brand: Rivarossi
+  ItemNumber: "HR6227"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carro tramoggia a carrelli tipo Tadgns"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 466df118-aa96-4146-bef0-56e38fab69b9
+    Railway: FS
+    Category: FreightCars
+    Era: in livrea rosso vagone"
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977776+02:00
+  Version: 1
+- ItemId: 068cf707-d270-4b10-ba24-61e931ef6b35
+  Brand: Rivarossi
+  ItemNumber: "HRS2472"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set di quattro elementidell'ETR 450 nella livrea Bianco-Rossa composto da una unità BBPc motorizzata + unità BBP folle + due unità di testa BAC con fanali illuminati."
+  DeliveryDate: 
+  Available: true
+  Count: 4
+  RollingStocks: 
+  - Id: c629d53e-a26c-4115-b49c-f000078f6176
+    Railway: FS
+    Category: Trains
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6977837+02:00
+  Version: 1
+- ItemId: 38294c94-6869-4205-a3ab-2f7d33e61efb
+  Brand: Roco
+  ItemNumber: "44636"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z Eurofima 1cl - livrea arancio fascia grigia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: e5e4613d-4050-4836-8432-fdbd95685b62
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977860+02:00
+  Version: 1
+- ItemId: d37ded59-389b-4a95-a2a6-db7be46da744
+  Brand: Roco
+  ItemNumber: "44637"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z Eurofima 2cl - livrea arancio fascia grigia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: d7eb9f10-103a-4298-932a-aa91f33dbf99
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977882+02:00
+  Version: 1
+- ItemId: a689af13-bd49-41ea-88a5-988bfc5830cc
+  Brand: Roco
+  ItemNumber: "44637.1"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo UIC-Z Eurofima 2cl - livrea arancio fascia grigia"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: e28faf10-93ee-47e1-8736-75928336a6d1
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977905+02:00
+  Version: 1
+- ItemId: 7b19460c-3aad-49c3-913f-08102ed67b45
+  Brand: Roco
+  ItemNumber: "44770"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza SBB 1cl tipo Eurofima"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 2e0769be-28a5-4b40-abc4-9e6e13504aaa
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977929+02:00
+  Version: 1
+- ItemId: fcf26cc1-396e-4857-b1b2-b864a28774a2
+  Brand: Roco
+  ItemNumber: "44771"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza SBB 2cl tipo Eurofima"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 748baaf3-01f7-41f8-bef7-717f0f21b407
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6977985+02:00
+  Version: 1
+- ItemId: 989de2e1-c627-4f17-94a3-e67a2b69c94a
+  Brand: Roco
+  ItemNumber: "44768"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza SBB - EC Panoramica"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 2b6b0f10-700b-446a-87f0-35abf3e86618
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978007+02:00
+  Version: 1
+- ItemId: 42c7e822-980c-4cd2-b787-fe665c9f454c
+  Brand: Roco
+  ItemNumber: "45428.1"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo Gran Confort a salone - livrea bandiera"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 412cb658-82f4-4a54-861e-ac61b7e44e2c
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978029+02:00
+  Version: 1
+- ItemId: e99f7eb3-254b-4464-a3bd-12a334bb3c3c
+  Brand: Roco
+  ItemNumber: "45432"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo Gran Confort Ristorante 2porte - livrea bandiera"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 168228e0-8dea-4f78-9652-562cfc4f67a9
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978054+02:00
+  Version: 1
+- ItemId: bfbad0b6-80ab-4fd0-96a7-c7e33298c46c
+  Brand: Roco
+  ItemNumber: "45631"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo Gran Confort a scompartimenti - livrea bandiera"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: e821e9ef-c110-4630-8e03-1c309e5c36f4
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978076+02:00
+  Version: 1
+- ItemId: 6d165733-97df-4886-878f-dd3f0aff8d44
+  Brand: Roco
+  ItemNumber: "45631.1"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo Gran Confort a scompartimenti - livrea bandiera"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 3c997403-9f79-43c7-a115-1eadbb256702
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978100+02:00
+  Version: 1
+- ItemId: ee712ff3-8dba-4844-a04d-8a6c80196b70
+  Brand: Roco
+  ItemNumber: "45636"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo Gran Confort a salone - livrea TEE"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 768548de-0548-477f-89c0-87e390ef88a4
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978180+02:00
+  Version: 1
+- ItemId: 6d54ddb4-de5f-4ef9-8fba-18e2a3b1c15b
+  Brand: Roco
+  ItemNumber: "45637"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS Tipo Gran Confort a scompartimenti - livrea TEE"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 263afdbe-60fe-456f-a155-ad2aaf14c8a9
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978269+02:00
+  Version: 1
+- ItemId: e0a32ec1-bbcf-4db0-b782-30032bc84872
+  Brand: Roco
+  ItemNumber: "45906"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set Gran Confort (salone + scompartimenti + ristorante + furgone) - livrea TEE"
+  DeliveryDate: 
+  Available: true
+  Count: 4
+  RollingStocks: 
+  - Id: 7a0ddca4-422b-472e-9f7a-21e16633c896
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978292+02:00
+  Version: 1
+- ItemId: cd194c5f-694a-4f50-a4fe-dc0a3eb60ba9
+  Brand: Roco
+  ItemNumber: "45914"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set Gran Confort (salone + scompartimenti) - livrea TEE"
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: abc912cb-0f25-41e8-ae44-3da63639e3b5
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978314+02:00
+  Version: 1
+- ItemId: 882df682-0ede-4419-9c95-e71911b64274
+  Brand: Roco
+  ItemNumber: "62559"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica RTC EU43 008   RTC   Logo grande "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 2666affb-ac88-4bae-afa3-ef6a9a5466bc
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978336+02:00
+  Version: 1
+- ItemId: 843ad360-63c3-4ffc-90fd-41840dca27b5
+  Brand: Roco
+  ItemNumber: "62560"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 656.077 (1a serie) - livrea blu/grigio. Senza climatizzatore"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 8b285ca8-dd26-4a8f-9990-7b189d9e5bb5
+    Railway: FS
+    Category: Locomotives
+    Era: smorzatori
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978398+02:00
+  Version: 1
+- ItemId: a4e431e4-eed3-4a55-9f9b-69e8f3376edf
+  Brand: Roco
+  ItemNumber: "62561"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 656.064 (1a serie) - livrea blu/grigio. Con climatizzatore"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 81ccd3dd-cf9f-4868-b47c-48eadb6abbce
+    Railway: FS
+    Category: Locomotives
+    Era: resp. rettangolari
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978423+02:00
+  Version: 1
+- ItemId: 01d39417-778d-4a8d-952f-2825ce1e535f
+  Brand: Roco
+  ItemNumber: "62571"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 645.089 (2a serie) - livrea castano/isabella senza modanature"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: ec70e850-4c01-428b-b157-bc2366e62658
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978447+02:00
+  Version: 1
+- ItemId: 2197923a-8b5b-4c0d-a2d0-fbba8ba38d42
+  Brand: Roco
+  ItemNumber: "64257"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza passeggeri di 2 KL tipo Bpm delle SBB-CFF-FFS"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: cfc33f37-0b1f-4141-86a4-6e5d61368f71
+    Railway: FS
+    Category: PassengerCars
+    Era: V
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978470+02:00
+  Version: 1
+- ItemId: 53ffda55-758c-4298-a34c-b56556807da3
+  Brand: Roco
+  ItemNumber: "62877"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotore Diesel FS D 343.2012 in livrea Verde/Isabella"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 17002a89-97a9-4830-9e19-47e964907ebe
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978494+02:00
+  Version: 1
+- ItemId: 1397f4c5-c77b-402c-80c8-46e4cc7e9e67
+  Brand: Roco
+  ItemNumber: "63110"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Automotrici FS Binato Breda   Mediolanum   "
+  DeliveryDate: 
+  Available: true
+  Count: 2
+  RollingStocks: 
+  - Id: 113f0838-360c-4312-956e-468ac17d4c4b
+    Railway: FS
+    Category: Trains
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978576+02:00
+  Version: 1
+- ItemId: 6ff4e26a-8e28-4257-8eb5-b3f9969358bc
+  Brand: Roco
+  ItemNumber: "63627"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 645.102 - livrea castano/isabella."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 405c172c-bc41-41d7-b930-db0c7f9de87c
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978599+02:00
+  Version: 1
+- ItemId: a3736807-30dd-4a71-81ed-e746a69b7104
+  Brand: Roco
+  ItemNumber: "63645"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 645.101 - livrea storica verde/grigio."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: ec29d861-b11a-4b29-8f09-fa3a21a741f9
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978621+02:00
+  Version: 1
+- ItemId: c2f18223-ebef-4aa4-94cd-32c88acba9cd
+  Brand: Roco
+  ItemNumber: "63854"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Locomotiva elettrica FS E 636.284   Camilla   - livrea rosso/grigio. "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 0905b5ea-54b1-4b07-9632-a7db0e896e12
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978646+02:00
+  Version: 1
+- ItemId: ef2c1f35-2794-444a-b8df-2366976b7b7d
+  Brand: Roco
+  ItemNumber: "63857"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 636.210 (2a serie) - livrea castano/isabella."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 699ac1b1-e8d5-49d3-b0e9-f8d230927378
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978669+02:00
+  Version: 1
+- ItemId: 567b0453-bfd6-4df5-af25-1a65cfe6526f
+  Brand: Roco
+  ItemNumber: "63888"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 636.164 (2a serie) - livrea castano/isabella."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: aa5cd91d-f33d-4452-bc94-44dac1df60f2
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978790+02:00
+  Version: 1
+- ItemId: a5dcc9ac-89bb-4c9f-905e-3fda874bd9fd
+  Brand: Roco
+  ItemNumber: "63889"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 636.119 (2a serie) - livrea isabella."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 6ac7adec-79d2-4387-8909-67290e8eefa5
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978813+02:00
+  Version: 1
+- ItemId: e9ccaa28-cc8f-4b9e-8cb8-4abb95185728
+  Brand: Roco
+  ItemNumber: "63890.1"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 444.043 - livrea d'origine."
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: edddc77f-fa25-43a0-b02f-34e83969c099
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978837+02:00
+  Version: 1
+- ItemId: dc984941-d060-4726-aa9f-3d436ee4d57e
+  Brand: Roco
+  ItemNumber: "63891.2"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Locomotiva elettrica FS E 444R.048 - livrea rosso/grigio"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: c8ea1d18-1601-4fc6-aa7c-97f464205882
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6978859+02:00
+  Version: 1
+- ItemId: f25fd270-2add-4177-8cc3-079a3e923fc5
+  Brand: Roco
+  ItemNumber: "66727"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro FS tipo Shmmns telescopico logo inclinato"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 317d291d-4b7a-4c4e-a294-86a3d44625d0
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978882+02:00
+  Version: 1
+- ItemId: d8ff5f71-20af-4acb-9399-b2325352ef00
+  Brand: Roco
+  ItemNumber: "66728"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro FS tipo Shmmns telescopico con logo inclinato e terrazzino frenatore"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 81e757bf-2fb6-44aa-bbea-ae11d08ac9aa
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978905+02:00
+  Version: 1
+- ItemId: 2dd366a8-266d-4aa8-885f-8deb47b6ba56
+  Brand: Roco
+  ItemNumber: "66962"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carro tipo Ealos a sponde alte 31 83 592 7 115-8 delle FS"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 3b34561f-c6b8-47c2-9bd2-122f29d0dc2c
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6978982+02:00
+  Version: 1
+- ItemId: 065978f0-cb66-4bc3-98ef-4ad5ce7a4b57
+  Brand: Roco
+  ItemNumber: "73017"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "FS locotender Gr.875 045 ep.III"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: abf50e26-8ee3-430c-8bcd-55afa78deb4d
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6979006+02:00
+  Version: 1
+- ItemId: 35d14bc4-59cc-4d85-9bdf-263335745811
+  Brand: Roco
+  ItemNumber: "76465"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "FS carro ad apertura telescopica tipo Shimmns"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 93cc1a11-f242-4ee0-bebe-dc06e62b81e1
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979028+02:00
+  Version: 1
+- ItemId: 85476041-686c-40d0-ae0b-1d178aa007d6
+  Brand: Roco
+  ItemNumber: "76597"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "FS carro merci coperto tipo EE"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 1eab7b36-9a14-437e-be11-0cb0f155c2e2
+    Railway: FS
+    Category: FreightCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979050+02:00
+  Version: 1
+- ItemId: ffbf43c9-db2b-4954-a1df-b086f0047704
+  Brand: ViTrains
+  ItemNumber: "1005"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Set   Due Piani   (2 intermedie + pilota) - livrea MDVC beige fasce arancio/viola "
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: 69fbeebe-08e6-4a94-b93a-e6fd508efbdd
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979076+02:00
+  Version: 1
+- ItemId: 46a4b5fa-26bc-4ef3-98c6-b3dc3f94b483
+  Brand: ViTrains
+  ItemNumber: "1006"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza FS Tipo   Due Piani   - livrea MDVC beige fasce arancio/viola "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 88586016-29d9-4d6e-b488-aa7285e589ff
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979131+02:00
+  Version: 1
+- ItemId: ec872c98-b7bf-4f41-9b57-491504ab6c5b
+  Brand: ViTrains
+  ItemNumber: "1007"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza FS Tipo   Due Piani   - livrea MDVC beige fasce arancio/viola "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 987b1402-108b-46a7-9668-09eefd8952d7
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979154+02:00
+  Version: 1
+- ItemId: 11c7465c-1990-4628-a437-06db2432b010
+  Brand: ViTrains
+  ItemNumber: "1020A"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " FS Automotrice Ln 668 1409 (non motorizzata) in livrea d'origine"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 5d9ea1c7-5109-45da-a62e-0a2953f57025
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979177+02:00
+  Version: 1
+- ItemId: fa2bd71a-a4ee-49ad-99d6-38677477032f
+  Brand: ViTrains
+  ItemNumber: "1020B"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " FS Automotrice Ln 668 1416 (non motorizzata) in livrea d'origine"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 1ef4c718-b195-4b38-9d02-35c2be6e6846
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979202+02:00
+  Version: 1
+- ItemId: 899034e8-38b6-4174-abf6-8312f60f42f6
+  Brand: Vitrains
+  ItemNumber: "1058"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Set composto da 2 carrozze MDVC + Pilota TD"
+  DeliveryDate: 
+  Available: true
+  Count: 3
+  RollingStocks: 
+  - Id: 8da7a440-b143-44b7-93b1-d86217abce7f
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979288+02:00
+  Version: 1
+- ItemId: ec3fa34c-17f9-43db-8f2b-205f656fe0ca
+  Brand: Vitrains
+  ItemNumber: "2233"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " FS ALn 668 1624 in livrea d'origine"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: f2665f92-e685-478d-bc8b-b1edf5df49c7
+    Railway: FS
+    Category: Locomotives
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control: DccReady
+  Created: 2020-04-17T22:35:26.6979346+02:00
+  Version: 1
+- ItemId: e4cadeda-0174-4131-a20e-04139dbe0763
+  Brand: Vitrains
+  ItemNumber: "2234"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " FS ALn 668 1624 (non motorizzata) in livrea d'origine"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 23d86b3a-0792-4749-9d83-9d5f84bf224e
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979368+02:00
+  Version: 1
+- ItemId: daf864bd-82c3-4eb3-a4df-40aea9798be5
+  Brand: Vitrains
+  ItemNumber: "3058"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza di 1a/2a classe MDVC nella livrea d’origine con logo FS inclinato"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 8f303ab7-ba01-464e-ae7b-1f5d348f541a
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979393+02:00
+  Version: 1
+- ItemId: d391e829-d755-4ec4-8ec3-79490377983b
+  Brand: Vitrains
+  ItemNumber: "3065"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza di seconda classe nella livrea d’origine con logo FS inclinato"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 7f9531d9-50c1-4a53-bf46-1e24ae5b9fc6
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979415+02:00
+  Version: 1
+- ItemId: f773a34f-0ab7-459f-a736-92f22d54dfed
+  Brand: Vitrains
+  ItemNumber: "3144"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: " Carrozza MDVE di 1 cl.   Sleeperette   "
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 2712fc34-a6f9-4dc7-9c6c-539d1259d90c
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979438+02:00
+  Version: 1
+- ItemId: 52075192-5e2a-4e67-8e3f-678f1a53007c
+  Brand: Vitrains
+  ItemNumber: "3150"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS livrea MDVC mista di 1/2 cl con logo FS inclinato e illuminazione"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 601f631a-6853-4bd6-8aa0-ecb015a44f84
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979493+02:00
+  Version: 1
+- ItemId: 4fbcfbe0-1b83-473a-86a1-18ac95a7f041
+  Brand: Vitrains
+  ItemNumber: "3150"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS livrea MDVC mista di 1/2 cl con logo FS inclinato e illuminazione"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 5beee678-0e00-411c-9501-c42612b446af
+    Railway: FS
+    Category: PassengerCars
+    Era: IV
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979519+02:00
+  Version: 1
+- ItemId: 4bd67fb3-cece-4c9b-a698-fe3871214e6a
+  Brand: Vitrains
+  ItemNumber: "3152"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS MDVE di 1 cl. livrea grigio/rosso fegato con illuminazione interna"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 4f2e8b69-3ca6-4a99-a5d5-06e05c79eab8
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979541+02:00
+  Version: 1
+- ItemId: 85b3c506-e43d-400a-aa90-c326308cd0a6
+  Brand: Vitrains
+  ItemNumber: "3153"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza FS MDVE di 2 cl. livrea grigio/rosso fegato con illuminazione interna"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: 6d6bda29-79c2-4fd7-989f-d3b9ae6928c4
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979564+02:00
+  Version: 1
+- ItemId: 3aaadc03-73b6-4f44-b904-26066f90b99d
+  Brand: Vitrains
+  ItemNumber: "3154"
+  Slug: 
+  Scale: H0
+  PowerMethod: DC
+  Description: "Carrozza Pilota FS MDVE di 2 cl livrea grigio/rosso fegato con illuminazione interna"
+  DeliveryDate: 
+  Available: true
+  Count: 1
+  RollingStocks: 
+  - Id: e2fa40d7-e37c-4f54-8482-14bff8702124
+    Railway: FS
+    Category: PassengerCars
+    Era: 
+    Length:
+    ClassName:
+    RoadNumber:
+    TypeName: 
+    DccInterface:
+    Control:
+  Created: 2020-04-17T22:35:26.6979586+02:00
+  Version: 1
+

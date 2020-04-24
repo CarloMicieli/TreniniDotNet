@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TreniniDotNet.Web.DependencyInjection
 {
@@ -11,6 +12,8 @@ namespace TreniniDotNet.Web.DependencyInjection
                 {
                     // reporting api versions will return the headers "api-supported-versions" and "api-deprecated-versions"
                     options.ReportApiVersions = true;
+                    //options.DefaultApiVersion = new ApiVersion(1, 0);
+                    //options.AssumeDefaultVersionWhenUnspecified = true;
                 });
 
             services.AddVersionedApiExplorer(

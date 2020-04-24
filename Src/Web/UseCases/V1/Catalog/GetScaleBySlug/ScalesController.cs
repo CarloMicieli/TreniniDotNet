@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Common;
@@ -7,6 +8,7 @@ using TreniniDotNet.Web.ViewModels.V1.Catalog;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug
 {
+    [AllowAnonymous]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]

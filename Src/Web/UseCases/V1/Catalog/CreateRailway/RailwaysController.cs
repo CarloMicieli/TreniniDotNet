@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -7,6 +8,7 @@ using TreniniDotNet.Application.Boundaries.Catalog.CreateRailway;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateRailway
 {
+    [AllowAnonymous]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]

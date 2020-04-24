@@ -8,7 +8,7 @@ using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class GetBrandBySlugUseCaseTests : UseCaseTestHelper<GetBrandBySlug, GetBrandBySlugOutput, GetBrandBySlugOutputPort>
+    public class GetBrandBySlugUseCaseTests : CatalogUseCaseTests<GetBrandBySlug, GetBrandBySlugOutput, GetBrandBySlugOutputPort>
     {
         [Fact]
         public async Task GetBrandBySlug_ReturnError_WhenInputIsNull()

@@ -138,7 +138,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         public IBrand Fleischmann() => _fleischmann;
 
-        public ICollection<IBrand> All()
+        public IList<IBrand> All()
         {
             return _all;
         }

@@ -16,7 +16,7 @@ using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class CreateCatalogItemUseCaseTests : UseCaseTestHelper<CreateCatalogItem, CreateCatalogItemOutput, CreateCatalogItemOutputPort>
+    public class CreateCatalogItemUseCaseTests : CatalogUseCaseTests<CreateCatalogItem, CreateCatalogItemOutput, CreateCatalogItemOutputPort>
     {
         [Fact]
         public async Task CreateCatalogItem_ShouldValidateInput()
@@ -153,7 +153,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         [Fact]
         public async Task CreateCatalogItem_ShouldCreateANewCatalogItem()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
+            var (useCase, outputPort, unitOfWork) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
                 brandName: "acme",
@@ -170,7 +170,11 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             await useCase.Execute(input);
 
+            outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();
+
+            unitOfWork.EnsureUnitOfWorkWasSaved();
+
             Assert.Equal(Slug.Of("acme-99999"), outputPort.UseCaseOutput.Slug);
             Assert.NotEqual(CatalogItemId.Empty, outputPort.UseCaseOutput.Id);
         }

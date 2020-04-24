@@ -11,12 +11,12 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class CreateRailwayUseCaseTests : UseCaseTestHelper<CreateRailway, CreateRailwayOutput, CreateRailwayOutputPort>
+    public class CreateRailwayUseCaseTests : CatalogUseCaseTests<CreateRailway, CreateRailwayOutput, CreateRailwayOutputPort>
     {
         [Fact]
         public async Task CreateRailway_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
+            var (useCase, outputPort, _) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
 
             await useCase.Execute(NewRailwayInput.NewEmpty());
 
@@ -26,7 +26,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         [Fact]
         public async Task CreateRailway_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
+            var (useCase, outputPort, _) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
 
             await useCase.Execute(null);
 
@@ -36,7 +36,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         [Fact]
         public async Task CreateRailway_ShouldNotCreateANewRailway_WhenRailwayAlreadyExists()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.WithSeedData, NewCreateRailway);
+            var (useCase, outputPort, _) = ArrangeRailwaysUseCase(Start.WithSeedData, NewCreateRailway);
 
             var name = "DB";
             var input = NewRailwayInput.With(
@@ -56,7 +56,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         [Fact]
         public async Task CreateRailway_Should_CreateANewRailway()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
+            var (useCase, outputPort, unitOfWork) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
 
             var input = NewRailwayInput.With(
                 Name: "DB",
@@ -76,6 +76,9 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             await useCase.Execute(input);
 
+            unitOfWork.EnsureUnitOfWorkWasSaved();
+
+            outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();
             var output = outputPort.UseCaseOutput;
 

@@ -8,7 +8,7 @@ using Xunit;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class GetRailwayBySlugUseCaseTests : UseCaseTestHelper<GetRailwayBySlug, GetRailwayBySlugOutput, GetRailwayBySlugOutputPort>
+    public class GetRailwayBySlugUseCaseTests : CatalogUseCaseTests<GetRailwayBySlug, GetRailwayBySlugOutput, GetRailwayBySlugOutputPort>
     {
         [Fact]
         public async Task GetRailwayBySlug_ShouldValidateInput()

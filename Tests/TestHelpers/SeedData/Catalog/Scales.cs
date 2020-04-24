@@ -118,7 +118,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 null);
         }
 
-        public ICollection<IScale> All() => _all;
+        public IList<IScale> All() => _all;
 
         public IScale ScaleH0() => _scaleH0;
 

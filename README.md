@@ -10,6 +10,8 @@ An application to manage model railway collections.
 
 ## Use cases
 
+### Catalog
+
 * Create a new **brand**;
 * Create a new **railway**
 * Create a new **scale**
@@ -21,6 +23,23 @@ An application to manage model railway collections.
 * Find a **railway**, with its SEO friendly ("slug") identifier
 * Find a **scale**, with its SEO friendly ("slug") identifier
 * Find a **catalog item**, with its SEO friendly ("slug") identifier
+
+### Collections
+
+* Create a new **collection**, collections are always private and each user can have only one collection;
+* Get the user **collection**, only the owner can see his collection;
+* Add a new catalog item to a **collection**;
+* Edit a catalog item in the **collection**;
+* Get collection statistics: items count and value by category.
+
+* Create a new **wish list**, wish lists have a visibility (either __public__ or __private__). A user can create one or more wish lists;
+* List all **wish lists** by user;
+* Add a new catalog item to a **wish list**;
+* Edit a catalog item in the **with list**;
+* Delete a **with list**.
+
+* Create a new **shop**;
+* Add/remove shop from the user favourites.
 
 ## Project layout
 
@@ -86,7 +105,9 @@ public async Task BrandsRepository_GetBySlug_ShouldFindOneBrandBySlug()
 }
 ```
 
-* `IntegrationTests` - this project contains integration tests, here the application runs inside a fake web container - the persistence code is running against a "real" database (SQLite - with a database file stored on disk). The integration tests have the main goal to validate web apis.
+* `Web.UnitTests` - this project contains unit tests on the view model preparation.
+
+* `Web.IntegrationTests` - this project contains integration tests, here the application runs inside a fake web container - the persistence code is running against a "real" database (SQLite - with a database file stored on disk). The integration tests have the main goal to validate web apis.
 
 ## Setup
 

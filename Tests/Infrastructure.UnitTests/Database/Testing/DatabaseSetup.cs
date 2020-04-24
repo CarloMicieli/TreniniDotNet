@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using System;
 using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Database.Testing
@@ -15,6 +16,11 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
         {
             using var connection = DatabaseContext.NewConnection();
             connection.Execute($"DELETE FROM {tableName}", new { });
+        }
+
+        internal void TruncateTable(object wishlists)
+        {
+            throw new NotImplementedException();
         }
     }
 }

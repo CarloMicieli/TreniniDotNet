@@ -11,7 +11,7 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.UseCases.Catalog
 {
-    public class CreateScaleUseCaseTests : UseCaseTestHelper<CreateScale, CreateScaleOutput, CreateScaleOutputPort>
+    public class CreateScaleUseCaseTests : CatalogUseCaseTests<CreateScale, CreateScaleOutput, CreateScaleOutputPort>
     {
         [Fact]
         public async Task CreateScale_ShouldValidateInput()
@@ -26,7 +26,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog
         [Fact]
         public async Task CreateScale_Should_CreateANewScale()
         {
-            var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewCreateScale);
+            var (useCase, outputPort, unitOfWork) = ArrangeScalesUseCase(Start.Empty, NewCreateScale);
 
             var input = NewScaleInput.With(
                 Name: "H0",
@@ -38,7 +38,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog
 
             await useCase.Execute(input);
 
+            outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();
+
+            unitOfWork.EnsureUnitOfWorkWasSaved();
 
             var output = outputPort.UseCaseOutput;
             output.Should().NotBeNull();

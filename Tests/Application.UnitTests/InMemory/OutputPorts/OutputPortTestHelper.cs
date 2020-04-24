@@ -53,8 +53,15 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
 
         public void ShouldHaveValidationErrors()
         {
-            var validationFailures = InvalidRequestMethod.Argument;
-            Assert.NotEmpty(validationFailures);
+            if (InvalidRequestMethod.Argument is null)
+            {
+                Assert.True(false, "No validation error has been found");
+            }
+            else
+            {
+                var validationFailures = InvalidRequestMethod.Argument;
+                Assert.NotEmpty(validationFailures);
+            }
         }
 
         public void ShouldHaveNoValidationError()
