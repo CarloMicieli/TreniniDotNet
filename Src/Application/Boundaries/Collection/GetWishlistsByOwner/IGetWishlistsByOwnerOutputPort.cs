@@ -5,6 +5,6 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistsByOwner
 {
     public interface IGetWishlistsByOwnerOutputPort : IOutputPortStandard<GetWishlistsByOwnerOutput>
     {
-        void WishlistsNotFoundForTheOwner(Owner owner, Visibility visibility);
+        void WishlistsNotFoundForTheOwner(Owner owner, VisibilityCriteria visibility);
     }
 }

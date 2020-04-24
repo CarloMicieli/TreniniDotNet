@@ -27,7 +27,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         {
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewGetWishlistsByOwner);
 
-            await useCase.Execute(new GetWishlistsByOwnerInput("", Visibility.Public));
+            await useCase.Execute(new GetWishlistsByOwnerInput("", Visibility.Public.ToString()));
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -37,12 +37,12 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         {
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewGetWishlistsByOwner);
 
-            await useCase.Execute(new GetWishlistsByOwnerInput("George", Visibility.Public));
+            await useCase.Execute(new GetWishlistsByOwnerInput("George", Visibility.Public.ToString()));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertWishlistsNotFoundForTheOwner(
                 new Owner("George"),
-                Visibility.Public);
+                VisibilityCriteria.Public);
         }
 
         [Fact]
@@ -50,14 +50,14 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         {
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewGetWishlistsByOwner);
 
-            await useCase.Execute(new GetWishlistsByOwnerInput("George", Visibility.Private));
+            await useCase.Execute(new GetWishlistsByOwnerInput("George", Visibility.Private.ToString()));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();
 
             var output = outputPort.UseCaseOutput;
             output.Owner.Should().Be(new Owner("George"));
-            output.Visibility.Should().Be(Visibility.Private);
+            output.Visibility.Should().Be(VisibilityCriteria.Private);
             output.Wishlists.Should().NotBeNull();
         }
 

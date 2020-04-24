@@ -6,6 +6,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist
     public sealed class AddItemToWishlistInput : IUseCaseInput
     {
         public AddItemToWishlistInput(
+            string owner,
             Guid id,
             string catalogItem,
             DateTime addedDate,
@@ -13,6 +14,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist
             string? priority,
             string? notes)
         {
+            Owner = owner;
             Id = id;
             CatalogItem = catalogItem;
             AddedDate = addedDate;
@@ -21,6 +23,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToWishlist
             Notes = notes;
         }
 
+        public string Owner { get; }
         public Guid Id { get; }
         public string CatalogItem { get; }
         public DateTime AddedDate { get; }

@@ -44,6 +44,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
 
             var id = Guid.NewGuid();
             var input = CollectionInputs.AddItemToWishlist.With(
+                Owner: "George",
                 Id: id,
                 CatalogItem: "acme-123456");
 
@@ -60,6 +61,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
 
             var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
             var input = CollectionInputs.AddItemToWishlist.With(
+                Owner: "George",
                 Id: id.ToGuid(),
                 CatalogItem: "acme-123456");
 
@@ -79,6 +81,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
             var item = wishlist.Items.First();
 
             var input = CollectionInputs.AddItemToWishlist.With(
+                Owner: "George",
                 Id: id.ToGuid(),
                 CatalogItem: item.CatalogItem.Slug.ToString());
 
@@ -101,6 +104,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
             SetNextGeneratedGuid(itemId);
 
             var input = CollectionInputs.AddItemToWishlist.With(
+                Owner: "George",
                 Id: id.ToGuid(),
                 CatalogItem: item.Slug.ToString());
 

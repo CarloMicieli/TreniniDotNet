@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Boundaries.Collection.DeleteWishlist;
 
 namespace TreniniDotNet.Web.UseCases.V1.Collection.DeleteWishlist
 {
@@ -17,12 +17,17 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.DeleteWishlist
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(DeleteWishlistOutput), StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> Delete(DeleteWishlistRequest request)
+        public Task<IActionResult> Delete(Guid id)
         {
+            var request = new DeleteWishlistRequest
+            {
+                Id = id,
+                Owner = CurrentUser
+            };
             return HandleRequest(request);
         }
     }

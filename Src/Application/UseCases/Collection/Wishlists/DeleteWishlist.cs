@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Collection.DeleteWishlist;
 using TreniniDotNet.Application.Services;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Domain.Collection.Wishlists;
 
@@ -24,8 +25,9 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         protected override async Task Handle(DeleteWishlistInput input)
         {
             var id = new WishlistId(input.Id);
+            var owner = new Owner(input.Owner);
 
-            var wishlistExists = await _wishlistService.ExistAsync(id);
+            var wishlistExists = await _wishlistService.ExistAsync(owner, id);
             if (wishlistExists == false)
             {
                 OutputPort.WishlistNotFound(id);

@@ -10,7 +10,7 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
     {
         Task<bool> ExistAsync(Owner owner, Slug wishlistSlug);
 
-        Task<bool> ExistAsync(WishlistId id);
+        Task<bool> ExistAsync(Owner owner, WishlistId id);
 
         Task<WishlistId> AddAsync(IWishlist wishList);
 
@@ -18,6 +18,6 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
 
         Task<IWishlist?> GetByIdAsync(WishlistId id);
 
-        Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, Visibility visibility);
+        Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, VisibilityCriteria visibility);
     }
 }

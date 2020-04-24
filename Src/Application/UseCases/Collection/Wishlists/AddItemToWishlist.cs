@@ -6,6 +6,7 @@ using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.Extensions;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Domain.Collection.Wishlists;
 
@@ -28,8 +29,9 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         protected override async Task Handle(AddItemToWishlistInput input)
         {
             var id = new WishlistId(input.Id);
+            var owner = new Owner(input.Owner);
 
-            var wishlistExists = await _wishlistService.ExistAsync(id);
+            var wishlistExists = await _wishlistService.ExistAsync(owner, id);
             if (wishlistExists == false)
             {
                 OutputPort.WishlistNotFound(id);

@@ -80,7 +80,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Wishlists
             return result.HasValue;
         }
 
-        public async Task<bool> ExistAsync(WishlistId id)
+        public async Task<bool> ExistAsync(Owner owner, WishlistId id)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -89,24 +89,37 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Wishlists
                 WishlishExistsForId,
                 new
                 {
+                    Owner = owner.Value,
                     WishlistId = id.ToGuid()
                 });
 
             return result.HasValue;
         }
 
-        public async Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, Visibility visibility)
+        public async Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, VisibilityCriteria visibility)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
 
-            var result = await connection.QueryAsync<WishlistDto>(GetWishlists, new
+            if (visibility == VisibilityCriteria.All)
             {
-                Owner = owner.Value,
-                Visibility = visibility.ToString()
-            });
+                var result = await connection.QueryAsync<WishlistDto>(GetWishlists, new
+                {
+                    Owner = owner.Value
+                });
 
-            return result.Select(it => ProjectToDomain(it));
+                return result.Select(it => ProjectToDomain(it));
+            }
+            else
+            {
+                var result = await connection.QueryAsync<WishlistDto>(GetWishlistsByVisibility, new
+                {
+                    Owner = owner.Value,
+                    Visibility = visibility.ToString()
+                });
+
+                return result.Select(it => ProjectToDomain(it));
+            }
         }
 
         public async Task<IWishlist?> GetByIdAsync(WishlistId id)
@@ -226,9 +239,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Wishlists
                 b.name, b.slug,
                 ci.item_number, s.name, s.slug, ci.description";
 
-        private const string GetWishlists = @"SELECT wishlist_id, slug, wishlist_name, visibility 
+        private const string GetWishlistsByVisibility = @"SELECT wishlist_id, slug, wishlist_name, visibility 
             FROM wishlists 
             WHERE owner = @Owner AND visibility = @Visibility 
+            ORDER BY slug;";
+
+        private const string GetWishlists = @"SELECT wishlist_id, slug, wishlist_name, visibility 
+            FROM wishlists 
+            WHERE owner = @Owner
             ORDER BY slug;";
 
         private const string WishlishExistsForOwnerAndSlug = @"SELECT wishlist_id
@@ -238,7 +256,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Wishlists
 
         private const string WishlishExistsForId = @"SELECT wishlist_id
             FROM wishlists 
-            WHERE wishlist_id = @WishlistId
+            WHERE owner = @Owner AND wishlist_id = @WishlistId
             LIMIT 1;";
 
         private const string DeleteWishlistItems = @"DELETE FROM wishlist_items WHERE wishlist_id = @WishlistId";

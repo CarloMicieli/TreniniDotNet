@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Collection.GetWishlistsByOwner;
+using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Domain.Collection.Shared;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Domain.Collection.Wishlists;
 
 namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
@@ -21,17 +23,18 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         protected override async Task Handle(GetWishlistsByOwnerInput input)
         {
             var owner = new Owner(input.Owner);
+            var visibility = EnumHelpers.OptionalValueFor<VisibilityCriteria>(input.Visibility) ?? VisibilityCriteria.All;
 
-            var wishlists = await _wishlistService.GetByOwnerAsync(owner, input.Visibility);
+            var wishlists = await _wishlistService.GetByOwnerAsync(owner, visibility);
             if (wishlists is null || wishlists.Count() == 0)
             {
-                OutputPort.WishlistsNotFoundForTheOwner(owner, input.Visibility);
+                OutputPort.WishlistsNotFoundForTheOwner(owner, visibility);
                 return;
             }
 
             var output = new GetWishlistsByOwnerOutput(
                 owner,
-                input.Visibility,
+                visibility,
                 wishlists);
             OutputPort.Standard(output);
         }

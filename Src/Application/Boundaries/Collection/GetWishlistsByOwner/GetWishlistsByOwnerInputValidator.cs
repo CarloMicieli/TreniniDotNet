@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistsByOwner
 {
@@ -9,6 +10,9 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistsByOwner
             RuleFor(x => x.Owner)
                 .NotEmpty()
                 .NotNull();
+
+            RuleFor(x => x.Visibility)
+                .IsEnumName(typeof(VisibilityCriteria), caseSensitive: false);
         }
     }
 }

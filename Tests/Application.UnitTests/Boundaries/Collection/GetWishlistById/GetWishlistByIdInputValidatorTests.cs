@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistById
         [Fact]
         public void GetWishlistByIdInputValidator_ShouldFailToValidate_EmptyInputs()
         {
-            var input = new GetWishlistByIdInput(Guid.Empty);
+            var input = new GetWishlistByIdInput(null, Guid.Empty);
 
             var result = Validator.TestValidate(input);
 
@@ -26,7 +26,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistById
         [Fact]
         public void GetWishlistByIdInputValidator_ShouldValidate_ValidInputs()
         {
-            var input = new GetWishlistByIdInput(Guid.NewGuid());
+            var input = new GetWishlistByIdInput(null, Guid.NewGuid());
 
             var result = Validator.TestValidate(input);
 

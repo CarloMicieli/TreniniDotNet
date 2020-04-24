@@ -41,6 +41,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewEditWishlistItem);
 
             var input = CollectionInputs.EditWishlistItem.With(
+                Owner: "George",
                 Id: Guid.NewGuid(),
                 ItemId: Guid.NewGuid());
 
@@ -61,6 +62,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
             var item = wishlist.Items.First();
 
             var input = CollectionInputs.EditWishlistItem.With(
+                Owner: "George",
                 Id: wishlist.WishlistId.ToGuid(),
                 ItemId: item.ItemId.ToGuid());
 

@@ -37,10 +37,10 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             return Task.FromResult(result);
         }
 
-        public Task<bool> ExistAsync(WishlistId id)
+        public Task<bool> ExistAsync(Owner owner, WishlistId id)
         {
             var result = _context.WishLists
-                .Any(it => it.WishlistId == id);
+                .Any(it => it.Owner == owner && it.WishlistId == id);
             return Task.FromResult(result);
         }
 
@@ -51,10 +51,18 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             return Task.FromResult(result);
         }
 
-        public Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, Visibility visibility)
+        public Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, VisibilityCriteria visibility)
         {
             IEnumerable<IWishlistInfo> result = _context.WishLists
-                .Where(it => it.Owner == owner && it.Visibility == visibility)
+                .Where(it => it.Owner == owner);
+
+            if (visibility != VisibilityCriteria.All)
+            {
+                var vis = (visibility == VisibilityCriteria.Private) ? Visibility.Private : Visibility.Public;
+                result = result.Where(it => it.Visibility == vis);
+            }
+
+            result = result
                 .Select(it => (IWishlistInfo)it)
                 .ToList();
             return Task.FromResult(result);

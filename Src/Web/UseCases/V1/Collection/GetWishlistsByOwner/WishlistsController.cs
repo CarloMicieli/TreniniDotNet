@@ -16,13 +16,18 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetWishlistsByOwner
         {
         }
 
-        [HttpGet]
+        [HttpGet("owner/{owner}")]
         [ProducesResponseType(typeof(GetWishlistsByOwnerOutput), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> Get(GetWishlistsByOwnerRequest request)
+        public Task<IActionResult> GetWishlists(string owner, [FromQuery] string visibility = "all")
         {
+            var request = new GetWishlistsByOwnerRequest
+            {
+                Owner = owner,
+                Visibility = visibility,
+                UserIsOwner = (CurrentUser == owner)
+            };
             return HandleRequest(request);
         }
     }

@@ -6,19 +6,19 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Collection
 {
     public sealed class GetWishlistsByOwnerOutputPort : OutputPortTestHelper<GetWishlistsByOwnerOutput>, IGetWishlistsByOwnerOutputPort
     {
-        private MethodInvocation<Owner, Visibility> WishlistsNotFoundForTheOwnerMethod { set; get; }
+        private MethodInvocation<Owner, VisibilityCriteria> WishlistsNotFoundForTheOwnerMethod { set; get; }
 
         public GetWishlistsByOwnerOutputPort()
         {
-            WishlistsNotFoundForTheOwnerMethod = MethodInvocation<Owner, Visibility>.NotInvoked(nameof(WishlistsNotFoundForTheOwner));
+            WishlistsNotFoundForTheOwnerMethod = MethodInvocation<Owner, VisibilityCriteria>.NotInvoked(nameof(WishlistsNotFoundForTheOwner));
         }
 
-        public void WishlistsNotFoundForTheOwner(Owner owner, Visibility visibility)
+        public void WishlistsNotFoundForTheOwner(Owner owner, VisibilityCriteria visibility)
         {
             WishlistsNotFoundForTheOwnerMethod = WishlistsNotFoundForTheOwnerMethod.Invoked(owner, visibility);
         }
 
-        public void AssertWishlistsNotFoundForTheOwner(Owner expectedOwner, Visibility expectedVisibility) =>
+        public void AssertWishlistsNotFoundForTheOwner(Owner expectedOwner, VisibilityCriteria expectedVisibility) =>
             WishlistsNotFoundForTheOwnerMethod.ShouldBeInvokedWithTheArguments(expectedOwner, expectedVisibility);
 
     }

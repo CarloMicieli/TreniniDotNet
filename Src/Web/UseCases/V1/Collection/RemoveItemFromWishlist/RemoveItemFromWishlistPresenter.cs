@@ -1,4 +1,5 @@
-﻿using TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromWishlist;
+﻿using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromWishlist;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Web.ViewModels;
 
@@ -8,12 +9,16 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.RemoveItemFromWishlist
     {
         public override void Standard(RemoveItemFromWishlistOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NoContentResult();
         }
 
         public void WishlistItemNotFound(WishlistId id, WishlistItemId itemId)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new
+            {
+                Id = id.ToGuid(),
+                ItemId = itemId.ToGuid()
+            });
         }
     }
 }

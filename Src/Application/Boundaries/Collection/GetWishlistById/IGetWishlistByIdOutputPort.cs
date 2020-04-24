@@ -5,5 +5,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistById
     public interface IGetWishlistByIdOutputPort : IOutputPortStandard<GetWishlistByIdOutput>
     {
         void WishlistNotFound(WishlistId id);
+
+        void WishlistNotVisible(WishlistId id, Visibility visibility);
     }
 }

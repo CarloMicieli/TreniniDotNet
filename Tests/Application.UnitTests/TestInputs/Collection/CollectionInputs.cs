@@ -45,6 +45,7 @@ namespace TreniniDotNet.Application.TestInputs.Collection
             public static AddItemToWishlistInput Empty => With();
 
             public static AddItemToWishlistInput With(
+                string Owner = null,
                 Guid? Id = null,
                 string CatalogItem = null,
                 decimal? Price = null,
@@ -52,6 +53,7 @@ namespace TreniniDotNet.Application.TestInputs.Collection
                 string Priority = null,
                 string Notes = null) =>
                 new AddItemToWishlistInput(
+                    Owner,
                     Id ?? Guid.Empty,
                     CatalogItem,
                     AddedDate ?? DateTime.Now,
@@ -98,8 +100,8 @@ namespace TreniniDotNet.Application.TestInputs.Collection
         {
             public static DeleteWishlistInput Empty => With();
 
-            public static DeleteWishlistInput With(Guid? Id = null) =>
-                new DeleteWishlistInput(Id ?? Guid.Empty);
+            public static DeleteWishlistInput With(Guid? Id = null, string Owner = null) =>
+                new DeleteWishlistInput(Owner, Id ?? Guid.Empty);
         }
 
         public static class EditCollectionItem
@@ -130,12 +132,14 @@ namespace TreniniDotNet.Application.TestInputs.Collection
             public static EditWishlistItemInput Empty => With();
 
             public static EditWishlistItemInput With(
+                string Owner = null,
                 Guid? Id = null,
                 Guid? ItemId = null,
                 DateTime? AddedDate = null,
                 decimal? Price = null,
                 string Priority = null,
                 string Notes = null) => new EditWishlistItemInput(
+                    Owner,
                     Id ?? Guid.Empty,
                     ItemId ?? Guid.Empty,
                     AddedDate,
@@ -165,8 +169,9 @@ namespace TreniniDotNet.Application.TestInputs.Collection
             public static RemoveItemFromWishlistInput Empty => With();
 
             public static RemoveItemFromWishlistInput With(
+                string Owner = null,
                 Guid? Id = null,
-                Guid? ItemId = null) => new RemoveItemFromWishlistInput(Id ?? Guid.Empty, ItemId ?? Guid.Empty);
+                Guid? ItemId = null) => new RemoveItemFromWishlistInput(Owner, Id ?? Guid.Empty, ItemId ?? Guid.Empty);
         }
 
         public static class RemoveShopFromFavourites

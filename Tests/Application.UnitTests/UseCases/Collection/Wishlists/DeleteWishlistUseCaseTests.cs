@@ -39,7 +39,9 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         {
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewDeleteWishlist);
 
-            var input = CollectionInputs.DeleteWishlist.With(Id: Guid.NewGuid());
+            var input = CollectionInputs.DeleteWishlist.With(
+                Owner: "George",
+                Id: Guid.NewGuid());
 
             await useCase.Execute(input);
 
@@ -53,7 +55,9 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
             var (useCase, outputPort, unitOfWork) = ArrangeWishlistUseCase(Start.WithSeedData, NewDeleteWishlist);
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
-            var input = CollectionInputs.DeleteWishlist.With(Id: wishlist.WishlistId.ToGuid());
+            var input = CollectionInputs.DeleteWishlist.With(
+                Owner: "George",
+                Id: wishlist.WishlistId.ToGuid());
 
             await useCase.Execute(input);
 

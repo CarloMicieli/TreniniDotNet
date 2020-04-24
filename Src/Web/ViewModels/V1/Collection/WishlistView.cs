@@ -18,7 +18,7 @@ namespace TreniniDotNet.Web.ViewModels.V1.Collection
                 .ToList();
         }
 
-        public Guid WishlistId => _wishlist.WishlistId.ToGuid();
+        public Guid Id => _wishlist.WishlistId.ToGuid();
 
         public string Slug => _wishlist.Slug.Value;
 

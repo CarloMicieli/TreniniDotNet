@@ -1,6 +1,8 @@
-﻿using TreniniDotNet.Application.Boundaries.Collection.GetWishlistById;
+﻿using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Boundaries.Collection.GetWishlistById;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Web.ViewModels;
+using TreniniDotNet.Web.ViewModels.V1.Collection;
 
 namespace TreniniDotNet.Web.UseCases.V1.Collection.GetWishlistById
 {
@@ -8,12 +10,17 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetWishlistById
     {
         public override void Standard(GetWishlistByIdOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new OkObjectResult(new WishlistView(output.Wishlist));
         }
 
         public void WishlistNotFound(WishlistId id)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new { Id = id });
+        }
+
+        public void WishlistNotVisible(WishlistId id, Visibility visibility)
+        {
+            ViewModel = new NotFoundObjectResult(new { Id = id });
         }
     }
 }

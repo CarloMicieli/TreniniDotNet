@@ -1,18 +1,20 @@
 ﻿using TreniniDotNet.Common.Interfaces;
-using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistsByOwner
 {
     public sealed class GetWishlistsByOwnerInput : IUseCaseInput
     {
-        public GetWishlistsByOwnerInput(string owner, Visibility visibility)
+        public GetWishlistsByOwnerInput(string owner, string? visibility, bool userIsOwner = false)
         {
             Owner = owner;
             Visibility = visibility;
+            UserIsOwner = userIsOwner;
         }
 
         public string Owner { get; }
 
-        public Visibility Visibility { get; }
+        public string? Visibility { get; }
+
+        public bool UserIsOwner { get; }
     }
 }

@@ -23,7 +23,7 @@ namespace TreniniDotNet.IntegrationTests.Collection.V1.UseCases.Collections
             var client = CreateHttpClient();
 
             var id = Guid.NewGuid();
-            var response = await client.PostJsonAsync($"api/v1/collections/{id}/items", 
+            var response = await client.PostJsonAsync($"api/v1/collections/{id}/items",
                 new { }, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
@@ -43,7 +43,7 @@ namespace TreniniDotNet.IntegrationTests.Collection.V1.UseCases.Collections
                 AddedDate = DateTime.Now
             };
 
-            var response = await client.PostJsonAsync($"api/v1/collections/{id}/items", 
+            var response = await client.PostJsonAsync($"api/v1/collections/{id}/items",
                 request, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -65,7 +65,7 @@ namespace TreniniDotNet.IntegrationTests.Collection.V1.UseCases.Collections
                 AddedDate = DateTime.Now
             };
 
-            var response = await client.PostJsonAsync($"api/v1/collections/{id}/items", 
+            var response = await client.PostJsonAsync($"api/v1/collections/{id}/items",
                 request, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);

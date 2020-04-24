@@ -22,6 +22,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.CreateWishlist
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> Post(CreateWishlistRequest request)
         {
+            request.Owner = CurrentUser;
+
             return HandleRequest(request);
         }
     }

@@ -28,7 +28,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         {
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewGetWishlistById);
 
-            await useCase.Execute(new GetWishlistByIdInput(Guid.Empty));
+            await useCase.Execute(new GetWishlistByIdInput(null, Guid.Empty));
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -39,7 +39,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewGetWishlistById);
 
             var id = Guid.NewGuid();
-            await useCase.Execute(new GetWishlistByIdInput(id));
+            await useCase.Execute(new GetWishlistByIdInput("George", id));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertWishlistWasNotFound(new WishlistId(id));
@@ -51,7 +51,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewGetWishlistById);
 
             var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
-            await useCase.Execute(new GetWishlistByIdInput(id.ToGuid()));
+            await useCase.Execute(new GetWishlistByIdInput("George", id.ToGuid()));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();

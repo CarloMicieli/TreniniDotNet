@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistsByOwner
         [Fact]
         public void GetWishlistsByOwnerInputValidator_ShouldFailToValidateEmptyInputs()
         {
-            var input = new GetWishlistsByOwnerInput("", Visibility.Public);
+            var input = new GetWishlistsByOwnerInput("", Visibility.Public.ToString());
 
             var result = Validator.TestValidate(input);
 
@@ -26,7 +26,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistsByOwner
         [Fact]
         public void GetWishlistsByOwnerInputValidator_ShouldValidateInputs()
         {
-            var input = new GetWishlistsByOwnerInput("George", Visibility.Public);
+            var input = new GetWishlistsByOwnerInput("George", Visibility.Public.ToString());
 
             var result = Validator.TestValidate(input);
 

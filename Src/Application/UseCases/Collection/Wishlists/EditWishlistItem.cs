@@ -6,6 +6,7 @@ using TreniniDotNet.Application.Boundaries.Collection.EditWishlistItem;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.Extensions;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Domain.Collection.Wishlists;
 
@@ -29,6 +30,14 @@ namespace TreniniDotNet.Application.UseCases.Collection.Wishlists
         {
             var id = new WishlistId(input.Id);
             var itemId = new WishlistItemId(input.ItemId);
+            var owner = new Owner(input.Owner);
+
+            var exists = await _wishlistService.ExistAsync(owner, id);
+            if (exists == false)
+            {
+                OutputPort.WishlistItemNotFound(id, itemId);
+                return;
+            }
 
             var item = await _wishlistService.GetItemByIdAsync(id, itemId);
             if (item is null)

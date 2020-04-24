@@ -7,7 +7,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistsByOwner
 {
     public sealed class GetWishlistsByOwnerOutput : IUseCaseOutput
     {
-        public GetWishlistsByOwnerOutput(Owner owner, Visibility visibility, IEnumerable<IWishlistInfo> wishlists)
+        public GetWishlistsByOwnerOutput(Owner owner, VisibilityCriteria visibility, IEnumerable<IWishlistInfo> wishlists)
         {
             Owner = owner;
             Visibility = visibility;
@@ -15,7 +15,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetWishlistsByOwner
         }
 
         public Owner Owner { get; }
-        public Visibility Visibility { get; }
+        public VisibilityCriteria Visibility { get; }
         public IEnumerable<IWishlistInfo> Wishlists { get; }
     }
 }

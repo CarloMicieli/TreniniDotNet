@@ -5,4 +5,11 @@
         Public,
         Private
     }
+
+    public enum VisibilityCriteria
+    {
+        All,
+        Public,
+        Private
+    }
 }

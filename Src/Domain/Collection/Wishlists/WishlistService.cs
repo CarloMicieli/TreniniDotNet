@@ -32,14 +32,14 @@ namespace TreniniDotNet.Domain.Collection.Wishlists
                 throw new ArgumentNullException(nameof(catalog));
         }
 
-        public Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, Visibility visibility) =>
+        public Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, VisibilityCriteria visibility) =>
             _wishlists.GetByOwnerAsync(owner, visibility);
 
         public Task<IWishlist?> GetByIdAsync(WishlistId id) =>
             _wishlists.GetByIdAsync(id);
 
-        public Task<bool> ExistAsync(WishlistId id) =>
-            _wishlists.ExistAsync(id);
+        public Task<bool> ExistAsync(Owner owner, WishlistId id) =>
+            _wishlists.ExistAsync(owner, id);
 
         public Task<IWishlistItem?> GetItemByIdAsync(WishlistId id, WishlistItemId itemId) =>
             _wishlistItems.GetItemByIdAsync(id, itemId);

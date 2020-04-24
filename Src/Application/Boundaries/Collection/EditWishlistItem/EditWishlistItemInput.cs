@@ -6,12 +6,14 @@ namespace TreniniDotNet.Application.Boundaries.Collection.EditWishlistItem
     public sealed class EditWishlistItemInput : IUseCaseInput
     {
         public EditWishlistItemInput(
+            string owner,
             Guid id, Guid itemId,
             DateTime? addedDate,
             decimal? price,
             string? priority,
             string? notes)
         {
+            Owner = owner;
             Id = id;
             ItemId = itemId;
             AddedDate = addedDate;
@@ -20,6 +22,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.EditWishlistItem
             Notes = notes;
         }
 
+        public string Owner { get; }
         public Guid Id { get; }
         public Guid ItemId { get; }
         public DateTime? AddedDate { get; }

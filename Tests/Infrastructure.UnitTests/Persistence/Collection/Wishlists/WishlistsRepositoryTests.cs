@@ -66,7 +66,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Wishlists
                 };
             });
 
-            var result = await Repository.GetByOwnerAsync(new Owner("George"), Visibility.Public);
+            var result = await Repository.GetByOwnerAsync(new Owner("George"), VisibilityCriteria.Public);
 
             result.Should().NotBeNull();
             result.Should().HaveCount(5);
@@ -95,8 +95,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Wishlists
             Database.Setup.WithoutAnyWishlist();
             Database.Arrange.WithOneWishlist(wishlist);
 
-            bool found = await Repository.ExistAsync(wishlist.WishlistId);
-            bool notFound = await Repository.ExistAsync(WishlistId.NewId());
+            bool found = await Repository.ExistAsync(new Owner("George"), wishlist.WishlistId);
+            bool notFound = await Repository.ExistAsync(new Owner("George"), WishlistId.NewId());
 
             found.Should().BeTrue();
             notFound.Should().BeFalse();

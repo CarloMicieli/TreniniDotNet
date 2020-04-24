@@ -1,4 +1,5 @@
-﻿using TreniniDotNet.Application.Boundaries.Collection.DeleteWishlist;
+﻿using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Boundaries.Collection.DeleteWishlist;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Web.ViewModels;
 
@@ -8,12 +9,12 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.DeleteWishlist
     {
         public override void Standard(DeleteWishlistOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NoContentResult();
         }
 
         public void WishlistNotFound(WishlistId id)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new { Id = id.ToGuid() });
         }
     }
 }
