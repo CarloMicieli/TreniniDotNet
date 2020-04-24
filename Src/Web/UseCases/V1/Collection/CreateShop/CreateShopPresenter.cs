@@ -1,4 +1,5 @@
-﻿using TreniniDotNet.Application.Boundaries.Collection.CreateShop;
+﻿using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Boundaries.Collection.CreateShop;
 using TreniniDotNet.Web.ViewModels;
 
 namespace TreniniDotNet.Web.UseCases.V1.Collection.CreateShop
@@ -7,12 +8,22 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.CreateShop
     {
         public void ShopAlreadyExists(string shopName)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new ConflictObjectResult(new
+            {
+                Shop = shopName
+            });
         }
 
         public override void Standard(CreateShopOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = Created(
+                nameof(GetShopBySlug.ShopsController.GetShopBySlug),
+                new
+                {
+                    Slug = output.Slug.Value,
+                    version = "1",
+                },
+                output);
         }
     }
 }

@@ -16,12 +16,13 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetShopBySlug
         {
         }
 
-        [HttpGet("{slug}")]
+        [HttpGet("{slug}", Name = nameof(GetShopBySlug))]
         [ProducesResponseType(typeof(GetShopBySlugOutput), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> Post(GetShopBySlugRequest request)
+        public Task<IActionResult> GetShopBySlug(string slug)
         {
+            var request = new GetShopBySlugRequest(slug);
             return HandleRequest(request);
         }
     }

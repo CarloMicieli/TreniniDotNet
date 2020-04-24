@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Boundaries.Collection.GetShopBySlug;
 using TreniniDotNet.Common;
 using TreniniDotNet.Web.ViewModels;
+using TreniniDotNet.Web.ViewModels.V1.Collection;
 
 namespace TreniniDotNet.Web.UseCases.V1.Collection.GetShopBySlug
 {
@@ -8,12 +10,12 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetShopBySlug
     {
         public void ShopNotFound(Slug slug)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new { Slug = slug.Value });
         }
 
         public override void Standard(GetShopBySlugOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new OkObjectResult(new ShopView(output.Shop));
         }
     }
 }

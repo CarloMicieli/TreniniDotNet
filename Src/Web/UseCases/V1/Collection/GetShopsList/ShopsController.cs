@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Boundaries.Collection.GetShopsList;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Web.UseCases.V1.Collection.GetShopsList
 {
@@ -20,8 +21,9 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetShopsList
         [ProducesResponseType(typeof(GetShopsListOutput), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> Post(GetShopsListRequest request)
+        public Task<IActionResult> Post(int start = 0, int limit = 50)
         {
+            var request = new GetShopsListRequest(new Page(start, limit));
             return HandleRequest(request);
         }
     }

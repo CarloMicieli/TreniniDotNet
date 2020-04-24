@@ -33,6 +33,10 @@ using TreniniDotNet.Web.UseCases.V1.Collection.GetWishlistsByOwner;
 using TreniniDotNet.Web.UseCases.V1.Collection.RemoveItemFromCollection;
 using TreniniDotNet.Web.UseCases.V1.Collection.RemoveItemFromWishlist;
 using TreniniDotNet.Web.UseCases.V1.Collection.RemoveShopFromFavourites;
+using TreniniDotNet.Web.UseCases.V1.Collection.GetShopBySlug;
+using TreniniDotNet.Application.Boundaries.Collection.GetShopBySlug;
+using TreniniDotNet.Web.UseCases.V1.Collection.GetShopsList;
+using TreniniDotNet.Application.Boundaries.Collection.GetShopsList;
 
 namespace TreniniDotNet.Web.UseCases.V1.Collection
 {
@@ -50,6 +54,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection
             CreateMap<AddShopToFavouritesRequest, AddShopToFavouritesInput>();
             CreateMap<CreateShopRequest, CreateShopInput>();
             CreateMap<ShopAddressRequest, ShopAddressInput>();
+            CreateMap<GetShopBySlugRequest, GetShopBySlugInput>();
+            CreateMap<GetShopsListRequest, GetShopsListInput>();
             CreateMap<GetFavouriteShopsRequest, GetFavouriteShopsInput>();
             CreateMap<RemoveShopFromFavouritesRequest, RemoveShopFromFavouritesInput>();
 

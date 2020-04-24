@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Boundaries.Collection.GetShopsList;
 using TreniniDotNet.Web.ViewModels;
 
@@ -7,7 +8,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetShopsList
     {
         public override void Standard(GetShopsListOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new OkObjectResult(output.Shops);
         }
     }
 }

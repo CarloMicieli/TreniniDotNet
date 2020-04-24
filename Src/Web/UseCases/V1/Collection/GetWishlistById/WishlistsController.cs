@@ -17,7 +17,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetWishlistById
         {
         }
 
-        [HttpGet("{id}", Name = "GetWishlistById")]
+        [HttpGet("{id}", Name = nameof(GetWishlistById))]
         [ProducesResponseType(typeof(GetWishlistByIdOutput), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

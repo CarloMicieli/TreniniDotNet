@@ -10,8 +10,12 @@ namespace TreniniDotNet.Web.ViewModels.V1.Collection
         public ShopView(IShop shop)
         {
             _shop = shop;
-        }
 
+            if (!(shop.Address is null))
+            {
+                Address = new AddressView(shop.Address);
+            }
+        }
 
         public Guid ShopId => _shop.ShopId.ToGuid();
 
@@ -23,7 +27,7 @@ namespace TreniniDotNet.Web.ViewModels.V1.Collection
 
         public string? EmailAddress => _shop.EmailAddress?.ToString();
 
-        //Address? Address { get; }
+        public AddressView? Address { get; }
 
         public string? PhoneNumber => _shop.PhoneNumber?.ToString();
     }
