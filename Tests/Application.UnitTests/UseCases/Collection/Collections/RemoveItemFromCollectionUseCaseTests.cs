@@ -10,6 +10,7 @@ using TreniniDotNet.Domain.Collection.ValueObjects;
 using System;
 using TreniniDotNet.TestHelpers.SeedData.Collection;
 using System.Linq;
+using TreniniDotNet.Domain.Collection.Shared;
 
 namespace TreniniDotNet.Application.UseCases.Collection.Collections
 {
@@ -44,6 +45,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             var collectionId = new CollectionId(Guid.NewGuid());
             var itemId = new CollectionItemId(Guid.NewGuid());
             var input = CollectionInputs.RemoveItemFromCollection.With(
+                Owner: new Owner("George"),
                 Id: collectionId.ToGuid(),
                 ItemId: itemId.ToGuid());
 
@@ -64,6 +66,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             var itemId = collection.Items.First().ItemId;
 
             var input = CollectionInputs.RemoveItemFromCollection.With(
+                Owner: new Owner("George"),
                 Id: collectionId.ToGuid(),
                 ItemId: itemId.ToGuid());
 

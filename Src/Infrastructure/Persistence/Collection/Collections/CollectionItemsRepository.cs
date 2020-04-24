@@ -99,7 +99,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Collections
             return result.HasValue;
         }
 
-        public async Task RemoveItemAsync(CollectionId collectionId, CollectionItemId itemId, LocalDate? removed, string? notes)
+        public async Task RemoveItemAsync(CollectionId collectionId, CollectionItemId itemId, LocalDate? removed)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -108,7 +108,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Collections
             {
                 ItemId = itemId.ToGuid(),
                 CollectionId = collectionId.ToGuid(),
-                Notes = notes,
                 RemovedDate = removed?.ToDateTimeUnspecified()
             });
         }
@@ -155,8 +154,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Collections
 
         private const string RemoveCollectionItem = @"UPDATE collection_items 
             SET
-                removed_date = @RemovedDate,
-                notes = @Notes
+                removed_date = @RemovedDate
             WHERE item_id = @ItemId AND collection_id = @CollectionId;";
 
         private const string GetCollectionItem = @"SELECT ci.*, s.name AS shop_name, s.slug AS shop_slug

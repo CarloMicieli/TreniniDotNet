@@ -11,19 +11,17 @@ namespace TreniniDotNet.IntegrationTests.Collection.V1.UseCases.Collections
 {
     public class CreateCollectionIntegrationTests : AbstractWebApplicationFixture
     {
-        private const string CollectionsUri = "/api/v1/collections";
-
         public CreateCollectionIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
         }
 
         [Fact]
-        public async Task CreateCollection_ShouldFailForNotAuthorizedUsers()
+        public async Task CreateCollection_ShouldReturn401Unauthorized_WhenUserIsNotAuthorized()
         {
             var client = CreateHttpClient();
 
-            var response = await client.PostJsonAsync(CollectionsUri, new { }, Check.Nothing);
+            var response = await client.PostJsonAsync("/api/v1/collections", new { }, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
@@ -33,7 +31,7 @@ namespace TreniniDotNet.IntegrationTests.Collection.V1.UseCases.Collections
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var response = await client.PostJsonAsync(CollectionsUri, new { }, Check.Nothing);
+            var response = await client.PostJsonAsync("/api/v1/collections", new { }, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.Conflict);
         }
@@ -48,7 +46,7 @@ namespace TreniniDotNet.IntegrationTests.Collection.V1.UseCases.Collections
                 Notes = "My first wonderful collection"
             };
 
-            var response = await client.PostJsonAsync(CollectionsUri, request, Check.IsSuccessful);
+            var response = await client.PostJsonAsync("/api/v1/collections", request, Check.IsSuccessful);
 
             var content = await response.ExtractContent<CollectionCreated>();
             content.Should().NotBeNull();

@@ -72,6 +72,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Collections
             Database.Setup.TruncateTable(Tables.Collections);
 
             var id = Guid.NewGuid();
+            var owner = new Owner("George");
 
             Database.Arrange.InsertOne(Tables.Collections, new
             {
@@ -82,8 +83,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Collections
                 version = 2
             });
 
-            bool exists = await Repository.ExistsAsync(new CollectionId(id));
-            bool dontExist = await Repository.ExistsAsync(new CollectionId(Guid.NewGuid()));
+            bool exists = await Repository.ExistsAsync(owner, new CollectionId(id));
+            bool dontExist = await Repository.ExistsAsync(owner, new CollectionId(Guid.NewGuid()));
 
             exists.Should().BeTrue();
             dontExist.Should().BeFalse();

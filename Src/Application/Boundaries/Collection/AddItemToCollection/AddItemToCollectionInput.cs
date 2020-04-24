@@ -6,7 +6,8 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
     public sealed class AddItemToCollectionInput : IUseCaseInput
     {
         public AddItemToCollectionInput(
-            string collectionOwner,
+            Guid id,
+            string owner,
             string catalogItem,
             DateTime addedDate,
             decimal price,
@@ -14,7 +15,8 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
             string? shop,
             string? notes)
         {
-            CollectionOwner = collectionOwner;
+            Id = id;
+            Owner = owner;
             CatalogItem = catalogItem;
             Shop = shop;
             Price = price;
@@ -23,7 +25,8 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
             Condition = condition;
         }
 
-        public string CollectionOwner { get; }
+        public Guid Id { get; }
+        public string Owner { get; }
         public string CatalogItem { get; }
         public string? Shop { get; }
         public decimal Price { get; }

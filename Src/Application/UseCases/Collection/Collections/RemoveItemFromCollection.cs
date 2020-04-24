@@ -40,8 +40,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             await _collectionService.RemoveItemAsync(
                 id,
                 itemId,
-                input.Removed.ToLocalDateOrDefault(),
-                input.Notes);
+                input.Removed.ToLocalDateOrDefault());
 
             var _ = await _unitOfWork.SaveAsync();
 

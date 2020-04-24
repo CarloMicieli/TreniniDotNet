@@ -1,4 +1,5 @@
-﻿using TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromCollection;
+﻿using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromCollection;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Web.ViewModels;
 
@@ -8,12 +9,12 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.RemoveItemFromCollection
     {
         public void CollectionItemNotFound(CollectionId collectionId, CollectionItemId itemId)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundResult();
         }
 
         public override void Standard(RemoveItemFromCollectionOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NoContentResult();
         }
     }
 }

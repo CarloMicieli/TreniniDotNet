@@ -14,6 +14,6 @@ namespace TreniniDotNet.Domain.Collection.Collections
 
         Task EditItemAsync(CollectionId id, ICollectionItem item);
 
-        Task RemoveItemAsync(CollectionId collectionId, CollectionItemId itemId, LocalDate? removed, string? notes);
+        Task RemoveItemAsync(CollectionId collectionId, CollectionItemId itemId, LocalDate? removed);
     }
 }

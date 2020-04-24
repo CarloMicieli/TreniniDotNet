@@ -6,19 +6,19 @@ namespace TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromCollecti
     public sealed class RemoveItemFromCollectionInput : IUseCaseInput
     {
         public RemoveItemFromCollectionInput(
+            string owner,
             Guid id, Guid itemId,
-            DateTime? removed,
-            string? notes)
+            DateTime? removed)
         {
+            Owner = owner;
             Id = id;
             ItemId = itemId;
             Removed = removed;
-            Notes = notes;
         }
 
+        public string Owner { get; }
         public Guid Id { get; }
         public Guid ItemId { get; }
         public DateTime? Removed { get; }
-        public string? Notes { get; }
     }
 }

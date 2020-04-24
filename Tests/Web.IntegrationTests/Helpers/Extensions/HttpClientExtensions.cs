@@ -33,7 +33,31 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Extensions
         {
             HttpContent content = JsonContent(model);
             HttpResponseMessage response = await httpClient.PostAsync(requestUri, content);
+            return await CheckResponse(response, check);
+        }
 
+        public static async Task<HttpResponseMessage> PutJsonAsync(this HttpClient httpClient, string requestUri, object model, Check check)
+        {
+            HttpContent content = JsonContent(model);
+            HttpResponseMessage response = await httpClient.PutAsync(requestUri, content);
+            return await CheckResponse(response, check);
+        }
+
+        public static async Task<HttpResponseMessage> PatchJsonAsync(this HttpClient httpClient, string requestUri, object model, Check check)
+        {
+            HttpContent content = JsonContent(model);
+            HttpResponseMessage response = await httpClient.PatchAsync(requestUri, content);
+            return await CheckResponse(response, check);
+        }
+
+        public static async Task<HttpResponseMessage> DeleteJsonAsync(this HttpClient httpClient, string requestUri, Check check)
+        {
+            HttpResponseMessage response = await httpClient.DeleteAsync(requestUri);
+            return await CheckResponse(response, check);
+        }
+
+        private static async Task<HttpResponseMessage> CheckResponse(HttpResponseMessage response, Check check)
+        {
             if (check == Check.IsSuccessful && !response.IsSuccessStatusCode)
             {
                 if (response.StatusCode == HttpStatusCode.BadRequest)

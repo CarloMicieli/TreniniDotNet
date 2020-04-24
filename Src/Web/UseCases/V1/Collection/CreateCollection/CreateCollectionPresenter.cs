@@ -12,6 +12,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.CreateCollection
                 nameof(GetCollectionByOwner.CollectionsController.GetCollectionByOwner),
                 new
                 {
+                    id = output.Id,
                     version = "1",
                 },
                 output);

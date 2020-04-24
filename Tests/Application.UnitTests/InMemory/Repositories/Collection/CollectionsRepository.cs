@@ -27,9 +27,9 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             return Task.CompletedTask;
         }
 
-        public Task<bool> ExistsAsync(CollectionId id)
+        public Task<bool> ExistsAsync(Owner owner, CollectionId id)
         {
-            var result = _context.Collections.Any(it => it.CollectionId == id);
+            var result = _context.Collections.Any(it => it.CollectionId == id && it.Owner == owner);
             return Task.FromResult(result);
         }
 

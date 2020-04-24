@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Collection.EditCollectionItem;
 
@@ -16,13 +17,17 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.EditCollectionItem
         {
         }
 
-        [HttpPut("items")]
+        [HttpPut("{id}/items/{itemId}")]
         [ProducesResponseType(typeof(EditCollectionItemOutput), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> Put(EditCollectionItemRequest request)
+        public Task<IActionResult> EditCollectionItem(Guid id, Guid itemId, EditCollectionItemRequest request)
         {
-            //  request.Owner = HttpContext.User.Identity.Name;
+            request.Id = id;
+            request.ItemId = itemId;
+            request.Owner = CurrentUser;
+
             return HandleRequest(request);
         }
     }

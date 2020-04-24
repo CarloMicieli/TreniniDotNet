@@ -34,7 +34,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.CollectionOwner);
+            result.ShouldHaveValidationErrorFor(x => x.Owner);
             result.ShouldHaveValidationErrorFor(x => x.CatalogItem);
         }
 

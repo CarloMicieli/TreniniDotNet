@@ -53,14 +53,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Collections
             return id.HasValue;
         }
 
-        public async Task<bool> ExistsAsync(CollectionId id)
+        public async Task<bool> ExistsAsync(Owner owner, CollectionId id)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
 
             var result = await connection.ExecuteScalarAsync<Guid?>(
                 CollectionExistsByIdQuery,
-                new { CollectionId = id.ToGuid() });
+                new { Owner = owner.Value, CollectionId = id.ToGuid() });
 
             return result.HasValue;
         }
@@ -164,7 +164,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Collections
 
         private const string GetCollectionByOwnerQuery = @"SELECT * FROM collections WHERE owner = @Owner LIMIT 1;";
 
-        private const string CollectionExistsByIdQuery = @"SELECT collection_id FROM collections WHERE collection_id = @CollectionId LIMIT 1;";
+        private const string CollectionExistsByIdQuery = @"SELECT collection_id FROM collections WHERE owner = @Owner AND collection_id = @CollectionId LIMIT 1;";
 
         private const string GetCollectionItemsQuery = @"SELECT 
                 it.item_id, it.catalog_item_id, it.catalog_item_slug, it.condition, it.price, it.currency, it.added_date, it.notes,

@@ -73,9 +73,9 @@ namespace TreniniDotNet.Domain.Collection.Collections
             return _catalog.GetBySlugAsync(catalogItemSlug);
         }
 
-        public Task<bool> ExistAsync(CollectionId id)
+        public Task<bool> ExistAsync(Owner owner, CollectionId id)
         {
-            return _collections.ExistsAsync(id);
+            return _collections.ExistsAsync(owner, id);
         }
 
         public Task EditItemAsync(
@@ -92,9 +92,9 @@ namespace TreniniDotNet.Domain.Collection.Collections
             return _collectionItems.EditItemAsync(id, item);
         }
 
-        public Task RemoveItemAsync(CollectionId collectionId, CollectionItemId itemId, LocalDate? removed, string? notes)
+        public Task RemoveItemAsync(CollectionId collectionId, CollectionItemId itemId, LocalDate? removed)
         {
-            return _collectionItems.RemoveItemAsync(collectionId, itemId, removed, notes);
+            return _collectionItems.RemoveItemAsync(collectionId, itemId, removed);
         }
 
         public Task<ICollectionItem?> GetItemByIdAsync(CollectionId collectionId, CollectionItemId itemId)

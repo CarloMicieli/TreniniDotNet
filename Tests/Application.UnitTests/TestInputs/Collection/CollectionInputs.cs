@@ -21,6 +21,7 @@ namespace TreniniDotNet.Application.TestInputs.Collection
             public static AddItemToCollectionInput Empty => With();
 
             public static AddItemToCollectionInput With(
+                Guid? Id = null,
                 string Owner = null,
                 string CatalogItem = null,
                 DateTime? AddedDate = null,
@@ -29,6 +30,7 @@ namespace TreniniDotNet.Application.TestInputs.Collection
                 string Shop = null,
                 string Notes = null) =>
                 new AddItemToCollectionInput(
+                    Id ?? Guid.Empty,
                     Owner,
                     CatalogItem,
                     AddedDate ?? DateTime.MinValue,
@@ -105,6 +107,7 @@ namespace TreniniDotNet.Application.TestInputs.Collection
             public static EditCollectionItemInput Empty => With();
 
             public static EditCollectionItemInput With(
+                string Owner = null,
                 Guid? Id = null, Guid? ItemId = null,
                 DateTime? AddedDate = null,
                 decimal? Price = null,
@@ -112,6 +115,7 @@ namespace TreniniDotNet.Application.TestInputs.Collection
                 string Shop = null,
                 string Notes = null) =>
                 new EditCollectionItemInput(
+                    Owner,
                     Id ?? Guid.Empty,
                     ItemId ?? Guid.Empty,
                     AddedDate ?? DateTime.MinValue,
@@ -145,10 +149,15 @@ namespace TreniniDotNet.Application.TestInputs.Collection
             public static RemoveItemFromCollectionInput Empty => With();
 
             public static RemoveItemFromCollectionInput With(
+                string Owner = null,
                 Guid? Id = null,
                 Guid? ItemId = null,
                 DateTime? Removed = null,
-                string Notes = null) => new RemoveItemFromCollectionInput(Id ?? Guid.Empty, ItemId ?? Guid.Empty, Removed, Notes);
+                string Notes = null) => new RemoveItemFromCollectionInput(
+                    Owner,
+                    Id ?? Guid.Empty,
+                    ItemId ?? Guid.Empty,
+                    Removed);
         }
 
         public static class RemoveItemFromWishlist

@@ -6,6 +6,8 @@ using TreniniDotNet.Domain.Collection.Collections;
 using TreniniDotNet.Application.Services;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Collection.Shared;
+using System;
+using TreniniDotNet.TestHelpers.SeedData.Collection;
 
 namespace TreniniDotNet.Application.UseCases.Collection.Collections
 {
@@ -26,7 +28,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         {
             var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewGetCollectionByOwner);
 
-            await useCase.Execute(new GetCollectionByOwnerInput("  "));
+            await useCase.Execute(new GetCollectionByOwnerInput(Guid.Empty, "  "));
 
             outputPort.ShouldHaveValidationErrors();
             outputPort.ShouldHaveValidationErrorFor("Owner");
@@ -37,7 +39,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         {
             var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewGetCollectionByOwner);
 
-            await useCase.Execute(new GetCollectionByOwnerInput("Not found"));
+            await useCase.Execute(new GetCollectionByOwnerInput(Guid.Empty, "Not found"));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertCollectionWasNotFoundFor(new Owner("Not found"));
@@ -48,7 +50,9 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
         {
             var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewGetCollectionByOwner);
 
-            await useCase.Execute(new GetCollectionByOwnerInput("George"));
+            var collection = CollectionSeedData.Collections.GeorgeCollection();
+
+            await useCase.Execute(new GetCollectionByOwnerInput(collection.CollectionId.ToGuid(), "George"));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();

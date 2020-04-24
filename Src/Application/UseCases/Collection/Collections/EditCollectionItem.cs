@@ -5,6 +5,7 @@ using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Domain.Collection.Collections;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.Domain.Collection.Shops;
 using TreniniDotNet.Domain.Collection.ValueObjects;
 
@@ -28,20 +29,21 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
 
         protected override async Task Handle(EditCollectionItemInput input)
         {
+            var owner = new Owner(input.Owner);
             var collectionId = new CollectionId(input.Id);
             var itemId = new CollectionItemId(input.ItemId);
 
-            bool collectionExists = await _collectionService.ExistAsync(collectionId);
+            bool collectionExists = await _collectionService.ExistAsync(owner, collectionId);
             if (!collectionExists)
             {
-                OutputPort.CollectionNotFound($"Collection with id {collectionId} does not exist");
+                OutputPort.CollectionNotFound(owner, collectionId);
                 return;
             }
 
             ICollectionItem? item = await _collectionService.GetItemByIdAsync(collectionId, itemId);
             if (item is null)
             {
-                OutputPort.CollectionItemNotFound($"Collection item with id {itemId} does not exist");
+                OutputPort.CollectionItemNotFound(owner, collectionId, itemId);
                 return;
             }
 
@@ -51,7 +53,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
                 shopInfo = await _collectionService.GetShopInfo(input.Shop);
                 if (shopInfo is null)
                 {
-                    OutputPort.ShopNotFound($"Shop '{input.Shop}' does not exist");
+                    OutputPort.ShopNotFound(input.Shop);
                 }
             }
 

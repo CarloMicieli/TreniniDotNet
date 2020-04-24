@@ -1,11 +1,14 @@
-﻿namespace TreniniDotNet.Application.Boundaries.Collection.EditCollectionItem
+﻿using TreniniDotNet.Domain.Collection.Shared;
+using TreniniDotNet.Domain.Collection.ValueObjects;
+
+namespace TreniniDotNet.Application.Boundaries.Collection.EditCollectionItem
 {
     public interface IEditCollectionItemOutputPort : IOutputPortStandard<EditCollectionItemOutput>
     {
-        void CollectionNotFound(string message);
+        void CollectionNotFound(Owner owner, CollectionId id);
 
-        void CollectionItemNotFound(string message);
+        void CollectionItemNotFound(Owner owner, CollectionId id, CollectionItemId itemId);
 
-        void ShopNotFound(string message);
+        void ShopNotFound(string shop);
     }
 }

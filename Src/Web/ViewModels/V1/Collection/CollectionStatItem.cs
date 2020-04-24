@@ -17,6 +17,6 @@ namespace TreniniDotNet.Web.ViewModels.V1.Collection
 
         public int Year => _item.Year.Value;
 
-        public string TotalValue => _item.TotalValue.ToString();
+        public MoneyView TotalValue => new MoneyView(_item.TotalValue);
     }
 }

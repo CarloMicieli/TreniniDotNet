@@ -12,8 +12,8 @@ namespace TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromCollecti
             RuleFor(x => x.ItemId)
                 .NotEmpty();
 
-            RuleFor(x => x.Notes)
-                .MaximumLength(150);
+            RuleFor(x => x.Owner)
+                .NotNull();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using System;
 using TreniniDotNet.Application.TestInputs.Collection;
+using TreniniDotNet.Domain.Collection.Shared;
 using TreniniDotNet.TestHelpers.Common;
 using Xunit;
 
@@ -20,6 +21,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromCollecti
         public void RemoveItemFromCollectionInput_ShouldSucceedValidation()
         {
             var input = CollectionInputs.RemoveItemFromCollection.With(
+                Owner: new Owner("George"),
                 Id: Guid.NewGuid(),
                 ItemId: Guid.NewGuid());
 
@@ -37,17 +39,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromCollecti
 
             result.ShouldHaveValidationErrorFor(x => x.Id);
             result.ShouldHaveValidationErrorFor(x => x.ItemId);
-        }
-
-        [Fact]
-        public void RemoveItemFromCollectionInput_ShouldFailValidation_WhenNotesIsTooLong()
-        {
-            var input = CollectionInputs.RemoveItemFromCollection.With(
-                Notes: RandomString.WithLengthOf(151));
-
-            var result = Validator.TestValidate(input);
-
-            result.ShouldHaveValidationErrorFor(x => x.Notes);
+            result.ShouldHaveValidationErrorFor(x => x.Owner);
         }
     }
 }

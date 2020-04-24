@@ -40,7 +40,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Collection
             return Task.FromResult(result);
         }
 
-        public Task RemoveItemAsync(CollectionId collectionId, CollectionItemId itemId, LocalDate? removed, string notes) =>
+        public Task RemoveItemAsync(CollectionId collectionId, CollectionItemId itemId, LocalDate? removed) =>
             Task.CompletedTask;
     }
 }

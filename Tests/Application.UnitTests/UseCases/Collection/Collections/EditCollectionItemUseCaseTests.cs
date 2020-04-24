@@ -1,15 +1,16 @@
 ﻿using Xunit;
 using FluentAssertions;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 using TreniniDotNet.Application.InMemory.OutputPorts.Collection;
 using TreniniDotNet.Application.Boundaries.Collection.EditCollectionItem;
 using TreniniDotNet.Domain.Collection.Collections;
 using TreniniDotNet.Application.Services;
-using System.Threading.Tasks;
 using TreniniDotNet.Application.TestInputs.Collection;
 using TreniniDotNet.TestHelpers.SeedData.Collection;
-using System;
-using System.Linq;
-using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Application.UseCases.Collection.Collections
 {
@@ -43,6 +44,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
             var input = CollectionInputs.EditCollectionItem.With(
+                Owner: collection.Owner.Value,
                 Id: id.ToGuid(),
                 ItemId: Guid.NewGuid(),
                 Price: 450M);
@@ -50,7 +52,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
-            outputPort.ShouldHaveCollectionNotFoundMessage($"Collection with id {id} does not exist");
+            outputPort.ShouldHaveCollectionNotFoundMessage(collection.Owner, id);
         }
 
         [Fact]
@@ -62,6 +64,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             var id = collection.CollectionId;
             var itemId = Guid.NewGuid();
             var input = CollectionInputs.EditCollectionItem.With(
+                Owner: collection.Owner.Value,
                 Id: id.ToGuid(),
                 ItemId: itemId,
                 Price: 450M);
@@ -69,7 +72,27 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
-            outputPort.ShouldHaveCollectionItemNotFoundMessage($"Collection item with id {itemId} does not exist");
+            outputPort.ShouldHaveCollectionItemNotFoundMessage(collection.Owner, id, new CollectionItemId(itemId));
+        }
+
+        [Fact]
+        public async Task EditCollectionItem_ShouldFail_WhenTheUserIsNotTheCollectionOwner()
+        {
+            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
+
+            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var id = collection.CollectionId;
+            var itemId = Guid.NewGuid();
+            var input = CollectionInputs.EditCollectionItem.With(
+                Owner: collection.Owner.Value,
+                Id: id.ToGuid(),
+                ItemId: itemId,
+                Price: 450M);
+
+            await useCase.Execute(input);
+
+            outputPort.ShouldHaveNoValidationError();
+            outputPort.ShouldHaveCollectionItemNotFoundMessage(collection.Owner, id, new CollectionItemId(itemId));
         }
 
         [Fact]
@@ -81,6 +104,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             var id = collection.CollectionId;
             var itemId = collection.Items.Select(it => it.ItemId.ToGuid()).First();
             var input = CollectionInputs.EditCollectionItem.With(
+                Owner: collection.Owner,
                 Id: id.ToGuid(),
                 ItemId: itemId,
                 Shop: "Not found",
@@ -89,7 +113,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
-            outputPort.ShouldHaveShopNotFoundMessage($"Shop 'Not found' does not exist");
+            outputPort.ShouldHaveShopNotFoundMessage("Not found");
         }
 
         [Fact]
@@ -101,6 +125,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
             var id = collection.CollectionId;
             var itemId = collection.Items.Select(it => it.ItemId).First();
             var input = CollectionInputs.EditCollectionItem.With(
+                Owner: collection.Owner,
                 Id: id.ToGuid(),
                 ItemId: itemId.ToGuid(),
                 Price: 450M);

@@ -1,48 +1,50 @@
 ﻿using TreniniDotNet.Application.Boundaries.Collection.EditCollectionItem;
+using TreniniDotNet.Domain.Collection.Shared;
+using TreniniDotNet.Domain.Collection.ValueObjects;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts.Collection
 {
     public sealed class EditCollectionItemOutputPort : OutputPortTestHelper<EditCollectionItemOutput>, IEditCollectionItemOutputPort
     {
-        private MethodInvocation<string> CollectionNotFoundMethod { set; get; }
-        private MethodInvocation<string> CollectionItemNotFoundMethod { set; get; }
+        private MethodInvocation<Owner, CollectionId> CollectionNotFoundMethod { set; get; }
+        private MethodInvocation<Owner, CollectionId, CollectionItemId> CollectionItemNotFoundMethod { set; get; }
         private MethodInvocation<string> ShopNotFoundMethod { set; get; }
 
         public EditCollectionItemOutputPort()
         {
-            CollectionNotFoundMethod = MethodInvocation<string>.NotInvoked(nameof(CollectionNotFound));
-            CollectionItemNotFoundMethod = MethodInvocation<string>.NotInvoked(nameof(CollectionItemNotFound));
+            CollectionNotFoundMethod = MethodInvocation<Owner, CollectionId>.NotInvoked(nameof(CollectionNotFound));
+            CollectionItemNotFoundMethod = MethodInvocation<Owner, CollectionId, CollectionItemId>.NotInvoked(nameof(CollectionItemNotFound));
             ShopNotFoundMethod = MethodInvocation<string>.NotInvoked(nameof(ShopNotFound));
         }
 
-        public void ShopNotFound(string message)
+        public void ShopNotFound(string shop)
         {
-            ShopNotFoundMethod = ShopNotFoundMethod.Invoked(message);
+            ShopNotFoundMethod = ShopNotFoundMethod.Invoked(shop);
         }
 
-        public void CollectionNotFound(string message)
+        public void CollectionNotFound(Owner owner, CollectionId id)
         {
-            CollectionNotFoundMethod = CollectionNotFoundMethod.Invoked(message);
+            CollectionNotFoundMethod = CollectionNotFoundMethod.Invoked(owner, id);
         }
 
-        public void CollectionItemNotFound(string message)
+        public void CollectionItemNotFound(Owner owner, CollectionId id, CollectionItemId itemId)
         {
-            CollectionItemNotFoundMethod = CollectionItemNotFoundMethod.Invoked(message);
+            CollectionItemNotFoundMethod = CollectionItemNotFoundMethod.Invoked(owner, id, itemId);
         }
 
-        public void ShouldHaveCollectionNotFoundMessage(string expectedMessage)
+        public void ShouldHaveCollectionNotFoundMessage(Owner expectedOwner, CollectionId expectedId)
         {
-            CollectionNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
+            CollectionNotFoundMethod.ShouldBeInvokedWithTheArguments(expectedOwner, expectedId);
         }
 
-        public void ShouldHaveCollectionItemNotFoundMessage(string expectedMessage)
+        public void ShouldHaveCollectionItemNotFoundMessage(Owner expectedOwner, CollectionId expectedId, CollectionItemId expectedItemId)
         {
-            CollectionItemNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
+            CollectionItemNotFoundMethod.ShouldBeInvokedWithTheArguments(expectedOwner, expectedId, expectedItemId);
         }
 
-        public void ShouldHaveShopNotFoundMessage(string expectedMessage)
+        public void ShouldHaveShopNotFoundMessage(string expectedShop)
         {
-            ShopNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
+            ShopNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedShop);
         }
     }
 }

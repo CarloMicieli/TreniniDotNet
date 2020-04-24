@@ -19,11 +19,13 @@ namespace TreniniDotNet.Web.ViewModels.V1.Collection
                 .ToList();
         }
 
+        public Guid Id => _inner.Id.ToGuid();
+
         public string Owner => _inner.Owner.Value;
 
         public DateTime ModifiedDate => _inner.ModifiedDate.ToDateTimeUtc();
 
-        public string TotalValue => _inner.TotalValue.ToString();
+        public MoneyView TotalValue => new MoneyView(_inner.TotalValue);
 
         public List<CollectionStatItem> Details { get; }
 

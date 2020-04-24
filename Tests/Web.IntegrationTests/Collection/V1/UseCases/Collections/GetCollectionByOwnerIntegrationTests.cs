@@ -1,9 +1,11 @@
 using FluentAssertions;
 using IntegrationTests;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using TreniniDotNet.IntegrationTests.Collection.V1.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
+using TreniniDotNet.TestHelpers.SeedData.Collection;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -11,8 +13,6 @@ namespace TreniniDotNet.IntegrationTests.Collection.V1.UseCases.Collections
 {
     public class GetCollectionByOwnerIntegrationTests : AbstractWebApplicationFixture
     {
-        private const string CollectionsUri = "api/v1/collections";
-
         public GetCollectionByOwnerIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
@@ -23,7 +23,9 @@ namespace TreniniDotNet.IntegrationTests.Collection.V1.UseCases.Collections
         {
             var client = CreateHttpClient();
 
-            var response = await client.GetAsync(CollectionsUri);
+            var id = Guid.NewGuid();
+
+            var response = await client.GetAsync($"api/v1/collections/{id}");
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
@@ -33,7 +35,9 @@ namespace TreniniDotNet.IntegrationTests.Collection.V1.UseCases.Collections
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var response = await client.GetAsync(CollectionsUri);
+            var id = Guid.NewGuid();
+
+            var response = await client.GetAsync($"api/v1/collections/{id}");
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -43,7 +47,9 @@ namespace TreniniDotNet.IntegrationTests.Collection.V1.UseCases.Collections
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var collection = await client.GetJsonAsync<CollectionResponse>(CollectionsUri);
+            var id = CollectionSeedData.Collections.GeorgeCollection().CollectionId;
+
+            var collection = await client.GetJsonAsync<CollectionResponse>($"api/v1/collections/{id}");
 
             collection.Should().NotBeNull();
             collection.Owner.Should().Be("George");

@@ -7,7 +7,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.AddItemToCollection
     {
         public AddItemToCollectionInputValidator()
         {
-            RuleFor(x => x.CollectionOwner)
+            RuleFor(x => x.Owner)
                 .NotEmpty();
 
             RuleFor(x => x.CatalogItem)

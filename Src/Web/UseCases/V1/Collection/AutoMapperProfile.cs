@@ -42,25 +42,23 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection
         {
             CreateMap<CreateCollectionRequest, CreateCollectionInput>();
             CreateMap<AddItemToCollectionRequest, AddItemToCollectionInput>();
-
-            CreateMap<AddItemToWishlistRequest, AddItemToWishlistInput>();
-
-            CreateMap<AddShopToFavouritesRequest, AddShopToFavouritesInput>();
-
-            CreateMap<CreateShopRequest, CreateShopInput>();
-            CreateMap<ShopAddressRequest, ShopAddressInput>();
-
-            CreateMap<CreateWishlistRequest, CreateWishlistInput>();
-            CreateMap<DeleteWishlistRequest, DeleteWishlistInput>();
-            CreateMap<EditCollectionItemRequest, EditCollectionItemInput>();
-            CreateMap<EditWishlistItemRequest, EditWishlistItemInput>();
-            CreateMap<GetFavouriteShopsRequest, GetFavouriteShopsInput>();
             CreateMap<GetCollectionByOwnerRequest, GetCollectionByOwnerInput>();
             CreateMap<GetCollectionStatisticsRequest, GetCollectionStatisticsInput>();
+            CreateMap<EditCollectionItemRequest, EditCollectionItemInput>();
+            CreateMap<RemoveItemFromCollectionRequest, RemoveItemFromCollectionInput>();
+
+            CreateMap<AddShopToFavouritesRequest, AddShopToFavouritesInput>();
+            CreateMap<CreateShopRequest, CreateShopInput>();
+            CreateMap<ShopAddressRequest, ShopAddressInput>();
+            CreateMap<GetFavouriteShopsRequest, GetFavouriteShopsInput>();
+            CreateMap<RemoveShopFromFavouritesRequest, RemoveShopFromFavouritesInput>();
+
+            CreateMap<AddItemToWishlistRequest, AddItemToWishlistInput>();
+            CreateMap<CreateWishlistRequest, CreateWishlistInput>();
+            CreateMap<DeleteWishlistRequest, DeleteWishlistInput>();
+            CreateMap<EditWishlistItemRequest, EditWishlistItemInput>();
             CreateMap<GetWishlistByIdRequest, GetWishlistByIdInput>();
             CreateMap<GetWishlistsByOwnerRequest, GetWishlistsByOwnerInput>();
-            CreateMap<RemoveShopFromFavouritesRequest, RemoveShopFromFavouritesInput>();
-            CreateMap<RemoveItemFromCollectionRequest, RemoveItemFromCollectionInput>();
             CreateMap<RemoveItemFromWishlistRequest, RemoveItemFromWishlistInput>();
         }
     }

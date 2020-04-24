@@ -1,4 +1,5 @@
 ﻿using FluentValidation.TestHelper;
+using System;
 using Xunit;
 
 namespace TreniniDotNet.Application.Boundaries.Collection.GetCollectionByOwner
@@ -15,7 +16,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetCollectionByOwner
         [Fact]
         public void GetCollectionByOwnerInputValidator_ShouldFailToValidate_WhenOwnerIsNull()
         {
-            var input = new GetCollectionByOwnerInput(null);
+            var input = new GetCollectionByOwnerInput(Guid.Empty, null);
 
             var result = Validator.TestValidate(input);
 
@@ -25,7 +26,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetCollectionByOwner
         [Fact]
         public void GetCollectionByOwnerInputValidator_ShouldFailToValidate_WhenOwnerIsEmpty()
         {
-            var input = new GetCollectionByOwnerInput("     ");
+            var input = new GetCollectionByOwnerInput(Guid.Empty, "     ");
 
             var result = Validator.TestValidate(input);
 
@@ -35,7 +36,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.GetCollectionByOwner
         [Fact]
         public void GetCollectionByOwnerInputValidator_ShouldValidateValidInputs()
         {
-            var input = new GetCollectionByOwnerInput("George");
+            var input = new GetCollectionByOwnerInput(Guid.NewGuid(), "George");
 
             var result = Validator.TestValidate(input);
 

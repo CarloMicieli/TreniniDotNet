@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Collection.GetCollectionStatistics;
 
@@ -16,14 +17,17 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.GetCollectionStatistics
         {
         }
 
-        [HttpGet("statistics")]
+        [HttpGet("{id}/statistics")]
         [ProducesResponseType(typeof(GetCollectionStatisticsOutput), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> Get()
+        public Task<IActionResult> Get(Guid id)
         {
-            var request = new GetCollectionStatisticsRequest();
-            request.Owner = HttpContext.User.Identity.Name;
+            var request = new GetCollectionStatisticsRequest
+            {
+                Id = id,
+                Owner = CurrentUser
+            };
 
             return HandleRequest(request);
         }

@@ -124,8 +124,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Collections
             await Repository.RemoveItemAsync(
                 TestCollection.CollectionId,
                 item.ItemId,
-                removed,
-                "Sold");
+                removed);
 
             Database.Assert.RowInTable(Tables.CollectionItems)
                 .WithPrimaryKey(new
@@ -134,8 +133,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collection.Collections
                 })
                 .WithValues(new
                 {
-                    removed_date = removed.ToDateTimeUnspecified(),
-                    notes = "Sold"
+                    removed_date = removed.ToDateTimeUnspecified()
                 })
                 .ShouldExists();
         }

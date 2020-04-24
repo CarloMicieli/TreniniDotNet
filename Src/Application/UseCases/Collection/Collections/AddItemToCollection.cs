@@ -31,7 +31,7 @@ namespace TreniniDotNet.Application.UseCases.Collection.Collections
 
         protected override async Task Handle(AddItemToCollectionInput input)
         {
-            var owner = new Owner(input.CollectionOwner);
+            var owner = new Owner(input.Owner);
 
             CollectionId? collectionId = await _collectionService.GetIdByOwnerAsync(owner);
             if (collectionId.HasValue == false)

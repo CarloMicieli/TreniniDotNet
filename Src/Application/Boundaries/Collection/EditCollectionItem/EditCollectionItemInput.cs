@@ -6,6 +6,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.EditCollectionItem
     public sealed class EditCollectionItemInput : IUseCaseInput
     {
         public EditCollectionItemInput(
+            string owner,
             Guid id,
             Guid itemId,
             DateTime? addedDate,
@@ -14,6 +15,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.EditCollectionItem
             string? shop,
             string? notes)
         {
+            Owner = owner;
             Id = id;
             ItemId = itemId;
             Shop = shop;
@@ -23,6 +25,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.EditCollectionItem
             Condition = condition;
         }
 
+        public string Owner { get; }
         public Guid Id { get; }
         public Guid ItemId { get; }
         public string? Shop { get; }

@@ -10,7 +10,7 @@ namespace TreniniDotNet.Domain.Collection.Collections
 
         Task<bool> ExistsAsync(Owner owner);
 
-        Task<bool> ExistsAsync(CollectionId id);
+        Task<bool> ExistsAsync(Owner owner, CollectionId id);
 
         Task<CollectionId?> GetIdByOwnerAsync(Owner owner);
 
