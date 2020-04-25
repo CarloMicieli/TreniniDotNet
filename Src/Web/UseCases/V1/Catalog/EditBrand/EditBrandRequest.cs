@@ -8,7 +8,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.EditBrand
     public sealed class EditBrandRequest : IRequest
     {
         [JsonIgnore]
-        public Slug BrandSlug { get; set; }
+        public Slug? BrandSlug { get; set; }
         public string? Name { get; set; }
         public string? CompanyName { get; set; }
         public string? GroupName { get; set; }

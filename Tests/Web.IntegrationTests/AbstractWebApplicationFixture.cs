@@ -32,6 +32,9 @@ namespace IntegrationTests
             return client;
         }
 
+        protected Task<HttpClient> CreateAuthorizedHttpClientAsync() =>
+            CreateHttpClientAsync("George", "Pa$$word88");
+
         protected List<object> JsonArray(object element) => new List<object>() { element };
 
         protected List<object> JsonArray(params object[] elements) => new List<object>(elements);

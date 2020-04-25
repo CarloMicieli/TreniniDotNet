@@ -20,7 +20,8 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         public async Task CreateNewBrands_ReturnsOk()
         {
             var client = CreateHttpClient();
-            var content = new
+
+            var request = new
             {
                 Name = "New Brand",
                 CompanyName = "Associazione Costruzioni Modellistiche Esatte",
@@ -29,9 +30,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
                 BrandType = "Industrial"
             };
 
-            var response = await client.PostJsonAsync("/api/v1/brands", content, Check.IsSuccessful);
-
-            response.EnsureSuccessStatusCode();
+            var response = await client.PostJsonAsync("/api/v1/brands", request, Check.IsSuccessful);
 
             response.Headers.Should().NotBeEmpty();
             response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/Brands/new-brand"));
@@ -40,42 +39,38 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         [Fact]
         public async Task CreateNewBrands_ReturnsError_WhenTheRequestIsInvalid()
         {
-            // Arrange
             var client = CreateHttpClient();
-            var content = JsonContent(new
+
+            var request = new
             {
                 CompanyName = "Associazione Costruzioni Modellistiche Esatte",
                 WebsiteUrl = "http://www.acmetreni.com",
                 EmailAddress = "mail@acmetreni.com",
                 BrandType = "Industrial"
-            });
+            };
 
-            // Act
-            var response = await client.PostAsync("/api/v1/brands", content);
+            var response = await client.PostJsonAsync("/api/v1/brands", request, Check.Nothing);
 
-            // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [Fact]
         public async Task CreateNewBrands_ReturnsBadRequest_WhenTheBrandAlreadyExist()
         {
-            // Arrange
             var client = CreateHttpClient();
-            var content = JsonContent(new
+
+            var request = new
             {
                 Name = "ACME",
                 CompanyName = "Associazione Costruzioni Modellistiche Esatte",
                 WebsiteUrl = "http://www.acmetreni.com",
                 EmailAddress = "mail@acmetreni.com",
                 BrandType = "Industrial"
-            });
+            };
 
-            // Act
-            var response = await client.PostAsync("/api/v1/brands", content);
+            var response = await client.PostJsonAsync("/api/v1/brands", request, Check.Nothing);
 
-            // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
     }
 }

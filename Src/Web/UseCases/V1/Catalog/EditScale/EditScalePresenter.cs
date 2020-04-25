@@ -1,4 +1,5 @@
-﻿using TreniniDotNet.Application.Boundaries.Catalog.EditScale;
+﻿using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Boundaries.Catalog.EditScale;
 using TreniniDotNet.Common;
 using TreniniDotNet.Web.ViewModels;
 
@@ -8,12 +9,12 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.EditScale
     {
         public void ScaleNotFound(Slug slug)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new { Slug = slug });
         }
 
         public override void Standard(EditScaleOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new OkResult();
         }
     }
 }

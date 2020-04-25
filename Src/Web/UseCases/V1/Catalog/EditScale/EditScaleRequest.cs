@@ -8,7 +8,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.EditScale
     public sealed class EditScaleRequest : IRequest
     {
         [JsonIgnore]
-        public Slug Slug { get; set; }
+        public Slug? Slug { get; set; }
 
         public string? Name { get; set; }
 

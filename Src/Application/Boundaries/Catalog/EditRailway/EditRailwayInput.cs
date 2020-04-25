@@ -10,7 +10,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.EditRailway
         public ModifiedRailwayValues Values { get; }
 
         public EditRailwayInput(
-            Slug railwaySlug,
+            Slug slug,
             string? name, string? companyName,
             string? country,
             PeriodOfActivityInput? periodOfActivity,
@@ -18,7 +18,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.EditRailway
             RailwayGaugeInput? gauge,
             string? websiteUrl, string? headquarters)
         {
-            RailwaySlug = railwaySlug;
+            RailwaySlug = slug;
             Values = new ModifiedRailwayValues(
                 name, companyName,
                 country,
