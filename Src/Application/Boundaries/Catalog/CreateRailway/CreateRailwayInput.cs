@@ -1,4 +1,4 @@
-﻿using System;
+﻿using TreniniDotNet.Application.Boundaries.Common;
 using TreniniDotNet.Common.Interfaces;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
@@ -38,77 +38,5 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
             Headquarters = headquarters;
             WebsiteUrl = websiteUrl;
         }
-    }
-
-    public sealed class PeriodOfActivityInput
-    {
-        public PeriodOfActivityInput(
-            string? status,
-            DateTime? operatingSince,
-            DateTime? operatingUntil)
-        {
-            Status = status;
-            OperatingUntil = operatingUntil;
-            OperatingSince = operatingSince;
-        }
-
-        public string? Status { get; }
-        public DateTime? OperatingUntil { get; }
-        public DateTime? OperatingSince { get; }
-
-        public void Deconstruct(out string? status, out DateTime? since, out DateTime? until)
-        {
-            status = Status;
-            since = OperatingSince;
-            until = OperatingUntil;
-        }
-
-        public static PeriodOfActivityInput Default() =>
-            new PeriodOfActivityInput(null, null, null);
-    }
-
-    public sealed class TotalRailwayLengthInput
-    {
-        public TotalRailwayLengthInput(decimal? kilometers, decimal? miles)
-        {
-            Kilometers = kilometers;
-            Miles = miles;
-        }
-
-        public decimal? Kilometers { get; }
-        public decimal? Miles { get; }
-
-        public void Deconstruct(out decimal? km, out decimal? mi)
-        {
-            km = Kilometers;
-            mi = Miles;
-        }
-
-        public static TotalRailwayLengthInput Default() =>
-            new TotalRailwayLengthInput(null, null);
-    }
-
-    public sealed class RailwayGaugeInput
-    {
-        public RailwayGaugeInput(string? trackGauge, decimal? millimeters, decimal? inches)
-        {
-            TrackGauge = trackGauge;
-            Millimeters = millimeters;
-            Inches = inches;
-        }
-
-        public string? TrackGauge { get; }
-        public decimal? Millimeters { get; }
-        public decimal? Inches { get; }
-
-        public void Deconstruct(out string? trackGauge, out decimal? mm, out decimal? inches)
-        {
-            trackGauge = TrackGauge;
-            mm = Millimeters;
-            inches = Inches;
-        }
-
-        public static RailwayGaugeInput Default() =>
-            new RailwayGaugeInput(null, null, null);
     }
 }

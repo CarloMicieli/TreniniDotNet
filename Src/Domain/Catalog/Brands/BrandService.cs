@@ -56,5 +56,27 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         {
             return _brandRepository.ExistsAsync(slug);
         }
+
+        public Task UpdateBrand(IBrand brand,
+            string? name,
+            BrandKind? brandKind,
+            string? companyName,
+            string? groupName,
+            string? description,
+            Uri? websiteUrl,
+            MailAddress? mailAddress,
+            Address? address)
+        {
+            var updated = _brandsFactory.UpdateBrand(brand,
+                name,
+                brandKind,
+                companyName,
+                groupName,
+                description,
+                websiteUrl,
+                mailAddress,
+                address);
+            return _brandRepository.UpdateAsync(updated);
+        }
     }
 }

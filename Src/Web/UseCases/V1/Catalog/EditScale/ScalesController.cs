@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.EditScale;
+using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.EditScale
 {
@@ -23,6 +24,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.EditScale
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> EditScale(string slug, EditScaleRequest request)
         {
+            request.Slug = Slug.Of(slug);
             return HandleRequest(request);
         }
     }

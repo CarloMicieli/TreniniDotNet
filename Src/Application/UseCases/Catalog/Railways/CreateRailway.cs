@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateRailway;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Domain.Catalog.Railways;
 
 namespace TreniniDotNet.Application.UseCases.Catalog.Railways
@@ -34,18 +35,12 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Railways
                 return;
             }
 
-            var (status, since, until) = input.PeriodOfActivity;
-            var periodOfActivity = PeriodOfActivity.Of(status, since, until);
+            var railwayLength = input.TotalLength.ToRailwayLength();
+            var periodOfActivity = input.PeriodOfActivity.ToPeriodOfActivity();
+            var railwayGauge = input.Gauge.ToRailwayGauge();
 
+            var websiteUrl = input.WebsiteUrl.ToUriOpt();
             var country = Country.Of(input.Country!);
-
-            var (km, mi) = input.TotalLength;
-            var railwayLength = RailwayLength.TryCreate(km, mi, out var rl) ? rl : null;
-
-            var website = Uri.TryCreate(input.WebsiteUrl, UriKind.Absolute, out var uri) ? uri : null;
-
-            var (trackGauge, mm, inches) = input.Gauge;
-            var railwayGauge = RailwayGauge.TryCreate(trackGauge, inches, mm, out var rg) ? rg : null;
 
             var _ = await _railwayService.CreateRailway(
                 railwayName,
@@ -55,7 +50,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Railways
                 periodOfActivity,
                 railwayLength,
                 railwayGauge,
-                website,
+                websiteUrl,
                 input.Headquarters);
 
             await _unitOfWork.SaveAsync();

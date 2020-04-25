@@ -17,7 +17,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveNoError_WhenInputObjectIsValid()
         {
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: "DB",
                 CompanyName: "Die Bahn",
                 Country: "DE",
@@ -34,7 +34,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenNameIsNull()
         {
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: null,
                 CompanyName: "Die Bahn",
                 Country: "DE",
@@ -51,7 +51,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenNameIsEmpty()
         {
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: "   ",
                 CompanyName: "Die Bahn",
                 Country: "DE",
@@ -68,7 +68,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenCountryIsNotValid()
         {
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: "DB",
                 CompanyName: "Die Bahn",
                 Country: "YY",
@@ -85,7 +85,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenOperatingUntilIsBeforeOperatingSince()
         {
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: "DB",
                 CompanyName: "Die Bahn",
                 Country: "YY",
@@ -102,7 +102,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenStatusIsInvalid()
         {
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: "DB",
                 CompanyName: "Die Bahn",
                 Country: "YY",
@@ -119,7 +119,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenActiveRailwayHaveTerminateDate()
         {
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: "DB",
                 CompanyName: "Die Bahn",
                 Country: "YY",
@@ -136,7 +136,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenRailwayTotalLengthIsNegative()
         {
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: "DB",
                 Country: "DE",
                 TotalLength: NewTotalRailwayLengthInput.With(
@@ -155,7 +155,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateRailway
         [Fact]
         public void CreateRailwayInputValidator_ShouldHaveError_WhenRailwayGaugeIsNegative()
         {
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: "DB",
                 Country: "DE",
                 Gauge: NewRailwayGaugeInput.With(

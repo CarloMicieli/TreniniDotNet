@@ -1,5 +1,4 @@
-﻿using FluentValidation.Resources;
-using FluentValidation.Validators;
+﻿using FluentValidation.Validators;
 using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Domain.Validation
@@ -7,7 +6,7 @@ namespace TreniniDotNet.Domain.Validation
     internal class SlugValidator : PropertyValidator
     {
         public SlugValidator()
-            : base(new LanguageStringSource(nameof(SlugValidator)))
+            : base("{PropertyName}: '{PropertyValue}' is not a valid slug")
         {
         }
 

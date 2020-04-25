@@ -1,5 +1,4 @@
-﻿using FluentValidation.Resources;
-using FluentValidation.Validators;
+﻿using FluentValidation.Validators;
 using System.Globalization;
 
 namespace TreniniDotNet.Domain.Validation
@@ -7,7 +6,7 @@ namespace TreniniDotNet.Domain.Validation
     internal class CountryCodeValidator : PropertyValidator
     {
         public CountryCodeValidator()
-            : base(new LanguageStringSource(nameof(CountryCodeValidator)))
+            : base("{PropertyName}: '{PropertyValue}' is not a valid country code")
         {
         }
 

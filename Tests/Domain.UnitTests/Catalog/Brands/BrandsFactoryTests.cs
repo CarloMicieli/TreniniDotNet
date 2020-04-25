@@ -9,6 +9,7 @@ using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Common.Uuid.Testing;
 using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
@@ -24,6 +25,17 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         {
             guidSource = FakeGuidSource.NewSource(ExpectedBrandId.ToGuid());
             factory = new BrandsFactory(new FakeClock(ExpectedDate), guidSource);
+        }
+
+        [Fact]
+        public void BrandsFactory_UpdateBrand_ShouldBumpVersionAndSetModifiedDate()
+        {
+            var acme = CatalogSeedData.Brands.Acme();
+
+            var updated = factory.UpdateBrand(acme, null, null, null, null, null, null, null, null);
+
+            updated.Version.Should().Be(2);
+            updated.ModifiedDate.Should().Be(ExpectedDate);
         }
 
         [Fact]

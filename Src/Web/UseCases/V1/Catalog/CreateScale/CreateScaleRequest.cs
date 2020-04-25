@@ -12,11 +12,4 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
         public int? Weight { get; }
         public List<string> Standards { get; set; } = new List<string>();
     }
-
-    public sealed class ScaleGaugeRequest
-    {
-        public string? TrackGauge { set; get; }
-        public decimal? Inches { set; get; }
-        public decimal? Millimeters { set; get; }
-    }
 }

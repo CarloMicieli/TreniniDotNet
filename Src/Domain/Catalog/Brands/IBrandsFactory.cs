@@ -41,5 +41,15 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             Uri? website = null,
             MailAddress? mailAddress = null,
             Address? address = null);
+
+        IBrand UpdateBrand(IBrand brand,
+            string? name,
+            BrandKind? brandKind,
+            string? companyName,
+            string? groupName,
+            string? description,
+            Uri? websiteUrl,
+            MailAddress? mailAddress,
+            Address? address);
     }
 }

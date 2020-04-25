@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Railways
 
         protected override async Task Handle(GetRailwayBySlugInput input)
         {
-            var railway = await _railwayService.GetBy(input.Slug);
+            var railway = await _railwayService.GetBySlugAsync(input.Slug);
             if (railway is null)
             {
                 OutputPort.RailwayNotFound($"The '{input.Slug}' railway was not found");

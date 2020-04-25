@@ -53,9 +53,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(scale.ScaleId);
         }
 
-        public Task UpdateAsync(IScale scale)
-        {
-            throw new NotImplementedException();
-        }
+        public Task UpdateAsync(IScale scale) =>
+            Task.CompletedTask;
     }
 }

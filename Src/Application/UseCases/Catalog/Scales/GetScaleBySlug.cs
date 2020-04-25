@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Scales
 
         protected override async Task Handle(GetScaleBySlugInput input)
         {
-            var scale = await _scaleService.GetBy(input.Slug);
+            var scale = await _scaleService.GetBySlugAsync(input.Slug);
             if (scale is null)
             {
                 OutputPort.ScaleNotFound($"The '{input.Slug}' scale was not found");

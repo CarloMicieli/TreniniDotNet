@@ -51,9 +51,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(new PaginatedResult<IRailway>(page, results));
         }
 
-        public Task UpdateAsync(IRailway railway)
-        {
-            throw new System.NotImplementedException();
-        }
+        public Task UpdateAsync(IRailway railway) =>
+            Task.CompletedTask;
     }
 }

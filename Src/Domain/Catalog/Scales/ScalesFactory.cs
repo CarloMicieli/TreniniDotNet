@@ -66,5 +66,29 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 null,
                 version ?? 1);
         }
+
+        public IScale UpdateScale(IScale scale,
+            string? name,
+            Ratio? ratio,
+            ScaleGauge? gauge,
+            string? description,
+            IImmutableSet<ScaleStandard>? standards,
+            int? weight)
+        {
+            Slug slug = (name is null) ? scale.Slug : Slug.Of(name);
+
+            return new Scale(
+                scale.ScaleId,
+                name ?? scale.Name,
+                slug,
+                ratio ?? scale.Ratio,
+                gauge ?? scale.Gauge,
+                description ?? scale.Description,
+                standards ?? scale.Standards,
+                weight ?? scale.Weight,
+                scale.CreatedDate,
+                _clock.GetCurrentInstant(),
+                scale.Version + 1);
+        }
     }
 }

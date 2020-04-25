@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TreniniDotNet.Application.Boundaries.Common;
 using TreniniDotNet.Common.Interfaces;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
@@ -32,29 +33,5 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         public List<string> Standards { get; } = new List<string>();
 
         public int? Weight { get; }
-    }
-
-    public sealed class ScaleGaugeInput
-    {
-        public ScaleGaugeInput(string? trackGauge, decimal? inches, decimal? millimeters)
-        {
-            TrackGauge = trackGauge;
-            Inches = inches;
-            Millimeters = millimeters;
-        }
-
-        public string? TrackGauge { get; }
-        public decimal? Inches { get; }
-        public decimal? Millimeters { get; }
-
-        public void Deconstruct(out string? trackGauge, out decimal? inches, out decimal? millimeters)
-        {
-            trackGauge = TrackGauge;
-            inches = Inches;
-            millimeters = Millimeters;
-        }
-
-        public static ScaleGaugeInput Default() =>
-            new ScaleGaugeInput(null, null, null);
     }
 }

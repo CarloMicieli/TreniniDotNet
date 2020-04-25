@@ -1,4 +1,5 @@
 ﻿using FluentValidation.TestHelper;
+using TreniniDotNet.Common;
 using Xunit;
 using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
 
@@ -14,13 +15,23 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.EditBrand
         }
 
         [Fact]
-        public void EditBrandInput_ShouldPassValidation_WhenEmpty()
+        public void EditBrandInput_ShouldFailValidation_WhenEmpty()
         {
             var input = NewEditBrandInput.Empty;
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldNotHaveAnyValidationErrors();
+            result.ShouldHaveValidationErrorFor(x => x.BrandSlug);
+        }
+
+        [Fact]
+        public void EditBrandInput_ShouldValidateOriginalBrandSlug()
+        {
+            var input = NewEditBrandInput.With(BrandSlug: Slug.Empty);
+
+            var result = Validator.TestValidate(input);
+
+            result.ShouldHaveValidationErrorFor(x => x.BrandSlug);
         }
 
         [Fact]
@@ -30,7 +41,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.EditBrand
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.BrandType);
+            result.ShouldHaveValidationErrorFor(x => x.Values.BrandType);
         }
 
         [Fact]
@@ -40,7 +51,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.EditBrand
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.EmailAddress);
+            result.ShouldHaveValidationErrorFor(x => x.Values.EmailAddress);
         }
 
         [Fact]
@@ -50,7 +61,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.EditBrand
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.WebsiteUrl);
+            result.ShouldHaveValidationErrorFor(x => x.Values.WebsiteUrl);
         }
     }
 }

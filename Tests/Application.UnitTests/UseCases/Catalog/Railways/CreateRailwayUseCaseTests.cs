@@ -16,9 +16,9 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Railways
         [Fact]
         public async Task CreateRailway_ShouldValidateInput()
         {
-            var (useCase, outputPort, _) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
+            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
 
-            await useCase.Execute(NewRailwayInput.NewEmpty());
+            await useCase.Execute(NewCreateRailwayInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -26,7 +26,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Railways
         [Fact]
         public async Task CreateRailway_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort, _) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
+            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
 
             await useCase.Execute(null);
 
@@ -36,10 +36,10 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Railways
         [Fact]
         public async Task CreateRailway_ShouldNotCreateANewRailway_WhenRailwayAlreadyExists()
         {
-            var (useCase, outputPort, _) = ArrangeRailwaysUseCase(Start.WithSeedData, NewCreateRailway);
+            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.WithSeedData, NewCreateRailway);
 
             var name = "DB";
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: name,
                 CompanyName: "Die Bahn",
                 Country: "DE",
@@ -58,7 +58,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Railways
         {
             var (useCase, outputPort, unitOfWork) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
 
-            var input = NewRailwayInput.With(
+            var input = NewCreateRailwayInput.With(
                 Name: "DB",
                 CompanyName: "Die Bahn",
                 Country: "DE",

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.EditBrand;
+using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.EditBrand
 {
@@ -23,6 +24,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.EditBrand
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> EditBrand(string slug, EditBrandRequest request)
         {
+            request.BrandSlug = Slug.Of(slug);
             return HandleRequest(request);
         }
     }

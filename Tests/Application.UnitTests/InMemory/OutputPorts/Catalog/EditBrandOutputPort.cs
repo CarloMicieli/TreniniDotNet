@@ -19,6 +19,11 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
             BrandNotFoundMethod = BrandNotFoundMethod.Invoked(brandSlug);
         }
 
+        public void AssertBrandWasNotFound(Slug expectedBrandSlug)
+        {
+            BrandNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedBrandSlug);
+        }
+
         public override IEnumerable<IMethodInvocation> Methods
         {
             get

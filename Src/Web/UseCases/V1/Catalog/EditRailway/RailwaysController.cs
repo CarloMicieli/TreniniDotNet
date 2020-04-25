@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Boundaries.Catalog.EditRailway;
+using TreniniDotNet.Common;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.EditRailway
 {
@@ -23,6 +24,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.EditRailway
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> EditRailway(string slug, EditRailwayRequest request)
         {
+            request.Slug = Slug.Of(slug);
             return HandleRequest(request);
         }
     }

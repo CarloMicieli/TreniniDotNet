@@ -24,5 +24,13 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             DateTime created,
             DateTime? lastModified,
             int? version);
+
+        IScale UpdateScale(IScale scale,
+            string? name,
+            Ratio? ratio,
+            ScaleGauge? gauge,
+            string? description,
+            IImmutableSet<ScaleStandard>? standards,
+            int? weight);
     }
 }

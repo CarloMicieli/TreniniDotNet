@@ -40,15 +40,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Brands
                 return;
             }
 
-            var optAddress = Address.TryCreate(
-                input.Address?.Line1,
-                input.Address?.Line2,
-                input.Address?.City,
-                input.Address?.Region,
-                input.Address?.PostalCode,
-                input.Address?.Country,
-                out var address) ? address : null;
-
+            var optAddress = input.Address?.ToDomainAddress();
             var optUri = input.WebsiteUrl.ToUriOpt();
             var optEmailAddress = input.EmailAddress.ToMailAddressOpt();
 

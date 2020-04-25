@@ -17,7 +17,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveNoError_WhenInputObjectIsValid()
         {
-            var input = NewScaleInput.With(
+            var input = NewCreateScaleInput.With(
                 Name: "H0",
                 Ratio: 87M,
                 Gauge: NewScaleGaugeInput.With(
@@ -33,7 +33,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenNameIsNull()
         {
-            var input = NewScaleInput.Empty;
+            var input = NewCreateScaleInput.Empty;
 
             var result = validator.TestValidate(input);
 
@@ -43,7 +43,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenNameIsEmpty()
         {
-            var input = NewScaleInput.With(Name: "   ");
+            var input = NewCreateScaleInput.With(Name: "   ");
 
             var result = validator.TestValidate(input);
 
@@ -53,7 +53,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenNameIsTooLong()
         {
-            var input = NewScaleInput.With(Name: "01234567890");
+            var input = NewCreateScaleInput.With(Name: "01234567890");
 
             var result = validator.TestValidate(input);
 
@@ -63,7 +63,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenRatioIsNegative()
         {
-            var input = NewScaleInput.With(Ratio: -1M);
+            var input = NewCreateScaleInput.With(Ratio: -1M);
 
             var result = validator.TestValidate(input);
 
@@ -73,7 +73,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenRatioIsZero()
         {
-            var input = NewScaleInput.With(Ratio: 0M);
+            var input = NewCreateScaleInput.With(Ratio: 0M);
 
             var result = validator.TestValidate(input);
 
@@ -83,7 +83,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenGaugeIsNegative()
         {
-            var input = NewScaleInput.With(Gauge: NewScaleGaugeInput.With(Millimeters: -10M));
+            var input = NewCreateScaleInput.With(Gauge: NewScaleGaugeInput.With(Millimeters: -10M));
 
             var result = validator.TestValidate(input);
 
@@ -93,7 +93,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenGaugeIsZero()
         {
-            var input = NewScaleInput.With(Gauge: NewScaleGaugeInput.With(Millimeters: 0M));
+            var input = NewCreateScaleInput.With(Gauge: NewScaleGaugeInput.With(Millimeters: 0M));
 
             var result = validator.TestValidate(input);
 
@@ -103,7 +103,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateScale
         [Fact]
         public void CreateScaleInputValidator_ShouldHaveError_WhenTrackGaugeIsInvalid()
         {
-            var input = NewScaleInput.With(Gauge: NewScaleGaugeInput.With(TrackGauge: "invalid"));
+            var input = NewCreateScaleInput.With(Gauge: NewScaleGaugeInput.With(TrackGauge: "invalid"));
 
             var result = validator.TestValidate(input);
 

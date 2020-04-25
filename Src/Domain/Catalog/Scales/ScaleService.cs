@@ -1,10 +1,9 @@
+using System;
 using System.Threading.Tasks;
+using System.Collections.Immutable;
+using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
-using System;
-using System.Collections.Generic;
-using TreniniDotNet.Domain.Pagination;
-using System.Collections.Immutable;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -38,9 +37,28 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             return _scaleRepository.GetScalesAsync(page ?? Page.Default);
         }
 
-        public Task<IScale?> GetBy(Slug slug)
+        public Task<IScale?> GetBySlugAsync(Slug slug)
         {
             return _scaleRepository.GetBySlugAsync(slug);
+        }
+
+        public Task UpdateScale(IScale scale,
+            string? name,
+            Ratio? ratio,
+            ScaleGauge? gauge,
+            string? description,
+            ImmutableHashSet<ScaleStandard> standards,
+            int? weight)
+        {
+            var updated = _scalesFactory.UpdateScale(
+                scale,
+                name,
+                ratio,
+                gauge,
+                description,
+                standards,
+                weight);
+            return _scaleRepository.UpdateAsync(updated);
         }
 
         public Task<bool> ScaleAlreadyExists(Slug slug)

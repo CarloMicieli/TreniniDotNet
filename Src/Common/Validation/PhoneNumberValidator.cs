@@ -1,5 +1,4 @@
-﻿using FluentValidation.Resources;
-using FluentValidation.Validators;
+﻿using FluentValidation.Validators;
 using TreniniDotNet.Common.PhoneNumbers;
 
 namespace TreniniDotNet.Common.Validation
@@ -7,7 +6,7 @@ namespace TreniniDotNet.Common.Validation
     public class PhoneNumberValidator : PropertyValidator
     {
         public PhoneNumberValidator()
-            : base(new LanguageStringSource(nameof(PhoneNumberValidator)))
+            : base("{PropertyName}: '{PropertyValue}' is not a valid phone number")
         {
         }
 

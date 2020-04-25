@@ -8,6 +8,18 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.EditBrand
     {
         public EditBrandInputValidator()
         {
+            RuleFor(x => x.BrandSlug)
+                .ValidSlug();
+
+            RuleFor(x => x.Values)
+                .SetValidator(new ModifiedBrandValuesValidator());
+        }
+    }
+
+    internal sealed class ModifiedBrandValuesValidator : AbstractValidator<ModifiedBrandValues>
+    {
+        public ModifiedBrandValuesValidator()
+        {
             RuleFor(x => x.Name)
                 .MaximumLength(50);
 

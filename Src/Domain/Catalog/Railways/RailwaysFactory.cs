@@ -95,5 +95,33 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 null,
                 1);
         }
+
+        public IRailway UpdateRailway(
+            IRailway railway,
+            string? name,
+            string? companyName,
+            Country? country,
+            PeriodOfActivity? periodOfActivity,
+            RailwayLength? totalLength,
+            RailwayGauge? gauge,
+            Uri? websiteUrl,
+            string? headquarters)
+        {
+            Slug slug = (name is null) ? railway.Slug : Slug.Of(name);
+            return new Railway(
+                railway.RailwayId,
+                slug,
+                name ?? railway.Name,
+                companyName ?? railway.CompanyName,
+                country ?? railway.Country,
+                periodOfActivity ?? railway.PeriodOfActivity,
+                totalLength ?? railway.TotalLength,
+                gauge ?? railway.TrackGauge,
+                websiteUrl ?? railway.WebsiteUrl,
+                headquarters ?? railway.Headquarters,
+                railway.CreatedDate,
+                _clock.GetCurrentInstant(),
+                railway.Version + 1);
+        }
     }
 }

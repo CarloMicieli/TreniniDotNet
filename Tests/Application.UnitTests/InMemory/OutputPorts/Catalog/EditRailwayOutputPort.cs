@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TreniniDotNet.Application.Boundaries.Catalog.EditRailway;
 using TreniniDotNet.Common;
@@ -19,6 +18,9 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
         {
             RailwayNotFoundMethod = RailwayNotFoundMethod.Invoked(slug);
         }
+
+        public void AssertRailwayNotFound(Slug expectedSlug) =>
+            RailwayNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedSlug);
 
         public override IEnumerable<IMethodInvocation> Methods
         {

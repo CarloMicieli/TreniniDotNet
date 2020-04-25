@@ -1,5 +1,4 @@
-﻿using FluentValidation.Resources;
-using FluentValidation.Validators;
+﻿using FluentValidation.Validators;
 using System;
 
 namespace TreniniDotNet.Domain.Validation
@@ -7,7 +6,7 @@ namespace TreniniDotNet.Domain.Validation
     internal class UriValidator : PropertyValidator
     {
         public UriValidator()
-            : base(new LanguageStringSource(nameof(UriValidator)))
+            : base("{PropertyName}: '{PropertyValue}' is not a valid URI")
         {
         }
 

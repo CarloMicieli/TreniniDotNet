@@ -107,5 +107,33 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 null,
                 1);
         }
+
+        public IBrand UpdateBrand(IBrand brand,
+            string? name,
+            BrandKind? brandKind,
+            string? companyName,
+            string? groupName,
+            string? description,
+            Uri? website,
+            MailAddress? mailAddress,
+            Address? address)
+        {
+            var slug = (name is null) ? brand.Slug : Slug.Of(name);
+
+            return new Brand(
+                brand.BrandId,
+                name ?? brand.Name,
+                slug,
+                companyName ?? brand.CompanyName,
+                groupName ?? brand.GroupName,
+                description ?? brand.Description,
+                website ?? brand.WebsiteUrl,
+                mailAddress ?? brand.EmailAddress,
+                brandKind ?? brand.Kind,
+                address ?? brand.Address,
+                brand.CreatedDate,
+                _clock.GetCurrentInstant(),
+                brand.Version + 1);
+        }
     }
 }

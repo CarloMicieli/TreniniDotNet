@@ -18,7 +18,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Scales
         {
             var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewCreateScale);
 
-            await useCase.Execute(NewScaleInput.Empty);
+            await useCase.Execute(NewCreateScaleInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -28,7 +28,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Scales
         {
             var (useCase, outputPort, unitOfWork) = ArrangeScalesUseCase(Start.Empty, NewCreateScale);
 
-            var input = NewScaleInput.With(
+            var input = NewCreateScaleInput.With(
                 Name: "H0",
                 Ratio: 87M,
                 Gauge: NewScaleGaugeInput.With(
@@ -55,7 +55,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Scales
             var (useCase, outputPort) = ArrangeScalesUseCase(Start.WithSeedData, NewCreateScale);
 
             var name = "H0";
-            var input = NewScaleInput.With(
+            var input = NewCreateScaleInput.With(
                 Name: name,
                 Ratio: 87M,
                 Gauge: NewScaleGaugeInput.With(

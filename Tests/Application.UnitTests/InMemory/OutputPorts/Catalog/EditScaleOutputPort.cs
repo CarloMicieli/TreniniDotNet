@@ -17,8 +17,11 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 
         public void ScaleNotFound(Slug slug)
         {
-            ; ScaleNotFoundMethod = ScaleNotFoundMethod.Invoked(slug);
+            ScaleNotFoundMethod = ScaleNotFoundMethod.Invoked(slug);
         }
+
+        public void AssertScaleWasNotFound(Slug expectedSlug) =>
+            ScaleNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedSlug);
 
         public override IEnumerable<IMethodInvocation> Methods
         {

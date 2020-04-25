@@ -6,6 +6,9 @@ using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateRailway;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 using TreniniDotNet.Application.Boundaries.Common;
+using TreniniDotNet.Common;
+using TreniniDotNet.Application.Boundaries.Catalog.EditRailway;
+using TreniniDotNet.Application.Boundaries.Catalog.EditScale;
 
 namespace TreniniDotNet.Application.TestInputs.Catalog
 {
@@ -39,8 +42,8 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
             public static EditBrandInput Empty => With();
 
             public static EditBrandInput With(
+                Slug? BrandSlug = null,
                 string Name = null,
-                string Slug = null,
                 string CompanyName = null,
                 string GroupName = null,
                 string Description = null,
@@ -48,8 +51,8 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
                 string EmailAddress = null,
                 string BrandType = null,
                 AddressInput Address = null) => new EditBrandInput(
+                    BrandSlug ?? Slug.Empty,
                     Name,
-                    Slug,
                     CompanyName,
                     GroupName,
                     Description,
@@ -59,9 +62,9 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
                     Address);
         }
 
-        public static class NewRailwayInput
+        public static class NewCreateRailwayInput
         {
-            public static CreateRailwayInput NewEmpty() => With();
+            public static CreateRailwayInput Empty = With();
 
             public static CreateRailwayInput With(
                 string Name = null,
@@ -73,6 +76,25 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
                 string Website = null,
                 string Headquarters = null) => new CreateRailwayInput(
                     Name, CompanyName, Country, PeriodOfActivity, TotalLength, Gauge, Website, Headquarters);
+        }
+
+        public static class NewEditRailwayInput
+        {
+            public static EditRailwayInput Empty = With();
+
+            public static EditRailwayInput With(
+                Slug? RailwaySlug = null,
+                string Name = null,
+                string CompanyName = null,
+                string Country = null,
+                PeriodOfActivityInput PeriodOfActivity = null,
+                TotalRailwayLengthInput TotalLength = null,
+                RailwayGaugeInput Gauge = null,
+                string Website = null,
+                string Headquarters = null) => new EditRailwayInput(
+                    RailwaySlug ?? Slug.Empty,
+                    Name, CompanyName, Country,
+                    PeriodOfActivity, TotalLength, Gauge, Website, Headquarters);
         }
 
         public static class NewPeriodOfActivityInput
@@ -101,7 +123,7 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
                 new RailwayGaugeInput(TrackGauge, Millimeters, Inches);
         }
 
-        public static class NewScaleInput
+        public static class NewCreateScaleInput
         {
             public static CreateScaleInput Empty => With();
 
@@ -113,6 +135,21 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
                 List<string> Standards = null,
                 int? Weight = null) =>
                 new CreateScaleInput(Name, Ratio, Gauge, Description, Standards, Weight);
+        }
+
+        public static class NewEditScaleInput
+        {
+            public static EditScaleInput Empty => With();
+
+            public static EditScaleInput With(
+                Slug? ScaleSlug = null,
+                string Name = null,
+                decimal? Ratio = null,
+                ScaleGaugeInput Gauge = null,
+                string Description = null,
+                List<string> Standards = null,
+                int? Weight = null) =>
+                new EditScaleInput(ScaleSlug ?? Slug.Empty, Name, Ratio, Gauge, Description, Standards, Weight);
         }
 
         public static class NewScaleGaugeInput

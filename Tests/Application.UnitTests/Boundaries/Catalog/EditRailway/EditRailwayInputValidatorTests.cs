@@ -1,12 +1,39 @@
-﻿namespace TreniniDotNet.Application.Boundaries.Catalog.EditRailway
+﻿using FluentValidation.TestHelper;
+using TreniniDotNet.Common;
+using Xunit;
+using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+
+namespace TreniniDotNet.Application.Boundaries.Catalog.EditRailway
 {
     public class EditRailwayInputValidatorTests
     {
-        private readonly EditRailwayInputValidator validator;
+        private readonly EditRailwayInputValidator Validator;
 
         public EditRailwayInputValidatorTests()
         {
-            validator = new EditRailwayInputValidator();
+            Validator = new EditRailwayInputValidator();
+        }
+
+        [Fact]
+        public void EditRailwayInput_ShouldFailValidation_WhenEmpty()
+        {
+            var input = NewEditRailwayInput.Empty;
+
+            var result = Validator.TestValidate(input);
+
+            result.ShouldHaveValidationErrorFor(x => x.RailwaySlug);
+        }
+
+        [Fact]
+        public void EditRailwayInput_ShouldFailValidation_WhenCountryCodeIsNotValid()
+        {
+            var input = NewEditRailwayInput.With(
+                RailwaySlug: Slug.Of("RhB"),
+                Country: "ZZ");
+
+            var result = Validator.TestValidate(input);
+
+            result.ShouldHaveValidationErrorFor(x => x.Values.Country);
         }
     }
 }

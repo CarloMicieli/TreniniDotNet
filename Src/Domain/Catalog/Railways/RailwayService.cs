@@ -24,7 +24,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             return _railwayRepository.ExistsAsync(slug);
         }
 
-        public Task<IRailway?> GetBy(Slug slug)
+        public Task<IRailway?> GetBySlugAsync(Slug slug)
         {
             return _railwayRepository.GetBySlugAsync(slug);
         }
@@ -56,6 +56,30 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 websiteUrl,
                 headquarters);
             return _railwayRepository.AddAsync(newRailway);
+        }
+
+        public Task UpdateRailway(
+            IRailway railway,
+            string? name,
+            string? companyName,
+            Country? country,
+            PeriodOfActivity? periodOfActivity,
+            RailwayLength? railwayLength,
+            RailwayGauge? railwayGauge,
+            Uri? websiteUrl,
+            string? headquarters)
+        {
+            var updated = _railwaysFactory.UpdateRailway(railway,
+                name,
+                companyName,
+                country,
+                periodOfActivity,
+                railwayLength,
+                railwayGauge,
+                websiteUrl,
+                headquarters);
+
+            return _railwayRepository.UpdateAsync(updated);
         }
     }
 }

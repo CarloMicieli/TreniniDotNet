@@ -35,8 +35,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Scales
                 return;
             }
 
-            var (trackType, inches, mm) = input.Gauge;
-            var scaleGauge = ScaleGauge.Of(mm, inches, trackType ?? TrackGauge.Standard.ToString());
+            var scaleGauge = input.Gauge.ToScaleGauge();
 
             var _ = await _scaleService.CreateScale(
                 scaleName,
