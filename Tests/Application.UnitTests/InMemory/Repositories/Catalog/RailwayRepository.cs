@@ -34,6 +34,12 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(railway);
         }
 
+        public Task<IRailwayInfo> GetInfoBySlugAsync(Slug slug)
+        {
+            IRailwayInfo railway = _context.Railways.FirstOrDefault(e => e.Slug == slug);
+            return Task.FromResult(railway);
+        }
+
         public Task<PaginatedResult<IRailway>> GetRailwaysAsync(Page page)
         {
             var results = _context.Railways
@@ -43,6 +49,11 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
                 .ToList();
 
             return Task.FromResult(new PaginatedResult<IRailway>(page, results));
+        }
+
+        public Task UpdateAsync(IRailway railway)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

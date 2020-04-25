@@ -186,6 +186,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 dto.control
             );
 
+        public Task UpdateAsync(ICatalogItem catalogItem)
+        {
+            throw new NotImplementedException();
+        }
+
         #region [ Query / Command text ]
 
         private const string GetCatalogItemByBrandAndItemNumberQuery = @"SELECT 

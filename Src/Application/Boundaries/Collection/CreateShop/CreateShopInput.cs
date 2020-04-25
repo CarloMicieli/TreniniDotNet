@@ -1,10 +1,11 @@
-﻿using TreniniDotNet.Common.Interfaces;
+﻿using TreniniDotNet.Application.Boundaries.Common;
+using TreniniDotNet.Common.Interfaces;
 
 namespace TreniniDotNet.Application.Boundaries.Collection.CreateShop
 {
     public sealed class CreateShopInput : IUseCaseInput
     {
-        public CreateShopInput(string name, string? websiteUrl, string? emailAddress, ShopAddressInput? address, string? phoneNumber)
+        public CreateShopInput(string name, string? websiteUrl, string? emailAddress, AddressInput? address, string? phoneNumber)
         {
             Name = name;
             WebsiteUrl = websiteUrl;
@@ -17,7 +18,7 @@ namespace TreniniDotNet.Application.Boundaries.Collection.CreateShop
 
         public string? WebsiteUrl { get; }
 
-        public ShopAddressInput? Address { get; }
+        public AddressInput? Address { get; }
 
         public string? EmailAddress { get; }
 

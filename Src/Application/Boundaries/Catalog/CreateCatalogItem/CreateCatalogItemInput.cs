@@ -17,7 +17,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
             bool available,
             IList<RollingStockInput> rollingStocks)
         {
-            BrandName = brandName;
+            Brand = brandName;
             ItemNumber = itemNumber;
             Description = description;
             PrototypeDescription = prototypeDescription;
@@ -29,7 +29,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
             Available = available;
         }
 
-        public string BrandName { get; }
+        public string Brand { get; }
 
         public string ItemNumber { get; }
 

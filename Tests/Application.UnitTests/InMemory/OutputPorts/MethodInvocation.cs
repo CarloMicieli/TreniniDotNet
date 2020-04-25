@@ -1,23 +1,44 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts
 {
-    public readonly struct MethodInvocation<T>
+    public interface IMethodInvocation
+    {
+        string Name { get; }
+
+        bool IsInvoked { get; }
+
+        string PrintContext();
+    }
+
+    public readonly struct MethodInvocation<T> : IMethodInvocation
     {
         private readonly string _methodName;
         private readonly bool _invoked;
         private readonly T _value;
 
+        private readonly Func<string> _outputPortToString;
+
         public MethodInvocation(string methodName, bool invoked, T value)
+            : this(methodName, invoked, value, () => string.Empty)
+        {
+        }
+
+        public MethodInvocation(string methodName, bool invoked, T value, Func<string> outputPortToString)
         {
             _methodName = methodName;
             _invoked = invoked;
             _value = value;
+            _outputPortToString = outputPortToString;
         }
 
-        public static MethodInvocation<T> NotInvoked(string methodName)
+        public static MethodInvocation<T> NotInvoked(string methodName) =>
+            NotInvoked(methodName, () => string.Empty);
+
+        public static MethodInvocation<T> NotInvoked(string methodName, Func<string> outputPortToString)
         {
-            return new MethodInvocation<T>(methodName, false, default);
+            return new MethodInvocation<T>(methodName, false, default, outputPortToString);
         }
 
         public MethodInvocation<T> Invoked(T value)
@@ -27,37 +48,57 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
 
         public T Argument => _value;
 
+        public string Name => _methodName;
+
+        public bool IsInvoked => _invoked;
+
         public void ShouldBeInvokedWithTheArgument(T expected)
         {
-            Assert.True(_invoked, $"Expected {_methodName} to be invoked, it was never called");
+            AssertMethod.IsInvoked(this);
             Assert.Equal(expected, _value);
         }
 
-        public void ArgumentIsNotNull()
+        public void AssertArgumentIsNotNull()
         {
-            Assert.True(_invoked, $"Expected {_methodName} to be invoked, it was never called");
+            AssertMethod.IsInvoked(this);
             Assert.NotNull(_value);
         }
+
+        public override string ToString() =>
+            $"{_methodName}(): invoked? " + (_invoked ? $"yes, with argument: '{_value}'" : "no");
+
+        public string PrintContext() => _outputPortToString();
     }
 
-    public readonly struct MethodInvocation<T1, T2>
+    public readonly struct MethodInvocation<T1, T2> : IMethodInvocation
     {
         private readonly string _methodName;
         private readonly bool _invoked;
         private readonly T1 _value1;
         private readonly T2 _value2;
 
+        private readonly Func<string> _outputPortToString;
+
         public MethodInvocation(string methodName, bool invoked, T1 value1, T2 value2)
+            : this(methodName, invoked, value1, value2, () => string.Empty)
+        {
+        }
+
+        public MethodInvocation(string methodName, bool invoked, T1 value1, T2 value2, Func<string> outputPortToString)
         {
             _methodName = methodName;
             _invoked = invoked;
             _value1 = value1;
             _value2 = value2;
+            _outputPortToString = outputPortToString;
         }
 
-        public static MethodInvocation<T1, T2> NotInvoked(string methodName)
+        public static MethodInvocation<T1, T2> NotInvoked(string methodName) =>
+            NotInvoked(methodName, () => string.Empty);
+
+        public static MethodInvocation<T1, T2> NotInvoked(string methodName, Func<string> outputPortToString)
         {
-            return new MethodInvocation<T1, T2>(methodName, false, default, default);
+            return new MethodInvocation<T1, T2>(methodName, false, default, default, outputPortToString);
         }
 
         public MethodInvocation<T1, T2> Invoked(T1 value1, T2 value2)
@@ -68,22 +109,33 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
         public T1 Argument1 => _value1;
         public T2 Argument2 => _value2;
 
+        public string Name => _methodName;
+
+        public bool IsInvoked => _invoked;
+
         public void ShouldBeInvokedWithTheArguments(T1 expected1, T2 expected2)
         {
-            Assert.True(_invoked, $"Expected {_methodName} to be invoked, it was never called");
+            AssertMethod.IsInvoked(this);
+
             Assert.Equal(expected1, _value1);
             Assert.Equal(expected2, _value2);
         }
 
         public void ArgumentsAreNotNull()
         {
-            Assert.True(_invoked, $"Expected {_methodName} to be invoked, it was never called");
+            AssertMethod.IsInvoked(this);
+
             Assert.NotNull(_value1);
             Assert.NotNull(_value2);
         }
+
+        public override string ToString() =>
+            $"{_methodName}(): invoked? " + (_invoked ? $"yes, with arguments: '{_value1}', '{_value2}'" : "no");
+
+        public string PrintContext() => _outputPortToString();
     }
 
-    public readonly struct MethodInvocation<T1, T2, T3>
+    public readonly struct MethodInvocation<T1, T2, T3> : IMethodInvocation
     {
         private readonly string _methodName;
         private readonly bool _invoked;
@@ -91,18 +143,29 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
         private readonly T2 _value2;
         private readonly T3 _value3;
 
+        private readonly Func<string> _outputPortToString;
+
         public MethodInvocation(string methodName, bool invoked, T1 value1, T2 value2, T3 value3)
+            : this(methodName, invoked, value1, value2, value3, () => string.Empty)
+        {
+        }
+
+        public MethodInvocation(string methodName, bool invoked, T1 value1, T2 value2, T3 value3, Func<string> outputPortToString)
         {
             _methodName = methodName;
             _invoked = invoked;
             _value1 = value1;
             _value2 = value2;
             _value3 = value3;
+            _outputPortToString = outputPortToString;
         }
 
-        public static MethodInvocation<T1, T2, T3> NotInvoked(string methodName)
+        public static MethodInvocation<T1, T2, T3> NotInvoked(string methodName) =>
+            NotInvoked(methodName, () => string.Empty);
+
+        public static MethodInvocation<T1, T2, T3> NotInvoked(string methodName, Func<string> outputPortToString)
         {
-            return new MethodInvocation<T1, T2, T3>(methodName, false, default, default, default);
+            return new MethodInvocation<T1, T2, T3>(methodName, false, default, default, default, outputPortToString);
         }
 
         public MethodInvocation<T1, T2, T3> Invoked(T1 value1, T2 value2, T3 value3)
@@ -114,9 +177,14 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
         public T2 Argument2 => _value2;
         public T3 Argument3 => _value3;
 
+        public string Name => _methodName;
+
+        public bool IsInvoked => _invoked;
+
         public void ShouldBeInvokedWithTheArguments(T1 expected1, T2 expected2, T3 expected3)
         {
-            Assert.True(_invoked, $"Expected {_methodName} to be invoked, it was never called");
+            AssertMethod.IsInvoked(this);
+
             Assert.Equal(expected1, _value1);
             Assert.Equal(expected2, _value2);
             Assert.Equal(expected3, _value3);
@@ -124,10 +192,28 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
 
         public void ArgumentsAreNotNull()
         {
-            Assert.True(_invoked, $"Expected {_methodName} to be invoked, it was never called");
+            AssertMethod.IsInvoked(this);
+
             Assert.NotNull(_value1);
             Assert.NotNull(_value2);
             Assert.NotNull(_value3);
+        }
+
+        public override string ToString() =>
+            $"{_methodName}(): invoked? " + (_invoked ? $"yes, with arguments: '{_value1}', '{_value2}', '{_value3}'" : "no");
+
+        public string PrintContext() => _outputPortToString();
+    }
+
+    public static class AssertMethod
+    {
+        public static void IsInvoked(IMethodInvocation method)
+        {
+            if (method.IsInvoked == false)
+            {
+                string because = $"Expected {method.Name}() to be invoked, it was never called{method.PrintContext()}";
+                Assert.True(method.IsInvoked, because);
+            }
         }
     }
 }

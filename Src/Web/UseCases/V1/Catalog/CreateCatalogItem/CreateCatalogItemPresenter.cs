@@ -1,30 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Web.ViewModels;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
 {
     public sealed class CreateCatalogItemPresenter : DefaultHttpResultPresenter<CreateCatalogItemOutput>, ICreateCatalogItemOutputPort
     {
-        public void BrandNameNotFound(string message)
+        public void BrandNotFound(Slug brand)
         {
-            ViewModel = new UnprocessableEntityObjectResult(message);
+            ViewModel = new UnprocessableEntityObjectResult(brand.Value);
         }
 
-        public void CatalogItemAlreadyExists(string message)
+        public void CatalogItemAlreadyExists(IBrandInfo brand, ItemNumber itemNumber)
         {
-            ViewModel = new UnprocessableEntityObjectResult(message);
+            ViewModel = new UnprocessableEntityObjectResult("");
         }
 
-        public void RailwayNotFound(string message, IEnumerable<string> railwayNames)
+        public void RailwayNotFound(IEnumerable<Slug> railways)
         {
-            ViewModel = new UnprocessableEntityObjectResult(message);
+            ViewModel = new UnprocessableEntityObjectResult("");
         }
 
-        public void ScaleNotFound(string message)
+        public void ScaleNotFound(Slug scale)
         {
-            ViewModel = new UnprocessableEntityObjectResult(message);
+            ViewModel = new UnprocessableEntityObjectResult(scale.ToString());
         }
 
         public override void Standard(CreateCatalogItemOutput output)

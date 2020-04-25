@@ -1,4 +1,6 @@
-﻿using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 {
@@ -8,7 +10,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 
         public CreateScaleOutputPort()
         {
-            ScaleAlreadyExistsMethod = MethodInvocation<string>.NotInvoked(nameof(ScaleAlreadyExists));
+            ScaleAlreadyExistsMethod = NewMethod<string>(nameof(ScaleAlreadyExists));
         }
 
         public void ShouldHaveScaleAlreadyExistsMessage(string expectedMessage)
@@ -19,6 +21,19 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
         public void ScaleAlreadyExists(string message)
         {
             this.ScaleAlreadyExistsMethod = this.ScaleAlreadyExistsMethod.Invoked(message);
+        }
+
+        public override IEnumerable<IMethodInvocation> Methods
+        {
+            get
+            {
+                var methods = new List<IMethodInvocation>
+                {
+                    ScaleAlreadyExistsMethod
+                };
+
+                return base.Methods.Concat(methods);
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace TreniniDotNet.Application.UseCases
             where TUseCaseOutput : IUseCaseOutput
             where TOutputPort : IOutputPortStandard<TUseCaseOutput>, new()
     {
-        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeBrandsUseCase(Start initData, Func<BrandService, TOutputPort, IUnitOfWork, TUseCase> factory)
+        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeBrandsUseCase(Start initData, Func<BrandService, TOutputPort, IUnitOfWork, TUseCase> useCaseBuilder)
         {
             var context = NewMemoryContext(initData);
 
@@ -27,12 +27,12 @@ namespace TreniniDotNet.Application.UseCases
             var outputPort = new TOutputPort();
 
             return new UseCaseFixture<TUseCase, TOutputPort>(
-                factory.Invoke(brandService, outputPort, unitOfWork),
+                useCaseBuilder(brandService, outputPort, unitOfWork),
                 outputPort,
                 unitOfWork);
         }
 
-        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeRailwaysUseCase(Start initData, Func<RailwayService, TOutputPort, IUnitOfWork, TUseCase> factory)
+        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeRailwaysUseCase(Start initData, Func<RailwayService, TOutputPort, IUnitOfWork, TUseCase> useCaseBuilder)
         {
             var context = NewMemoryContext(initData);
             var railwayRepository = new RailwayRepository(context);
@@ -43,12 +43,12 @@ namespace TreniniDotNet.Application.UseCases
             var outputPort = new TOutputPort();
 
             return new UseCaseFixture<TUseCase, TOutputPort>(
-                factory.Invoke(railwayService, outputPort, unitOfWork),
+                useCaseBuilder(railwayService, outputPort, unitOfWork),
                 outputPort,
                 unitOfWork);
         }
 
-        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeScalesUseCase(Start initData, Func<ScaleService, TOutputPort, IUnitOfWork, TUseCase> factory)
+        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeScalesUseCase(Start initData, Func<ScaleService, TOutputPort, IUnitOfWork, TUseCase> useCaseBuilder)
         {
             var context = NewMemoryContext(initData);
 
@@ -61,12 +61,12 @@ namespace TreniniDotNet.Application.UseCases
             var outputPort = new TOutputPort();
 
             return new UseCaseFixture<TUseCase, TOutputPort>(
-                factory.Invoke(scaleService, outputPort, unitOfWork),
+                useCaseBuilder(scaleService, outputPort, unitOfWork),
                 outputPort,
                 unitOfWork);
         }
 
-        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeCatalogItemUseCase(Start initData, Func<CatalogItemService, TOutputPort, IUnitOfWork, TUseCase> factory)
+        protected UseCaseFixture<TUseCase, TOutputPort> ArrangeCatalogItemUseCase(Start initData, Func<CatalogItemService, TOutputPort, IUnitOfWork, TUseCase> useCaseBuilder)
         {
             var context = NewMemoryContext(initData);
 
@@ -85,7 +85,7 @@ namespace TreniniDotNet.Application.UseCases
             var outputPort = new TOutputPort();
 
             return new UseCaseFixture<TUseCase, TOutputPort>(
-                factory.Invoke(catalogItemService, outputPort, unitOfWork),
+                useCaseBuilder(catalogItemService, outputPort, unitOfWork),
                 outputPort,
                 unitOfWork);
         }

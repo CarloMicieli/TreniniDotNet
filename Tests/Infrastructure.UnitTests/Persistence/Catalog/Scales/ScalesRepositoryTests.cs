@@ -3,12 +3,10 @@ using FluentAssertions;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Infrastructure.Database.Testing;
 using NodaTime;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using System;
 using TreniniDotNet.Common;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Pagination;
-using System.Collections.Immutable;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Infrastructure.Dapper;
 
@@ -29,7 +27,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var scaleH0 = new TestScale();
+            var scaleH0 = new FakeScale();
 
             var scaleId = await Repository.AddAsync(scaleH0);
 
@@ -56,11 +54,45 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         }
 
         [Fact]
+        public async Task ScalesRepository_Update_ShouldUpdateScales()
+        {
+            Database.Setup.TruncateTable(Tables.Scales);
+
+            var scaleH0 = new FakeScale();
+            Database.Arrange.InsertOne(Tables.Scales, new
+            {
+                scale_id = scaleH0.ScaleId.ToGuid(),
+                name = scaleH0.Name,
+                slug = scaleH0.Slug.ToString(),
+                ratio = scaleH0.Ratio.ToDecimal(),
+                gauge_mm = scaleH0.Gauge.InMillimeters.Value,
+                gauge_in = scaleH0.Gauge.InInches.Value,
+                track_type = scaleH0.Gauge.TrackGauge.ToString(),
+                description = scaleH0.Description,
+                created = scaleH0.CreatedDate.ToDateTimeUtc(),
+                version = scaleH0.Version
+            });
+
+            await Repository.UpdateAsync(scaleH0.With(ratio: 100M));
+
+            Database.Assert.RowInTable(Tables.Scales)
+                .WithPrimaryKey(new
+                {
+                    scale_id = scaleH0.ScaleId.ToGuid()
+                })
+                .AndValues(new
+                {
+                    version = 2,
+                    ratio = 100M
+                });
+        }
+
+        [Fact]
         public async Task ScalesRepository_GetBySlug_ShouldReturnScaleWithSlug()
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var scaleH0 = new TestScale();
+            var scaleH0 = new FakeScale();
             Database.Arrange.InsertOne(Tables.Scales, new
             {
                 scale_id = scaleH0.ScaleId.ToGuid(),
@@ -82,11 +114,40 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         }
 
         [Fact]
+        public async Task ScalesRepository_GetInfoBySlug_ShouldFindScaleInfoBySlug()
+        {
+            Database.Setup.TruncateTable(Tables.Scales);
+
+            var scaleH0 = new FakeScale();
+            Database.Arrange.InsertOne(Tables.Scales, new
+            {
+                scale_id = scaleH0.ScaleId.ToGuid(),
+                name = scaleH0.Name,
+                slug = scaleH0.Slug.ToString(),
+                ratio = scaleH0.Ratio.ToDecimal(),
+                gauge_mm = scaleH0.Gauge.InMillimeters.Value,
+                gauge_in = scaleH0.Gauge.InInches.Value,
+                track_type = scaleH0.Gauge.TrackGauge.ToString(),
+                description = scaleH0.Description,
+                created = scaleH0.CreatedDate.ToDateTimeUtc(),
+                version = scaleH0.Version
+            });
+
+            var notFound = await Repository.GetInfoBySlugAsync(Slug.Of("not found"));
+            var scale = await Repository.GetInfoBySlugAsync(scaleH0.Slug);
+
+            scale.Should().NotBeNull();
+            scale.Slug.Should().Be(scaleH0.Slug);
+
+            notFound.Should().BeNull();
+        }
+
+        [Fact]
         public async Task ScalesRepository_Exists_ShouldReturnScaleWithSlug()
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var scaleH0 = new TestScale();
+            var scaleH0 = new FakeScale();
             Database.Arrange.InsertOne(Tables.Scales, new
             {
                 scale_id = scaleH0.ScaleId.ToGuid(),
@@ -121,8 +182,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var scaleH0 = new TestScale(new Guid("da2bfd8b-86e8-4531-b12b-7d442d4a4a75"), "H0");
-            var scaleN = new TestScale(new Guid("d3410d06-a2fb-4050-ad8c-4c4377fec4db"), "N");
+            var scaleH0 = new FakeScale(new Guid("da2bfd8b-86e8-4531-b12b-7d442d4a4a75"), "H0");
+            var scaleN = new FakeScale(new Guid("d3410d06-a2fb-4050-ad8c-4c4377fec4db"), "N");
 
             Database.Arrange.Insert(Tables.Scales,
                 new
@@ -157,46 +218,5 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(1);
         }
-    }
-
-    public class TestScale : IScale
-    {
-        public TestScale()
-            : this(new Guid("66c9e10f-0382-4e4b-8986-1f41bc883347"), "H0")
-        {
-        }
-
-        public TestScale(Guid id, string name)
-        {
-            _scaleId = new ScaleId(id);
-            _name = name;
-        }
-
-        private readonly ScaleId _scaleId;
-        private readonly string _name;
-
-        public ScaleId ScaleId => _scaleId;
-
-        public Slug Slug => Slug.Of(_name);
-
-        public string Name => _name;
-
-        public ScaleGauge Gauge => ScaleGauge.Of(16.5M, 0.65M, TrackGauge.Standard.ToString());
-
-        public string Description => null;
-
-        public Instant CreatedDate => Instant.FromUtc(1988, 11, 25, 9, 0);
-
-        public Instant? ModifiedDate => null;
-
-        public int Version => 42;
-
-        public Ratio Ratio => Ratio.Of(87M);
-
-        public int? Weight => null;
-
-        public IImmutableSet<ScaleStandard> Standards => ImmutableHashSet<ScaleStandard>.Empty;
-
-        public IScaleInfo ToScaleInfo() => this;
     }
 }

@@ -1,4 +1,6 @@
-﻿using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 {
@@ -19,6 +21,19 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
         public void ShouldHaveBrandNotFoundMessage(string expectedMessage)
         {
             this.BrandNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
+        }
+
+        public override IEnumerable<IMethodInvocation> Methods
+        {
+            get
+            {
+                var methods = new List<IMethodInvocation>
+                {
+                    BrandNotFoundMethod
+                };
+
+                return base.Methods.Concat(methods);
+            }
         }
     }
 }

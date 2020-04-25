@@ -53,7 +53,6 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection
 
             CreateMap<AddShopToFavouritesRequest, AddShopToFavouritesInput>();
             CreateMap<CreateShopRequest, CreateShopInput>();
-            CreateMap<ShopAddressRequest, ShopAddressInput>();
             CreateMap<GetShopBySlugRequest, GetShopBySlugInput>();
             CreateMap<GetShopsListRequest, GetShopsListInput>();
             CreateMap<GetFavouriteShopsRequest, GetFavouriteShopsInput>();

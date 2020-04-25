@@ -11,6 +11,7 @@ using TreniniDotNet.Application.Boundaries.Collection.EditWishlistItem;
 using TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromCollection;
 using TreniniDotNet.Application.Boundaries.Collection.RemoveItemFromWishlist;
 using TreniniDotNet.Application.Boundaries.Collection.RemoveShopFromFavourites;
+using TreniniDotNet.Application.Boundaries.Common;
 
 namespace TreniniDotNet.Application.TestInputs.Collection
 {
@@ -83,7 +84,7 @@ namespace TreniniDotNet.Application.TestInputs.Collection
 
             public static CreateShopInput With(
                 string Name = null, string WebsiteUrl = null,
-                string EmailAddress = null, ShopAddressInput Address = null,
+                string EmailAddress = null, AddressInput Address = null,
                 string PhoneNumber = null) =>
                 new CreateShopInput(Name, WebsiteUrl, EmailAddress, Address, PhoneNumber);
         }

@@ -41,10 +41,21 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(new PaginatedResult<IScale>(page, results));
         }
 
+        public Task<IScaleInfo> GetInfoBySlugAsync(Slug slug)
+        {
+            IScaleInfo scale = _context.Scales.FirstOrDefault(e => e.Slug == slug);
+            return Task.FromResult(scale);
+        }
+
         public Task<ScaleId> AddAsync(IScale scale)
         {
             _context.Scales.Add(scale);
             return Task.FromResult(scale.ScaleId);
+        }
+
+        public Task UpdateAsync(IScale scale)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -6,6 +6,7 @@ using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
@@ -49,6 +50,33 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             return railway.RailwayId;
         }
 
+        public async Task UpdateAsync(IRailway railway)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.ExecuteAsync(UpdateRailwayCommand, new
+            {
+                railway.RailwayId,
+                railway.Name,
+                railway.CompanyName,
+                railway.Slug,
+                railway.Country,
+                railway.PeriodOfActivity?.OperatingSince,
+                railway.PeriodOfActivity?.OperatingUntil,
+                Active = railway.PeriodOfActivity?.RailwayStatus == RailwayStatus.Active,
+                GaugeMm = railway.TrackGauge?.Millimeters,
+                GaugeIn = railway.TrackGauge?.Inches,
+                railway.TrackGauge?.TrackGauge,
+                railway.Headquarters,
+                TotalLengthMi = railway.TotalLength?.Miles,
+                TotalLengthKm = railway.TotalLength?.Kilometers,
+                railway.WebsiteUrl,
+                Modified = railway.ModifiedDate?.ToDateTimeUtc(),
+                railway.Version
+            });
+        }
+
         public async Task<bool> ExistsAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
@@ -73,6 +101,25 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             return ProjectToDomain(result);
         }
 
+        public async Task<IRailwayInfo?> GetInfoBySlugAsync(Slug slug)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.QueryFirstOrDefaultAsync<RailwayInfoDto?>(
+                GetRailwayInfoBySlugQuery,
+                new { @slug = slug.ToString() });
+
+            if (result is null)
+            {
+                return null;
+            }
+            else
+            {
+                return ProjectInfoToDomain(result);
+            }
+        }
+
         public async Task<PaginatedResult<IRailway>> GetRailwaysAsync(Page page)
         {
             await using var connection = _dbContext.NewConnection();
@@ -85,6 +132,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             return new PaginatedResult<IRailway>(
                 page,
                 results.Select(it => ProjectToDomain(it)!).ToList());
+        }
+
+        private IRailwayInfo ProjectInfoToDomain(RailwayInfoDto dto)
+        {
+            return new RailwayInfo(dto.railway_id, dto.slug, dto.name, dto.country!);
         }
 
         private IRailway? ProjectToDomain(RailwayDto? dto)
@@ -125,8 +177,22 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 @Active, @GaugeMm, @GaugeIn, @TrackGauge, @Headquarters, @TotalLengthMi, @TotalLengthKm, 
                 @WebsiteUrl, @Created, @Modified, @Version);";
 
+        private const string UpdateRailwayCommand = @"UPDATE railways SET 
+                name = @Name, company_name = @CompanyName, slug = @Slug, country = @Country, 
+                operating_since = @OperatingSince, operating_until = @OperatingUntil, active = @Active, 
+                gauge_mm = @GaugeMm, gauge_in = @GaugeIn, track_gauge = @TrackGauge, 
+                headquarters = @Headquarters, total_length_mi = @TotalLengthMi, total_length_km = @TotalLengthKm, 
+                website_url = @WebsiteUrl, 
+                last_modified = @Modified, 
+                version = @Version
+            WHERE railway_id = @RailwayId;";
+
         private const string GetRailwayExistsQuery = @"SELECT slug FROM railways WHERE slug = @slug LIMIT 1;";
+
         private const string GetRailwayBySlugQuery = @"SELECT * FROM railways WHERE slug = @slug LIMIT 1;";
+
+        private const string GetRailwayInfoBySlugQuery = @"SELECT * FROM railways WHERE slug = @slug LIMIT 1;";
+
         private const string GetAllRailwaysWithPaginationQuery = @"SELECT * FROM railways ORDER BY name LIMIT @limit OFFSET @skip;";
 
         #endregion

@@ -1,4 +1,6 @@
-﻿using TreniniDotNet.Application.Boundaries.Catalog.CreateRailway;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateRailway;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 {
@@ -8,7 +10,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 
         public CreateRailwayOutputPort()
         {
-            RailwayAlreadyExistsMethod = MethodInvocation<string>.NotInvoked(nameof(RailwayAlreadyExists));
+            RailwayAlreadyExistsMethod = NewMethod<string>(nameof(RailwayAlreadyExists));
         }
 
         public void RailwayAlreadyExists(string message)
@@ -19,6 +21,19 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
         public void ShouldHaveRailwayAlreadyExistsMessage(string expectedMessage)
         {
             this.RailwayAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
+        }
+
+        public override IEnumerable<IMethodInvocation> Methods
+        {
+            get
+            {
+                var methods = new List<IMethodInvocation>
+                {
+                    RailwayAlreadyExistsMethod
+                };
+
+                return base.Methods.Concat(methods);
+            }
         }
     }
 }

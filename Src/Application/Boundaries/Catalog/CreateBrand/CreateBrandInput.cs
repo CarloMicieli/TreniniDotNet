@@ -1,4 +1,5 @@
-﻿using TreniniDotNet.Common.Interfaces;
+﻿using TreniniDotNet.Application.Boundaries.Common;
+using TreniniDotNet.Common.Interfaces;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
 {

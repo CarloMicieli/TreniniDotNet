@@ -36,25 +36,25 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return _catalogItemsRepository.GetBySlugAsync(slug);
         }
 
-        public Task<IBrand?> FindBrandByName(string brandName)
-        {
-            return _brandsRepository.GetBySlugAsync(Slug.Of(brandName.Trim()));
-        }
-
-        public async Task<bool> ItemAlreadyExists(IBrand brand, ItemNumber itemNumber)
+        public async Task<bool> ItemAlreadyExists(IBrandInfo brand, ItemNumber itemNumber)
         {
             var item = await _catalogItemsRepository.GetByAsync(brand, itemNumber);
             return item != null;
         }
 
-        public Task<IScale?> FindScaleByName(string scale)
+        public Task<IBrandInfo?> FindBrandInfoBySlug(Slug brandSlug)
         {
-            return _scales.GetBySlugAsync(Slug.Of(scale));
+            return _brandsRepository.GetInfoBySlugAsync(brandSlug);
         }
 
-        public Task<IRailway?> FindRailwayByName(string railwayName)
+        public Task<IScaleInfo?> FindScaleInfoBySlug(Slug scale)
         {
-            return _railways.GetBySlugAsync(Slug.Of(railwayName));
+            return _scales.GetInfoBySlugAsync(scale);
+        }
+
+        public Task<IRailwayInfo?> FindRailwayInfoBySlug(Slug railway)
+        {
+            return _railways.GetInfoBySlugAsync(railway);
         }
 
         public Task<CatalogItemId> CreateNewCatalogItem(ICatalogItem catalogItem)

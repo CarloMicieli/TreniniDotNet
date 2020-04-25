@@ -46,5 +46,10 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
 
             return Task.FromResult(catalogItem);
         }
+
+        public Task UpdateAsync(ICatalogItem catalogItem)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

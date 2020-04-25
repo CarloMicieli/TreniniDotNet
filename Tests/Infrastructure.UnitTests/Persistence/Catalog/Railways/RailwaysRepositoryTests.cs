@@ -4,12 +4,12 @@ using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Infrastructure.Database.Testing;
 using NodaTime;
 using System;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Infrastructure.Dapper;
+using System.Data;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
@@ -28,7 +28,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         {
             Database.Setup.TruncateTable(Tables.Railways);
 
-            var fs = new TestRailway();
+            var fs = new FakeRailway();
 
             var railwayId = await Repository.AddAsync(fs);
 
@@ -54,6 +54,37 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         }
 
         [Fact]
+        public async Task RailwaysRepository_Update_ShouldUpdateRailways()
+        {
+            Database.Setup.TruncateTable(Tables.Railways);
+
+            var testRailway = new FakeRailway();
+
+            Database.Arrange.InsertOne(Tables.Railways, new
+            {
+                railway_id = testRailway.RailwayId.ToGuid(),
+                slug = testRailway.Slug.Value,
+                name = testRailway.Name,
+                company_name = testRailway.CompanyName,
+                created = DateTime.UtcNow,
+                version = 1
+            });
+
+            await Repository.UpdateAsync(testRailway.With(companyName: "Trenitalia"));
+
+            Database.Assert.RowInTable(Tables.Railways)
+                .WithPrimaryKey(new
+                {
+                    railway_id = testRailway.RailwayId.ToGuid()
+                })
+                .AndValues(new
+                {
+                    company_name = testRailway.CompanyName,
+                    version = 2
+                });
+        }
+
+        [Fact]
         public async Task RailwaysRepository_Exists_ShouldReturnTrueWhenRailwayExists()
         {
             Database.Setup.TruncateTable(Tables.Railways);
@@ -70,6 +101,32 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             var exists = await Repository.ExistsAsync(Slug.Of("FS"));
 
             exists.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task RailwaysRepository_GetInfoBySlug_ShouldFindRailwayInfoBySlug()
+        {
+            Database.Setup.TruncateTable(Tables.Railways);
+
+            Slug expectedSlug = Slug.Of("FS");
+
+            Database.Arrange.InsertOne(Tables.Railways, new
+            {
+                railway_id = Guid.NewGuid(),
+                slug = expectedSlug.ToString(),
+                name = "FS",
+                country = "IT",
+                active = true,
+                created = DateTime.UtcNow,
+                version = 1
+            });
+
+            var railwayNotFound = await Repository.GetInfoBySlugAsync(Slug.Of("Not Found"));
+            var railway = await Repository.GetInfoBySlugAsync(expectedSlug);
+
+            railwayNotFound.Should().BeNull();
+            railway.Should().NotBeNull();
+            railway.Slug.Should().Be(expectedSlug);
         }
 
         [Fact]
@@ -137,40 +194,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(5);
-        }
-    }
-
-    public class TestRailway : IRailway
-    {
-        public RailwayId RailwayId => new RailwayId(new Guid("b9e62d18-06e3-4404-9183-6c3a3b89c683"));
-
-        public Slug Slug => Slug.Of("FS");
-
-        public string Name => "FS";
-
-        public string CompanyName => "Ferrovie dello Stato";
-
-        public int Version => 42;
-
-        public Country Country => Country.Of("IT");
-
-        public PeriodOfActivity PeriodOfActivity => PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1));
-
-        public RailwayGauge TrackGauge => null;
-
-        public RailwayLength TotalLength => null;
-
-        public Uri WebsiteUrl => new Uri("https://www.trenitalia.com");
-
-        public string Headquarters => null;
-
-        public Instant CreatedDate => Instant.FromUtc(1988, 11, 25, 9, 0);
-
-        public Instant? ModifiedDate => null;
-
-        public IRailwayInfo ToRailwayInfo()
-        {
-            throw new NotImplementedException();
         }
     }
 }

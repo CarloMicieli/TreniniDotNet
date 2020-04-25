@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TreniniDotNet.Application.Boundaries;
@@ -6,7 +7,6 @@ using Xunit;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts
 {
-
     public abstract class OutputPortTestHelper<TUseCaseOutput> : IOutputPortStandard<TUseCaseOutput>
         where TUseCaseOutput : IUseCaseOutput
     {
@@ -14,12 +14,26 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
         private MethodInvocation<IList<ValidationFailure>> InvalidRequestMethod { set; get; }
         private MethodInvocation<TUseCaseOutput> StandardMethod { set; get; }
 
+        private IEnumerable<IMethodInvocation> CommonMethods => new List<IMethodInvocation>
+        {
+            ErrorMethod, InvalidRequestMethod, StandardMethod
+        };
+
         protected OutputPortTestHelper()
         {
             this.ErrorMethod = MethodInvocation<string>.NotInvoked(nameof(Error));
             this.InvalidRequestMethod = MethodInvocation<IList<ValidationFailure>>.NotInvoked(nameof(InvalidRequest));
             this.StandardMethod = MethodInvocation<TUseCaseOutput>.NotInvoked(nameof(Standard));
         }
+
+        protected MethodInvocation<TValue> NewMethod<TValue>(string methodName) =>
+            MethodInvocation<TValue>.NotInvoked(methodName, () => this.ToString());
+
+        protected MethodInvocation<TValue1, TValue2> NewMethod<TValue1, TValue2>(string methodName) =>
+            MethodInvocation<TValue1, TValue2>.NotInvoked(methodName, () => this.ToString());
+
+        protected MethodInvocation<TValue1, TValue2, TValue3> NewMethod<TValue1, TValue2, TValue3>(string methodName) =>
+            MethodInvocation<TValue1, TValue2, TValue3>.NotInvoked(methodName, () => this.ToString());
 
         public void Error(string message)
         {
@@ -48,7 +62,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
 
         public void ShouldHaveStandardOutput()
         {
-            StandardMethod.ArgumentIsNotNull();
+            StandardMethod.AssertArgumentIsNotNull();
         }
 
         public void ShouldHaveValidationErrors()
@@ -77,5 +91,10 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts
         }
 
         public TUseCaseOutput UseCaseOutput => StandardMethod.Argument;
+
+        public virtual IEnumerable<IMethodInvocation> Methods => CommonMethods;
+
+        public override string ToString() =>
+            $" and this is the output port status:{Environment.NewLine}{string.Join(Environment.NewLine, Methods.OrderBy(it => it.Name).Select(it => "   - " + it.ToString()))}";
     }
 }

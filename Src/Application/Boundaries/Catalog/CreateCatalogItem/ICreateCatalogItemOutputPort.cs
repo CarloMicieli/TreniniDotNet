@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
 {
     public interface ICreateCatalogItemOutputPort : IOutputPortStandard<CreateCatalogItemOutput>
     {
-        void BrandNameNotFound(string message);
+        void BrandNotFound(Slug brand);
 
-        void CatalogItemAlreadyExists(string message);
+        void CatalogItemAlreadyExists(IBrandInfo brand, ItemNumber itemNumber);
 
-        void ScaleNotFound(string message);
+        void ScaleNotFound(Slug scale);
 
-        void RailwayNotFound(string message, IEnumerable<string> railwayNames);
+        void RailwayNotFound(IEnumerable<Slug> railways);
     }
 }

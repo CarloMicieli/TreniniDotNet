@@ -29,6 +29,7 @@ namespace TreniniDotNet.Web.DependencyInjection
         {
             services.AddPresenter<CatalogBoundaries.CreateCatalogItem.ICreateCatalogItemOutputPort, CatalogUseCases.CreateCatalogItem.CreateCatalogItemPresenter>();
             services.AddPresenter<CatalogBoundaries.GetCatalogItemBySlug.IGetCatalogItemBySlugOutputPort, CatalogUseCases.GetCatalogItemBySlug.GetCatalogItemBySlugPresenter>();
+            services.AddPresenter<CatalogBoundaries.EditCatalogItem.IEditCatalogItemOutputPort, CatalogUseCases.EditCatalogItem.EditCatalogItemPresenter>();
 
             return services;
         }
@@ -38,6 +39,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CatalogBoundaries.CreateScale.ICreateScaleOutputPort, CatalogUseCases.CreateScale.CreateScalePresenter>();
             services.AddPresenter<CatalogBoundaries.GetScaleBySlug.IGetScaleBySlugOutputPort, CatalogUseCases.GetScaleBySlug.GetScaleBySlugPresenter>();
             services.AddPresenter<CatalogBoundaries.GetScalesList.IGetScalesListOutputPort, CatalogUseCases.GetScalesList.GetScalesListPresenter>();
+            services.AddPresenter<CatalogBoundaries.EditScale.IEditScaleOutputPort, CatalogUseCases.EditScale.EditScalePresenter>();
 
             return services;
         }
@@ -47,6 +49,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CatalogBoundaries.CreateBrand.ICreateBrandOutputPort, CatalogUseCases.CreateBrand.CreateBrandPresenter>();
             services.AddPresenter<CatalogBoundaries.GetBrandBySlug.IGetBrandBySlugOutputPort, CatalogUseCases.GetBrandBySlug.GetBrandBySlugPresenter>();
             services.AddPresenter<CatalogBoundaries.GetBrandsList.IGetBrandsListOutputPort, CatalogUseCases.GetBrandsList.GetBrandsListPresenter>();
+            services.AddPresenter<CatalogBoundaries.EditBrand.IEditBrandOutputPort, CatalogUseCases.EditBrand.EditBrandPresenter>();
 
             return services;
         }
@@ -56,6 +59,7 @@ namespace TreniniDotNet.Web.DependencyInjection
             services.AddPresenter<CatalogBoundaries.CreateRailway.ICreateRailwayOutputPort, CatalogUseCases.CreateRailway.CreateRailwayPresenter>();
             services.AddPresenter<CatalogBoundaries.GetRailwayBySlug.IGetRailwayBySlugOutputPort, CatalogUseCases.GetRailwayBySlug.GetRailwayBySlugPresenter>();
             services.AddPresenter<CatalogBoundaries.GetRailwaysList.IGetRailwaysListOutputPort, CatalogUseCases.GetRailwaysList.GetRailwaysListPresenter>();
+            services.AddPresenter<CatalogBoundaries.EditRailway.IEditRailwayOutputPort, CatalogUseCases.EditRailway.EditRailwayPresenter>();
 
             return services;
         }

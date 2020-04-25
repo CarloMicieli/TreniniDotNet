@@ -7,7 +7,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
     {
         public CreateCatalogItemInputValidator()
         {
-            RuleFor(x => x.BrandName)
+            RuleFor(x => x.Brand)
                 .NotEmpty()
                 .NotNull();
 

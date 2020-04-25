@@ -1,13 +1,10 @@
 ﻿using Xunit;
 using FluentAssertions;
 using System;
-using System.Net.Mail;
 using System.Threading.Tasks;
 using NodaTime;
 using TreniniDotNet.Common;
-using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Infrastructure.Database.Testing;
@@ -30,7 +27,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         {
             Database.Setup.TruncateTable(Tables.Brands);
 
-            var testBrand = new TestBrand();
+            var testBrand = new FakeBrand();
             var brandId = await Repository.AddAsync(testBrand);
 
             brandId.Should().Be(testBrand.BrandId);
@@ -47,6 +44,38 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                     version = testBrand.Version,
                 })
                 .ShouldExists();
+        }
+
+        [Fact]
+        public async Task BrandsRepository_Update_ShouldUpdateBrands()
+        {
+            Database.Setup.TruncateTable(Tables.Brands);
+
+            var testBrand = new FakeBrand();
+
+            Database.Arrange.InsertOne(Tables.Brands, new
+            {
+                brand_id = testBrand.BrandId.ToGuid(),
+                name = testBrand.Name,
+                slug = testBrand.Slug.Value,
+                company_name = testBrand.CompanyName,
+                kind = BrandKind.Industrial.ToString(),
+                version = 1,
+                created = DateTime.UtcNow
+            });
+
+            await Repository.UpdateAsync(testBrand.With(companyName: "Modified company"));
+
+            Database.Assert.RowInTable(Tables.Brands)
+                .WithPrimaryKey(new
+                {
+                    brand_id = testBrand.BrandId.ToGuid()
+                })
+                .AndValues(new
+                {
+                    version = 2,
+                    company_name = "Modified company"
+                });
         }
 
         [Fact]
@@ -71,6 +100,30 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             brand.Slug.Should().Be(Slug.Of("acme"));
         }
 
+        [Fact]
+        public async Task BrandsRepository_GetInfoBySlug_ShouldFindBrandInfoBySlug()
+        {
+            Database.Setup.TruncateTable(Tables.Brands);
+
+            Database.Arrange.InsertOne(Tables.Brands, new
+            {
+                brand_id = Guid.NewGuid(),
+                name = "A.C.M.E.",
+                slug = "acme",
+                company_name = "Associazione Costruzioni Modellistiche Esatte",
+                kind = BrandKind.Industrial.ToString(),
+                version = 1,
+                created = DateTime.UtcNow
+            });
+
+            var notFound = await Repository.GetInfoBySlugAsync(Slug.Of("Not Found"));
+            var brandInfo = await Repository.GetInfoBySlugAsync(Slug.Of("acme"));
+
+            brandInfo.Should().NotBeNull();
+            brandInfo.Slug.Should().Be(Slug.Of("acme"));
+
+            notFound.Should().BeNull();
+        }
 
         [Fact]
         public async Task BrandsRepository_GetBrands_ShouldFindBrandsPaginated()
@@ -125,37 +178,5 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 
             exists.Should().BeFalse();
         }
-    }
-
-    public sealed class TestBrand : IBrand
-    {
-        public BrandId BrandId => new BrandId(new Guid("2dfc8a61-8218-44af-8be5-d012bde4cf03"));
-
-        public Slug Slug => Slug.Of("acme");
-
-        public string Name => "A.C.M.E.";
-
-        public Uri WebsiteUrl => new Uri("http://localhost");
-
-        public MailAddress EmailAddress => new MailAddress("mail@mail.com");
-
-        public string CompanyName => "Associazione Costruzioni Modellistiche Esatte";
-
-        public string GroupName => null;
-
-        public string Description => null;
-
-        public Address Address => null;
-
-        public BrandKind Kind => BrandKind.Industrial;
-
-        public Instant CreatedDate =>
-            Instant.FromDateTimeUtc(DateTime.SpecifyKind(new DateTime(1988, 11, 25), DateTimeKind.Utc));
-
-        public Instant? ModifiedDate => null;
-
-        public int Version => 42;
-
-        public IBrandInfo ToBrandInfo() => this;
     }
 }

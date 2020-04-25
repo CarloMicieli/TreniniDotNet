@@ -1,4 +1,6 @@
-﻿using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TreniniDotNet.Application.Boundaries.Catalog.CreateBrand;
 
 namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 {
@@ -8,7 +10,7 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
 
         public CreateBrandOutputPort()
         {
-            BrandAlreadyExistsMethod = MethodInvocation<string>.NotInvoked(nameof(BrandAlreadyExists));
+            BrandAlreadyExistsMethod = NewMethod<string>(nameof(BrandAlreadyExists));
         }
 
         public void BrandAlreadyExists(string message)
@@ -19,6 +21,19 @@ namespace TreniniDotNet.Application.InMemory.OutputPorts.Catalog
         public void ShouldHaveBrandAlreadyExistsMessage(string expectedMessage)
         {
             this.BrandAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
+        }
+
+        public override IEnumerable<IMethodInvocation> Methods
+        {
+            get
+            {
+                var methods = new List<IMethodInvocation>
+                {
+                    BrandAlreadyExistsMethod
+                };
+
+                return base.Methods.Concat(methods);
+            }
         }
     }
 }

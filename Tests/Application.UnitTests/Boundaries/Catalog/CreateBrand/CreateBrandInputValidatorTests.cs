@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveNoError_WhenEverythingIsValid()
         {
-            var input = NewBrandInput.With(
+            var input = NewCreateBrandInput.With(
                 Name: "ACME",
                 CompanyName: "Associazione Costruzioni Modellistiche Esatte",
                 WebsiteUrl: "http://www.acmetreni.com",
@@ -31,7 +31,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveError_WhenNameIsNull()
         {
-            var input = NewBrandInput.Empty();
+            var input = NewCreateBrandInput.Empty();
 
             var result = validator.TestValidate(input);
 
@@ -41,7 +41,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveError_WhenNameIsBlank()
         {
-            var input = NewBrandInput.With(Name: "  ");
+            var input = NewCreateBrandInput.With(Name: "  ");
 
             var result = validator.TestValidate(input);
 
@@ -51,7 +51,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveError_WhenEmailIsNotValidMailAddress()
         {
-            var input = NewBrandInput.With(EmailAddress: "not a mail");
+            var input = NewCreateBrandInput.With(EmailAddress: "not a mail");
 
             var result = validator.TestValidate(input);
 
@@ -61,7 +61,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveError_WhenWebsiteUrlIsNotValidUri()
         {
-            var input = NewBrandInput.With(WebsiteUrl: "not an url");
+            var input = NewCreateBrandInput.With(WebsiteUrl: "not an url");
 
             var result = validator.TestValidate(input);
 
@@ -71,7 +71,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateBrand
         [Fact]
         public void CreateBrandInputValidator_ShouldHaveError_WhenBrandKindIsNotValid()
         {
-            var input = NewBrandInput.With(BrandType: "not a valid type");
+            var input = NewCreateBrandInput.With(BrandType: "not a valid type");
 
             var result = validator.TestValidate(input);
 

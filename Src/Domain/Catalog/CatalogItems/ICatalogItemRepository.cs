@@ -14,5 +14,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         Task<ICatalogItem?> GetBySlugAsync(Slug slug);
 
         Task<CatalogItemId> AddAsync(ICatalogItem catalogItem);
+
+        Task UpdateAsync(ICatalogItem catalogItem);
     }
 }

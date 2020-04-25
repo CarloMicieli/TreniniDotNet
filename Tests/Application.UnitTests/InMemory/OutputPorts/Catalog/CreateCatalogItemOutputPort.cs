@@ -1,42 +1,83 @@
 using System.Collections.Generic;
+using System.Linq;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 using TreniniDotNet.Application.InMemory.OutputPorts;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
+using Xunit;
 
 namespace TreniniDotNet.Application.UnitTests.InMemory.OutputPorts.Catalog
 {
     public class CreateCatalogItemOutputPort : OutputPortTestHelper<CreateCatalogItemOutput>, ICreateCatalogItemOutputPort
     {
-        public MethodInvocation<string> BrandNameNotFoundMethod { get; private set; }
-        public MethodInvocation<string> CatalogItemAlreadyExistsMethod { get; private set; }
-        public MethodInvocation<string> ScaleNotFoundMethod { get; private set; }
-        public MethodInvocation<string, IEnumerable<string>> RailwayNotFoundMethod { get; private set; }
+        public MethodInvocation<Slug> BrandNotFoundMethod { get; set; }
+        public MethodInvocation<IBrandInfo, ItemNumber> CatalogItemAlreadyExistsMethod { get; set; }
+        public MethodInvocation<Slug> ScaleNotFoundMethod { get; set; }
+        public MethodInvocation<IEnumerable<Slug>> RailwayNotFoundMethod { get; set; }
 
         public CreateCatalogItemOutputPort()
         {
-            BrandNameNotFoundMethod = MethodInvocation<string>.NotInvoked(nameof(BrandNameNotFound));
-            CatalogItemAlreadyExistsMethod = MethodInvocation<string>.NotInvoked(nameof(CatalogItemAlreadyExists));
-            ScaleNotFoundMethod = MethodInvocation<string>.NotInvoked(nameof(ScaleNotFound));
-            RailwayNotFoundMethod = MethodInvocation<string, IEnumerable<string>>.NotInvoked(nameof(RailwayNotFound));
+            BrandNotFoundMethod = NewMethod<Slug>(nameof(BrandNotFound));
+            CatalogItemAlreadyExistsMethod = NewMethod<IBrandInfo, ItemNumber>(nameof(CatalogItemAlreadyExists));
+            ScaleNotFoundMethod = NewMethod<Slug>(nameof(ScaleNotFound));
+            RailwayNotFoundMethod = NewMethod<IEnumerable<Slug>>(nameof(RailwayNotFound));
         }
 
-        public void CatalogItemAlreadyExists(string message)
+        public void BrandNotFound(Slug brand)
         {
-            this.CatalogItemAlreadyExistsMethod = this.CatalogItemAlreadyExistsMethod.Invoked(message);
+            BrandNotFoundMethod = BrandNotFoundMethod.Invoked(brand);
         }
 
-        public void BrandNameNotFound(string message)
+        public void CatalogItemAlreadyExists(IBrandInfo brand, ItemNumber itemNumber)
         {
-            this.BrandNameNotFoundMethod = this.BrandNameNotFoundMethod.Invoked(message);
+            CatalogItemAlreadyExistsMethod = CatalogItemAlreadyExistsMethod.Invoked(brand, itemNumber);
         }
 
-        public void ScaleNotFound(string message)
+        public void ScaleNotFound(Slug scale)
         {
-            this.ScaleNotFoundMethod = this.ScaleNotFoundMethod.Invoked(message);
+            ScaleNotFoundMethod = ScaleNotFoundMethod.Invoked(scale);
         }
 
-        public void RailwayNotFound(string message, IEnumerable<string> railwayNames)
+        public void RailwayNotFound(IEnumerable<Slug> railways)
         {
-            this.RailwayNotFoundMethod = this.RailwayNotFoundMethod.Invoked(message, railwayNames);
+            RailwayNotFoundMethod = RailwayNotFoundMethod.Invoked(railways);
+        }
+
+        public void AssertBrandWasNotFound(Slug expectedBrand)
+        {
+            BrandNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedBrand);
+        }
+
+        public void AssertCatalogItemAlreadyExists(IBrandInfo expectedBrand, ItemNumber expectedItemNumber)
+        {
+            CatalogItemAlreadyExistsMethod.ShouldBeInvokedWithTheArguments(expectedBrand, expectedItemNumber);
+        }
+
+        public void AssertScaleWasNotFound(Slug expectedScale)
+        {
+            ScaleNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedScale);
+        }
+
+        public void AssertRailwayWasNotFound(IEnumerable<Slug> expectedRailways)
+        {
+            RailwayNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedRailways);
+        }
+
+        public override IEnumerable<IMethodInvocation> Methods
+        {
+            get
+            {
+                var methods = new List<IMethodInvocation>
+                {
+                    BrandNotFoundMethod,
+                    CatalogItemAlreadyExistsMethod,
+                    ScaleNotFoundMethod,
+                    RailwayNotFoundMethod
+                };
+
+                return base.Methods.Concat(methods);
+            }
         }
     }
 }

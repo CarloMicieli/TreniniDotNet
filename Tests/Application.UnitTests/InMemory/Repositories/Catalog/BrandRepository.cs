@@ -52,5 +52,16 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             IBrand brand = _context.Brands.FirstOrDefault(e => e.Slug == slug);
             return Task.FromResult(brand);
         }
+
+        public Task<IBrandInfo> GetInfoBySlugAsync(Slug slug)
+        {
+            IBrandInfo brand = _context.Brands.FirstOrDefault(e => e.Slug == slug);
+            return Task.FromResult(brand);
+        }
+
+        public Task UpdateAsync(IBrand brand)
+        {
+            return Task.CompletedTask;
+        }
     }
 }

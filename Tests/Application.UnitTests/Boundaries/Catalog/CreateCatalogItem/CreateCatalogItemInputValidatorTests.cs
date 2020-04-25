@@ -55,7 +55,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
 
             var result = validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.BrandName);
+            result.ShouldHaveValidationErrorFor(x => x.Brand);
         }
 
         [Fact]

@@ -35,48 +35,48 @@ namespace TreniniDotNet.Application
 
         private static IServiceCollection AddBrandUseCases(this IServiceCollection services)
         {
-            services.AddScoped<CatalogBoundaries.CreateBrand.ICreateBrandUseCase, CatalogUseCases.CreateBrand>();
-            services.AddScoped<CatalogBoundaries.GetBrandBySlug.IGetBrandBySlugUseCase, CatalogUseCases.GetBrandBySlug>();
-            services.AddScoped<CatalogBoundaries.GetBrandsList.IGetBrandsListUseCase, CatalogUseCases.GetBrandsList>();
+            services.AddScoped<CatalogBoundaries.CreateBrand.ICreateBrandUseCase, CatalogUseCases.Brands.CreateBrand>();
+            services.AddScoped<CatalogBoundaries.GetBrandBySlug.IGetBrandBySlugUseCase, CatalogUseCases.Brands.GetBrandBySlug>();
+            services.AddScoped<CatalogBoundaries.GetBrandsList.IGetBrandsListUseCase, CatalogUseCases.Brands.GetBrandsList>();
+            services.AddScoped<CatalogBoundaries.EditBrand.IEditBrandUseCase, CatalogUseCases.Brands.EditBrand>();
+
             services.AddScoped<IBrandsFactory, BrandsFactory>();
-
             services.AddScoped<BrandService>();
-
             return services;
         }
 
         private static IServiceCollection AddScaleUseCases(this IServiceCollection services)
         {
-            services.AddScoped<CatalogBoundaries.CreateScale.ICreateScaleUseCase, CatalogUseCases.CreateScale>();
-            services.AddScoped<CatalogBoundaries.GetScaleBySlug.IGetScaleBySlugUseCase, CatalogUseCases.GetScaleBySlug>();
-            services.AddScoped<CatalogBoundaries.GetScalesList.IGetScalesListUseCase, CatalogUseCases.GetScalesList>();
+            services.AddScoped<CatalogBoundaries.CreateScale.ICreateScaleUseCase, CatalogUseCases.Scales.CreateScale>();
+            services.AddScoped<CatalogBoundaries.GetScaleBySlug.IGetScaleBySlugUseCase, CatalogUseCases.Scales.GetScaleBySlug>();
+            services.AddScoped<CatalogBoundaries.GetScalesList.IGetScalesListUseCase, CatalogUseCases.Scales.GetScalesList>();
+            services.AddScoped<CatalogBoundaries.EditScale.IEditScaleUseCase, CatalogUseCases.Scales.EditScale>();
+
             services.AddScoped<IScalesFactory, ScalesFactory>();
-
             services.AddScoped<ScaleService>();
-
             return services;
         }
 
         private static IServiceCollection AddRailwayUseCases(this IServiceCollection services)
         {
-            services.AddScoped<CatalogBoundaries.CreateRailway.ICreateRailwayUseCase, CatalogUseCases.CreateRailway>();
-            services.AddScoped<CatalogBoundaries.GetRailwayBySlug.IGetRailwayBySlugUseCase, CatalogUseCases.GetRailwayBySlug>();
-            services.AddScoped<CatalogBoundaries.GetRailwaysList.IGetRailwaysListUseCase, CatalogUseCases.GetRailwaysList>();
+            services.AddScoped<CatalogBoundaries.CreateRailway.ICreateRailwayUseCase, CatalogUseCases.Railways.CreateRailway>();
+            services.AddScoped<CatalogBoundaries.GetRailwayBySlug.IGetRailwayBySlugUseCase, CatalogUseCases.Railways.GetRailwayBySlug>();
+            services.AddScoped<CatalogBoundaries.GetRailwaysList.IGetRailwaysListUseCase, CatalogUseCases.Railways.GetRailwaysList>();
+            services.AddScoped<CatalogBoundaries.EditRailway.IEditRailwayUseCase, CatalogUseCases.Railways.EditRailway>();
+
             services.AddScoped<IRailwaysFactory, RailwaysFactory>();
-
             services.AddScoped<RailwayService>();
-
             return services;
         }
 
         private static IServiceCollection AddCatalogItemUseCases(this IServiceCollection services)
         {
-            services.AddScoped<CatalogBoundaries.CreateCatalogItem.ICreateCatalogItemUseCase, CatalogUseCases.CreateCatalogItem>();
-            services.AddScoped<CatalogBoundaries.GetCatalogItemBySlug.IGetCatalogItemBySlugUseCase, CatalogUseCases.GetCatalogItemBySlug>();
+            services.AddScoped<CatalogBoundaries.CreateCatalogItem.ICreateCatalogItemUseCase, CatalogUseCases.CatalogItems.CreateCatalogItem>();
+            services.AddScoped<CatalogBoundaries.GetCatalogItemBySlug.IGetCatalogItemBySlugUseCase, CatalogUseCases.CatalogItems.GetCatalogItemBySlug>();
+            services.AddScoped<CatalogBoundaries.EditCatalogItem.IEditCatalogItemUseCase, CatalogUseCases.CatalogItems.EditCatalogItem>();
+
             services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();
-
             services.AddScoped<CatalogItemService>();
-
             return services;
         }
 
@@ -91,7 +91,6 @@ namespace TreniniDotNet.Application
 
             services.AddScoped<ICollectionsFactory, CollectionsFactory>();
             services.AddScoped<CollectionsService>();
-
             return services;
         }
 
@@ -106,7 +105,6 @@ namespace TreniniDotNet.Application
 
             services.AddScoped<IShopsFactory, ShopsFactory>();
             services.AddScoped<ShopsService>();
-
             return services;
         }
 
@@ -122,7 +120,6 @@ namespace TreniniDotNet.Application
 
             services.AddScoped<IWishlistsFactory, WishlistsFactory>();
             services.AddScoped<WishlistService>();
-
             return services;
         }
     }

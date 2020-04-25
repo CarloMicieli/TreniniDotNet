@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
-using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
 using System;
-using TreniniDotNet.Domain.Pagination;
 using Dapper;
 using System.Linq;
 using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
@@ -47,6 +47,27 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             return scale.ScaleId;
         }
 
+        public async Task UpdateAsync(IScale scale)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var _ = await connection.ExecuteAsync(UpdateScaleCommand, new
+            {
+                scale.ScaleId,
+                scale.Name,
+                scale.Slug,
+                scale.Ratio,
+                GaugeMm = scale.Gauge.InMillimeters.Value,
+                GaugeIn = scale.Gauge.InInches.Value,
+                TrackGauge = scale.Gauge.TrackGauge.ToString(),
+                scale.Description,
+                scale.Weight,
+                Modified = scale.ModifiedDate?.ToDateTimeUtc(),
+                scale.Version
+            });
+        }
+
         public async Task<bool> ExistsAsync(Slug slug)
         {
             await using var connection = _dbContext.NewConnection();
@@ -57,6 +78,23 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 new { slug = slug.ToString() });
 
             return string.IsNullOrEmpty(result) == false;
+        }
+
+        public async Task<IScaleInfo?> GetInfoBySlugAsync(Slug slug)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var result = await connection.QueryFirstOrDefaultAsync<ScaleInfoDto?>(
+                GetScaleInfoBySlugQuery,
+                new { @slug = slug.ToString() });
+
+            if (result is null)
+            {
+                return null;
+            }
+
+            return ProjectInfoToDomain(result);
         }
 
         public async Task<IScale?> GetBySlugAsync(Slug slug)
@@ -83,6 +121,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             return new PaginatedResult<IScale>(
                 page,
                 results.Select(it => ProjectToDomain(it)!).ToList());
+        }
+
+        private IScaleInfo ProjectInfoToDomain(ScaleInfoDto dto)
+        {
+            return new ScaleInfo(dto.scale_id, dto.slug, dto.name, dto.ratio);
         }
 
         private IScale? ProjectToDomain(ScaleDto? dto)
@@ -114,8 +157,25 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             VALUES(
                 @ScaleId, @Name, @Slug, @Ratio, @GaugeMm, @GaugeIn, @TrackGauge, @Description, @Weight, @Created, @Modified, @Version);";
 
-        private const string GetScaleExistsQuery = @"SELECT slug FROM scales WHERE slug = @slug;";
-        private const string GetScaleBySlugQuery = @"SELECT * FROM scales WHERE slug = @slug;";
+        private const string UpdateScaleCommand = @"UPDATE scales SET 
+                name = @Name, 
+                slug = @Slug, 
+                ratio = @Ratio, 
+                gauge_mm = @GaugeMm, 
+                gauge_in = @GaugeIn, 
+                track_type = @TrackGauge, 
+                description = @Description, 
+                weight = @Weight, 
+                last_modified = @Modified, 
+                version = @Version
+            WHERE scale_id = @ScaleId;";
+
+        private const string GetScaleExistsQuery = @"SELECT slug FROM scales WHERE slug = @slug LIMIT 1;";
+
+        private const string GetScaleBySlugQuery = @"SELECT * FROM scales WHERE slug = @slug LIMIT 1;";
+
+        private const string GetScaleInfoBySlugQuery = @"SELECT scale_id, name, slug, ratio FROM scales WHERE slug = @slug LIMIT 1;";
+
         private const string GetAllScalesWithPaginationQuery = @"SELECT * FROM scales ORDER BY name LIMIT @limit OFFSET @skip;";
 
         #endregion
