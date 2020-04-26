@@ -8,7 +8,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand
     {
         public void BrandAlreadyExists(string message)
         {
-            ViewModel = new BadRequestObjectResult(message);
+            ViewModel = new ConflictObjectResult(message);
         }
 
         public override void Standard(CreateBrandOutput output)

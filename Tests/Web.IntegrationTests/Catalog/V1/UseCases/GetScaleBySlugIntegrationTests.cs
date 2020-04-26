@@ -18,7 +18,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetScaleBySlug_ReturnsOk_WhenTheScaleExists()
+        public async Task GetScaleBySlug_ShouldReturn200OK_WhenTheScaleExists()
         {
             var scale = CatalogSeedData.Scales.ScaleH0();
 
@@ -33,7 +33,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetScaleBySlug_ReturnsNotFound_WhenTheScaleDoesNotExist()
+        public async Task GetScaleBySlug_ShouldReturn404NotFound_WhenTheScaleDoesNotExist()
         {
             var response = await GetAsync("/api/v1/scales/not-found");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);

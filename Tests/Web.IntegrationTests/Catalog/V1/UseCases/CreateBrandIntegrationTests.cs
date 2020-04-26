@@ -17,9 +17,19 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task CreateNewBrands_ReturnsOk()
+        public async Task CreateBrand_ShouldReturn401Unauthorized_WhenUserIsNotAuthenticated()
         {
             var client = CreateHttpClient();
+
+            var response = await client.PostJsonAsync("/api/v1/brands", new { }, Check.Nothing);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task CreateBrand_ShouldReturn201Created_WhenCreateTheNewBrand()
+        {
+            var client = await CreateAuthorizedHttpClientAsync();
 
             var request = new
             {
@@ -32,14 +42,15 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
             var response = await client.PostJsonAsync("/api/v1/brands", request, Check.IsSuccessful);
 
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
             response.Headers.Should().NotBeEmpty();
             response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/Brands/new-brand"));
         }
 
         [Fact]
-        public async Task CreateNewBrands_ReturnsError_WhenTheRequestIsInvalid()
+        public async Task CreateBrand_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = CreateHttpClient();
+            var client = await CreateAuthorizedHttpClientAsync();
 
             var request = new
             {
@@ -55,9 +66,9 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task CreateNewBrands_ReturnsBadRequest_WhenTheBrandAlreadyExist()
+        public async Task CreateBrand_ShouldReturn409Conflict_WhenTheBrandAlreadyExist()
         {
-            var client = CreateHttpClient();
+            var client = await CreateAuthorizedHttpClientAsync();
 
             var request = new
             {
@@ -70,7 +81,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
             var response = await client.PostJsonAsync("/api/v1/brands", request, Check.Nothing);
 
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            response.StatusCode.Should().Be(HttpStatusCode.Conflict);
         }
     }
 }

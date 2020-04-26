@@ -16,7 +16,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetBrandsList_ShouldReturnTheBrands()
+        public async Task GetBrandsList_ShouldReturn200OK_AndTheBrands()
         {
             var content = await GetJsonAsync<BrandsListResponse>("/api/v1/brands");
 
@@ -32,7 +32,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetBrandsList_ShouldReturnTheFirstPageOfBrands()
+        public async Task GetBrandsList_ShouldReturn200OK_AndTheFirstPageOfBrands()
         {
             var limit = 2;
             var content = await GetJsonAsync<BrandsListResponse>($"/api/v1/brands?start=0&limit={limit}");
@@ -49,7 +49,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetBrandsList_ShouldReturnAPageOfBrands()
+        public async Task GetBrandsList_ShouldReturn200OK_AndOnePageOfBrands()
         {
             var limit = 2;
             var content = await GetJsonAsync<BrandsListResponse>($"/api/v1/brands?start=2&limit={limit}");

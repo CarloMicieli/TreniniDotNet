@@ -17,7 +17,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetBrandBySlug_ReturnsOk_WhenTheBrandExists()
+        public async Task GetBrandBySlug_ShouldReturn200OK_WhenTheBrandExists()
         {
             var content = await GetJsonAsync<BrandResponse>("/api/v1/brands/acme");
 
@@ -30,7 +30,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetBrandBySlug_ReturnsNotFound_WhenTheBrandDoesNotExist()
+        public async Task GetBrandBySlug_ShouldReturn404NotFound_WhenTheBrandDoesNotExist()
         {
             var response = await GetAsync("/api/v1/brands/not-found");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);

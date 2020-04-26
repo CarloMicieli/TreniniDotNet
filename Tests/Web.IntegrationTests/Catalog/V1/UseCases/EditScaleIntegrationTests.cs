@@ -16,7 +16,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditScale_Returns401Unauthorized_WhenTheUserIsNotAuthenticated()
+        public async Task EditScale_ShouldReturn401Unauthorized_WhenTheUserIsNotAuthenticated()
         {
             var client = CreateHttpClient();
 
@@ -31,7 +31,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditScale_Returns400BadRequest_WhenTheRequestIsInvalid()
+        public async Task EditScale_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
             var client = await CreateAuthorizedHttpClientAsync();
 
@@ -47,7 +47,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditScale_Returns404NotFound_WhenScaleToEditWasNotFound()
+        public async Task EditScale_ShouldReturn404NotFound_WhenScaleToEditWasNotFound()
         {
             var client = await CreateAuthorizedHttpClientAsync();
 
@@ -58,7 +58,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditScale_Returns200OK_WhenScaleWasUpdated()
+        public async Task EditScale_ShouldReturn200OK_WhenScaleWasUpdated()
         {
             var client = await CreateAuthorizedHttpClientAsync();
 

@@ -17,9 +17,20 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task CreateNewRailways_ReturnsOk()
+        public async Task CreateRailway_ShouldReturn401Unauthorized_WhenUserIsNotAuthenticated()
         {
             var client = CreateHttpClient();
+
+            var response = await client.PostJsonAsync("/api/v1/railways", new { }, Check.Nothing);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task CreateRailway_ShouldReturn201Created_WhenTheNewRailwayIsCreated()
+        {
+            var client = await CreateAuthorizedHttpClientAsync();
+
             var content = new
             {
                 Name = "New Railway",
@@ -37,44 +48,40 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task CreateNewBrands_ReturnsError_WhenTheRequestIsInvalid()
+        public async Task CreateRailway_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            // Arrange
-            var client = CreateHttpClient();
-            var content = JsonContent(new
+            var client = await CreateAuthorizedHttpClientAsync();
+
+            var content = new
             {
                 CompanyName = "Ferrovie dello stato",
                 Country = "IT",
                 Status = "Active",
                 OperatingSince = new DateTime(1905, 7, 1)
-            });
+            };
 
-            // Act
-            var response = await client.PostAsync("/api/v1/railways", content);
+            var response = await client.PostJsonAsync("/api/v1/railways", content, Check.Nothing);
 
-            // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [Fact]
-        public async Task CreateNewBrands_ReturnsBadRequest_WhenTheRailwayAlreadyExist()
+        public async Task CreateRailway_ShouldReturn409Conflict_WhenTheRailwayAlreadyExist()
         {
-            // Arrange
-            var client = CreateHttpClient();
-            var content = JsonContent(new
+            var client = await CreateAuthorizedHttpClientAsync();
+
+            var content = new
             {
                 Name = "FS",
                 CompanyName = "Ferrovie dello stato",
                 Country = "IT",
                 Status = "Active",
                 OperatingSince = new DateTime(1905, 7, 1)
-            });
+            };
 
-            // Act
-            var response = await client.PostAsync("/api/v1/railways", content);
+            var response = await client.PostJsonAsync("/api/v1/railways", content, Check.Nothing);
 
-            // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.Conflict);
         }
     }
 }

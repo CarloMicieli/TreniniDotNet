@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using IntegrationTests;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
@@ -18,9 +17,19 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task CreateCatalogItem_ReturnsError_WhenTheRequestIsInvalid()
+        public async Task CreateCatalogItem_ShouldReturn401Unauthorized_WhenUserIsNotAuthenticated()
         {
             var client = CreateHttpClient();
+
+            var response = await client.PostJsonAsync("/api/v1/catalogItems", new { }, Check.Nothing);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task CreateCatalogItem_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
+        {
+            var client = await CreateAuthorizedHttpClientAsync();
 
             var response = await client.PostJsonAsync("/api/v1/catalogItems", new { }, Check.Nothing);
 
@@ -28,24 +37,99 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task CreateCatalogItem_ReturnsOk()
+        public async Task CreateCatalogItem_ShouldReturn422UnprocessableEntity_WhenScaleNotExist()
         {
-            var client = CreateHttpClient();
+            var client = await CreateAuthorizedHttpClientAsync();
 
             var content = new
             {
-                brandName = "ACME", //TODO: case sensitive now!
+                brandName = "Acme",
+                itemNumber = "123456",
+                description = "My new catalog item",
+                powerMethod = "dc",
+                scale = "---",
+                rollingStocks = JsonArray(new
+                {
+                    era = "VI",
+                    category = "ElectricLocomotive",
+                    railway = "fs"
+                })
+            };
+
+            var response = await client.PostJsonAsync("/api/v1/catalogItems", content, Check.Nothing);
+
+            response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+        }
+
+        [Fact]
+        public async Task CreateCatalogItem_ShouldReturn422UnprocessableEntity_WhenBrandNotExist()
+        {
+            var client = await CreateAuthorizedHttpClientAsync();
+
+            var content = new
+            {
+                brandName = "NotFound",
+                itemNumber = "123456",
+                description = "My new catalog item",
+                powerMethod = "dc",
+                scale = "H0",
+                rollingStocks = JsonArray(new
+                {
+                    era = "VI",
+                    category = "ElectricLocomotive",
+                    railway = "fs"
+                })
+            };
+
+            var response = await client.PostJsonAsync("/api/v1/catalogItems", content, Check.Nothing);
+
+            response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+        }
+
+        [Fact]
+        public async Task CreateCatalogItem_ShouldReturn422UnprocessableEntity_WhenRailwayNotExist()
+        {
+            var client = await CreateAuthorizedHttpClientAsync();
+
+            var content = new
+            {
+                brandName = "Acme",
+                itemNumber = "123456",
+                description = "My new catalog item",
+                powerMethod = "dc",
+                scale = "H0",
+                rollingStocks = JsonArray(new
+                {
+                    era = "VI",
+                    category = "ElectricLocomotive",
+                    railway = "----"
+                })
+            };
+
+            var response = await client.PostJsonAsync("/api/v1/catalogItems", content, Check.Nothing);
+
+            response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+        }
+
+        [Fact]
+        public async Task CreateCatalogItem_ShouldReturn201Created_WhenCatalogItemIsCreated()
+        {
+            var client = await CreateAuthorizedHttpClientAsync();
+
+            var content = new
+            {
+                brandName = "Acme",
                 itemNumber = "123456",
                 description = "My new catalog item",
                 prototypeDescription = (string)null,
                 modelDescription = (string)null,
                 powerMethod = "dc",
-                scale = "H0", //TODO: case sensitive now!
+                scale = "H0",
                 rollingStocks = JsonArray(new
                 {
                     era = "VI",
                     category = "ElectricLocomotive",
-                    railway = "FS", //TODO: case sensitive now!
+                    railway = "fs",
                     length = new
                     {
                         Millimeters = 210
@@ -57,6 +141,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
             var response = await client.PostJsonAsync("/api/v1/catalogItems", content, Check.IsSuccessful);
 
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
             response.Headers.Should().NotBeEmpty();
             response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/CatalogItems/acme-123456"));
         }

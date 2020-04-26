@@ -16,7 +16,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditBrand_Returns401Unauthorized_WhenTheUserIsNotAuthenticated()
+        public async Task EditBrand_ShouldReturn401Unauthorized_WhenTheUserIsNotAuthenticated()
         {
             var client = CreateHttpClient();
 
@@ -31,7 +31,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditBrand_Returns400BadRequest_WhenTheRequestIsInvalid()
+        public async Task EditBrand_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
             var client = await CreateAuthorizedHttpClientAsync();
 
@@ -47,7 +47,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditBrand_Returns404NotFound_WhenBrandToEditWasNotFound()
+        public async Task EditBrand_ShouldReturn404NotFound_WhenBrandToEditWasNotFound()
         {
             var client = await CreateAuthorizedHttpClientAsync();
 
@@ -58,7 +58,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditBrand_Returns200OK_WhenBrandWasUpdated()
+        public async Task EditBrand_ShouldReturn200OK_WhenBrandWasUpdated()
         {
             var client = await CreateAuthorizedHttpClientAsync();
 

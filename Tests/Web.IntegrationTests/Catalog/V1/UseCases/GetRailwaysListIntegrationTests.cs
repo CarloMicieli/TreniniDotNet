@@ -16,7 +16,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetRailwaysList_ShouldReturnTheRailways()
+        public async Task GetRailwaysList_ShouldReturn200OK_AndTheRailways()
         {
             var content = await GetJsonAsync<RailwaysListResponse>("/api/v1/railways");
 
@@ -33,7 +33,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetRailwaysList_ShouldReturnTheFirstPageOfRailways()
+        public async Task GetRailwaysList_ShouldReturn200OK_AndTheFirstPageOfRailways()
         {
             var limit = 2;
             var content = await GetJsonAsync<RailwaysListResponse>($"/api/v1/railways?start=0&limit={limit}");
@@ -48,7 +48,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetRailwaysList_ShouldReturnTheRailways_WithPagination()
+        public async Task GetRailwaysList_ShouldReturn200OK_AndTheRailwaysWithPagination()
         {
             var limit = 2;
             var content = await GetJsonAsync<RailwaysListResponse>($"/api/v1/railways?start=2&limit={limit}");

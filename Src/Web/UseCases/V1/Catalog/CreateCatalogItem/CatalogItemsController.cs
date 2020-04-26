@@ -1,13 +1,11 @@
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
 {
-    [AllowAnonymous]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
@@ -21,6 +19,8 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem
         [HttpPost]
         [ProducesResponseType(typeof(CreateCatalogItemOutput), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> Post(CreateCatalogItemRequest request)
         {

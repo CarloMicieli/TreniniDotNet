@@ -16,7 +16,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetScalesList_ShouldReturnTheScales()
+        public async Task GetScalesList_ShouldReturn200OK_AndTheScalesList()
         {
             var content = await GetJsonAsync<ScalesListResponse>("/api/v1/scales");
 
@@ -33,7 +33,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetScalesList_ShouldReturnTheFirstPageOfScales()
+        public async Task GetScalesList_ShouldReturn200OK_AndTheFirstPageOfScales()
         {
             var limit = 2;
             var content = await GetJsonAsync<ScalesListResponse>($"/api/v1/scales?start=0&limit={limit}");
@@ -54,7 +54,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetScalesList_ShouldReturnTheScales_WithPagination()
+        public async Task GetScalesList_ShouldReturn200OK_AndTheScalesWithPagination()
         {
             var limit = 2;
             var content = await GetJsonAsync<ScalesListResponse>($"/api/v1/scales?start=2&limit={limit}");

@@ -17,7 +17,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetCatalogItemBySlug_ReturnsOk_WhenTheBrandExists()
+        public async Task GetCatalogItemBySlug_ShouldReturn200OK_WhenTheBrandExists()
         {
             var content = await GetJsonAsync<CatalogItemResponse>("/api/v1/catalogitems/acme-60392");
 
@@ -29,7 +29,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task GetCatalogItemBySlug_ReturnsNotFound_WhenTheBrandDoesNotExist()
+        public async Task GetCatalogItemBySlug_ShouldReturn404NotFound_WhenTheBrandDoesNotExist()
         {
             var response = await GetAsync("/api/v1/catalogitems/not-found");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);

@@ -1,4 +1,5 @@
-﻿using IntegrationTests;
+﻿using FluentAssertions;
+using IntegrationTests;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -16,9 +17,20 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task CreateNewScales_ReturnsOk()
+        public async Task CreateScale_ShouldReturn401Unauthorized_WhenUserIsNotAuthenticated()
         {
             var client = CreateHttpClient();
+
+            var response = await client.PostJsonAsync("/api/v1/scales", new { }, Check.Nothing);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task CreateScale_ShouldReturn201Created_WhenTheNewScaleIsCreated()
+        {
+            var client = await CreateAuthorizedHttpClientAsync();
+
             var content = new
             {
                 Name = "NN",
@@ -32,41 +44,50 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
             var response = await client.PostJsonAsync("/api/v1/scales", content, Check.IsSuccessful);
 
-            Assert.NotNull(response.Headers.Location);
-            Assert.Equal(new Uri("http://localhost/api/v1/Scales/nn"), response.Headers.Location);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+            response.Headers.Location.Should().NotBeNull();
+            response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/Scales/nn"));
         }
 
         [Fact]
-        public async Task CreateNewScales_ReturnsError_WhenTheRequestIsInvalid()
+        public async Task CreateScale_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = CreateHttpClient();
-            var content = JsonContent(new
+            var client = await CreateAuthorizedHttpClientAsync();
+
+            var content = new
             {
-                Gauge = 16.5,
-                Ratio = 87,
-                TrackGauge = "standard"
-            });
+                Gauge = new
+                {
+                    TrackGauge = "Standard",
+                    Millimeters = -16.5M
+                },
+                Ratio = 87
+            };
 
-            var response = await client.PostAsync("/api/v1/scales", content);
+            var response = await client.PostJsonAsync("/api/v1/scales", content, Check.Nothing);
 
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [Fact]
-        public async Task CreateNewScales_ReturnsBadRequest_WhenTheScaleAlreadyExist()
+        public async Task CreateScale_ShouldReturn409Conflict_WhenTheScaleAlreadyExist()
         {
-            var client = CreateHttpClient();
-            var content = JsonContent(new
+            var client = await CreateAuthorizedHttpClientAsync();
+
+            var content = new
             {
                 Name = "H0",
-                Gauge = 16.5,
-                Ratio = 87,
-                TrackGauge = "standard"
-            });
+                Gauge = new
+                {
+                    TrackGauge = "Standard",
+                    Millimeters = 16.5M
+                },
+                Ratio = 87
+            };
 
-            var response = await client.PostAsync("/api/v1/scales", content);
+            var response = await client.PostJsonAsync("/api/v1/scales", content, Check.Nothing);
 
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            response.StatusCode.Should().Be(HttpStatusCode.Conflict);
         }
     }
 }

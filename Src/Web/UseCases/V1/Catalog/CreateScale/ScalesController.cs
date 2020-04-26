@@ -1,13 +1,11 @@
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
 {
-    [AllowAnonymous]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
@@ -21,6 +19,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
         [HttpPost]
         [ProducesResponseType(typeof(CreateScaleOutput), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> Post(CreateScaleRequest request)
         {

@@ -8,7 +8,7 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale
     {
         public void ScaleAlreadyExists(string message)
         {
-            ViewModel = BadRequest(message);
+            ViewModel = new ConflictObjectResult(message);
         }
 
         public override void Standard(CreateScaleOutput output)

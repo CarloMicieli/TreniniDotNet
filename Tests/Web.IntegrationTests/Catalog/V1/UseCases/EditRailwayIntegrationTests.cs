@@ -16,7 +16,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditRailway_Returns401Unauthorized_WhenTheUserIsNotAuthenticated()
+        public async Task EditRailway_ShouldReturn401Unauthorized_WhenTheUserIsNotAuthenticated()
         {
             var client = CreateHttpClient();
 
@@ -27,7 +27,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditRailway_Returns400BadRequest_WhenTheRequestIsInvalid()
+        public async Task EditRailway_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
             var client = await CreateAuthorizedHttpClientAsync();
 
@@ -43,7 +43,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditRailway_Returns404NotFound_WhenRailwayToEditWasNotFound()
+        public async Task EditRailway_ShouldReturn404NotFound_WhenRailwayToEditWasNotFound()
         {
             var client = await CreateAuthorizedHttpClientAsync();
 
@@ -60,7 +60,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
         }
 
         [Fact]
-        public async Task EditRailway_Returns200OK_WhenRailwayWasUpdated()
+        public async Task EditRailway_ShouldReturn200OK_WhenRailwayWasUpdated()
         {
             var client = await CreateAuthorizedHttpClientAsync();
 
