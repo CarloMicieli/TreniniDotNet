@@ -1,5 +1,6 @@
 using FluentValidation.TestHelper;
 using System.Collections.Generic;
+using TreniniDotNet.Application.Boundaries.Common;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using Xunit;
 using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
@@ -31,7 +32,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
             );
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme",
+                brand: "acme",
                 itemNumber: "123456",
                 description: "My first catalog item",
                 prototypeDescription: null,
@@ -49,8 +50,8 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenBrandNameIsEmpty()
         {
-            var input = NewCatalogItemInput.With(
-                BrandName: "",
+            var input = NewCreateCatalogItemInput.With(
+                Brand: "",
                 RollingStocks: EmptyRollingStocks());
 
             var result = validator.TestValidate(input);
@@ -61,7 +62,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenItemNumberIsNull()
         {
-            var input = NewCatalogItemInput.With(
+            var input = NewCreateCatalogItemInput.With(
                 ItemNumber: null,
                 RollingStocks: EmptyRollingStocks());
 
@@ -73,7 +74,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenItemNumberIsTooShort()
         {
-            var input = NewCatalogItemInput.With(
+            var input = NewCreateCatalogItemInput.With(
                 ItemNumber: "123",
                 RollingStocks: EmptyRollingStocks());
 
@@ -85,7 +86,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenDescriptionIsNull()
         {
-            var input = NewCatalogItemInput.With(
+            var input = NewCreateCatalogItemInput.With(
                 Description: null,
                 RollingStocks: EmptyRollingStocks());
 
@@ -97,7 +98,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenScaleIsNull()
         {
-            var input = NewCatalogItemInput.With(
+            var input = NewCreateCatalogItemInput.With(
                 Scale: null,
                 RollingStocks: EmptyRollingStocks());
 
@@ -109,7 +110,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenPowerMethodIsInvalid()
         {
-            var input = NewCatalogItemInput.With(
+            var input = NewCreateCatalogItemInput.With(
                 PowerMethod: "not valid",
                 RollingStocks: EmptyRollingStocks());
 
@@ -121,8 +122,8 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenHasNoRollingStocks()
         {
-            var input = NewCatalogItemInput.With(
-                BrandName: "",
+            var input = NewCreateCatalogItemInput.With(
+                Brand: "",
                 ItemNumber: "",
                 PowerMethod: "not valid",
                 Available: false,
@@ -136,8 +137,8 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenAnyRollingStocksIsInvalid()
         {
-            var input = NewCatalogItemInput.With(
-                BrandName: "",
+            var input = NewCreateCatalogItemInput.With(
+                Brand: "",
                 ItemNumber: "",
                 PowerMethod: "not valid",
                 Available: false,
@@ -153,8 +154,8 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
         [Fact]
         public void CreateCatalogItemInputValidator_ShouldHaveError_WhenAnyRollingStocksHasNegativeLength()
         {
-            var input = NewCatalogItemInput.With(
-                BrandName: "",
+            var input = NewCreateCatalogItemInput.With(
+                Brand: "",
                 ItemNumber: "",
                 PowerMethod: "not valid",
                 Available: false,

@@ -9,7 +9,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
     {
         Task<bool> ExistsAsync(IBrandInfo brand, ItemNumber itemNumber);
 
-        Task<ICatalogItem?> GetByAsync(IBrandInfo brand, ItemNumber itemNumber);
+        Task<ICatalogItem?> GetByBrandAndItemNumberAsync(IBrandInfo brand, ItemNumber itemNumber);
 
         Task<ICatalogItem?> GetBySlugAsync(Slug slug);
 

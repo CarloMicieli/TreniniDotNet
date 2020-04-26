@@ -43,7 +43,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
             var content = new
             {
-                brandName = "Acme",
+                brand = "Acme",
                 itemNumber = "123456",
                 description = "My new catalog item",
                 powerMethod = "dc",
@@ -68,7 +68,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
             var content = new
             {
-                brandName = "NotFound",
+                brand = "NotFound",
                 itemNumber = "123456",
                 description = "My new catalog item",
                 powerMethod = "dc",
@@ -93,7 +93,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
             var content = new
             {
-                brandName = "Acme",
+                brand = "Acme",
                 itemNumber = "123456",
                 description = "My new catalog item",
                 powerMethod = "dc",
@@ -118,7 +118,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
 
             var content = new
             {
-                brandName = "Acme",
+                brand = "Acme",
                 itemNumber = "123456",
                 description = "My new catalog item",
                 prototypeDescription = (string)null,

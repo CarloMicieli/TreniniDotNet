@@ -72,6 +72,29 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             return catalogItem.CatalogItemId;
         }
 
+        public async Task UpdateAsync(ICatalogItem catalogItem)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var _rows1 = await connection.ExecuteAsync(UpdateCatalogItemCommand, new
+            {
+                catalogItem.CatalogItemId,
+                catalogItem.Brand.BrandId,
+                catalogItem.Scale.ScaleId,
+                catalogItem.ItemNumber,
+                catalogItem.Slug,
+                catalogItem.PowerMethod,
+                DeliveryDate = catalogItem.DeliveryDate?.ToString(),
+                Available = catalogItem.IsAvailable,
+                catalogItem.Description,
+                catalogItem.ModelDescription,
+                catalogItem.PrototypeDescription,
+                Modified = catalogItem.ModifiedDate?.ToDateTimeUtc(),
+                catalogItem.Version
+            });
+        }
+
         public async Task<bool> ExistsAsync(IBrandInfo brand, ItemNumber itemNumber)
         {
             await using var connection = _dbContext.NewConnection();
@@ -84,7 +107,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             return string.IsNullOrEmpty(result) == false;
         }
 
-        public async Task<ICatalogItem?> GetByAsync(IBrandInfo brand, ItemNumber itemNumber)
+        public async Task<ICatalogItem?> GetByBrandAndItemNumberAsync(IBrandInfo brand, ItemNumber itemNumber)
         {
             await using var connection = _dbContext.NewConnection();
             await connection.OpenAsync();
@@ -186,11 +209,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 dto.control
             );
 
-        public Task UpdateAsync(ICatalogItem catalogItem)
-        {
-            throw new NotImplementedException();
-        }
-
         #region [ Query / Command text ]
 
         private const string GetCatalogItemByBrandAndItemNumberQuery = @"SELECT 
@@ -244,6 +262,21 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 class_name, road_number, type_name, dcc_interface, control)
 	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @LengthMm, @LengthIn, 
                 @ClassName, @RoadNumber, @TypeName, @DccInterface, @Control);";
+
+        private const string UpdateCatalogItemCommand = @"UPDATE catalog_items SET 
+                brand_id = @BrandId, 
+                scale_id = @ScaleId, 
+                item_number = @ItemNumber, 
+                slug = @Slug, 
+                power_method = @PowerMethod,
+                delivery_date = @DeliveryDate,
+                available = @Available,
+                description = @Description, 
+                model_description = @ModelDescription,
+                prototype_description = @PrototypeDescription,
+                last_modified = @Modified, 
+                version = @Version
+            WHERE catalog_item_id = @CatalogItemId;";
 
         #endregion
     }

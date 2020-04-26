@@ -70,6 +70,7 @@ namespace TreniniDotNet.Application.UseCases
         {
             var context = NewMemoryContext(initData);
 
+            var catalogItemsFactory = new CatalogItemsFactory(_fakeClock, _guidSource);
             var catalogItemRepository = new CatalogItemRepository(context);
             var brandRepository = new BrandRepository(context);
             var scaleRepository = new ScaleRepository(context);
@@ -79,6 +80,7 @@ namespace TreniniDotNet.Application.UseCases
 
             var catalogItemService = new CatalogItemService(
                 catalogItemRepository,
+                catalogItemsFactory,
                 brandRepository,
                 scaleRepository,
                 railwayRepository);

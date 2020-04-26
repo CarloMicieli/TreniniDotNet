@@ -9,6 +9,7 @@ using TreniniDotNet.Application.Boundaries.Common;
 using TreniniDotNet.Common;
 using TreniniDotNet.Application.Boundaries.Catalog.EditRailway;
 using TreniniDotNet.Application.Boundaries.Catalog.EditScale;
+using TreniniDotNet.Application.Boundaries.Catalog.EditCatalogItem;
 
 namespace TreniniDotNet.Application.TestInputs.Catalog
 {
@@ -158,12 +159,12 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
                 new ScaleGaugeInput(TrackGauge, Inches, Millimeters);
         }
 
-        public static class NewCatalogItemInput
+        public static class NewCreateCatalogItemInput
         {
             public static CreateCatalogItemInput Empty = With();
 
             public static CreateCatalogItemInput With(
-                string BrandName = null,
+                string Brand = null,
                 string ItemNumber = null,
                 string Description = null,
                 string PrototypeDescription = null,
@@ -173,7 +174,34 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
                 string DeliveryDate = null,
                 bool Available = true,
                 IList<RollingStockInput> RollingStocks = null) =>
-                new CreateCatalogItemInput(BrandName, ItemNumber, Description, PrototypeDescription, ModelDescription,
+                new CreateCatalogItemInput(
+                    Brand,
+                    ItemNumber,
+                    Description, PrototypeDescription, ModelDescription,
+                    PowerMethod, Scale, DeliveryDate, Available, RollingStocks);
+        }
+
+        public static class NewEditCatalogItemInput
+        {
+            public static EditCatalogItemInput Empty = With();
+
+            public static EditCatalogItemInput With(
+                Slug? ItemSlug = null,
+                string Brand = null,
+                string ItemNumber = null,
+                string Description = null,
+                string PrototypeDescription = null,
+                string ModelDescription = null,
+                string PowerMethod = null,
+                string Scale = null,
+                string DeliveryDate = null,
+                bool Available = true,
+                IList<RollingStockInput> RollingStocks = null) =>
+                new EditCatalogItemInput(
+                    ItemSlug ?? Slug.Empty,
+                    Brand,
+                    ItemNumber,
+                    Description, PrototypeDescription, ModelDescription,
                     PowerMethod, Scale, DeliveryDate, Available, RollingStocks);
         }
 

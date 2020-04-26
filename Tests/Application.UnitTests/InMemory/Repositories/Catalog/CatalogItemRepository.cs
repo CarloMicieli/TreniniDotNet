@@ -29,7 +29,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(exists);
         }
 
-        public Task<ICatalogItem> GetByAsync(IBrandInfo brand, ItemNumber itemNumber)
+        public Task<ICatalogItem> GetByBrandAndItemNumberAsync(IBrandInfo brand, ItemNumber itemNumber)
         {
             var catalogItem = _context.CatalogItems
                 .Where(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber)
@@ -47,9 +47,7 @@ namespace TreniniDotNet.Application.InMemory.Repositories.Catalog
             return Task.FromResult(catalogItem);
         }
 
-        public Task UpdateAsync(ICatalogItem catalogItem)
-        {
-            throw new System.NotImplementedException();
-        }
+        public Task UpdateAsync(ICatalogItem catalogItem) =>
+            Task.CompletedTask;
     }
 }

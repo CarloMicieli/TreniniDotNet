@@ -1,21 +1,19 @@
 ﻿using System;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Infrastructure.Database.Testing;
+using System.Threading.Tasks;
 using NodaTime;
 using Xunit;
 using FluentAssertions;
+using TreniniDotNet.Infrastructure.Database.Testing;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.Uuid.Testing;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Common;
-using System.Collections.Generic;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.Railways;
-using System.Threading.Tasks;
-using System.Collections.Immutable;
-using TreniniDotNet.Common.Lengths;
-using TreniniDotNet.Common.Uuid.Testing;
-using TreniniDotNet.Common.DeliveryDates;
 using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using System.Linq;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
@@ -29,8 +27,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             : base(fixture, CreateRepository)
         {
             this.brand = new BrandInfo(BrandId.NewId(), Slug.Of("ACME"), "ACME");
-            this.railway = new TestRailwayInfo();
-            this.scale = new TestScaleInfo();
+            this.railway = new FakeRailwayInfo();
+            this.scale = new FakeScaleInfo();
 
             Database.Setup.TruncateTable(Tables.Brands);
             Database.Setup.TruncateTable(Tables.Railways);
@@ -78,7 +76,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             Database.Setup.TruncateTable(Tables.RollingStocks);
             Database.Setup.TruncateTable(Tables.CatalogItems);
 
-            var catalogItem = new TestCatalogItem(brand);
+            var catalogItem = new FakeCatalogItem(brand);
             var catalogItemId = await Repository.AddAsync(catalogItem);
 
             catalogItemId.Should().Be(catalogItem.CatalogItemId);
@@ -167,7 +165,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 railwayId: railway.RailwayId,
                 scaleId: scale.ScaleId);
 
-            var catalogItem = await Repository.GetByAsync(brand, new ItemNumber("123456"));
+            var catalogItem = await Repository.GetByBrandAndItemNumberAsync(brand, new ItemNumber("123456"));
 
             catalogItem.Should().NotBeNull();
             catalogItem.Brand.Should().Be(brand);
@@ -183,114 +181,33 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 railwayId: railway.RailwayId,
                 scaleId: scale.ScaleId);
 
-            var catalogItem = await Repository.GetByAsync(brand, new ItemNumber("654321"));
+            var catalogItem = await Repository.GetByBrandAndItemNumberAsync(brand, new ItemNumber("654321"));
 
             catalogItem.Should().BeNull();
         }
 
-        public class TestCatalogItem : ICatalogItem
+        [Fact]
+        public async Task CatalogItemRepository_UpdateAsync_ShouldUpdateCatalogItem()
         {
-            public TestCatalogItem(IBrandInfo brand)
-            {
-                CatalogItemId = new CatalogItemId(Guid.NewGuid());
+            var item = CatalogSeedData.CatalogItems.Acme_60392();
 
-                RollingStocks = ImmutableList.Create<IRollingStock>(
-                    new TestRollingStock(Guid.NewGuid()));
+            Database.ArrangeWithOneCatalogItem(
+                catalogItemId: item.CatalogItemId,
+                brandId: item.Brand.BrandId,
+                railwayId: item.RollingStocks.First().Railway.RailwayId,
+                scaleId: item.Scale.ScaleId);
 
-                Brand = brand;
-            }
+            await Repository.UpdateAsync(item);
 
-            public CatalogItemId CatalogItemId { get; }
-
-            public IBrandInfo Brand { get; }
-
-            public Slug Slug => Slug.Of("acme", "123456");
-
-            public ItemNumber ItemNumber => new ItemNumber("123456");
-
-            public IReadOnlyList<IRollingStock> RollingStocks { get; }
-
-            public string Description => "Description";
-
-            public string PrototypeDescription => null;
-
-            public string ModelDescription => null;
-
-            public IScaleInfo Scale => new TestScaleInfo();
-
-            public PowerMethod PowerMethod => PowerMethod.DC;
-
-            public DeliveryDate? DeliveryDate => null;
-
-            public bool IsAvailable => false;
-
-            public Instant CreatedDate => Instant.FromUtc(1988, 11, 25, 9, 0);
-
-            public Instant? ModifiedDate => null;
-
-            public int Version => 1;
-
-            public ICatalogItemInfo ToCatalogItemInfo() => this;
-        }
-
-        public class TestRollingStock : IRollingStock
-        {
-            private RollingStockId _id;
-
-            public TestRollingStock(Guid id)
-            {
-                _id = new RollingStockId(id);
-            }
-
-            public RollingStockId RollingStockId => _id;
-
-            public IRailwayInfo Railway => new TestRailwayInfo();
-
-            public Category Category => Category.ElectricLocomotive;
-
-            public Era Era => Era.IV;
-
-            public string ClassName => "class name";
-
-            public string RoadNumber => "road num";
-
-            public string TypeName => "type name";
-
-            public DccInterface DccInterface => DccInterface.Nem651;
-
-            public Control Control => Control.DccReady;
-
-            public LengthOverBuffer Length => LengthOverBuffer.Create(null, 210M);
-        }
-
-        public class TestRailwayInfo : IRailwayInfo
-        {
-            private readonly RailwayId railwayId = new RailwayId(Guid.NewGuid());
-
-            public RailwayId RailwayId => railwayId;
-
-            public Slug Slug => Slug.Of("FS");
-
-            public string Name => "FS";
-
-            public Country Country => Country.Of("IT");
-
-            public IRailwayInfo ToRailwayInfo() => this;
-        }
-
-        public class TestScaleInfo : IScaleInfo
-        {
-            private readonly ScaleId scaleId = new ScaleId(Guid.NewGuid());
-
-            public ScaleId ScaleId => scaleId;
-
-            public Slug Slug => Slug.Of("H0");
-
-            public string Name => "H0";
-
-            public Ratio Ratio => Ratio.Of(87M);
-
-            public IScaleInfo ToScaleInfo() => this;
+            Database.Assert.RowInTable(Tables.CatalogItems)
+                .WithPrimaryKey(new
+                {
+                    catalog_item_id = item.CatalogItemId.ToGuid()
+                })
+                .AndValues(new
+                {
+                    version = 2,
+                });
         }
     }
 

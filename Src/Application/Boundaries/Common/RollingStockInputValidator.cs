@@ -1,7 +1,7 @@
 using FluentValidation;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 
-namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
+namespace TreniniDotNet.Application.Boundaries.Common
 {
     public sealed class RollingStockInputValidator : AbstractValidator<RollingStockInput>
     {

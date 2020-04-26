@@ -13,6 +13,7 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using System;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
 using TreniniDotNet.Common;
+using TreniniDotNet.Application.Boundaries.Common;
 
 namespace TreniniDotNet.Application.UseCases.Catalog.CatalogItems
 {

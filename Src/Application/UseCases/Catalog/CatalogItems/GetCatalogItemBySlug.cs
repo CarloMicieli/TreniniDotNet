@@ -19,7 +19,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.CatalogItems
 
         public async Task Execute(GetCatalogItemBySlugInput input)
         {
-            ICatalogItem? item = await _catalogItemService.FindBySlug(input.Slug);
+            ICatalogItem? item = await _catalogItemService.GetBySlugAsync(input.Slug);
             if (item is null)
             {
                 OutputPort.CatalogItemNotFound($"The catalog item '{input.Slug}' was not found");

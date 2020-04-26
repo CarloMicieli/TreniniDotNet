@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using NodaTime;
 using NodaTime.Testing;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
+using TreniniDotNet.Application.Boundaries.Common;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UnitTests.InMemory.OutputPorts.Catalog;
 using TreniniDotNet.Common;
@@ -24,7 +25,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.CatalogItems
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "",
+                brand: "",
                 itemNumber: "",
                 description: null,
                 prototypeDescription: null,
@@ -45,7 +46,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.CatalogItems
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "not found",
+                brand: "not found",
                 itemNumber: "12345",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -66,7 +67,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.CatalogItems
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme",
+                brand: "acme",
                 itemNumber: "60458",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -88,7 +89,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.CatalogItems
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme",
+                brand: "acme",
                 itemNumber: "ZZZZZZ",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -110,7 +111,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.CatalogItems
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme",
+                brand: "acme",
                 itemNumber: "ZZZZZZ",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -132,7 +133,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.CatalogItems
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme",
+                brand: "acme",
                 itemNumber: "ZZZZZZ",
                 description: "My new catalog item",
                 prototypeDescription: null,
@@ -156,7 +157,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.CatalogItems
             var (useCase, outputPort, unitOfWork) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
             var input = new CreateCatalogItemInput(
-                brandName: "acme",
+                brand: "acme",
                 itemNumber: "99999",
                 description: "My new catalog item",
                 prototypeDescription: null,

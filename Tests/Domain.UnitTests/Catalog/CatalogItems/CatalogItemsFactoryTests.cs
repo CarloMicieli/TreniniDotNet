@@ -60,6 +60,28 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             catalogItem.Version.Should().Be(1);
         }
 
+        [Fact]
+        public void CatalogItemsFactory_UpdateCatalogItem_ShouldEditTheCatalogItems()
+        {
+            var item = CatalogSeedData.CatalogItems.Acme_60392();
+
+            var modified = Factory.UpdateCatalogItem(item,
+                null,
+                new ItemNumber("654321"),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+            modified.ItemNumber.Should().Be(new ItemNumber("654321"));
+            modified.ModifiedDate.Should().Be(ExpectedDateTime);
+            modified.Version.Should().Be(2);
+        }
+
+
         private static IScale H0() => CatalogSeedData.Scales.ScaleH0();
 
         private static IBrand Acme() => CatalogSeedData.Brands.Acme();

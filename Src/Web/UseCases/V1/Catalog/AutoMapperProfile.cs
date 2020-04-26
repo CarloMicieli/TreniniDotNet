@@ -4,6 +4,7 @@ using TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateRailway;
 using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 using TreniniDotNet.Application.Boundaries.Catalog.EditBrand;
+using TreniniDotNet.Application.Boundaries.Catalog.EditCatalogItem;
 using TreniniDotNet.Application.Boundaries.Catalog.EditRailway;
 using TreniniDotNet.Application.Boundaries.Catalog.EditScale;
 using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
@@ -19,6 +20,7 @@ using TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem;
 using TreniniDotNet.Web.UseCases.V1.Catalog.CreateRailway;
 using TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale;
 using TreniniDotNet.Web.UseCases.V1.Catalog.EditBrand;
+using TreniniDotNet.Web.UseCases.V1.Catalog.EditCatalogItem;
 using TreniniDotNet.Web.UseCases.V1.Catalog.EditRailway;
 using TreniniDotNet.Web.UseCases.V1.Catalog.EditScale;
 using TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug;
@@ -54,10 +56,11 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog
             CreateMap<GetScalesListRequest, GetScalesListInput>();
             CreateMap<ScaleGaugeRequest, ScaleGaugeInput>();
 
+            CreateMap<CreateCatalogItemRequest, CreateCatalogItemInput>();
+            CreateMap<EditCatalogItemRequest, EditCatalogItemInput>();
             CreateMap<GetCatalogItemBySlugRequest, GetCatalogItemBySlugInput>();
             CreateMap<RollingStockRequest, RollingStockInput>();
             CreateMap<LengthOverBufferRequest, LengthOverBufferInput>();
-            CreateMap<CreateCatalogItemRequest, CreateCatalogItemInput>();
         }
     }
 }

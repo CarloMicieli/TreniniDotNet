@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TreniniDotNet.Application.Boundaries.Common;
 using TreniniDotNet.Common.Interfaces;
 
 namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
@@ -6,7 +7,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
     public sealed class CreateCatalogItemInput : IUseCaseInput
     {
         public CreateCatalogItemInput(
-            string brandName,
+            string brand,
             string itemNumber,
             string description,
             string? prototypeDescription,
@@ -17,7 +18,7 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
             bool available,
             IList<RollingStockInput> rollingStocks)
         {
-            Brand = brandName;
+            Brand = brand;
             ItemNumber = itemNumber;
             Description = description;
             PrototypeDescription = prototypeDescription;

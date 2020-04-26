@@ -2,13 +2,13 @@
 using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Common.DeliveryDates;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
 using System;
-using TreniniDotNet.Common.DeliveryDates;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
@@ -158,6 +158,44 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Instant.FromDateTimeUtc(created),
                 null,
                 version);
+        }
+
+        public ICatalogItem UpdateCatalogItem(
+            ICatalogItem item,
+            IBrandInfo? brand,
+            ItemNumber? itemNumber,
+            IScaleInfo? scale,
+            PowerMethod? powerMethod,
+            string? description,
+            string? prototypeDescr,
+            string? modelDescr,
+            DeliveryDate? deliveryDate,
+            bool? available)
+        {
+            Slug itemSlug = item.Slug;
+
+            if (itemNumber.HasValue || brand != null)
+            {
+                var brandSlug = (brand is null) ? item.Brand.Slug : brand.Slug;
+                itemSlug = brandSlug.CombineWith(itemNumber ?? item.ItemNumber);
+            }
+
+            return new CatalogItem(
+                item.CatalogItemId,
+                brand ?? item.Brand,
+                itemNumber ?? item.ItemNumber,
+                itemSlug,
+                scale ?? item.Scale,
+                powerMethod ?? item.PowerMethod,
+                description ?? item.Description,
+                prototypeDescr ?? item.PrototypeDescription,
+                modelDescr ?? item.ModelDescription,
+                deliveryDate ?? item.DeliveryDate,
+                available ?? item.IsAvailable,
+                item.RollingStocks,
+                item.CreatedDate,
+                _clock.GetCurrentInstant(),
+                item.Version + 1);
         }
     }
 }

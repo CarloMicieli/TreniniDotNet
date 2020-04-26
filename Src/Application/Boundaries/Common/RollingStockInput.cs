@@ -1,4 +1,4 @@
-namespace TreniniDotNet.Application.Boundaries.Catalog.CreateCatalogItem
+namespace TreniniDotNet.Application.Boundaries.Common
 {
     public sealed class RollingStockInput
     {

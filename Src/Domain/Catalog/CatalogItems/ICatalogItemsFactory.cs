@@ -22,6 +22,18 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             DeliveryDate? deliveryDate,
             bool available);
 
+        ICatalogItem UpdateCatalogItem(
+            ICatalogItem item,
+            IBrandInfo? brand,
+            ItemNumber? itemNumber,
+            IScaleInfo? scale,
+            PowerMethod? powerMethod,
+            string? description,
+            string? prototypeDescr,
+            string? modelDescr,
+            DeliveryDate? deliveryDate,
+            bool? available);
+
         IRollingStock NewLocomotive(
             IRailwayInfo railway, string era, string category,
             LengthOverBuffer? length,
