@@ -113,7 +113,7 @@ public async Task BrandsRepository_GetBySlug_ShouldFindOneBrandBySlug()
 
 ### Requirements
 
-- `.NET Core 3.1.2`
+- `.NET Core 3.1`
 - `Postgres SQL 12`
 
 ### Setup
@@ -172,7 +172,7 @@ $ dotnet test
 
 ## Built With
 
-* [.NET Core 3.1.2](http://dot.net) - Back end
+* [.NET Core 3.1](http://dot.net) - Back end
 * [Angular](https://www.angular.io/) - Front end 
 
 ## Contributing
@@ -195,6 +195,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Robert C. Martin. 2017. Clean Architecture: A Craftsman’s Guide to Software Structure and Design (1st. ed.). Prentice Hall Press, USA.
+* Ivan Paulovich - [Clean Architecture with .NET Core](https://github.com/ivanpaulovich/clean-architecture-manga)
+* Jimmy Bogard's talks
+
