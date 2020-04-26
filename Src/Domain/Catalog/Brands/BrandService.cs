@@ -29,7 +29,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             BrandKind kind,
             Address? address)
         {
-            var newBrand = _brandsFactory.NewBrand(
+            var newBrand = _brandsFactory.CreateNewBrand(
                 name,
                 companyName,
                 groupName,

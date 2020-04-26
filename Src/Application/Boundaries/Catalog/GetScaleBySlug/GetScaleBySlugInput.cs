@@ -5,13 +5,11 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.GetScaleBySlug
 {
     public class GetScaleBySlugInput : IUseCaseInput
     {
-        private readonly Slug _slug;
-
         public GetScaleBySlugInput(Slug slug)
         {
-            _slug = slug;
+            Slug = slug;
         }
 
-        public Slug Slug => _slug;
+        public Slug Slug { get; }
     }
 }

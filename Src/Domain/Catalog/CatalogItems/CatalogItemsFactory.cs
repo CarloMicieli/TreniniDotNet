@@ -23,7 +23,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             _guidSource = guidSource;
         }
 
-        public ICatalogItem NewCatalogItem(
+        public ICatalogItem CreateNewCatalogItem(
             IBrandInfo brand,
             ItemNumber itemNumber,
             IScaleInfo scale,

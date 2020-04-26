@@ -108,9 +108,8 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         public static IScale NewWith(ScaleId scaleId, string name, Slug slug, Ratio ratio, Gauge gauge, TrackGauge trackGauge)
         {
-            return factory.NewScale(
-                scaleId,
-                name, slug,
+            return factory.CreateNewScale(
+                name,
                 ratio,
                 ScaleGauge.Of(gauge.Value, MeasureUnit.Millimeters, trackGauge),
                 null,

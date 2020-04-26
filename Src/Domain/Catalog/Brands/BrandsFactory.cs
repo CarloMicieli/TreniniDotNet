@@ -23,7 +23,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 throw new ArgumentNullException(nameof(guidSource));
         }
 
-        public IBrand NewBrand(
+        public IBrand CreateNewBrand(
             string name,
             string? companyName,
             string? groupName,

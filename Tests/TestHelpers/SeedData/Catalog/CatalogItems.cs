@@ -67,7 +67,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 DccInterface.Nem652.ToString(),
                 Control.DccReady.ToString());
 
-            return factory.NewCatalogItem(
+            return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Acme(),
                 new ItemNumber("60392"),
                 CatalogSeedData.Scales.ScaleH0(),
@@ -91,7 +91,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 DccInterface.Nem652.ToString(),
                 Control.DccReady.ToString());
 
-            return factory.NewCatalogItem(
+            return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Acme(),
                 new ItemNumber("60458"),
                 CatalogSeedData.Scales.ScaleH0(),
@@ -113,7 +113,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 LengthOverBuffer.OfMillimeters(195M),
                 "Corbellini");
 
-            return factory.NewCatalogItem(
+            return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Rivarossi(),
                 new ItemNumber("HR4298"),
                 CatalogSeedData.Scales.ScaleH0(),
@@ -137,7 +137,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 DccInterface.Next18.ToString(),
                 Control.DccReady.ToString());
 
-            return factory.NewCatalogItem(
+            return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Roco(),
                 new ItemNumber("62182"),
                 CatalogSeedData.Scales.ScaleH0(),
@@ -161,7 +161,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 DccInterface.Mtc21.ToString(),
                 Control.DccReady.ToString());
 
-            return factory.NewCatalogItem(
+            return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Bemo(),
                 new ItemNumber("1252125"),
                 CatalogSeedData.Scales.ScaleH0m(),
@@ -186,7 +186,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 DccInterface.Nem651.ToString(),
                 Control.DccReady.ToString());
 
-            return factory.NewCatalogItem(
+            return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Bemo(),
                 new ItemNumber("1254134"),
                 CatalogSeedData.Scales.ScaleH0m(),
@@ -200,7 +200,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         private static ICatalogItem Build_Acme_999999()
         {
-            return factory.NewCatalogItem(
+            return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Acme(),
                 new ItemNumber("999999"),
                 CatalogSeedData.Scales.ScaleH0(),

@@ -21,14 +21,14 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         }
 
         public Task<ScaleId> CreateScale(
-            string name, Slug slug,
+            string name,
             Ratio ratio,
             ScaleGauge gauge,
             string? description,
             ImmutableHashSet<ScaleStandard> standards,
             int? weight)
         {
-            var newScale = _scalesFactory.NewScale(ScaleId.NewId(), name, slug, ratio, gauge, description, standards, weight);
+            var newScale = _scalesFactory.CreateNewScale(name, ratio, gauge, description, standards, weight);
             return _scaleRepository.AddAsync(newScale);
         }
 

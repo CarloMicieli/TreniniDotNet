@@ -5,13 +5,11 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug
 {
     public class GetBrandBySlugInput : IUseCaseInput
     {
-        private readonly Slug _slug;
-
         public GetBrandBySlugInput(Slug slug)
         {
-            _slug = slug;
+            Slug = slug;
         }
 
-        public Slug Slug => _slug;
+        public Slug Slug { get; }
     }
 }

@@ -39,7 +39,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         }
 
         [Fact]
-        public void BrandsFactory_NewBrand_ShouldCreateBrandsFromDomainObjects()
+        public void BrandsFactory_CreateNewBrand_ShouldCreateBrandsFromDomainObjects()
         {
             Address ExpectedAddress = Address.With(
                 line1: "22 Acacia Avenue",
@@ -47,7 +47,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 postalCode: "123456",
                 country: "UK");
 
-            IBrand b = factory.NewBrand(
+            IBrand b = factory.CreateNewBrand(
                 "NAME",
                 "company name",
                 "group name",

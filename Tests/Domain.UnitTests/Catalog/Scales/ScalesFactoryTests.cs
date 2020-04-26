@@ -1,120 +1,106 @@
-﻿//using Xunit;
-//using FluentAssertions;
-//using System;
-//using TreniniDotNet.Domain.Catalog.ValueObjects;
-//using TreniniDotNet.Common;
-//using NodaTime.Testing;
-//using NodaTime;
+﻿using Xunit;
+using FluentAssertions;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Common;
+using NodaTime.Testing;
+using NodaTime;
+using System.Collections.Immutable;
+using TreniniDotNet.Common.Lengths;
+using TreniniDotNet.Common.Uuid.Testing;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
-//namespace TreniniDotNet.Domain.Catalog.Scales
-//{
-//    public class ScalesFactoryTests
-//    {
-//        private readonly IScalesFactory factory;
+namespace TreniniDotNet.Domain.Catalog.Scales
+{
+    public class ScalesFactoryTests
+    {
+        private IScalesFactory Factory { get; }
 
-//        public ScalesFactoryTests()
-//        {
-//            factory = new ScalesFactory(
-//                new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)));
-//        }
+        private ScaleId ExpectedScaleId = ScaleId.NewId();
 
-//        [Fact]
-//        public void ScalesFactory_ShouldCreateNewScales_WithValidation()
-//        {
-//            var id = Guid.NewGuid();
+        private Instant ExpectedDateTime = Instant.FromUtc(1988, 11, 25, 0, 0);
 
-//            var success = factory.NewScaleV(id, "name", 87M, 16.5M, "standard", "notes");
+        public ScalesFactoryTests()
+        {
+            Factory = new ScalesFactory(
+                new FakeClock(ExpectedDateTime),
+                FakeGuidSource.NewSource(ExpectedScaleId.ToGuid()));
+        }
 
-//            success.Match(
-//                Succ: succ =>
-//                {
-//                    succ.Name.Should().Be("name");
-//                    succ.Ratio.ToDecimal().Should().Be(87M);
-//                    succ.Gauge.ToDecimal(MeasureUnit.Millimeters).Should().Be(16.5M);
-//                    succ.Version.Should().Be(1);
-//                    succ.CreatedAt.Should().Be(Instant.FromUtc(1988, 11, 25, 0, 0).ToDateTimeUtc());
-//                },
-//                Fail: errors => Assert.True(false, "should never get here"));
-//        }
+        [Fact]
+        public void ScalesFactory_CreateNewScale_ShouldCreateNewScaleValues()
+        {
+            var ExpectedGauge = ScaleGauge.Of(16.5M, MeasureUnit.Millimeters, TrackGauge.Standard);
 
-//        [Fact]
-//        public void ScalesFactory_ShouldFailToCreateNewScales_WithValidationErrors()
-//        {
-//            var id = Guid.NewGuid();
+            IScale scale = Factory.CreateNewScale(
+                "Scale H0",
+                Ratio.Of(87.0f),
+                ExpectedGauge,
+                "Scale Description",
+                ImmutableHashSet<ScaleStandard>.Empty,
+                100);
 
-//            var failure = factory.NewScaleV(id, "", -87M, -16.5M, "--invalid--", "notes");
+            scale.ScaleId.Should().Be(ExpectedScaleId);
+            scale.Name.Should().Be("Scale H0");
+            scale.Slug.Should().Be(Slug.Of("scale-h0"));
+            scale.Ratio.Should().Be(Ratio.Of(87.0M));
+            scale.Gauge.Should().Be(ExpectedGauge);
+            scale.Description.Should().Be("Scale Description");
+            scale.Weight.Should().Be(100);
+            scale.CreatedDate.Should().Be(ExpectedDateTime);
+            scale.Version.Should().Be(1);
+        }
 
-//            failure.Match(
-//                Succ: succ => Assert.True(false, "should never get here"),
-//                Fail: errors =>
-//                {
-//                    var errorsList = errors.ToList();
+        [Fact]
+        public void ScalesFactory_NewScale_ShouldCreateScaleValues()
+        {
+            var ExpectedGauge = ScaleGauge.Of(16.5M, MeasureUnit.Millimeters, TrackGauge.Standard);
 
-//                    errorsList.Should().HaveCount(4);
-//                    errorsList.Should().ContainInOrder(
-//                        Error.New("invalid scale: name cannot be empty"),
-//                        Error.New("ratio value must be positive"),
-//                        Error.New("gauge value must be positive"),
-//                        Error.New("'--invalid--' is not a valid track gauge")
-//                    );
-//                });
-//        }
+            IScale scale = Factory.NewScale(
+                ExpectedScaleId.ToGuid(),
+                "Scale H0", "scale-h0",
+                87M,
+                16.5M, 0.65M, TrackGauge.Standard.ToString(),
+                "Scale Description",
+                100,
+                ExpectedDateTime.ToDateTimeUtc(),
+                ExpectedDateTime.ToDateTimeUtc(),
+                3);
 
-//        [Fact]
-//        public void ScalesFactory_ShouldCreate_NewScale_FromPrimitiveTypes()
-//        {
-//            var id = Guid.NewGuid();
+            scale.ScaleId.Should().Be(ExpectedScaleId);
+            scale.Name.Should().Be("Scale H0");
+            scale.Slug.Should().Be(Slug.Of("scale-h0"));
+            scale.Ratio.Should().Be(Ratio.Of(87.0M));
+            scale.Gauge.Should().Be(ExpectedGauge);
+            scale.Description.Should().Be("Scale Description");
+            scale.Weight.Should().Be(100);
+            scale.CreatedDate.Should().Be(ExpectedDateTime);
+            scale.ModifiedDate.Should().Be(ExpectedDateTime);
+            scale.Version.Should().Be(3);
+        }
 
-//            IScale scale = factory.NewScale(id, "name", "slug", 87M, 16.5M, "standard", "notes");
+        [Fact]
+        public void ScalesFactory_UpdateScale_ShouldCreateScaleValuesApplyChanges()
+        {
+            var ExpectedGauge = ScaleGauge.Of(16.5M, MeasureUnit.Millimeters, TrackGauge.Standard);
+            IScale scaleH0 = CatalogSeedData.Scales.ScaleH0();
 
-//            scale.ScaleId.Should().Be(new ScaleId(id));
-//            scale.Name.Should().Be("name");
-//            scale.Slug.Should().Be(Slug.Of("slug"));
-//            scale.Ratio.Should().Be(Ratio.Of(87.0M));
-//            scale.Gauge.Should().Be(Gauge.OfMillimiters(16.5f));
-//            scale.TrackGauge.Should().Be(TrackGauge.Standard);
-//            scale.Notes.Should().Be("notes");
-//        }
+            IScale scale = Factory.UpdateScale(scaleH0,
+                null,
+                null,
+                ExpectedGauge,
+                "Updated description",
+                null,
+                100);
 
-//        [Fact]
-//        public void ScalesFactory_ShouldThrowAnException_WhenRatioIsNotValid()
-//        {
-//            Action act = () => factory.NewScale(Guid.NewGuid(), "name", "slug", -10M, 16.5M, "standard", "notes");
-//            act.Should()
-//                .Throw<ArgumentException>()
-//                .WithMessage("ratio value must be positive");
-//        }
-
-//        [Fact]
-//        public void ScalesFactory_ShouldThrowAnException_WhenGaugeIsNotValid()
-//        {
-//            Action act = () => factory.NewScale(Guid.NewGuid(), "name", "slug", 87M, -16.5M, "standard", "notes");
-//            act.Should()
-//                .Throw<ArgumentException>()
-//                .WithMessage("gauge value must be positive");
-//        }
-
-//        [Fact]
-//        public void ScalesFactory_ShouldSetTrackGaugeAsStandard_WhenTrackGaugeIsNotValid()
-//        {
-//            IScale scale = factory.NewScale(Guid.NewGuid(), "name", "slug", 87M, 16.5M, "invalid", "notes");
-//            scale.TrackGauge.Should().Be(TrackGauge.Standard);
-//        }
-
-//        [Fact]
-//        public void ScalesFactory_ShouldCreateNewScales()
-//        {
-//            ScaleId id = ScaleId.NewId();
-
-//            IScale scale = factory.NewScale(id, "name", Slug.Of("slug"), Ratio.Of(87.0f), Gauge.OfMillimiters(16.5M), TrackGauge.Standard, "notes");
-
-//            scale.ScaleId.Should().Be(id);
-//            scale.Name.Should().Be("name");
-//            scale.Slug.Should().Be(Slug.Of("slug"));
-//            scale.Ratio.Should().Be(Ratio.Of(87.0M));
-//            scale.Gauge.Should().Be(Gauge.OfMillimiters(16.5f));
-//            scale.TrackGauge.Should().Be(TrackGauge.Standard);
-//            scale.Notes.Should().Be("notes");
-//        }
-//    }
-//}
+            scale.ScaleId.Should().Be(scaleH0.ScaleId);
+            scale.Name.Should().Be("H0");
+            scale.Slug.Should().Be(Slug.Of("h0"));
+            scale.Ratio.Should().Be(Ratio.Of(87.0M));
+            scale.Gauge.Should().Be(ExpectedGauge);
+            scale.Description.Should().Be("Updated description");
+            scale.Weight.Should().Be(100);
+            scale.ModifiedDate.Should().Be(ExpectedDateTime);
+            scale.Version.Should().Be(2);
+        }
+    }
+}

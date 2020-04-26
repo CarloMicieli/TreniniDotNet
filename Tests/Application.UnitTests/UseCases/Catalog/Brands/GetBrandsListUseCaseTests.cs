@@ -23,17 +23,6 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Brands
         }
 
         [Fact]
-        public async Task GetBrandsList_ShouldReturnBrandsList_WithoutPagination()
-        {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.WithSeedData, NewGetBrandsList);
-
-            await useCase.Execute(new GetBrandsListInput());
-
-            var output = outputPort.UseCaseOutput;
-            Assert.True(output.Result.Count() > 0);
-        }
-
-        [Fact]
         public async Task GetBrandsList_ShouldReturnBrandsList_WithPagination()
         {
             var expextedElements = 2;
@@ -49,6 +38,5 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Brands
         {
             return new GetBrandsList(outputPort, brandService);
         }
-
     }
 }

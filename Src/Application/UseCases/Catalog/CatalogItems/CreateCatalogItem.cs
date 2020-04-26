@@ -88,7 +88,7 @@ namespace TreniniDotNet.Application.UseCases.Catalog.CatalogItems
             var rollingStocks = BuildRollingStocksList(input, railways);
             var deliveryDate = DeliveryDate.TryParse(input.DeliveryDate, out var dd) ? dd : null;
 
-            var catalogItem = _catalogItemsFactory.NewCatalogItem(
+            var catalogItem = _catalogItemsFactory.CreateNewCatalogItem(
                 brand,
                 itemNumber,
                 scale,

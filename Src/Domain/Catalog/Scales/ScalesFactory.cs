@@ -21,8 +21,8 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 throw new ArgumentNullException(nameof(guidSource));
         }
 
-        public IScale NewScale(ScaleId id,
-            string name, Slug slug,
+        public IScale CreateNewScale(
+            string name,
             Ratio ratio,
             ScaleGauge gauge,
             string? description,
@@ -30,12 +30,13 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             int? weight)
         {
             return new Scale(
-                id,
-                name, slug,
+                new ScaleId(_guidSource.NewGuid()),
+                name,
+                Slug.Of(name),
                 ratio,
                 gauge,
                 description,
-                 standards,
+                standards,
                 weight,
                 _clock.GetCurrentInstant(),
                 null,
@@ -63,7 +64,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 ImmutableHashSet<ScaleStandard>.Empty,
                 weight,
                 created.ToUtc(),
-                null,
+                modified.ToUtcOrDefault(),
                 version ?? 1);
         }
 

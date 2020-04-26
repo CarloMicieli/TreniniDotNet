@@ -1,14 +1,12 @@
 ﻿using System;
 using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public interface IRailwaysFactory
     {
-        IRailway NewRailway(RailwayId id,
+        IRailway CreateNewRailway(
             string name,
-            Slug slug,
             string? companyName,
             Country country,
             PeriodOfActivity periodOfActivity,

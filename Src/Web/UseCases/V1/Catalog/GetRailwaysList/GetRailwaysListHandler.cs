@@ -1,24 +1,13 @@
-﻿using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using TreniniDotNet.Application.Boundaries.Catalog.GetRailwaysList;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetRailwaysList
 {
-    public class GetRailwaysListHandler : AsyncRequestHandler<GetRailwaysListRequest>
+    public class GetRailwaysListHandler : UseCaseHandler<IGetRailwaysListUseCase, GetRailwaysListRequest, GetRailwaysListInput>
     {
-        private readonly IGetRailwaysListUseCase _useCase;
-
-        public GetRailwaysListHandler(IGetRailwaysListUseCase useCase)
+        public GetRailwaysListHandler(IGetRailwaysListUseCase useCase, IMapper mapper)
+            : base(useCase, mapper)
         {
-            _useCase = useCase ??
-                throw new ArgumentNullException(nameof(useCase));
-        }
-
-        protected override Task Handle(GetRailwaysListRequest request, CancellationToken cancellationToken)
-        {
-            return _useCase.Execute(new GetRailwaysListInput(request.Page));
         }
     }
 }

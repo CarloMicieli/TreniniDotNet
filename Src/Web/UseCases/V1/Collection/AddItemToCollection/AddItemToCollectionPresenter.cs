@@ -18,9 +18,9 @@ namespace TreniniDotNet.Web.UseCases.V1.Collection.AddItemToCollection
             ViewModel = new NotFoundObjectResult(new { Owner = owner.Value });
         }
 
-        public void ShopNotFound(string message)
+        public void ShopNotFound(string shop)
         {
-            ViewModel = new NotFoundObjectResult(new { Shop = message }); //TODO: fixme
+            ViewModel = new NotFoundObjectResult(new { Shop = shop });
         }
 
         public override void Standard(AddItemToCollectionOutput output)

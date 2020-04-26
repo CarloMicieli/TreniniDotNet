@@ -65,13 +65,12 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 website,
                 headquarters,
                 created.ToUtc(),
-                null,
+                modified,
                 version ?? 1);
         }
 
-        public IRailway NewRailway(RailwayId id,
+        public IRailway CreateNewRailway(
             string name,
-            Slug slug,
             string? companyName,
             Country country,
             PeriodOfActivity periodOfActivity,
@@ -81,8 +80,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             string? headquarters)
         {
             return new Railway(
-                id,
-                slug,
+                new RailwayId(_guidSource.NewGuid()),
+                Slug.Of(name),
                 name,
                 companyName,
                 country,

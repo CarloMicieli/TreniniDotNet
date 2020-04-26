@@ -8,7 +8,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public interface IBrandsFactory
     {
-        IBrand NewBrand(
+        IBrand CreateNewBrand(
             string name,
             string? companyName,
             string? groupName,

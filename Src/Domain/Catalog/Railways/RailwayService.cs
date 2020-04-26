@@ -36,7 +36,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public Task<RailwayId> CreateRailway(
             string name,
-            Slug slug, string? companyName,
+            string? companyName,
             Country country,
             PeriodOfActivity periodOfActivity,
             RailwayLength? railwayLength,
@@ -44,10 +44,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             Uri? websiteUrl,
             string? headquarters)
         {
-            var id = RailwayId.NewId();
-
-            var newRailway = _railwaysFactory.NewRailway(id,
-                name, slug,
+            var newRailway = _railwaysFactory.CreateNewRailway(
+                name,
                 companyName,
                 country,
                 periodOfActivity,

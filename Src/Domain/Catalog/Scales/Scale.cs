@@ -1,9 +1,9 @@
-﻿using TreniniDotNet.Common;
+﻿using NodaTime;
 using System;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using NodaTime;
 using System.Collections.Immutable;
+using TreniniDotNet.Common;
 using TreniniDotNet.Common.Entities;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -18,7 +18,8 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     public sealed class Scale : ModifiableEntity, IEquatable<Scale>, IScale
     {
         internal Scale(ScaleId id,
-            string name, Slug slug,
+            string name,
+            Slug slug,
             Ratio ratio,
             ScaleGauge gauge,
             string? description,

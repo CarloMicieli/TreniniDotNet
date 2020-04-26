@@ -7,8 +7,8 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 {
     public interface IScalesFactory
     {
-        IScale NewScale(ScaleId id,
-            string name, Slug slug,
+        IScale CreateNewScale(
+            string name,
             Ratio ratio,
             ScaleGauge gauge,
             string? description,

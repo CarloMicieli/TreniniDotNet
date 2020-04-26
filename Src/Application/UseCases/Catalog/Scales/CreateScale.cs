@@ -25,21 +25,20 @@ namespace TreniniDotNet.Application.UseCases.Catalog.Scales
 
         protected override async Task Handle(CreateScaleInput input)
         {
-            string scaleName = input.Name!;
-            var slug = Slug.Of(scaleName);
+            string name = input.Name!;
+            var slug = Slug.Of(name);
 
             bool scaleExists = await _scaleService.ScaleAlreadyExists(slug);
             if (scaleExists)
             {
-                OutputPort.ScaleAlreadyExists($"Scale '{scaleName}' already exists");
+                OutputPort.ScaleAlreadyExists($"Scale '{name}' already exists");
                 return;
             }
 
             var scaleGauge = input.Gauge.ToScaleGauge();
 
             var _ = await _scaleService.CreateScale(
-                scaleName,
-                slug,
+                name,
                 Ratio.Of(input.Ratio ?? 0M),
                 scaleGauge,
                 input.Description,

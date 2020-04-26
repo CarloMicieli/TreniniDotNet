@@ -10,7 +10,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface ICatalogItemsFactory
     {
-        ICatalogItem NewCatalogItem(
+        ICatalogItem CreateNewCatalogItem(
             IBrandInfo brand,
             ItemNumber itemNumber,
             IScaleInfo scale,

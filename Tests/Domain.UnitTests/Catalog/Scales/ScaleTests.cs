@@ -13,7 +13,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             var halfZero2 = HalfZero();
 
             //(halfZero1 == halfZero2).Should().BeTrue();
-            (halfZero2.Equals(halfZero2)).Should().BeTrue();
+            (halfZero1.Equals(halfZero2)).Should().BeTrue();
         }
 
         [Fact]

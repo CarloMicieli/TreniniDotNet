@@ -5,13 +5,11 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.GetCatalogItemBySlug
 {
     public sealed class GetCatalogItemBySlugInput : IUseCaseInput
     {
-        private readonly Slug _slug;
-
         public GetCatalogItemBySlugInput(Slug slug)
         {
-            _slug = slug;
+            Slug = slug;
         }
 
-        public Slug Slug => _slug;
+        public Slug Slug { get; }
     }
 }

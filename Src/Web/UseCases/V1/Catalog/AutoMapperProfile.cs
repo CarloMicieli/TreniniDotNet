@@ -6,6 +6,13 @@ using TreniniDotNet.Application.Boundaries.Catalog.CreateScale;
 using TreniniDotNet.Application.Boundaries.Catalog.EditBrand;
 using TreniniDotNet.Application.Boundaries.Catalog.EditRailway;
 using TreniniDotNet.Application.Boundaries.Catalog.EditScale;
+using TreniniDotNet.Application.Boundaries.Catalog.GetBrandBySlug;
+using TreniniDotNet.Application.Boundaries.Catalog.GetBrandsList;
+using TreniniDotNet.Application.Boundaries.Catalog.GetCatalogItemBySlug;
+using TreniniDotNet.Application.Boundaries.Catalog.GetRailwayBySlug;
+using TreniniDotNet.Application.Boundaries.Catalog.GetRailwaysList;
+using TreniniDotNet.Application.Boundaries.Catalog.GetScaleBySlug;
+using TreniniDotNet.Application.Boundaries.Catalog.GetScalesList;
 using TreniniDotNet.Application.Boundaries.Common;
 using TreniniDotNet.Web.UseCases.V1.Catalog.CreateBrand;
 using TreniniDotNet.Web.UseCases.V1.Catalog.CreateCatalogItem;
@@ -14,6 +21,13 @@ using TreniniDotNet.Web.UseCases.V1.Catalog.CreateScale;
 using TreniniDotNet.Web.UseCases.V1.Catalog.EditBrand;
 using TreniniDotNet.Web.UseCases.V1.Catalog.EditRailway;
 using TreniniDotNet.Web.UseCases.V1.Catalog.EditScale;
+using TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandBySlug;
+using TreniniDotNet.Web.UseCases.V1.Catalog.GetBrandsList;
+using TreniniDotNet.Web.UseCases.V1.Catalog.GetCatalogItemBySlug;
+using TreniniDotNet.Web.UseCases.V1.Catalog.GetRailwayBySlug;
+using TreniniDotNet.Web.UseCases.V1.Catalog.GetRailwaysList;
+using TreniniDotNet.Web.UseCases.V1.Catalog.GetScaleBySlug;
+using TreniniDotNet.Web.UseCases.V1.Catalog.GetScalesList;
 
 namespace TreniniDotNet.Web.UseCases.V1.Catalog
 {
@@ -23,17 +37,24 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog
         {
             CreateMap<CreateBrandRequest, CreateBrandInput>();
             CreateMap<EditBrandRequest, EditBrandInput>();
+            CreateMap<GetBrandBySlugRequest, GetBrandBySlugInput>();
+            CreateMap<GetBrandsListRequest, GetBrandsListInput>();
 
             CreateMap<CreateRailwayRequest, CreateRailwayInput>();
             CreateMap<EditRailwayRequest, EditRailwayInput>();
+            CreateMap<GetRailwayBySlugRequest, GetRailwayBySlugInput>();
+            CreateMap<GetRailwaysListRequest, GetRailwaysListInput>();
             CreateMap<TotalRailwayLengthRequest, TotalRailwayLengthInput>();
             CreateMap<RailwayGaugeRequest, RailwayGaugeInput>();
             CreateMap<PeriodOfActivityRequest, PeriodOfActivityInput>();
 
             CreateMap<CreateScaleRequest, CreateScaleInput>();
             CreateMap<EditScaleRequest, EditScaleInput>();
+            CreateMap<GetScaleBySlugRequest, GetScaleBySlugInput>();
+            CreateMap<GetScalesListRequest, GetScalesListInput>();
             CreateMap<ScaleGaugeRequest, ScaleGaugeInput>();
 
+            CreateMap<GetCatalogItemBySlugRequest, GetCatalogItemBySlugInput>();
             CreateMap<RollingStockRequest, RollingStockInput>();
             CreateMap<LengthOverBufferRequest, LengthOverBufferInput>();
             CreateMap<CreateCatalogItemRequest, CreateCatalogItemInput>();

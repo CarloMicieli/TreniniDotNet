@@ -1,8 +1,8 @@
-﻿using TreniniDotNet.Common;
-using System;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+﻿using System;
 using NodaTime;
+using TreniniDotNet.Common;
 using TreniniDotNet.Common.Entities;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {

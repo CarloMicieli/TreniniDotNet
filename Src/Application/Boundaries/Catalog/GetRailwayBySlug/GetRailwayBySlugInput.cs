@@ -5,13 +5,11 @@ namespace TreniniDotNet.Application.Boundaries.Catalog.GetRailwayBySlug
 {
     public sealed class GetRailwayBySlugInput : IUseCaseInput
     {
-        private readonly Slug _slug;
-
         public GetRailwayBySlugInput(Slug slug)
         {
-            _slug = slug;
+            Slug = slug;
         }
 
-        public Slug Slug => _slug;
+        public Slug Slug { get; }
     }
 }

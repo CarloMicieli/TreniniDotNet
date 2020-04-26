@@ -28,7 +28,6 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             _fs = NewWith(
                 id: new RailwayId(new Guid("e8d33cd3-f36b-4622-90d1-76b450e0f313")),
                 name: "FS",
-                slug: Slug.Of("FS"),
                 companyName: "Ferrovie dello stato",
                 country: "IT",
                 since: new DateTime(1905, 7, 1),
@@ -38,7 +37,6 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             _sbb = NewWith(
                 id: new RailwayId(new Guid("1c44e65f-bb53-4f14-a368-23daa5bfee05")),
                 name: "SBB",
-                slug: Slug.Of("SBB"),
                 companyName: "Schweizerische Bundesbahnen",
                 country: "CH",
                 since: null,
@@ -48,7 +46,6 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             _dieBahn = NewWith(
                 id: new RailwayId(new Guid("f12a3c5b-21f0-4d96-baf0-7bbf67e85e93")),
                 name: "DB",
-                slug: Slug.Of("DB"),
                 companyName: "Die Bahn AG",
                 country: "DE",
                 since: null,
@@ -58,7 +55,6 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             _sncb = NewWith(
                 id: new RailwayId(new Guid("452ecf0f-0999-443d-a333-7afc23542d38")),
                 name: "SNCB",
-                slug: Slug.Of("SNCB"),
                 companyName: "Société Nationale des Chemins de fer belges",
                 country: "BE",
                 since: null,
@@ -68,7 +64,6 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             _sncf = NewWith(
                 id: new RailwayId(new Guid("5cbccdd5-826d-4dc8-a0ff-d80572d43ac5")),
                 name: "SNCF",
-                slug: Slug.Of("SNCF"),
                 companyName: "Société Nationale des Chemins de fer Français",
                 country: "FR",
                 since: null,
@@ -78,7 +73,6 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             _rhb = NewWith(
                 id: new RailwayId(new Guid("fa307786-00a9-4257-9274-76f7a0c06fab")),
                 name: "RhB",
-                slug: Slug.Of("RhB"),
                 companyName: "Rhätische Bahn / Viafier retica",
                 country: "CH",
                 since: null,
@@ -88,7 +82,6 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             _dr = NewWith(
                 id: new RailwayId(new Guid("93a911d8-0422-41b0-80a4-9f4650f1e8b4")),
                 name: "DR",
-                slug: Slug.Of("DR"),
                 companyName: "Deutsche Reichsbahn (East Germany)",
                 country: "DE",
                 since: new DateTime(1949, 1, 1),
@@ -111,26 +104,36 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         public static IRailway NewWith(
             RailwayId id,
             string name,
-            Slug? slug = null,
             string companyName = null,
-            string country = null,
+            string country = "IT",
             DateTime? since = null,
             DateTime? until = null,
             RailwayStatus status = RailwayStatus.Active,
             RailwayLength railwayLength = null,
             RailwayGauge gauge = null,
             Uri website = null,
-            string headquarters = null) => factory.NewRailway(
-                id,
+            string headquarters = null)
+        {
+            return factory.NewRailway(
+                id.ToGuid(),
                 name,
-                slug.HasValue ? slug.Value : Slug.Of(name),
+                Slug.Of(name).Value,
                 companyName,
-                Country.Of(country),
-                PeriodOfActivity.Of(status.ToString(), since, until),
-                railwayLength,
-                gauge,
-                website,
-                headquarters);
+                country,
+                since,
+                until,
+                status == RailwayStatus.Active,
+                gauge?.Millimeters.Value,
+                gauge?.Inches.Value,
+                gauge?.TrackGauge.ToString(),
+                headquarters,
+                railwayLength?.Miles.Value,
+                railwayLength?.Kilometers.Value,
+                website?.ToString(),
+                Instant.FromUtc(2019, 11, 25, 9, 0).ToDateTimeUtc(),
+                null,
+                1);
+        }
 
         public IList<IRailway> All() => _all;
 

@@ -5,11 +5,11 @@ namespace TreniniDotNet.Web.UseCases.V1.Catalog.GetRailwaysList
 {
     public class GetRailwaysListRequest : IRequest
     {
-        public GetRailwaysListRequest(Page? page)
+        public GetRailwaysListRequest(Page page)
         {
             Page = page;
         }
 
-        public Page? Page { get; }
+        public Page Page { get; }
     }
 }
