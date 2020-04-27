@@ -12,19 +12,84 @@ An application to manage model railway collections.
 
 ### Catalog
 
+#### Brands
+
+A **Brand** represents a model railways rolling stock manufacturer.
+
+```csharp
+interface Brand
+{
+    BrandId BrandId { get; }
+    Slug Slug { get; }
+    string Name { get; }
+    Uri? WebsiteUrl { get; }
+    MailAddress? EmailAddress { get; }
+    string? CompanyName { get; }
+    string? GroupName { get; }
+    string? Description { get; }
+    BrandKind Kind { get; }
+    Address? Address { get; }
+}
+```
+
 * Create/modify **brands**;
-* Create/modify **railways**
-* Create/modify **scales**
-* Create/modify **catalog items**, with one or more **rolling stock** included
+* Find a **brand**, by its SEO friendly ("slug") identifier
 * Find all **brands**, with paginated results
-* Find all **railways**, with paginated results
-* Find all **scales**, with paginated results
-* Find a **brand**, with its SEO friendly ("slug") identifier
-* Find a **railway**, with its SEO friendly ("slug") identifier
-* Find a **scale**, with its SEO friendly ("slug") identifier
-* Find a **catalog item**, with its SEO friendly ("slug") identifier
+
+#### Railways
+
+A **Railway** represents a operator of the rail transport.
+
+```csharp
+interface IRailway
+{
+    RailwayId RailwayId { get; }
+    Slug Slug { get; }
+    string Name { get; }
+    Country Country { get; }
+    string? CompanyName { get; }
+    PeriodOfActivity PeriodOfActivity { get; }
+    RailwayGauge? TrackGauge { get; }
+    RailwayLength? TotalLength { get; }
+    Uri? WebsiteUrl { get; }
+    string? Headquarters { get; }
+}
+```
+
+* Create/modify **railways**;
+* Find a **railway**, by its SEO friendly ("slug") identifier;
+* Find all **railways**, with paginated results.
+
+#### Scales
+
+A **Scale** represents a __scale__ of model railway.
+
+```csharp
+interface IScale
+{
+    ScaleId ScaleId { get; }
+    Slug Slug { get; }
+    string Name { get; }
+    Ratio Ratio { get; }
+    ScaleGauge Gauge { get; }
+    string? Description { get; }
+    int? Weight { get; }
+    IImmutableSet<ScaleStandard> Standards { get; }
+}
+```
+
+* Create/modify **scales**;
+* Find all **scales**, with paginated results;
+* Find a **scale**, with its SEO friendly ("slug") identifier.
+
+#### Catalog items
+
+* Create/modify **catalog items**, with one or more **rolling stock** included;
+* Find a **catalog item**, with its SEO friendly ("slug") identifier.
 
 ### Collecting
+
+#### Collections
 
 * Create a new **collection**, collections are always private and each user can have only one collection;
 * Get the user **collection**, only the owner can see his collection;
@@ -32,11 +97,15 @@ An application to manage model railway collections.
 * Edit a catalog item in the **collection**;
 * Get collection statistics: items count and value by category.
 
+#### Wishlists
+
 * Create a new **wish list**, wish lists have a visibility (either __public__ or __private__). A user can create one or more wish lists;
 * List all **wish lists** by user;
 * Add a new catalog item to a **wish list**;
 * Edit a catalog item in the **with list**;
 * Delete a **with list**.
+
+#### Shops
 
 * Create a new **shop**;
 * Add/remove shop from the user favourites.
