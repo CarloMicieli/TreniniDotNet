@@ -12,10 +12,10 @@ An application to manage model railway collections.
 
 ### Catalog
 
-* Create a new **brand**;
-* Create a new **railway**
-* Create a new **scale**
-* Create a new **catalog item**, with one or more **rolling stock** included
+* Create/modify **brands**;
+* Create/modify **railways**
+* Create/modify **scales**
+* Create/modify **catalog items**, with one or more **rolling stock** included
 * Find all **brands**, with paginated results
 * Find all **railways**, with paginated results
 * Find all **scales**, with paginated results
@@ -24,7 +24,7 @@ An application to manage model railway collections.
 * Find a **scale**, with its SEO friendly ("slug") identifier
 * Find a **catalog item**, with its SEO friendly ("slug") identifier
 
-### Collections
+### Collecting
 
 * Create a new **collection**, collections are always private and each user can have only one collection;
 * Get the user **collection**, only the owner can see his collection;
@@ -195,7 +195,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Robert C. Martin. 2017. Clean Architecture: A Craftsman’s Guide to Software Structure and Design (1st. ed.). Prentice Hall Press, USA.
+* Robert C. Martin. 2017. Clean Architecture: A Craftsmanï¿½s Guide to Software Structure and Design (1st. ed.). Prentice Hall Press, USA.
 * Ivan Paulovich - [Clean Architecture with .NET Core](https://github.com/ivanpaulovich/clean-architecture-manga)
 * Jimmy Bogard's talks
 
