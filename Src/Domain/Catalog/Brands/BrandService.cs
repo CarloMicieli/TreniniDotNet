@@ -3,8 +3,8 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Domain.Pagination;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {

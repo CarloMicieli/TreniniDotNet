@@ -6,7 +6,7 @@ using NodaTime;
 using System;
 using TreniniDotNet.Common;
 using System.Threading.Tasks;
-using TreniniDotNet.Domain.Pagination;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Infrastructure.Dapper;
 

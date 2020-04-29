@@ -1,10 +1,10 @@
 ﻿using System;
 using NodaTime;
 using NodaTime.Testing;
-using TreniniDotNet.Application.Boundaries;
-using TreniniDotNet.Application.InMemory.Repositories;
+using TreniniDotNet.Common.UseCases.Interfaces.Output;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Common.Uuid.Testing;
+using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
+using TreniniDotNet.TestHelpers.InMemory.Repository;
 
 namespace TreniniDotNet.Application.UseCases
 {

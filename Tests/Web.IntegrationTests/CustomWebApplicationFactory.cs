@@ -7,12 +7,12 @@ using System;
 using System.Linq;
 using TreniniDotNet.IntegrationTests.Helpers.Data;
 using System.IO;
-using TreniniDotNet.Web.Identity;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
+using TreniniDotNet.Web.UserProfiles.Identity;
 
 namespace TreniniDotNet.IntegrationTests
 {

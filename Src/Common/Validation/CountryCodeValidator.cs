@@ -1,7 +1,7 @@
-﻿using FluentValidation.Validators;
-using System.Globalization;
+﻿using System.Globalization;
+using FluentValidation.Validators;
 
-namespace TreniniDotNet.Domain.Validation
+namespace TreniniDotNet.Common.Validation
 {
     internal class CountryCodeValidator : PropertyValidator
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TreniniDotNet.Domain.Pagination
+namespace TreniniDotNet.Common.Pagination
 {
     public readonly struct Page : IEquatable<Page>
     {

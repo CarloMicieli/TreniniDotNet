@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using System;
+using TreniniDotNet.Common.Pagination;
 using Xunit;
 
 namespace TreniniDotNet.Domain.Pagination

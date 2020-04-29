@@ -6,10 +6,10 @@ using NodaTime;
 using System;
 using TreniniDotNet.Common;
 using System.Threading.Tasks;
-using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Infrastructure.Dapper;
 using System.Data;
+using TreniniDotNet.Common.Pagination;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {

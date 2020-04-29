@@ -1,7 +1,7 @@
-﻿using FluentValidation.Validators;
-using System;
+﻿using System;
+using FluentValidation.Validators;
 
-namespace TreniniDotNet.Domain.Validation
+namespace TreniniDotNet.Common.Validation
 {
     internal class UriValidator : PropertyValidator
     {

@@ -4,8 +4,8 @@ using System;
 using NodaTime.Testing;
 using NodaTime;
 using TreniniDotNet.Common;
-using TreniniDotNet.Common.Uuid.Testing;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.Domain.Catalog.Railways

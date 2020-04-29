@@ -3,18 +3,18 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Collection.Collections;
-using TreniniDotNet.Domain.Collection.Shared;
-using TreniniDotNet.Domain.Collection.Shops;
-using TreniniDotNet.Domain.Collection.Wishlists;
+using TreniniDotNet.Domain.Collecting.Collections;
+using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.Domain.Collecting.Shops;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Railways;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Scales;
-using TreniniDotNet.Infrastructure.Persistence.Collection.Collections;
-using TreniniDotNet.Infrastructure.Persistence.Collection.Shared;
-using TreniniDotNet.Infrastructure.Persistence.Collection.Shops;
-using TreniniDotNet.Infrastructure.Persistence.Collection.Wishlists;
+using TreniniDotNet.Infrastructure.Persistence.Collecting.Collections;
+using TreniniDotNet.Infrastructure.Persistence.Collecting.Common;
+using TreniniDotNet.Infrastructure.Persistence.Collecting.Shops;
+using TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists;
 
 namespace TreniniDotNet.Infrastructure.Persistence
 {

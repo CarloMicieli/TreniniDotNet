@@ -6,7 +6,7 @@ using NodaTime.Testing;
 using NodaTime;
 using System.Collections.Immutable;
 using TreniniDotNet.Common.Lengths;
-using TreniniDotNet.Common.Uuid.Testing;
+using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.Domain.Catalog.Scales

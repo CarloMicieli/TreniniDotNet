@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TreniniDotNet.Domain.Pagination
+namespace TreniniDotNet.Common.Pagination
 {
     public sealed class PaginatedResult<TValue> : IEquatable<PaginatedResult<TValue>>
     {

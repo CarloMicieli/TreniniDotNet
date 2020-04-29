@@ -1,5 +1,5 @@
-﻿using TreniniDotNet.Application.InMemory.Services;
-using TreniniDotNet.Application.Services;
+﻿using TreniniDotNet.Application.Services;
+using TreniniDotNet.TestHelpers.InMemory.Services;
 
 namespace TreniniDotNet.Application.UseCases
 {

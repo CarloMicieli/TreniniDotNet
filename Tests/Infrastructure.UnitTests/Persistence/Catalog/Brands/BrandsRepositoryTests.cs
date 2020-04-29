@@ -4,9 +4,9 @@ using System;
 using System.Threading.Tasks;
 using NodaTime;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.Infrastructure.Dapper;
 

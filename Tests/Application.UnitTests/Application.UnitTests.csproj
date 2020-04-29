@@ -13,8 +13,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="NodaTime.Testing" Version="2.4.7" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
 
@@ -23,10 +23,6 @@
     <ProjectReference Include="..\..\Src\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\Src\Application\Application.csproj" />
     <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Boundaries\Collection\GetWishlistsByOwner\" />
   </ItemGroup>
 
 </Project>

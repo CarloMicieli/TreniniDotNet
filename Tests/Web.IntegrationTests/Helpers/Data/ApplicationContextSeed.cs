@@ -5,9 +5,9 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Collection.Collections;
-using TreniniDotNet.Domain.Collection.Shops;
-using TreniniDotNet.Domain.Collection.Wishlists;
+using TreniniDotNet.Domain.Collecting.Collections;
+using TreniniDotNet.Domain.Collecting.Shops;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.TestHelpers.SeedData.Collection;
 

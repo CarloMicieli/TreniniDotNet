@@ -6,11 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Src\Application\Application.csproj" />
     <ProjectReference Include="..\..\Src\Common\Common.csproj" />
     <ProjectReference Include="..\..\Src\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.2" />
     <PackageReference Include="NodaTime" Version="2.4.7" />
     <PackageReference Include="NodaTime.Testing" Version="2.4.7" />
     <PackageReference Include="System.Collections.Immutable" Version="1.7.0" />
