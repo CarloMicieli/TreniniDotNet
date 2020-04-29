@@ -5,7 +5,6 @@ using Xunit;
 using FluentAssertions;
 using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.Common;
-using TreniniDotNet.Common.Uuid.Testing;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
@@ -14,6 +13,7 @@ using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Infrastructure.Dapper;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using System.Linq;
+using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {

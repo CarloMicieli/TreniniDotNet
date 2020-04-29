@@ -1,6 +1,5 @@
 ﻿using Xunit;
 using FluentAssertions;
-using TreniniDotNet.Web.ViewModels.Links;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Domain.Catalog.Brands;
 using System;
@@ -8,6 +7,8 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
 using System.Net.Mail;
 using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Web.Catalog.V1.Brands.Common.ViewModels;
+using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Catalog
 {

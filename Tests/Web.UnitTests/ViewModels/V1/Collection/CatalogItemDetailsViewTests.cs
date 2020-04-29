@@ -1,7 +1,8 @@
 ﻿using FluentAssertions;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Domain.Collection.Shared;
+using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.Web.Collecting.V1.Common.ViewModels;
 using Xunit;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Collection

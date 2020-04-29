@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Common.PhoneNumbers;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Domain.Collection.Shops;
+using TreniniDotNet.Domain.Collecting.Shops;
 
 namespace TreniniDotNet.TestHelpers.SeedData.Collection
 {
@@ -27,7 +27,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collection
                 "Modellbahnshop Lippe",
                 new Uri("https://www.modellbahnshop-lippe.com"),
                 new MailAddress("kundenservice@mail.modellbahnshop-lippe.com"),
-                Address.With(line1: "Marie-Curie-Straße 1", postalCode: "32760", city: "Detmold", country: "DE"),
+                Address.With(line1: "Marie-Curie-Straï¿½e 1", postalCode: "32760", city: "Detmold", country: "DE"),
                 PhoneNumber.Of("+49 5231 9807 123"));
 
             _tecnomodel = factory.NewShop(

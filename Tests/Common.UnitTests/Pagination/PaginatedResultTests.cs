@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 using FluentAssertions;
+using TreniniDotNet.Common.Pagination;
 
 namespace TreniniDotNet.Domain.Pagination
 {

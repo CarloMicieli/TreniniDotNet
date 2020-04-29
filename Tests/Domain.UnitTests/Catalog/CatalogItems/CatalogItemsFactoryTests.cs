@@ -7,11 +7,11 @@ using System.Linq;
 using NodaTime;
 using NodaTime.Testing;
 using TreniniDotNet.Common;
-using TreniniDotNet.Common.Uuid.Testing;
 using TreniniDotNet.Common.DeliveryDates;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems

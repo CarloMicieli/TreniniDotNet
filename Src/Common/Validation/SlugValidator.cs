@@ -1,7 +1,6 @@
 ﻿using FluentValidation.Validators;
-using TreniniDotNet.Common;
 
-namespace TreniniDotNet.Domain.Validation
+namespace TreniniDotNet.Common.Validation
 {
     internal class SlugValidator : PropertyValidator
     {

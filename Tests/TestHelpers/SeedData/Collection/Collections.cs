@@ -7,9 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Domain.Collection.Collections;
-using TreniniDotNet.Domain.Collection.Shared;
-using TreniniDotNet.Domain.Collection.ValueObjects;
+using TreniniDotNet.Domain.Collecting.Collections;
+using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.Domain.Collecting.ValueObjects;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.TestHelpers.SeedData.Collection

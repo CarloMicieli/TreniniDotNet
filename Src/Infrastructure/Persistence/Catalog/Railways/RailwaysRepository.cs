@@ -2,9 +2,9 @@ using Dapper;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Domain.Pagination;
 using TreniniDotNet.Infrastructure.Dapper;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
 
@@ -32,7 +32,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 railway.Name,
                 railway.CompanyName,
                 railway.Slug,
-                railway.Country,
+                Country = railway.Country.Code,
                 railway.PeriodOfActivity?.OperatingSince,
                 railway.PeriodOfActivity?.OperatingUntil,
                 Active = railway.PeriodOfActivity?.RailwayStatus == RailwayStatus.Active,

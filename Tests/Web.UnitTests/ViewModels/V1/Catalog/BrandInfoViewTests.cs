@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using TreniniDotNet.Web.Catalog.V1.Brands.Common.ViewModels;
 using Xunit;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Catalog

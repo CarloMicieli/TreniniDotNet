@@ -1,9 +1,7 @@
 ﻿#nullable disable
 using FluentValidation;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.Validation;
 
-namespace TreniniDotNet.Domain.Validation
+namespace TreniniDotNet.Common.Validation
 {
     public static class IRuleBuilderExtensions
     {

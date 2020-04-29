@@ -13,14 +13,21 @@ using NodaTime;
 using AutoMapper;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Application;
-using TreniniDotNet.Web.Identity;
-using TreniniDotNet.Web.DependencyInjection;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Seed;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using TreniniDotNet.Application.Catalog;
+using TreniniDotNet.Application.Collecting;
+using TreniniDotNet.Web.Catalog;
+using TreniniDotNet.Web.Catalog.V1;
+using TreniniDotNet.Web.Collecting;
+using TreniniDotNet.Web.Collecting.V1;
+using TreniniDotNet.Web.Infrastructure.DependencyInjection;
+using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
+using TreniniDotNet.Web.UserProfiles.Identity;
 
 namespace TreniniDotNet.Web
 {
@@ -72,8 +79,14 @@ namespace TreniniDotNet.Web
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup).Assembly);
 
-            services.AddUseCases();
-            services.AddPresenters();
+            services.AddSingleton<ILinksGenerator, AspNetLinksGenerator>();
+
+            services.AddCatalogUseCases();
+            services.AddCatalogPresenters();
+
+            services.AddCollectingUseCases();
+            services.AddCollectingPresenter();
+
             services.AddRepositories();
 
             services.AddSingleton<IGuidSource, GuidSource>();
@@ -135,7 +148,7 @@ namespace TreniniDotNet.Web
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "UI";
 
                 if (env.IsDevelopmentOrTesting())
                 {

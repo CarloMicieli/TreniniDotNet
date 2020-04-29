@@ -1,6 +1,7 @@
 ﻿using System;
+using TreniniDotNet.Common.Uuid;
 
-namespace TreniniDotNet.Common.Uuid.Testing
+namespace TreniniDotNet.TestHelpers.Common.Uuid.Testing
 {
     public sealed class FakeGuidSource : IGuidSource
     {

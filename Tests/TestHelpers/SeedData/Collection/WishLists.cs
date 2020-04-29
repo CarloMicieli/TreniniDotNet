@@ -6,9 +6,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Domain.Collection.Shared;
-using TreniniDotNet.Domain.Collection.ValueObjects;
-using TreniniDotNet.Domain.Collection.Wishlists;
+using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using static TreniniDotNet.TestHelpers.SeedData.ListHelpers;
 

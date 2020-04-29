@@ -5,7 +5,8 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using System;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Web.ViewModels.Links;
+using TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels;
+using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Catalog
 {

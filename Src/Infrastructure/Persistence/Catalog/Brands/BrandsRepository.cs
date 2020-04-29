@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Pagination;
 using Dapper;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands

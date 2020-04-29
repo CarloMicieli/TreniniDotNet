@@ -6,10 +6,11 @@ using System.Collections.Immutable;
 using System.Linq;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Domain.Collection.Collections;
-using TreniniDotNet.Domain.Collection.Shared;
-using TreniniDotNet.Domain.Collection.Shops;
-using TreniniDotNet.Domain.Collection.ValueObjects;
+using TreniniDotNet.Domain.Collecting.Collections;
+using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.Domain.Collecting.Shops;
+using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels;
 using Xunit;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Collection

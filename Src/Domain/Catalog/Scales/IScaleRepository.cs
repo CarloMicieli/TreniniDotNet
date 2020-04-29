@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Pagination;
+using TreniniDotNet.Common.Pagination;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
