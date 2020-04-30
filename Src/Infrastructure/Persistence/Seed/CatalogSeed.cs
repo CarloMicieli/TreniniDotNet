@@ -39,7 +39,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Seed
 
         private static async Task SeedBrands(IBrandsRepository brandsRepo, ILogger logger, IBrandsFactory brandsFactory)
         {
-            var brandRecords = CsvLoader.LoadRecords<BrandRecord>(@"..\..\Resources\brands.csv");
+            var brandRecords = CsvLoader.LoadRecords<BrandRecord>(@"../../Resources/brands.csv");
             logger.LogInformation("Found {0} brand(s) to seed", brandRecords.Count());
 
             var first = brandRecords
@@ -60,14 +60,22 @@ namespace TreniniDotNet.Infrastructure.Persistence.Seed
                 {
                     var slug = Slug.Of(brand.Slug);
 
+                    MailAddress? mailAddress = null;
+                    if (string.IsNullOrWhiteSpace(brand.MailAddress) == false)
+                    {
+                        mailAddress = new MailAddress(brand.MailAddress?.Replace("[AT]", "@",
+                            StringComparison.InvariantCultureIgnoreCase));
+                    }
+                    
                     var newBrand = brandsFactory.NewBrandWith(
                         brandId: new BrandId(brand.BrandId),
                         name: brand.Name,
                         slug: Slug.Of(brand.Slug),
                         companyName: brand.CompanyName,
                         website: !string.IsNullOrWhiteSpace(brand.WebsiteUrl) ? new Uri(brand.WebsiteUrl) : null,
-                        mailAddress: brand.MailAddress == null ? null : new MailAddress(brand.MailAddress?.Replace("[AT]", "@", StringComparison.InvariantCultureIgnoreCase)),
-                        kind: BrandKind.Industrial);
+                        mailAddress: mailAddress,
+                        kind: BrandKind.Industrial,
+                        address: null);
 
                     var brandId = await brandsRepo.AddAsync(newBrand);
                     logger.LogInformation("Inserted brand {0} (id = {1})", newBrand.Name, brandId);
@@ -81,7 +89,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Seed
 
         private static async Task SeedScales(IScalesRepository scalesRepo, ILogger logger, IScalesFactory scalesFactory)
         {
-            var scalesRecords = CsvLoader.LoadRecords<ScaleRecord>(@"..\..\Resources\scales.csv");
+            var scalesRecords = CsvLoader.LoadRecords<ScaleRecord>(@"../../Resources/scales.csv");
             logger.LogInformation("Found {0} scale(s) to seed", scalesRecords.Count());
 
             var first = scalesRecords
@@ -128,7 +136,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Seed
 
         private static async Task SeedRailways(IRailwaysRepository railwaysRepo, ILogger logger, IRailwaysFactory railwaysFactory)
         {
-            var railwayRecords = CsvLoader.LoadRecords<RailwayRecord>(@"..\..\Resources\railways.csv");
+            var railwayRecords = CsvLoader.LoadRecords<RailwayRecord>(@"../../Resources/railways.csv");
             logger.LogInformation("Found {0} railway(s) to seed", railwayRecords.Count());
 
             var first = railwayRecords
