@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.CatalogItems.OutputPorts
+namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {
     public class CreateCatalogItemOutputPort : OutputPortTestHelper<CreateCatalogItemOutput>, ICreateCatalogItemOutputPort
     {

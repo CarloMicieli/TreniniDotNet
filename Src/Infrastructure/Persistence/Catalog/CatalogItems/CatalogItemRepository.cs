@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
@@ -164,6 +165,33 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             return FromCatalogItemDto(results);
         }
 
+        public async Task<PaginatedResult<ICatalogItem>> GetLatestCatalogItemsAsync(Page page)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var results = await connection.QueryAsync<CatalogItemWithRelatedData>(
+                GetLatestCatalogItemsQuery,
+                new { @skip = page.Start, @limit = page.Limit + 1 });
+
+            return new PaginatedResult<ICatalogItem>(page,FromCatalogItemsDto(results));
+        }
+
+        private IEnumerable<ICatalogItem> FromCatalogItemsDto(IEnumerable<CatalogItemWithRelatedData> results)
+        {
+            return results
+                .GroupBy(it => new CatalogItemGroupingKey
+                {
+                    catalog_item_id = it.catalog_item_id,
+                    brand_id = it.brand_id,
+                    scale_id = it.scale_id,
+                    item_number = it.item_number,
+                    slug = it.slug
+                })
+                .Select(it => ProjectToCatalogItem(it))
+                .ToList();
+        }
+
         private ICatalogItem? FromCatalogItemDto(IEnumerable<CatalogItemWithRelatedData> results)
         {
             if (results.Any())
@@ -187,7 +215,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             }
         }
 
-        private ICatalogItem? ProjectToCatalogItem(IGrouping<CatalogItemGroupingKey, CatalogItemWithRelatedData> dto)
+        private ICatalogItem ProjectToCatalogItem(IGrouping<CatalogItemGroupingKey, CatalogItemWithRelatedData> dto)
         {
             IReadOnlyList<IRollingStock> rollingStocks = dto
                 .Select(it => this.ProjectToRollingStock(it)!)
@@ -246,6 +274,31 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             );
 
         #region [ Query / Command text ]
+
+        private const string GetLatestCatalogItemsQuery = @"SELECT 
+                ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,
+                ci.description, ci.model_description, ci.prototype_description, 
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, 
+                rs.class_name, rs.road_number, rs.type_name, rs.passenger_car_type, rs.service_level,
+                rs.dcc_interface, rs.control,
+                b.brand_id, b.name as brand_name, b.slug as brand_slug,
+                r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
+                s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
+                ci.created, ci.last_modified, ci.version
+            FROM (
+                SELECT * 
+                FROM catalog_items
+                ORDER BY created DESC 
+                LIMIT @limit OFFSET @skip
+            ) AS ci
+            JOIN brands AS b
+            ON b.brand_id = ci.brand_id 
+            JOIN scales AS s
+            ON s.scale_id = ci.scale_id 
+	        JOIN rolling_stocks AS rs 
+            ON rs.catalog_item_id = ci.catalog_item_id
+            JOIN railways AS r
+            ON r.railway_id = rs.railway_id;";
 
         private const string GetCatalogItemByBrandAndItemNumberQuery = @"SELECT 
                 ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,

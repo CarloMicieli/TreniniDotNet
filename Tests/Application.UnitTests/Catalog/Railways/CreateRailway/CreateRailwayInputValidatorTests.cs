@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation.TestHelper;
 using Xunit;
-using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 {

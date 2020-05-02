@@ -7,7 +7,7 @@ using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.InMemory.Repository;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.Brands
+namespace TreniniDotNet.Application.Catalog.Brands
 {
     public class BrandRepository : IBrandsRepository
     {

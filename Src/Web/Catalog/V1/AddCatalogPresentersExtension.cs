@@ -6,6 +6,7 @@ using TreniniDotNet.Application.Catalog.Brands.GetBrandsList;
 using TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem;
 using TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem;
 using TreniniDotNet.Application.Catalog.CatalogItems.GetCatalogItemBySlug;
+using TreniniDotNet.Application.Catalog.CatalogItems.GetLatestCatalogItems;
 using TreniniDotNet.Application.Catalog.Railways.CreateRailway;
 using TreniniDotNet.Application.Catalog.Railways.EditRailway;
 using TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug;
@@ -21,6 +22,7 @@ using TreniniDotNet.Web.Catalog.V1.Brands.GetBrandsList;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.CreateCatalogItem;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.EditCatalogItem;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.GetCatalogItemBySlug;
+using TreniniDotNet.Web.Catalog.V1.CatalogItems.GetLatestCatalogItems;
 using TreniniDotNet.Web.Catalog.V1.Railways.CreateRailway;
 using TreniniDotNet.Web.Catalog.V1.Railways.EditRailway;
 using TreniniDotNet.Web.Catalog.V1.Railways.GetRailwayBySlug;
@@ -49,6 +51,7 @@ namespace TreniniDotNet.Web.Catalog.V1
             services.AddPresenter<ICreateCatalogItemOutputPort, CreateCatalogItemPresenter>();
             services.AddPresenter<IGetCatalogItemBySlugOutputPort, GetCatalogItemBySlugPresenter>();
             services.AddPresenter<IEditCatalogItemOutputPort, EditCatalogItemPresenter>();
+            services.AddPresenter<IGetLatestCatalogItemsOutputPort, GetLatestCatalogItemsPresenter>();
 
             return services;
         }

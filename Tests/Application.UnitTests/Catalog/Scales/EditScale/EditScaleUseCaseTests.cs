@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-using TreniniDotNet.Application.InMemory.Catalog.Scales.OutputPorts;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Scales;
 using Xunit;
-using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.EditScale
 {

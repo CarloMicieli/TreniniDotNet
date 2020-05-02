@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TreniniDotNet.Common;
 using TreniniDotNet.Application.Catalog.Brands;
 using TreniniDotNet.Application.Catalog.Brands.CreateBrand;
 using TreniniDotNet.Application.Catalog.Brands.EditBrand;
@@ -13,8 +12,9 @@ using TreniniDotNet.Application.Catalog.Railways.EditRailway;
 using TreniniDotNet.Application.Catalog.Scales;
 using TreniniDotNet.Application.Catalog.Scales.CreateScale;
 using TreniniDotNet.Application.Catalog.Scales.EditScale;
+using TreniniDotNet.Common;
 
-namespace TreniniDotNet.Application.TestInputs.Catalog
+namespace TreniniDotNet.Application.Catalog
 {
     public static class NewAddressInput
     {

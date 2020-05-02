@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TreniniDotNet.Application.Catalog.Scales.EditScale;
 using TreniniDotNet.Common;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.Scales.OutputPorts
+namespace TreniniDotNet.Application.Catalog.Scales.EditScale
 {
     public class EditScaleOutputPort : OutputPortTestHelper<EditScaleOutput>, IEditScaleOutputPort
     {

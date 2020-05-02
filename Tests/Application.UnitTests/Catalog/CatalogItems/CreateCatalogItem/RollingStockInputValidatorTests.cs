@@ -1,5 +1,4 @@
 using FluentValidation.TestHelper;
-using TreniniDotNet.Application.TestInputs.Catalog;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem

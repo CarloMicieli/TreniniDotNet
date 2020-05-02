@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.DeliveryDates;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
@@ -41,6 +42,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public Task<ICatalogItem?> GetBySlugAsync(Slug slug)
         {
             return _catalogItemsRepository.GetBySlugAsync(slug);
+        }
+
+        public Task<PaginatedResult<ICatalogItem>> GetLatestCatalogItemsAsync(Page page)
+        {
+            return _catalogItemsRepository.GetLatestCatalogItemsAsync(page);
         }
 
         public async Task<bool> ItemAlreadyExists(IBrandInfo brand, ItemNumber itemNumber)

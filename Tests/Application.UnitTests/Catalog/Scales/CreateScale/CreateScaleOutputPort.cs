@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TreniniDotNet.Application.Catalog.Scales.CreateScale;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.Scales.OutputPorts
+namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
 {
     public class CreateScaleOutputPort : OutputPortTestHelper<CreateScaleOutput>, ICreateScaleOutputPort
     {

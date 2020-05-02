@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using TreniniDotNet.Application.Catalog.CatalogItems.GetCatalogItemBySlug;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.CatalogItems.OutputPorts
+namespace TreniniDotNet.Application.Catalog.CatalogItems.GetCatalogItemBySlug
 {
     public class GetCatalogItemBySlugOutputPort : OutputPortTestHelper<GetCatalogItemBySlugOutput>, IGetCatalogItemBySlugOutputPort
     {

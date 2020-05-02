@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TreniniDotNet.Application.Catalog.Brands.EditBrand;
 using TreniniDotNet.Common;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.Brands.OutputPorts
+namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
 {
     public class EditBrandOutputPort : OutputPortTestHelper<EditBrandOutput>, IEditBrandOutputPort
     {

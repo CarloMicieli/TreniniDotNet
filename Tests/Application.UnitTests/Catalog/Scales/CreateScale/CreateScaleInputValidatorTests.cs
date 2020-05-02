@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using Xunit;
-using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
 {

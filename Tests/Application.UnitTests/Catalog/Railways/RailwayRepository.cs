@@ -6,7 +6,7 @@ using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.InMemory.Repository;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.Railways
+namespace TreniniDotNet.Application.Catalog.Railways
 {
     public sealed class RailwayRepository : IRailwaysRepository
     {

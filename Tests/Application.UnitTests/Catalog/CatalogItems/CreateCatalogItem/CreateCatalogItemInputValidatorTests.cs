@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using FluentValidation.TestHelper;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using Xunit;
-using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {
@@ -161,8 +161,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor("RollingStocks[0].Length.Millimeters");
-            result.ShouldHaveValidationErrorFor("RollingStocks[0].Length.Inches");
+            result.ShouldHaveValidationErrorFor("RollingStocks[0].LengthOverBuffer.Millimeters");
+            result.ShouldHaveValidationErrorFor("RollingStocks[0].LengthOverBuffer.Inches");
         }
 
         private IReadOnlyList<RollingStockInput> NullRollingStockInput()

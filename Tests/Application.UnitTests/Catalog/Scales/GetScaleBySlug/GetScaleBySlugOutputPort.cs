@@ -1,7 +1,6 @@
-﻿using TreniniDotNet.Application.Catalog.Scales.GetScaleBySlug;
-using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
+﻿using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.Scales.OutputPorts
+namespace TreniniDotNet.Application.Catalog.Scales.GetScaleBySlug
 {
     public sealed class GetScaleBySlugOutputPort : OutputPortTestHelper<GetScaleBySlugOutput>, IGetScaleBySlugOutputPort
     {

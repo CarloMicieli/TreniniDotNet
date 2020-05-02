@@ -1,12 +1,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.InMemory.Repository;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.CatalogItems
+namespace TreniniDotNet.Application.Catalog.CatalogItems
 {
     public sealed class CatalogItemRepository : ICatalogItemRepository
     {
@@ -50,5 +51,13 @@ namespace TreniniDotNet.Application.InMemory.Catalog.CatalogItems
 
         public Task UpdateAsync(ICatalogItem catalogItem) =>
             Task.CompletedTask;
+
+        public Task<PaginatedResult<ICatalogItem>> GetLatestCatalogItemsAsync(Page page)
+        {
+            var results = _context.CatalogItems.OrderByDescending(it => it.CreatedDate)
+                .Take(page.Limit)
+                .Skip(page.Start);
+            return Task.FromResult(new PaginatedResult<ICatalogItem>(page, results));
+        }
     }
 }
