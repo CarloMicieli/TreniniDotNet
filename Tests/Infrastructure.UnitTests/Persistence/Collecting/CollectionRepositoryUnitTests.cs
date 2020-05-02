@@ -75,7 +75,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
                 railway_id = Fs.RailwayId.ToGuid(),
                 name = Fs.Name,
                 slug = Fs.Slug.ToString(),
-                country = Fs.Country.Code,
                 created = DateTime.UtcNow
             });
 

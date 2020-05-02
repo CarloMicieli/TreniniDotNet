@@ -12,7 +12,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             RailwayId id,
             Slug slug, string name,
             string? companyName,
-            Country country,
+            Country? country,
             PeriodOfActivity periodOfActivity,
             RailwayLength? railwayLength,
             RailwayGauge? gauge,
@@ -44,7 +44,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public string? CompanyName { get; }
 
-        public Country Country { get; }
+        public Country? Country { get; }
 
         public PeriodOfActivity PeriodOfActivity { get; }
 

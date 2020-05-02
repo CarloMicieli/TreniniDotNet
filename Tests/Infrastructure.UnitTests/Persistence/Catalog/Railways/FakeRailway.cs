@@ -32,7 +32,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
         public string Name { set; get; }
 
-        public Country Country { set; get; }
+        public Country? Country { set; get; }
 
         public FakeRailway()
         {
@@ -41,7 +41,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             Name = "FS";
             CompanyName = "Ferrovie dello Stato";
             Version = 1;
-            Country = Country.Of("IT");
+            Country = Common.Country.Of("IT");
             PeriodOfActivity = PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1));
             TrackGauge = null;
             TotalLength = null;

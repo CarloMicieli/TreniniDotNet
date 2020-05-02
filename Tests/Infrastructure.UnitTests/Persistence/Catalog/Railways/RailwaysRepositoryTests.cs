@@ -8,7 +8,6 @@ using TreniniDotNet.Common;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Infrastructure.Dapper;
-using System.Data;
 using TreniniDotNet.Common.Pagination;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
@@ -43,7 +42,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                     name = fs.Name,
                     company_name = fs.CompanyName,
                     slug = fs.Slug.ToString(),
-                    country = fs.Country.Code,
+                    country = fs.Country?.Code,
                     operating_since = fs.PeriodOfActivity.OperatingSince,
                     operating_until = fs.PeriodOfActivity.OperatingUntil,
                     active = RailwayStatus.Active == fs.PeriodOfActivity.RailwayStatus,

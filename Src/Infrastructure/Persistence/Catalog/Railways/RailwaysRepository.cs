@@ -32,7 +32,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 railway.Name,
                 railway.CompanyName,
                 railway.Slug,
-                Country = railway.Country.Code,
+                Country = railway.Country?.Code,
                 railway.PeriodOfActivity?.OperatingSince,
                 railway.PeriodOfActivity?.OperatingUntil,
                 Active = railway.PeriodOfActivity?.RailwayStatus == RailwayStatus.Active,
@@ -136,7 +136,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
         private IRailwayInfo ProjectInfoToDomain(RailwayInfoDto dto)
         {
-            return new RailwayInfo(dto.railway_id, dto.slug, dto.name, dto.country!);
+            return new RailwayInfo(dto.railway_id, dto.slug, dto.name);
         }
 
         private IRailway? ProjectToDomain(RailwayDto? dto)

@@ -200,7 +200,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         }
 
         private static IRailwayInfo ProjectToRailwayInfo(CatalogItemWithRelatedData dto) =>
-            new RailwayInfo(dto.railway_id, dto.railway_slug, dto.railway_name, dto.railway_country!); //TODO: fixme
+            new RailwayInfo(dto.railway_id, dto.railway_slug, dto.railway_name);
 
         private IRollingStock RollingStock(CatalogItemWithRelatedData dto, IRailwayInfo railway) =>
             _rsFactory.RollingStockWith(
