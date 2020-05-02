@@ -6,7 +6,7 @@ using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
 
 namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
 {
-    public class ScaleView
+    public sealed class ScaleView
     {
         public ScaleView(IScale scale, LinksView? selfLink)
         {
@@ -16,12 +16,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
             Name = scale.Name;
             Ratio = scale.Ratio.ToDecimal();
 
-            Gauge = new ScaleGaugeView
-            {
-                TrackGauge = scale.Gauge.TrackGauge.ToString(),
-                Millimeters = scale.Gauge.InMillimeters.Value,
-                Inches = scale.Gauge.InInches.Value
-            };
+            Gauge = new ScaleGaugeView(scale.Gauge);
 
             Standards = new List<string>();
             Weight = scale.Weight;
@@ -37,7 +32,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
 
         public decimal? Ratio { get; }
 
-        public ScaleGaugeView? Gauge { get; }
+        public ScaleGaugeView Gauge { get; }
 
         public string? Description { get; }
 
@@ -48,8 +43,15 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
 
     public class ScaleGaugeView
     {
-        public decimal? Millimeters { set; get; }
-        public decimal? Inches { set; get; }
-        public string? TrackGauge { set; get; }
+        public ScaleGaugeView(ScaleGauge scaleGauge)
+        {
+            TrackGauge = scaleGauge.TrackGauge.ToString();
+            Millimeters = decimal.Round(scaleGauge.InMillimeters.Value, 2);
+            Inches = decimal.Round(scaleGauge.InInches.Value, 2);
+        }
+
+        public decimal? Millimeters { get; }
+        public decimal? Inches { get; }
+        public string? TrackGauge { get; }
     }
 }

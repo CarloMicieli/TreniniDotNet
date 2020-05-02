@@ -3047,12 +3047,7 @@
             "nullable": true
           },
           "gauge": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/ScaleGaugeView"
-              }
-            ]
+            "$ref": "#/components/schemas/ScaleGaugeView"
           },
           "description": {
             "type": "string",

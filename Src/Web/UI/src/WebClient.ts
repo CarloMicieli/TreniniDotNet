@@ -4722,7 +4722,7 @@ export class ScaleView implements IScaleView {
     id?: string;
     name?: string;
     ratio?: number | undefined;
-    gauge?: ScaleGaugeView | undefined;
+    gauge?: ScaleGaugeView;
     description?: string | undefined;
     weight?: number | undefined;
     standards?: string[];
@@ -4783,7 +4783,7 @@ export interface IScaleView {
     id?: string;
     name?: string;
     ratio?: number | undefined;
-    gauge?: ScaleGaugeView | undefined;
+    gauge?: ScaleGaugeView;
     description?: string | undefined;
     weight?: number | undefined;
     standards?: string[];

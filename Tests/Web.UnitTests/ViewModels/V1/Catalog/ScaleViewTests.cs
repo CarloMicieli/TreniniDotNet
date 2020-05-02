@@ -18,6 +18,7 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
             view.Ratio.Should().Be(87.0M);
             view.Gauge.Millimeters.Should().Be(16.5M);
             view.Gauge.Inches.Should().Be(0.65M);
+            view.Gauge.TrackGauge.Should().Be("Standard");
         }
     }
 }
