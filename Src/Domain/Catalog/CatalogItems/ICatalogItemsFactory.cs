@@ -51,7 +51,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             LengthOverBuffer? length,
             string? typeName);
 
-        // From persistance
+        // From persistence
 
         IRollingStock NewRollingStock(
             Guid rollingStockId,
@@ -60,6 +60,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string category,
             LengthOverBuffer? length,
             string? className, string? roadNumber, string? typeName,
+            PassengerCarType? passengerCarType, ServiceLevel? serviceLevel,
             string? dccInterface, string? control);
 
         ICatalogItem NewCatalogItem(

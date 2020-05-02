@@ -188,21 +188,21 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
             public static CreateCatalogItemInput Empty = With();
 
             public static CreateCatalogItemInput With(
-                string Brand = null,
-                string ItemNumber = null,
-                string Description = null,
-                string PrototypeDescription = null,
-                string ModelDescription = null,
-                string PowerMethod = null,
-                string Scale = null,
-                string DeliveryDate = null,
-                bool Available = true,
-                IList<RollingStockInput> RollingStocks = null) =>
+                string brand = null,
+                string itemNumber = null,
+                string description = null,
+                string prototypeDescription = null,
+                string modelDescription = null,
+                string powerMethod = null,
+                string scale = null,
+                string deliveryDate = null,
+                bool available = true,
+                IReadOnlyList<RollingStockInput> rollingStocks = null) =>
                 new CreateCatalogItemInput(
-                    Brand,
-                    ItemNumber,
-                    Description, PrototypeDescription, ModelDescription,
-                    PowerMethod, Scale, DeliveryDate, Available, RollingStocks);
+                    brand,
+                    itemNumber,
+                    description, prototypeDescription, modelDescription,
+                    powerMethod, scale, deliveryDate, available, rollingStocks);
         }
 
         public static class NewEditCatalogItemInput
@@ -210,23 +210,23 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
             public static EditCatalogItemInput Empty = With();
 
             public static EditCatalogItemInput With(
-                Slug? ItemSlug = null,
-                string Brand = null,
-                string ItemNumber = null,
-                string Description = null,
-                string PrototypeDescription = null,
-                string ModelDescription = null,
-                string PowerMethod = null,
-                string Scale = null,
-                string DeliveryDate = null,
-                bool Available = true,
-                IList<RollingStockInput> RollingStocks = null) =>
+                Slug? itemSlug = null,
+                string brand = null,
+                string itemNumber = null,
+                string description = null,
+                string prototypeDescription = null,
+                string modelDescription = null,
+                string powerMethod = null,
+                string scale = null,
+                string deliveryDate = null,
+                bool available = true,
+                IList<RollingStockInput> rollingStocks = null) =>
                 new EditCatalogItemInput(
-                    ItemSlug ?? Slug.Empty,
-                    Brand,
-                    ItemNumber,
-                    Description, PrototypeDescription, ModelDescription,
-                    PowerMethod, Scale, DeliveryDate, Available, RollingStocks);
+                    itemSlug ?? Slug.Empty,
+                    brand,
+                    itemNumber,
+                    description, prototypeDescription, modelDescription,
+                    powerMethod, scale, deliveryDate, available, rollingStocks);
         }
 
         public static class NewRollingStockInput
@@ -234,13 +234,15 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
             public static RollingStockInput Empty => With();
 
             public static RollingStockInput With(
-                string Era = null, string Category = null, string Railway = null,
-                string ClassName = null, string RoadNumber = null, string TypeName = null,
-                LengthOverBufferInput Length = null,
-                string Control = null, string DccInterface = null) =>
-                new RollingStockInput(Era, Category, Railway,
-                    ClassName, RoadNumber, TypeName, Length,
-                    Control, DccInterface);
+                string era = null, string category = null, string railway = null,
+                string className = null, string roadNumber = null,
+                string typeName = null, string passengerCarType = null, string serviceLevel = null,
+                LengthOverBufferInput length = null,
+                string control = null, string dccInterface = null) =>
+                new RollingStockInput(era, category, railway,
+                    className, roadNumber, typeName, passengerCarType, serviceLevel,
+                    length,
+                    control, dccInterface);
         }
     }
 }

@@ -1,15 +1,16 @@
 using FluentValidation.TestHelper;
+using TreniniDotNet.Application.TestInputs.Catalog;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {
     public class RollingStockInputValidatorTests
     {
-        private readonly RollingStockInputValidator validator;
+        private RollingStockInputValidator Validator { get; }
 
         public RollingStockInputValidatorTests()
         {
-            validator = new RollingStockInputValidator();
+            Validator = new RollingStockInputValidator();
         }
 
         [Fact]
@@ -17,7 +18,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var input = RollingStockInput();
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldNotHaveAnyValidationErrors();
         }
@@ -27,9 +28,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var input = RollingStockInput(era: "invalid");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.Era);
+            result.ShouldHaveValidationErrorFor(x => x.Epoch);
         }
 
         [Fact]
@@ -37,7 +38,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var input = RollingStockInput(category: "invalid");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Category);
         }
@@ -47,7 +48,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var input = RollingStockInput(control: "invalid");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Control);
         }
@@ -57,7 +58,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var input = RollingStockInput(dccInterface: "invalid");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.DccInterface);
         }
@@ -69,13 +70,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             string control = "DccReady",
             string dccInterface = "Nem652")
         {
-            return new RollingStockInput(
+            return CatalogInputs.NewRollingStockInput.With(
                 era: era,
                 category: category,
                 railway: "FS",
                 className: "E 656",
                 roadNumber: "E 656 210",
-                typeName: null,
                 length: new LengthOverBufferInput(length, null),
                 control: control,
                 dccInterface: dccInterface

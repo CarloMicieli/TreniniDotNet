@@ -20,13 +20,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
         public Category Category => Category.ElectricLocomotive;
 
-        public Era Era => Era.IV;
+        public Epoch Epoch => Epoch.IV;
 
         public string ClassName => "class name";
 
         public string RoadNumber => "road num";
 
         public string TypeName => "type name";
+
+        public PassengerCarType? PassengerCarType => null;
+
+        public ServiceLevel? ServiceLevel => null;
 
         public DccInterface DccInterface => DccInterface.Nem651;
 

@@ -1,5 +1,4 @@
-﻿using TreniniDotNet.Common.Lengths;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+﻿using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Railways;
 using System;
 
@@ -11,19 +10,22 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             RollingStockId rollingStockId,
             IRailwayInfo railway,
             Category category,
-            Era era,
+            Epoch epoch,
             LengthOverBuffer? length,
             string? className, string? roadNumber, string? typeName,
+            PassengerCarType? passengerCarType, ServiceLevel? serviceLevel,
             DccInterface dccInterface, Control control)
         {
             RollingStockId = rollingStockId;
             Railway = railway;
             Category = category;
-            Era = era;
+            Epoch = epoch;
             Length = length;
             ClassName = className;
             RoadNumber = roadNumber;
             TypeName = typeName;
+            ServiceLevel = serviceLevel;
+            PassengerCarType = passengerCarType;
             DccInterface = dccInterface;
             Control = control;
         }
@@ -35,7 +37,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public Category Category { get; }
 
-        public Era Era { get; }
+        public Epoch Epoch { get; }
 
         public LengthOverBuffer? Length { get; }
 
@@ -44,6 +46,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public string? RoadNumber { get; }
 
         public string? TypeName { get; }
+
+        public PassengerCarType? PassengerCarType { get; }
+
+        public ServiceLevel? ServiceLevel { get; }
 
         public Control Control { get; }
 
@@ -73,7 +79,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public override string ToString()
         {
-            return $"RollingStock({RollingStockId} {Era} {Railway.Name} {Category})";
+            return $"RollingStock({RollingStockId} {Epoch} {Railway.Name} {Category})";
         }
     }
 }

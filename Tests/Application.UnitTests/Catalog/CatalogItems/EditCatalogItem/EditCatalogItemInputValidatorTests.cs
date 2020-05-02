@@ -26,8 +26,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
         public void EditCatalogItemInputValidator_ShouldValidateModifiedValues()
         {
             var input = NewEditCatalogItemInput.With(
-                ItemSlug: Slug.Of("acme-12345"),
-                ItemNumber: "");
+                itemSlug: Slug.Of("acme-12345"),
+                itemNumber: "");
 
             var result = Validator.TestValidate(input);
 

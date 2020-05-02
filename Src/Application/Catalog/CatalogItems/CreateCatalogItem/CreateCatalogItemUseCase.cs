@@ -21,17 +21,24 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         private readonly IUnitOfWork _unitOfWork;
         private readonly CatalogItemService _catalogItemService;
         private readonly ICatalogItemsFactory _catalogItemsFactory;
+        private readonly IRollingStocksFactory _rollingStocksFactory;
 
         public CreateCatalogItemUseCase(
             ICreateCatalogItemOutputPort outputPort,
             CatalogItemService catalogItemService,
             ICatalogItemsFactory catalogItemsFactory,
+            IRollingStocksFactory rollingStocksFactory,
             IUnitOfWork unitOfWork)
             : base(new CreateCatalogItemInputValidator(), outputPort)
         {
-            _unitOfWork = unitOfWork;
-            _catalogItemService = catalogItemService;
-            _catalogItemsFactory = catalogItemsFactory;
+            _unitOfWork = unitOfWork ??
+                throw new ArgumentNullException(nameof(unitOfWork));
+            _catalogItemService = catalogItemService ??
+                throw new ArgumentNullException(nameof(catalogItemService));
+            _catalogItemsFactory = catalogItemsFactory ??
+                throw new ArgumentNullException(nameof(catalogItemsFactory));
+            _rollingStocksFactory = rollingStocksFactory ??
+                throw new ArgumentNullException(nameof(rollingStocksFactory));
         }
 
         protected override async Task Handle(CreateCatalogItemInput input)
@@ -85,7 +92,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                 return;
             }
 
-            var rollingStocks = BuildRollingStocksList(input, railways);
+            var rollingStocks = input.RollingStocks
+                .Select(it => _rollingStocksFactory.FromInput(it, railways))
+                .ToImmutableList();
+
             var deliveryDate = DeliveryDate.TryParse(input.DeliveryDate, out var dd) ? dd : null;
 
             var catalogItem = _catalogItemsFactory.CreateNewCatalogItem(
@@ -104,49 +114,6 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             await _unitOfWork.SaveAsync();
 
             CreateStandardOutput(catalogItem);
-        }
-
-        private IRollingStock ToRollingStock(RollingStockInput input, Dictionary<Slug, IRailwayInfo> railways)
-        {
-            if (railways.TryGetValue(Slug.Of(input.Railway), out var railwayInfo))
-            {
-                var length = LengthOverBuffer.CreateOrDefault(input.Length?.Inches, input.Length?.Millimeters);
-
-                if (Categories.IsLocomotive(input.Category))
-                {
-                    return _catalogItemsFactory.NewLocomotive(
-                        railwayInfo,
-                        input.Era,
-                        input.Category,
-                        length,
-                        input.ClassName,
-                        input.RoadNumber,
-                        input.DccInterface,
-                        input.Control
-                    );
-                }
-                else
-                {
-                    return _catalogItemsFactory.NewRollingStock(
-                        railwayInfo,
-                        input.Era,
-                        input.Category,
-                        length,
-                        input.TypeName
-                    );
-                }
-            }
-
-            throw new InvalidOperationException("FIX ME");
-        }
-
-        private IImmutableList<IRollingStock> BuildRollingStocksList(
-            CreateCatalogItemInput input,
-            Dictionary<Slug, IRailwayInfo> railways)
-        {
-            return input.RollingStocks
-                .Select(it => ToRollingStock(it, railways))
-                .ToImmutableList();
         }
 
         private void CreateStandardOutput(ICatalogItem catalogItem)

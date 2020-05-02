@@ -11,7 +11,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         Category Category { get; }
 
-        Era Era { get; }
+        Epoch Epoch { get; }
 
         LengthOverBuffer? Length { get; }
 
@@ -20,6 +20,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         string? RoadNumber { get; }
 
         string? TypeName { get; }
+
+        PassengerCarType? PassengerCarType { get; }
+
+        ServiceLevel? ServiceLevel { get; }
 
         DccInterface DccInterface { get; }
 

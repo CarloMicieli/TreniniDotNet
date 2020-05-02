@@ -56,6 +56,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 1);
         }
 
+        [Obsolete]
         public IRollingStock NewLocomotive(
             IRailwayInfo railway, string era, string category,
             LengthOverBuffer? length,
@@ -74,6 +75,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 control: control);
         }
 
+        [Obsolete]
         public IRollingStock NewTrain(
             IRailwayInfo railway, string era, string category,
             LengthOverBuffer? length,
@@ -92,6 +94,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 control: control);
         }
 
+        [Obsolete]
         public IRollingStock NewRollingStock(
             IRailwayInfo railway, string era, string category,
             LengthOverBuffer? length,
@@ -106,6 +109,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 typeName: typeName);
         }
 
+        [Obsolete]
         public IRollingStock NewRollingStock(
             Guid id,
             IRailwayInfo railway,
@@ -113,6 +117,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string category,
             LengthOverBuffer? length,
             string? className = null, string? roadNumber = null, string? typeName = null,
+            PassengerCarType? passengerCarType = null, ServiceLevel? serviceLevel = null,
             string? dccInterface = null, string? control = null)
         {
             RollingStockId rollingStockId = new RollingStockId(id);
@@ -121,11 +126,13 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 rollingStockId,
                 railway,
                 RequiredValueFor<Category>(category),
-                RequiredValueFor<Era>(era),
+                Epoch.Parse(era),
                 length,
                 className,
                 roadNumber,
                 typeName,
+                passengerCarType,
+                serviceLevel,
                 OptionalValueFor<DccInterface>(dccInterface) ?? DccInterface.None,
                 OptionalValueFor<Control>(control) ?? Control.None);
         }

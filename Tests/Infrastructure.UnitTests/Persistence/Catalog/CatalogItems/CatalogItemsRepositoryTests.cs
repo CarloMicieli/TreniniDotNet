@@ -239,7 +239,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 rolling_stock_id = Guid.NewGuid(),
                 catalog_item_id = catalogItemId.ToGuid(),
                 category = Category.ElectricLocomotive.ToString(),
-                era = Era.V.ToString(),
+                era = Epoch.V.ToString(),
                 railway_id = railwayId.ToGuid()
             });
         }

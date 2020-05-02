@@ -59,7 +59,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         {
             var rs = factory.NewLocomotive(
                 CatalogSeedData.Railways.Fs(),
-                Era.IV.ToString(),
+                Epoch.IV.ToString(),
                 Category.ElectricLocomotive.ToString(),
                 LengthOverBuffer.OfMillimeters(210M),
                 "E 656",
@@ -83,7 +83,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         {
             var rs = factory.NewLocomotive(
                 CatalogSeedData.Railways.Fs(),
-                Era.IV.ToString(),
+                Epoch.IV.ToString(),
                 Category.ElectricLocomotive.ToString(),
                 LengthOverBuffer.OfMillimeters(210M),
                 "E 636",
@@ -108,7 +108,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         {
             var rs = factory.NewRollingStock(
                 CatalogSeedData.Railways.Fs(),
-                Era.IV.ToString(),
+                Epoch.IV.ToString(),
                 Category.PassengerCar.ToString(),
                 LengthOverBuffer.OfMillimeters(195M),
                 "Corbellini");
@@ -129,7 +129,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         {
             var rs = factory.NewLocomotive(
                 CatalogSeedData.Railways.DR(),
-                Era.III.ToString(),
+                Epoch.III.ToString(),
                 Category.SteamLocomotive.ToString(),
                 LengthOverBuffer.OfMillimeters(254M),
                 "BR 50.40",
@@ -153,7 +153,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         {
             var rs = factory.NewLocomotive(
                 CatalogSeedData.Railways.RhB(),
-                Era.V.ToString(),
+                Epoch.V.ToString(),
                 Category.ElectricLocomotive.ToString(),
                 LengthOverBuffer.OfMillimeters(139M),
                 "Ge 4/4 I",
@@ -178,7 +178,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         {
             var rs = factory.NewLocomotive(
                 CatalogSeedData.Railways.RhB(),
-                Era.V.ToString(),
+                Epoch.V.ToString(),
                 Category.ElectricLocomotive.ToString(),
                 LengthOverBuffer.OfMillimeters(166.7M),
                 "Ge 6/6 II",

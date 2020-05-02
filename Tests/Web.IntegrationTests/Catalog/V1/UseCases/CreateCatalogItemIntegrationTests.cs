@@ -50,7 +50,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
                 scale = "---",
                 rollingStocks = JsonArray(new
                 {
-                    era = "VI",
+                    epoch = "VI",
                     category = "ElectricLocomotive",
                     railway = "fs"
                 })
@@ -75,7 +75,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
                 scale = "H0",
                 rollingStocks = JsonArray(new
                 {
-                    era = "VI",
+                    epoch = "VI",
                     category = "ElectricLocomotive",
                     railway = "fs"
                 })
@@ -100,7 +100,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
                 scale = "H0",
                 rollingStocks = JsonArray(new
                 {
-                    era = "VI",
+                    epoch = "VI",
                     category = "ElectricLocomotive",
                     railway = "----"
                 })
@@ -127,7 +127,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.UseCases
                 scale = "H0",
                 rollingStocks = JsonArray(new
                 {
-                    era = "VI",
+                    epoch = "VI",
                     category = "ElectricLocomotive",
                     railway = "fs",
                     length = new

@@ -26,7 +26,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
         {
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewEditCatalogItem);
 
-            await useCase.Execute(NewEditCatalogItemInput.With(ItemSlug: Slug.Of("acme-99999")));
+            await useCase.Execute(NewEditCatalogItemInput.With(itemSlug: Slug.Of("acme-99999")));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertCatalogItemWasNotFound(Slug.Of("acme-99999"));
@@ -38,8 +38,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
 
             var input = NewEditCatalogItemInput.With(
-                ItemSlug: Slug.Of("acme-60392"),
-                Brand: "--not found--");
+                itemSlug: Slug.Of("acme-60392"),
+                brand: "--not found--");
 
             await useCase.Execute(input);
 
@@ -53,8 +53,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
 
             var input = NewEditCatalogItemInput.With(
-                ItemSlug: Slug.Of("acme-60392"),
-                Scale: "not found");
+                itemSlug: Slug.Of("acme-60392"),
+                scale: "not found");
 
             await useCase.Execute(input);
 
@@ -83,8 +83,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             var (useCase, outputPort, unitOfWork) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
 
             var input = NewEditCatalogItemInput.With(
-                ItemSlug: Slug.Of("acme-60392"),
-                Description: "Modified description");
+                itemSlug: Slug.Of("acme-60392"),
+                description: "Modified description");
 
             await useCase.Execute(input);
 

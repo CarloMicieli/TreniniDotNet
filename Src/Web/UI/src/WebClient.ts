@@ -6128,7 +6128,7 @@ export interface IEditCatalogItemRequest {
 }
 
 export class RollingStockRequest implements IRollingStockRequest {
-    era?: string | undefined;
+    epoch?: string | undefined;
     length?: LengthOverBufferRequest | undefined;
     railway?: string | undefined;
     className?: string | undefined;
@@ -6137,6 +6137,8 @@ export class RollingStockRequest implements IRollingStockRequest {
     dccInterface?: string | undefined;
     control?: string | undefined;
     category?: string | undefined;
+    serviceLevel?: string | undefined;
+    passengerCarType?: string | undefined;
 
     constructor(data?: IRollingStockRequest) {
         if (data) {
@@ -6149,7 +6151,7 @@ export class RollingStockRequest implements IRollingStockRequest {
 
     init(_data?: any) {
         if (_data) {
-            this.era = _data["era"];
+            this.epoch = _data["epoch"];
             this.length = _data["length"] ? LengthOverBufferRequest.fromJS(_data["length"]) : <any>undefined;
             this.railway = _data["railway"];
             this.className = _data["className"];
@@ -6158,6 +6160,8 @@ export class RollingStockRequest implements IRollingStockRequest {
             this.dccInterface = _data["dccInterface"];
             this.control = _data["control"];
             this.category = _data["category"];
+            this.serviceLevel = _data["serviceLevel"];
+            this.passengerCarType = _data["passengerCarType"];
         }
     }
 
@@ -6170,7 +6174,7 @@ export class RollingStockRequest implements IRollingStockRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["era"] = this.era;
+        data["epoch"] = this.epoch;
         data["length"] = this.length ? this.length.toJSON() : <any>undefined;
         data["railway"] = this.railway;
         data["className"] = this.className;
@@ -6179,12 +6183,14 @@ export class RollingStockRequest implements IRollingStockRequest {
         data["dccInterface"] = this.dccInterface;
         data["control"] = this.control;
         data["category"] = this.category;
+        data["serviceLevel"] = this.serviceLevel;
+        data["passengerCarType"] = this.passengerCarType;
         return data; 
     }
 }
 
 export interface IRollingStockRequest {
-    era?: string | undefined;
+    epoch?: string | undefined;
     length?: LengthOverBufferRequest | undefined;
     railway?: string | undefined;
     className?: string | undefined;
@@ -6193,6 +6199,8 @@ export interface IRollingStockRequest {
     dccInterface?: string | undefined;
     control?: string | undefined;
     category?: string | undefined;
+    serviceLevel?: string | undefined;
+    passengerCarType?: string | undefined;
 }
 
 export class LengthOverBufferRequest implements ILengthOverBufferRequest {

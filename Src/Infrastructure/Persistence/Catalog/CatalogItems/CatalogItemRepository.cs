@@ -55,7 +55,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 var _rows2 = await connection.ExecuteAsync(InsertNewRollingStock, new
                 {
                     rs.RollingStockId,
-                    rs.Era,
+                    Era = rs.Epoch.ToString(),
                     rs.Category,
                     rs.Railway.RailwayId,
                     catalogItem.CatalogItemId,
@@ -205,6 +205,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 dto.class_name,
                 dto.road_number,
                 dto.type_name,
+                null,
+                null,
                 dto.dcc_interface,
                 dto.control
             );

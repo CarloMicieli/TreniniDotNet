@@ -19,7 +19,7 @@ namespace TreniniDotNet.Common.Lengths
         {
             if (value.IsNegative())
             {
-                throw new ArgumentOutOfRangeException(nameof(value));
+                throw new ArgumentOutOfRangeException(nameof(value), "Invalid value for a length, it must be positive.");
             }
 
             Value = value;
@@ -158,9 +158,9 @@ namespace TreniniDotNet.Common.Lengths
         /// Sum a list of length values
         /// </summary>
         /// <remarks>
-        /// In case the elements have different measure unit, all items are converted implicitly to the 
+        /// In case the elements have different measure unit, all items are converted implicitly to the
         /// first element measure unit and summed.
-        /// 
+        ///
         /// In case there are no elements, the result will default to a length of 0 millimeters.
         /// </remarks>
         /// <param name="lengths"></param>

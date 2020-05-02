@@ -52,6 +52,7 @@ namespace TreniniDotNet.Application.Catalog
             services.AddScoped<IEditCatalogItemUseCase, EditCatalogItemUseCase>();
 
             services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();
+            services.AddScoped<IRollingStocksFactory, RollingStocksFactory>();
             services.AddScoped<CatalogItemService>();
             return services;
         }

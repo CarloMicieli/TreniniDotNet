@@ -28,7 +28,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
 
         public string Category => _rs.Category.ToString();
 
-        public string Era => _rs.Era.ToString();
+        public string Era => _rs.Epoch.ToString();
 
         public LengthOverBufferView? LengthOverBuffer => _lob;
 

@@ -2,7 +2,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests
 {
     public sealed class RollingStockRequest
     {
-        public string? Era { set; get; }
+        public string? Epoch { set; get; }
 
         public LengthOverBufferRequest? Length { set; get; }
 
@@ -19,5 +19,9 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests
         public string? Control { get; }
 
         public string? Category { set; get; }
+
+        public string? ServiceLevel { set; get; }
+
+        public string? PassengerCarType { set; get; }
     }
 }

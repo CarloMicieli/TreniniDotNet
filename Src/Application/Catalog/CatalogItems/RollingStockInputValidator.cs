@@ -7,9 +7,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
     {
         public RollingStockInputValidator()
         {
-            RuleFor(x => x.Era)
+            RuleFor(x => x.Epoch)
                 .NotNull()
-                .IsEnumName(typeof(Era), caseSensitive: false);
+                .ValidEpoch();
 
             RuleFor(x => x.Category)
                 .NotNull()
@@ -35,18 +35,6 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
 
             RuleFor(x => x.Control)
                 .IsEnumName(typeof(Control), caseSensitive: false);
-        }
-    }
-
-    public sealed class LengthOverBufferInputValidator : AbstractValidator<LengthOverBufferInput>
-    {
-        public LengthOverBufferInputValidator()
-        {
-            RuleFor(x => x.Millimeters)
-                .GreaterThan(0);
-
-            RuleFor(x => x.Inches)
-                .GreaterThan(0);
         }
     }
 }
