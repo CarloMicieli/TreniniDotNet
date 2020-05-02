@@ -95,7 +95,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 roadNumber,
                 typeName,
                 OptionalValueFor<PassengerCarType>(passengerCarType),
-                OptionalValueFor<ServiceLevel>(serviceLevel),
+                serviceLevel.ToServiceLevelOpt(),
                 OptionalValueFor<DccInterface>(dccInterface) ?? DccInterface.None,
                 OptionalValueFor<Control>(control) ?? Control.None);
         }

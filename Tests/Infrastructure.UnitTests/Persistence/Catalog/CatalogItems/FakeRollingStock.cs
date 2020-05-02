@@ -30,7 +30,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
         public PassengerCarType? PassengerCarType => null;
 
-        public ServiceLevel? ServiceLevel => null;
+        public ServiceLevel ServiceLevel => null;
 
         public DccInterface DccInterface => DccInterface.Nem651;
 

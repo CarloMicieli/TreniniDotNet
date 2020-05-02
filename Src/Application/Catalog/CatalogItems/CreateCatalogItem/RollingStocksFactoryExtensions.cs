@@ -42,7 +42,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             if (Categories.IsPassengerCar(category))
             {
                 var passengerCarType = OptionalValueFor<PassengerCarType>(input.PassengerCarType);
-                var serviceLevel = OptionalValueFor<ServiceLevel>(input.ServiceLevel);
+                var serviceLevel = input.ServiceLevel.ToServiceLevelOpt();
 
                 return factory.NewPassengerCar(
                     railwayInfo,
