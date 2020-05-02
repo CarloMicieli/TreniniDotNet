@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using System.Threading.Tasks;
+using TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.DeliveryDates;
-using TreniniDotNet.Common.Enums;
+using static TreniniDotNet.Common.Enums.EnumHelpers;
 using TreniniDotNet.Common.UseCases;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
@@ -15,10 +19,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
     public sealed class EditCatalogItemUseCase : ValidatedUseCase<EditCatalogItemInput, IEditCatalogItemOutputPort>, IEditCatalogItemUseCase
     {
         private readonly CatalogItemService _catalogItemService;
+        private readonly IRollingStocksFactory _rollingStocksFactory;
         private readonly IUnitOfWork _unitOfWork;
 
         public EditCatalogItemUseCase(
             IEditCatalogItemOutputPort output,
+            IRollingStocksFactory rollingStocksFactory,
             CatalogItemService catalogItemService,
             IUnitOfWork unitOfWork)
             : base(new EditCatalogItemInputValidator(), output)
@@ -27,6 +33,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
                 throw new ArgumentNullException(nameof(catalogItemService));
             _unitOfWork = unitOfWork ??
                 throw new ArgumentNullException(nameof(unitOfWork));
+            _rollingStocksFactory = rollingStocksFactory ??
+                throw new ArgumentNullException(nameof(rollingStocksFactory));
         }
 
         protected override async Task Handle(EditCatalogItemInput input)
@@ -62,14 +70,27 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
                 }
             }
 
-            //if (input.Values.RollingStocks != null &&
-            //    input.Values.RollingStocks.Count > 0)
-            //{
-            //    IEnumerable<Slug> railwaysSlug = input.Values.RollingStocks
-            //        .Select(it => Slug.Of(it.Railway))
-            //        .Distinct()
-            //        .ToList();
-            //}
+            IReadOnlyList<IRollingStock> rollingStocks = ImmutableList<IRollingStock>.Empty;
+            if (input.Values.RollingStocks != null &&
+                input.Values.RollingStocks.Count > 0)
+            {
+                IEnumerable<Slug> inputRailways = input.Values.RollingStocks
+                    .Select(it => Slug.Of(it.Railway))
+                    .Distinct();
+
+                var (railways, railwaysNotFound) =
+                    await _catalogItemService.FindRailwaysInfoBySlug(inputRailways);
+
+                if (railwaysNotFound.Count > 0)
+                {
+                    OutputPort.RailwayNotFound(railwaysNotFound);
+                    return;
+                }
+
+                rollingStocks = input.Values.RollingStocks
+                    .Select(it => _rollingStocksFactory.FromInput(it, railways))
+                    .ToImmutableList();
+            }
 
             ItemNumber? itemNumber = null;
             if (input.Values.ItemNumber != null)
@@ -77,13 +98,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
                 itemNumber = new ItemNumber(input.Values.ItemNumber);
             }
 
-            DeliveryDate? deliveryDate = null;
-            if (input.Values.DeliveryDate != null)
-            {
-                deliveryDate = DeliveryDate.Parse(input.Values.DeliveryDate);
-            }
-
-            PowerMethod? powerMethod = EnumHelpers.OptionalValueFor<PowerMethod>(input.Values.PowerMethod);
+            var deliveryDate = input.Values.DeliveryDate.ToDeliveryDateOpt();
+            var powerMethod = OptionalValueFor<PowerMethod>(input.Values.PowerMethod);
 
             await _catalogItemService.UpdateCatalogItem(
                 item,
@@ -91,6 +107,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
                 itemNumber,
                 scale,
                 powerMethod,
+                rollingStocks,
                 input.Values.Description,
                 input.Values.PrototypeDescription,
                 input.Values.ModelDescription,

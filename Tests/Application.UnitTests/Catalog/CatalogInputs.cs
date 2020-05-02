@@ -220,7 +220,7 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
                 string scale = null,
                 string deliveryDate = null,
                 bool available = true,
-                IList<RollingStockInput> rollingStocks = null) =>
+                IReadOnlyList<RollingStockInput> rollingStocks = null) =>
                 new EditCatalogItemInput(
                     itemSlug ?? Slug.Empty,
                     brand,

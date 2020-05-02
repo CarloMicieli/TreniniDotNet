@@ -70,6 +70,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 new ItemNumber("654321"),
                 null,
                 null,
+                ImmutableList<IRollingStock>.Empty,
                 null,
                 null,
                 null,

@@ -1,9 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using NodaTime;
+using NodaTime.Testing;
 using TreniniDotNet.Application.InMemory.Catalog.CatalogItems.OutputPorts;
 using TreniniDotNet.Application.Services;
+using TreniniDotNet.Application.TestInputs.Catalog;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using Xunit;
 using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
 
@@ -62,20 +68,20 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             outputPort.AssertScaleWasNotFound(Slug.Of("--not found--"));
         }
 
-        //[Fact]
-        //public async Task EditCatalogItem_ShouldOutputRailwayNotFound_WhenARailwayWasNotFound()
-        //{
-        //    var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
+        [Fact]
+        public async Task EditCatalogItem_ShouldOutputRailwayNotFound_WhenARailwayWasNotFound()
+        {
+            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
 
-        //    var input = NewEditCatalogItemInput.With(
-        //        ItemSlug: Slug.Of("acme-60392"),
-        //        RollingStocks: ListOf());
+            var input = NewEditCatalogItemInput.With(
+                itemSlug: Slug.Of("acme-60392"),
+                rollingStocks: RollingStockList(Epoch.IV.ToString(), Category.DieselLocomotive.ToString(), "--not found--"));
 
-        //    await useCase.Execute(input);
+            await useCase.Execute(input);
 
-        //    outputPort.ShouldHaveNoValidationError();
-        //    outputPort.AssertScaleWasNotFound(Slug.Of("--not found--"));
-        //}
+            outputPort.ShouldHaveNoValidationError();
+            outputPort.AssertRailwayWasNotFound(new List<Slug>() { Slug.Of("--not found--") });
+        }
 
         [Fact]
         public async Task EditCatalogItem_ShouldUpdateCatalogItem()
@@ -97,7 +103,21 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 
         private EditCatalogItemUseCase NewEditCatalogItem(CatalogItemService catalogItemService, EditCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)
         {
-            return new EditCatalogItemUseCase(outputPort, catalogItemService, unitOfWork);
+            var fakeClock = new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0));
+
+            IRollingStocksFactory rollingStocksFactory = new RollingStocksFactory(
+                fakeClock, FakeGuidSource.NewSource(Guid.NewGuid()));
+
+            return new EditCatalogItemUseCase(outputPort, rollingStocksFactory, catalogItemService, unitOfWork);
+        }
+
+        private static IReadOnlyList<RollingStockInput> RollingStockList(string era, string category, string railway)
+        {
+            var rollingStockInput = CatalogInputs.NewRollingStockInput.With(
+                era: era,
+                category: category,
+                railway: railway);
+            return new List<RollingStockInput>() { rollingStockInput };
         }
     }
 }

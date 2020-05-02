@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.DeliveryDates;
@@ -62,9 +64,53 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return _railways.GetInfoBySlugAsync(railway);
         }
 
-        public Task<CatalogItemId> CreateNewCatalogItem(ICatalogItem catalogItem)
+        public async Task<(Dictionary<Slug, IRailwayInfo> found, List<Slug> notFound)> FindRailwaysInfoBySlug(IEnumerable<Slug> railways)
         {
-            return _catalogItemsRepository.AddAsync(catalogItem);
+            var railwaysNotFound = new List<Slug>();
+            var railwaysFound = new Dictionary<Slug, IRailwayInfo>();
+
+            foreach (var railwaySlug in railways)
+            {
+                var railwayInfo = await FindRailwayInfoBySlug(railwaySlug);
+                if (railwayInfo is null)
+                {
+                    railwaysNotFound.Add(railwaySlug);
+                }
+                else
+                {
+                    railwaysFound.Add(railwaySlug, railwayInfo);
+                }
+            }
+
+            return (railwaysFound, railwaysNotFound);
+        }
+
+
+        public async Task<(CatalogItemId, Slug)> CreateNewCatalogItem(
+            IBrandInfo brand,
+            ItemNumber itemNumber,
+            IScaleInfo scale,
+            PowerMethod powerMethod,
+            IReadOnlyList<IRollingStock> rollingStocks,
+            string description,
+            string? prototypeDescription,
+            string? modelDescription,
+            DeliveryDate? deliveryDate,
+            bool available)
+        {
+            var catalogItem = _catalogItemsFactory.CreateNewCatalogItem(
+                brand,
+                itemNumber,
+                scale,
+                powerMethod,
+                rollingStocks,
+                description,
+                prototypeDescription,
+                modelDescription,
+                deliveryDate,
+                available);
+            var _ = await _catalogItemsRepository.AddAsync(catalogItem);
+            return (catalogItem.CatalogItemId, catalogItem.Slug);
         }
 
         public Task UpdateCatalogItem(ICatalogItem item,
@@ -72,6 +118,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             ItemNumber? itemNumber,
             IScaleInfo? scale,
             PowerMethod? powerMethod,
+            IReadOnlyList<IRollingStock> rollingStocks,
             string? description,
             string? prototypeDescription,
             string? modelDescription,
@@ -84,6 +131,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 itemNumber,
                 scale,
                 powerMethod,
+                rollingStocks,
                 description,
                 prototypeDescription,
                 modelDescription,

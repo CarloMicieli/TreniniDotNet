@@ -16,8 +16,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             PowerMethod powerMethod,
             IReadOnlyList<IRollingStock> rollingStocks,
             string description,
-            string? prototypeDescr,
-            string? modelDescr,
+            string? prototypeDescription,
+            string? modelDescription,
             DeliveryDate? deliveryDate,
             bool available);
 
@@ -27,9 +27,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             ItemNumber? itemNumber,
             IScaleInfo? scale,
             PowerMethod? powerMethod,
+            IReadOnlyList<IRollingStock> rollingStocks,
             string? description,
-            string? prototypeDescr,
-            string? modelDescr,
+            string? prototypeDescription,
+            string? modelDescription,
             DeliveryDate? deliveryDate,
             bool? available);
 

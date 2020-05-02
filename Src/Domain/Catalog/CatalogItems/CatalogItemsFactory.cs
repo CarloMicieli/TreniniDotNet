@@ -31,8 +31,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             PowerMethod powerMethod,
             IReadOnlyList<IRollingStock> rollingStocks,
             string description,
-            string? prototypeDescr,
-            string? modelDescr,
+            string? prototypeDescription,
+            string? modelDescription,
             DeliveryDate? deliveryDate,
             bool available)
         {
@@ -47,8 +47,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 scale,
                 powerMethod,
                 description,
-                prototypeDescr,
-                modelDescr,
+                prototypeDescription,
+                modelDescription,
                 deliveryDate,
                 available,
                 rollingStocks,
@@ -93,17 +93,18 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             ItemNumber? itemNumber,
             IScaleInfo? scale,
             PowerMethod? powerMethod,
+            IReadOnlyList<IRollingStock> rollingStocks,
             string? description,
-            string? prototypeDescr,
-            string? modelDescr,
+            string? prototypeDescription,
+            string? modelDescription,
             DeliveryDate? deliveryDate,
             bool? available)
         {
-            Slug itemSlug = item.Slug;
+            var itemSlug = item.Slug;
 
             if (itemNumber.HasValue || brand != null)
             {
-                var brandSlug = (brand is null) ? item.Brand.Slug : brand.Slug;
+                var brandSlug = brand?.Slug ?? item.Brand.Slug;
                 itemSlug = brandSlug.CombineWith(itemNumber ?? item.ItemNumber);
             }
 
@@ -115,11 +116,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 scale ?? item.Scale,
                 powerMethod ?? item.PowerMethod,
                 description ?? item.Description,
-                prototypeDescr ?? item.PrototypeDescription,
-                modelDescr ?? item.ModelDescription,
+                prototypeDescription ?? item.PrototypeDescription,
+                modelDescription ?? item.ModelDescription,
                 deliveryDate ?? item.DeliveryDate,
                 available ?? item.IsAvailable,
-                item.RollingStocks,
+                rollingStocks.Count > 0 ? rollingStocks : item.RollingStocks,
                 item.CreatedDate,
                 _clock.GetCurrentInstant(),
                 item.Version + 1);

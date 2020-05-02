@@ -100,6 +100,32 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 Modified = catalogItem.ModifiedDate?.ToDateTimeUtc(),
                 catalogItem.Version
             });
+
+            var _rows2 = await connection.ExecuteAsync(DeleteAllRollingStocks, new
+            {
+                catalogItem.CatalogItemId
+            });
+
+            foreach (var rs in catalogItem.RollingStocks)
+            {
+                var _rows3 = await connection.ExecuteAsync(InsertNewRollingStock, new
+                {
+                    rs.RollingStockId,
+                    Era = rs.Epoch.ToString(),
+                    rs.Category,
+                    rs.Railway.RailwayId,
+                    catalogItem.CatalogItemId,
+                    LengthMm = rs.Length?.Millimeters,
+                    LengthIn = rs.Length?.Inches,
+                    rs.ClassName,
+                    rs.RoadNumber,
+                    rs.TypeName,
+                    PassengerCarType = rs.PassengerCarType?.ToString(),
+                    ServiceLevel = rs.ServiceLevel?.ToString(),
+                    DccInterface = rs.DccInterface.ToString(),
+                    Control = rs.Control.ToString()
+                });
+            }
         }
 
         public async Task<bool> ExistsAsync(IBrandInfo brand, ItemNumber itemNumber)
@@ -289,6 +315,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 last_modified = @Modified, 
                 version = @Version
             WHERE catalog_item_id = @CatalogItemId;";
+
+        private const string DeleteAllRollingStocks = @"DELETE FROM rolling_stocks WHERE catalog_item_id = @CatalogItemId;";
 
         #endregion
     }

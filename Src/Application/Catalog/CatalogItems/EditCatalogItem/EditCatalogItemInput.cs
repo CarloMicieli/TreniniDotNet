@@ -17,7 +17,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             string? scale,
             string? deliveryDate,
             bool? available,
-            IList<RollingStockInput> rollingStocks)
+            IReadOnlyList<RollingStockInput> rollingStocks)
         {
             Slug = slug;
             Values = new ModifiedCatalogItemValues(
@@ -49,7 +49,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             string? scale,
             string? deliveryDate,
             bool? available,
-            IList<RollingStockInput> rollingStocks)
+            IReadOnlyList<RollingStockInput> rollingStocks)
         {
             Brand = brand;
             ItemNumber = itemNumber;
@@ -77,7 +77,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 
         public string? Scale { get; }
 
-        public IList<RollingStockInput> RollingStocks { get; }
+        public IReadOnlyList<RollingStockInput> RollingStocks { get; }
 
         public string? DeliveryDate { get; }
 

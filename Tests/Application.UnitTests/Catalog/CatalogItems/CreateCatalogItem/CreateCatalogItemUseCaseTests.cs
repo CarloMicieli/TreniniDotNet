@@ -192,7 +192,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                 fakeClock, FakeGuidSource.NewSource(Guid.NewGuid()));
 
             return new CreateCatalogItemUseCase(outputPort,
-                catalogItemService, catalogItemsFactory, rollingStocksFactory,
+                catalogItemService, rollingStocksFactory,
                 unitOfWork);
         }
 
