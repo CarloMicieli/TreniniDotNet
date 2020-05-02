@@ -4,7 +4,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests
     {
         public string? Epoch { set; get; }
 
-        public LengthOverBufferRequest? Length { set; get; }
+        public LengthOverBufferRequest? LengthOverBuffer { set; get; }
 
         public string? Railway { set; get; }
 
@@ -12,11 +12,11 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests
 
         public string? RoadNumber { set; get; }
 
-        public string? TypeName { get; }
+        public string? TypeName { set; get; }
 
-        public string? DccInterface { get; }
+        public string? DccInterface { set; get; }
 
-        public string? Control { get; }
+        public string? Control { set; get; }
 
         public string? Category { set; get; }
 

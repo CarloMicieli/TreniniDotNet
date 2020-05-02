@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Domain.Catalog.Railways;
-
 namespace TreniniDotNet.Application.Catalog.CatalogItems
 {
     public sealed class RollingStockInput
@@ -13,7 +7,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             string railway,
             string? className, string? roadNumber,
             string? typeName, string? passengerCarType, string? serviceLevel,
-            LengthOverBufferInput? length,
+            LengthOverBufferInput? lengthOverBuffer,
             string? control, string? dccInterface)
         {
             Epoch = epoch;
@@ -24,7 +18,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             TypeName = typeName;
             PassengerCarType = passengerCarType;
             ServiceLevel = serviceLevel;
-            Length = length ?? LengthOverBufferInput.Default();
+            LengthOverBuffer = lengthOverBuffer ?? LengthOverBufferInput.Default();
             Control = control;
             DccInterface = dccInterface;
         }
@@ -45,7 +39,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
 
         public string? ServiceLevel { get; }
 
-        public LengthOverBufferInput Length { get; }
+        public LengthOverBufferInput LengthOverBuffer { get; }
 
         public string? DccInterface { get; }
 

@@ -15,7 +15,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
                 .NotNull()
                 .IsEnumName(typeof(Category), caseSensitive: false);
 
-            RuleFor(x => x.Length)
+            RuleFor(x => x.LengthOverBuffer)
                 .SetValidator(new LengthOverBufferInputValidator());
 
             RuleFor(x => x.Railway)

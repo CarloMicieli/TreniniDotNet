@@ -6129,7 +6129,7 @@ export interface IEditCatalogItemRequest {
 
 export class RollingStockRequest implements IRollingStockRequest {
     epoch?: string | undefined;
-    length?: LengthOverBufferRequest | undefined;
+    lengthOverBuffer?: LengthOverBufferRequest | undefined;
     railway?: string | undefined;
     className?: string | undefined;
     roadNumber?: string | undefined;
@@ -6152,7 +6152,7 @@ export class RollingStockRequest implements IRollingStockRequest {
     init(_data?: any) {
         if (_data) {
             this.epoch = _data["epoch"];
-            this.length = _data["length"] ? LengthOverBufferRequest.fromJS(_data["length"]) : <any>undefined;
+            this.lengthOverBuffer = _data["lengthOverBuffer"] ? LengthOverBufferRequest.fromJS(_data["lengthOverBuffer"]) : <any>undefined;
             this.railway = _data["railway"];
             this.className = _data["className"];
             this.roadNumber = _data["roadNumber"];
@@ -6175,7 +6175,7 @@ export class RollingStockRequest implements IRollingStockRequest {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["epoch"] = this.epoch;
-        data["length"] = this.length ? this.length.toJSON() : <any>undefined;
+        data["lengthOverBuffer"] = this.lengthOverBuffer ? this.lengthOverBuffer.toJSON() : <any>undefined;
         data["railway"] = this.railway;
         data["className"] = this.className;
         data["roadNumber"] = this.roadNumber;
@@ -6191,7 +6191,7 @@ export class RollingStockRequest implements IRollingStockRequest {
 
 export interface IRollingStockRequest {
     epoch?: string | undefined;
-    length?: LengthOverBufferRequest | undefined;
+    lengthOverBuffer?: LengthOverBufferRequest | undefined;
     railway?: string | undefined;
     className?: string | undefined;
     roadNumber?: string | undefined;

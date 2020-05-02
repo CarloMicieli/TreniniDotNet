@@ -248,10 +248,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         #region [ Query / Command text ]
 
         private const string GetCatalogItemByBrandAndItemNumberQuery = @"SELECT 
-                ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, 
+                ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,
                 ci.description, ci.model_description, ci.prototype_description, 
                 rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, 
                 rs.class_name, rs.road_number, rs.type_name, rs.passenger_car_type, rs.service_level,
+                rs.dcc_interface, rs.control,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
@@ -268,10 +269,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             WHERE b.brand_id = @brandId AND ci.item_number = @itemNumber;";
 
         private const string GetCatalogItemBySlug = @"SELECT 
-                ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, 
+                ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,
                 ci.description, ci.model_description, ci.prototype_description, 
                 rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in,
                 rs.class_name, rs.road_number, rs.type_name, rs.passenger_car_type, rs.service_level,
+                rs.dcc_interface, rs.control,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,

@@ -20,7 +20,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
             var era = Epoch.Parse(input.Epoch);
 
-            var length = LengthOverBuffer.CreateOrDefault(input.Length?.Inches, input.Length?.Millimeters);
+            var length = LengthOverBuffer.CreateOrDefault(input.LengthOverBuffer?.Inches, input.LengthOverBuffer?.Millimeters);
 
             var dccInterface = OptionalValueFor<DccInterface>(input.DccInterface) ?? DccInterface.None;
             var control = OptionalValueFor<Control>(input.Control) ?? Control.None;
