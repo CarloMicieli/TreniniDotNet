@@ -138,7 +138,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
 
             Create.Table(RollingStocks)
                 .WithColumn("rolling_stock_id").AsGuid().PrimaryKey()
-                .WithColumn("era").AsString(5).NotNullable()
+                .WithColumn("era").AsString(10).NotNullable()
                 .WithColumn("category").AsString(25).NotNullable()
                 .WithColumn("railway_id").AsGuid().NotNullable()
                 .WithColumn("catalog_item_id").AsGuid().NotNullable()
@@ -148,6 +148,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("road_number").AsString(25).Nullable()
                 .WithColumn("type_name").AsString(25).Nullable()
                 .WithColumn("dcc_interface").AsString(25).Nullable()
+                .WithColumn("passenger_car_type").AsString(25).Nullable()
+                .WithColumn("service_level").AsString(15).Nullable()
                 .WithColumn("control").AsString(25).Nullable();
 
             Create.ForeignKey("FK_RollingStocks_Railways")

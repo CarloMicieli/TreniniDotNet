@@ -20,8 +20,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             IScaleInfo scale,
             PowerMethod powerMethod,
             string description,
-            string? prototypeDescr,
-            string? modelDescr,
+            string? prototypeDescription,
+            string? modelDescription,
             DeliveryDate? deliveryDate,
             bool available,
             IReadOnlyList<IRollingStock> rollingStocks,
@@ -37,8 +37,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             ItemNumber = itemNumber;
             RollingStocks = rollingStocks;
             Description = description;
-            PrototypeDescription = prototypeDescr;
-            ModelDescription = modelDescr;
+            PrototypeDescription = prototypeDescription;
+            ModelDescription = modelDescription;
             PowerMethod = powerMethod;
             DeliveryDate = deliveryDate;
             IsAvailable = available;
@@ -82,7 +82,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public override string ToString()
         {
-            return $"CatalogItem({CatalogItemId} {Brand.Name} {ItemNumber})";
+            return $"CatalogItem({Brand.Name} {ItemNumber.Value})";
         }
 
         public ICatalogItemInfo ToCatalogItemInfo() => this;

@@ -1,5 +1,6 @@
 using System;
 using NodaTime;
+using static TreniniDotNet.Common.Enums.EnumHelpers;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -13,15 +14,16 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public RollingStocksFactory(IClock clock, IGuidSource guidSource)
         {
-            _clock = clock;
-            _guidSource = guidSource;
+            _clock = clock ??
+                throw new ArgumentNullException(nameof(clock));
+            _guidSource = guidSource ??
+                throw new ArgumentNullException(nameof(guidSource));
         }
 
         public IRollingStock NewLocomotive(IRailwayInfo railway, Category category, Epoch epoch, LengthOverBuffer? length,
             string? className, string? roadNumber, DccInterface dccInterface, Control control)
         {
             return NewRollingStock(
-                null,
                 railway,
                 epoch,
                 category,
@@ -36,7 +38,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             PassengerCarType? passengerCarType, ServiceLevel? serviceLevel)
         {
             return NewRollingStock(
-                null,
                 railway,
                 epoch,
                 Category.PassengerCar,
@@ -50,7 +51,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public IRollingStock NewFreightCar(IRailwayInfo railway, Epoch era, LengthOverBuffer? length, string? typeName)
         {
             return NewRollingStock(
-                null,
                 railway,
                 era,
                 Category.FreightCar,
@@ -62,7 +62,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string? roadNumber, DccInterface dccInterface, Control control)
         {
             return NewRollingStock(
-                null,
                 railway,
                 epoch,
                 category,
@@ -73,18 +72,45 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 control: control);
         }
 
+        public IRollingStock RollingStockWith(
+            Guid id,
+            IRailwayInfo railway,
+            string epoch,
+            string category,
+            decimal? lengthMillimeters,
+            decimal? lengthInches,
+            string? className = null, string? roadNumber = null, string? typeName = null,
+            string? passengerCarType = null, string? serviceLevel = null,
+            string? dccInterface = null, string? control = null)
+        {
+            var rollingStockId = new RollingStockId(id);
+
+            return new RollingStock(
+                rollingStockId,
+                railway,
+                RequiredValueFor<Category>(category),
+                Epoch.Parse(epoch),
+                LengthOverBuffer.CreateOrDefault(lengthInches, lengthMillimeters),
+                className,
+                roadNumber,
+                typeName,
+                OptionalValueFor<PassengerCarType>(passengerCarType),
+                OptionalValueFor<ServiceLevel>(serviceLevel),
+                OptionalValueFor<DccInterface>(dccInterface) ?? DccInterface.None,
+                OptionalValueFor<Control>(control) ?? Control.None);
+        }
+
         private IRollingStock NewRollingStock(
-            Guid? id,
             IRailwayInfo railway,
             Epoch epoch,
             Category category,
             LengthOverBuffer? length,
             string? className = null, string? roadNumber = null, string? typeName = null,
             PassengerCarType? passengerCarType = null, ServiceLevel? serviceLevel = null,
-            DccInterface dccInterface = DccInterface.None, Control control = Control.None)
+            DccInterface dccInterface = DccInterface.None,
+            Control control = Control.None)
         {
-            var rollingStockId =
-                (id.HasValue) ? new RollingStockId(id.Value) : new RollingStockId(_guidSource.NewGuid());
+            var rollingStockId = new RollingStockId(_guidSource.NewGuid());
 
             return new RollingStock(
                 rollingStockId,

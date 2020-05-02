@@ -18,11 +18,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
     {
         private readonly IDatabaseContext _dbContext;
         private readonly ICatalogItemsFactory _factory;
+        private readonly IRollingStocksFactory _rsFactory;
 
-        public CatalogItemRepository(IDatabaseContext dbContext, ICatalogItemsFactory factory)
+        public CatalogItemRepository(IDatabaseContext dbContext, ICatalogItemsFactory factory, IRollingStocksFactory rsFactory)
         {
-            _dbContext = dbContext;
-            _factory = factory;
+            _dbContext = dbContext ??
+                throw new ArgumentNullException(nameof(dbContext));
+            _factory = factory ??
+                throw new ArgumentNullException(nameof(factory));
+            _rsFactory = rsFactory ??
+                throw new ArgumentNullException(nameof(rsFactory));
         }
 
         public async Task<CatalogItemId> AddAsync(ICatalogItem catalogItem)
@@ -64,6 +69,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                     rs.ClassName,
                     rs.RoadNumber,
                     rs.TypeName,
+                    PassengerCarType = rs.PassengerCarType?.ToString(),
+                    ServiceLevel = rs.ServiceLevel?.ToString(),
                     DccInterface = rs.DccInterface.ToString(),
                     Control = rs.Control.ToString()
                 });
@@ -162,7 +169,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             CatalogItemWithRelatedData it = dto.First();
 
-            return _factory.NewCatalogItem(
+            return _factory.CatalogItemWith(
                 it.catalog_item_id,
                 it.slug,
                 new BrandInfo(it.brand_id, it.brand_slug, it.brand_name),
@@ -196,17 +203,18 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             new RailwayInfo(dto.railway_id, dto.railway_slug, dto.railway_name, dto.railway_country!); //TODO: fixme
 
         private IRollingStock RollingStock(CatalogItemWithRelatedData dto, IRailwayInfo railway) =>
-            _factory.NewRollingStock(
+            _rsFactory.RollingStockWith(
                 dto.rolling_stock_id,
                 railway,
                 dto.era,
                 dto.category,
-                LengthOverBuffer.CreateOrDefault(dto.length_in, dto.length_mm),
+                dto.length_mm,
+                dto.length_in,
                 dto.class_name,
                 dto.road_number,
                 dto.type_name,
-                null,
-                null,
+                dto.passenger_car_type,
+                dto.service_level,
                 dto.dcc_interface,
                 dto.control
             );
@@ -216,7 +224,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         private const string GetCatalogItemByBrandAndItemNumberQuery = @"SELECT 
                 ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, 
                 ci.description, ci.model_description, ci.prototype_description, 
-                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, rs.class_name, rs.road_number,
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, 
+                rs.class_name, rs.road_number, rs.type_name, rs.passenger_car_type, rs.service_level,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
@@ -235,7 +244,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         private const string GetCatalogItemBySlug = @"SELECT 
                 ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, 
                 ci.description, ci.model_description, ci.prototype_description, 
-                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, rs.class_name, rs.road_number,
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in,
+                rs.class_name, rs.road_number, rs.type_name, rs.passenger_car_type, rs.service_level,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
@@ -261,9 +271,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
         private const string InsertNewRollingStock = @"INSERT INTO rolling_stocks(
 	            rolling_stock_id, era, category, railway_id, catalog_item_id, length_mm, length_in,
-                class_name, road_number, type_name, dcc_interface, control)
+                class_name, road_number, type_name, passenger_car_type, service_level, dcc_interface, control)
 	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @LengthMm, @LengthIn, 
-                @ClassName, @RoadNumber, @TypeName, @DccInterface, @Control);";
+                @ClassName, @RoadNumber, @TypeName, @PassengerCarType, @ServiceLevel, @DccInterface, @Control);";
 
         private const string UpdateCatalogItemCommand = @"UPDATE catalog_items SET 
                 brand_id = @BrandId, 

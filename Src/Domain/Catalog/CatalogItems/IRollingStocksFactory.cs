@@ -1,3 +1,4 @@
+using System;
 using TreniniDotNet.Domain.Catalog.Railways;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
@@ -35,5 +36,16 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string? roadNumber,
             DccInterface dccInterface,
             Control control);
+
+        IRollingStock RollingStockWith(
+            Guid id,
+            IRailwayInfo railway,
+            string epoch,
+            string category,
+            decimal? lengthMillimeters,
+            decimal? lengthInches,
+            string? className = null, string? roadNumber = null, string? typeName = null,
+            string? passengerCarType = null, string? serviceLevel = null,
+            string? dccInterface = null, string? control = null);
     }
 }

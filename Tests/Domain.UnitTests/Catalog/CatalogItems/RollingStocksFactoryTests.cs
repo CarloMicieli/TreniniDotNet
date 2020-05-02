@@ -4,6 +4,7 @@ using NodaTime;
 using NodaTime.Testing;
 using TreniniDotNet.Common.Lengths;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
@@ -86,7 +87,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public void RollingStocksFactory_NewTrain_ShouldCreateNewValues()
         {
-            var rs = Factory.NewTrain(
+            var newTrain = Factory.NewTrain(
                 Fs(),
                 Category.ElectricMultipleUnit,
                 Epoch.VI,
@@ -97,13 +98,47 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Control.DccReady
             );
 
+            newTrain.Should().NotBeNull();
+            newTrain.Railway.Should().Be(Fs());
+            newTrain.Category.Should().Be(Category.ElectricMultipleUnit);
+            newTrain.Epoch.Should().Be(Epoch.VI);
+            newTrain.Length?.Millimeters.Should().Be(Length.OfMillimeters(2321M));
+            newTrain.ClassName.Should().Be("Etr 400");
+            newTrain.DccInterface.Should().Be(DccInterface.Mtc21);
+            newTrain.Control.Should().Be(Control.DccReady);
+        }
+
+        [Fact]
+        public void RollingStocksFactory_RollingStockWith_ShouldCreateNewValues()
+        {
+            var rollingStockId = Guid.NewGuid();
+            var rs = Factory.RollingStockWith(
+                rollingStockId,
+                Fs(),
+                Epoch.III.ToString(),
+                Category.ElectricLocomotive.ToString(),
+                210M,
+                null,
+                "Class name",
+                "Road Number",
+                "Type name",
+                PassengerCarType.Observation.ToString(),
+                ServiceLevel.SecondClass.ToString(),
+                DccInterface.Nem651.ToString(),
+                Control.DccReady.ToString());
+
             rs.Should().NotBeNull();
+            rs.RollingStockId.Should().Be(new RollingStockId(rollingStockId));
             rs.Railway.Should().Be(Fs());
-            rs.Category.Should().Be(Category.ElectricMultipleUnit);
-            rs.Epoch.Should().Be(Epoch.VI);
-            rs.Length?.Millimeters.Should().Be(Length.OfMillimeters(2321M));
-            rs.ClassName.Should().Be("Etr 400");
-            rs.DccInterface.Should().Be(DccInterface.Mtc21);
+            rs.Epoch.Should().Be(Epoch.III);
+            rs.Category.Should().Be(Category.ElectricLocomotive);
+            rs.Length?.Millimeters.Should().Be(Length.OfMillimeters(210M));
+            rs.ClassName.Should().Be("Class name");
+            rs.RoadNumber.Should().Be("Road Number");
+            rs.TypeName.Should().Be("Type name");
+            rs.PassengerCarType.Should().Be(PassengerCarType.Observation);
+            rs.ServiceLevel.Should().Be(ServiceLevel.SecondClass);
+            rs.DccInterface.Should().Be(DccInterface.Nem651);
             rs.Control.Should().Be(Control.DccReady);
         }
 

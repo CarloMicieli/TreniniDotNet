@@ -10,8 +10,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class CatalogItems
     {
-        private readonly static ICatalogItemsFactory factory =
+        private static readonly ICatalogItemsFactory factory =
             new CatalogItemsFactory(SystemClock.Instance, new GuidSource());
+        private static readonly IRollingStocksFactory rsFactory =
+            new RollingStocksFactory(SystemClock.Instance, new GuidSource());
 
         private readonly ICatalogItem _acme_60458;
         private readonly ICatalogItem _acme_60392;
@@ -57,15 +59,15 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         private static ICatalogItem Build_Acme_60392()
         {
-            var rs = factory.NewLocomotive(
+            var rs = rsFactory.NewLocomotive(
                 CatalogSeedData.Railways.Fs(),
-                Epoch.IV.ToString(),
-                Category.ElectricLocomotive.ToString(),
+                Category.ElectricLocomotive,
+                Epoch.IV,
                 LengthOverBuffer.OfMillimeters(210M),
                 "E 656",
                 "E 656 291",
-                DccInterface.Nem652.ToString(),
-                Control.DccReady.ToString());
+                DccInterface.Nem652,
+                Control.DccReady);
 
             return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Acme(),
@@ -81,15 +83,15 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         private static ICatalogItem Build_Acme_60458()
         {
-            var rs = factory.NewLocomotive(
+            var rs = rsFactory.NewLocomotive(
                 CatalogSeedData.Railways.Fs(),
-                Epoch.IV.ToString(),
-                Category.ElectricLocomotive.ToString(),
+                Category.ElectricLocomotive,
+                Epoch.IV,
                 LengthOverBuffer.OfMillimeters(210M),
                 "E 636",
                 "E 636 117",
-                DccInterface.Nem652.ToString(),
-                Control.DccReady.ToString());
+                DccInterface.Nem652,
+                Control.DccReady);
 
             return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Acme(),
@@ -106,12 +108,11 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         private static ICatalogItem Build_Rivarossi_HR4298()
         {
-            var rs = factory.NewRollingStock(
+            var rs = rsFactory.NewPassengerCar(
                 CatalogSeedData.Railways.Fs(),
-                Epoch.IV.ToString(),
-                Category.PassengerCar.ToString(),
+                Epoch.IV,
                 LengthOverBuffer.OfMillimeters(195M),
-                "Corbellini");
+                "Corbellini", null, null);
 
             return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Rivarossi(),
@@ -127,15 +128,15 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         private static ICatalogItem Build_Roco_62182()
         {
-            var rs = factory.NewLocomotive(
+            var rs = rsFactory.NewLocomotive(
                 CatalogSeedData.Railways.DR(),
-                Epoch.III.ToString(),
-                Category.SteamLocomotive.ToString(),
+                Category.SteamLocomotive,
+                Epoch.III,
                 LengthOverBuffer.OfMillimeters(254M),
                 "BR 50.40",
                 null,
-                DccInterface.Next18.ToString(),
-                Control.DccReady.ToString());
+                DccInterface.Next18,
+                Control.DccReady);
 
             return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Roco(),
@@ -151,15 +152,15 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         private static ICatalogItem Build_Bemo_1252125()
         {
-            var rs = factory.NewLocomotive(
+            var rs = rsFactory.NewLocomotive(
                 CatalogSeedData.Railways.RhB(),
-                Epoch.V.ToString(),
-                Category.ElectricLocomotive.ToString(),
+                Category.ElectricLocomotive,
+                Epoch.V,
                 LengthOverBuffer.OfMillimeters(139M),
                 "Ge 4/4 I",
                 "Ge 4/4 I 605",
-                DccInterface.Mtc21.ToString(),
-                Control.DccReady.ToString());
+                DccInterface.Mtc21,
+                Control.DccReady);
 
             return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Bemo(),
@@ -176,15 +177,15 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         private static ICatalogItem Build_Bemo_1254134()
         {
-            var rs = factory.NewLocomotive(
+            var rs = rsFactory.NewLocomotive(
                 CatalogSeedData.Railways.RhB(),
-                Epoch.V.ToString(),
-                Category.ElectricLocomotive.ToString(),
+                Category.ElectricLocomotive,
+                Epoch.V,
                 LengthOverBuffer.OfMillimeters(166.7M),
                 "Ge 6/6 II",
                 "Ge 6/6 II 704 Davos",
-                DccInterface.Nem651.ToString(),
-                Control.DccReady.ToString());
+                DccInterface.Nem651,
+                Control.DccReady);
 
             return factory.CreateNewCatalogItem(
                 CatalogSeedData.Brands.Bemo(),

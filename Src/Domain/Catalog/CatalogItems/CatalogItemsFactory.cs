@@ -4,7 +4,6 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Common.DeliveryDates;
 using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
@@ -19,8 +18,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public CatalogItemsFactory(IClock clock, IGuidSource guidSource)
         {
-            _clock = clock;
-            _guidSource = guidSource;
+            _clock = clock ??
+                throw new ArgumentNullException(nameof(clock));
+            _guidSource = guidSource ??
+                throw new ArgumentNullException(nameof(guidSource));
         }
 
         public ICatalogItem CreateNewCatalogItem(
@@ -56,88 +57,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 1);
         }
 
-        [Obsolete]
-        public IRollingStock NewLocomotive(
-            IRailwayInfo railway, string era, string category,
-            LengthOverBuffer? length,
-            string? className, string? roadNumber,
-            string? dccInterface, string? control)
-        {
-            return NewRollingStock(
-                _guidSource.NewGuid(),
-                railway: railway,
-                era: era,
-                category: category,
-                length: length,
-                className: className,
-                roadNumber: roadNumber,
-                dccInterface: dccInterface,
-                control: control);
-        }
-
-        [Obsolete]
-        public IRollingStock NewTrain(
-            IRailwayInfo railway, string era, string category,
-            LengthOverBuffer? length,
-            string? className, string? roadNumber,
-            string? dccInterface, string? control)
-        {
-            return NewRollingStock(
-                _guidSource.NewGuid(),
-                railway: railway,
-                era: era,
-                category: category,
-                length: length,
-                className: className,
-                roadNumber: roadNumber,
-                dccInterface: dccInterface,
-                control: control);
-        }
-
-        [Obsolete]
-        public IRollingStock NewRollingStock(
-            IRailwayInfo railway, string era, string category,
-            LengthOverBuffer? length,
-            string? typeName)
-        {
-            return NewRollingStock(
-                _guidSource.NewGuid(),
-                railway: railway,
-                era: era,
-                category: category,
-                length: length,
-                typeName: typeName);
-        }
-
-        [Obsolete]
-        public IRollingStock NewRollingStock(
-            Guid id,
-            IRailwayInfo railway,
-            string era,
-            string category,
-            LengthOverBuffer? length,
-            string? className = null, string? roadNumber = null, string? typeName = null,
-            PassengerCarType? passengerCarType = null, ServiceLevel? serviceLevel = null,
-            string? dccInterface = null, string? control = null)
-        {
-            RollingStockId rollingStockId = new RollingStockId(id);
-
-            return new RollingStock(
-                rollingStockId,
-                railway,
-                RequiredValueFor<Category>(category),
-                Epoch.Parse(era),
-                length,
-                className,
-                roadNumber,
-                typeName,
-                passengerCarType,
-                serviceLevel,
-                OptionalValueFor<DccInterface>(dccInterface) ?? DccInterface.None,
-                OptionalValueFor<Control>(control) ?? Control.None);
-        }
-
-        public ICatalogItem NewCatalogItem(
+        public ICatalogItem CatalogItemWith(
             Guid catalogItemId,
             string slug,
             IBrandInfo brand, string itemNumber,

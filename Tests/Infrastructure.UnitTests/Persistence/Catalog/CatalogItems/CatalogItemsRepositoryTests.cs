@@ -68,7 +68,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         private static ICatalogItemRepository CreateRepository(IDatabaseContext databaseContext, IClock clock)
             => new CatalogItemRepository(
                 databaseContext,
-                new CatalogItemsFactory(clock, FakeGuidSource.NewSource(Guid.NewGuid())));
+                new CatalogItemsFactory(clock, FakeGuidSource.NewSource(Guid.NewGuid())),
+                new RollingStocksFactory(clock, FakeGuidSource.NewSource(Guid.NewGuid())));
 
         [Fact]
         public async Task CatalogItemRepository_Add_ShouldCreateNewCatalogItems()
