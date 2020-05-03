@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -9,22 +10,33 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock
     {
         public override void Standard(EditRollingStockOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = Created(
+                nameof(GetCatalogItemBySlug.CatalogItemsController.GetCatalogItemBySlug),
+                new
+                {
+                    slug = output.Slug,
+                    version = "1",
+                },
+                output);
         }
 
         public void RailwayWasNotFound(Slug slug)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new UnprocessableEntityObjectResult(new { Slug = slug.Value });
         }
 
         public void RollingStockWasNotFound(Slug slug, RollingStockId rollingStockId)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new
+            {
+                Slug = slug.Value,
+                RollingStockId = rollingStockId.ToGuid()
+            });
         }
 
         public void CatalogItemWasNotFound(Slug slug)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new { Slug = slug.Value });
         }
     }
 }

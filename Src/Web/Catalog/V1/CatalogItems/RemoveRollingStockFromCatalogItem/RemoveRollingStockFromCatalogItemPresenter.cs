@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromCatalogItem;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
@@ -9,12 +10,16 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalo
     {
         public override void Standard(RemoveRollingStockFromCatalogItemOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NoContentResult();
         }
 
         public void RollingStockWasNotFound(Slug slug, RollingStockId rollingStockId)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new
+            {
+                Slug = slug.Value,
+                RollingStockId = rollingStockId.ToGuid()
+            });
         }
     }
 }

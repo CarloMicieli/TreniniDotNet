@@ -2,6 +2,7 @@ using System;
 using MediatR;
 using Newtonsoft.Json;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalogItem
 {
@@ -11,6 +12,6 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalo
         public Slug? Slug { set; get; }
 
         [JsonIgnore]
-        public Guid? RollingStockId { set; get; }
+        public RollingStockId? RollingStockId { set; get; }
     }
 }

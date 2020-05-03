@@ -1699,7 +1699,7 @@ export class CatalogItemsClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    deleteRollingStock(slug: string | null, rollingStockId: string): Promise<FileResponse> {
+    deleteRollingStock(slug: string | null, rollingStockId: string): Promise<void> {
         let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}/rollingStocks/{rollingStockId}";
         if (slug === undefined || slug === null)
             throw new Error("The parameter 'slug' must be defined.");
@@ -1712,7 +1712,6 @@ export class CatalogItemsClient {
         let options_ = <RequestInit>{
             method: "DELETE",
             headers: {
-                "Accept": "application/octet-stream"
             }
         };
 
@@ -1721,23 +1720,40 @@ export class CatalogItemsClient {
         });
     }
 
-    protected processDeleteRollingStock(response: Response): Promise<FileResponse> {
+    protected processDeleteRollingStock(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return response.blob().then(blob => { return { fileName: fileName, data: blob, status: status, headers: _headers }; });
+        if (status === 204) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            });
+        } else if (status === 422) {
+            return response.text().then((_responseText) => {
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = ProblemDetails.fromJS(resultData422);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            });
+        } else if (status === 500) {
+            return response.text().then((_responseText) => {
+            return throwException("A server side error occurred.", status, _responseText, _headers);
+            });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<FileResponse>(<any>null);
+        return Promise.resolve<void>(<any>null);
     }
 
-    editRollingStock(slug: string | null, rollingStockId: string, request: EditRollingStockRequest): Promise<FileResponse> {
+    editRollingStock(slug: string | null, rollingStockId: string, request: EditRollingStockRequest): Promise<EditRollingStockOutput> {
         let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}/rollingStocks/{rollingStockId}";
         if (slug === undefined || slug === null)
             throw new Error("The parameter 'slug' must be defined.");
@@ -1754,7 +1770,7 @@ export class CatalogItemsClient {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "application/octet-stream"
+                "Accept": "application/json"
             }
         };
 
@@ -1763,20 +1779,40 @@ export class CatalogItemsClient {
         });
     }
 
-    protected processEditRollingStock(response: Response): Promise<FileResponse> {
+    protected processEditRollingStock(response: Response): Promise<EditRollingStockOutput> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return response.blob().then(blob => { return { fileName: fileName, data: blob, status: status, headers: _headers }; });
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = EditRollingStockOutput.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            });
+        } else if (status === 422) {
+            return response.text().then((_responseText) => {
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = ProblemDetails.fromJS(resultData422);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            });
+        } else if (status === 500) {
+            return response.text().then((_responseText) => {
+            return throwException("A server side error occurred.", status, _responseText, _headers);
+            });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<FileResponse>(<any>null);
+        return Promise.resolve<EditRollingStockOutput>(<any>null);
     }
 
     getLatestCatalogItems(start: number | undefined, limit: number | undefined): Promise<CatalogItemView> {
@@ -2009,7 +2045,7 @@ export class CatalogItemsClient {
         return Promise.resolve<CreateCatalogItemOutput>(<any>null);
     }
 
-    postRollingStock(slug: string | null, request: RollingStockRequest): Promise<FileResponse> {
+    postRollingStock(slug: string | null, request: RollingStockRequest): Promise<AddRollingStockToCatalogItemOutput> {
         let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}/rollingStocks";
         if (slug === undefined || slug === null)
             throw new Error("The parameter 'slug' must be defined.");
@@ -2023,7 +2059,7 @@ export class CatalogItemsClient {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "application/octet-stream"
+                "Accept": "application/json"
             }
         };
 
@@ -2032,20 +2068,47 @@ export class CatalogItemsClient {
         });
     }
 
-    protected processPostRollingStock(response: Response): Promise<FileResponse> {
+    protected processPostRollingStock(response: Response): Promise<AddRollingStockToCatalogItemOutput> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return response.blob().then(blob => { return { fileName: fileName, data: blob, status: status, headers: _headers }; });
+        if (status === 201) {
+            return response.text().then((_responseText) => {
+            let result201: any = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = AddRollingStockToCatalogItemOutput.fromJS(resultData201);
+            return result201;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            });
+        } else if (status === 404) {
+            return response.text().then((_responseText) => {
+            let result404: any = null;
+            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result404 = ProblemDetails.fromJS(resultData404);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            });
+        } else if (status === 422) {
+            return response.text().then((_responseText) => {
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = ProblemDetails.fromJS(resultData422);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            });
+        } else if (status === 500) {
+            return response.text().then((_responseText) => {
+            return throwException("A server side error occurred.", status, _responseText, _headers);
+            });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<FileResponse>(<any>null);
+        return Promise.resolve<AddRollingStockToCatalogItemOutput>(<any>null);
     }
 }
 
@@ -6189,6 +6252,42 @@ export interface ILengthOverBufferView {
     inches?: number | undefined;
 }
 
+export class EditRollingStockOutput implements IEditRollingStockOutput {
+    slug?: Slug;
+
+    constructor(data?: IEditRollingStockOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.slug = _data["slug"] ? Slug.fromJS(_data["slug"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): EditRollingStockOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new EditRollingStockOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["slug"] = this.slug ? this.slug.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IEditRollingStockOutput {
+    slug?: Slug;
+}
+
 export class EditRollingStockRequest implements IEditRollingStockRequest {
     epoch?: string | undefined;
     category?: string | undefined;
@@ -6609,6 +6708,42 @@ export interface ICreateCatalogItemRequest {
     deliveryDate?: string | undefined;
     available?: boolean;
     rollingStocks?: RollingStockRequest[];
+}
+
+export class AddRollingStockToCatalogItemOutput implements IAddRollingStockToCatalogItemOutput {
+    slug?: Slug;
+
+    constructor(data?: IAddRollingStockToCatalogItemOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.slug = _data["slug"] ? Slug.fromJS(_data["slug"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): AddRollingStockToCatalogItemOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddRollingStockToCatalogItemOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["slug"] = this.slug ? this.slug.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IAddRollingStockToCatalogItemOutput {
+    slug?: Slug;
 }
 
 export class PaginatedViewModelOfBrandView implements IPaginatedViewModelOfBrandView {

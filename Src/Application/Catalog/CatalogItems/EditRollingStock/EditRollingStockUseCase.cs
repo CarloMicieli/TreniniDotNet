@@ -79,7 +79,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 
             var _ = await _unitOfWork.SaveAsync();
 
-            OutputPort.Standard(new EditRollingStockOutput());
+            OutputPort.Standard(new EditRollingStockOutput(input.Slug));
         }
     }
 }

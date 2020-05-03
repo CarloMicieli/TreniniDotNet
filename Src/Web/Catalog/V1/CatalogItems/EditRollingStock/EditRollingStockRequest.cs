@@ -2,6 +2,7 @@ using System;
 using MediatR;
 using Newtonsoft.Json;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock
@@ -12,7 +13,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock
         public Slug? Slug { set; get; }
 
         [JsonIgnore]
-        public Guid? RollingStockId { set; get; }
+        public RollingStockId? RollingStockId { set; get; }
 
         public string? Epoch { get; set; }
 

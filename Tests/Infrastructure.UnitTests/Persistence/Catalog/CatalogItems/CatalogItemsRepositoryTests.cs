@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using NodaTime;
 using Xunit;
@@ -181,6 +182,74 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 {
                     version = 2,
                 });
+        }
+
+        [Fact]
+        public async Task CatalogItemRepository_AddRollingStockAsync_ShouldAddNewRollingStocks()
+        {
+            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            Database.ArrangeWithOneCatalogItem(item);
+
+            var rollingStock = CatalogSeedData.NewRollingStockWith(
+                RollingStockId.NewId(),
+                _railway,
+                Category.DieselLocomotive,
+                Epoch.III);
+
+            await Repository.AddRollingStockAsync(item, rollingStock);
+
+            Database.Assert.RowInTable(Tables.RollingStocks)
+                .WithPrimaryKey(new
+                {
+                    catalog_item_id = item.CatalogItemId.ToGuid(),
+                    rolling_stock_id = rollingStock.RollingStockId.ToGuid()
+                })
+                .AndValues(new
+                {
+                    epoch = "III",
+                    category = rollingStock.Category.ToString()
+                });
+        }
+
+        [Fact]
+        public async Task CatalogItemRepository_UpdateRollingStockAsync_ShouldAddNewRollingStocks()
+        {
+            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            Database.ArrangeWithOneCatalogItem(item);
+
+            var rollingStock = item.RollingStocks.First().With(control: Control.DccSound);
+
+            await Repository.UpdateRollingStockAsync(item, item.RollingStocks.First());
+
+            Database.Assert.RowInTable(Tables.RollingStocks)
+                .WithPrimaryKey(new
+                {
+                    catalog_item_id = item.CatalogItemId.ToGuid(),
+                    rolling_stock_id = rollingStock.RollingStockId.ToGuid()
+                })
+                .AndValues(new
+                {
+                    control = "DccSound"
+                });
+        }
+
+        [Fact]
+        public async Task CatalogItemRepository_DeleteRollingStockAsync_ShouldAddNewRollingStocks()
+        {
+            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            Database.ArrangeWithOneCatalogItem(item);
+
+            var rollingStock = item.RollingStocks.First().With(control: Control.DccSound);
+
+            await Repository.DeleteRollingStockAsync(item, item.RollingStocks.First().RollingStockId);
+
+            Database.Assert.RowInTable(Tables.RollingStocks)
+                .WithPrimaryKey(new
+                {
+                    catalog_item_id = item.CatalogItemId.ToGuid(),
+                    rolling_stock_id = rollingStock.RollingStockId.ToGuid()
+                })
+                .ShouldNotExists();
         }
     }
 

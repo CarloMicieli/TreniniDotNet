@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
@@ -58,23 +59,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             foreach (var rs in catalogItem.RollingStocks)
             {
-                var _rows2 = await connection.ExecuteAsync(InsertNewRollingStock, new
-                {
-                    rs.RollingStockId,
-                    Era = rs.Epoch.ToString(),
-                    rs.Category,
-                    rs.Railway.RailwayId,
-                    catalogItem.CatalogItemId,
-                    LengthMm = rs.Length?.Millimeters,
-                    LengthIn = rs.Length?.Inches,
-                    rs.ClassName,
-                    rs.RoadNumber,
-                    rs.TypeName,
-                    PassengerCarType = rs.PassengerCarType?.ToString(),
-                    ServiceLevel = rs.ServiceLevel?.ToString(),
-                    DccInterface = rs.DccInterface.ToString(),
-                    Control = rs.Control.ToString()
-                });
+                await InsertNewRollingStock(connection, catalogItem, rs);
             }
 
             return catalogItem.CatalogItemId;
@@ -109,24 +94,37 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             foreach (var rs in catalogItem.RollingStocks)
             {
-                var _rows3 = await connection.ExecuteAsync(InsertNewRollingStock, new
-                {
-                    rs.RollingStockId,
-                    Era = rs.Epoch.ToString(),
-                    rs.Category,
-                    rs.Railway.RailwayId,
-                    catalogItem.CatalogItemId,
-                    LengthMm = rs.Length?.Millimeters,
-                    LengthIn = rs.Length?.Inches,
-                    rs.ClassName,
-                    rs.RoadNumber,
-                    rs.TypeName,
-                    PassengerCarType = rs.PassengerCarType?.ToString(),
-                    ServiceLevel = rs.ServiceLevel?.ToString(),
-                    DccInterface = rs.DccInterface.ToString(),
-                    Control = rs.Control.ToString()
-                });
+                await InsertNewRollingStock(connection, catalogItem, rs);
             }
+        }
+
+        public async Task AddRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            await InsertNewRollingStock(connection, catalogItem, rollingStock);
+        }
+
+        private static async Task InsertNewRollingStock(DbConnection connection, ICatalogItem catalogItem, IRollingStock rs)
+        {
+            var _rows3 = await connection.ExecuteAsync(InsertNewRollingStockCommand, new
+            {
+                rs.RollingStockId,
+                Era = rs.Epoch.ToString(),
+                rs.Category,
+                rs.Railway.RailwayId,
+                catalogItem.CatalogItemId,
+                LengthMm = rs.Length?.Millimeters,
+                LengthIn = rs.Length?.Inches,
+                rs.ClassName,
+                rs.RoadNumber,
+                rs.TypeName,
+                PassengerCarType = rs.PassengerCarType?.ToString(),
+                ServiceLevel = rs.ServiceLevel?.ToString(),
+                DccInterface = rs.DccInterface.ToString(),
+                Control = rs.Control.ToString()
+            });
         }
 
         public async Task<bool> ExistsAsync(IBrandInfo brand, ItemNumber itemNumber)
@@ -177,19 +175,40 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             return new PaginatedResult<ICatalogItem>(page, FromCatalogItemsDto(results));
         }
 
-        public Task AddRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
+        public async Task UpdateRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
         {
-            throw new NotImplementedException();
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var _ = await connection.ExecuteAsync(UpdateRollingStockCommand, new
+            {
+                rollingStock.RollingStockId,
+                Era = rollingStock.Epoch.ToString(),
+                rollingStock.Category,
+                rollingStock.Railway.RailwayId,
+                catalogItem.CatalogItemId,
+                LengthMm = rollingStock.Length?.Millimeters,
+                LengthIn = rollingStock.Length?.Inches,
+                rollingStock.ClassName,
+                rollingStock.RoadNumber,
+                rollingStock.TypeName,
+                PassengerCarType = rollingStock.PassengerCarType?.ToString(),
+                ServiceLevel = rollingStock.ServiceLevel?.ToString(),
+                DccInterface = rollingStock.DccInterface.ToString(),
+                Control = rollingStock.Control.ToString()
+            });
         }
 
-        public Task UpdateRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
+        public async Task DeleteRollingStockAsync(ICatalogItem catalogItem, RollingStockId rollingStockId)
         {
-            throw new NotImplementedException();
-        }
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
 
-        public Task DeleteRollingStockAsync(ICatalogItem catalogItem, RollingStockId rollingStockId)
-        {
-            throw new NotImplementedException();
+            var _ = await connection.ExecuteAsync(DeleteRollingStockCommand, new
+            {
+                catalogItem.CatalogItemId,
+                rollingStockId
+            });
         }
 
         private IEnumerable<ICatalogItem> FromCatalogItemsDto(IEnumerable<CatalogItemWithRelatedData> results)
@@ -365,7 +384,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             VALUES(@CatalogItemId, @BrandId, @ScaleId, @ItemNumber, @Slug, @PowerMethod, @DeliveryDate, @Available,
                 @Description, @ModelDescription, @PrototypeDescription, @Created, @Modified, @Version);";
 
-        private const string InsertNewRollingStock = @"INSERT INTO rolling_stocks(
+        private const string UpdateRollingStockCommand = @"UPDATE rolling_stocks SET 
+	            era = @Era, category = @Category, railway_id = @RailwayId, length_mm = @LengthMm, length_in = @LengthIn,
+                class_name = @ClassName, road_number = @RoadNumber, type_name = @TypeName, 
+                passenger_car_type = @PassengerCarType, service_level = @ServiceLevel, 
+                dcc_interface = @DccInterface, control = @Control
+            WHERE rolling_stock_id = @RollingStockId AND catalog_item_id = @CatalogItemId;";
+
+        private const string DeleteRollingStockCommand = @"DELETE FROM rolling_stocks WHERE rolling_stock_id = @RollingStockId AND catalog_item_id = @CatalogItemId;";
+
+        private const string InsertNewRollingStockCommand = @"INSERT INTO rolling_stocks(
 	            rolling_stock_id, era, category, railway_id, catalog_item_id, length_mm, length_in,
                 class_name, road_number, type_name, passenger_car_type, service_level, dcc_interface, control)
 	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @LengthMm, @LengthIn, 

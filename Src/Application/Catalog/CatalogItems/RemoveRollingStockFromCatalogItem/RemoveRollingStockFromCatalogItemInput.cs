@@ -6,10 +6,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
 {
     public sealed class RemoveRollingStockFromCatalogItemInput : IUseCaseInput
     {
-        public RemoveRollingStockFromCatalogItemInput(Slug slug, RollingStockId id)
+        public RemoveRollingStockFromCatalogItemInput(Slug slug, RollingStockId rollingStockId)
         {
             CatalogItemSlug = slug;
-            RollingStockId = id;
+            RollingStockId = rollingStockId;
         }
 
         public Slug CatalogItemSlug { get; }

@@ -52,7 +52,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalo
 
             var _ = await _unitOfWork.SaveAsync();
 
-            OutputPort.Standard(new AddRollingStockToCatalogItemOutput());
+            OutputPort.Standard(new AddRollingStockToCatalogItemOutput(slug));
         }
     }
 }

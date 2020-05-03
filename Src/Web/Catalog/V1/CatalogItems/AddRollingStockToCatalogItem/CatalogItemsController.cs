@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalogItem;
 using TreniniDotNet.Common;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests;
 using TreniniDotNet.Web.Infrastructure.UseCases;
@@ -18,6 +20,11 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.AddRollingStockToCatalogItem
         }
 
         [HttpPost("{slug}/rollingStocks")]
+        [ProducesResponseType(typeof(AddRollingStockToCatalogItemOutput), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> PostRollingStock(string slug, RollingStockRequest request)
         {
             return HandleRequest(new AddRollingStockToCatalogItemRequest

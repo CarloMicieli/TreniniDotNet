@@ -1,8 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalogItem
@@ -18,12 +20,16 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalo
         }
 
         [HttpDelete("{slug}/rollingStocks/{rollingStockId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> DeleteRollingStock(string slug, Guid rollingStockId)
         {
             return HandleRequest(new RemoveRollingStockFromCatalogItemRequest
             {
                 Slug = Slug.Of(slug),
-                RollingStockId = rollingStockId
+                RollingStockId = new RollingStockId(rollingStockId)
             });
         }
     }
