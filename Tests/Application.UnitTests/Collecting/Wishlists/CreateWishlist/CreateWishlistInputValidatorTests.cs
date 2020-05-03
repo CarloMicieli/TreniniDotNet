@@ -1,5 +1,4 @@
 ﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.TestHelpers.Common;
 using Xunit;
 
@@ -28,7 +27,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
         [Fact]
         public void CreateWishlistInput_ShouldFailValidation_WhenVisibilitIsNotValid()
         {
-            var input = CollectingInputs.CreateWishlist.With(Owner: "George", Visibility: "--invalid--");
+            var input = CollectingInputs.CreateWishlist.With(owner: "George", visibility: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -40,7 +39,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
         public void CreateWishlistInput_ShouldFailValidation_WhenListNameIsTooLong()
         {
             var input = CollectingInputs.CreateWishlist.With(
-                ListName: RandomString.WithLengthOf(51));
+                listName: RandomString.WithLengthOf(51));
 
             var result = Validator.TestValidate(input);
 

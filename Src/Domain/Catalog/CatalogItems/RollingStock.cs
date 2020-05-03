@@ -1,7 +1,9 @@
 ﻿using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Railways;
 using System;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public sealed class RollingStock : IEquatable<RollingStock>, IRollingStock
@@ -56,9 +58,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public DccInterface DccInterface { get; }
         #endregion
 
-        public static bool operator ==(RollingStock left, RollingStock right) => AreEquals(left, right);
-
-        public static bool operator !=(RollingStock left, RollingStock right) => !AreEquals(left, right);
+        #region [ Equality ]
 
         public override bool Equals(object obj)
         {
@@ -75,7 +75,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         private static bool AreEquals(RollingStock left, RollingStock right) =>
             left.RollingStockId == right.RollingStockId;
 
-        public override int GetHashCode() => HashCode.Combine(RollingStockId);
+        #endregion
+
+        public override int GetHashCode() => RollingStockId.GetHashCode();
 
         public override string ToString()
         {

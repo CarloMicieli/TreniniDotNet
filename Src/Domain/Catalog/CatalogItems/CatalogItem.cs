@@ -1,6 +1,7 @@
 ﻿using NodaTime;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Scales;
@@ -8,6 +9,7 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Common.DeliveryDates;
 using TreniniDotNet.Common.Entities;
 
+[assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public sealed class CatalogItem : ModifiableEntity, IEquatable<CatalogItem>, ICatalogItem
@@ -58,10 +60,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public DeliveryDate? DeliveryDate { get; }
         public bool IsAvailable { get; }
         #endregion
-
-        public static bool operator ==(CatalogItem left, CatalogItem right) => AreEquals(left, right);
-
-        public static bool operator !=(CatalogItem left, CatalogItem right) => !AreEquals(left, right);
 
         public override bool Equals(object obj)
         {

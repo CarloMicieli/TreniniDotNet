@@ -25,7 +25,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
         {
             var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewEditScale);
 
-            await useCase.Execute(NewEditScaleInput.With(ScaleSlug: Slug.Of("H0m")));
+            await useCase.Execute(NewEditScaleInput.With(scaleSlug: Slug.Of("H0m")));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertScaleWasNotFound(Slug.Of("H0m"));
@@ -37,8 +37,8 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
             var (useCase, outputPort, unitOfWork) = ArrangeScalesUseCase(Start.WithSeedData, NewEditScale);
 
             var input = NewEditScaleInput.With(
-                ScaleSlug: Slug.Of("H0m"),
-                Ratio: 87M);
+                scaleSlug: Slug.Of("H0m"),
+                ratio: 87M);
 
             await useCase.Execute(input);
 

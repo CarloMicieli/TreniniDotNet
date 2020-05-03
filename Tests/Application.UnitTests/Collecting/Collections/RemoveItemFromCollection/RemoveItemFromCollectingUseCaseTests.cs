@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Application.InMemory.Collecting.Collections.OutputPorts;
 using TreniniDotNet.Application.Services;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shared;
@@ -45,9 +44,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.RemoveItemFromCollect
             var collectionId = new CollectionId(Guid.NewGuid());
             var itemId = new CollectionItemId(Guid.NewGuid());
             var input = CollectingInputs.RemoveItemFromCollection.With(
-                Owner: new Owner("George"),
-                Id: collectionId.ToGuid(),
-                ItemId: itemId.ToGuid());
+                owner: new Owner("George"),
+                id: collectionId.ToGuid(),
+                itemId: itemId.ToGuid());
 
             await useCase.Execute(input);
 
@@ -66,9 +65,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.RemoveItemFromCollect
             var itemId = collection.Items.First().ItemId;
 
             var input = CollectingInputs.RemoveItemFromCollection.With(
-                Owner: new Owner("George"),
-                Id: collectionId.ToGuid(),
-                ItemId: itemId.ToGuid());
+                owner: new Owner("George"),
+                id: collectionId.ToGuid(),
+                itemId: itemId.ToGuid());
 
             await useCase.Execute(input);
 

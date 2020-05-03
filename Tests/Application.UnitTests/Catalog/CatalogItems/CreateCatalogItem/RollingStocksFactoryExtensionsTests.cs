@@ -38,7 +38,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var input = NewRollingStockInput.With(
                 railway: "fs",
-                era: "",
+                epoch: "",
                 category: Category.ElectricLocomotive.ToString());
 
             Action act = () => Factory.FromInput(input, RailwaysDictionary());
@@ -52,7 +52,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var input = NewRollingStockInput.With(
                 railway: "fs",
-                era: "III",
+                epoch: "III",
                 category: "");
 
             Action act = () => Factory.FromInput(input, RailwaysDictionary());
@@ -69,7 +69,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
             var input = NewRollingStockInput.With(
                 railway: "fs",
-                era: expectedEra.ToString(),
+                epoch: expectedEra.ToString(),
                 category: expectedCategory.ToString());
 
             var rs = Factory.FromInput(input, RailwaysDictionary());
@@ -85,7 +85,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
             var input = NewRollingStockInput.With(
                 railway: "fs",
-                era: expectedEra.ToString(),
+                epoch: expectedEra.ToString(),
                 category: expectedCategory.ToString());
 
             var rs = Factory.FromInput(input, RailwaysDictionary());
@@ -99,7 +99,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             var input = NewRollingStockInput.With(
                 railway: "fs",
                 length: new LengthOverBufferInput(-10M, null),
-                era: "III",
+                epoch: "III",
                 category: Category.ElectricLocomotive.ToString());
 
             Action act = () => Factory.FromInput(input, RailwaysDictionary());

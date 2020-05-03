@@ -202,7 +202,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         private static IReadOnlyList<RollingStockInput> RollingStockList(string era, string category, string railway)
         {
             var rollingStockInput = CatalogInputs.NewRollingStockInput.With(
-                    era: era,
+                    epoch: era,
                     category: category,
                     railway: railway);
             return new List<RollingStockInput>() { rollingStockInput };
@@ -211,7 +211,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         private static RollingStockInput RollingStock(string era, string category, string railway)
         {
             return CatalogInputs.NewRollingStockInput.With(
-                    era: era,
+                    epoch: era,
                     category: category,
                     railway: railway,
                     length: new LengthOverBufferInput(999M, null));

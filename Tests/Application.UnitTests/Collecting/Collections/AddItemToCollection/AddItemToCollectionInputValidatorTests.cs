@@ -1,5 +1,4 @@
 ﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.TestHelpers.Common;
 using Xunit;
 
@@ -18,9 +17,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         public void AddItemToCollectionInput_ShouldSucceedValidation()
         {
             var input = CollectingInputs.AddItemToCollection.With(
-                Owner: "George",
-                CatalogItem: "123456",
-                Price: 199M);
+                owner: "George",
+                catalogItem: "123456",
+                price: 199M);
 
             var result = Validator.TestValidate(input);
 
@@ -41,7 +40,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         [Fact]
         public void AddItemToCollectionInput_ShouldFailValidation_WhenPriceIsZero()
         {
-            var input = CollectingInputs.AddItemToCollection.With(Price: 0M);
+            var input = CollectingInputs.AddItemToCollection.With(price: 0M);
 
             var result = Validator.TestValidate(input);
 
@@ -51,7 +50,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         [Fact]
         public void AddItemToCollectionInput_ShouldFailValidation_WhenPriceIsNegative()
         {
-            var input = CollectingInputs.AddItemToCollection.With(Price: -100M);
+            var input = CollectingInputs.AddItemToCollection.With(price: -100M);
 
             var result = Validator.TestValidate(input);
 
@@ -62,7 +61,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         public void AddItemToCollectionInput_ShouldFailValidation_WhenItemNumberIsTooLong()
         {
             var input = CollectingInputs.AddItemToCollection.With(
-                CatalogItem: RandomString.WithLengthOf(61));
+                catalogItem: RandomString.WithLengthOf(61));
 
             var result = Validator.TestValidate(input);
 
@@ -73,7 +72,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         public void AddItemToCollectionInput_ShouldFailValidation_WhenConditionIsInvalid()
         {
             var input = CollectingInputs.AddItemToCollection.With(
-                Condition: "--invalid--");
+                condition: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -84,7 +83,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         public void AddItemToCollectionInput_ShouldFailValidation_WhenNotesIsTooLong()
         {
             var input = CollectingInputs.AddItemToCollection.With(
-                Notes: RandomString.WithLengthOf(151));
+                notes: RandomString.WithLengthOf(151));
 
             var result = Validator.TestValidate(input);
 
@@ -95,7 +94,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         public void AddItemToCollectionInput_ShouldFailValidation_WhenShopIsTooLong()
         {
             var input = CollectingInputs.AddItemToCollection.With(
-                Shop: RandomString.WithLengthOf(51));
+                shop: RandomString.WithLengthOf(51));
 
             var result = Validator.TestValidate(input);
 

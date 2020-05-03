@@ -51,12 +51,11 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
 
         public static BrandView BrandViewWith(Guid? id = null, Address address = null)
         {
-            IBrand brand = Brands.NewWith(
+            IBrand brand = CatalogSeedData.NewBrandWith(
                 new BrandId(id ?? new Guid("e8d33cd3-f36b-4622-90d1-76b450e0f313")),
                 "Rivarossi",
-                companyName: "Rivarossi Como",
-                slug: Slug.Of("Rivarossi"),
-                website: new Uri("http://www.rivarossi.com"),
+                "Rivarossi Como",
+                websiteUrl: new Uri("http://www.rivarossi.com"),
                 mailAddress: new MailAddress("mail@rivarossi.com"),
                 address: address);
 

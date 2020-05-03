@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts;
 using TreniniDotNet.Application.Services;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Domain.Collecting.ValueObjects;
 using TreniniDotNet.Domain.Collecting.Wishlists;
@@ -41,9 +40,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewRemoveItemFromWishlist);
 
             var input = CollectingInputs.RemoveItemFromWishlist.With(
-                Owner: "George",
-                Id: Guid.NewGuid(),
-                ItemId: Guid.NewGuid());
+                owner: "George",
+                id: Guid.NewGuid(),
+                itemId: Guid.NewGuid());
 
             await useCase.Execute(input);
 
@@ -62,9 +61,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
             var item = wishlist.Items.First();
 
             var input = CollectingInputs.RemoveItemFromWishlist.With(
-                Owner: "George",
-                Id: wishlist.WishlistId.ToGuid(),
-                ItemId: item.ItemId.ToGuid());
+                owner: "George",
+                id: wishlist.WishlistId.ToGuid(),
+                itemId: item.ItemId.ToGuid());
 
             await useCase.Execute(input);
 

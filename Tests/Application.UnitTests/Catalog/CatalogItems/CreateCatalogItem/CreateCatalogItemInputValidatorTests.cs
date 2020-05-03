@@ -19,7 +19,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         public void CreateCatalogItemInputValidator_ShouldHaveNoError_WhenValid()
         {
             var rollingStockInput = NewRollingStockInput.With(
-                era: "IV",
+                epoch: "IV",
                 category: Category.ElectricLocomotive.ToString(),
                 railway: "FS",
                 length: new LengthOverBufferInput(303M, null)
@@ -154,7 +154,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                 powerMethod: "not valid",
                 available: false,
                 rollingStocks: ListOf(NewRollingStockInput.With(
-                    era: "III",
+                    epoch: "III",
                     category: Category.ElectricLocomotive.ToString(),
                     railway: "FS",
                     length: new LengthOverBufferInput(-10, -10))));

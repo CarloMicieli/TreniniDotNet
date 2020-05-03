@@ -12,23 +12,22 @@ using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Infrastructure.Dapper;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
-using System.Linq;
 using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
     public class CatalogItemsRepositoryTests : RepositoryUnitTests<ICatalogItemRepository>
     {
-        private readonly IBrandInfo brand;
-        private readonly IRailwayInfo railway;
-        private readonly IScaleInfo scale;
+        private readonly IBrand _brand;
+        private readonly IRailway _railway;
+        private readonly IScale _scale;
 
         public CatalogItemsRepositoryTests(SqliteDatabaseFixture fixture)
             : base(fixture, CreateRepository)
         {
-            this.brand = new BrandInfo(BrandId.NewId(), Slug.Of("ACME"), "ACME");
-            this.railway = new FakeRailwayInfo();
-            this.scale = new FakeScaleInfo();
+            _brand = CatalogSeedData.Brands.Acme();
+            _railway = CatalogSeedData.Railways.Fs();
+            _scale = CatalogSeedData.Scales.ScaleH0();
 
             Database.Setup.TruncateTable(Tables.Brands);
             Database.Setup.TruncateTable(Tables.Railways);
@@ -36,31 +35,31 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             Database.Arrange.InsertOne(Tables.Brands, new
             {
-                brand_id = brand.BrandId.ToGuid(),
-                name = brand.Name,
-                slug = brand.Slug.ToString(),
-                kind = BrandKind.Industrial.ToString(),
+                brand_id = _brand.BrandId.ToGuid(),
+                name = _brand.Name,
+                slug = _brand.Slug.ToString(),
+                kind = _brand.Kind.ToString(),
                 created = DateTime.UtcNow
             });
 
             Database.Arrange.InsertOne(Tables.Railways, new
             {
-                railway_id = railway.RailwayId.ToGuid(),
-                name = railway.Name,
-                slug = railway.Slug.ToString(),
-                country = "IT",
+                railway_id = _railway.RailwayId.ToGuid(),
+                name = _railway.Name,
+                slug = _railway.Slug.ToString(),
+                country = _railway.Country?.Code,
                 created = DateTime.UtcNow
             });
 
             Database.Arrange.InsertOne(Tables.Scales, new
             {
-                scale_id = scale.ScaleId.ToGuid(),
-                name = scale.Name,
-                slug = scale.Slug.ToString(),
-                ratio = scale.Ratio.ToDecimal(),
-                gauge_mm = 16.5M,
-                gauge_in = 0.65M,
-                track_type = TrackGauge.Standard.ToString(),
+                scale_id = _scale.ScaleId.ToGuid(),
+                name = _scale.Name,
+                slug = _scale.Slug.ToString(),
+                ratio = _scale.Ratio.ToDecimal(),
+                gauge_mm = _scale.Gauge.InMillimeters.Value,
+                gauge_in = _scale.Gauge.InInches.Value,
+                track_type = _scale.Gauge.TrackGauge.ToString(),
                 created = DateTime.UtcNow
             });
         }
@@ -77,7 +76,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             Database.Setup.TruncateTable(Tables.RollingStocks);
             Database.Setup.TruncateTable(Tables.CatalogItems);
 
-            var catalogItem = new FakeCatalogItem(brand);
+            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
             var catalogItemId = await Repository.AddAsync(catalogItem);
 
             catalogItemId.Should().Be(catalogItem.CatalogItemId);
@@ -101,13 +100,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemRepository_Exists_ShouldCheckCatalogItemExists()
         {
-            Database.ArrangeWithOneCatalogItem(
-                catalogItemId: new CatalogItemId(Guid.NewGuid()),
-                brandId: brand.BrandId,
-                railwayId: railway.RailwayId,
-                scaleId: scale.ScaleId);
+            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            Database.ArrangeWithOneCatalogItem(item);
 
-            var exists = await Repository.ExistsAsync(brand, new ItemNumber("123456"));
+            var exists = await Repository.ExistsAsync(_brand, item.ItemNumber);
 
             exists.Should().BeTrue();
         }
@@ -115,13 +111,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemRepository_Exists_ShouldReturnFalseWhenCatalogItemDoesNotExist()
         {
-            Database.ArrangeWithOneCatalogItem(
-                catalogItemId: new CatalogItemId(Guid.NewGuid()),
-                brandId: brand.BrandId,
-                railwayId: railway.RailwayId,
-                scaleId: scale.ScaleId);
+            Database.ArrangeWithOneCatalogItem(CatalogSeedData.CatalogItems.Acme_60392());
 
-            var exists = await Repository.ExistsAsync(brand, new ItemNumber("654321"));
+            var exists = await Repository.ExistsAsync(_brand, new ItemNumber("654321"));
 
             exists.Should().BeFalse();
         }
@@ -129,27 +121,19 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemRepository_GetBySlug_ShouldReturnsCatalogItem()
         {
-            Database.ArrangeWithOneCatalogItem(
-                catalogItemId: new CatalogItemId(Guid.NewGuid()),
-                brandId: brand.BrandId,
-                railwayId: railway.RailwayId,
-                scaleId: scale.ScaleId);
+            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            Database.ArrangeWithOneCatalogItem(item);
 
-            var slug = Slug.Of("acme", "123456");
-            var catalogItem = await Repository.GetBySlugAsync(slug);
+            var catalogItem = await Repository.GetBySlugAsync(item.Slug);
 
             catalogItem.Should().NotBeNull();
-            catalogItem.Slug.Should().Be(slug);
+            catalogItem.Slug.Should().Be(item.Slug);
         }
 
         [Fact]
         public async Task CatalogItemRepository_GetBySlug_ShouldReturnsNullWhenCatalogItemIsNotFound()
         {
-            Database.ArrangeWithOneCatalogItem(
-                catalogItemId: new CatalogItemId(Guid.NewGuid()),
-                brandId: brand.BrandId,
-                railwayId: railway.RailwayId,
-                scaleId: scale.ScaleId);
+            Database.ArrangeWithOneCatalogItem(CatalogSeedData.CatalogItems.Acme_60392());
 
             var slug = Slug.Of("acme", "654321");
             var catalogItem = await Repository.GetBySlugAsync(slug);
@@ -160,29 +144,22 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemRepository_GetByBrandAndItemNumber_ShouldReturnsCatalogItem()
         {
-            Database.ArrangeWithOneCatalogItem(
-                catalogItemId: new CatalogItemId(Guid.NewGuid()),
-                brandId: brand.BrandId,
-                railwayId: railway.RailwayId,
-                scaleId: scale.ScaleId);
+            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            Database.ArrangeWithOneCatalogItem(item);
 
-            var catalogItem = await Repository.GetByBrandAndItemNumberAsync(brand, new ItemNumber("123456"));
+            var catalogItem = await Repository.GetByBrandAndItemNumberAsync(_brand, item.ItemNumber);
 
             catalogItem.Should().NotBeNull();
-            catalogItem.Brand.Should().Be(brand);
-            catalogItem.ItemNumber.Should().Be(new ItemNumber("123456"));
+            catalogItem.Brand.Slug.Should().Be(_brand.Slug);
+            catalogItem.ItemNumber.Should().Be(item.ItemNumber);
         }
 
         [Fact]
         public async Task CatalogItemRepository_GetByBrandAndItemNumber_ShouldReturnsNullWhenCatalogItemIsNotFound()
         {
-            Database.ArrangeWithOneCatalogItem(
-                catalogItemId: new CatalogItemId(Guid.NewGuid()),
-                brandId: brand.BrandId,
-                railwayId: railway.RailwayId,
-                scaleId: scale.ScaleId);
+            Database.ArrangeWithOneCatalogItem(CatalogSeedData.CatalogItems.Acme_60392());
 
-            var catalogItem = await Repository.GetByBrandAndItemNumberAsync(brand, new ItemNumber("654321"));
+            var catalogItem = await Repository.GetByBrandAndItemNumberAsync(_brand, new ItemNumber("654321"));
 
             catalogItem.Should().BeNull();
         }
@@ -191,12 +168,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public async Task CatalogItemRepository_UpdateAsync_ShouldUpdateCatalogItem()
         {
             var item = CatalogSeedData.CatalogItems.Acme_60392();
-
-            Database.ArrangeWithOneCatalogItem(
-                catalogItemId: item.CatalogItemId,
-                brandId: item.Brand.BrandId,
-                railwayId: item.RollingStocks.First().Railway.RailwayId,
-                scaleId: item.Scale.ScaleId);
+            Database.ArrangeWithOneCatalogItem(item);
 
             await Repository.UpdateAsync(item);
 
@@ -214,35 +186,36 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
     public static class DatabaseTestHelpersExtensions
     {
-        public static void ArrangeWithOneCatalogItem(this DatabaseTestHelpers db,
-            CatalogItemId catalogItemId,
-            BrandId brandId,
-            RailwayId railwayId,
-            ScaleId scaleId)
+        public static void ArrangeWithOneCatalogItem(this DatabaseTestHelpers db, ICatalogItem catalogItem)
         {
             db.Setup.TruncateTable(Tables.RollingStocks);
             db.Setup.TruncateTable(Tables.CatalogItems);
 
+            var catalogItemId = catalogItem.CatalogItemId.ToGuid();
+
             db.Arrange.Insert(Tables.CatalogItems, new
             {
-                catalog_item_id = catalogItemId.ToGuid(),
-                brand_id = brandId.ToGuid(),
-                scale_id = scaleId.ToGuid(),
-                item_number = "123456",
-                slug = "acme-123456",
-                power_method = "dc",
-                description = "",
+                catalog_item_id = catalogItemId,
+                brand_id = catalogItem.Brand.BrandId.ToGuid(),
+                scale_id = catalogItem.Scale.ScaleId.ToGuid(),
+                item_number = catalogItem.ItemNumber.Value,
+                slug = catalogItem.Slug.Value,
+                power_method = catalogItem.PowerMethod.ToString(),
+                description = catalogItem.Description,
                 created = DateTime.UtcNow
             });
 
-            db.Arrange.Insert(Tables.RollingStocks, new
+            foreach (var rs in catalogItem.RollingStocks)
             {
-                rolling_stock_id = Guid.NewGuid(),
-                catalog_item_id = catalogItemId.ToGuid(),
-                category = Category.ElectricLocomotive.ToString(),
-                era = Epoch.V.ToString(),
-                railway_id = railwayId.ToGuid()
-            });
+                db.Arrange.Insert(Tables.RollingStocks, new
+                {
+                    rolling_stock_id = rs.RollingStockId.ToGuid(),
+                    catalog_item_id = catalogItemId,
+                    category = rs.Category.ToString(),
+                    era = rs.Epoch.ToString(),
+                    railway_id = rs.Railway.RailwayId.ToGuid()
+                });
+            }
         }
     }
 }

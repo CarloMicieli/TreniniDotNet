@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Application.InMemory.Collecting.Shops.OutputPorts;
 using TreniniDotNet.Application.Services;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collecting.Shops;
@@ -39,7 +38,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         {
             var (useCase, outputPort) = ArrangeShopUseCase(Start.WithSeedData, NewCreateShop);
 
-            await useCase.Execute(CollectingInputs.CreateShop.With(Name: "Tecnomodel"));
+            await useCase.Execute(CollectingInputs.CreateShop.With(name: "Tecnomodel"));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertShopAlreadyExists("Tecnomodel");
@@ -53,7 +52,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
             var id = Guid.NewGuid();
             SetNextGeneratedGuid(id);
 
-            var input = CollectingInputs.CreateShop.With(Name: "Tecnomodel");
+            var input = CollectingInputs.CreateShop.With(name: "Tecnomodel");
 
             await useCase.Execute(input);
 

@@ -35,7 +35,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
         {
             var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewEditRailway);
 
-            await useCase.Execute(NewEditRailwayInput.With(RailwaySlug: Slug.Of("RhB")));
+            await useCase.Execute(NewEditRailwayInput.With(railwaySlug: Slug.Of("RhB")));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertRailwayNotFound(Slug.Of("RhB"));
@@ -47,8 +47,8 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
             var (useCase, outputPort, unitOfWork) = ArrangeRailwaysUseCase(Start.WithSeedData, NewEditRailway);
 
             await useCase.Execute(NewEditRailwayInput.With(
-                RailwaySlug: Slug.Of("RhB"),
-                CompanyName: "Ferrovia Retica"));
+                railwaySlug: Slug.Of("RhB"),
+                companyName: "Ferrovia Retica"));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();

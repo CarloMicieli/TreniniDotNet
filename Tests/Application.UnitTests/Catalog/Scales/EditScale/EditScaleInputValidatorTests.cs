@@ -24,7 +24,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
         [Fact]
         public void EditScaleInputValidator_ShouldRequireOnlyScaleSlug()
         {
-            var result = Validator.TestValidate(NewEditScaleInput.With(ScaleSlug: Slug.Of("RhB")));
+            var result = Validator.TestValidate(NewEditScaleInput.With(scaleSlug: Slug.Of("RhB")));
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -32,8 +32,8 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
         public void EditScaleInputValidator_ShouldValidatedModifiedValues()
         {
             var input = NewEditScaleInput.With(
-                ScaleSlug: Slug.Of("RhB"),
-                Ratio: -10M);
+                scaleSlug: Slug.Of("RhB"),
+                ratio: -10M);
 
             var result = Validator.TestValidate(input);
 

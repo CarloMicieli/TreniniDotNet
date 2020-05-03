@@ -65,17 +65,15 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
             RailwayGauge railwayGauge = null,
             PeriodOfActivity periodOfActivity = null)
         {
-            var railway = Railways.NewWith(
+            var railway = CatalogSeedData.NewRailwayWith(
                 id: new RailwayId(id ?? new Guid("e8d33cd3-f36b-4622-90d1-76b450e0f313")),
                 name: "FS",
                 companyName: "Ferrovie dello stato",
-                country: "IT",
-                since: periodOfActivity?.OperatingSince,
-                until: periodOfActivity?.OperatingUntil,
-                status: periodOfActivity?.RailwayStatus ?? RailwayStatus.Active,
+                country: Country.Of("IT"),
+                periodOfActivity: periodOfActivity,
                 gauge: railwayGauge,
                 railwayLength: railwayLength,
-                website: new Uri("http://www.trenitalia.com"),
+                websiteUrl: new Uri("http://www.trenitalia.com"),
                 headquarters: "Roma");
             return new RailwayView(railway, new LinksView());
         }

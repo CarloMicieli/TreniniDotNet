@@ -1,7 +1,8 @@
-using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Common;
+using TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.AddRollingStockToCatalogItem
@@ -17,9 +18,13 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.AddRollingStockToCatalogItem
         }
 
         [HttpPost("{slug}/rollingStocks")]
-        public Task<IActionResult> PostRollingStock(string slug, AddRollingStockToCatalogItemRequest request)
+        public Task<IActionResult> PostRollingStock(string slug, RollingStockRequest request)
         {
-            return HandleRequest(request);
+            return HandleRequest(new AddRollingStockToCatalogItemRequest
+            {
+                Slug = Slug.Of(slug),
+                RollingStock = request
+            });
         }
     }
 }

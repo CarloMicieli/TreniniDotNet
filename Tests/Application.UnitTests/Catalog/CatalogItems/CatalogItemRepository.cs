@@ -59,5 +59,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
                 .Skip(page.Start);
             return Task.FromResult(new PaginatedResult<ICatalogItem>(page, results));
         }
+
+        public Task AddRollingStockAsync(CatalogItemId catalogItemId, IRollingStock rollingStock)
+        {
+            return Task.CompletedTask;
+        }
     }
 }

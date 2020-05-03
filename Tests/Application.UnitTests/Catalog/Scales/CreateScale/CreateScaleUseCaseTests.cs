@@ -28,12 +28,12 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
             var (useCase, outputPort, unitOfWork) = ArrangeScalesUseCase(Start.Empty, NewCreateScale);
 
             var input = NewCreateScaleInput.With(
-                Name: "H0",
-                Ratio: 87M,
-                Gauge: NewScaleGaugeInput.With(
-                    Millimeters: 16.5M,
-                    TrackGauge: TrackGauge.Standard.ToString()),
-                Description: "notes");
+                name: "H0",
+                ratio: 87M,
+                scaleGauge: NewScaleGaugeInput.With(
+                    millimeters: 16.5M,
+                    trackGauge: TrackGauge.Standard.ToString()),
+                description: "notes");
 
             await useCase.Execute(input);
 
@@ -55,12 +55,12 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
 
             var name = "H0";
             var input = NewCreateScaleInput.With(
-                Name: name,
-                Ratio: 87M,
-                Gauge: NewScaleGaugeInput.With(
-                    Millimeters: 16.5M,
-                    TrackGauge: TrackGauge.Standard.ToString()),
-                Description: "notes");
+                name: name,
+                ratio: 87M,
+                scaleGauge: NewScaleGaugeInput.With(
+                    millimeters: 16.5M,
+                    trackGauge: TrackGauge.Standard.ToString()),
+                description: "notes");
 
             await useCase.Execute(input);
 

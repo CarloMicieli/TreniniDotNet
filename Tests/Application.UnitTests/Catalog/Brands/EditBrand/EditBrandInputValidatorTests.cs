@@ -27,7 +27,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
         [Fact]
         public void EditBrandInput_ShouldValidateOriginalBrandSlug()
         {
-            var input = NewEditBrandInput.With(BrandSlug: Slug.Empty);
+            var input = NewEditBrandInput.With(brandSlug: Slug.Empty);
 
             var result = Validator.TestValidate(input);
 
@@ -37,7 +37,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
         [Fact]
         public void EditBrandInput_ShouldValidateBrandType()
         {
-            var input = NewEditBrandInput.With(BrandType: "--invalid--");
+            var input = NewEditBrandInput.With(brandType: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -47,7 +47,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
         [Fact]
         public void EditBrandInput_ShouldValidateEmailAddress()
         {
-            var input = NewEditBrandInput.With(EmailAddress: "--invalid--");
+            var input = NewEditBrandInput.With(emailAddress: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -57,7 +57,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
         [Fact]
         public void EditBrandInput_ShouldValidateWebsiteUrl()
         {
-            var input = NewEditBrandInput.With(WebsiteUrl: "--invalid--");
+            var input = NewEditBrandInput.With(websiteUrl: "--invalid--");
 
             var result = Validator.TestValidate(input);
 

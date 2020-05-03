@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
+[assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public sealed class Railway : ModifiableEntity, IEquatable<Railway>, IRailway
@@ -68,10 +70,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
             return false;
         }
-
-        public static bool operator ==(Railway left, Railway right) => AreEquals(left, right);
-
-        public static bool operator !=(Railway left, Railway right) => !AreEquals(left, right);
 
         public bool Equals(Railway that) => AreEquals(this, that);
 

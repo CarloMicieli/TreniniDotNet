@@ -177,6 +177,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             return new PaginatedResult<ICatalogItem>(page, FromCatalogItemsDto(results));
         }
 
+        public Task AddRollingStockAsync(CatalogItemId catalogItemId, IRollingStock rollingStock)
+        {
+            throw new NotImplementedException();
+        }
+
         private IEnumerable<ICatalogItem> FromCatalogItemsDto(IEnumerable<CatalogItemWithRelatedData> results)
         {
             return results

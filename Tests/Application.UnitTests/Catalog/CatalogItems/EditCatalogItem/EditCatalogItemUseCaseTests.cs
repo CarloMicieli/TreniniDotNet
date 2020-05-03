@@ -112,7 +112,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
         private static IReadOnlyList<RollingStockInput> RollingStockList(string era, string category, string railway)
         {
             var rollingStockInput = CatalogInputs.NewRollingStockInput.With(
-                era: era,
+                epoch: era,
                 category: category,
                 railway: railway);
             return new List<RollingStockInput>() { rollingStockInput };

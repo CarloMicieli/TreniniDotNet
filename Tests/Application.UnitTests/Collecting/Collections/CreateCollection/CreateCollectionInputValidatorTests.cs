@@ -1,5 +1,4 @@
 ﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.TestHelpers.Common;
 using Xunit;
 
@@ -17,7 +16,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
         [Fact]
         public void CreateCollectionInput_ShouldSucceedValidation()
         {
-            var input = CollectingInputs.CreateCollection.With(Owner: "George", Notes: "My notes");
+            var input = CollectingInputs.CreateCollection.With(owner: "George", notes: "My notes");
 
             var result = Validator.TestValidate(input);
 
@@ -38,7 +37,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
         public void CreateCollectionInput_ShouldFailValidation_WhenNotesAreTooLong()
         {
             var input = CollectingInputs.CreateCollection.With(
-                Notes: RandomString.WithLengthOf(151));
+                notes: RandomString.WithLengthOf(151));
 
             var result = Validator.TestValidate(input);
 

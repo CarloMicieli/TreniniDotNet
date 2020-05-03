@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentValidation.TestHelper;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.TestHelpers.Common;
 using Xunit;
 
@@ -29,7 +28,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public void EditCollectionItemInput_ShouldFailValidation_WhenPriceIsZero()
         {
-            var input = CollectingInputs.EditCollectionItem.With(Price: 0M);
+            var input = CollectingInputs.EditCollectionItem.With(price: 0M);
 
             var result = Validator.TestValidate(input);
 
@@ -39,7 +38,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public void EditCollectionItemInput_ShouldFailValidation_WhenPriceIsNegative()
         {
-            var input = CollectingInputs.EditCollectionItem.With(Price: -10M);
+            var input = CollectingInputs.EditCollectionItem.With(price: -10M);
 
             var result = Validator.TestValidate(input);
 
@@ -49,7 +48,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public void EditCollectionItemInput_ShouldFailValidation_WhenConditionIsNotValid()
         {
-            var input = CollectingInputs.EditCollectionItem.With(Condition: "--invalid--");
+            var input = CollectingInputs.EditCollectionItem.With(condition: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -60,7 +59,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         public void EditCollectionItemInput_ShouldFailValidation_WhenNotesAreTooLong()
         {
             var input = CollectingInputs.EditCollectionItem.With(
-                Notes: RandomString.WithLengthOf(151));
+                notes: RandomString.WithLengthOf(151));
 
             var result = Validator.TestValidate(input);
 
@@ -71,7 +70,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         public void EditCollectionItemInput_ShouldFailValidation_WhenShopIsTooLong()
         {
             var input = CollectingInputs.EditCollectionItem.With(
-                Shop: RandomString.WithLengthOf(51));
+                shop: RandomString.WithLengthOf(51));
 
             var result = Validator.TestValidate(input);
 
@@ -82,9 +81,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         public void EditCollectionItemInput_ShouldSucceedsValidation_WhenValid()
         {
             var input = CollectingInputs.EditCollectionItem.With(
-                Id: Guid.NewGuid(),
-                ItemId: Guid.NewGuid(),
-                Price: 10M);
+                id: Guid.NewGuid(),
+                itemId: Guid.NewGuid(),
+                price: 10M);
 
             var result = Validator.TestValidate(input);
 

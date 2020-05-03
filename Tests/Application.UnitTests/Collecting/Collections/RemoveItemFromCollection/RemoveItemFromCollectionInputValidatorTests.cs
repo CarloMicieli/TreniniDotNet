@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentValidation.TestHelper;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.Domain.Collecting.Shared;
 using Xunit;
 
@@ -20,9 +19,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.RemoveItemFromCollect
         public void RemoveItemFromCollectionInput_ShouldSucceedValidation()
         {
             var input = CollectingInputs.RemoveItemFromCollection.With(
-                Owner: new Owner("George"),
-                Id: Guid.NewGuid(),
-                ItemId: Guid.NewGuid());
+                owner: new Owner("George"),
+                id: Guid.NewGuid(),
+                itemId: Guid.NewGuid());
 
             var result = Validator.TestValidate(input);
 

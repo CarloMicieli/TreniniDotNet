@@ -2009,7 +2009,7 @@ export class CatalogItemsClient {
         return Promise.resolve<CreateCatalogItemOutput>(<any>null);
     }
 
-    postRollingStock(slug: string | null, request: AddRollingStockToCatalogItemRequest): Promise<FileResponse> {
+    postRollingStock(slug: string | null, request: RollingStockRequest): Promise<FileResponse> {
         let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}/rollingStocks";
         if (slug === undefined || slug === null)
             throw new Error("The parameter 'slug' must be defined.");
@@ -6563,36 +6563,6 @@ export interface ICreateCatalogItemRequest {
     deliveryDate?: string | undefined;
     available?: boolean;
     rollingStocks?: RollingStockRequest[];
-}
-
-export class AddRollingStockToCatalogItemRequest implements IAddRollingStockToCatalogItemRequest {
-
-    constructor(data?: IAddRollingStockToCatalogItemRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-    }
-
-    static fromJS(data: any): AddRollingStockToCatalogItemRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new AddRollingStockToCatalogItemRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        return data; 
-    }
-}
-
-export interface IAddRollingStockToCatalogItemRequest {
 }
 
 export class PaginatedViewModelOfBrandView implements IPaginatedViewModelOfBrandView {

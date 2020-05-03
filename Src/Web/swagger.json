@@ -1979,7 +1979,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddRollingStockToCatalogItemRequest"
+                "$ref": "#/components/schemas/RollingStockRequest"
               }
             }
           },
@@ -4055,10 +4055,6 @@
             }
           }
         }
-      },
-      "AddRollingStockToCatalogItemRequest": {
-        "type": "object",
-        "additionalProperties": false
       },
       "PaginatedViewModelOfBrandView": {
         "type": "object",

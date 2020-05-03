@@ -1,6 +1,8 @@
+using TreniniDotNet.Common.UseCases.Interfaces.Input;
+
 namespace TreniniDotNet.Application.Catalog.CatalogItems
 {
-    public sealed class RollingStockInput
+    public sealed class RollingStockInput : IUseCaseInput
     {
         public RollingStockInput(
             string epoch, string category,

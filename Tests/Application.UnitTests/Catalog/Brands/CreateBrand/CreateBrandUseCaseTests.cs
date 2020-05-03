@@ -15,7 +15,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         {
             var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
 
-            await useCase.Execute(NewCreateBrandInput.Empty());
+            await useCase.Execute(NewCreateBrandInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -26,18 +26,18 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
             var (useCase, outputPort, unitOfWork) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
 
             var input = NewCreateBrandInput.With(
-                Name: "ACME",
-                CompanyName: "Associazione Costruzioni Modellistiche Esatte",
-                WebsiteUrl: "http://www.acmetreni.com",
-                EmailAddress: "mail@acmetreni.com",
-                BrandType: BrandKind.Industrial.ToString(),
-                Address: NewAddressInput.With(
-                    Line1: "address line1",
-                    Line2: "address line2",
-                    PostalCode: "123456",
-                    City: "city",
-                    Country: "DE",
-                    Region: "region name"
+                name: "ACME",
+                companyName: "Associazione Costruzioni Modellistiche Esatte",
+                websiteUrl: "http://www.acmetreni.com",
+                emailAddress: "mail@acmetreni.com",
+                brandType: BrandKind.Industrial.ToString(),
+                address: NewAddressInput.With(
+                    line1: "address line1",
+                    line2: "address line2",
+                    postalCode: "123456",
+                    city: "city",
+                    country: "DE",
+                    region: "region name"
                     ));
 
             await useCase.Execute(input);
@@ -58,11 +58,11 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
 
             var name = "ACME";
             var input = NewCreateBrandInput.With(
-                Name: name,
-                CompanyName: "Associazione Costruzioni Modellistiche Esatte",
-                WebsiteUrl: "http://www.acmetreni.com",
-                EmailAddress: "mail@acmetreni.com",
-                BrandType: BrandKind.Industrial.ToString()
+                name: name,
+                companyName: "Associazione Costruzioni Modellistiche Esatte",
+                websiteUrl: "http://www.acmetreni.com",
+                emailAddress: "mail@acmetreni.com",
+                brandType: BrandKind.Industrial.ToString()
                 );
 
             await useCase.Execute(input);

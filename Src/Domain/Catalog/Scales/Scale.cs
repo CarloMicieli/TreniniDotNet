@@ -1,16 +1,18 @@
 ﻿using NodaTime;
 using System;
 using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
+[assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
     /// <summary>
-    /// A model trains <em>Scale</em> is the relationship between its size and the size of an actual train, 
-    /// usually measured as a ratio or as a millimetre to inch conversion. OO scale is said to be 4mm:ft or 1:76. 
-    /// 
+    /// A model trains <em>Scale</em> is the relationship between its size and the size of an actual train,
+    /// usually measured as a ratio or as a millimetre to inch conversion. OO scale is said to be 4mm:ft or 1:76.
+    ///
     /// A model trains <em>Gauge</em> is the distance between the inner edges of the two rails that it runs on.
     /// </summary>
     /// <seealso cref="Gauge"/>
@@ -60,10 +62,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         #endregion
 
         #region [ Equality ]
-        public static bool operator ==(Scale left, Scale right) => AreEquals(left, right);
-
-        public static bool operator !=(Scale left, Scale right) => !AreEquals(left, right);
-
         public override bool Equals(object obj)
         {
             if (obj is Scale that)

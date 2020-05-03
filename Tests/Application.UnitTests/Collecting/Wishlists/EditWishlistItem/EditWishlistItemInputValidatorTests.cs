@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentValidation.TestHelper;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.TestHelpers.Common;
 using Xunit;
 
@@ -19,8 +18,8 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
         public void EditWishlistItemInput_ShouldSucceedValidation()
         {
             var input = CollectingInputs.EditWishlistItem.With(
-                Id: Guid.NewGuid(),
-                ItemId: Guid.NewGuid());
+                id: Guid.NewGuid(),
+                itemId: Guid.NewGuid());
 
             var result = Validator.TestValidate(input);
 
@@ -41,7 +40,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
         [Fact]
         public void EditWishlistItemInput_ShouldFailValidation_WhenPriceIsNegative()
         {
-            var input = CollectingInputs.EditWishlistItem.With(Price: -1M);
+            var input = CollectingInputs.EditWishlistItem.With(price: -1M);
 
             var result = Validator.TestValidate(input);
 
@@ -51,7 +50,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
         [Fact]
         public void EditWishlistItemInput_ShouldFailValidation_WhenPriceIsZero()
         {
-            var input = CollectingInputs.EditWishlistItem.With(Price: 0M);
+            var input = CollectingInputs.EditWishlistItem.With(price: 0M);
 
             var result = Validator.TestValidate(input);
 
@@ -63,7 +62,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
         public void EditWishlistItem_ShouldFailValidation_WhenPriorityIsInvalid()
         {
             var input = CollectingInputs.EditWishlistItem.With(
-                Priority: "--invalid--");
+                priority: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -74,7 +73,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
         public void EditWishlistItem_ShouldFailValidation_WhenNotesAreTooLong()
         {
             var input = CollectingInputs.EditWishlistItem.With(
-                Notes: RandomString.WithLengthOf(151));
+                notes: RandomString.WithLengthOf(151));
 
             var result = Validator.TestValidate(input);
 

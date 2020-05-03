@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts;
 using TreniniDotNet.Application.Services;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collecting.ValueObjects;
@@ -40,9 +39,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewCreateWishlist);
 
             var input = CollectingInputs.CreateWishlist.With(
-                Owner: "George",
-                ListName: "First list",
-                Visibility: "Private");
+                owner: "George",
+                listName: "First list",
+                visibility: "Private");
 
             await useCase.Execute(input);
 
@@ -59,9 +58,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
             SetNextGeneratedGuid(guid);
 
             var input = CollectingInputs.CreateWishlist.With(
-                Owner: "George",
-                ListName: "Second list",
-                Visibility: "Private");
+                owner: "George",
+                listName: "Second list",
+                visibility: "Private");
 
             await useCase.Execute(input);
 

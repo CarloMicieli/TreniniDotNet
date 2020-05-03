@@ -13,23 +13,19 @@ namespace TreniniDotNet.TestHelpers.InMemory.Repository
 {
     public sealed class InMemoryContext
     {
-        public InMemoryContext()
-        {
-        }
+        public IList<IBrand> Brands { private set; get; } = new List<IBrand>();
 
-        public IList<IBrand> Brands { set; get; } = new List<IBrand>();
+        public IList<IScale> Scales { private set; get; } = new List<IScale>();
 
-        public IList<IScale> Scales { set; get; } = new List<IScale>();
+        public IList<IRailway> Railways { private set; get; } = new List<IRailway>();
 
-        public IList<IRailway> Railways { set; get; } = new List<IRailway>();
+        public IList<ICatalogItem> CatalogItems { private set; get; } = new List<ICatalogItem>();
 
-        public IList<ICatalogItem> CatalogItems { set; get; } = new List<ICatalogItem>();
+        public IList<ICollection> Collections { private set; get; } = new List<ICollection>();
 
-        public IList<ICollection> Collections { set; get; } = new List<ICollection>();
+        public IList<IWishlist> WishLists { private set; get; } = new List<IWishlist>();
 
-        public IList<IWishlist> WishLists { set; get; } = new List<IWishlist>();
-
-        public IList<IShop> Shops { set; get; } = new List<IShop>();
+        public IList<IShop> Shops { private set; get; } = new List<IShop>();
 
         public static InMemoryContext WithSeedData()
         {

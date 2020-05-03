@@ -70,7 +70,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             string dccInterface = "Nem652")
         {
             return CatalogInputs.NewRollingStockInput.With(
-                era: era,
+                epoch: era,
                 category: category,
                 railway: "FS",
                 className: "E 656",

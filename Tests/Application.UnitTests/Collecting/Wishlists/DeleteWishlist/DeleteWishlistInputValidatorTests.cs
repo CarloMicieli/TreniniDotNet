@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentValidation.TestHelper;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
@@ -27,7 +26,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
         [Fact]
         public void DeleteWishlistInputValidator_ShouldValidate_ValidInputs()
         {
-            var input = CollectingInputs.DeleteWishlist.With(Id: Guid.NewGuid());
+            var input = CollectingInputs.DeleteWishlist.With(id: Guid.NewGuid());
 
             var result = Validator.TestValidate(input);
 
