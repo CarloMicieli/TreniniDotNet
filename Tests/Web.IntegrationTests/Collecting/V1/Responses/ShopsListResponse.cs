@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TreniniDotNet.IntegrationTests.Catalog.V1.Responses;
+using TreniniDotNet.IntegrationTests.Responses;
 
 namespace TreniniDotNet.IntegrationTests.Collecting.V1.Responses
 {

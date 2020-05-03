@@ -3476,16 +3476,12 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "trackGauge": {
-            "type": "string",
-            "nullable": true
-          },
-          "millimeters": {
+          "kilometers": {
             "type": "number",
             "format": "decimal",
             "nullable": true
           },
-          "inches": {
+          "miles": {
             "type": "number",
             "format": "decimal",
             "nullable": true
@@ -3496,12 +3492,16 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "kilometers": {
+          "trackGauge": {
+            "type": "string",
+            "nullable": true
+          },
+          "millimeters": {
             "type": "number",
             "format": "decimal",
             "nullable": true
           },
-          "miles": {
+          "inches": {
             "type": "number",
             "format": "decimal",
             "nullable": true

@@ -5555,11 +5555,51 @@ export interface IPeriodOfActivityRequest {
 }
 
 export class TotalRailwayLengthRequest implements ITotalRailwayLengthRequest {
+    kilometers?: number | undefined;
+    miles?: number | undefined;
+
+    constructor(data?: ITotalRailwayLengthRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.kilometers = _data["kilometers"];
+            this.miles = _data["miles"];
+        }
+    }
+
+    static fromJS(data: any): TotalRailwayLengthRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new TotalRailwayLengthRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["kilometers"] = this.kilometers;
+        data["miles"] = this.miles;
+        return data; 
+    }
+}
+
+export interface ITotalRailwayLengthRequest {
+    kilometers?: number | undefined;
+    miles?: number | undefined;
+}
+
+export class RailwayGaugeRequest implements IRailwayGaugeRequest {
     trackGauge?: string | undefined;
     millimeters?: number | undefined;
     inches?: number | undefined;
 
-    constructor(data?: ITotalRailwayLengthRequest) {
+    constructor(data?: IRailwayGaugeRequest) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -5576,9 +5616,9 @@ export class TotalRailwayLengthRequest implements ITotalRailwayLengthRequest {
         }
     }
 
-    static fromJS(data: any): TotalRailwayLengthRequest {
+    static fromJS(data: any): RailwayGaugeRequest {
         data = typeof data === 'object' ? data : {};
-        let result = new TotalRailwayLengthRequest();
+        let result = new RailwayGaugeRequest();
         result.init(data);
         return result;
     }
@@ -5592,50 +5632,10 @@ export class TotalRailwayLengthRequest implements ITotalRailwayLengthRequest {
     }
 }
 
-export interface ITotalRailwayLengthRequest {
+export interface IRailwayGaugeRequest {
     trackGauge?: string | undefined;
     millimeters?: number | undefined;
     inches?: number | undefined;
-}
-
-export class RailwayGaugeRequest implements IRailwayGaugeRequest {
-    kilometers?: number | undefined;
-    miles?: number | undefined;
-
-    constructor(data?: IRailwayGaugeRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.kilometers = _data["kilometers"];
-            this.miles = _data["miles"];
-        }
-    }
-
-    static fromJS(data: any): RailwayGaugeRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new RailwayGaugeRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["kilometers"] = this.kilometers;
-        data["miles"] = this.miles;
-        return data; 
-    }
-}
-
-export interface IRailwayGaugeRequest {
-    kilometers?: number | undefined;
-    miles?: number | undefined;
 }
 
 export class CreateRailwayOutput implements ICreateRailwayOutput {

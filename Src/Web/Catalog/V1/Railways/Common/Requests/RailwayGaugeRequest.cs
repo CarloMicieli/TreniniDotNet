@@ -2,7 +2,8 @@ namespace TreniniDotNet.Web.Catalog.V1.Railways.Common.Requests
 {
     public sealed class RailwayGaugeRequest
     {
-        public decimal? Kilometers { get; set; }
-        public decimal? Miles { get; set; }
+        public string? TrackGauge { get; set; }
+        public decimal? Millimeters { get; set; }
+        public decimal? Inches { get; set; }
     }
 }

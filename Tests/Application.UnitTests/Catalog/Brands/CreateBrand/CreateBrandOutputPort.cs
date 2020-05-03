@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TreniniDotNet.Common;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
 namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
 {
     public sealed class CreateBrandOutputPort : OutputPortTestHelper<CreateBrandOutput>, ICreateBrandOutputPort
     {
-        private MethodInvocation<string> BrandAlreadyExistsMethod { set; get; }
+        private MethodInvocation<Slug> BrandAlreadyExistsMethod { set; get; }
 
         public CreateBrandOutputPort()
         {
-            BrandAlreadyExistsMethod = NewMethod<string>(nameof(BrandAlreadyExists));
+            BrandAlreadyExistsMethod = NewMethod<Slug>(nameof(BrandAlreadyExists));
         }
 
-        public void BrandAlreadyExists(string message)
+        public void BrandAlreadyExists(Slug brand)
         {
-            this.BrandAlreadyExistsMethod = this.BrandAlreadyExistsMethod.Invoked(message);
+            this.BrandAlreadyExistsMethod = this.BrandAlreadyExistsMethod.Invoked(brand);
         }
 
-        public void ShouldHaveBrandAlreadyExistsMessage(string expectedMessage)
+        public void ShouldHaveBrandAlreadyExistsMessage(Slug expectedBrand)
         {
-            this.BrandAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
+            this.BrandAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedBrand);
         }
 
         public override IEnumerable<IMethodInvocation> Methods

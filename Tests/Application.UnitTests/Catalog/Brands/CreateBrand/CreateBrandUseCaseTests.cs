@@ -67,7 +67,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
 
             await useCase.Execute(input);
 
-            outputPort.ShouldHaveBrandAlreadyExistsMessage($"Brand '{name}' already exists");
+            outputPort.ShouldHaveBrandAlreadyExistsMessage(Slug.Of(name));
         }
 
         [Fact]
