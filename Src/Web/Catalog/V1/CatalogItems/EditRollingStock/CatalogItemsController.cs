@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Common;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock
@@ -19,6 +20,9 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock
         [HttpPut("{slug}/rollingStocks/{rollingStockId}")]
         public Task<IActionResult> EditRollingStock(string slug, Guid rollingStockId, EditRollingStockRequest request)
         {
+            request.Slug = Slug.Of(slug);
+            request.RollingStockId = rollingStockId;
+
             return HandleRequest(request);
         }
     }

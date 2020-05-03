@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common.UseCases;
@@ -22,9 +23,19 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
                 throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        protected override Task Handle(RemoveRollingStockFromCatalogItemInput input)
+        protected override async Task Handle(RemoveRollingStockFromCatalogItemInput input)
         {
-            throw new System.NotImplementedException();
+            var catalogItem = await _catalogItemService.GetBySlugAsync(input.CatalogItemSlug);
+            if (catalogItem is null || catalogItem.RollingStocks.All(it => it.RollingStockId != input.RollingStockId))
+            {
+                OutputPort.RollingStockWasNotFound(input.CatalogItemSlug, input.RollingStockId);
+                return;
+            }
+
+            await _catalogItemService.DeleteRollingStockAsync(catalogItem, input.RollingStockId);
+            var _ = await _unitOfWork.SaveAsync();
+
+            OutputPort.Standard(new RemoveRollingStockFromCatalogItemOutput());
         }
     }
 }

@@ -147,9 +147,19 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return _catalogItemsRepository.UpdateAsync(modified);
         }
 
-        public Task AddRollingStockAsync(CatalogItemId catalogItemId, IRollingStock rollingStock)
+        public Task AddRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
         {
-            return _catalogItemsRepository.AddRollingStockAsync(catalogItemId, rollingStock);
+            return _catalogItemsRepository.AddRollingStockAsync(catalogItem, rollingStock);
+        }
+
+        public Task UpdateRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
+        {
+            return _catalogItemsRepository.UpdateRollingStockAsync(catalogItem, rollingStock);
+        }
+
+        public Task DeleteRollingStockAsync(ICatalogItem catalogItem, RollingStockId rollingStockId)
+        {
+            return _catalogItemsRepository.DeleteRollingStockAsync(catalogItem, rollingStockId);
         }
     }
 }

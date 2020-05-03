@@ -22,9 +22,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
         }
     }
 
-    public static class IRuleBuilderExtensions
+    public static class RuleBuilderExtensions
     {
-        public static IRuleBuilderOptions<T, string> ValidEpoch<T>(this IRuleBuilder<T, string> ruleBuilder)
+        public static IRuleBuilderOptions<T, string?> ValidEpoch<T>(this IRuleBuilder<T, string?> ruleBuilder)
         {
             return ruleBuilder.SetValidator(new EpochValidator());
         }

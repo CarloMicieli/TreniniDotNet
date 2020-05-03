@@ -48,7 +48,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalo
 
             var rollingStock = _rollingStocksFactory.FromInput(input.RollingStock, railwayInfo);
 
-            await _catalogItemsService.AddRollingStockAsync(catalogItem.CatalogItemId, rollingStock);
+            await _catalogItemsService.AddRollingStockAsync(catalogItem, rollingStock);
 
             var _ = await _unitOfWork.SaveAsync();
 

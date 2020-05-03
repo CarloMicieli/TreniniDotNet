@@ -22,9 +22,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 epoch, category,
                 railway,
                 className, roadNumber,
-                typeName, passengerCarType,  serviceLevel,
+                typeName, passengerCarType, serviceLevel,
                 lengthOverBuffer,
-                control,  dccInterface);
+                control, dccInterface);
         }
 
         public RollingStockId RollingStockId { get; }

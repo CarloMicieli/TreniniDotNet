@@ -17,6 +17,7 @@ using TreniniDotNet.Application.Catalog.Scales;
 using TreniniDotNet.Application.Catalog.Scales.CreateScale;
 using TreniniDotNet.Application.Catalog.Scales.EditScale;
 using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.Catalog
 {
@@ -263,14 +264,29 @@ namespace TreniniDotNet.Application.Catalog
         {
             public static readonly EditRollingStockInput Empty = With();
 
-            public static EditRollingStockInput With() => null;
+            public static EditRollingStockInput With(
+                Slug? slug = null, RollingStockId? rollingStockId = null,
+                string epoch = null, string category = null, string railway = null,
+                string className = null, string roadNumber = null,
+                string typeName = null, string passengerCarType = null, string serviceLevel = null,
+                LengthOverBufferInput length = null,
+                string control = null, string dccInterface = null) =>
+                new EditRollingStockInput(
+                    slug ?? Slug.Empty,
+                    rollingStockId ?? RollingStockId.Empty,
+                    epoch, category, railway,
+                    className, roadNumber, typeName, passengerCarType, serviceLevel,
+                    length,
+                    control, dccInterface);
         }
 
         public static class NewRemoveRollingStockFromCatalogItemInput
         {
             public static readonly RemoveRollingStockFromCatalogItemInput Empty = With();
 
-            public static RemoveRollingStockFromCatalogItemInput With() => null;
+            public static RemoveRollingStockFromCatalogItemInput With(
+                Slug? slug = null, RollingStockId? rollingStockId = null) =>
+                new RemoveRollingStockFromCatalogItemInput(slug ?? Slug.Empty, rollingStockId ?? RollingStockId.Empty);
         }
     }
 }

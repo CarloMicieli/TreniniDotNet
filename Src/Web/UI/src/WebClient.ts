@@ -6190,6 +6190,17 @@ export interface ILengthOverBufferView {
 }
 
 export class EditRollingStockRequest implements IEditRollingStockRequest {
+    epoch?: string | undefined;
+    category?: string | undefined;
+    railway?: string | undefined;
+    className?: string | undefined;
+    typeName?: string | undefined;
+    roadNumber?: string | undefined;
+    passengerCarType?: string | undefined;
+    serviceLevel?: string | undefined;
+    lengthOverBuffer?: LengthOverBufferRequest | undefined;
+    dccInterface?: string | undefined;
+    control?: string | undefined;
 
     constructor(data?: IEditRollingStockRequest) {
         if (data) {
@@ -6201,6 +6212,19 @@ export class EditRollingStockRequest implements IEditRollingStockRequest {
     }
 
     init(_data?: any) {
+        if (_data) {
+            this.epoch = _data["epoch"];
+            this.category = _data["category"];
+            this.railway = _data["railway"];
+            this.className = _data["className"];
+            this.typeName = _data["typeName"];
+            this.roadNumber = _data["roadNumber"];
+            this.passengerCarType = _data["passengerCarType"];
+            this.serviceLevel = _data["serviceLevel"];
+            this.lengthOverBuffer = _data["lengthOverBuffer"] ? LengthOverBufferRequest.fromJS(_data["lengthOverBuffer"]) : <any>undefined;
+            this.dccInterface = _data["dccInterface"];
+            this.control = _data["control"];
+        }
     }
 
     static fromJS(data: any): EditRollingStockRequest {
@@ -6212,11 +6236,73 @@ export class EditRollingStockRequest implements IEditRollingStockRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["epoch"] = this.epoch;
+        data["category"] = this.category;
+        data["railway"] = this.railway;
+        data["className"] = this.className;
+        data["typeName"] = this.typeName;
+        data["roadNumber"] = this.roadNumber;
+        data["passengerCarType"] = this.passengerCarType;
+        data["serviceLevel"] = this.serviceLevel;
+        data["lengthOverBuffer"] = this.lengthOverBuffer ? this.lengthOverBuffer.toJSON() : <any>undefined;
+        data["dccInterface"] = this.dccInterface;
+        data["control"] = this.control;
         return data; 
     }
 }
 
 export interface IEditRollingStockRequest {
+    epoch?: string | undefined;
+    category?: string | undefined;
+    railway?: string | undefined;
+    className?: string | undefined;
+    typeName?: string | undefined;
+    roadNumber?: string | undefined;
+    passengerCarType?: string | undefined;
+    serviceLevel?: string | undefined;
+    lengthOverBuffer?: LengthOverBufferRequest | undefined;
+    dccInterface?: string | undefined;
+    control?: string | undefined;
+}
+
+export class LengthOverBufferRequest implements ILengthOverBufferRequest {
+    millimeters?: number | undefined;
+    inches?: number | undefined;
+
+    constructor(data?: ILengthOverBufferRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.millimeters = _data["millimeters"];
+            this.inches = _data["inches"];
+        }
+    }
+
+    static fromJS(data: any): LengthOverBufferRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new LengthOverBufferRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["millimeters"] = this.millimeters;
+        data["inches"] = this.inches;
+        return data; 
+    }
+}
+
+export interface ILengthOverBufferRequest {
+    millimeters?: number | undefined;
+    inches?: number | undefined;
 }
 
 export class EditCatalogItemOutput implements IEditCatalogItemOutput {
@@ -6403,46 +6489,6 @@ export interface IRollingStockRequest {
     category?: string | undefined;
     serviceLevel?: string | undefined;
     passengerCarType?: string | undefined;
-}
-
-export class LengthOverBufferRequest implements ILengthOverBufferRequest {
-    millimeters?: number | undefined;
-    inches?: number | undefined;
-
-    constructor(data?: ILengthOverBufferRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.millimeters = _data["millimeters"];
-            this.inches = _data["inches"];
-        }
-    }
-
-    static fromJS(data: any): LengthOverBufferRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new LengthOverBufferRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["millimeters"] = this.millimeters;
-        data["inches"] = this.inches;
-        return data; 
-    }
-}
-
-export interface ILengthOverBufferRequest {
-    millimeters?: number | undefined;
-    inches?: number | undefined;
 }
 
 export class CreateCatalogItemOutput implements ICreateCatalogItemOutput {

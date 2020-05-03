@@ -40,7 +40,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 groupName,
                 description,
                 websiteUrl ?? new Uri("http://www.acmetreni.com"),
-                mailAddress ?? new MailAddress("mail@acmetreni.com") ,
+                mailAddress ?? new MailAddress("mail@acmetreni.com"),
                 brandKind ?? BrandKind.Industrial,
                 address ?? Address.With(
                     "address line 1", "address line 2",
@@ -118,7 +118,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             Epoch epoch = null,
             LengthOverBuffer length = null,
             string className = null, string roadNumber = null, string typeName = null,
-            PassengerCarType? passengerCarType = null, 
+            PassengerCarType? passengerCarType = null,
             ServiceLevel serviceLevel = null,
             DccInterface dccInterface = DccInterface.None,
             Control control = Control.None)

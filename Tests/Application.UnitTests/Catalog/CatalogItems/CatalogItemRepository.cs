@@ -60,7 +60,17 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             return Task.FromResult(new PaginatedResult<ICatalogItem>(page, results));
         }
 
-        public Task AddRollingStockAsync(CatalogItemId catalogItemId, IRollingStock rollingStock)
+        public Task AddRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteRollingStockAsync(ICatalogItem catalogItem, RollingStockId rollingStockId)
         {
             return Task.CompletedTask;
         }

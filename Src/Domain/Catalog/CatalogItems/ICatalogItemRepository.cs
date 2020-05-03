@@ -20,6 +20,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         Task<PaginatedResult<ICatalogItem>> GetLatestCatalogItemsAsync(Page page);
 
-        Task AddRollingStockAsync(CatalogItemId catalogItemId, IRollingStock rollingStock);
+        Task AddRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock);
+
+        Task UpdateRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock);
+
+        Task DeleteRollingStockAsync(ICatalogItem catalogItem, RollingStockId rollingStockId);
     }
 }

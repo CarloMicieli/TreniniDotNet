@@ -3874,7 +3874,73 @@
       },
       "EditRollingStockRequest": {
         "type": "object",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "properties": {
+          "epoch": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "railway": {
+            "type": "string",
+            "nullable": true
+          },
+          "className": {
+            "type": "string",
+            "nullable": true
+          },
+          "typeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "roadNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "passengerCarType": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "lengthOverBuffer": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LengthOverBufferRequest"
+              }
+            ]
+          },
+          "dccInterface": {
+            "type": "string",
+            "nullable": true
+          },
+          "control": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "LengthOverBufferRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "millimeters": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "inches": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          }
+        }
       },
       "EditCatalogItemOutput": {
         "type": "object",
@@ -3977,22 +4043,6 @@
           },
           "passengerCarType": {
             "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "LengthOverBufferRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "millimeters": {
-            "type": "number",
-            "format": "decimal",
-            "nullable": true
-          },
-          "inches": {
-            "type": "number",
-            "format": "decimal",
             "nullable": true
           }
         }

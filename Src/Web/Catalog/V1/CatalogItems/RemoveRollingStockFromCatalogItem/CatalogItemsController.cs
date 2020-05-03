@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Common;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalogItem
@@ -19,7 +20,11 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalo
         [HttpDelete("{slug}/rollingStocks/{rollingStockId}")]
         public Task<IActionResult> DeleteRollingStock(string slug, Guid rollingStockId)
         {
-            return HandleRequest(new RemoveRollingStockFromCatalogItemRequest { });
+            return HandleRequest(new RemoveRollingStockFromCatalogItemRequest
+            {
+                Slug = Slug.Of(slug),
+                RollingStockId = rollingStockId
+            });
         }
     }
 }

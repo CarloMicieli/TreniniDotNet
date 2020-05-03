@@ -39,7 +39,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 "Modelleisenbahn GmbH",
                 websiteUrl: new Uri("http://www.roco.cc"),
                 mailAddress: new MailAddress("webshop@roco.cc"),
-                brandKind:BrandKind.Industrial);
+                brandKind: BrandKind.Industrial);
 
             _bemo = NewBrandWith(
                 new BrandId(new Guid("ff9f5055-8ae7-4d58-a68f-0cee3adb6656")),
@@ -47,7 +47,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 "BEMO Modelleisenbahnen GmbH u. Co KG",
                 websiteUrl: new Uri("https://www.bemo-modellbahn.de/"),
                 mailAddress: new MailAddress("mail@bemo-modellbahn.de"),
-                brandKind:BrandKind.Industrial);
+                brandKind: BrandKind.Industrial);
 
             _brawa = NewBrandWith(
                new BrandId(new Guid("c37f8ac1-991b-422c-b273-5c02efe2087e")),
