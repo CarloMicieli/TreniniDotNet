@@ -3,10 +3,13 @@ using TreniniDotNet.Application.Catalog.Brands.CreateBrand;
 using TreniniDotNet.Application.Catalog.Brands.EditBrand;
 using TreniniDotNet.Application.Catalog.Brands.GetBrandBySlug;
 using TreniniDotNet.Application.Catalog.Brands.GetBrandsList;
+using TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalogItem;
 using TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem;
 using TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem;
+using TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock;
 using TreniniDotNet.Application.Catalog.CatalogItems.GetCatalogItemBySlug;
 using TreniniDotNet.Application.Catalog.CatalogItems.GetLatestCatalogItems;
+using TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromCatalogItem;
 using TreniniDotNet.Application.Catalog.Railways.CreateRailway;
 using TreniniDotNet.Application.Catalog.Railways.EditRailway;
 using TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug;
@@ -52,6 +55,9 @@ namespace TreniniDotNet.Application.Catalog
             services.AddScoped<IGetCatalogItemBySlugUseCase, GetCatalogItemBySlugUseCase>();
             services.AddScoped<IEditCatalogItemUseCase, EditCatalogItemUseCase>();
             services.AddScoped<IGetLatestCatalogItemsUseCase, GetLatestCatalogItemsUseCase>();
+            services.AddScoped<IAddRollingStockToCatalogItemUseCase, AddRollingStockToCatalogItemUseCase>();
+            services.AddScoped<IEditRollingStockUseCase, EditRollingStockUseCase>();
+            services.AddScoped<IRemoveRollingStockFromCatalogItemUseCase, RemoveRollingStockFromCatalogItemUseCase>();
 
             services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();
             services.AddScoped<IRollingStocksFactory, RollingStocksFactory>();

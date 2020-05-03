@@ -174,7 +174,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 GetLatestCatalogItemsQuery,
                 new { @skip = page.Start, @limit = page.Limit + 1 });
 
-            return new PaginatedResult<ICatalogItem>(page,FromCatalogItemsDto(results));
+            return new PaginatedResult<ICatalogItem>(page, FromCatalogItemsDto(results));
         }
 
         private IEnumerable<ICatalogItem> FromCatalogItemsDto(IEnumerable<CatalogItemWithRelatedData> results)

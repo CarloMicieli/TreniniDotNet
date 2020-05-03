@@ -1620,6 +1620,102 @@
         }
       }
     },
+    "/api/v1/CatalogItems/{slug}/rollingStocks/{rollingStockId}": {
+      "delete": {
+        "tags": [
+          "CatalogItems"
+        ],
+        "operationId": "CatalogItems_DeleteRollingStock",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "rollingStockId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CatalogItems"
+        ],
+        "operationId": "CatalogItems_EditRollingStock",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "rollingStockId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditRollingStockRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 3
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/CatalogItems/latest": {
       "get": {
         "tags": [
@@ -1856,6 +1952,51 @@
           },
           "500": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/CatalogItems/{slug}/rollingStocks": {
+      "post": {
+        "tags": [
+          "CatalogItems"
+        ],
+        "operationId": "CatalogItems_PostRollingStock",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddRollingStockToCatalogItemRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
           }
         }
       }
@@ -3731,6 +3872,10 @@
           }
         }
       },
+      "EditRollingStockRequest": {
+        "type": "object",
+        "additionalProperties": false
+      },
       "EditCatalogItemOutput": {
         "type": "object",
         "additionalProperties": false
@@ -3910,6 +4055,10 @@
             }
           }
         }
+      },
+      "AddRollingStockToCatalogItemRequest": {
+        "type": "object",
+        "additionalProperties": false
       },
       "PaginatedViewModelOfBrandView": {
         "type": "object",

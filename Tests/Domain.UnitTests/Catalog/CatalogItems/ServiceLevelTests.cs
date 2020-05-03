@@ -49,7 +49,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public void ServiceLevel_ToServiceLevelOpt_ShouldProduceValueFromStrings()
         {
-            var serviceLevel1 = ((string) null).ToServiceLevelOpt();
+            var serviceLevel1 = ((string)null).ToServiceLevelOpt();
             var serviceLevel2 = "1cl".ToServiceLevelOpt();
 
             serviceLevel1.Should().BeNull();

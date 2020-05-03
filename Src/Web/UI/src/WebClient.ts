@@ -1699,6 +1699,86 @@ export class CatalogItemsClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
+    deleteRollingStock(slug: string | null, rollingStockId: string): Promise<FileResponse> {
+        let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}/rollingStocks/{rollingStockId}";
+        if (slug === undefined || slug === null)
+            throw new Error("The parameter 'slug' must be defined.");
+        url_ = url_.replace("{slug}", encodeURIComponent("" + slug));
+        if (rollingStockId === undefined || rollingStockId === null)
+            throw new Error("The parameter 'rollingStockId' must be defined.");
+        url_ = url_.replace("{rollingStockId}", encodeURIComponent("" + rollingStockId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "DELETE",
+            headers: {
+                "Accept": "application/octet-stream"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processDeleteRollingStock(_response);
+        });
+    }
+
+    protected processDeleteRollingStock(response: Response): Promise<FileResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return response.blob().then(blob => { return { fileName: fileName, data: blob, status: status, headers: _headers }; });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<FileResponse>(<any>null);
+    }
+
+    editRollingStock(slug: string | null, rollingStockId: string, request: EditRollingStockRequest): Promise<FileResponse> {
+        let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}/rollingStocks/{rollingStockId}";
+        if (slug === undefined || slug === null)
+            throw new Error("The parameter 'slug' must be defined.");
+        url_ = url_.replace("{slug}", encodeURIComponent("" + slug));
+        if (rollingStockId === undefined || rollingStockId === null)
+            throw new Error("The parameter 'rollingStockId' must be defined.");
+        url_ = url_.replace("{rollingStockId}", encodeURIComponent("" + rollingStockId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(request);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/octet-stream"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processEditRollingStock(_response);
+        });
+    }
+
+    protected processEditRollingStock(response: Response): Promise<FileResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return response.blob().then(blob => { return { fileName: fileName, data: blob, status: status, headers: _headers }; });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<FileResponse>(<any>null);
+    }
+
     getLatestCatalogItems(start: number | undefined, limit: number | undefined): Promise<CatalogItemView> {
         let url_ = this.baseUrl + "/api/v1/CatalogItems/latest?";
         if (start === null)
@@ -1927,6 +2007,45 @@ export class CatalogItemsClient {
             });
         }
         return Promise.resolve<CreateCatalogItemOutput>(<any>null);
+    }
+
+    postRollingStock(slug: string | null, request: AddRollingStockToCatalogItemRequest): Promise<FileResponse> {
+        let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}/rollingStocks";
+        if (slug === undefined || slug === null)
+            throw new Error("The parameter 'slug' must be defined.");
+        url_ = url_.replace("{slug}", encodeURIComponent("" + slug));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(request);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/octet-stream"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processPostRollingStock(_response);
+        });
+    }
+
+    protected processPostRollingStock(response: Response): Promise<FileResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return response.blob().then(blob => { return { fileName: fileName, data: blob, status: status, headers: _headers }; });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<FileResponse>(<any>null);
     }
 }
 
@@ -6070,6 +6189,36 @@ export interface ILengthOverBufferView {
     inches?: number | undefined;
 }
 
+export class EditRollingStockRequest implements IEditRollingStockRequest {
+
+    constructor(data?: IEditRollingStockRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+    }
+
+    static fromJS(data: any): EditRollingStockRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new EditRollingStockRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        return data; 
+    }
+}
+
+export interface IEditRollingStockRequest {
+}
+
 export class EditCatalogItemOutput implements IEditCatalogItemOutput {
 
     constructor(data?: IEditCatalogItemOutput) {
@@ -6414,6 +6563,36 @@ export interface ICreateCatalogItemRequest {
     deliveryDate?: string | undefined;
     available?: boolean;
     rollingStocks?: RollingStockRequest[];
+}
+
+export class AddRollingStockToCatalogItemRequest implements IAddRollingStockToCatalogItemRequest {
+
+    constructor(data?: IAddRollingStockToCatalogItemRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+    }
+
+    static fromJS(data: any): AddRollingStockToCatalogItemRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddRollingStockToCatalogItemRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        return data; 
+    }
+}
+
+export interface IAddRollingStockToCatalogItemRequest {
 }
 
 export class PaginatedViewModelOfBrandView implements IPaginatedViewModelOfBrandView {
