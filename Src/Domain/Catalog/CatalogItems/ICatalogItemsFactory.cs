@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using TreniniDotNet.Common.DeliveryDates;
 using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
@@ -17,8 +16,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             PowerMethod powerMethod,
             IReadOnlyList<IRollingStock> rollingStocks,
             string description,
-            string? prototypeDescr,
-            string? modelDescr,
+            string? prototypeDescription,
+            string? modelDescription,
             DeliveryDate? deliveryDate,
             bool available);
 
@@ -28,41 +27,14 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             ItemNumber? itemNumber,
             IScaleInfo? scale,
             PowerMethod? powerMethod,
+            IReadOnlyList<IRollingStock> rollingStocks,
             string? description,
-            string? prototypeDescr,
-            string? modelDescr,
+            string? prototypeDescription,
+            string? modelDescription,
             DeliveryDate? deliveryDate,
             bool? available);
 
-        IRollingStock NewLocomotive(
-            IRailwayInfo railway, string era, string category,
-            LengthOverBuffer? length,
-            string? className, string? roadNumber,
-            string? dccInterface, string? control);
-
-        IRollingStock NewTrain(
-            IRailwayInfo railway, string era, string category,
-            LengthOverBuffer? length,
-            string? className, string? roadNumber,
-            string? dccInterface, string? control);
-
-        IRollingStock NewRollingStock(
-            IRailwayInfo railway, string era, string category,
-            LengthOverBuffer? length,
-            string? typeName);
-
-        // From persistance
-
-        IRollingStock NewRollingStock(
-            Guid rollingStockId,
-            IRailwayInfo railway,
-            string era,
-            string category,
-            LengthOverBuffer? length,
-            string? className, string? roadNumber, string? typeName,
-            string? dccInterface, string? control);
-
-        ICatalogItem NewCatalogItem(
+        ICatalogItem CatalogItemWith(
             Guid catalogItemId,
             string slug,
             IBrandInfo brandInfo, string itemNumber,

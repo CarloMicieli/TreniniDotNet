@@ -1,5 +1,4 @@
 ﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
@@ -26,7 +25,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public void CreateShopInput_ShouldFailValidation_WhenWebsiteUrlIsInvalid()
         {
-            var input = CollectingInputs.CreateShop.With(Name: "Shop Name", WebsiteUrl: "--invalid--");
+            var input = CollectingInputs.CreateShop.With(name: "Shop Name", websiteUrl: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -36,7 +35,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public void CreateShopInput_ShouldFailValidation_WhenEmailAddressIsInvalid()
         {
-            var input = CollectingInputs.CreateShop.With(Name: "Shop Name", EmailAddress: "--invalid--");
+            var input = CollectingInputs.CreateShop.With(name: "Shop Name", emailAddress: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -46,7 +45,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public void CreateShopInput_ShouldFailValidation_WhenPhoneNumberIsInvalid()
         {
-            var input = CollectingInputs.CreateShop.With(Name: "Shop Name", PhoneNumber: "--invalid--");
+            var input = CollectingInputs.CreateShop.With(name: "Shop Name", phoneNumber: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -56,7 +55,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public void CreateShopInput_ShouldSucceedValidation_WhenValid()
         {
-            var input = CollectingInputs.CreateShop.With(Name: "Shop Name");
+            var input = CollectingInputs.CreateShop.With(name: "Shop Name");
 
             var result = Validator.TestValidate(input);
 

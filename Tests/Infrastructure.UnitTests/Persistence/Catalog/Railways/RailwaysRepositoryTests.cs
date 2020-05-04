@@ -8,8 +8,9 @@ using TreniniDotNet.Common;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Infrastructure.Dapper;
-using System.Data;
 using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
@@ -28,7 +29,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         {
             Database.Setup.TruncateTable(Tables.Railways);
 
-            var fs = new FakeRailway();
+            var fs = FakeRailway();
 
             var railwayId = await Repository.AddAsync(fs);
 
@@ -43,7 +44,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                     name = fs.Name,
                     company_name = fs.CompanyName,
                     slug = fs.Slug.ToString(),
-                    country = fs.Country.Code,
+                    country = fs.Country?.Code,
                     operating_since = fs.PeriodOfActivity.OperatingSince,
                     operating_until = fs.PeriodOfActivity.OperatingUntil,
                     active = RailwayStatus.Active == fs.PeriodOfActivity.RailwayStatus,
@@ -58,7 +59,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
         {
             Database.Setup.TruncateTable(Tables.Railways);
 
-            var testRailway = new FakeRailway();
+            var testRailway = FakeRailway();
 
             Database.Arrange.InsertOne(Tables.Railways, new
             {
@@ -194,6 +195,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(5);
+        }
+
+        private static IRailway FakeRailway()
+        {
+            return CatalogSeedData.NewRailwayWith(
+                new RailwayId(new Guid("b9e62d18-06e3-4404-9183-6c3a3b89c683")),
+                name: "FS",
+                companyName: "Ferrovie dello Stato",
+                country: Common.Country.Of("IT"),
+                periodOfActivity: PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1)),
+                websiteUrl: new Uri("https://www.trenitalia.com"));
         }
     }
 }

@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.DeliveryDates;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
@@ -41,6 +44,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return _catalogItemsRepository.GetBySlugAsync(slug);
         }
 
+        public Task<PaginatedResult<ICatalogItem>> GetLatestCatalogItemsAsync(Page page)
+        {
+            return _catalogItemsRepository.GetLatestCatalogItemsAsync(page);
+        }
+
         public async Task<bool> ItemAlreadyExists(IBrandInfo brand, ItemNumber itemNumber)
         {
             var item = await _catalogItemsRepository.GetByBrandAndItemNumberAsync(brand, itemNumber);
@@ -62,9 +70,53 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return _railways.GetInfoBySlugAsync(railway);
         }
 
-        public Task<CatalogItemId> CreateNewCatalogItem(ICatalogItem catalogItem)
+        public async Task<(Dictionary<Slug, IRailwayInfo> found, List<Slug> notFound)> FindRailwaysInfoBySlug(IEnumerable<Slug> railways)
         {
-            return _catalogItemsRepository.AddAsync(catalogItem);
+            var railwaysNotFound = new List<Slug>();
+            var railwaysFound = new Dictionary<Slug, IRailwayInfo>();
+
+            foreach (var railwaySlug in railways)
+            {
+                var railwayInfo = await FindRailwayInfoBySlug(railwaySlug);
+                if (railwayInfo is null)
+                {
+                    railwaysNotFound.Add(railwaySlug);
+                }
+                else
+                {
+                    railwaysFound.Add(railwaySlug, railwayInfo);
+                }
+            }
+
+            return (railwaysFound, railwaysNotFound);
+        }
+
+
+        public async Task<(CatalogItemId, Slug)> CreateNewCatalogItem(
+            IBrandInfo brand,
+            ItemNumber itemNumber,
+            IScaleInfo scale,
+            PowerMethod powerMethod,
+            IReadOnlyList<IRollingStock> rollingStocks,
+            string description,
+            string? prototypeDescription,
+            string? modelDescription,
+            DeliveryDate? deliveryDate,
+            bool available)
+        {
+            var catalogItem = _catalogItemsFactory.CreateNewCatalogItem(
+                brand,
+                itemNumber,
+                scale,
+                powerMethod,
+                rollingStocks,
+                description,
+                prototypeDescription,
+                modelDescription,
+                deliveryDate,
+                available);
+            var _ = await _catalogItemsRepository.AddAsync(catalogItem);
+            return (catalogItem.CatalogItemId, catalogItem.Slug);
         }
 
         public Task UpdateCatalogItem(ICatalogItem item,
@@ -72,6 +124,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             ItemNumber? itemNumber,
             IScaleInfo? scale,
             PowerMethod? powerMethod,
+            IReadOnlyList<IRollingStock> rollingStocks,
             string? description,
             string? prototypeDescription,
             string? modelDescription,
@@ -84,6 +137,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 itemNumber,
                 scale,
                 powerMethod,
+                rollingStocks,
                 description,
                 prototypeDescription,
                 modelDescription,
@@ -91,6 +145,21 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 available);
 
             return _catalogItemsRepository.UpdateAsync(modified);
+        }
+
+        public Task AddRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
+        {
+            return _catalogItemsRepository.AddRollingStockAsync(catalogItem, rollingStock);
+        }
+
+        public Task UpdateRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
+        {
+            return _catalogItemsRepository.UpdateRollingStockAsync(catalogItem, rollingStock);
+        }
+
+        public Task DeleteRollingStockAsync(ICatalogItem catalogItem, RollingStockId rollingStockId)
+        {
+            return _catalogItemsRepository.DeleteRollingStockAsync(catalogItem, rollingStockId);
         }
     }
 }

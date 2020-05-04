@@ -27,8 +27,8 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.GetCatalogItemBySlug
             var selfLink = _linksGenerator.GenerateSelfLink(
                 nameof(CatalogItemsController.GetCatalogItemBySlug),
                 output.Item.Slug);
-            var brandViewModel = new CatalogItemView(output.Item, selfLink);
-            ViewModel = new OkObjectResult(brandViewModel);
+            var catalogItemView = new CatalogItemView(output.Item, selfLink);
+            ViewModel = new OkObjectResult(catalogItemView);
         }
     }
 }

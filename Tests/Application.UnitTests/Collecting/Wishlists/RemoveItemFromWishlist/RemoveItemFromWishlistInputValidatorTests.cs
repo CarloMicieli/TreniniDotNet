@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentValidation.TestHelper;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
@@ -18,8 +17,8 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
         public void RemoveItemFromWishlistInput_ShouldSucceedValidation()
         {
             var input = CollectingInputs.RemoveItemFromWishlist.With(
-                Id: Guid.NewGuid(),
-                ItemId: Guid.NewGuid());
+                id: Guid.NewGuid(),
+                itemId: Guid.NewGuid());
 
             var result = Validator.TestValidate(input);
 

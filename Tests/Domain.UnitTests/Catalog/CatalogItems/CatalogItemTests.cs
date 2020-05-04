@@ -15,5 +15,15 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             (item1.Equals(item1)).Should().BeTrue();
             (item1.Equals(item2)).Should().BeFalse();
         }
+
+        [Fact]
+        public void CatalogItem_With_ShouldProduceNewModifiedValues()
+        {
+            var modified = CatalogSeedData.CatalogItems.Acme_60458()
+                .With(prototypeDescription: "modified prototype desc");
+
+            modified.Should().NotBeNull();
+            modified.PrototypeDescription.Should().Be("modified prototype desc");
+        }
     }
 }

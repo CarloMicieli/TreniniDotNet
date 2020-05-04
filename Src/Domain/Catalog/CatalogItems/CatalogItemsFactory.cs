@@ -4,7 +4,6 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Common.DeliveryDates;
 using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
@@ -19,8 +18,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public CatalogItemsFactory(IClock clock, IGuidSource guidSource)
         {
-            _clock = clock;
-            _guidSource = guidSource;
+            _clock = clock ??
+                throw new ArgumentNullException(nameof(clock));
+            _guidSource = guidSource ??
+                throw new ArgumentNullException(nameof(guidSource));
         }
 
         public ICatalogItem CreateNewCatalogItem(
@@ -30,8 +31,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             PowerMethod powerMethod,
             IReadOnlyList<IRollingStock> rollingStocks,
             string description,
-            string? prototypeDescr,
-            string? modelDescr,
+            string? prototypeDescription,
+            string? modelDescription,
             DeliveryDate? deliveryDate,
             bool available)
         {
@@ -46,8 +47,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 scale,
                 powerMethod,
                 description,
-                prototypeDescr,
-                modelDescr,
+                prototypeDescription,
+                modelDescription,
                 deliveryDate,
                 available,
                 rollingStocks,
@@ -56,81 +57,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 1);
         }
 
-        public IRollingStock NewLocomotive(
-            IRailwayInfo railway, string era, string category,
-            LengthOverBuffer? length,
-            string? className, string? roadNumber,
-            string? dccInterface, string? control)
-        {
-            return NewRollingStock(
-                _guidSource.NewGuid(),
-                railway: railway,
-                era: era,
-                category: category,
-                length: length,
-                className: className,
-                roadNumber: roadNumber,
-                dccInterface: dccInterface,
-                control: control);
-        }
-
-        public IRollingStock NewTrain(
-            IRailwayInfo railway, string era, string category,
-            LengthOverBuffer? length,
-            string? className, string? roadNumber,
-            string? dccInterface, string? control)
-        {
-            return NewRollingStock(
-                _guidSource.NewGuid(),
-                railway: railway,
-                era: era,
-                category: category,
-                length: length,
-                className: className,
-                roadNumber: roadNumber,
-                dccInterface: dccInterface,
-                control: control);
-        }
-
-        public IRollingStock NewRollingStock(
-            IRailwayInfo railway, string era, string category,
-            LengthOverBuffer? length,
-            string? typeName)
-        {
-            return NewRollingStock(
-                _guidSource.NewGuid(),
-                railway: railway,
-                era: era,
-                category: category,
-                length: length,
-                typeName: typeName);
-        }
-
-        public IRollingStock NewRollingStock(
-            Guid id,
-            IRailwayInfo railway,
-            string era,
-            string category,
-            LengthOverBuffer? length,
-            string? className = null, string? roadNumber = null, string? typeName = null,
-            string? dccInterface = null, string? control = null)
-        {
-            RollingStockId rollingStockId = new RollingStockId(id);
-
-            return new RollingStock(
-                rollingStockId,
-                railway,
-                RequiredValueFor<Category>(category),
-                RequiredValueFor<Era>(era),
-                length,
-                className,
-                roadNumber,
-                typeName,
-                OptionalValueFor<DccInterface>(dccInterface) ?? DccInterface.None,
-                OptionalValueFor<Control>(control) ?? Control.None);
-        }
-
-        public ICatalogItem NewCatalogItem(
+        public ICatalogItem CatalogItemWith(
             Guid catalogItemId,
             string slug,
             IBrandInfo brand, string itemNumber,
@@ -166,17 +93,18 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             ItemNumber? itemNumber,
             IScaleInfo? scale,
             PowerMethod? powerMethod,
+            IReadOnlyList<IRollingStock> rollingStocks,
             string? description,
-            string? prototypeDescr,
-            string? modelDescr,
+            string? prototypeDescription,
+            string? modelDescription,
             DeliveryDate? deliveryDate,
             bool? available)
         {
-            Slug itemSlug = item.Slug;
+            var itemSlug = item.Slug;
 
             if (itemNumber.HasValue || brand != null)
             {
-                var brandSlug = (brand is null) ? item.Brand.Slug : brand.Slug;
+                var brandSlug = brand?.Slug ?? item.Brand.Slug;
                 itemSlug = brandSlug.CombineWith(itemNumber ?? item.ItemNumber);
             }
 
@@ -188,11 +116,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 scale ?? item.Scale,
                 powerMethod ?? item.PowerMethod,
                 description ?? item.Description,
-                prototypeDescr ?? item.PrototypeDescription,
-                modelDescr ?? item.ModelDescription,
+                prototypeDescription ?? item.PrototypeDescription,
+                modelDescription ?? item.ModelDescription,
                 deliveryDate ?? item.DeliveryDate,
                 available ?? item.IsAvailable,
-                item.RollingStocks,
+                rollingStocks.Count > 0 ? rollingStocks : item.RollingStocks,
                 item.CreatedDate,
                 _clock.GetCurrentInstant(),
                 item.Version + 1);

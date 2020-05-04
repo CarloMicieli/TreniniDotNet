@@ -1,14 +1,18 @@
 ﻿using Xunit;
 using FluentAssertions;
 using System;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using NodaTime;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
@@ -27,7 +31,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         {
             Database.Setup.TruncateTable(Tables.Brands);
 
-            var testBrand = new FakeBrand();
+            var testBrand = FakeBrand();
             var brandId = await Repository.AddAsync(testBrand);
 
             brandId.Should().Be(testBrand.BrandId);
@@ -51,7 +55,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
         {
             Database.Setup.TruncateTable(Tables.Brands);
 
-            var testBrand = new FakeBrand();
+            var testBrand = FakeBrand();
 
             Database.Arrange.InsertOne(Tables.Brands, new
             {
@@ -178,5 +182,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 
             exists.Should().BeFalse();
         }
+
+        private static IBrand FakeBrand() => CatalogSeedData.NewBrandWith(
+            new BrandId(new Guid("2dfc8a61-8218-44af-8be5-d012bde4cf03")),
+            "ACME",
+            websiteUrl: new Uri("http://localhost"),
+            mailAddress: new MailAddress("mail@mail.com"),
+            companyName: "Associazione Costruzioni Modellistiche Esatte",
+            brandKind: BrandKind.Industrial);
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-using TreniniDotNet.Application.InMemory.Catalog.Railways.OutputPorts;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
 using Xunit;
-using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
 {
@@ -36,7 +35,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
         {
             var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewEditRailway);
 
-            await useCase.Execute(NewEditRailwayInput.With(RailwaySlug: Slug.Of("RhB")));
+            await useCase.Execute(NewEditRailwayInput.With(railwaySlug: Slug.Of("RhB")));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertRailwayNotFound(Slug.Of("RhB"));
@@ -48,8 +47,8 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
             var (useCase, outputPort, unitOfWork) = ArrangeRailwaysUseCase(Start.WithSeedData, NewEditRailway);
 
             await useCase.Execute(NewEditRailwayInput.With(
-                RailwaySlug: Slug.Of("RhB"),
-                CompanyName: "Ferrovia Retica"));
+                railwaySlug: Slug.Of("RhB"),
+                companyName: "Ferrovia Retica"));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();

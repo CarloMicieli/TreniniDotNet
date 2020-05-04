@@ -7,7 +7,7 @@ using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.InMemory.Repository;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.Scales
+namespace TreniniDotNet.Application.Catalog.Scales
 {
     public sealed class ScaleRepository : IScalesRepository
     {

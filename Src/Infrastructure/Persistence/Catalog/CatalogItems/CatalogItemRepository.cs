@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
@@ -18,11 +20,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
     {
         private readonly IDatabaseContext _dbContext;
         private readonly ICatalogItemsFactory _factory;
+        private readonly IRollingStocksFactory _rsFactory;
 
-        public CatalogItemRepository(IDatabaseContext dbContext, ICatalogItemsFactory factory)
+        public CatalogItemRepository(IDatabaseContext dbContext, ICatalogItemsFactory factory, IRollingStocksFactory rsFactory)
         {
-            _dbContext = dbContext;
-            _factory = factory;
+            _dbContext = dbContext ??
+                throw new ArgumentNullException(nameof(dbContext));
+            _factory = factory ??
+                throw new ArgumentNullException(nameof(factory));
+            _rsFactory = rsFactory ??
+                throw new ArgumentNullException(nameof(rsFactory));
         }
 
         public async Task<CatalogItemId> AddAsync(ICatalogItem catalogItem)
@@ -52,21 +59,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             foreach (var rs in catalogItem.RollingStocks)
             {
-                var _rows2 = await connection.ExecuteAsync(InsertNewRollingStock, new
-                {
-                    rs.RollingStockId,
-                    rs.Era,
-                    rs.Category,
-                    rs.Railway.RailwayId,
-                    catalogItem.CatalogItemId,
-                    LengthMm = rs.Length?.Millimeters,
-                    LengthIn = rs.Length?.Inches,
-                    rs.ClassName,
-                    rs.RoadNumber,
-                    rs.TypeName,
-                    DccInterface = rs.DccInterface.ToString(),
-                    Control = rs.Control.ToString()
-                });
+                await InsertNewRollingStock(connection, catalogItem, rs);
             }
 
             return catalogItem.CatalogItemId;
@@ -92,6 +85,45 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 catalogItem.PrototypeDescription,
                 Modified = catalogItem.ModifiedDate?.ToDateTimeUtc(),
                 catalogItem.Version
+            });
+
+            var _rows2 = await connection.ExecuteAsync(DeleteAllRollingStocks, new
+            {
+                catalogItem.CatalogItemId
+            });
+
+            foreach (var rs in catalogItem.RollingStocks)
+            {
+                await InsertNewRollingStock(connection, catalogItem, rs);
+            }
+        }
+
+        public async Task AddRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            await InsertNewRollingStock(connection, catalogItem, rollingStock);
+        }
+
+        private static async Task InsertNewRollingStock(DbConnection connection, ICatalogItem catalogItem, IRollingStock rs)
+        {
+            var _rows3 = await connection.ExecuteAsync(InsertNewRollingStockCommand, new
+            {
+                rs.RollingStockId,
+                Era = rs.Epoch.ToString(),
+                rs.Category,
+                rs.Railway.RailwayId,
+                catalogItem.CatalogItemId,
+                LengthMm = rs.Length?.Millimeters,
+                LengthIn = rs.Length?.Inches,
+                rs.ClassName,
+                rs.RoadNumber,
+                rs.TypeName,
+                PassengerCarType = rs.PassengerCarType?.ToString(),
+                ServiceLevel = rs.ServiceLevel?.ToString(),
+                DccInterface = rs.DccInterface.ToString(),
+                Control = rs.Control.ToString()
             });
         }
 
@@ -131,6 +163,69 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             return FromCatalogItemDto(results);
         }
 
+        public async Task<PaginatedResult<ICatalogItem>> GetLatestCatalogItemsAsync(Page page)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var results = await connection.QueryAsync<CatalogItemWithRelatedData>(
+                GetLatestCatalogItemsQuery,
+                new { @skip = page.Start, @limit = page.Limit + 1 });
+
+            return new PaginatedResult<ICatalogItem>(page, FromCatalogItemsDto(results));
+        }
+
+        public async Task UpdateRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var _ = await connection.ExecuteAsync(UpdateRollingStockCommand, new
+            {
+                rollingStock.RollingStockId,
+                Era = rollingStock.Epoch.ToString(),
+                rollingStock.Category,
+                rollingStock.Railway.RailwayId,
+                catalogItem.CatalogItemId,
+                LengthMm = rollingStock.Length?.Millimeters,
+                LengthIn = rollingStock.Length?.Inches,
+                rollingStock.ClassName,
+                rollingStock.RoadNumber,
+                rollingStock.TypeName,
+                PassengerCarType = rollingStock.PassengerCarType?.ToString(),
+                ServiceLevel = rollingStock.ServiceLevel?.ToString(),
+                DccInterface = rollingStock.DccInterface.ToString(),
+                Control = rollingStock.Control.ToString()
+            });
+        }
+
+        public async Task DeleteRollingStockAsync(ICatalogItem catalogItem, RollingStockId rollingStockId)
+        {
+            await using var connection = _dbContext.NewConnection();
+            await connection.OpenAsync();
+
+            var _ = await connection.ExecuteAsync(DeleteRollingStockCommand, new
+            {
+                catalogItem.CatalogItemId,
+                rollingStockId
+            });
+        }
+
+        private IEnumerable<ICatalogItem> FromCatalogItemsDto(IEnumerable<CatalogItemWithRelatedData> results)
+        {
+            return results
+                .GroupBy(it => new CatalogItemGroupingKey
+                {
+                    catalog_item_id = it.catalog_item_id,
+                    brand_id = it.brand_id,
+                    scale_id = it.scale_id,
+                    item_number = it.item_number,
+                    slug = it.slug
+                })
+                .Select(it => ProjectToCatalogItem(it))
+                .ToList();
+        }
+
         private ICatalogItem? FromCatalogItemDto(IEnumerable<CatalogItemWithRelatedData> results)
         {
             if (results.Any())
@@ -154,7 +249,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             }
         }
 
-        private ICatalogItem? ProjectToCatalogItem(IGrouping<CatalogItemGroupingKey, CatalogItemWithRelatedData> dto)
+        private ICatalogItem ProjectToCatalogItem(IGrouping<CatalogItemGroupingKey, CatalogItemWithRelatedData> dto)
         {
             IReadOnlyList<IRollingStock> rollingStocks = dto
                 .Select(it => this.ProjectToRollingStock(it)!)
@@ -162,7 +257,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             CatalogItemWithRelatedData it = dto.First();
 
-            return _factory.NewCatalogItem(
+            return _factory.CatalogItemWith(
                 it.catalog_item_id,
                 it.slug,
                 new BrandInfo(it.brand_id, it.brand_slug, it.brand_name),
@@ -193,28 +288,58 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         }
 
         private static IRailwayInfo ProjectToRailwayInfo(CatalogItemWithRelatedData dto) =>
-            new RailwayInfo(dto.railway_id, dto.railway_slug, dto.railway_name, dto.railway_country!); //TODO: fixme
+            new RailwayInfo(dto.railway_id, dto.railway_slug, dto.railway_name);
 
         private IRollingStock RollingStock(CatalogItemWithRelatedData dto, IRailwayInfo railway) =>
-            _factory.NewRollingStock(
+            _rsFactory.RollingStockWith(
                 dto.rolling_stock_id,
                 railway,
                 dto.era,
                 dto.category,
-                LengthOverBuffer.CreateOrDefault(dto.length_in, dto.length_mm),
+                dto.length_mm,
+                dto.length_in,
                 dto.class_name,
                 dto.road_number,
                 dto.type_name,
+                dto.passenger_car_type,
+                dto.service_level,
                 dto.dcc_interface,
                 dto.control
             );
 
         #region [ Query / Command text ]
 
-        private const string GetCatalogItemByBrandAndItemNumberQuery = @"SELECT 
-                ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, 
+        private const string GetLatestCatalogItemsQuery = @"SELECT 
+                ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,
                 ci.description, ci.model_description, ci.prototype_description, 
-                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, rs.class_name, rs.road_number,
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, 
+                rs.class_name, rs.road_number, rs.type_name, rs.passenger_car_type, rs.service_level,
+                rs.dcc_interface, rs.control,
+                b.brand_id, b.name as brand_name, b.slug as brand_slug,
+                r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
+                s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
+                ci.created, ci.last_modified, ci.version
+            FROM (
+                SELECT * 
+                FROM catalog_items
+                ORDER BY created DESC 
+                LIMIT @limit OFFSET @skip
+            ) AS ci
+            JOIN brands AS b
+            ON b.brand_id = ci.brand_id 
+            JOIN scales AS s
+            ON s.scale_id = ci.scale_id 
+	        JOIN rolling_stocks AS rs 
+            ON rs.catalog_item_id = ci.catalog_item_id
+            JOIN railways AS r
+            ON r.railway_id = rs.railway_id;";
+
+        private const string GetCatalogItemByBrandAndItemNumberQuery = @"SELECT 
+                ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,
+                ci.description, ci.model_description, ci.prototype_description, 
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, 
+                rs.class_name, rs.road_number, rs.type_name, rs.passenger_car_type, rs.service_level,
+                rs.dcc_interface, rs.control,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
@@ -231,9 +356,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             WHERE b.brand_id = @brandId AND ci.item_number = @itemNumber;";
 
         private const string GetCatalogItemBySlug = @"SELECT 
-                ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, 
+                ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,
                 ci.description, ci.model_description, ci.prototype_description, 
-                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, rs.class_name, rs.road_number,
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in,
+                rs.class_name, rs.road_number, rs.type_name, rs.passenger_car_type, rs.service_level,
+                rs.dcc_interface, rs.control,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
                 r.railway_id, r.name as railway_name, r.slug as railway_slug, r.country as railway_country,
                 s.scale_id, s.name as scale_name, s.slug as scale_slug, s.ratio as scale_ratio,
@@ -257,11 +384,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             VALUES(@CatalogItemId, @BrandId, @ScaleId, @ItemNumber, @Slug, @PowerMethod, @DeliveryDate, @Available,
                 @Description, @ModelDescription, @PrototypeDescription, @Created, @Modified, @Version);";
 
-        private const string InsertNewRollingStock = @"INSERT INTO rolling_stocks(
+        private const string UpdateRollingStockCommand = @"UPDATE rolling_stocks SET 
+	            era = @Era, category = @Category, railway_id = @RailwayId, length_mm = @LengthMm, length_in = @LengthIn,
+                class_name = @ClassName, road_number = @RoadNumber, type_name = @TypeName, 
+                passenger_car_type = @PassengerCarType, service_level = @ServiceLevel, 
+                dcc_interface = @DccInterface, control = @Control
+            WHERE rolling_stock_id = @RollingStockId AND catalog_item_id = @CatalogItemId;";
+
+        private const string DeleteRollingStockCommand = @"DELETE FROM rolling_stocks WHERE rolling_stock_id = @RollingStockId AND catalog_item_id = @CatalogItemId;";
+
+        private const string InsertNewRollingStockCommand = @"INSERT INTO rolling_stocks(
 	            rolling_stock_id, era, category, railway_id, catalog_item_id, length_mm, length_in,
-                class_name, road_number, type_name, dcc_interface, control)
+                class_name, road_number, type_name, passenger_car_type, service_level, dcc_interface, control)
 	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @LengthMm, @LengthIn, 
-                @ClassName, @RoadNumber, @TypeName, @DccInterface, @Control);";
+                @ClassName, @RoadNumber, @TypeName, @PassengerCarType, @ServiceLevel, @DccInterface, @Control);";
 
         private const string UpdateCatalogItemCommand = @"UPDATE catalog_items SET 
                 brand_id = @BrandId, 
@@ -277,6 +413,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 last_modified = @Modified, 
                 version = @Version
             WHERE catalog_item_id = @CatalogItemId;";
+
+        private const string DeleteAllRollingStocks = @"DELETE FROM rolling_stocks WHERE catalog_item_id = @CatalogItemId;";
 
         #endregion
     }

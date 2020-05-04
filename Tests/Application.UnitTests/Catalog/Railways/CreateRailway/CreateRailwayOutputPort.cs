@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TreniniDotNet.Application.Catalog.Railways.CreateRailway;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.Railways.OutputPorts
+namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 {
     public sealed class CreateRailwayOutputPort : OutputPortTestHelper<CreateRailwayOutput>, ICreateRailwayOutputPort
     {

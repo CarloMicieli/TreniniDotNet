@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts;
 using TreniniDotNet.Application.Services;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collecting.ValueObjects;
@@ -44,9 +43,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
 
             var id = Guid.NewGuid();
             var input = CollectingInputs.AddItemToWishlist.With(
-                Owner: "George",
-                Id: id,
-                CatalogItem: "acme-123456");
+                owner: "George",
+                id: id,
+                catalogItem: "acme-123456");
 
             await useCase.Execute(input);
 
@@ -61,9 +60,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
 
             var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
             var input = CollectingInputs.AddItemToWishlist.With(
-                Owner: "George",
-                Id: id.ToGuid(),
-                CatalogItem: "acme-123456");
+                owner: "George",
+                id: id.ToGuid(),
+                catalogItem: "acme-123456");
 
             await useCase.Execute(input);
 
@@ -81,9 +80,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
             var item = wishlist.Items.First();
 
             var input = CollectingInputs.AddItemToWishlist.With(
-                Owner: "George",
-                Id: id.ToGuid(),
-                CatalogItem: item.CatalogItem.Slug.ToString());
+                owner: "George",
+                id: id.ToGuid(),
+                catalogItem: item.CatalogItem.Slug.ToString());
 
             await useCase.Execute(input);
 
@@ -104,9 +103,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
             SetNextGeneratedGuid(itemId);
 
             var input = CollectingInputs.AddItemToWishlist.With(
-                Owner: "George",
-                Id: id.ToGuid(),
-                CatalogItem: item.Slug.ToString());
+                owner: "George",
+                id: id.ToGuid(),
+                catalogItem: item.Slug.ToString());
 
             await useCase.Execute(input);
 

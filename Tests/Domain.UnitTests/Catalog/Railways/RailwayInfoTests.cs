@@ -12,7 +12,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             IRailwayInfo info = DieBahn().ToRailwayInfo();
 
             info.Should().NotBeNull();
-            DieBahn().Country.Should().Be(info.Country);
             DieBahn().Name.Should().Be(info.Name);
             DieBahn().Slug.Should().Be(info.Slug);
         }

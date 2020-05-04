@@ -66,7 +66,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Seed
                         mailAddress = new MailAddress(brand.MailAddress?.Replace("[AT]", "@",
                             StringComparison.InvariantCultureIgnoreCase));
                     }
-                    
+
                     var newBrand = brandsFactory.NewBrandWith(
                         brandId: new BrandId(brand.BrandId),
                         name: brand.Name,

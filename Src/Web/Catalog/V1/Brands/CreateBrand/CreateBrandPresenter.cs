@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Catalog.Brands.CreateBrand;
+using TreniniDotNet.Common;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
 namespace TreniniDotNet.Web.Catalog.V1.Brands.CreateBrand
 {
-    public class CreateBrandPresenter : DefaultHttpResultPresenter<CreateBrandOutput>, ICreateBrandOutputPort
+    public sealed class CreateBrandPresenter : DefaultHttpResultPresenter<CreateBrandOutput>, ICreateBrandOutputPort
     {
-        public void BrandAlreadyExists(string message)
+        public void BrandAlreadyExists(Slug brand)
         {
-            ViewModel = new ConflictObjectResult(message);
+            ViewModel = new ConflictObjectResult($"Brand '{brand.Value}' already exists");
         }
 
         public override void Standard(CreateBrandOutput output)

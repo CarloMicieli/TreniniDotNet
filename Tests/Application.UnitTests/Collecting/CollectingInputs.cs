@@ -13,193 +13,193 @@ using TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist;
 using TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem;
 using TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist;
 
-namespace TreniniDotNet.Application.TestInputs.Collecting
+namespace TreniniDotNet.Application.Collecting
 {
     public static class CollectingInputs
     {
         public static class AddItemToCollection
         {
-            public static AddItemToCollectionInput Empty => With();
+            public static readonly AddItemToCollectionInput Empty = With();
 
             public static AddItemToCollectionInput With(
-                Guid? Id = null,
-                string Owner = null,
-                string CatalogItem = null,
-                DateTime? AddedDate = null,
-                decimal? Price = null,
-                string Condition = null,
-                string Shop = null,
-                string Notes = null) =>
+                Guid? id = null,
+                string owner = null,
+                string catalogItem = null,
+                DateTime? addedDate = null,
+                decimal? price = null,
+                string condition = null,
+                string shop = null,
+                string notes = null) =>
                 new AddItemToCollectionInput(
-                    Id ?? Guid.Empty,
-                    Owner,
-                    CatalogItem,
-                    AddedDate ?? DateTime.MinValue,
-                    Price ?? 0M,
-                    Condition,
-                    Shop,
-                    Notes);
+                    id ?? Guid.Empty,
+                    owner,
+                    catalogItem,
+                    addedDate ?? DateTime.MinValue,
+                    price ?? 0M,
+                    condition,
+                    shop,
+                    notes);
         }
 
         public static class AddItemToWishlist
         {
-            public static AddItemToWishlistInput Empty => With();
+            public static readonly AddItemToWishlistInput Empty = With();
 
             public static AddItemToWishlistInput With(
-                string Owner = null,
-                Guid? Id = null,
-                string CatalogItem = null,
-                decimal? Price = null,
-                DateTime? AddedDate = null,
-                string Priority = null,
-                string Notes = null) =>
+                string owner = null,
+                Guid? id = null,
+                string catalogItem = null,
+                decimal? price = null,
+                DateTime? addedDate = null,
+                string priority = null,
+                string notes = null) =>
                 new AddItemToWishlistInput(
-                    Owner,
-                    Id ?? Guid.Empty,
-                    CatalogItem,
-                    AddedDate ?? DateTime.Now,
-                    Price,
-                    Priority,
-                    Notes);
+                    owner,
+                    id ?? Guid.Empty,
+                    catalogItem,
+                    addedDate ?? DateTime.Now,
+                    price,
+                    priority,
+                    notes);
         }
 
         public static class AddShopToFavourites
         {
-            public static AddShopToFavouritesInput Empty => null;
+            public static readonly AddShopToFavouritesInput Empty = With();
 
             public static AddShopToFavouritesInput With() => null;
         }
 
         public static class CreateCollection
         {
-            public static CreateCollectionInput Empty => With();
+            public static readonly CreateCollectionInput Empty = With();
 
-            public static CreateCollectionInput With(string Owner = null, string Notes = null) =>
-                new CreateCollectionInput(Owner, Notes);
+            public static CreateCollectionInput With(string owner = null, string notes = null) =>
+                new CreateCollectionInput(owner, notes);
         }
 
         public static class CreateShop
         {
-            public static CreateShopInput Empty => With();
+            public static readonly CreateShopInput Empty = With();
 
             public static CreateShopInput With(
-                string Name = null, string WebsiteUrl = null,
-                string EmailAddress = null, ShopAddressInput shopAddress = null,
-                string PhoneNumber = null) =>
-                new CreateShopInput(Name, WebsiteUrl, EmailAddress, shopAddress, PhoneNumber);
+                string name = null, string websiteUrl = null,
+                string emailAddress = null, ShopAddressInput shopAddress = null,
+                string phoneNumber = null) =>
+                new CreateShopInput(name, websiteUrl, emailAddress, shopAddress, phoneNumber);
         }
 
         public static class CreateWishlist
         {
-            public static CreateWishlistInput Empty => With();
+            public static readonly CreateWishlistInput Empty = With();
 
-            public static CreateWishlistInput With(string Owner = null, string ListName = null, string Visibility = null) =>
-                new CreateWishlistInput(Owner, ListName, Visibility);
+            public static CreateWishlistInput With(string owner = null, string listName = null, string visibility = null) =>
+                new CreateWishlistInput(owner, listName, visibility);
         }
 
         public static class DeleteWishlist
         {
-            public static DeleteWishlistInput Empty => With();
+            public static readonly DeleteWishlistInput Empty = With();
 
-            public static DeleteWishlistInput With(Guid? Id = null, string Owner = null) =>
-                new DeleteWishlistInput(Owner, Id ?? Guid.Empty);
+            public static DeleteWishlistInput With(Guid? id = null, string owner = null) =>
+                new DeleteWishlistInput(owner, id ?? Guid.Empty);
         }
 
         public static class EditCollectionItem
         {
-            public static EditCollectionItemInput Empty => With();
+            public static readonly EditCollectionItemInput Empty = With();
 
             public static EditCollectionItemInput With(
-                string Owner = null,
-                Guid? Id = null, Guid? ItemId = null,
-                DateTime? AddedDate = null,
-                decimal? Price = null,
-                string Condition = null,
-                string Shop = null,
-                string Notes = null) =>
+                string owner = null,
+                Guid? id = null, Guid? itemId = null,
+                DateTime? addedDate = null,
+                decimal? price = null,
+                string condition = null,
+                string shop = null,
+                string notes = null) =>
                 new EditCollectionItemInput(
-                    Owner,
-                    Id ?? Guid.Empty,
-                    ItemId ?? Guid.Empty,
-                    AddedDate ?? DateTime.MinValue,
-                    Price,
-                    Condition,
-                    Shop,
-                    Notes);
+                    owner,
+                    id ?? Guid.Empty,
+                    itemId ?? Guid.Empty,
+                    addedDate ?? DateTime.MinValue,
+                    price,
+                    condition,
+                    shop,
+                    notes);
         }
 
         public static class EditWishlistItem
         {
-            public static EditWishlistItemInput Empty => With();
+            public static readonly EditWishlistItemInput Empty = With();
 
             public static EditWishlistItemInput With(
-                string Owner = null,
-                Guid? Id = null,
-                Guid? ItemId = null,
-                DateTime? AddedDate = null,
-                decimal? Price = null,
-                string Priority = null,
-                string Notes = null) => new EditWishlistItemInput(
-                    Owner,
-                    Id ?? Guid.Empty,
-                    ItemId ?? Guid.Empty,
-                    AddedDate,
-                    Price,
-                    Priority,
-                    Notes);
+                string owner = null,
+                Guid? id = null,
+                Guid? itemId = null,
+                DateTime? addedDate = null,
+                decimal? price = null,
+                string priority = null,
+                string notes = null) => new EditWishlistItemInput(
+                    owner,
+                    id ?? Guid.Empty,
+                    itemId ?? Guid.Empty,
+                    addedDate,
+                    price,
+                    priority,
+                    notes);
         }
 
         public static class RemoveItemFromCollection
         {
-            public static RemoveItemFromCollectionInput Empty => With();
+            public static readonly RemoveItemFromCollectionInput Empty = With();
 
             public static RemoveItemFromCollectionInput With(
-                string Owner = null,
-                Guid? Id = null,
-                Guid? ItemId = null,
-                DateTime? Removed = null,
-                string Notes = null) => new RemoveItemFromCollectionInput(
-                    Owner,
-                    Id ?? Guid.Empty,
-                    ItemId ?? Guid.Empty,
-                    Removed);
+                string owner = null,
+                Guid? id = null,
+                Guid? itemId = null,
+                DateTime? removed = null,
+                string notes = null) => new RemoveItemFromCollectionInput(
+                    owner,
+                    id ?? Guid.Empty,
+                    itemId ?? Guid.Empty,
+                    removed);
         }
 
         public static class RemoveItemFromWishlist
         {
-            public static RemoveItemFromWishlistInput Empty => With();
+            public static readonly RemoveItemFromWishlistInput Empty = With();
 
             public static RemoveItemFromWishlistInput With(
-                string Owner = null,
-                Guid? Id = null,
-                Guid? ItemId = null) => new RemoveItemFromWishlistInput(Owner, Id ?? Guid.Empty, ItemId ?? Guid.Empty);
+                string owner = null,
+                Guid? id = null,
+                Guid? itemId = null) => new RemoveItemFromWishlistInput(owner, id ?? Guid.Empty, itemId ?? Guid.Empty);
         }
 
         public static class RemoveShopFromFavourites
         {
-            public static RemoveShopFromFavouritesInput Empty => With();
+            public static readonly RemoveShopFromFavouritesInput Empty = With();
 
             public static RemoveShopFromFavouritesInput With() => null;
         }
 
         public static class NewShopAddressInput
         {
-            public static ShopAddressInput NewEmpty() => With();
+            public static readonly ShopAddressInput Empty = With();
 
             public static ShopAddressInput With(
-                string Line1 = null,
-                string Line2 = null,
-                string City = null,
-                string Region = null,
-                string PostalCode = null,
-                string Country = null) => new ShopAddressInput
+                string line1 = null,
+                string line2 = null,
+                string city = null,
+                string region = null,
+                string postalCode = null,
+                string country = null) => new ShopAddressInput
                 {
-                    Line1 = Line1,
-                    Line2 = Line2,
-                    City = City,
-                    Region = Region,
-                    PostalCode = PostalCode,
-                    Country = Country
+                    Line1 = line1,
+                    Line2 = line2,
+                    City = city,
+                    Region = region,
+                    PostalCode = postalCode,
+                    Country = country
                 };
         }
     }

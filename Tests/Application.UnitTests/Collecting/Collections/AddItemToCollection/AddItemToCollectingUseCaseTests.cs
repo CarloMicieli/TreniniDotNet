@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Application.InMemory.Collecting.Collections.OutputPorts;
 using TreniniDotNet.Application.Services;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collecting.Collections;
@@ -46,9 +45,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
             var input = CollectingInputs.AddItemToCollection.With(
-                Owner: owner,
-                CatalogItem: "acme-60392",
-                Price: 450M);
+                owner: owner,
+                catalogItem: "acme-60392",
+                price: 450M);
 
             await useCase.Execute(input);
 
@@ -64,10 +63,10 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
             var input = CollectingInputs.AddItemToCollection.With(
-                Owner: "George",
-                CatalogItem: "acme-60392",
-                Shop: "Not found",
-                Price: 450M);
+                owner: "George",
+                catalogItem: "acme-60392",
+                shop: "Not found",
+                price: 450M);
 
             await useCase.Execute(input);
 
@@ -84,9 +83,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
             var input = CollectingInputs.AddItemToCollection.With(
-                Owner: "George",
-                CatalogItem: catalogItem.ToString(),
-                Price: 450M);
+                owner: "George",
+                catalogItem: catalogItem.ToString(),
+                price: 450M);
 
             await useCase.Execute(input);
 
@@ -105,9 +104,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
             var input = CollectingInputs.AddItemToCollection.With(
-                Owner: "George",
-                CatalogItem: "acme-60392",
-                Price: 450M);
+                owner: "George",
+                catalogItem: "acme-60392",
+                price: 450M);
 
             await useCase.Execute(input);
 

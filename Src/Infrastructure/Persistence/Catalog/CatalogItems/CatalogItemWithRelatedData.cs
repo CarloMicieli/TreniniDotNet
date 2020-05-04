@@ -27,7 +27,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public Guid railway_id { get; set; } = default;
         public string railway_name { get; set; } = null!;
         public string railway_slug { get; set; } = null!;
-        public string? railway_country { get; set; }
         public string era { set; get; } = null!;
         public string category { set; get; } = null!;
         public decimal? length_mm { get; set; }
@@ -37,6 +36,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public string? type_name { get; set; }
         public string? dcc_interface { get; set; }
         public string? control { get; set; }
+        public string? passenger_car_type { get; set; }
+        public string? service_level { get; set; }
         public DateTime? created_at { set; get; }
         public int? version { set; get; }
     }

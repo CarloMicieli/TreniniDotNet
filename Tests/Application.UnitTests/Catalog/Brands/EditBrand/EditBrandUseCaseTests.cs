@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Catalog.Brands.OutputPorts;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using Xunit;
-using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
 {
@@ -17,7 +16,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
         {
             var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
 
-            await useCase.Execute(NewEditBrandInput.With(WebsiteUrl: "--invalid--"));
+            await useCase.Execute(NewEditBrandInput.With(websiteUrl: "--invalid--"));
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -29,7 +28,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
 
             var brandSlug = Slug.Of("ACME");
 
-            await useCase.Execute(NewEditBrandInput.With(BrandSlug: brandSlug));
+            await useCase.Execute(NewEditBrandInput.With(brandSlug: brandSlug));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertBrandWasNotFound(brandSlug);
@@ -42,7 +41,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
 
             var brandSlug = Slug.Of("ACME");
 
-            await useCase.Execute(NewEditBrandInput.With(BrandSlug: brandSlug, Name: "A.C.M.E."));
+            await useCase.Execute(NewEditBrandInput.With(brandSlug: brandSlug, name: "A.C.M.E."));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();

@@ -7,7 +7,7 @@ using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
-[assembly: InternalsVisibleTo("Domain.UnitTests")]
+[assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class Brand : ModifiableEntity, IBrand, IEquatable<Brand>
@@ -72,10 +72,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             return false;
         }
 
-        public static bool operator ==(Brand left, Brand right) => AreEquals(left, right);
-
-        public static bool operator !=(Brand left, Brand right) => !AreEquals(left, right);
-
         public bool Equals(Brand other) => AreEquals(this, other);
 
         private static bool AreEquals(Brand left, Brand right)
@@ -88,7 +84,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             return left.BrandId == right.BrandId &&
                 left.Name == right.Name;
         }
-        #endregion  
+        #endregion
 
         #region [ Standard methods overrides ]
 

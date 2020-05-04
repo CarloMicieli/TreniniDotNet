@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using TreniniDotNet.Application.InMemory.Catalog.CatalogItems.OutputPorts;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;

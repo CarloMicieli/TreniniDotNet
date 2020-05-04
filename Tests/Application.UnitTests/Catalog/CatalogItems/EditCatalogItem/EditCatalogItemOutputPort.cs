@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem;
 using TreniniDotNet.Common;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.CatalogItems.OutputPorts
+namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 {
     public class EditCatalogItemOutputPort : OutputPortTestHelper<EditCatalogItemOutput>, IEditCatalogItemOutputPort
     {

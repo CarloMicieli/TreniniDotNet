@@ -5,12 +5,13 @@ using TreniniDotNet.Common.DeliveryDates;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using static TreniniDotNet.TestHelpers.SeedData.Catalog.CatalogSeedData;
 
 namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class CatalogItems
     {
-        private readonly static ICatalogItemsFactory factory =
+        private static readonly ICatalogItemsFactory factory =
             new CatalogItemsFactory(SystemClock.Instance, new GuidSource());
 
         private readonly ICatalogItem _acme_60458;
@@ -57,163 +58,168 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         private static ICatalogItem Build_Acme_60392()
         {
-            var rs = factory.NewLocomotive(
+            var rs = NewRollingStockWith(
+                RollingStockId.NewId(),
                 CatalogSeedData.Railways.Fs(),
-                Era.IV.ToString(),
-                Category.ElectricLocomotive.ToString(),
+                Category.ElectricLocomotive,
+                Epoch.IV,
                 LengthOverBuffer.OfMillimeters(210M),
                 "E 656",
                 "E 656 291",
-                DccInterface.Nem652.ToString(),
-                Control.DccReady.ToString());
+                dccInterface: DccInterface.Nem652,
+                control: Control.DccReady);
 
-            return factory.CreateNewCatalogItem(
+            return NewCatalogItemWith(
+                CatalogItemId.NewId(),
                 CatalogSeedData.Brands.Acme(),
-                new ItemNumber("60392"),
                 CatalogSeedData.Scales.ScaleH0(),
+                new ItemNumber("60392"),
                 PowerMethod.DC,
-                ImmutableList.Create<IRollingStock>(rs),
                 @"FS Locomotiva elettrica E.656.291 (terza serie). Livrea d’origine con smorzatori",
-                null, null,
-                DeliveryDate.FourthQuarterOf(2020),
-                false);
+                rollingStocks: ImmutableList.Create<IRollingStock>(rs),
+                deliveryDate: DeliveryDate.FourthQuarterOf(2020),
+                available: false);
         }
 
         private static ICatalogItem Build_Acme_60458()
         {
-            var rs = factory.NewLocomotive(
+            var rs = NewRollingStockWith(
+                RollingStockId.NewId(),
                 CatalogSeedData.Railways.Fs(),
-                Era.IV.ToString(),
-                Category.ElectricLocomotive.ToString(),
+                Category.ElectricLocomotive,
+                Epoch.IV,
                 LengthOverBuffer.OfMillimeters(210M),
                 "E 636",
                 "E 636 117",
-                DccInterface.Nem652.ToString(),
-                Control.DccReady.ToString());
+                dccInterface: DccInterface.Nem652,
+                control: Control.DccReady);
 
-            return factory.CreateNewCatalogItem(
+            return NewCatalogItemWith(
+                CatalogItemId.NewId(),
                 CatalogSeedData.Brands.Acme(),
-                new ItemNumber("60458"),
                 CatalogSeedData.Scales.ScaleH0(),
+                new ItemNumber("60458"),
                 PowerMethod.DC,
-                ImmutableList.Create<IRollingStock>(rs),
                 @"FS Locomotiva elettrica E 636 117 nella livrea storica blu orientale e grigio 
                 perla con vomere giallo, logo e scritta Trenitalia, nella fase di fine esercizio",
-                null, null,
-                DeliveryDate.FourthQuarterOf(2020),
-                false);
+                rollingStocks: ImmutableList.Create<IRollingStock>(rs),
+                deliveryDate: DeliveryDate.FourthQuarterOf(2020),
+                available: false);
         }
 
         private static ICatalogItem Build_Rivarossi_HR4298()
         {
-            var rs = factory.NewRollingStock(
+            var rs = NewRollingStockWith(
+                RollingStockId.NewId(),
                 CatalogSeedData.Railways.Fs(),
-                Era.IV.ToString(),
-                Category.PassengerCar.ToString(),
+                Category.PassengerCar,
+                Epoch.IV,
                 LengthOverBuffer.OfMillimeters(195M),
-                "Corbellini");
+                typeName: "Corbellini");
 
-            return factory.CreateNewCatalogItem(
+            return NewCatalogItemWith(
+                CatalogItemId.NewId(),
                 CatalogSeedData.Brands.Rivarossi(),
-                new ItemNumber("HR4298"),
                 CatalogSeedData.Scales.ScaleH0(),
+                new ItemNumber("HR4298"),
                 PowerMethod.DC,
-                ImmutableList.Create<IRollingStock>(rs, rs),
                 @"FS set 2 carrozze a due assi tipo ''Corbellini'' livrea grigio ardesia di 2 cl.",
-                null, null,
-                DeliveryDate.FirstQuarterOf(2020),
-                true);
+                rollingStocks: ImmutableList.Create<IRollingStock>(rs, rs),
+                deliveryDate: DeliveryDate.FirstQuarterOf(2020),
+                available: true);
         }
 
         private static ICatalogItem Build_Roco_62182()
         {
-            var rs = factory.NewLocomotive(
+            var rs = NewRollingStockWith(
+                RollingStockId.NewId(),
                 CatalogSeedData.Railways.DR(),
-                Era.III.ToString(),
-                Category.SteamLocomotive.ToString(),
+                Category.SteamLocomotive,
+                Epoch.III,
                 LengthOverBuffer.OfMillimeters(254M),
                 "BR 50.40",
-                null,
-                DccInterface.Next18.ToString(),
-                Control.DccReady.ToString());
+                dccInterface: DccInterface.Next18,
+                control: Control.DccReady);
 
-            return factory.CreateNewCatalogItem(
+            return NewCatalogItemWith(
+                CatalogItemId.NewId(),
                 CatalogSeedData.Brands.Roco(),
-                new ItemNumber("62182"),
                 CatalogSeedData.Scales.ScaleH0(),
+                new ItemNumber("62182"),
                 PowerMethod.DC,
-                ImmutableList.Create(rs),
                 @"Steam locomotive BR 50.40 of the Deutsche Reichsbahn.",
-                null, null,
-                DeliveryDate.FirstQuarterOf(2020),
-                true);
+                rollingStocks: ImmutableList.Create(rs),
+                deliveryDate: DeliveryDate.FirstQuarterOf(2020),
+                available: true);
         }
 
         private static ICatalogItem Build_Bemo_1252125()
         {
-            var rs = factory.NewLocomotive(
+            var rs = NewRollingStockWith(
+                RollingStockId.NewId(),
                 CatalogSeedData.Railways.RhB(),
-                Era.V.ToString(),
-                Category.ElectricLocomotive.ToString(),
+                Category.ElectricLocomotive,
+                Epoch.V,
                 LengthOverBuffer.OfMillimeters(139M),
                 "Ge 4/4 I",
                 "Ge 4/4 I 605",
-                DccInterface.Mtc21.ToString(),
-                Control.DccReady.ToString());
+                dccInterface: DccInterface.Mtc21,
+                control: Control.DccReady);
 
-            return factory.CreateNewCatalogItem(
+            return NewCatalogItemWith(
+                CatalogItemId.NewId(),
                 CatalogSeedData.Brands.Bemo(),
-                new ItemNumber("1252125"),
                 CatalogSeedData.Scales.ScaleH0m(),
+                new ItemNumber("1252125"),
                 PowerMethod.DC,
-                ImmutableList.Create(rs),
                 @"Reissue of the Ge 4/4 I 601-610 in the conversion version after the 
                 modernization of the prototype, now with revised chassis.",
-                null, null,
-                DeliveryDate.FirstQuarterOf(2020),
-                true);
+                rollingStocks: ImmutableList.Create(rs),
+                deliveryDate: DeliveryDate.FirstQuarterOf(2020),
+                available: true);
         }
 
         private static ICatalogItem Build_Bemo_1254134()
         {
-            var rs = factory.NewLocomotive(
+            var rs = NewRollingStockWith(
+                RollingStockId.NewId(),
                 CatalogSeedData.Railways.RhB(),
-                Era.V.ToString(),
-                Category.ElectricLocomotive.ToString(),
+                Category.ElectricLocomotive,
+                Epoch.V,
                 LengthOverBuffer.OfMillimeters(166.7M),
                 "Ge 6/6 II",
                 "Ge 6/6 II 704 Davos",
-                DccInterface.Nem651.ToString(),
-                Control.DccReady.ToString());
+                dccInterface: DccInterface.Nem651,
+                control: Control.DccReady);
 
-            return factory.CreateNewCatalogItem(
+            return NewCatalogItemWith(
+                CatalogItemId.NewId(),
                 CatalogSeedData.Brands.Bemo(),
-                new ItemNumber("1254134"),
                 CatalogSeedData.Scales.ScaleH0m(),
+                new ItemNumber("1254134"),
                 PowerMethod.DC,
-                ImmutableList.Create(rs),
                 @"Electric Locomotive Ge6/6 II of the RhB",
-                null, null,
-                DeliveryDate.FirstQuarterOf(2020),
-                true);
+                rollingStocks: ImmutableList.Create(rs),
+                deliveryDate: DeliveryDate.FirstQuarterOf(2020),
+                available: true);
         }
 
         private static ICatalogItem Build_Acme_999999()
         {
-            return factory.CreateNewCatalogItem(
+            return NewCatalogItemWith(
+                CatalogItemId.NewId(),
                 CatalogSeedData.Brands.Acme(),
-                new ItemNumber("999999"),
                 CatalogSeedData.Scales.ScaleH0(),
+                new ItemNumber("999999"),
                 PowerMethod.DC,
-                ImmutableList<IRollingStock>.Empty,
                 "Catalog item - empty",
-                null, null,
-                DeliveryDate.FirstQuarterOf(2020),
-                true);
+                rollingStocks: ImmutableList<IRollingStock>.Empty,
+                deliveryDate: DeliveryDate.FirstQuarterOf(2020),
+                available: true);
         }
     }
 
-    public static class ICatalogItemsRepositoryExtensions
+    public static class CatalogItemsRepositoryExtensions
     {
         public static void SeedDatabase(this ICatalogItemRepository repo)
         {

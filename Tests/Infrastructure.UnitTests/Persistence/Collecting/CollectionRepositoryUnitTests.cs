@@ -75,7 +75,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
                 railway_id = Fs.RailwayId.ToGuid(),
                 name = Fs.Name,
                 slug = Fs.Slug.ToString(),
-                country = Fs.Country.Code,
                 created = DateTime.UtcNow
             });
 
@@ -108,7 +107,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
                 rolling_stock_id = Guid.NewGuid(),
                 catalog_item_id = Acme_123456.CatalogItemId.ToGuid(),
                 category = Category.ElectricLocomotive.ToString(),
-                era = Era.V.ToString(),
+                era = Epoch.V.ToString(),
                 railway_id = Fs.RailwayId.ToGuid()
             });
 
@@ -129,7 +128,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
                 rolling_stock_id = Guid.NewGuid(),
                 catalog_item_id = Acme_123457.CatalogItemId.ToGuid(),
                 category = Category.ElectricLocomotive.ToString(),
-                era = Era.V.ToString(),
+                era = Epoch.V.ToString(),
                 railway_id = Fs.RailwayId.ToGuid()
             });
         }

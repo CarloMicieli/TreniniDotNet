@@ -22,7 +22,6 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         {
             _brandService = brandService ??
                 throw new ArgumentNullException(nameof(brandService));
-
             _unitOfWork = unitOfWork ??
                 throw new ArgumentNullException(nameof(unitOfWork));
         }
@@ -30,12 +29,12 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         protected override async Task Handle(CreateBrandInput input)
         {
             string brandName = input.Name;
-            Slug slug = Slug.Of(brandName);
+            var slug = Slug.Of(brandName);
 
-            bool brandExists = await _brandService.BrandAlreadyExists(slug);
+            var brandExists = await _brandService.BrandAlreadyExists(slug);
             if (brandExists)
             {
-                OutputPort.BrandAlreadyExists($"Brand '{brandName}' already exists");
+                OutputPort.BrandAlreadyExists(slug);
                 return;
             }
 

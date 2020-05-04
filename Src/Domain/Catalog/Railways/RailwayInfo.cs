@@ -6,17 +6,16 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public sealed class RailwayInfo : IRailwayInfo, IEquatable<RailwayInfo>
     {
-        public RailwayInfo(Guid railwayId, string slug, string name, string country)
-            : this(new RailwayId(railwayId), Slug.Of(slug), name, Country.Of(country))
+        public RailwayInfo(Guid railwayId, string slug, string name)
+            : this(new RailwayId(railwayId), Slug.Of(slug), name)
         {
         }
 
-        public RailwayInfo(RailwayId railwayId, Slug slug, string name, Country country)
+        public RailwayInfo(RailwayId railwayId, Slug slug, string name)
         {
             RailwayId = railwayId;
             Slug = slug;
             Name = name;
-            Country = country;
         }
 
         public RailwayId RailwayId { get; }
@@ -24,8 +23,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public Slug Slug { get; }
 
         public string Name { get; }
-
-        public Country Country { get; }
 
         public override int GetHashCode() => RailwayId.GetHashCode();
 
@@ -44,10 +41,5 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         private static bool AreEquals(RailwayInfo left, RailwayInfo right) =>
             left.RailwayId.Equals(right.RailwayId);
-
-        public IRailwayInfo ToRailwayInfo()
-        {
-            return this;
-        }
     }
 }

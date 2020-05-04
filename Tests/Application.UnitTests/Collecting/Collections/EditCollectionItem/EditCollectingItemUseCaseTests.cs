@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Application.InMemory.Collecting.Collections.OutputPorts;
 using TreniniDotNet.Application.Services;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collecting.Collections;
@@ -44,10 +43,10 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var collection = CollectionSeedData.Collections.GeorgeCollection();
             var id = collection.CollectionId;
             var input = CollectingInputs.EditCollectionItem.With(
-                Owner: collection.Owner.Value,
-                Id: id.ToGuid(),
-                ItemId: Guid.NewGuid(),
-                Price: 450M);
+                owner: collection.Owner.Value,
+                id: id.ToGuid(),
+                itemId: Guid.NewGuid(),
+                price: 450M);
 
             await useCase.Execute(input);
 
@@ -64,10 +63,10 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var id = collection.CollectionId;
             var itemId = Guid.NewGuid();
             var input = CollectingInputs.EditCollectionItem.With(
-                Owner: collection.Owner.Value,
-                Id: id.ToGuid(),
-                ItemId: itemId,
-                Price: 450M);
+                owner: collection.Owner.Value,
+                id: id.ToGuid(),
+                itemId: itemId,
+                price: 450M);
 
             await useCase.Execute(input);
 
@@ -84,10 +83,10 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var id = collection.CollectionId;
             var itemId = Guid.NewGuid();
             var input = CollectingInputs.EditCollectionItem.With(
-                Owner: collection.Owner.Value,
-                Id: id.ToGuid(),
-                ItemId: itemId,
-                Price: 450M);
+                owner: collection.Owner.Value,
+                id: id.ToGuid(),
+                itemId: itemId,
+                price: 450M);
 
             await useCase.Execute(input);
 
@@ -104,11 +103,11 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var id = collection.CollectionId;
             var itemId = collection.Items.Select(it => it.ItemId.ToGuid()).First();
             var input = CollectingInputs.EditCollectionItem.With(
-                Owner: collection.Owner,
-                Id: id.ToGuid(),
-                ItemId: itemId,
-                Shop: "Not found",
-                Price: 450M);
+                owner: collection.Owner,
+                id: id.ToGuid(),
+                itemId: itemId,
+                shop: "Not found",
+                price: 450M);
 
             await useCase.Execute(input);
 
@@ -125,10 +124,10 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var id = collection.CollectionId;
             var itemId = collection.Items.Select(it => it.ItemId).First();
             var input = CollectingInputs.EditCollectionItem.With(
-                Owner: collection.Owner,
-                Id: id.ToGuid(),
-                ItemId: itemId.ToGuid(),
-                Price: 450M);
+                owner: collection.Owner,
+                id: id.ToGuid(),
+                itemId: itemId.ToGuid(),
+                price: 450M);
 
             await useCase.Execute(input);
 

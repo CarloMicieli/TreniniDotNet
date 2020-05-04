@@ -1,11 +1,15 @@
-﻿using System.Threading.Tasks;
-using TreniniDotNet.Application.InMemory.Catalog.CatalogItems.OutputPorts;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using NodaTime;
+using NodaTime.Testing;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using Xunit;
-using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 {
@@ -26,7 +30,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
         {
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewEditCatalogItem);
 
-            await useCase.Execute(NewEditCatalogItemInput.With(ItemSlug: Slug.Of("acme-99999")));
+            await useCase.Execute(NewEditCatalogItemInput.With(itemSlug: Slug.Of("acme-99999")));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertCatalogItemWasNotFound(Slug.Of("acme-99999"));
@@ -38,8 +42,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
 
             var input = NewEditCatalogItemInput.With(
-                ItemSlug: Slug.Of("acme-60392"),
-                Brand: "--not found--");
+                itemSlug: Slug.Of("acme-60392"),
+                brand: "--not found--");
 
             await useCase.Execute(input);
 
@@ -53,8 +57,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
 
             var input = NewEditCatalogItemInput.With(
-                ItemSlug: Slug.Of("acme-60392"),
-                Scale: "not found");
+                itemSlug: Slug.Of("acme-60392"),
+                scale: "not found");
 
             await useCase.Execute(input);
 
@@ -62,20 +66,20 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             outputPort.AssertScaleWasNotFound(Slug.Of("--not found--"));
         }
 
-        //[Fact]
-        //public async Task EditCatalogItem_ShouldOutputRailwayNotFound_WhenARailwayWasNotFound()
-        //{
-        //    var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
+        [Fact]
+        public async Task EditCatalogItem_ShouldOutputRailwayNotFound_WhenARailwayWasNotFound()
+        {
+            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
 
-        //    var input = NewEditCatalogItemInput.With(
-        //        ItemSlug: Slug.Of("acme-60392"),
-        //        RollingStocks: ListOf());
+            var input = NewEditCatalogItemInput.With(
+                itemSlug: Slug.Of("acme-60392"),
+                rollingStocks: RollingStockList(Epoch.IV.ToString(), Category.DieselLocomotive.ToString(), "--not found--"));
 
-        //    await useCase.Execute(input);
+            await useCase.Execute(input);
 
-        //    outputPort.ShouldHaveNoValidationError();
-        //    outputPort.AssertScaleWasNotFound(Slug.Of("--not found--"));
-        //}
+            outputPort.ShouldHaveNoValidationError();
+            outputPort.AssertRailwayWasNotFound(new List<Slug>() { Slug.Of("--not found--") });
+        }
 
         [Fact]
         public async Task EditCatalogItem_ShouldUpdateCatalogItem()
@@ -83,8 +87,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             var (useCase, outputPort, unitOfWork) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
 
             var input = NewEditCatalogItemInput.With(
-                ItemSlug: Slug.Of("acme-60392"),
-                Description: "Modified description");
+                itemSlug: Slug.Of("acme-60392"),
+                description: "Modified description");
 
             await useCase.Execute(input);
 
@@ -97,7 +101,21 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 
         private EditCatalogItemUseCase NewEditCatalogItem(CatalogItemService catalogItemService, EditCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)
         {
-            return new EditCatalogItemUseCase(outputPort, catalogItemService, unitOfWork);
+            var fakeClock = new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0));
+
+            IRollingStocksFactory rollingStocksFactory = new RollingStocksFactory(
+                fakeClock, FakeGuidSource.NewSource(Guid.NewGuid()));
+
+            return new EditCatalogItemUseCase(outputPort, rollingStocksFactory, catalogItemService, unitOfWork);
+        }
+
+        private static IReadOnlyList<RollingStockInput> RollingStockList(string era, string category, string railway)
+        {
+            var rollingStockInput = CatalogInputs.NewRollingStockInput.With(
+                epoch: era,
+                category: category,
+                railway: railway);
+            return new List<RollingStockInput>() { rollingStockInput };
         }
     }
 }

@@ -3,9 +3,13 @@ using TreniniDotNet.Application.Catalog.Brands.CreateBrand;
 using TreniniDotNet.Application.Catalog.Brands.EditBrand;
 using TreniniDotNet.Application.Catalog.Brands.GetBrandBySlug;
 using TreniniDotNet.Application.Catalog.Brands.GetBrandsList;
+using TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalogItem;
 using TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem;
 using TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem;
+using TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock;
 using TreniniDotNet.Application.Catalog.CatalogItems.GetCatalogItemBySlug;
+using TreniniDotNet.Application.Catalog.CatalogItems.GetLatestCatalogItems;
+using TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromCatalogItem;
 using TreniniDotNet.Application.Catalog.Railways.CreateRailway;
 using TreniniDotNet.Application.Catalog.Railways.EditRailway;
 using TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug;
@@ -18,9 +22,13 @@ using TreniniDotNet.Web.Catalog.V1.Brands.CreateBrand;
 using TreniniDotNet.Web.Catalog.V1.Brands.EditBrand;
 using TreniniDotNet.Web.Catalog.V1.Brands.GetBrandBySlug;
 using TreniniDotNet.Web.Catalog.V1.Brands.GetBrandsList;
+using TreniniDotNet.Web.Catalog.V1.CatalogItems.AddRollingStockToCatalogItem;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.CreateCatalogItem;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.EditCatalogItem;
+using TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.GetCatalogItemBySlug;
+using TreniniDotNet.Web.Catalog.V1.CatalogItems.GetLatestCatalogItems;
+using TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalogItem;
 using TreniniDotNet.Web.Catalog.V1.Railways.CreateRailway;
 using TreniniDotNet.Web.Catalog.V1.Railways.EditRailway;
 using TreniniDotNet.Web.Catalog.V1.Railways.GetRailwayBySlug;
@@ -49,6 +57,10 @@ namespace TreniniDotNet.Web.Catalog.V1
             services.AddPresenter<ICreateCatalogItemOutputPort, CreateCatalogItemPresenter>();
             services.AddPresenter<IGetCatalogItemBySlugOutputPort, GetCatalogItemBySlugPresenter>();
             services.AddPresenter<IEditCatalogItemOutputPort, EditCatalogItemPresenter>();
+            services.AddPresenter<IGetLatestCatalogItemsOutputPort, GetLatestCatalogItemsPresenter>();
+            services.AddPresenter<IAddRollingStockToCatalogItemOutputPort, AddRollingStockToCatalogItemPresenter>();
+            services.AddPresenter<IEditRollingStockOutputPort, EditRollingStockPresenter>();
+            services.AddPresenter<IRemoveRollingStockFromCatalogItemOutputPort, RemoveRollingStockFromCatalogItemPresenter>();
 
             return services;
         }

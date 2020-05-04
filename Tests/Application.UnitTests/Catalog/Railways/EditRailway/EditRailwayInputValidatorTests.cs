@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using TreniniDotNet.Common;
 using Xunit;
-using static TreniniDotNet.Application.TestInputs.Catalog.CatalogInputs;
+using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
 {
@@ -28,8 +28,8 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
         public void EditRailwayInput_ShouldFailValidation_WhenCountryCodeIsNotValid()
         {
             var input = NewEditRailwayInput.With(
-                RailwaySlug: Slug.Of("RhB"),
-                Country: "ZZ");
+                railwaySlug: Slug.Of("RhB"),
+                country: "ZZ");
 
             var result = Validator.TestValidate(input);
 

@@ -1,26 +1,31 @@
+using TreniniDotNet.Common.UseCases.Interfaces.Input;
+
 namespace TreniniDotNet.Application.Catalog.CatalogItems
 {
-    public sealed class RollingStockInput
+    public sealed class RollingStockInput : IUseCaseInput
     {
         public RollingStockInput(
-            string era, string category,
+            string epoch, string category,
             string railway,
-            string? className, string? roadNumber, string? typeName,
-            LengthOverBufferInput? length,
+            string? className, string? roadNumber,
+            string? typeName, string? passengerCarType, string? serviceLevel,
+            LengthOverBufferInput? lengthOverBuffer,
             string? control, string? dccInterface)
         {
-            Era = era;
+            Epoch = epoch;
             Category = category;
             Railway = railway;
             ClassName = className;
             RoadNumber = roadNumber;
             TypeName = typeName;
-            Length = length ?? LengthOverBufferInput.Default();
+            PassengerCarType = passengerCarType;
+            ServiceLevel = serviceLevel;
+            LengthOverBuffer = lengthOverBuffer ?? LengthOverBufferInput.Default();
             Control = control;
             DccInterface = dccInterface;
         }
 
-        public string Era { get; }
+        public string Epoch { get; }
 
         public string Category { get; }
 
@@ -32,31 +37,14 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
 
         public string? RoadNumber { get; }
 
-        public LengthOverBufferInput Length { get; }
+        public string? PassengerCarType { get; }
+
+        public string? ServiceLevel { get; }
+
+        public LengthOverBufferInput LengthOverBuffer { get; }
 
         public string? DccInterface { get; }
 
         public string? Control { get; }
-    }
-
-    public sealed class LengthOverBufferInput
-    {
-        public LengthOverBufferInput(decimal? millimeters, decimal? inches)
-        {
-            Millimeters = millimeters;
-            Inches = inches;
-        }
-
-        public decimal? Millimeters { get; }
-        public decimal? Inches { get; }
-
-        public void Deconstruct(out decimal? mm, out decimal? inches)
-        {
-            mm = Millimeters;
-            inches = Inches;
-        }
-
-        public static LengthOverBufferInput Default() =>
-            new LengthOverBufferInput(null, null);
     }
 }

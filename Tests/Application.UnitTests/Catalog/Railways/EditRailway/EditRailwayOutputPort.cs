@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TreniniDotNet.Application.Catalog.Railways.EditRailway;
 using TreniniDotNet.Common;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.Railways.OutputPorts
+namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
 {
     public class EditRailwayOutputPort : OutputPortTestHelper<EditRailwayOutput>, IEditRailwayOutputPort
     {

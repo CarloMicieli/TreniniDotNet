@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Application.InMemory.Collecting.Collections.OutputPorts;
 using TreniniDotNet.Application.Services;
-using TreniniDotNet.Application.TestInputs.Collecting;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Domain.Collecting.Collections;
 using Xunit;
@@ -37,7 +36,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
         {
             var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewCreateCollection);
 
-            await useCase.Execute(CollectingInputs.CreateCollection.With(Owner: "George"));
+            await useCase.Execute(CollectingInputs.CreateCollection.With(owner: "George"));
 
             outputPort.ShouldHaveUserHasAlreadyOneCollectionMessage("The user already owns a collection");
         }
@@ -51,8 +50,8 @@ namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
             var (useCase, outputPort, unitOfWork) = ArrangeCollectionUseCase(Start.WithSeedData, NewCreateCollection);
 
             await useCase.Execute(CollectingInputs.CreateCollection.With(
-                Owner: "John",
-                Notes: "My notes"));
+                owner: "John",
+                notes: "My notes"));
 
             outputPort.ShouldHaveStandardOutput();
             outputPort.ShouldHaveNoValidationError();

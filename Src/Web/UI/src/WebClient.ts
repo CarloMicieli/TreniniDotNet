@@ -1699,6 +1699,175 @@ export class CatalogItemsClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
+    deleteRollingStock(slug: string | null, rollingStockId: string): Promise<void> {
+        let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}/rollingStocks/{rollingStockId}";
+        if (slug === undefined || slug === null)
+            throw new Error("The parameter 'slug' must be defined.");
+        url_ = url_.replace("{slug}", encodeURIComponent("" + slug));
+        if (rollingStockId === undefined || rollingStockId === null)
+            throw new Error("The parameter 'rollingStockId' must be defined.");
+        url_ = url_.replace("{rollingStockId}", encodeURIComponent("" + rollingStockId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "DELETE",
+            headers: {
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processDeleteRollingStock(_response);
+        });
+    }
+
+    protected processDeleteRollingStock(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 204) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            });
+        } else if (status === 422) {
+            return response.text().then((_responseText) => {
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = ProblemDetails.fromJS(resultData422);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            });
+        } else if (status === 500) {
+            return response.text().then((_responseText) => {
+            return throwException("A server side error occurred.", status, _responseText, _headers);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<void>(<any>null);
+    }
+
+    editRollingStock(slug: string | null, rollingStockId: string, request: EditRollingStockRequest): Promise<EditRollingStockOutput> {
+        let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}/rollingStocks/{rollingStockId}";
+        if (slug === undefined || slug === null)
+            throw new Error("The parameter 'slug' must be defined.");
+        url_ = url_.replace("{slug}", encodeURIComponent("" + slug));
+        if (rollingStockId === undefined || rollingStockId === null)
+            throw new Error("The parameter 'rollingStockId' must be defined.");
+        url_ = url_.replace("{rollingStockId}", encodeURIComponent("" + rollingStockId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(request);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processEditRollingStock(_response);
+        });
+    }
+
+    protected processEditRollingStock(response: Response): Promise<EditRollingStockOutput> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = EditRollingStockOutput.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            });
+        } else if (status === 422) {
+            return response.text().then((_responseText) => {
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = ProblemDetails.fromJS(resultData422);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            });
+        } else if (status === 500) {
+            return response.text().then((_responseText) => {
+            return throwException("A server side error occurred.", status, _responseText, _headers);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<EditRollingStockOutput>(<any>null);
+    }
+
+    getLatestCatalogItems(start: number | undefined, limit: number | undefined): Promise<CatalogItemView> {
+        let url_ = this.baseUrl + "/api/v1/CatalogItems/latest?";
+        if (start === null)
+            throw new Error("The parameter 'start' cannot be null.");
+        else if (start !== undefined)
+            url_ += "start=" + encodeURIComponent("" + start) + "&";
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGetLatestCatalogItems(_response);
+        });
+    }
+
+    protected processGetLatestCatalogItems(response: Response): Promise<CatalogItemView> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CatalogItemView.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status === 404) {
+            return response.text().then((_responseText) => {
+            let result404: any = null;
+            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result404 = ProblemDetails.fromJS(resultData404);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            });
+        } else if (status === 500) {
+            return response.text().then((_responseText) => {
+            return throwException("A server side error occurred.", status, _responseText, _headers);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<CatalogItemView>(<any>null);
+    }
+
     getCatalogItemBySlug(slug: string | null): Promise<CatalogItemView> {
         let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}";
         if (slug === undefined || slug === null)
@@ -1874,6 +2043,72 @@ export class CatalogItemsClient {
             });
         }
         return Promise.resolve<CreateCatalogItemOutput>(<any>null);
+    }
+
+    postRollingStock(slug: string | null, request: RollingStockRequest): Promise<AddRollingStockToCatalogItemOutput> {
+        let url_ = this.baseUrl + "/api/v1/CatalogItems/{slug}/rollingStocks";
+        if (slug === undefined || slug === null)
+            throw new Error("The parameter 'slug' must be defined.");
+        url_ = url_.replace("{slug}", encodeURIComponent("" + slug));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(request);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processPostRollingStock(_response);
+        });
+    }
+
+    protected processPostRollingStock(response: Response): Promise<AddRollingStockToCatalogItemOutput> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 201) {
+            return response.text().then((_responseText) => {
+            let result201: any = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = AddRollingStockToCatalogItemOutput.fromJS(resultData201);
+            return result201;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            });
+        } else if (status === 404) {
+            return response.text().then((_responseText) => {
+            let result404: any = null;
+            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result404 = ProblemDetails.fromJS(resultData404);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            });
+        } else if (status === 422) {
+            return response.text().then((_responseText) => {
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = ProblemDetails.fromJS(resultData422);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            });
+        } else if (status === 500) {
+            return response.text().then((_responseText) => {
+            return throwException("A server side error occurred.", status, _responseText, _headers);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<AddRollingStockToCatalogItemOutput>(<any>null);
     }
 }
 
@@ -4722,7 +4957,7 @@ export class ScaleView implements IScaleView {
     id?: string;
     name?: string;
     ratio?: number | undefined;
-    gauge?: ScaleGaugeView | undefined;
+    gauge?: ScaleGaugeView;
     description?: string | undefined;
     weight?: number | undefined;
     standards?: string[];
@@ -4783,7 +5018,7 @@ export interface IScaleView {
     id?: string;
     name?: string;
     ratio?: number | undefined;
-    gauge?: ScaleGaugeView | undefined;
+    gauge?: ScaleGaugeView;
     description?: string | undefined;
     weight?: number | undefined;
     standards?: string[];
@@ -5502,11 +5737,51 @@ export interface IPeriodOfActivityRequest {
 }
 
 export class TotalRailwayLengthRequest implements ITotalRailwayLengthRequest {
+    kilometers?: number | undefined;
+    miles?: number | undefined;
+
+    constructor(data?: ITotalRailwayLengthRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.kilometers = _data["kilometers"];
+            this.miles = _data["miles"];
+        }
+    }
+
+    static fromJS(data: any): TotalRailwayLengthRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new TotalRailwayLengthRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["kilometers"] = this.kilometers;
+        data["miles"] = this.miles;
+        return data; 
+    }
+}
+
+export interface ITotalRailwayLengthRequest {
+    kilometers?: number | undefined;
+    miles?: number | undefined;
+}
+
+export class RailwayGaugeRequest implements IRailwayGaugeRequest {
     trackGauge?: string | undefined;
     millimeters?: number | undefined;
     inches?: number | undefined;
 
-    constructor(data?: ITotalRailwayLengthRequest) {
+    constructor(data?: IRailwayGaugeRequest) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -5523,9 +5798,9 @@ export class TotalRailwayLengthRequest implements ITotalRailwayLengthRequest {
         }
     }
 
-    static fromJS(data: any): TotalRailwayLengthRequest {
+    static fromJS(data: any): RailwayGaugeRequest {
         data = typeof data === 'object' ? data : {};
-        let result = new TotalRailwayLengthRequest();
+        let result = new RailwayGaugeRequest();
         result.init(data);
         return result;
     }
@@ -5539,50 +5814,10 @@ export class TotalRailwayLengthRequest implements ITotalRailwayLengthRequest {
     }
 }
 
-export interface ITotalRailwayLengthRequest {
+export interface IRailwayGaugeRequest {
     trackGauge?: string | undefined;
     millimeters?: number | undefined;
     inches?: number | undefined;
-}
-
-export class RailwayGaugeRequest implements IRailwayGaugeRequest {
-    kilometers?: number | undefined;
-    miles?: number | undefined;
-
-    constructor(data?: IRailwayGaugeRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.kilometers = _data["kilometers"];
-            this.miles = _data["miles"];
-        }
-    }
-
-    static fromJS(data: any): RailwayGaugeRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new RailwayGaugeRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["kilometers"] = this.kilometers;
-        data["miles"] = this.miles;
-        return data; 
-    }
-}
-
-export interface IRailwayGaugeRequest {
-    kilometers?: number | undefined;
-    miles?: number | undefined;
 }
 
 export class CreateRailwayOutput implements ICreateRailwayOutput {
@@ -6017,6 +6252,158 @@ export interface ILengthOverBufferView {
     inches?: number | undefined;
 }
 
+export class EditRollingStockOutput implements IEditRollingStockOutput {
+    slug?: Slug;
+
+    constructor(data?: IEditRollingStockOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.slug = _data["slug"] ? Slug.fromJS(_data["slug"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): EditRollingStockOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new EditRollingStockOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["slug"] = this.slug ? this.slug.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IEditRollingStockOutput {
+    slug?: Slug;
+}
+
+export class EditRollingStockRequest implements IEditRollingStockRequest {
+    epoch?: string | undefined;
+    category?: string | undefined;
+    railway?: string | undefined;
+    className?: string | undefined;
+    typeName?: string | undefined;
+    roadNumber?: string | undefined;
+    passengerCarType?: string | undefined;
+    serviceLevel?: string | undefined;
+    lengthOverBuffer?: LengthOverBufferRequest | undefined;
+    dccInterface?: string | undefined;
+    control?: string | undefined;
+
+    constructor(data?: IEditRollingStockRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.epoch = _data["epoch"];
+            this.category = _data["category"];
+            this.railway = _data["railway"];
+            this.className = _data["className"];
+            this.typeName = _data["typeName"];
+            this.roadNumber = _data["roadNumber"];
+            this.passengerCarType = _data["passengerCarType"];
+            this.serviceLevel = _data["serviceLevel"];
+            this.lengthOverBuffer = _data["lengthOverBuffer"] ? LengthOverBufferRequest.fromJS(_data["lengthOverBuffer"]) : <any>undefined;
+            this.dccInterface = _data["dccInterface"];
+            this.control = _data["control"];
+        }
+    }
+
+    static fromJS(data: any): EditRollingStockRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new EditRollingStockRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["epoch"] = this.epoch;
+        data["category"] = this.category;
+        data["railway"] = this.railway;
+        data["className"] = this.className;
+        data["typeName"] = this.typeName;
+        data["roadNumber"] = this.roadNumber;
+        data["passengerCarType"] = this.passengerCarType;
+        data["serviceLevel"] = this.serviceLevel;
+        data["lengthOverBuffer"] = this.lengthOverBuffer ? this.lengthOverBuffer.toJSON() : <any>undefined;
+        data["dccInterface"] = this.dccInterface;
+        data["control"] = this.control;
+        return data; 
+    }
+}
+
+export interface IEditRollingStockRequest {
+    epoch?: string | undefined;
+    category?: string | undefined;
+    railway?: string | undefined;
+    className?: string | undefined;
+    typeName?: string | undefined;
+    roadNumber?: string | undefined;
+    passengerCarType?: string | undefined;
+    serviceLevel?: string | undefined;
+    lengthOverBuffer?: LengthOverBufferRequest | undefined;
+    dccInterface?: string | undefined;
+    control?: string | undefined;
+}
+
+export class LengthOverBufferRequest implements ILengthOverBufferRequest {
+    millimeters?: number | undefined;
+    inches?: number | undefined;
+
+    constructor(data?: ILengthOverBufferRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.millimeters = _data["millimeters"];
+            this.inches = _data["inches"];
+        }
+    }
+
+    static fromJS(data: any): LengthOverBufferRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new LengthOverBufferRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["millimeters"] = this.millimeters;
+        data["inches"] = this.inches;
+        return data; 
+    }
+}
+
+export interface ILengthOverBufferRequest {
+    millimeters?: number | undefined;
+    inches?: number | undefined;
+}
+
 export class EditCatalogItemOutput implements IEditCatalogItemOutput {
 
     constructor(data?: IEditCatalogItemOutput) {
@@ -6128,8 +6515,8 @@ export interface IEditCatalogItemRequest {
 }
 
 export class RollingStockRequest implements IRollingStockRequest {
-    era?: string | undefined;
-    length?: LengthOverBufferRequest | undefined;
+    epoch?: string | undefined;
+    lengthOverBuffer?: LengthOverBufferRequest | undefined;
     railway?: string | undefined;
     className?: string | undefined;
     roadNumber?: string | undefined;
@@ -6137,6 +6524,8 @@ export class RollingStockRequest implements IRollingStockRequest {
     dccInterface?: string | undefined;
     control?: string | undefined;
     category?: string | undefined;
+    serviceLevel?: string | undefined;
+    passengerCarType?: string | undefined;
 
     constructor(data?: IRollingStockRequest) {
         if (data) {
@@ -6149,8 +6538,8 @@ export class RollingStockRequest implements IRollingStockRequest {
 
     init(_data?: any) {
         if (_data) {
-            this.era = _data["era"];
-            this.length = _data["length"] ? LengthOverBufferRequest.fromJS(_data["length"]) : <any>undefined;
+            this.epoch = _data["epoch"];
+            this.lengthOverBuffer = _data["lengthOverBuffer"] ? LengthOverBufferRequest.fromJS(_data["lengthOverBuffer"]) : <any>undefined;
             this.railway = _data["railway"];
             this.className = _data["className"];
             this.roadNumber = _data["roadNumber"];
@@ -6158,6 +6547,8 @@ export class RollingStockRequest implements IRollingStockRequest {
             this.dccInterface = _data["dccInterface"];
             this.control = _data["control"];
             this.category = _data["category"];
+            this.serviceLevel = _data["serviceLevel"];
+            this.passengerCarType = _data["passengerCarType"];
         }
     }
 
@@ -6170,8 +6561,8 @@ export class RollingStockRequest implements IRollingStockRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["era"] = this.era;
-        data["length"] = this.length ? this.length.toJSON() : <any>undefined;
+        data["epoch"] = this.epoch;
+        data["lengthOverBuffer"] = this.lengthOverBuffer ? this.lengthOverBuffer.toJSON() : <any>undefined;
         data["railway"] = this.railway;
         data["className"] = this.className;
         data["roadNumber"] = this.roadNumber;
@@ -6179,13 +6570,15 @@ export class RollingStockRequest implements IRollingStockRequest {
         data["dccInterface"] = this.dccInterface;
         data["control"] = this.control;
         data["category"] = this.category;
+        data["serviceLevel"] = this.serviceLevel;
+        data["passengerCarType"] = this.passengerCarType;
         return data; 
     }
 }
 
 export interface IRollingStockRequest {
-    era?: string | undefined;
-    length?: LengthOverBufferRequest | undefined;
+    epoch?: string | undefined;
+    lengthOverBuffer?: LengthOverBufferRequest | undefined;
     railway?: string | undefined;
     className?: string | undefined;
     roadNumber?: string | undefined;
@@ -6193,46 +6586,8 @@ export interface IRollingStockRequest {
     dccInterface?: string | undefined;
     control?: string | undefined;
     category?: string | undefined;
-}
-
-export class LengthOverBufferRequest implements ILengthOverBufferRequest {
-    millimeters?: number | undefined;
-    inches?: number | undefined;
-
-    constructor(data?: ILengthOverBufferRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.millimeters = _data["millimeters"];
-            this.inches = _data["inches"];
-        }
-    }
-
-    static fromJS(data: any): LengthOverBufferRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new LengthOverBufferRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["millimeters"] = this.millimeters;
-        data["inches"] = this.inches;
-        return data; 
-    }
-}
-
-export interface ILengthOverBufferRequest {
-    millimeters?: number | undefined;
-    inches?: number | undefined;
+    serviceLevel?: string | undefined;
+    passengerCarType?: string | undefined;
 }
 
 export class CreateCatalogItemOutput implements ICreateCatalogItemOutput {
@@ -6353,6 +6708,42 @@ export interface ICreateCatalogItemRequest {
     deliveryDate?: string | undefined;
     available?: boolean;
     rollingStocks?: RollingStockRequest[];
+}
+
+export class AddRollingStockToCatalogItemOutput implements IAddRollingStockToCatalogItemOutput {
+    slug?: Slug;
+
+    constructor(data?: IAddRollingStockToCatalogItemOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.slug = _data["slug"] ? Slug.fromJS(_data["slug"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): AddRollingStockToCatalogItemOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddRollingStockToCatalogItemOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["slug"] = this.slug ? this.slug.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IAddRollingStockToCatalogItemOutput {
+    slug?: Slug;
 }
 
 export class PaginatedViewModelOfBrandView implements IPaginatedViewModelOfBrandView {

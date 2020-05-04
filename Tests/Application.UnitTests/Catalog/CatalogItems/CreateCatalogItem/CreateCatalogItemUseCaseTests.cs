@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using NodaTime;
 using NodaTime.Testing;
-using TreniniDotNet.Application.InMemory.Catalog.CatalogItems.OutputPorts;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
@@ -108,7 +107,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         public async Task CreateCatalogItem_ShouldCheckTheRollingStockRailwayExists()
         {
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
-            
+
             var input = new CreateCatalogItemInput(
                 brand: "acme",
                 itemNumber: "ZZZZZZ",
@@ -123,7 +122,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
-            outputPort.AssertRailwayWasNotFound(new List<Slug>() {Slug.Of("not found")});
+            outputPort.AssertRailwayWasNotFound(new List<Slug>() { Slug.Of("not found") });
         }
 
         [Fact]
@@ -181,50 +180,44 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
         private CreateCatalogItemUseCase NewCreateCatalogItem(CatalogItemService catalogItemService, CreateCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)
         {
+            var fakeClock = new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0));
+
             ICatalogItemsFactory catalogItemsFactory = new CatalogItemsFactory(
-                new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0)),
+                fakeClock,
                 FakeGuidSource.NewSource(new Guid("3d02506b-8263-4e14-880d-3f3caf22c562")));
 
+            IRollingStocksFactory rollingStocksFactory = new RollingStocksFactory(
+                fakeClock, FakeGuidSource.NewSource(Guid.NewGuid()));
+
             return new CreateCatalogItemUseCase(outputPort,
-                catalogItemService, catalogItemsFactory,
+                catalogItemService, rollingStocksFactory,
                 unitOfWork);
         }
 
-        private IList<RollingStockInput> EmptyRollingStocks()
+        private IReadOnlyList<RollingStockInput> EmptyRollingStocks()
         {
             return new List<RollingStockInput>();
         }
 
-        private IList<RollingStockInput> RollingStockList(string era, string category, string railway)
+        private static IReadOnlyList<RollingStockInput> RollingStockList(string era, string category, string railway)
         {
-            var rollingStockInput = new RollingStockInput(
-                    era: era,
+            var rollingStockInput = CatalogInputs.NewRollingStockInput.With(
+                    epoch: era,
                     category: category,
-                    railway: railway,
-                    className: null,
-                    roadNumber: null,
-                    typeName: null,
-                    length: null,
-                    control: null,
-                    dccInterface: null);
+                    railway: railway);
             return new List<RollingStockInput>() { rollingStockInput };
         }
 
-        private RollingStockInput RollingStock(string era, string category, string railway)
+        private static RollingStockInput RollingStock(string era, string category, string railway)
         {
-            return new RollingStockInput(
-                    era: era,
+            return CatalogInputs.NewRollingStockInput.With(
+                    epoch: era,
                     category: category,
                     railway: railway,
-                    className: null,
-                    roadNumber: null,
-                    typeName: null,
-                    length: new LengthOverBufferInput(999M, null),
-                    control: null,
-                    dccInterface: null);
+                    length: new LengthOverBufferInput(999M, null));
         }
 
-        private IList<RollingStockInput> RollingStockList(params RollingStockInput[] inputs)
+        private static IReadOnlyList<RollingStockInput> RollingStockList(params RollingStockInput[] inputs)
         {
             return inputs.ToList();
         }

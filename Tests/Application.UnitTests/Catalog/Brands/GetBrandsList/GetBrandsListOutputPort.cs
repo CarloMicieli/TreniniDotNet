@@ -1,7 +1,6 @@
-﻿using TreniniDotNet.Application.Catalog.Brands.GetBrandsList;
-using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
+﻿using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Catalog.Brands.OutputPorts
+namespace TreniniDotNet.Application.Catalog.Brands.GetBrandsList
 {
     public sealed class GetBrandsListOutputPort : OutputPortTestHelper<GetBrandsListOutput>, IGetBrandsListOutputPort
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using TreniniDotNet.Application.InMemory.Catalog.Brands;
-using TreniniDotNet.Application.InMemory.Catalog.CatalogItems;
-using TreniniDotNet.Application.InMemory.Catalog.Railways;
-using TreniniDotNet.Application.InMemory.Catalog.Scales;
+using TreniniDotNet.Application.Catalog.Brands;
+using TreniniDotNet.Application.Catalog.CatalogItems;
+using TreniniDotNet.Application.Catalog.Railways;
+using TreniniDotNet.Application.Catalog.Scales;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common.UseCases.Interfaces.Output;

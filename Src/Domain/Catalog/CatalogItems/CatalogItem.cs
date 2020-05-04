@@ -1,6 +1,7 @@
 ﻿using NodaTime;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Scales;
@@ -8,6 +9,7 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Common.DeliveryDates;
 using TreniniDotNet.Common.Entities;
 
+[assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public sealed class CatalogItem : ModifiableEntity, IEquatable<CatalogItem>, ICatalogItem
@@ -20,8 +22,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             IScaleInfo scale,
             PowerMethod powerMethod,
             string description,
-            string? prototypeDescr,
-            string? modelDescr,
+            string? prototypeDescription,
+            string? modelDescription,
             DeliveryDate? deliveryDate,
             bool available,
             IReadOnlyList<IRollingStock> rollingStocks,
@@ -37,8 +39,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             ItemNumber = itemNumber;
             RollingStocks = rollingStocks;
             Description = description;
-            PrototypeDescription = prototypeDescr;
-            ModelDescription = modelDescr;
+            PrototypeDescription = prototypeDescription;
+            ModelDescription = modelDescription;
             PowerMethod = powerMethod;
             DeliveryDate = deliveryDate;
             IsAvailable = available;
@@ -59,10 +61,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public bool IsAvailable { get; }
         #endregion
 
-        public static bool operator ==(CatalogItem left, CatalogItem right) => AreEquals(left, right);
-
-        public static bool operator !=(CatalogItem left, CatalogItem right) => !AreEquals(left, right);
-
         public override bool Equals(object obj)
         {
             if (obj is CatalogItem other)
@@ -82,7 +80,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public override string ToString()
         {
-            return $"CatalogItem({CatalogItemId} {Brand.Name} {ItemNumber})";
+            return $"CatalogItem({Brand.Name} {ItemNumber.Value})";
         }
 
         public ICatalogItemInfo ToCatalogItemInfo() => this;

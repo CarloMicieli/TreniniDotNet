@@ -22,11 +22,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return new LengthOverBuffer(lenIn, lenMm);
         }
 
-        public static LengthOverBuffer? CreateOrDefault(decimal? inches, decimal? mm)
+        public static LengthOverBuffer? CreateOrDefault(decimal? inches, decimal? millimeters)
         {
-            if (inches.HasValue || mm.HasValue)
+            if (inches.HasValue || millimeters.HasValue)
             {
-                var (lenIn, lenMm) = TwoLengths.Create(inches, mm);
+                var (lenIn, lenMm) = TwoLengths.Create(inches, millimeters);
                 return new LengthOverBuffer(lenIn, lenMm);
             }
             else

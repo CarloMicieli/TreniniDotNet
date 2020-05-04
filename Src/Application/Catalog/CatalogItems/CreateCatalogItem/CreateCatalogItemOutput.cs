@@ -6,17 +6,14 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {
     public sealed class CreateCatalogItemOutput : IUseCaseOutput
     {
-        private readonly CatalogItemId _id;
-        private readonly Slug _slug;
-
         public CreateCatalogItemOutput(CatalogItemId id, Slug slug)
         {
-            _id = id;
-            _slug = slug;
+            Id = id;
+            Slug = slug;
         }
 
-        public CatalogItemId Id => _id;
+        public CatalogItemId Id { get; }
 
-        public Slug Slug => _slug;
+        public Slug Slug { get; }
     }
 }

@@ -3,12 +3,13 @@ using FluentAssertions;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Infrastructure.Database.Testing;
 using NodaTime;
-using System;
 using TreniniDotNet.Common;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
@@ -27,7 +28,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var scaleH0 = new FakeScale();
+            var scaleH0 = CatalogSeedData.Scales.ScaleH0();
 
             var scaleId = await Repository.AddAsync(scaleH0);
 
@@ -58,7 +59,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var scaleH0 = new FakeScale();
+            var scaleH0 = CatalogSeedData.Scales.ScaleH0();
             Database.Arrange.InsertOne(Tables.Scales, new
             {
                 scale_id = scaleH0.ScaleId.ToGuid(),
@@ -73,7 +74,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 version = scaleH0.Version
             });
 
-            await Repository.UpdateAsync(scaleH0.With(ratio: 100M));
+            await Repository.UpdateAsync(scaleH0.With(ratio: Ratio.Of(100M)));
 
             Database.Assert.RowInTable(Tables.Scales)
                 .WithPrimaryKey(new
@@ -92,7 +93,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var scaleH0 = new FakeScale();
+            var scaleH0 = CatalogSeedData.Scales.ScaleH0();
             Database.Arrange.InsertOne(Tables.Scales, new
             {
                 scale_id = scaleH0.ScaleId.ToGuid(),
@@ -118,7 +119,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var scaleH0 = new FakeScale();
+            var scaleH0 = CatalogSeedData.Scales.ScaleH0();
             Database.Arrange.InsertOne(Tables.Scales, new
             {
                 scale_id = scaleH0.ScaleId.ToGuid(),
@@ -147,7 +148,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var scaleH0 = new FakeScale();
+            var scaleH0 = CatalogSeedData.Scales.ScaleH0();
             Database.Arrange.InsertOne(Tables.Scales, new
             {
                 scale_id = scaleH0.ScaleId.ToGuid(),
@@ -182,8 +183,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
-            var scaleH0 = new FakeScale(new Guid("da2bfd8b-86e8-4531-b12b-7d442d4a4a75"), "H0");
-            var scaleN = new FakeScale(new Guid("d3410d06-a2fb-4050-ad8c-4c4377fec4db"), "N");
+            var scaleH0 = CatalogSeedData.Scales.ScaleH0();
+            var scaleN = CatalogSeedData.Scales.ScaleN();
 
             Database.Arrange.Insert(Tables.Scales,
                 new

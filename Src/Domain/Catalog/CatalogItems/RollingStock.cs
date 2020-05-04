@@ -1,8 +1,9 @@
-﻿using TreniniDotNet.Common.Lengths;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+﻿using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Railways;
 using System;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public sealed class RollingStock : IEquatable<RollingStock>, IRollingStock
@@ -11,19 +12,22 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             RollingStockId rollingStockId,
             IRailwayInfo railway,
             Category category,
-            Era era,
+            Epoch epoch,
             LengthOverBuffer? length,
             string? className, string? roadNumber, string? typeName,
+            PassengerCarType? passengerCarType, ServiceLevel? serviceLevel,
             DccInterface dccInterface, Control control)
         {
             RollingStockId = rollingStockId;
             Railway = railway;
             Category = category;
-            Era = era;
+            Epoch = epoch;
             Length = length;
             ClassName = className;
             RoadNumber = roadNumber;
             TypeName = typeName;
+            ServiceLevel = serviceLevel;
+            PassengerCarType = passengerCarType;
             DccInterface = dccInterface;
             Control = control;
         }
@@ -35,7 +39,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public Category Category { get; }
 
-        public Era Era { get; }
+        public Epoch Epoch { get; }
 
         public LengthOverBuffer? Length { get; }
 
@@ -45,14 +49,16 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public string? TypeName { get; }
 
+        public PassengerCarType? PassengerCarType { get; }
+
+        public ServiceLevel? ServiceLevel { get; }
+
         public Control Control { get; }
 
         public DccInterface DccInterface { get; }
         #endregion
 
-        public static bool operator ==(RollingStock left, RollingStock right) => AreEquals(left, right);
-
-        public static bool operator !=(RollingStock left, RollingStock right) => !AreEquals(left, right);
+        #region [ Equality ]
 
         public override bool Equals(object obj)
         {
@@ -69,11 +75,13 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         private static bool AreEquals(RollingStock left, RollingStock right) =>
             left.RollingStockId == right.RollingStockId;
 
-        public override int GetHashCode() => HashCode.Combine(RollingStockId);
+        #endregion
+
+        public override int GetHashCode() => RollingStockId.GetHashCode();
 
         public override string ToString()
         {
-            return $"RollingStock({RollingStockId} {Era} {Railway.Name} {Category})";
+            return $"RollingStock({RollingStockId} {Epoch} {Railway.Name} {Category})";
         }
     }
 }

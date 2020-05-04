@@ -1,39 +1,44 @@
 using System;
 using System.Collections.Generic;
-using TreniniDotNet.Common;
+using System.Runtime.InteropServices;
 using TreniniDotNet.Application.Catalog.Brands;
 using TreniniDotNet.Application.Catalog.Brands.CreateBrand;
 using TreniniDotNet.Application.Catalog.Brands.EditBrand;
 using TreniniDotNet.Application.Catalog.CatalogItems;
+using TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalogItem;
 using TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem;
 using TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem;
+using TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock;
+using TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromCatalogItem;
 using TreniniDotNet.Application.Catalog.Railways;
 using TreniniDotNet.Application.Catalog.Railways.CreateRailway;
 using TreniniDotNet.Application.Catalog.Railways.EditRailway;
 using TreniniDotNet.Application.Catalog.Scales;
 using TreniniDotNet.Application.Catalog.Scales.CreateScale;
 using TreniniDotNet.Application.Catalog.Scales.EditScale;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
-namespace TreniniDotNet.Application.TestInputs.Catalog
+namespace TreniniDotNet.Application.Catalog
 {
     public static class NewAddressInput
     {
-        public static AddressInput NewEmpty() => With();
+        public static readonly AddressInput Empty = With();
 
         public static AddressInput With(
-            string Line1 = null,
-            string Line2 = null,
-            string City = null,
-            string Region = null,
-            string PostalCode = null,
-            string Country = null) => new AddressInput
+            string line1 = null,
+            string line2 = null,
+            string city = null,
+            string region = null,
+            string postalCode = null,
+            string country = null) => new AddressInput
             {
-                Line1 = Line1,
-                Line2 = Line2,
-                City = City,
-                Region = Region,
-                PostalCode = PostalCode,
-                Country = Country
+                Line1 = line1,
+                Line2 = line2,
+                City = city,
+                Region = region,
+                PostalCode = postalCode,
+                Country = country
             };
     }
 
@@ -41,206 +46,247 @@ namespace TreniniDotNet.Application.TestInputs.Catalog
     {
         public static class NewCreateBrandInput
         {
-            public static CreateBrandInput Empty() => With();
+            public static readonly CreateBrandInput Empty = With();
 
             public static CreateBrandInput With(
-                string Name = null,
-                string CompanyName = null,
-                string GroupName = null,
-                string Description = null,
-                string WebsiteUrl = null,
-                string EmailAddress = null,
-                string BrandType = null,
-                AddressInput Address = null) => new CreateBrandInput(
-                    Name,
-                    CompanyName,
-                    GroupName,
-                    Description,
-                    WebsiteUrl,
-                    EmailAddress,
-                    BrandType,
-                    Address);
+                string name = null,
+                string companyName = null,
+                string groupName = null,
+                string description = null,
+                string websiteUrl = null,
+                string emailAddress = null,
+                string brandType = null,
+                AddressInput address = null) => new CreateBrandInput(
+                    name,
+                    companyName,
+                    groupName,
+                    description,
+                    websiteUrl,
+                    emailAddress,
+                    brandType,
+                    address);
         }
 
         public static class NewEditBrandInput
         {
-            public static EditBrandInput Empty => With();
+            public static readonly EditBrandInput Empty = With();
 
             public static EditBrandInput With(
-                Slug? BrandSlug = null,
-                string Name = null,
-                string CompanyName = null,
-                string GroupName = null,
-                string Description = null,
-                string WebsiteUrl = null,
-                string EmailAddress = null,
-                string BrandType = null,
-                AddressInput Address = null) => new EditBrandInput(
-                    BrandSlug ?? Slug.Empty,
-                    Name,
-                    CompanyName,
-                    GroupName,
-                    Description,
-                    WebsiteUrl,
-                    EmailAddress,
-                    BrandType,
-                    Address);
+                Slug? brandSlug = null,
+                string name = null,
+                string companyName = null,
+                string groupName = null,
+                string description = null,
+                string websiteUrl = null,
+                string emailAddress = null,
+                string brandType = null,
+                AddressInput address = null) => new EditBrandInput(
+                    brandSlug ?? Slug.Empty,
+                    name,
+                    companyName,
+                    groupName,
+                    description,
+                    websiteUrl,
+                    emailAddress,
+                    brandType,
+                    address);
         }
 
         public static class NewCreateRailwayInput
         {
-            public static CreateRailwayInput Empty = With();
+            public static readonly CreateRailwayInput Empty = With();
 
             public static CreateRailwayInput With(
-                string Name = null,
-                string CompanyName = null,
-                string Country = null,
-                PeriodOfActivityInput PeriodOfActivity = null,
-                TotalRailwayLengthInput TotalLength = null,
-                RailwayGaugeInput Gauge = null,
-                string Website = null,
-                string Headquarters = null) => new CreateRailwayInput(
-                    Name, CompanyName, Country, PeriodOfActivity, TotalLength, Gauge, Website, Headquarters);
+                string name = null,
+                string companyName = null,
+                string country = null,
+                PeriodOfActivityInput periodOfActivity = null,
+                TotalRailwayLengthInput totalLength = null,
+                RailwayGaugeInput gauge = null,
+                string website = null,
+                string headquarters = null) => new CreateRailwayInput(
+                    name, companyName, country, periodOfActivity, totalLength, gauge, website, headquarters);
         }
 
         public static class NewEditRailwayInput
         {
-            public static EditRailwayInput Empty = With();
+            public static readonly EditRailwayInput Empty = With();
 
             public static EditRailwayInput With(
-                Slug? RailwaySlug = null,
-                string Name = null,
-                string CompanyName = null,
-                string Country = null,
-                PeriodOfActivityInput PeriodOfActivity = null,
-                TotalRailwayLengthInput TotalLength = null,
-                RailwayGaugeInput Gauge = null,
-                string Website = null,
-                string Headquarters = null) => new EditRailwayInput(
-                    RailwaySlug ?? Slug.Empty,
-                    Name, CompanyName, Country,
-                    PeriodOfActivity, TotalLength, Gauge, Website, Headquarters);
+                Slug? railwaySlug = null,
+                string name = null,
+                string companyName = null,
+                string country = null,
+                PeriodOfActivityInput periodOfActivity = null,
+                TotalRailwayLengthInput totalLength = null,
+                RailwayGaugeInput railwayGauge = null,
+                string website = null,
+                string headquarters = null) => new EditRailwayInput(
+                    railwaySlug ?? Slug.Empty,
+                    name, companyName, country,
+                    periodOfActivity, totalLength, railwayGauge, website, headquarters);
         }
 
         public static class NewPeriodOfActivityInput
         {
             public static PeriodOfActivityInput With(
-                string Status = null,
-                DateTime? OperatingUntil = null,
-                DateTime? OperatingSince = null) =>
-                new PeriodOfActivityInput(Status, OperatingSince, OperatingUntil);
+                string status = null,
+                DateTime? operatingUntil = null,
+                DateTime? operatingSince = null) =>
+                new PeriodOfActivityInput(status, operatingSince, operatingUntil);
         }
 
         public static class NewTotalRailwayLengthInput
         {
             public static TotalRailwayLengthInput With(
-                decimal? Kilometers = null,
-                decimal? Miles = null) =>
-                new TotalRailwayLengthInput(Kilometers, Miles);
+                decimal? kilometers = null,
+                decimal? miles = null) =>
+                new TotalRailwayLengthInput(kilometers, miles);
         }
 
         public static class NewRailwayGaugeInput
         {
             public static RailwayGaugeInput With(
-                string TrackGauge = null,
-                decimal? Millimeters = null,
-                decimal? Inches = null) =>
-                new RailwayGaugeInput(TrackGauge, Millimeters, Inches);
+                string trackGauge = null,
+                decimal? millimeters = null,
+                decimal? inches = null) =>
+                new RailwayGaugeInput(trackGauge, millimeters, inches);
         }
 
         public static class NewCreateScaleInput
         {
-            public static CreateScaleInput Empty => With();
+            public static readonly CreateScaleInput Empty = With();
 
             public static CreateScaleInput With(
-                string Name = null,
-                decimal? Ratio = null,
-                ScaleGaugeInput Gauge = null,
-                string Description = null,
-                List<string> Standards = null,
-                int? Weight = null) =>
-                new CreateScaleInput(Name, Ratio, Gauge, Description, Standards, Weight);
+                string name = null,
+                decimal? ratio = null,
+                ScaleGaugeInput scaleGauge = null,
+                string description = null,
+                List<string> standards = null,
+                int? weight = null) =>
+                new CreateScaleInput(name, ratio, scaleGauge, description, standards, weight);
         }
 
         public static class NewEditScaleInput
         {
-            public static EditScaleInput Empty => With();
+            public static readonly EditScaleInput Empty = With();
 
             public static EditScaleInput With(
-                Slug? ScaleSlug = null,
-                string Name = null,
-                decimal? Ratio = null,
-                ScaleGaugeInput Gauge = null,
-                string Description = null,
-                List<string> Standards = null,
-                int? Weight = null) =>
-                new EditScaleInput(ScaleSlug ?? Slug.Empty, Name, Ratio, Gauge, Description, Standards, Weight);
+                Slug? scaleSlug = null,
+                string name = null,
+                decimal? ratio = null,
+                ScaleGaugeInput gauge = null,
+                string description = null,
+                List<string> standards = null,
+                int? weight = null) =>
+                new EditScaleInput(scaleSlug ?? Slug.Empty, name, ratio, gauge, description, standards, weight);
         }
 
         public static class NewScaleGaugeInput
         {
-            public static ScaleGaugeInput With(string TrackGauge = null, decimal? Inches = null, decimal? Millimeters = null) =>
-                new ScaleGaugeInput(TrackGauge, Inches, Millimeters);
+            public static ScaleGaugeInput With(string trackGauge = null, decimal? inches = null, decimal? millimeters = null) =>
+                new ScaleGaugeInput(trackGauge, inches, millimeters);
         }
 
         public static class NewCreateCatalogItemInput
         {
-            public static CreateCatalogItemInput Empty = With();
+            public static readonly CreateCatalogItemInput Empty = With();
 
             public static CreateCatalogItemInput With(
-                string Brand = null,
-                string ItemNumber = null,
-                string Description = null,
-                string PrototypeDescription = null,
-                string ModelDescription = null,
-                string PowerMethod = null,
-                string Scale = null,
-                string DeliveryDate = null,
-                bool Available = true,
-                IList<RollingStockInput> RollingStocks = null) =>
+                string brand = null,
+                string itemNumber = null,
+                string description = null,
+                string prototypeDescription = null,
+                string modelDescription = null,
+                string powerMethod = null,
+                string scale = null,
+                string deliveryDate = null,
+                bool available = true,
+                IReadOnlyList<RollingStockInput> rollingStocks = null) =>
                 new CreateCatalogItemInput(
-                    Brand,
-                    ItemNumber,
-                    Description, PrototypeDescription, ModelDescription,
-                    PowerMethod, Scale, DeliveryDate, Available, RollingStocks);
+                    brand,
+                    itemNumber,
+                    description, prototypeDescription, modelDescription,
+                    powerMethod, scale, deliveryDate, available, rollingStocks);
         }
 
         public static class NewEditCatalogItemInput
         {
-            public static EditCatalogItemInput Empty = With();
+            public static readonly EditCatalogItemInput Empty = With();
 
             public static EditCatalogItemInput With(
-                Slug? ItemSlug = null,
-                string Brand = null,
-                string ItemNumber = null,
-                string Description = null,
-                string PrototypeDescription = null,
-                string ModelDescription = null,
-                string PowerMethod = null,
-                string Scale = null,
-                string DeliveryDate = null,
-                bool Available = true,
-                IList<RollingStockInput> RollingStocks = null) =>
+                Slug? itemSlug = null,
+                string brand = null,
+                string itemNumber = null,
+                string description = null,
+                string prototypeDescription = null,
+                string modelDescription = null,
+                string powerMethod = null,
+                string scale = null,
+                string deliveryDate = null,
+                bool available = true,
+                IReadOnlyList<RollingStockInput> rollingStocks = null) =>
                 new EditCatalogItemInput(
-                    ItemSlug ?? Slug.Empty,
-                    Brand,
-                    ItemNumber,
-                    Description, PrototypeDescription, ModelDescription,
-                    PowerMethod, Scale, DeliveryDate, Available, RollingStocks);
+                    itemSlug ?? Slug.Empty,
+                    brand,
+                    itemNumber,
+                    description, prototypeDescription, modelDescription,
+                    powerMethod, scale, deliveryDate, available, rollingStocks);
         }
 
         public static class NewRollingStockInput
         {
-            public static RollingStockInput Empty => With();
+            public static readonly RollingStockInput Empty = With();
 
             public static RollingStockInput With(
-                string Era = null, string Category = null, string Railway = null,
-                string ClassName = null, string RoadNumber = null, string TypeName = null,
-                LengthOverBufferInput Length = null,
-                string Control = null, string DccInterface = null) =>
-                new RollingStockInput(Era, Category, Railway,
-                    ClassName, RoadNumber, TypeName, Length,
-                    Control, DccInterface);
+                string epoch = null, string category = null, string railway = null,
+                string className = null, string roadNumber = null,
+                string typeName = null, string passengerCarType = null, string serviceLevel = null,
+                LengthOverBufferInput length = null,
+                string control = null, string dccInterface = null) =>
+                new RollingStockInput(epoch, category, railway,
+                    className, roadNumber, typeName, passengerCarType, serviceLevel,
+                    length,
+                    control, dccInterface);
+        }
+
+        public static class NewAddRollingStockToCatalogItemInput
+        {
+            public static readonly AddRollingStockToCatalogItemInput Empty = With();
+
+            public static AddRollingStockToCatalogItemInput With(
+                Slug? itemSlug = null,
+                RollingStockInput rollingStock = null) =>
+                new AddRollingStockToCatalogItemInput(itemSlug ?? Slug.Empty, rollingStock ?? NewRollingStockInput.Empty);
+        }
+
+        public static class NewEditRollingStockInput
+        {
+            public static readonly EditRollingStockInput Empty = With();
+
+            public static EditRollingStockInput With(
+                Slug? slug = null, RollingStockId? rollingStockId = null,
+                string epoch = null, string category = null, string railway = null,
+                string className = null, string roadNumber = null,
+                string typeName = null, string passengerCarType = null, string serviceLevel = null,
+                LengthOverBufferInput length = null,
+                string control = null, string dccInterface = null) =>
+                new EditRollingStockInput(
+                    slug ?? Slug.Empty,
+                    rollingStockId ?? RollingStockId.Empty,
+                    epoch, category, railway,
+                    className, roadNumber, typeName, passengerCarType, serviceLevel,
+                    length,
+                    control, dccInterface);
+        }
+
+        public static class NewRemoveRollingStockFromCatalogItemInput
+        {
+            public static readonly RemoveRollingStockFromCatalogItemInput Empty = With();
+
+            public static RemoveRollingStockFromCatalogItemInput With(
+                Slug? slug = null, RollingStockId? rollingStockId = null) =>
+                new RemoveRollingStockFromCatalogItemInput(slug ?? Slug.Empty, rollingStockId ?? RollingStockId.Empty);
         }
     }
 }

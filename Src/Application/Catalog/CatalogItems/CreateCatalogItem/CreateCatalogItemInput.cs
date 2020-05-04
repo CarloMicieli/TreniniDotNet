@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TreniniDotNet.Common.UseCases.Interfaces;
 using TreniniDotNet.Common.UseCases.Interfaces.Input;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
@@ -16,7 +15,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             string scale,
             string? deliveryDate,
             bool available,
-            IList<RollingStockInput> rollingStocks)
+            IReadOnlyList<RollingStockInput> rollingStocks)
         {
             Brand = brand;
             ItemNumber = itemNumber;
@@ -44,7 +43,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
         public string Scale { get; }
 
-        public IList<RollingStockInput> RollingStocks { get; }
+        public IReadOnlyList<RollingStockInput> RollingStocks { get; }
 
         public string? DeliveryDate { get; }
 
