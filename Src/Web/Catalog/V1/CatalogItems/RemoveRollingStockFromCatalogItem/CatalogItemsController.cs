@@ -22,7 +22,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalo
         [HttpDelete("{slug}/rollingStocks/{rollingStockId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> DeleteRollingStock(string slug, Guid rollingStockId)
         {

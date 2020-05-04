@@ -13,13 +13,11 @@ namespace TreniniDotNet.Web.Infrastructure.ViewModels
     public abstract class DefaultHttpResultPresenter<TOutput> : IOutputPortStandard<TOutput>, IActionResultPresenter
         where TOutput : IUseCaseOutput
     {
-        private static readonly IActionResult NotFoundResult = new NotFoundResult();
-
-        public IActionResult ViewModel { get; protected set; } = NotFoundResult;
+        public IActionResult ViewModel { get; protected set; } = new NotFoundResult();
 
         public void Error(string? message)
         {
-            throw new System.NotImplementedException("TODO");
+            throw new ApplicationException(message);
         }
 
         public void InvalidRequest(IList<ValidationFailure> failures)
@@ -48,12 +46,6 @@ namespace TreniniDotNet.Web.Infrastructure.ViewModels
                  routeName,
                  routeParams,
                  output);
-        }
-
-        protected IActionResult InternalServerError(string? message)
-        {
-            //return StatusCode(StatusCodes.Status500InternalServerError, message);
-            throw new NotImplementedException("TODO");
         }
     }
 }

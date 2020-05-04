@@ -23,6 +23,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock
         [HttpPut("{slug}/rollingStocks/{rollingStockId}")]
         [ProducesResponseType(typeof(EditRollingStockOutput), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> EditRollingStock(string slug, Guid rollingStockId, EditRollingStockRequest request)

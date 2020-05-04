@@ -1,7 +1,10 @@
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using IntegrationTests;
+using TreniniDotNet.Common;
+using TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
@@ -81,6 +84,12 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
             var response = await client.PostJsonAsync($"/api/v1/catalogItems/{itemSlug}/rollingStocks", request, Check.IsSuccessful);
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            response.Headers.Should().NotBeEmpty();
+            response.Headers.Location.Should().Be(new Uri("http://localhost/api/v1/CatalogItems/acme-60458"));
+
+            var content = await response.ExtractContent<PostCatalogItemResponse>();
+            content.Slug.Value.Should().Be(Slug.Of("acme-60458"));
         }
     }
 }
