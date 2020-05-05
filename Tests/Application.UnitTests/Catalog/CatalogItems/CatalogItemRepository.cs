@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common;
@@ -49,8 +50,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             return Task.FromResult(catalogItem);
         }
 
-        public Task UpdateAsync(ICatalogItem catalogItem) =>
-            Task.CompletedTask;
+        public Task UpdateAsync(ICatalogItem catalogItem)
+        {
+            _context.CatalogItems.RemoveAll(it => it.CatalogItemId == catalogItem.CatalogItemId);
+            _context.CatalogItems.Add(catalogItem);
+            return Task.CompletedTask;
+        }
 
         public Task<PaginatedResult<ICatalogItem>> GetLatestCatalogItemsAsync(Page page)
         {
@@ -62,17 +67,32 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
 
         public Task AddRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
         {
-            return Task.CompletedTask;
+            var rollingStocks = catalogItem.RollingStocks.ToList();
+            rollingStocks.Add(rollingStock);
+
+            var modifiedItem = catalogItem.With(rollingStocks: rollingStocks);
+            return UpdateAsync(modifiedItem);
         }
 
         public Task UpdateRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
         {
-            return Task.CompletedTask;
+            var rollingStocks = catalogItem.RollingStocks
+                .Where(it => it.RollingStockId != rollingStock.RollingStockId)
+                .Concat(new List<IRollingStock> { rollingStock })
+                .ToList();
+
+            var modifiedItem = catalogItem.With(rollingStocks: rollingStocks);
+            return UpdateAsync(modifiedItem);
         }
 
         public Task DeleteRollingStockAsync(ICatalogItem catalogItem, RollingStockId rollingStockId)
         {
-            return Task.CompletedTask;
+            var modifiedItem = catalogItem.With(rollingStocks: catalogItem
+                .RollingStocks
+                .Where(it => it.RollingStockId != rollingStockId)
+                .ToList());
+
+            return UpdateAsync(modifiedItem);
         }
     }
 }

@@ -41,13 +41,15 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
         [Fact]
         public async Task RemoveRollingStockFromCatalogItem_ShouldRemoveTheRollingStock()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewRemoveRollingStockFromCatalogItemUseCase);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewRemoveRollingStockFromCatalogItemUseCase);
 
             var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var rsId = catalogItem.RollingStocks.First().RollingStockId;
 
             var input = CatalogInputs.NewRemoveRollingStockFromCatalogItemInput.With(
                 catalogItem.Slug,
-                catalogItem.RollingStocks.First().RollingStockId);
+                rsId);
+
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
@@ -55,6 +57,13 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
 
             unitOfWork.EnsureUnitOfWorkWasSaved();
             outputPort.UseCaseOutput.Should().NotBeNull();
+
+            var modifiedCatalogItem = dbContext.CatalogItems
+                .First(it => it.CatalogItemId == catalogItem.CatalogItemId);
+
+            modifiedCatalogItem.RollingStocks
+                .All(it => it.RollingStockId != rsId)
+                .Should().BeTrue();
         }
 
         private RemoveRollingStockFromCatalogItemUseCase NewRemoveRollingStockFromCatalogItemUseCase(

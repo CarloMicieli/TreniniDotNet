@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
 using NodaTime;
 using NodaTime.Testing;
 using TreniniDotNet.Application.Services;
@@ -84,7 +86,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
         [Fact]
         public async Task EditCatalogItem_ShouldUpdateCatalogItem()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
 
             var input = NewEditCatalogItemInput.With(
                 itemSlug: Slug.Of("acme-60392"),
@@ -96,8 +98,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             outputPort.ShouldHaveStandardOutput();
 
             unitOfWork.EnsureUnitOfWorkWasSaved();
-        }
 
+            var catalogItem = dbContext.CatalogItems.FirstOrDefault(it => it.Slug == input.Slug);
+            catalogItem.Should().NotBeNull();
+
+            catalogItem?.Description.Should().Be(input.Values.Description);
+        }
 
         private EditCatalogItemUseCase NewEditCatalogItem(CatalogItemService catalogItemService, EditCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)
         {
@@ -111,7 +117,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 
         private static IReadOnlyList<RollingStockInput> RollingStockList(string era, string category, string railway)
         {
-            var rollingStockInput = CatalogInputs.NewRollingStockInput.With(
+            var rollingStockInput = NewRollingStockInput.With(
                 epoch: era,
                 category: category,
                 railway: railway);

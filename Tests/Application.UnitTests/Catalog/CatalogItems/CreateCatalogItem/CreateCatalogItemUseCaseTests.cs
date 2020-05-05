@@ -12,6 +12,8 @@ using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
+using static TreniniDotNet.Application.Catalog.CatalogInputs;
+using FluentAssertions;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {
@@ -22,16 +24,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewCreateCatalogItem);
 
-            var input = new CreateCatalogItemInput(
-                brand: "",
-                itemNumber: "",
-                description: null,
-                prototypeDescription: null,
-                modelDescription: null,
-                powerMethod: "not valid",
-                scale: null,
-                deliveryDate: null, available: false,
-                rollingStocks: EmptyRollingStocks());
+            var input = NewCreateCatalogItemInput.Empty;
 
             await useCase.Execute(input);
 
@@ -43,15 +36,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewCreateCatalogItem);
 
-            var input = new CreateCatalogItemInput(
+            var input = NewCreateCatalogItemInput.With(
                 brand: "not found",
                 itemNumber: "12345",
                 description: "My new catalog item",
-                prototypeDescription: null,
-                modelDescription: null,
                 powerMethod: "dc",
                 scale: "h0",
-                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList("III", Category.ElectricLocomotive.ToString(), "FS"));
 
             await useCase.Execute(input);
@@ -64,15 +54,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
-            var input = new CreateCatalogItemInput(
+            var input = NewCreateCatalogItemInput.With(
                 brand: "acme",
                 itemNumber: "60458",
                 description: "My new catalog item",
-                prototypeDescription: null,
-                modelDescription: null,
                 powerMethod: "dc",
                 scale: "h0",
-                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList("VI", Category.ElectricLocomotive.ToString(), "FS"));
 
             await useCase.Execute(input);
@@ -86,15 +73,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
-            var input = new CreateCatalogItemInput(
+            var input = NewCreateCatalogItemInput.With(
                 brand: "acme",
                 itemNumber: "ZZZZZZ",
                 description: "My new catalog item",
-                prototypeDescription: null,
-                modelDescription: null,
                 powerMethod: "dc",
                 scale: "not exists",
-                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList("VI", Category.ElectricLocomotive.ToString(), "FS"));
 
             await useCase.Execute(input);
@@ -108,15 +92,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
-            var input = new CreateCatalogItemInput(
+            var input = NewCreateCatalogItemInput.With(
                 brand: "acme",
                 itemNumber: "ZZZZZZ",
                 description: "My new catalog item",
-                prototypeDescription: null,
-                modelDescription: null,
                 powerMethod: "dc",
                 scale: "H0",
-                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList("VI", Category.ElectricLocomotive.ToString(), "not found"));
 
             await useCase.Execute(input);
@@ -130,15 +111,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         {
             var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
-            var input = new CreateCatalogItemInput(
+            var input = NewCreateCatalogItemInput.With(
                 brand: "acme",
                 itemNumber: "ZZZZZZ",
                 description: "My new catalog item",
-                prototypeDescription: null,
-                modelDescription: null,
                 powerMethod: "dc",
                 scale: "H0",
-                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList(
                     RollingStock("VI", Category.ElectricLocomotive.ToString(), "not found1"),
                     RollingStock("VI", Category.ElectricLocomotive.ToString(), "not found2")));
@@ -152,17 +130,15 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         [Fact]
         public async Task CreateCatalogItem_ShouldCreateANewCatalogItem()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
 
-            var input = new CreateCatalogItemInput(
+            var expectedSlug = Slug.Of("acme-99999");
+            var input = NewCreateCatalogItemInput.With(
                 brand: "acme",
                 itemNumber: "99999",
                 description: "My new catalog item",
-                prototypeDescription: null,
-                modelDescription: null,
                 powerMethod: "dc",
                 scale: "H0",
-                deliveryDate: null, available: false,
                 rollingStocks: RollingStockList(
                     RollingStock("VI", Category.ElectricLocomotive.ToString(), "fs"),
                     RollingStock("VI", Category.ElectricLocomotive.ToString(), "fs")));
@@ -174,8 +150,13 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
             unitOfWork.EnsureUnitOfWorkWasSaved();
 
-            Assert.Equal(Slug.Of("acme-99999"), outputPort.UseCaseOutput.Slug);
-            Assert.NotEqual(CatalogItemId.Empty, outputPort.UseCaseOutput.Id);
+            var catalogItem = dbContext.CatalogItems.FirstOrDefault(it => it.Slug == expectedSlug);
+            catalogItem.Should().NotBeNull();
+
+            var output = outputPort.UseCaseOutput;
+            output.Should().NotBeNull();
+            output.Slug.Should().Be(expectedSlug);
+            output.Id.Should().Be(catalogItem.CatalogItemId);
         }
 
         private CreateCatalogItemUseCase NewCreateCatalogItem(CatalogItemService catalogItemService, CreateCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)
@@ -201,7 +182,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
         private static IReadOnlyList<RollingStockInput> RollingStockList(string era, string category, string railway)
         {
-            var rollingStockInput = CatalogInputs.NewRollingStockInput.With(
+            var rollingStockInput = NewRollingStockInput.With(
                     epoch: era,
                     category: category,
                     railway: railway);
@@ -210,7 +191,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
         private static RollingStockInput RollingStock(string era, string category, string railway)
         {
-            return CatalogInputs.NewRollingStockInput.With(
+            return NewRollingStockInput.With(
                     epoch: era,
                     category: category,
                     railway: railway,

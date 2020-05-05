@@ -78,13 +78,16 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         [Fact]
         public async Task EditRollingStock_ShouldEditRollingStocks()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditRollingStock);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditRollingStock);
 
             var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var rsId = catalogItem.RollingStocks.First().RollingStockId;
 
             var input = CatalogInputs.NewEditRollingStockInput.With(
                 catalogItem.Slug,
-                catalogItem.RollingStocks.First().RollingStockId);
+                rsId,
+                roadNumber: "Modified");
+
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
@@ -93,6 +96,13 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             unitOfWork.EnsureUnitOfWorkWasSaved();
 
             outputPort.UseCaseOutput.Should().NotBeNull();
+
+            var modifiedCatalogItem = dbContext.CatalogItems
+                .First(it => it.CatalogItemId == catalogItem.CatalogItemId);
+
+            modifiedCatalogItem.RollingStocks
+                .Any(it => it.RollingStockId == rsId && it.RoadNumber == "Modified")
+                .Should().BeTrue();
         }
 
         private EditRollingStockUseCase NewEditRollingStock(CatalogItemService catalogItemService, EditRollingStockOutputPort outputPort, IUnitOfWork unitOfWork)
