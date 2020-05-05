@@ -44,7 +44,8 @@ namespace TreniniDotNet.Application.Collecting
             return new UseCaseFixture<TUseCase, TOutputPort>(
                 factory.Invoke(collectionsService, outputPort, unitOfWork),
                 outputPort,
-                unitOfWork);
+                unitOfWork,
+                context);
         }
 
         protected UseCaseFixture<TUseCase, TOutputPort> ArrangeWishlistUseCase(
@@ -71,7 +72,8 @@ namespace TreniniDotNet.Application.Collecting
             return new UseCaseFixture<TUseCase, TOutputPort>(
                 factory.Invoke(wishlistsService, outputPort, unitOfWork),
                 outputPort,
-                unitOfWork);
+                unitOfWork,
+                context);
         }
 
         protected UseCaseFixture<TUseCase, TOutputPort> ArrangeShopUseCase(
@@ -92,7 +94,8 @@ namespace TreniniDotNet.Application.Collecting
             return new UseCaseFixture<TUseCase, TOutputPort>(
                 factory.Invoke(shopsService, outputPort, unitOfWork),
                 outputPort,
-                unitOfWork);
+                unitOfWork,
+                context);
         }
     }
 }

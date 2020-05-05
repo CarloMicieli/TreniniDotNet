@@ -30,7 +30,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
             bool exists = await _railwayService.RailwayAlreadyExists(slug);
             if (exists)
             {
-                OutputPort.RailwayAlreadyExists($"Railway '{railwayName}' already exists");
+                OutputPort.RailwayAlreadyExists(slug);
                 return;
             }
 

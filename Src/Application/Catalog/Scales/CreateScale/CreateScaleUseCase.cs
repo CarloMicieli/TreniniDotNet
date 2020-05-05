@@ -31,7 +31,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
             bool scaleExists = await _scaleService.ScaleAlreadyExists(slug);
             if (scaleExists)
             {
-                OutputPort.ScaleAlreadyExists($"Scale '{name}' already exists");
+                OutputPort.ScaleAlreadyExists(slug);
                 return;
             }
 

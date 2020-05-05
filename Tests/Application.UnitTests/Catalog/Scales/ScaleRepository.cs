@@ -54,7 +54,11 @@ namespace TreniniDotNet.Application.Catalog.Scales
             return Task.FromResult(scale.ScaleId);
         }
 
-        public Task UpdateAsync(IScale scale) =>
-            Task.CompletedTask;
+        public Task UpdateAsync(IScale scale)
+        {
+            _context.Scales.RemoveAll(it => it.ScaleId == scale.ScaleId);
+            _context.Scales.Add(scale);
+            return Task.CompletedTask;
+        }
     }
 }

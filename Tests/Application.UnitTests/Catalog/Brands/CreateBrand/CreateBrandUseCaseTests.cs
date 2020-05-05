@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using Xunit;
 using static TreniniDotNet.Application.Catalog.CatalogInputs;
+using FluentAssertions;
 
 namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
 {
@@ -23,7 +25,9 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         [Fact]
         public async Task CreateBrand_Should_CreateANewBrand()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
+
+            var expectedSlug = Slug.Of("acme");
 
             var input = NewCreateBrandInput.With(
                 name: "ACME",
@@ -46,9 +50,10 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
             unitOfWork.EnsureUnitOfWorkWasSaved();
 
             var output = outputPort.UseCaseOutput;
-            Assert.NotNull(output);
-            Assert.True(output!.Slug != null);
-            Assert.Equal(Slug.Of("acme"), output!.Slug);
+            output.Should().NotBeNull();
+            output.Slug.Should().Be(expectedSlug);
+
+            dbContext.Brands.Any(it => it.Slug == expectedSlug).Should().BeTrue();
         }
 
         [Fact]

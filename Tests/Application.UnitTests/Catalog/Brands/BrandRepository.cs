@@ -62,6 +62,9 @@ namespace TreniniDotNet.Application.Catalog.Brands
 
         public Task UpdateAsync(IBrand brand)
         {
+            var indexOf = _context.Brands
+                .RemoveAll(it => it.BrandId == brand.BrandId);
+            _context.Brands.Add(brand);
             return Task.CompletedTask;
         }
     }

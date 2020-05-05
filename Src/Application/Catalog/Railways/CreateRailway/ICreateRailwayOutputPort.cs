@@ -1,9 +1,10 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+﻿using TreniniDotNet.Common;
+using TreniniDotNet.Common.UseCases.Interfaces.Output;
 
 namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 {
     public interface ICreateRailwayOutputPort : IOutputPortStandard<CreateRailwayOutput>
     {
-        void RailwayAlreadyExists(string message);
+        void RailwayAlreadyExists(Slug railway);
     }
 }

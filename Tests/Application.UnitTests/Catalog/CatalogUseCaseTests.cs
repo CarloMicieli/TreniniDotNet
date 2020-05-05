@@ -33,7 +33,8 @@ namespace TreniniDotNet.Application.Catalog
             return new UseCaseFixture<TUseCase, TOutputPort>(
                 useCaseBuilder(brandService, outputPort, unitOfWork),
                 outputPort,
-                unitOfWork);
+                unitOfWork,
+                context);
         }
 
         protected UseCaseFixture<TUseCase, TOutputPort> ArrangeRailwaysUseCase(Start initData, Func<RailwayService, TOutputPort, IUnitOfWork, TUseCase> useCaseBuilder)
@@ -49,7 +50,8 @@ namespace TreniniDotNet.Application.Catalog
             return new UseCaseFixture<TUseCase, TOutputPort>(
                 useCaseBuilder(railwayService, outputPort, unitOfWork),
                 outputPort,
-                unitOfWork);
+                unitOfWork,
+                context);
         }
 
         protected UseCaseFixture<TUseCase, TOutputPort> ArrangeScalesUseCase(Start initData, Func<ScaleService, TOutputPort, IUnitOfWork, TUseCase> useCaseBuilder)
@@ -67,7 +69,8 @@ namespace TreniniDotNet.Application.Catalog
             return new UseCaseFixture<TUseCase, TOutputPort>(
                 useCaseBuilder(scaleService, outputPort, unitOfWork),
                 outputPort,
-                unitOfWork);
+                unitOfWork,
+                context);
         }
 
         protected UseCaseFixture<TUseCase, TOutputPort> ArrangeCatalogItemUseCase(Start initData, Func<CatalogItemService, TOutputPort, IUnitOfWork, TUseCase> useCaseBuilder)
@@ -93,7 +96,8 @@ namespace TreniniDotNet.Application.Catalog
             return new UseCaseFixture<TUseCase, TOutputPort>(
                 useCaseBuilder(catalogItemService, outputPort, unitOfWork),
                 outputPort,
-                unitOfWork);
+                unitOfWork,
+                context);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
 
             var itemSlug = "acme-123456";
             var id = Guid.NewGuid();
-            var response = await client.PutJsonAsync($"/api/v1/catalogItems/{itemSlug}/rollingStocks/{id}", new {}, Check.Nothing);
+            var response = await client.PutJsonAsync($"/api/v1/catalogItems/{itemSlug}/rollingStocks/{id}", new { }, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
@@ -39,7 +39,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
 
             var itemSlug = "acme-123456";
             var id = Guid.NewGuid();
-            var response = await client.PutJsonAsync($"/api/v1/catalogItems/{itemSlug}/rollingStocks/{id}", new {}, Check.Nothing);
+            var response = await client.PutJsonAsync($"/api/v1/catalogItems/{itemSlug}/rollingStocks/{id}", new { }, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }

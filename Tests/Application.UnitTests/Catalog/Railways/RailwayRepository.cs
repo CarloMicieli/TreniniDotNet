@@ -52,7 +52,11 @@ namespace TreniniDotNet.Application.Catalog.Railways
             return Task.FromResult(new PaginatedResult<IRailway>(page, results));
         }
 
-        public Task UpdateAsync(IRailway railway) =>
-            Task.CompletedTask;
+        public Task UpdateAsync(IRailway railway)
+        {
+            _context.Railways.RemoveAll(it => it.RailwayId == railway.RailwayId);
+            _context.Railways.Add(railway);
+            return Task.CompletedTask;
+        }
     }
 }

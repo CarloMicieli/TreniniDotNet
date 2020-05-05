@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TreniniDotNet.Common;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
 namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 {
     public sealed class CreateRailwayOutputPort : OutputPortTestHelper<CreateRailwayOutput>, ICreateRailwayOutputPort
     {
-        private MethodInvocation<string> RailwayAlreadyExistsMethod { set; get; }
+        private MethodInvocation<Slug> RailwayAlreadyExistsMethod { set; get; }
 
         public CreateRailwayOutputPort()
         {
-            RailwayAlreadyExistsMethod = NewMethod<string>(nameof(RailwayAlreadyExists));
+            RailwayAlreadyExistsMethod = NewMethod<Slug>(nameof(RailwayAlreadyExists));
         }
 
-        public void RailwayAlreadyExists(string message)
+        public void RailwayAlreadyExists(Slug railway)
         {
-            this.RailwayAlreadyExistsMethod = this.RailwayAlreadyExistsMethod.Invoked(message);
+            this.RailwayAlreadyExistsMethod = this.RailwayAlreadyExistsMethod.Invoked(railway);
         }
 
-        public void ShouldHaveRailwayAlreadyExistsMessage(string expectedMessage)
+        public void AssertRailwayAlreadyExists(Slug expectedSlug)
         {
-            this.RailwayAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
+            this.RailwayAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedSlug);
         }
 
         public override IEnumerable<IMethodInvocation> Methods

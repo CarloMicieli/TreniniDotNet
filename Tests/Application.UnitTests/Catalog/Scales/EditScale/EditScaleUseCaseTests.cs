@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using FluentAssertions;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
@@ -34,11 +36,11 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
         [Fact]
         public async Task EditScale_ShouldEditScale()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeScalesUseCase(Start.WithSeedData, NewEditScale);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeScalesUseCase(Start.WithSeedData, NewEditScale);
 
             var input = NewEditScaleInput.With(
                 scaleSlug: Slug.Of("H0m"),
-                ratio: 87M);
+                ratio: 97M);
 
             await useCase.Execute(input);
 
@@ -46,8 +48,11 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
             outputPort.ShouldHaveStandardOutput();
 
             unitOfWork.EnsureUnitOfWorkWasSaved();
-        }
 
+            var scale = dbContext.Scales.First(it => it.Slug == Slug.Of("H0m"));
+            scale.Should().NotBeNull();
+            scale.Ratio.ToDecimal().Should().Be(97M);
+        }
 
         private EditScaleUseCase NewEditScale(ScaleService scaleService, EditScaleOutputPort outputPort, IUnitOfWork unitOfWork)
         {

@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Catalog.Railways.CreateRailway;
+using TreniniDotNet.Common;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
 namespace TreniniDotNet.Web.Catalog.V1.Railways.CreateRailway
 {
     public sealed class CreateRailwayPresenter : DefaultHttpResultPresenter<CreateRailwayOutput>, ICreateRailwayOutputPort
     {
-        public void RailwayAlreadyExists(string message)
+        public void RailwayAlreadyExists(Slug railway)
         {
-            ViewModel = new ConflictObjectResult(message);
+            ViewModel = new ConflictObjectResult($"Railway {railway.Value} already exists");
         }
 
         public override void Standard(CreateRailwayOutput output)

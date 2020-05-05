@@ -1662,7 +1662,7 @@
               }
             }
           },
-          "422": {
+          "404": {
             "description": "",
             "content": {
               "application/json": {
@@ -1728,6 +1728,16 @@
             }
           },
           "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
             "description": "",
             "content": {
               "application/json": {

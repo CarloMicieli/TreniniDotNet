@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Mail;
-using NodaTime;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.Addresses;
-using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using static TreniniDotNet.TestHelpers.SeedData.Catalog.CatalogSeedData;
@@ -13,7 +9,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class Brands
     {
-        private readonly IList<IBrand> _all;
+        private readonly List<IBrand> _all;
         private readonly IBrand _brawa;
         private readonly IBrand _acme;
         private readonly IBrand _bemo;
@@ -104,13 +100,13 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         public IBrand Fleischmann() => _fleischmann;
 
-        public IList<IBrand> All()
+        public List<IBrand> All()
         {
             return _all;
         }
     }
 
-    public static class IBrandsRepositoryExtensions
+    public static class BrandsRepositoryExtensions
     {
         public static void SeedDatabase(this IBrandsRepository repo)
         {

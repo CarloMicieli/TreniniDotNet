@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TreniniDotNet.Common;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
 namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
 {
     public class CreateScaleOutputPort : OutputPortTestHelper<CreateScaleOutput>, ICreateScaleOutputPort
     {
-        private MethodInvocation<string> ScaleAlreadyExistsMethod { set; get; }
+        private MethodInvocation<Slug> ScaleAlreadyExistsMethod { set; get; }
 
         public CreateScaleOutputPort()
         {
-            ScaleAlreadyExistsMethod = NewMethod<string>(nameof(ScaleAlreadyExists));
+            ScaleAlreadyExistsMethod = NewMethod<Slug>(nameof(ScaleAlreadyExists));
         }
 
-        public void ShouldHaveScaleAlreadyExistsMessage(string expectedMessage)
+        public void AssertScaleAlreadyExists(Slug expectedSlug)
         {
-            this.ScaleAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedMessage);
+            this.ScaleAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedSlug);
         }
 
-        public void ScaleAlreadyExists(string message)
+        public void ScaleAlreadyExists(Slug scaleSlug)
         {
-            this.ScaleAlreadyExistsMethod = this.ScaleAlreadyExistsMethod.Invoked(message);
+            this.ScaleAlreadyExistsMethod = this.ScaleAlreadyExistsMethod.Invoked(scaleSlug);
         }
 
         public override IEnumerable<IMethodInvocation> Methods

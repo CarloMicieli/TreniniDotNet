@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
@@ -7,6 +8,7 @@ using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using Xunit;
 using static TreniniDotNet.Application.Catalog.CatalogInputs;
+using FluentAssertions;
 
 namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 {
@@ -49,13 +51,15 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 
             await useCase.Execute(input);
 
-            outputPort.ShouldHaveRailwayAlreadyExistsMessage($"Railway '{name}' already exists");
+            outputPort.AssertRailwayAlreadyExists(Slug.Of("DB"));
         }
 
         [Fact]
         public async Task CreateRailway_Should_CreateANewRailway()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
+
+            var expectedSlug = Slug.Of("db");
 
             var input = NewCreateRailwayInput.With(
                 name: "DB",
@@ -79,11 +83,13 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();
-            var output = outputPort.UseCaseOutput;
 
-            Assert.NotNull(output);
-            Assert.True(output!.Slug != null);
-            Assert.Equal(Slug.Of("db"), output!.Slug);
+            var output = outputPort.UseCaseOutput;
+            output.Should().NotBeNull();
+            output.Slug.Should().NotBeNull();
+            output.Slug.Should().Be(expectedSlug);
+
+            dbContext.Railways.Any(it => it.Slug == expectedSlug).Should().BeTrue();
         }
 
         private CreateRailwayUseCase NewCreateRailway(RailwayService railwayService, CreateRailwayOutputPort outputPort, IUnitOfWork unitOfWork)

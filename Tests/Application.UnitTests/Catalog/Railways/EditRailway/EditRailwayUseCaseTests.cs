@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using FluentAssertions;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
@@ -44,7 +46,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
         [Fact]
         public async Task EditRailway_ShouldEditRailway()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeRailwaysUseCase(Start.WithSeedData, NewEditRailway);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeRailwaysUseCase(Start.WithSeedData, NewEditRailway);
 
             await useCase.Execute(NewEditRailwayInput.With(
                 railwaySlug: Slug.Of("RhB"),
@@ -54,6 +56,11 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
             outputPort.ShouldHaveStandardOutput();
 
             unitOfWork.EnsureUnitOfWorkWasSaved();
+
+            var railway = dbContext.Railways.FirstOrDefault(it => it.Slug == Slug.Of("RhB"));
+            railway.Should().NotBeNull();
+            railway?.CompanyName.Should().Be("Ferrovia Retica");
+            railway?.Version.Should().Be(2);
         }
 
 

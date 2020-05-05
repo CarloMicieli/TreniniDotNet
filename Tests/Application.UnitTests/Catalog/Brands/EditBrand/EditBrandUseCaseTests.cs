@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
@@ -35,11 +36,12 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
         }
 
         [Fact]
-        public async Task EditBrand_ShouldEditBrands()
+        public async Task EditBrand_ShouldUpdateBrands()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeBrandsUseCase(Start.WithSeedData, NewCreateBrand);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeBrandsUseCase(Start.WithSeedData, NewCreateBrand);
 
             var brandSlug = Slug.Of("ACME");
+            var expectedSlug = Slug.Of("A.C.M.E.");
 
             await useCase.Execute(NewEditBrandInput.With(brandSlug: brandSlug, name: "A.C.M.E."));
 
@@ -49,7 +51,10 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
             unitOfWork.EnsureUnitOfWorkWasSaved();
 
             var output = outputPort.UseCaseOutput;
-            output.Slug.Should().Be(Slug.Of("A.C.M.E."));
+            output.Slug.Should().Be(expectedSlug);
+
+            dbContext.Brands.Any(it => it.Slug == brandSlug).Should().BeFalse();
+            dbContext.Brands.Any(it => it.Slug == expectedSlug).Should().BeTrue();
         }
 
         private EditBrandUseCase NewCreateBrand(BrandService brandService, EditBrandOutputPort outputPort, IUnitOfWork unitOfWork)
