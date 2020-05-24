@@ -83,6 +83,27 @@
         }
       }
     },
+    "/api/v1": {
+      "get": {
+        "tags": [
+          "Root"
+        ],
+        "operationId": "Root_GetRoot",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/error-local-development": {
       "get": {
         "tags": [
