@@ -13,6 +13,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             string? railway,
             string? className, string? roadNumber,
             string? typeName, string? passengerCarType, string? serviceLevel,
+            string? livery,
             LengthOverBufferInput? lengthOverBuffer,
             string? control, string? dccInterface)
         {
@@ -21,8 +22,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             Values = new RollingStockModifiedValues(
                 epoch, category,
                 railway,
-                className, roadNumber,
-                typeName, passengerCarType, serviceLevel,
+                className, roadNumber, typeName,
+                livery,
+                passengerCarType, serviceLevel,
                 lengthOverBuffer,
                 control, dccInterface);
         }
@@ -37,8 +39,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         public RollingStockModifiedValues(
             string? epoch, string? category,
             string? railway,
-            string? className, string? roadNumber,
-            string? typeName, string? passengerCarType, string? serviceLevel,
+            string? className, string? roadNumber, string? typeName,
+            string? livery, string? passengerCarType, string? serviceLevel,
             LengthOverBufferInput? lengthOverBuffer,
             string? control, string? dccInterface)
         {
@@ -47,6 +49,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             Railway = railway;
             ClassName = className;
             RoadNumber = roadNumber;
+            Livery = livery;
             TypeName = typeName;
             PassengerCarType = passengerCarType;
             ServiceLevel = serviceLevel;
@@ -66,6 +69,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         public string? TypeName { get; }
 
         public string? RoadNumber { get; }
+
+        public string? Livery { get; }
 
         public string? PassengerCarType { get; }
 

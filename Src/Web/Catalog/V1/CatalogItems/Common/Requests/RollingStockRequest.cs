@@ -14,6 +14,8 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests
 
         public string? TypeName { set; get; }
 
+        public string? Livery { set; get; }
+
         public string? DccInterface { set; get; }
 
         public string? Control { set; get; }

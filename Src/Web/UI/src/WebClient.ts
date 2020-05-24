@@ -6112,6 +6112,7 @@ export class RollingStockView implements IRollingStockView {
     className?: string | undefined;
     roadNumber?: string | undefined;
     typeName?: string | undefined;
+    livery?: string | undefined;
     dccInterface?: string | undefined;
     control?: string | undefined;
 
@@ -6134,6 +6135,7 @@ export class RollingStockView implements IRollingStockView {
             this.className = _data["className"];
             this.roadNumber = _data["roadNumber"];
             this.typeName = _data["typeName"];
+            this.livery = _data["livery"];
             this.dccInterface = _data["dccInterface"];
             this.control = _data["control"];
         }
@@ -6156,6 +6158,7 @@ export class RollingStockView implements IRollingStockView {
         data["className"] = this.className;
         data["roadNumber"] = this.roadNumber;
         data["typeName"] = this.typeName;
+        data["livery"] = this.livery;
         data["dccInterface"] = this.dccInterface;
         data["control"] = this.control;
         return data; 
@@ -6171,6 +6174,7 @@ export interface IRollingStockView {
     className?: string | undefined;
     roadNumber?: string | undefined;
     typeName?: string | undefined;
+    livery?: string | undefined;
     dccInterface?: string | undefined;
     control?: string | undefined;
 }
@@ -6302,6 +6306,7 @@ export class EditRollingStockRequest implements IEditRollingStockRequest {
     className?: string | undefined;
     typeName?: string | undefined;
     roadNumber?: string | undefined;
+    livery?: string | undefined;
     passengerCarType?: string | undefined;
     serviceLevel?: string | undefined;
     lengthOverBuffer?: LengthOverBufferRequest | undefined;
@@ -6325,6 +6330,7 @@ export class EditRollingStockRequest implements IEditRollingStockRequest {
             this.className = _data["className"];
             this.typeName = _data["typeName"];
             this.roadNumber = _data["roadNumber"];
+            this.livery = _data["livery"];
             this.passengerCarType = _data["passengerCarType"];
             this.serviceLevel = _data["serviceLevel"];
             this.lengthOverBuffer = _data["lengthOverBuffer"] ? LengthOverBufferRequest.fromJS(_data["lengthOverBuffer"]) : <any>undefined;
@@ -6348,6 +6354,7 @@ export class EditRollingStockRequest implements IEditRollingStockRequest {
         data["className"] = this.className;
         data["typeName"] = this.typeName;
         data["roadNumber"] = this.roadNumber;
+        data["livery"] = this.livery;
         data["passengerCarType"] = this.passengerCarType;
         data["serviceLevel"] = this.serviceLevel;
         data["lengthOverBuffer"] = this.lengthOverBuffer ? this.lengthOverBuffer.toJSON() : <any>undefined;
@@ -6364,6 +6371,7 @@ export interface IEditRollingStockRequest {
     className?: string | undefined;
     typeName?: string | undefined;
     roadNumber?: string | undefined;
+    livery?: string | undefined;
     passengerCarType?: string | undefined;
     serviceLevel?: string | undefined;
     lengthOverBuffer?: LengthOverBufferRequest | undefined;
@@ -6528,6 +6536,7 @@ export class RollingStockRequest implements IRollingStockRequest {
     className?: string | undefined;
     roadNumber?: string | undefined;
     typeName?: string | undefined;
+    livery?: string | undefined;
     dccInterface?: string | undefined;
     control?: string | undefined;
     category?: string | undefined;
@@ -6551,6 +6560,7 @@ export class RollingStockRequest implements IRollingStockRequest {
             this.className = _data["className"];
             this.roadNumber = _data["roadNumber"];
             this.typeName = _data["typeName"];
+            this.livery = _data["livery"];
             this.dccInterface = _data["dccInterface"];
             this.control = _data["control"];
             this.category = _data["category"];
@@ -6574,6 +6584,7 @@ export class RollingStockRequest implements IRollingStockRequest {
         data["className"] = this.className;
         data["roadNumber"] = this.roadNumber;
         data["typeName"] = this.typeName;
+        data["livery"] = this.livery;
         data["dccInterface"] = this.dccInterface;
         data["control"] = this.control;
         data["category"] = this.category;
@@ -6590,6 +6601,7 @@ export interface IRollingStockRequest {
     className?: string | undefined;
     roadNumber?: string | undefined;
     typeName?: string | undefined;
+    livery?: string | undefined;
     dccInterface?: string | undefined;
     control?: string | undefined;
     category?: string | undefined;

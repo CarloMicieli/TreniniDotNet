@@ -17,6 +17,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public string? class_name { get; set; }
         public string? road_number { get; set; }
         public string? type_name { get; set; }
+        public string? livery { get; set; }
         public string? dcc_interface { get; set; }
         public string? control { get; set; }
     }

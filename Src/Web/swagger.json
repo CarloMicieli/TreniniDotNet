@@ -3909,6 +3909,10 @@
             "type": "string",
             "nullable": true
           },
+          "livery": {
+            "type": "string",
+            "nullable": true
+          },
           "dccInterface": {
             "type": "string",
             "nullable": true
@@ -3985,6 +3989,10 @@
             "nullable": true
           },
           "roadNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "livery": {
             "type": "string",
             "nullable": true
           },
@@ -4110,6 +4118,10 @@
             "nullable": true
           },
           "typeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "livery": {
             "type": "string",
             "nullable": true
           },

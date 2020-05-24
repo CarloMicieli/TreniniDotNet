@@ -30,13 +30,15 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Fs(),
                 Epoch.VI,
                 LengthOverBuffer.OfMillimeters(135M),
-                "Sdggmrs T2000");
+                "Sdggmrs T2000",
+                "red");
 
             newFreightCar.Should().NotBeNull();
             newFreightCar.Epoch.Should().Be(Epoch.VI);
             newFreightCar.Category.Should().Be(Category.FreightCar);
             newFreightCar.TypeName.Should().Be("Sdggmrs T2000");
             newFreightCar.Length?.Millimeters.Should().Be(Length.OfMillimeters(135M));
+            newFreightCar.Livery.Should().Be("red");
         }
 
         [Fact]
@@ -47,6 +49,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Epoch.IV,
                 LengthOverBuffer.OfMillimeters(242M),
                 "Tipo 1921",
+                "red",
                 PassengerCarType.CompartmentCoach,
                 ServiceLevel.SecondClass);
 
@@ -55,6 +58,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             newPassengerCar.Railway.Should().Be(Fs());
             newPassengerCar.Epoch.Should().Be(Epoch.IV);
             newPassengerCar.TypeName.Should().Be("Tipo 1921");
+            newPassengerCar.Livery.Should().Be("red");
             newPassengerCar.PassengerCarType.Should().Be(PassengerCarType.CompartmentCoach);
             newPassengerCar.ServiceLevel.Should().Be(ServiceLevel.SecondClass);
             newPassengerCar.Length?.Millimeters.Should().Be(Length.OfMillimeters(242M));
@@ -70,6 +74,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 LengthOverBuffer.OfMillimeters(210M),
                 "E 656",
                 "E 656 210",
+                "blue",
                 DccInterface.Nem652,
                 Control.DccReady);
 
@@ -80,6 +85,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             newLocomotive.Length?.Millimeters.Should().Be(Length.OfMillimeters(210M));
             newLocomotive.ClassName.Should().Be("E 656");
             newLocomotive.RoadNumber.Should().Be("E 656 210");
+            newLocomotive.Livery.Should().Be("blue");
             newLocomotive.DccInterface.Should().Be(DccInterface.Nem652);
             newLocomotive.Control.Should().Be(Control.DccReady);
         }
@@ -94,6 +100,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 LengthOverBuffer.OfMillimeters(2321M),
                 "Etr 400",
                 "",
+                livery: "red",
                 DccInterface.Mtc21,
                 Control.DccReady
             );
@@ -104,6 +111,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             newTrain.Epoch.Should().Be(Epoch.VI);
             newTrain.Length?.Millimeters.Should().Be(Length.OfMillimeters(2321M));
             newTrain.ClassName.Should().Be("Etr 400");
+            newTrain.Livery.Should().Be("red");
             newTrain.DccInterface.Should().Be(DccInterface.Mtc21);
             newTrain.Control.Should().Be(Control.DccReady);
         }
@@ -122,6 +130,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 "Class name",
                 "Road Number",
                 "Type name",
+                "red",
                 PassengerCarType.Observation.ToString(),
                 ServiceLevel.SecondClass.ToString(),
                 DccInterface.Nem651.ToString(),
@@ -136,6 +145,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             rs.ClassName.Should().Be("Class name");
             rs.RoadNumber.Should().Be("Road Number");
             rs.TypeName.Should().Be("Type name");
+            rs.Livery.Should().Be("red");
             rs.PassengerCarType.Should().Be(PassengerCarType.Observation);
             rs.ServiceLevel.Should().Be(ServiceLevel.SecondClass);
             rs.DccInterface.Should().Be(DccInterface.Nem651);

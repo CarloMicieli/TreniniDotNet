@@ -70,6 +70,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 input.Values.ClassName,
                 input.Values.RoadNumber,
                 input.Values.TypeName,
+                input.Values.Livery,
                 EnumHelpers.OptionalValueFor<PassengerCarType>(input.Values.PassengerCarType),
                 null,
                 EnumHelpers.OptionalValueFor<DccInterface>(input.Values.DccInterface),

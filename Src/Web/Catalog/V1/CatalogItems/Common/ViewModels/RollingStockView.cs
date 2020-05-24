@@ -38,6 +38,8 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
 
         public string? TypeName => _rs.TypeName;
 
+        public string? Livery => _rs.Livery;
+
         public string? DccInterface => _rs.DccInterface.ToString();
 
         public string? Control => _rs.Control.ToString();

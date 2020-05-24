@@ -41,6 +41,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     length,
                     input.ClassName,
                     input.RoadNumber,
+                    input.Livery,
                     dccInterface,
                     control
                 );
@@ -56,6 +57,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     era,
                     length,
                     input.TypeName,
+                    input.Livery,
                     passengerCarType,
                     serviceLevel);
             }
@@ -66,7 +68,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     railwayInfo,
                     era,
                     length,
-                    input.TypeName);
+                    input.TypeName,
+                    input.Livery);
             }
 
             if (Categories.IsTrain(category))
@@ -78,6 +81,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     length,
                     input.ClassName,
                     input.RoadNumber,
+                    input.Livery,
                     dccInterface,
                     control);
             }

@@ -15,6 +15,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Epoch epoch,
             LengthOverBuffer? length,
             string? className, string? roadNumber, string? typeName,
+            string? livery,
             PassengerCarType? passengerCarType, ServiceLevel? serviceLevel,
             DccInterface dccInterface, Control control)
         {
@@ -26,6 +27,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             ClassName = className;
             RoadNumber = roadNumber;
             TypeName = typeName;
+            Livery = livery;
             ServiceLevel = serviceLevel;
             PassengerCarType = passengerCarType;
             DccInterface = dccInterface;
@@ -48,6 +50,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public string? RoadNumber { get; }
 
         public string? TypeName { get; }
+
+        public string? Livery { get; }
 
         public PassengerCarType? PassengerCarType { get; }
 

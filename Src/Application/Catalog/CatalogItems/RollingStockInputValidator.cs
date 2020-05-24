@@ -30,6 +30,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             RuleFor(x => x.ClassName)
                 .MaximumLength(25);
 
+            RuleFor(x => x.TypeName)
+                .MaximumLength(25);
+
+            RuleFor(x => x.Livery)
+                .MaximumLength(50);
+
             RuleFor(x => x.DccInterface)
                 .IsEnumName(typeof(DccInterface), caseSensitive: false);
 
