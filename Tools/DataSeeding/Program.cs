@@ -1,45 +1,103 @@
-﻿using System.Drawing;
-using Console = Colorful.Console;
-using DataSeeding.Records.Catalog;
-using System.IO;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
+using CommandLine;
+using DataSeeding.Clients;
+using DataSeeding.DataLoader;
+using DataSeeding.DataLoader.Records.Catalog.Brands;
+using DataSeeding.DataLoader.Records.Catalog.CatalogItems;
+using Serilog;
+using Serilog.Core;
 
 namespace DataSeeding
 {
     class Program
     {
-        private static IDeserializer deserializer = new DeserializerBuilder()
-            .WithNamingConvention(PascalCaseNamingConvention.Instance)
-            .Build();
+        public class Options
+        {
+            [Option('u', "url", Required = true, HelpText = "The endpoint uri.", Default = "https://localhost:5001")]
+            public Uri EndpointUri { get; set; }
+
+            [Option('i', "input", Required = true, HelpText = "The input file.")]
+            public string InputFile { get; set; }
+
+            [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
+            public bool Verbose { get; set; }
+        }
+
+        [Verb("brands", HelpText = "Send brands")]
+        public class BrandsOptions : Options
+        {
+        }
+
+        [Verb("catalogItems", HelpText = "Send catalog items")]
+        public class CatalogItemsOptions : Options
+        {
+        }
+
+        [Verb("railways", HelpText = "Send railways")]
+        public class RailwaysOptions : Options
+        {
+        }
+
+        [Verb("scales", HelpText = "Send scales")]
+        public class ScalesOptions : Options
+        {
+        }
 
         static async Task Main(string[] args)
         {
-            Console.WriteAscii("Data Seeder", Color.GreenYellow);
+            var log = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .CreateLogger();
 
-            var brands = await Parse<Brands>("brands.yaml");
-            Console.WriteLineFormatted("Parsed {0} brand(s)", brands.Elements.Count(), Color.LightGoldenrodYellow, Color.Gray);
-
-            var railways = await Parse<Railways>("railways.yaml");
-            Console.WriteLineFormatted("Parsed {0} railway(s)", railways.Elements.Count(), Color.LightGoldenrodYellow, Color.Gray);
-
-            var scales = await Parse<Scales>("scales.yaml");
-            Console.WriteLineFormatted("Parsed {0} scale(s)", scales.Elements.Count(), Color.LightGoldenrodYellow, Color.Gray);
-
-            var catalogItems = await Parse<CatalogItems>("catalogitems.yaml");
-            Console.WriteLineFormatted("Parsed {0} catalog item(s)", catalogItems.Elements.Count(), Color.LightGoldenrodYellow, Color.Gray);
-
-            Console.WriteLine("Press [ENTER] to quit.");
-            Console.ReadLine();
+            await Parser.Default.ParseArguments<BrandsOptions, CatalogItemsOptions, RailwaysOptions, ScalesOptions>(args)
+                .MapResult(
+                    (BrandsOptions o) => SendBrands(o, log),
+                    (CatalogItemsOptions o) => SendCatalogItems(o, log),
+                    (RailwaysOptions o) => SendRailways(o, log),
+                    (ScalesOptions o) => SendScales(o, log),
+                    errs => Task.FromResult(0));
         }
 
-        static async Task<TResult> Parse<TResult>(string filename)
+        private static async Task<int> SendBrands(BrandsOptions o, Logger log)
         {
-            using var streamReader = new StreamReader(filename);
-            string input = await streamReader.ReadToEndAsync();
-            return deserializer.Deserialize<TResult>(input);
+            var catalogClient = new CatalogClient(o.EndpointUri.ToString(), log);
+            var brands = await YamlParser.Parse<Brands>(o.InputFile);
+            if (o.Verbose)
+            {
+                log.Information("Parsed {0} brand(s)", brands.Elements.Count());
+            }
+
+            foreach (var brand in brands.Elements)
+            {
+                await catalogClient.BrandsClient.NewBrandAsync(brand);
+            }
+
+            return 0;
+        }
+
+        private static async Task<int> SendCatalogItems(CatalogItemsOptions o, Logger log)
+        {
+            var catalogClient = new CatalogClient(o.EndpointUri.ToString(), log);
+            var catalogItems = await YamlParser.Parse<CatalogItems>(o.InputFile);
+
+            foreach (var item in catalogItems.Elements)
+            {
+                await catalogClient.CatalogItemsClient.NewCatalogItemAsync(item);
+            }
+            return 0;
+        }
+
+        private static Task<int> SendRailways(RailwaysOptions o, Logger log)
+        {
+            return Task.FromResult(0);
+        }
+
+        private static Task<int> SendScales(ScalesOptions o, Logger log)
+        {
+            return Task.FromResult(0);
         }
     }
 }

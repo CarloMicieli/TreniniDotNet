@@ -1,9 +1,7 @@
-﻿using System;
+using System;
 
-namespace DataSeeding.Records.Catalog
+namespace DataSeeding.DataLoader.Records.Catalog.Railways
 {
-    public sealed class Railways : DataSet<Railway> { }
-
     public sealed class Railway
     {
         public Guid RailwayId { set; get; }
@@ -18,12 +16,5 @@ namespace DataSeeding.Records.Catalog
         public string Website { set; get; }
         public int Version { set; get; }
         public DateTime LastModified { set; get; }
-    }
-
-    public sealed class PeriodOfActivity
-    {
-        public string Status { set; get; }
-        public string OperatingSince { set; get; }
-        public string OperatingUntil { set; get; }
     }
 }

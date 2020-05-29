@@ -1,4 +1,4 @@
-﻿namespace DataSeeding.Records
+namespace DataSeeding.DataLoader.Records
 {
     public sealed class Address
     {

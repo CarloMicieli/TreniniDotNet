@@ -3,6 +3,7 @@ using DomainCategory = TreniniDotNet.Domain.Catalog.CatalogItems.Category;
 using DomainPowerMode = TreniniDotNet.Domain.Catalog.CatalogItems.PowerMethod;
 using DomainControl = TreniniDotNet.Domain.Catalog.CatalogItems.Control;
 using DomainDccInterface = TreniniDotNet.Domain.Catalog.CatalogItems.DccInterface;
+using DomainPassengerCarType = TreniniDotNet.Domain.Catalog.CatalogItems.PassengerCarType;
 
 namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
 {
@@ -61,6 +62,26 @@ namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
                 DccInterface.Mtc21 => DomainDccInterface.Mtc21.ToString(),
                 _ => null
             };
+        }
+
+        public static string? ToPassengerCarType(this PassengerCarType passengerCarType)
+        {
+            if (passengerCarType == PassengerCarType.NoType)
+            {
+                return null;
+            }
+
+            return passengerCarType.ToString();
+        }
+
+        public static string? ToCouplers(this Couplers couplers)
+        {
+            if (couplers == Couplers.NoCouplers)
+            {
+                return null;
+            }
+
+            return couplers.ToString();
         }
     }
 }

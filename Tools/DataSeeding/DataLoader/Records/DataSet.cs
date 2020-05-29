@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace DataSeeding.Records
+namespace DataSeeding.DataLoader.Records
 {
     public abstract class DataSet<TElement>
     {

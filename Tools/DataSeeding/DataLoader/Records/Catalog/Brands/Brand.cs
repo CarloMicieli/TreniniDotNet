@@ -1,9 +1,7 @@
-﻿using System;
+using System;
 
-namespace DataSeeding.Records.Catalog
+namespace DataSeeding.DataLoader.Records.Catalog.Brands
 {
-    public sealed class Brands : DataSet<Brand> { }
-
     public sealed class Brand
     {
         public Guid BrandId { set; get; }
@@ -14,6 +12,7 @@ namespace DataSeeding.Records.Catalog
         public string MailAddress { set; get; }
         public string CompanyName { set; get; }
         public string GroupName { set; get; }
+        public string Description { set; get; }
         public string BrandKind { set; get; }
         public bool? Active { set; get; }
         public Address Address { set; get; }

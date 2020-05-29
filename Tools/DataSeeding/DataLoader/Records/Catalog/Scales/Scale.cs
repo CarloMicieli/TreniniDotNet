@@ -1,10 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace DataSeeding.Records.Catalog
+namespace DataSeeding.DataLoader.Records.Catalog.Scales
 {
-    public sealed class Scales : DataSet<Scale> { }
-
     public sealed class Scale
     {
         public Guid ScaleId { set; get; }
@@ -17,11 +15,5 @@ namespace DataSeeding.Records.Catalog
         public string TrackGauge { set; get; }
         public int Version { set; get; }
         public DateTime LastModified { set; get; }
-    }
-
-    public sealed class Gauge
-    {
-        public decimal Value { set; get; }
-        public string MeasureUnit { set; get; }
     }
 }

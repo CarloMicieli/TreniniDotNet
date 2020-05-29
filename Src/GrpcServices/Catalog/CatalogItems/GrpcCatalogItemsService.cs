@@ -31,16 +31,16 @@ namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
         {
             var rollingStocks = request.RollingStocks
                 .Select(it => new RollingStockInput(
-                    it.Era,
+                    it.Epoch,
                     it.Category.ToCategoryName() ?? "",
                     it.Railway,
                     it.ClassName.ToNullableString(),
                     it.RoadNumber.ToNullableString(),
                     it.TypeName.ToNullableString(),
-                    "",
+                    it.Couplers.ToCouplers(),
                     it.Livery.ToNullableString(),
-                    "",
-                    "",
+                    it.PassengerCarType.ToPassengerCarType(),
+                    it.ServiceLevel.ToNullableString(),
                     FromRollingStockLength(it.Length),
                     it.Control.ToControlName(),
                     it.DccInterface.ToDccInterfaceName()))
