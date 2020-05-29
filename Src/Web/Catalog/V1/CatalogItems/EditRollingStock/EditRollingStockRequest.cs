@@ -27,6 +27,8 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock
 
         public string? RoadNumber { get; set; }
 
+        public string? Couplers { get; set; }
+
         public string? Livery { get; set; }
 
         public string? PassengerCarType { get; set; }

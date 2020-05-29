@@ -1,6 +1,7 @@
 using System;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.UseCases.Interfaces.Input;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
@@ -13,6 +14,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             string? railway,
             string? className, string? roadNumber,
             string? typeName, string? passengerCarType, string? serviceLevel,
+            string? couplers,
             string? livery,
             LengthOverBufferInput? lengthOverBuffer,
             string? control, string? dccInterface)
@@ -23,6 +25,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 epoch, category,
                 railway,
                 className, roadNumber, typeName,
+                couplers,
                 livery,
                 passengerCarType, serviceLevel,
                 lengthOverBuffer,
@@ -40,6 +43,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             string? epoch, string? category,
             string? railway,
             string? className, string? roadNumber, string? typeName,
+            string? couplers,
             string? livery, string? passengerCarType, string? serviceLevel,
             LengthOverBufferInput? lengthOverBuffer,
             string? control, string? dccInterface)
@@ -49,6 +53,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             Railway = railway;
             ClassName = className;
             RoadNumber = roadNumber;
+            Couplers = couplers;
             Livery = livery;
             TypeName = typeName;
             PassengerCarType = passengerCarType;
@@ -69,6 +74,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         public string? TypeName { get; }
 
         public string? RoadNumber { get; }
+
+        public string? Couplers { get; }
 
         public string? Livery { get; }
 

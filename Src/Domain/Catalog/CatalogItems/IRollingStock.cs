@@ -21,6 +21,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         string? TypeName { get; }
 
+        Couplers? Couplers { get; }
+
         string? Livery { get; }
 
         PassengerCarType? PassengerCarType { get; }
@@ -37,6 +39,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Epoch? epoch = null,
             LengthOverBuffer? length = null,
             string? className = null, string? roadNumber = null, string? typeName = null,
+            Couplers? couplers = null,
             string? livery = null,
             PassengerCarType? passengerCarType = null, ServiceLevel? serviceLevel = null,
             DccInterface? dccInterface = null, Control? control = null)
@@ -50,6 +53,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 className ?? ClassName,
                 roadNumber ?? RoadNumber,
                 typeName ?? TypeName,
+                couplers ?? Couplers,
                 livery ?? Livery,
                 passengerCarType ?? PassengerCarType,
                 serviceLevel ?? ServiceLevel,

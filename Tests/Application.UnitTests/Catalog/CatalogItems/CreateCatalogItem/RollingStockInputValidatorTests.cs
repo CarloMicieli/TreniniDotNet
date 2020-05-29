@@ -43,6 +43,16 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         }
 
         [Fact]
+        public void RollingStockInputValidator_ShouldHaveError_WhenCouplersIsInvalid()
+        {
+            var input = RollingStockInput(couplers: "invalid");
+
+            var result = Validator.TestValidate(input);
+
+            result.ShouldHaveValidationErrorFor(x => x.Couplers);
+        }
+
+        [Fact]
         public void RollingStockInputValidator_ShouldHaveError_WhenControlIsInvalid()
         {
             var input = RollingStockInput(control: "invalid");
@@ -67,7 +77,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             string era = "IV",
             string category = "ElectricLocomotive",
             string control = "DccReady",
-            string dccInterface = "Nem652")
+            string dccInterface = "Nem652",
+            string couplers = null)
         {
             return CatalogInputs.NewRollingStockInput.With(
                 epoch: era,
@@ -77,7 +88,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                 roadNumber: "E 656 210",
                 length: new LengthOverBufferInput(length, null),
                 control: control,
-                dccInterface: dccInterface
+                dccInterface: dccInterface,
+                couplers: couplers
             );
         }
     }

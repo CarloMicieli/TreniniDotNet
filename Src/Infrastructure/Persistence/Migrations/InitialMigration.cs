@@ -147,6 +147,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("class_name").AsString(25).Nullable()
                 .WithColumn("road_number").AsString(25).Nullable()
                 .WithColumn("type_name").AsString(25).Nullable()
+                .WithColumn("couplers").AsString(10).Nullable()
                 .WithColumn("livery").AsString(50).Nullable()
                 .WithColumn("dcc_interface").AsString(25).Nullable()
                 .WithColumn("passenger_car_type").AsString(25).Nullable()

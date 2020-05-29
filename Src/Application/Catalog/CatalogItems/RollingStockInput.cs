@@ -1,4 +1,5 @@
 using TreniniDotNet.Common.UseCases.Interfaces.Input;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems
 {
@@ -8,6 +9,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             string epoch, string category,
             string railway,
             string? className, string? roadNumber, string? typeName,
+            string? couplers,
             string? livery,
             string? passengerCarType, string? serviceLevel,
             LengthOverBufferInput? lengthOverBuffer,
@@ -19,6 +21,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             ClassName = className;
             RoadNumber = roadNumber;
             TypeName = typeName;
+            Couplers = couplers;
             Livery = livery;
             PassengerCarType = passengerCarType;
             ServiceLevel = serviceLevel;
@@ -38,6 +41,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
         public string? TypeName { get; }
 
         public string? RoadNumber { get; }
+
+        public string? Couplers { get; }
 
         public string? Livery { get; }
 

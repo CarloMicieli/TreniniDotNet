@@ -67,7 +67,9 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 "E 656",
                 "E 656 291",
                 dccInterface: DccInterface.Nem652,
-                control: Control.DccReady);
+                control: Control.DccReady,
+                livery: "bianco/rosso/blu",
+                couplers: Couplers.Nem352);
 
             return NewCatalogItemWith(
                 CatalogItemId.NewId(),
@@ -115,7 +117,9 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 Category.PassengerCar,
                 Epoch.IV,
                 LengthOverBuffer.OfMillimeters(195M),
-                typeName: "Corbellini");
+                typeName: "Corbellini",
+                livery: "grigio ardesia",
+                couplers: Couplers.Nem352);
 
             return NewCatalogItemWith(
                 CatalogItemId.NewId(),

@@ -21,6 +21,10 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems.Responses
 
         public string TypeName { set; get; }
 
+        public string Couplers { set; get; }
+
+        public string Livery { set; get; }
+
         public string DccInterface { set; get; }
 
         public string Control { set; get; }

@@ -241,11 +241,12 @@ namespace TreniniDotNet.Application.Catalog
             public static RollingStockInput With(
                 string epoch = null, string category = null, string railway = null,
                 string className = null, string roadNumber = null, string typeName = null,
+                string couplers = null,
                 string livery = null, string passengerCarType = null, string serviceLevel = null,
                 LengthOverBufferInput length = null,
                 string control = null, string dccInterface = null) =>
                 new RollingStockInput(epoch, category, railway,
-                    className, roadNumber, typeName, livery, passengerCarType, serviceLevel,
+                    className, roadNumber, typeName, couplers, livery, passengerCarType, serviceLevel,
                     length,
                     control, dccInterface);
         }
@@ -268,14 +269,18 @@ namespace TreniniDotNet.Application.Catalog
                 Slug? slug = null, RollingStockId? rollingStockId = null,
                 string epoch = null, string category = null, string railway = null,
                 string className = null, string roadNumber = null,
-                string typeName = null, string livery = null, string passengerCarType = null, string serviceLevel = null,
+                string typeName = null,
+                string couplers = null,
+                string livery = null, string passengerCarType = null, string serviceLevel = null,
                 LengthOverBufferInput length = null,
                 string control = null, string dccInterface = null) =>
                 new EditRollingStockInput(
                     slug ?? Slug.Empty,
                     rollingStockId ?? RollingStockId.Empty,
                     epoch, category, railway,
-                    className, roadNumber, typeName, livery, passengerCarType, serviceLevel,
+                    className, roadNumber, typeName, passengerCarType, serviceLevel,
+                    couplers,
+                    livery,
                     length,
                     control, dccInterface);
         }

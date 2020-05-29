@@ -47,6 +47,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 
             RuleFor(x => x.Control)
                 .IsEnumName(typeof(Control), caseSensitive: false);
+
+            RuleFor(x => x.Couplers)
+                .IsEnumName(typeof(Couplers), caseSensitive: false);
         }
     }
 }

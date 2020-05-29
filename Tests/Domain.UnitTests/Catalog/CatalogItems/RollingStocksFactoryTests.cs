@@ -31,6 +31,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Epoch.VI,
                 LengthOverBuffer.OfMillimeters(135M),
                 "Sdggmrs T2000",
+                Couplers.Nem352,
                 "red");
 
             newFreightCar.Should().NotBeNull();
@@ -49,6 +50,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Epoch.IV,
                 LengthOverBuffer.OfMillimeters(242M),
                 "Tipo 1921",
+                Couplers.Nem352,
                 "red",
                 PassengerCarType.CompartmentCoach,
                 ServiceLevel.SecondClass);
@@ -74,6 +76,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 LengthOverBuffer.OfMillimeters(210M),
                 "E 656",
                 "E 656 210",
+                Couplers.Nem352,
                 "blue",
                 DccInterface.Nem652,
                 Control.DccReady);
@@ -100,6 +103,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 LengthOverBuffer.OfMillimeters(2321M),
                 "Etr 400",
                 "",
+                Couplers.Nem352,
                 livery: "red",
                 DccInterface.Mtc21,
                 Control.DccReady
@@ -130,6 +134,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 "Class name",
                 "Road Number",
                 "Type name",
+                "Nem352",
                 "red",
                 PassengerCarType.Observation.ToString(),
                 ServiceLevel.SecondClass.ToString(),

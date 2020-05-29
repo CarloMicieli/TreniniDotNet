@@ -50,7 +50,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 control: "Invalid",
                 dccInterface: "Invalid",
                 passengerCarType: "Invalid",
-                serviceLevel: "Invalid");
+                serviceLevel: "Invalid",
+                couplers: "Invalid");
 
             var result = Validator.TestValidate(input);
 
@@ -58,6 +59,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             result.ShouldHaveValidationErrorFor(x => x.Values.Epoch);
             result.ShouldHaveValidationErrorFor(x => x.Values.Control);
             result.ShouldHaveValidationErrorFor(x => x.Values.DccInterface);
+            result.ShouldHaveValidationErrorFor(x => x.Values.Couplers);
             result.ShouldHaveValidationErrorFor(x => x.Values.LengthOverBuffer.Inches);
             result.ShouldHaveValidationErrorFor(x => x.Values.LengthOverBuffer.Millimeters);
         }

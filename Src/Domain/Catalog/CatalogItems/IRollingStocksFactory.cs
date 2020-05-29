@@ -11,6 +11,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Epoch epoch,
             LengthOverBuffer? length,
             string? className, string? roadNumber,
+            Couplers? couplers,
             string? livery,
             DccInterface dccInterface, Control control);
 
@@ -19,6 +20,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Epoch epoch,
             LengthOverBuffer? length,
             string? typeName,
+            Couplers? couplers,
             string? livery,
             PassengerCarType? passengerCarType,
             ServiceLevel? serviceLevel);
@@ -28,6 +30,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Epoch epoch,
             LengthOverBuffer? length,
             string? typeName,
+            Couplers? couplers,
             string? livery);
 
         IRollingStock NewTrain(
@@ -37,6 +40,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             LengthOverBuffer? length,
             string? className,
             string? roadNumber,
+            Couplers? couplers,
             string? livery,
             DccInterface dccInterface,
             Control control);
@@ -49,6 +53,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             decimal? lengthMillimeters,
             decimal? lengthInches,
             string? className = null, string? roadNumber = null, string? typeName = null,
+            string? couplers = null,
             string? livery = null,
             string? passengerCarType = null, string? serviceLevel = null,
             string? dccInterface = null, string? control = null);

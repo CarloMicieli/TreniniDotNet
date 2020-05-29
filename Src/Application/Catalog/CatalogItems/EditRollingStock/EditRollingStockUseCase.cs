@@ -59,6 +59,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 }
             }
 
+            var couplers = EnumHelpers.OptionalValueFor<Couplers>(input.Values.Couplers);
             var epoch = !string.IsNullOrWhiteSpace(input.Values.Epoch) && Epoch.TryParse(input.Values.Epoch, out var e) ?
                 e : (Epoch?)null;
 
@@ -70,6 +71,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 input.Values.ClassName,
                 input.Values.RoadNumber,
                 input.Values.TypeName,
+                couplers,
                 input.Values.Livery,
                 EnumHelpers.OptionalValueFor<PassengerCarType>(input.Values.PassengerCarType),
                 null,

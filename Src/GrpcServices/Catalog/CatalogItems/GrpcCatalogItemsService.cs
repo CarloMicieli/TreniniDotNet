@@ -37,6 +37,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
                     it.ClassName.ToNullableString(),
                     it.RoadNumber.ToNullableString(),
                     it.TypeName.ToNullableString(),
+                    "",
                     it.Livery.ToNullableString(),
                     "",
                     "",

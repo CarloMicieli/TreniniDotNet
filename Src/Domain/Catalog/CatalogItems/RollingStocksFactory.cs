@@ -21,7 +21,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         }
 
         public IRollingStock NewLocomotive(IRailwayInfo railway, Category category, Epoch epoch, LengthOverBuffer? length,
-            string? className, string? roadNumber, string? livery, DccInterface dccInterface, Control control)
+            string? className, string? roadNumber,
+            Couplers? couplers,
+            string? livery, DccInterface dccInterface, Control control)
         {
             return NewRollingStock(
                 railway,
@@ -30,13 +32,14 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 length,
                 className,
                 roadNumber,
+                couplers: couplers,
                 livery: livery,
                 dccInterface: dccInterface,
                 control: control);
         }
 
         public IRollingStock NewPassengerCar(IRailwayInfo railway, Epoch epoch, LengthOverBuffer? length,
-            string? typeName, string? livery,
+            string? typeName, Couplers? couplers, string? livery,
             PassengerCarType? passengerCarType, ServiceLevel? serviceLevel)
         {
             return NewRollingStock(
@@ -51,7 +54,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             );
         }
 
-        public IRollingStock NewFreightCar(IRailwayInfo railway, Epoch era, LengthOverBuffer? length, string? typeName, string? livery)
+        public IRollingStock NewFreightCar(IRailwayInfo railway, Epoch era, LengthOverBuffer? length,
+            string? typeName,
+            Couplers? couplers,
+            string? livery)
         {
             return NewRollingStock(
                 railway,
@@ -63,7 +69,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         }
 
         public IRollingStock NewTrain(IRailwayInfo railway, Category category, Epoch epoch, LengthOverBuffer? length,
-            string? className, string? roadNumber, string? livery,
+            string? className, string? roadNumber,
+            Couplers? couplers,
+            string? livery,
             DccInterface dccInterface, Control control)
         {
             return NewRollingStock(
@@ -86,6 +94,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             decimal? lengthMillimeters,
             decimal? lengthInches,
             string? className = null, string? roadNumber = null, string? typeName = null,
+            string? couplers = null,
             string? livery = null,
             string? passengerCarType = null, string? serviceLevel = null,
             string? dccInterface = null, string? control = null)
@@ -101,6 +110,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 className,
                 roadNumber,
                 typeName,
+                OptionalValueFor<Couplers>(couplers),
                 livery,
                 OptionalValueFor<PassengerCarType>(passengerCarType),
                 serviceLevel.ToServiceLevelOpt(),
@@ -114,6 +124,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Category category,
             LengthOverBuffer? length,
             string? className = null, string? roadNumber = null, string? typeName = null,
+            Couplers? couplers = null,
             string? livery = null,
             PassengerCarType? passengerCarType = null, ServiceLevel? serviceLevel = null,
             DccInterface dccInterface = DccInterface.None,
@@ -130,6 +141,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 className,
                 roadNumber,
                 typeName,
+                couplers,
                 livery,
                 passengerCarType,
                 serviceLevel,

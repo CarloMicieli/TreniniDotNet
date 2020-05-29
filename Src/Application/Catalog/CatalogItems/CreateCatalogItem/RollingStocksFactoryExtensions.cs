@@ -31,6 +31,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
             var dccInterface = OptionalValueFor<DccInterface>(input.DccInterface) ?? DccInterface.None;
             var control = OptionalValueFor<Control>(input.Control) ?? Control.None;
+            var couplers = OptionalValueFor<Couplers>(input.Couplers);
 
             if (Categories.IsLocomotive(category))
             {
@@ -41,6 +42,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     length,
                     input.ClassName,
                     input.RoadNumber,
+                    couplers,
                     input.Livery,
                     dccInterface,
                     control
@@ -57,6 +59,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     era,
                     length,
                     input.TypeName,
+                    couplers,
                     input.Livery,
                     passengerCarType,
                     serviceLevel);
@@ -69,6 +72,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     era,
                     length,
                     input.TypeName,
+                    couplers,
                     input.Livery);
             }
 
@@ -81,6 +85,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     length,
                     input.ClassName,
                     input.RoadNumber,
+                    couplers,
                     input.Livery,
                     dccInterface,
                     control);
