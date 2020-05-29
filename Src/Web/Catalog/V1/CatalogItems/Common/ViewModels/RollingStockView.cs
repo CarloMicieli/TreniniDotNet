@@ -32,11 +32,11 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
 
         public LengthOverBufferView? LengthOverBuffer => _lob;
 
-        public string? ClassName => _rs.ClassName;
+        public string? ClassName => _rs.Prototype?.ClassName;
 
-        public string? RoadNumber => _rs.RoadNumber;
+        public string? RoadNumber => _rs.Prototype?.RoadNumber;
 
-        public string? TypeName => _rs.TypeName;
+        public string? TypeName => _rs.Prototype?.TypeName;
 
         public string? Couplers => _rs.Couplers?.ToString();
 

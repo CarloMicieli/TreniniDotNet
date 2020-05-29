@@ -131,9 +131,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 category ?? Category.PassengerCar,
                 epoch,
                 length,
-                className,
-                roadNumber,
-                typeName,
+                new Prototype(
+                    className,
+                    roadNumber,
+                    typeName),
                 couplers,
                 livery,
                 passengerCarType,

@@ -14,7 +14,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Category category,
             Epoch epoch,
             LengthOverBuffer? length,
-            string? className, string? roadNumber, string? typeName,
+            Prototype? prototype,
             Couplers? couplers,
             string? livery,
             PassengerCarType? passengerCarType, ServiceLevel? serviceLevel,
@@ -25,9 +25,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Category = category;
             Epoch = epoch;
             Length = length;
-            ClassName = className;
-            RoadNumber = roadNumber;
-            TypeName = typeName;
+            Prototype = prototype;
             Couplers = couplers;
             Livery = livery;
             ServiceLevel = serviceLevel;
@@ -47,11 +45,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public LengthOverBuffer? Length { get; }
 
-        public string? ClassName { get; }
-
-        public string? RoadNumber { get; }
-
-        public string? TypeName { get; }
+        public Prototype? Prototype { get; }
 
         public Couplers? Couplers { get; }
 

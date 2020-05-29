@@ -68,9 +68,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 EnumHelpers.OptionalValueFor<Category>(input.Values.Category),
                 epoch,
                 null,
-                input.Values.ClassName,
-                input.Values.RoadNumber,
-                input.Values.TypeName,
+                new Prototype(
+                    input.Values.ClassName,
+                    input.Values.RoadNumber,
+                    input.Values.TypeName),
                 couplers,
                 input.Values.Livery,
                 EnumHelpers.OptionalValueFor<PassengerCarType>(input.Values.PassengerCarType),

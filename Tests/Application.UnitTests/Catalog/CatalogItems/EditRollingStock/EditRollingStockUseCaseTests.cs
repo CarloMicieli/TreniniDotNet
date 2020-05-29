@@ -101,7 +101,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 .First(it => it.CatalogItemId == catalogItem.CatalogItemId);
 
             modifiedCatalogItem.RollingStocks
-                .Any(it => it.RollingStockId == rsId && it.RoadNumber == "Modified")
+                .Any(it => it.RollingStockId == rsId && it.Prototype!.RoadNumber == "Modified")
                 .Should().BeTrue();
         }
 
