@@ -152,7 +152,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("dcc_interface").AsString(25).Nullable()
                 .WithColumn("passenger_car_type").AsString(25).Nullable()
                 .WithColumn("service_level").AsString(15).Nullable()
-                .WithColumn("control").AsString(25).Nullable();
+                .WithColumn("control").AsString(25).Nullable()
+                .WithColumn("min_radius").AsDecimal().Nullable();
 
             Create.ForeignKey("FK_RollingStocks_Railways")
                 .FromTable(RollingStocks).ForeignColumn("railway_id")

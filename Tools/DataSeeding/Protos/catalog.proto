@@ -2,11 +2,14 @@ syntax = "proto3";
 
 option csharp_namespace = "TreniniDotNet.Catalog";
 
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
 package net.trenini.catalog;
 
 service BrandsService {
   rpc CreateBrand(CreateBrandRequest) returns (CreateBrandResponse);
-  rpc CreateBrands(stream CreateBrandRequest) returns (CreateBrandResponse);
+  rpc CreateBrands(stream CreateBrandRequest) returns (CreateBrandsResponse);
 }
 
 message CreateBrandRequest {
@@ -22,6 +25,10 @@ message CreateBrandRequest {
 
 message CreateBrandResponse {
   string slug = 1;
+}
+
+message CreateBrandsResponse {
+  int32 created = 1;
 }
 
 enum BrandKind {
@@ -40,7 +47,7 @@ message Address {
 
 service RailwaysService {
   rpc CreateRailway(CreateRailwayRequest) returns (CreateRailwayResponse);
-  rpc CreateRailways(stream CreateRailwayRequest) returns (CreateRailwayResponse);
+  rpc CreateRailways(stream CreateRailwayRequest) returns (CreateRailwaysResponse);
 }
 
 message CreateRailwayRequest {
@@ -56,54 +63,60 @@ message CreateRailwayRequest {
 
 message PeriodOfActivityRequest {
   string status = 1;
-  int64 operating_since = 2;
-  int64 operating_until = 3;
+  google.protobuf.Timestamp operating_since = 2;
+  google.protobuf.Timestamp operating_until = 3;
 }
 
 message TotalRailwayLengthRequest {
-  string track_gauge = 1;
-  int64 millimeters = 2;
-  int64 inches = 3;
+  google.protobuf.Int64Value kilometers = 1;
+  google.protobuf.Int64Value miles = 2;
 }
 
 message RailwayGaugeRequest {
-  int64 kilometers = 1;
-  int64 miles = 2;
+  string track_gauge = 1;
+  google.protobuf.FloatValue millimeters = 2;
+  google.protobuf.FloatValue inches = 3;
 }
 
 message CreateRailwayResponse {
-  string railway_id = 1;
-  string slug = 2;
+  string slug = 1;
+}
+
+message CreateRailwaysResponse {
+  int32 created = 1;
 }
 
 service ScalesService {
   rpc CreateScale(CreateScaleRequest) returns (CreateScaleResponse);
-  rpc CreateScales(stream CreateScaleRequest) returns (CreateScaleResponse);
+  rpc CreateScales(stream CreateScaleRequest) returns (CreateScalesResponse);
 }
 
 message CreateScaleRequest {
   string name = 1;
-  int64 ratio = 2;
+  float ratio = 2;
   ScaleGaugeRequest gauge = 3;
   string description = 4;
-  int32 weight = 5;
+  google.protobuf.Int32Value weight = 5;
   repeated string standard = 6;
 }
 
 message ScaleGaugeRequest {
   string track_gauge = 1;
-  int64 inches = 2;
-  int64 millimeters = 3;
+  google.protobuf.FloatValue inches = 2;
+  google.protobuf.FloatValue millimeters = 3;
 }
 
 message CreateScaleResponse {
-  string scale_id = 1;
-  string slug = 2;
+  string slug = 1;
+}
+
+message CreateScalesResponse {
+  int32 created = 1;
 }
 
 service CatalogItemsService {
   rpc CreateCatalogItem(CreateCatalogItemRequest) returns (CreateCatalogItemResponse);
-  rpc CreateCatalogItems(stream CreateCatalogItemRequest) returns (CreateCatalogItemResponse);
+  rpc CreateCatalogItems(stream CreateCatalogItemRequest) returns (CreateCatalogItemsResponse);
 }
 
 message CreateCatalogItemRequest {
@@ -139,16 +152,21 @@ message RollingStock {
   PassengerCarType passenger_car_type = 11;
   string livery = 12;
   Couplers couplers = 13;
+  google.protobuf.FloatValue min_radius = 14;
 }
 
 message RollingStockLength {
-  float millimeters = 1;
-  float inches = 2;
+  google.protobuf.FloatValue millimeters = 1;
+  google.protobuf.FloatValue inches = 2;
 }
 
 message CreateCatalogItemResponse {
   string catalog_item_id = 1;
   string slug = 2;
+}
+
+message CreateCatalogItemsResponse {
+  int32 created = 1;
 }
 
 enum Category {

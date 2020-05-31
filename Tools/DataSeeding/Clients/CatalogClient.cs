@@ -1,6 +1,9 @@
 using System.Net.Http;
 using DataSeeding.Clients.Catalog;
+using DataSeeding.Clients.Catalog.Brands;
 using DataSeeding.Clients.Catalog.CatalogItems;
+using DataSeeding.Clients.Catalog.Railways;
+using DataSeeding.Clients.Catalog.Scales;
 using Grpc.Net.Client;
 using Serilog.Core;
 
@@ -10,7 +13,11 @@ namespace DataSeeding.Clients
     {
         private Logger Log { get; }
 
-        public BrandsClient BrandsClient { get; }
+        public BrandsClient Brands { get; }
+
+        public RailwaysClient Railways { get; }
+
+        public ScalesClient Scales { get; }
 
         public CatalogItemsClient CatalogItemsClient { get; }
 
@@ -28,8 +35,10 @@ namespace DataSeeding.Clients
 
             var channel = GrpcChannel.ForAddress(baseAddress, new GrpcChannelOptions { HttpClient = httpClient });
 
-            BrandsClient = new BrandsClient(channel, log);
+            Brands = new BrandsClient(channel, log);
             CatalogItemsClient = new CatalogItemsClient(channel, log);
+            Railways = new RailwaysClient(channel, log);
+            Scales = new ScalesClient(channel, log);
         }
     }
 }

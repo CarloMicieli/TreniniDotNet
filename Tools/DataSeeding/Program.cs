@@ -6,6 +6,8 @@ using DataSeeding.Clients;
 using DataSeeding.DataLoader;
 using DataSeeding.DataLoader.Records.Catalog.Brands;
 using DataSeeding.DataLoader.Records.Catalog.CatalogItems;
+using DataSeeding.DataLoader.Records.Catalog.Railways;
+using DataSeeding.DataLoader.Records.Catalog.Scales;
 using Serilog;
 using Serilog.Core;
 
@@ -70,12 +72,8 @@ namespace DataSeeding
                 log.Information("Parsed {0} brand(s)", brands.Elements.Count());
             }
 
-            foreach (var brand in brands.Elements)
-            {
-                await catalogClient.BrandsClient.NewBrandAsync(brand);
-            }
-
-            return 0;
+            var created = await catalogClient.Brands.SendBrandsAsync(brands.Elements);
+            return created;
         }
 
         private static async Task<int> SendCatalogItems(CatalogItemsOptions o, Logger log)
@@ -90,14 +88,32 @@ namespace DataSeeding
             return 0;
         }
 
-        private static Task<int> SendRailways(RailwaysOptions o, Logger log)
+        private static async Task<int> SendRailways(RailwaysOptions o, Logger log)
         {
-            return Task.FromResult(0);
+            var catalogClient = new CatalogClient(o.EndpointUri.ToString(), log);
+            var railways = await YamlParser.Parse<Railways>(o.InputFile);
+
+            if (o.Verbose)
+            {
+                log.Information("Parsed {0} railway(s)", railways.Elements.Count());
+            }
+
+            var created = await catalogClient.Railways.SendRailwaysAsync(railways.Elements);
+            return created;
         }
 
-        private static Task<int> SendScales(ScalesOptions o, Logger log)
+        private static async Task<int> SendScales(ScalesOptions o, Logger log)
         {
-            return Task.FromResult(0);
+            var catalogClient = new CatalogClient(o.EndpointUri.ToString(), log);
+            var scales = await YamlParser.Parse<Scales>(o.InputFile);
+
+            if (o.Verbose)
+            {
+                log.Information("Parsed {0} scales(s)", scales.Elements.Count());
+            }
+
+            var created = await catalogClient.Scales.SendScalesAsync(scales.Elements);
+            return created;
         }
     }
 }

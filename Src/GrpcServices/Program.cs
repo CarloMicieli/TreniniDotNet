@@ -32,6 +32,7 @@ namespace TreniniDotNet.GrpcServices
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.ConfigureKestrel(options => options.AddServerHeader = false);
+                    webBuilder.UseUrls("https://*:6001", "http://*:6000");
                     webBuilder.UseStartup<Startup>();
                     webBuilder.CaptureStartupErrors(true);
                 });

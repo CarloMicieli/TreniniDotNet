@@ -1,0 +1,485 @@
+Description: 'The list of model railway brands'
+Version: 2
+ModifiedAt: 2020-05-31T17:08:00.0000000Z
+Elements:
+- Name: ACME
+  BrandLogo: ./img/acme.png
+  WebsiteUrl: http://www.acmetreni.com
+  MailAddress: mail[AT]acmetreni.com
+  CompanyName: Associazione Costruzioni Modellistiche Esatte
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: Viale Lombardia, 27
+    Line2:
+    City: Milano
+    Region:
+    PostalCode: 20131
+    Country: IT
+- Name: Arnold
+  BrandLogo: ./img/arnold.png
+  WebsiteUrl:
+  MailAddress:
+  CompanyName:
+  GroupName:
+  BrandKind: Industrial
+  Active: false
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Arnold (Hornby)
+  BrandLogo: ./img/arnold.png
+  WebsiteUrl: https://www.hornby.com/uk-en/shop/brands/arnold-n-1-160.html
+  MailAddress:
+  CompanyName:
+  GroupName: Hornby
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Bachmann
+  BrandLogo: ./img/bachmann.png
+  WebsiteUrl: https://www.bachmanntrains.com/home-usa
+  MailAddress:
+  CompanyName: Bachmann Trains
+  GroupName: Bachmann
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: 1400 East Erie Avenue
+    Line2:
+    City: Philadelphia
+    Region: Pennsylvania
+    PostalCode: 19124
+    Country: US
+- Name: Bemo
+  BrandLogo: ./img/bemo.png
+  WebsiteUrl: https://www.bemo-modellbahn.de
+  MailAddress: mail[AT]bemo-modellbahn.de
+  CompanyName: BEMO Modelleisenbahnen GmbH u. Co KG
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: Stuttgarter Strasse 59
+    Line2:
+    City: Uhingen
+    Region:
+    PostalCode: 73066
+    Country: DE
+- Name: Brawa
+  BrandLogo: ./img/brawa.png
+  WebsiteUrl: https://www.brawa.de
+  MailAddress:
+  CompanyName: BRAWA Artur Braun Modellspielwarenfabrik GmbH & Co. KG
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: Uferstraße 24-30
+    Line2:
+    City: Remshalden
+    Region:
+    PostalCode: 73630
+    Country: DE
+- Name: Electrotren
+  BrandLogo: ./img/electrotren.png
+  WebsiteUrl: https://www.hornby.com/uk-en/shop/brands/electrotren-h0-1-87.html
+  MailAddress:
+  CompanyName:
+  GroupName: Hornby
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Fleischmann
+  BrandLogo: ./img/fleischmann.png
+  WebsiteUrl: https://www.fleischmann.de
+  MailAddress:
+  CompanyName: Modelleisenbahn München GmbH
+  GroupName: Modelleisenbahn
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1: Branch Bergheim
+    Line2: Plainbachstrasse 4
+    City: Bergheim
+    Region:
+    PostalCode: 5101
+    Country: AT
+- Name: Gützold
+  BrandLogo: ./img/guetzold.png
+  WebsiteUrl: https://www.guetzold.de
+  MailAddress: info[AT]fischer-modell.de
+  CompanyName: fischer-modell GmbH
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1: fischer-modell GmbH
+    Line2: Am Rott 5
+    City: Lüchow
+    Region:
+    PostalCode: 29439
+    Country: DE
+- Name: Jägerndorfer
+  BrandLogo: ./img/jagerndorfer.png
+  WebsiteUrl: https://www.jaegerndorfer.at/
+  MailAddress: jc[AT]jaegerndorfer.at
+  CompanyName: Jägerndorfer Ges.m.b.H.
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: Bundesstrasse 20
+    Line2:
+    City: Pottenstein
+    Region:
+    PostalCode: 2563
+    Country: AT
+- Name: Hornby
+  BrandLogo: ./img/hornby.png
+  WebsiteUrl: https://www.hornby.com/uk-en
+  MailAddress: customerservices.uk[AT]hornby.com
+  CompanyName: Hornby Hobbies Ltd
+  GroupName: Hornby
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1: Westwood Industrial Estate
+    Line2:
+    City: Margate
+    Region: Kent
+    PostalCode: CT9 4JX
+    Country: GB
+- Name: Kato
+  BrandLogo: ./img/kato.png
+  WebsiteUrl: https://www.katomodels.com/
+  MailAddress:
+  CompanyName: Sekisui Kinzoku Co., Ltd.
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Liliput
+  BrandLogo: ./img/liliput.png
+  WebsiteUrl: https://www.liliput.de
+  MailAddress: service[AT]liliput.de
+  CompanyName: Bachmann Europe Plc
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: LGB
+  BrandLogo: ./img/lgb.png
+  WebsiteUrl: https://www.lgb.com
+  MailAddress:
+  CompanyName:
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Ls Models
+  BrandLogo: ./img/ls-models.png
+  WebsiteUrl: https://www.lsmodels.com
+  MailAddress: info[AT]lsmodels.com
+  CompanyName: L.S. MODELS EXCLUSIVE SPRL
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Märklin
+  BrandLogo: ./img/maerklin.png
+  WebsiteUrl: https://www.maerklin.de
+  MailAddress:
+  CompanyName: Gebr. Märklin & Cie. GmbH
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Piko
+  BrandLogo: ./img/piko.png
+  WebsiteUrl: https://www.piko.de
+  MailAddress: hotline[AT]piko.de
+  CompanyName: PIKO Spielwaren GmbH
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: REE
+  BrandLogo: ./img/ree.png
+  WebsiteUrl: https://www.ree-modeles.com
+  MailAddress: ''
+  CompanyName: RAILS EUROP EXPRESS
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Rivarossi
+  BrandLogo: ./img/rivarossi.png
+  WebsiteUrl: https://www.hornby.com/it-it/
+  MailAddress:
+  CompanyName:
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Roco
+  BrandLogo: ./img/roco.png
+  WebsiteUrl: http://www.roco.cc
+  MailAddress:
+  CompanyName: Modelleisenbahn GmbH
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Tillig
+  BrandLogo: ./img/tillig.png
+  WebsiteUrl: https://www.tillig.com
+  MailAddress: info[AT]tillig.com
+  CompanyName: TILLIG Modellbahnen GmbH
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Trix
+  BrandLogo: ./img/trix.png
+  WebsiteUrl: https://www.trix.de
+  MailAddress:
+  CompanyName:
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: ViTrains
+  BrandLogo: ./img/vitrains.png
+  WebsiteUrl: http://www.vitrains.it
+  MailAddress:
+  CompanyName: ViTrains
+  GroupName:
+  BrandKind: Industrial
+  Active:
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Le Models
+  BrandLogo: ./img/le-models.png
+  WebsiteUrl:
+  MailAddress:
+  CompanyName: Level Group
+  GroupName:
+  BrandKind: Industrial
+  Active: false
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Os.Kar
+  BrandLogo: ./img/oskar.png
+  WebsiteUrl:
+  MailAddress:
+  CompanyName: OsKar Trains
+  GroupName:
+  BrandKind: Industrial
+  Active: false
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Big Models
+  BrandLogo: ./img/big-models.png
+  WebsiteUrl:
+  MailAddress:
+  CompanyName:
+  GroupName:
+  BrandKind: Industrial
+  Active: false
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Lima
+  BrandLogo: ./img/lima.png
+  WebsiteUrl:
+  MailAddress:
+  CompanyName:
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Broadway Limited
+  BrandLogo: ./img/broadway-limited.png
+  WebsiteUrl: https://www.broadway-limited.com
+  MailAddress:
+  CompanyName: Broadway Limited Imports, LLC
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: AF Models
+  BrandLogo: ./img/af-models.png
+  WebsiteUrl:
+  MailAddress:
+  CompanyName:
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Blackstar
+  BrandLogo: ./img/blackstar.png
+  WebsiteUrl: http://www.blackstardistribution.it
+  MailAddress: info[AT]blackstardistribution.it
+  CompanyName: BLACK STAR S.r.l.
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Lima Expert
+  BrandLogo: ./img/lima-expert.png
+  WebsiteUrl:
+  MailAddress:
+  CompanyName:
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+- Name: Pirata
+  BrandLogo: ./img/pirata.png
+  WebsiteUrl: https://www.piratamodels.it
+  MailAddress: info[AT]piratamodels.it
+  CompanyName:
+  GroupName:
+  BrandKind: Industrial
+  Active: true
+  Address:
+    Line1:
+    Line2:
+    City:
+    Region:
+    PostalCode:
+    Country:
+

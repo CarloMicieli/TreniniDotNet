@@ -19,21 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="brands.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="catalogitems.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="railways.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="scales.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Protobuf Include="Protos\catalog.proto">
       <GrpcServices>Client</GrpcServices>
       <Access>Public</Access>

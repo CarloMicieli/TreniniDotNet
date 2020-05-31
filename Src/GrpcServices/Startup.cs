@@ -48,6 +48,7 @@ namespace TreniniDotNet.GrpcServices
             services.AddSingleton<IGuidSource, GuidSource>();
             services.AddSingleton<IClock>(SystemClock.Instance);
 
+            services.AddCatalogUseCases();
             services.AddCatalogServices();
             services.AddCatalogPresenters();
 

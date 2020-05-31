@@ -1,0 +1,136 @@
+Description: 'The list of model railway scales'
+Version: 1
+ModifiedAt: 2020-04-01T12:35:26.8704576Z
+Elements:
+- Name: H0
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Standard
+    Millimeters: 16.5
+    Inches: 0.64960665
+  Ratio: 87
+- Name: n
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Standard
+    Millimeters: 9
+    Inches: 0.3543309
+  Ratio: 160
+- Name: Nm
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Narrow
+    Millimeters: 6.5
+    Inches: 0.25590565
+  Ratio: 160
+- Name: Ne
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Narrow
+    Millimeters: 4.5
+    Inches: 0.17716545
+  Ratio: 160
+- Name: 1
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Standard
+    Millimeters: 45
+    Inches: 1.7716545
+  Ratio: 32
+- Name: 0
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Standard
+    Millimeters: 32
+    Inches: 1.2598432
+  Ratio: 43.5
+- Name: Z
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Standard
+    Millimeters: 6.5
+    Inches: 0.25590565
+  Ratio: 220
+- Name: TT
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Standard
+    Millimeters: 12
+    Inches: 0.4724412
+  Ratio: 120
+- Name: H0m
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Narrow
+    Millimeters: 12
+    Inches: 0.4724412
+  Ratio: 87
+- Name: H0e
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Narrow
+    Millimeters: 9
+    Inches: 0.3543309
+  Ratio: 87
+- Name: G
+  Description:
+  Standards:
+  - NEM
+  - NRMA
+  - British
+  Weight: 100
+  Gauge:
+    TrackGauge: Narrow
+    Millimeters: 45
+    Inches: 1.7716545
+  Ratio: 22.5

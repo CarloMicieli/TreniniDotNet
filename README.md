@@ -8,6 +8,114 @@
 
 An application to manage model railway collections.
 
+## Setup
+
+### Requirements
+
+- `.NET Core 3.1.4`
+- `Postgres SQL 12`
+
+### Setup
+
+#### Postgres
+
+Add the PostgreSQL 12 repository
+
+```
+$ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+$ echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+```
+
+Install both server and client:
+
+```
+$ sudo apt update
+$ sudo apt -y install postgresql-12 postgresql-client-12
+```
+
+### Database init
+
+Create a new database (development *only*):
+
+```
+postgres=# CREATE DATABASE TreniniDb;
+CREATE DATABASE
+postgres=# CREATE USER tdbuser WITH ENCRYPTED PASSWORD 'tdbpass';
+CREATE ROLE
+postgres=# ALTER USER tdbuser CREATEDB;
+GRANT
+```
+
+## Run the application
+
+### Web application
+
+```
+$ dotnet run --project Src/Web
+[18:57:52 INF] Now listening on: http://localhost:5000
+[18:57:52 INF] Now listening on: https://localhost:5001
+[18:57:52 INF] Application started. Press Ctrl+C to shut down.
+[18:57:52 INF] Hosting environment: Production
+[18:57:52 INF] Content root path: /home/carlo/Projects/TreniniDotNet/Src/Web
+```
+
+The Swagger documentation page is at [https://localhost:5001/swagger](https://localhost:5001/swagger).
+
+### Grpc services & data seeding
+
+The application provides Grpc services
+
+```
+$ dotnet run --project Src/GrpcServices
+[20:34:40 INF] Now listening on: https://[::]:6001
+[20:34:40 INF] Now listening on: http://[::]:6000
+[20:34:40 INF] Application started. Press Ctrl+C to shut down.
+[20:34:40 INF] Hosting environment: Development
+[20:34:40 INF] Content root path: /home/carlo/Projects/TreniniDotNet/Src/GrpcServices
+```
+
+Grpc services are listening on the port `6001`.
+
+With the Grpc services running, it is possible to run the data seeding tool:
+
+```
+$ cd Tools/DataSeeding
+$ dotnet run
+DataSeeding 1.0.0
+Copyright (C) 2020 DataSeeding
+
+ERROR(S):
+  No verb selected.
+
+  brands          Send brands
+
+  catalogItems    Send catalog items
+
+  railways        Send railways
+
+  scales          Send scales
+
+  help            Display more information on a specific command.
+
+  version         Display version information.
+```
+
+To send all brands present in the `brands.yaml`, run:
+
+```
+$ dotnet run -- brands -u https://localhost:6001 -i brands.yaml
+$ dotnet run -- railways -u https://localhost:6001 -i railways.yaml
+$ dotnet run -- scales -u https://localhost:6001 -i scales.yaml
+```
+
+## Running the tests
+
+This command will run all tests (unit tests and integration tests):
+
+```
+$ dotnet test
+```
+
 ## Use cases
 
 ### Catalog
@@ -177,67 +285,6 @@ public async Task BrandsRepository_GetBySlug_ShouldFindOneBrandBySlug()
 * `Web.UnitTests` - this project contains unit tests on the view model preparation.
 
 * `Web.IntegrationTests` - this project contains integration tests, here the application runs inside a fake web container - the persistence code is running against a "real" database (SQLite - with a database file stored on disk). The integration tests have the main goal to validate web apis.
-
-## Setup
-
-### Requirements
-
-- `.NET Core 3.1`
-- `Postgres SQL 12`
-
-### Setup
-
-#### Postgres
-
-Add the PostgreSQL 12 repository
-
-```
-$ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-$ echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
-```
-
-Install both server and client:
-
-```
-$ sudo apt update
-$ sudo apt -y install postgresql-12 postgresql-client-12
-```
-
-### Database init
-
-Create a new database (development *only*):
-
-```
-postgres=# CREATE DATABASE TreniniDb;
-CREATE DATABASE
-postgres=# CREATE USER tdbuser WITH ENCRYPTED PASSWORD 'tdbpass';
-CREATE ROLE
-postgres=# ALTER USER tdbuser CREATEDB;
-GRANT
-```
-
-When the application is running with `ASPNETCORE_ENVIRONMENT=Development` mode, both database migration and seeding will run (the first time).
-
-## Run the application
-
-```
-$ dotnet run --project Src/Web
-[18:57:52 INF] Now listening on: http://localhost:5000
-[18:57:52 INF] Now listening on: https://localhost:5001
-[18:57:52 INF] Application started. Press Ctrl+C to shut down.
-[18:57:52 INF] Hosting environment: Production
-[18:57:52 INF] Content root path: /home/carlo/Projects/TreniniDotNet/Src/Web
-```
-
-The Swagger documentation page is at [https://localhost:5001/swagger](https://localhost:5001/swagger).
-
-## Running the tests
-
-This command will run all tests (unit tests and integration tests):
-
-```
-$ dotnet test
-```
 
 ## Built With
 

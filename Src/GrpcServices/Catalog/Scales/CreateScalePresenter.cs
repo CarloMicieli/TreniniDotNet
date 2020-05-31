@@ -1,22 +1,22 @@
-using System;
 using TreniniDotNet.Application.Catalog.Scales.CreateScale;
+using TreniniDotNet.Catalog;
 using TreniniDotNet.Common;
 using TreniniDotNet.GrpcServices.Infrastructure;
 
 namespace TreniniDotNet.GrpcServices.Catalog.Scales
 {
-    public sealed class CreateScalePresenter : DefaultGrpcPresenter<CreateScaleOutput, object>, ICreateScaleOutputPort
+    public sealed class CreateScalePresenter : DefaultGrpcPresenter<CreateScaleOutput, CreateScaleResponse>, ICreateScaleOutputPort
     {
         public CreateScalePresenter()
             : base(Mapping)
         {
         }
 
-        private static object Mapping(CreateScaleOutput output) => throw new NotImplementedException();
+        private static CreateScaleResponse Mapping(CreateScaleOutput output) => new CreateScaleResponse { Slug = output.Slug };
 
         public void ScaleAlreadyExists(Slug scaleSlug)
         {
-            throw new NotImplementedException();
+            AlreadyExists(scaleSlug.ToString());
         }
     }
 }

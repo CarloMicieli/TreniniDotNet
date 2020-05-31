@@ -12,18 +12,14 @@ using System;
 using NodaTime;
 using AutoMapper;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Application;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence;
-using TreniniDotNet.Infrastructure.Persistence.Seed;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using TreniniDotNet.Application.Catalog;
 using TreniniDotNet.Application.Collecting;
-using TreniniDotNet.Web.Catalog;
 using TreniniDotNet.Web.Catalog.V1;
-using TreniniDotNet.Web.Collecting;
 using TreniniDotNet.Web.Collecting.V1;
 using TreniniDotNet.Web.Infrastructure.DependencyInjection;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
@@ -110,12 +106,6 @@ namespace TreniniDotNet.Web
                 // Run database migration
                 var migration = serviceProvider.GetRequiredService<IDatabaseMigration>();
                 migration.Up();
-
-                // Seed database with test data
-                if (env.IsDevelopment())
-                {
-                    CatalogSeed.InitDatabase(serviceProvider, logger).GetAwaiter().GetResult();
-                }
             }
             else
             {

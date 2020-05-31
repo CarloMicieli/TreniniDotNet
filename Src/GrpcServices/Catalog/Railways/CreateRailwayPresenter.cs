@@ -1,22 +1,21 @@
-using System;
 using TreniniDotNet.Application.Catalog.Railways.CreateRailway;
+using TreniniDotNet.Catalog;
 using TreniniDotNet.Common;
 using TreniniDotNet.GrpcServices.Infrastructure;
 
 namespace TreniniDotNet.GrpcServices.Catalog.Railways
 {
-    public sealed class CreateRailwayPresenter : DefaultGrpcPresenter<CreateRailwayOutput, object>, ICreateRailwayOutputPort
+    public sealed class CreateRailwayPresenter : DefaultGrpcPresenter<CreateRailwayOutput, CreateRailwayResponse>, ICreateRailwayOutputPort
     {
         public CreateRailwayPresenter()
             : base(Mapping)
         {
         }
 
-        private static object Mapping(CreateRailwayOutput output) => throw new NotImplementedException();
+        private static CreateRailwayResponse Mapping(CreateRailwayOutput output) =>
+            new CreateRailwayResponse { Slug = output.Slug };
 
-        public void RailwayAlreadyExists(Slug railway)
-        {
-            throw new NotImplementedException();
-        }
+        public void RailwayAlreadyExists(Slug railway) =>
+            AlreadyExists(railway.ToString());
     }
 }

@@ -1,0 +1,565 @@
+Description: 'The list of railway companies'
+Version: 1
+ModifiedAt: 2020-04-01T12:35:26.8448202Z
+Elements:
+- Name: ÖBB
+  RailwayLogo: ./img/obb.png
+  CompanyName: Österreichische Bundesbahnen
+  Country: AT
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1923-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://www.oebb.at
+  Headquarters:
+- Name: SNCB
+  RailwayLogo: ./img/sncb.png
+  CompanyName: Société Nationale des Chemins de fer belges
+  Country: BE
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1926
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://belgiantrain.be
+  Headquarters:
+- Name: SNCB Logistics
+  RailwayLogo: ./img/sncb-logistics.png
+  CompanyName: Société Nationale des Chemins de fer belges
+  Country: BE
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince:
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl:
+  Headquarters:
+- Name: SŽDC
+  RailwayLogo: ./img/szdc.png
+  CompanyName: Správa železniční dopravní cesty,s.o.
+  Country: CZ
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 2003-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://www.szdc.cz
+  Headquarters:
+- Name: DSB
+  RailwayLogo: ./img/dsb.png
+  CompanyName: Danske Statsbaner
+  Country: DK
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1885-10-01
+    OperatingUntil: ''
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://www.dsb.dk
+  Headquarters:
+- Name: SNCF
+  RailwayLogo: ./img/sncf.png
+  CompanyName: Société Nationale des Chemins de fer Français
+  Country: FR
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1938-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://www.sncf.com
+  Headquarters:
+- Name: DB
+  RailwayLogo: ./img/db.png
+  CompanyName: Die Bahn AG
+  Country: DE
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1994-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: https://www.deutschebahn.com
+  Headquarters:
+- Name: DR
+  RailwayLogo: ./img/dr.png
+  CompanyName: Deutsche Reichsbahn
+  Country: DE
+  PeriodOfActivity:
+    Status: Inactive
+    OperatingSince: 1949-01-01
+    OperatingUntil: 1994-01-01
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl:
+  Headquarters:
+- Name: DRB
+  RailwayLogo: ./img/drb.png
+  CompanyName: Deutsche Reichsbahn-Gesellschaft
+  Country: DE
+  PeriodOfActivity:
+    Status: Inactive
+    OperatingSince: 1920-04-01
+    OperatingUntil: 1949-01-01
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl:
+  Headquarters:
+- Name: FS
+  RailwayLogo: ./img/fs.png
+  CompanyName: Ferrovie dello Stato
+  Country: IT
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1905-07-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://www.fsitaliane.it
+  Headquarters:
+- Name: FNM
+  RailwayLogo: ./img/fnm.png
+  CompanyName: Ferrovie Nord Milano
+  Country: IT
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1877-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl:
+  Headquarters:
+- Name: Trenord
+  RailwayLogo: ./img/Trenord.png
+  CompanyName: Trenord
+  Country: IT
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 2009-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://www.trenord.it
+  Headquarters:
+- Name: CFL
+  RailwayLogo: ./img/cfl.png
+  CompanyName: Chemins de Fer Luxembourgeois
+  Country: LU
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1946-05-14
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://www.cfl.lu
+  Headquarters:
+- Name: NS
+  RailwayLogo: ./img/ns.png
+  CompanyName: Nederlandse Spoorwegen
+  Country: NL
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1938-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://www.ns.nl
+  Headquarters:
+- Name: Vy
+  RailwayLogo: ./img/vy.png
+  CompanyName: Vygruppen
+  Country: NO
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1996-12-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: https://www.vy.no
+  Headquarters:
+- Name: Cp
+  RailwayLogo: ./img/cp.png
+  CompanyName: Comboios de Portugal
+  Country: PT
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1951-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://www.cp.pt
+  Headquarters:
+- Name: RENFE
+  RailwayLogo: ./img/renfe.png
+  CompanyName: Renfe Operadora
+  Country: ES
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1941-01-24
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://renfe.com
+  Headquarters:
+- Name: BLS
+  RailwayLogo: ./img/bls.png
+  CompanyName: BLS AG
+  Country: CH
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 2006-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://www.bls.ch
+  Headquarters:
+- Name: Bern–Lötschberg–Simplon
+  RailwayLogo: ./img/bern–lotschberg–simplon.png
+  CompanyName: Bern–Lötschberg–Simplon
+  Country: CH
+  PeriodOfActivity:
+    Status: Inactive
+    OperatingSince: 1913-01-01
+    OperatingUntil: 2006-01-01
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl:
+  Headquarters:
+- Name: RhB
+  RailwayLogo: ./img/rhb.png
+  CompanyName: Rhätische Bahn / Viafier retica
+  Country: CH
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1888-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: narrow
+    Millimeters: 1000
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 384
+  WebsiteUrl: http://www.rhb.ch
+  Headquarters:
+- Name: MGB
+  RailwayLogo: ./img/mgb.png
+  CompanyName: Matterhorn-Gotthard-Bahn
+  Country: CH
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince:
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: narrow
+    Millimeters: 1000
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 144
+  WebsiteUrl: http://www.matterhorngotthardbahn.ch
+  Headquarters:
+- Name: SBB CFF FFS
+  RailwayLogo: ./img/sbb-cff-ffs.png
+  CompanyName: Schweizerische Bundesbahnen - Chemins de fer fédéraux - Ferrovie federali svizzere
+  Country: CH
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1902-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl: http://sbb.ch
+  Headquarters:
+- Name: SBB Cargo
+  RailwayLogo: ./img/sbb-cargo.png
+  CompanyName:
+  Country: CH
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince:
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl:
+  Headquarters:
+- Name: CN
+  RailwayLogo: ./img/cn.png
+  CompanyName: Canadian National Railway
+  Country: CA
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1919-06-06
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 32831
+  WebsiteUrl: http://cn.ca
+  Headquarters:
+- Name: Amtrak
+  RailwayLogo: ./img/amtrak.png
+  CompanyName: National Railroad Passenger Corporation
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1971-05-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 34400
+  WebsiteUrl: http://amtrak.com
+  Headquarters:
+- Name: BNSF Railway
+  RailwayLogo: ./img/bnsf-railway.png
+  CompanyName: Burlington Northern and Santa Fe
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1995-09-22
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 52300
+  WebsiteUrl: http://bnsf.com
+  Headquarters:
+- Name: Union Pacific
+  RailwayLogo: ./img/union-pacific.png
+  CompanyName: Union Pacific Railroad
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1862-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 51700
+  WebsiteUrl: http://up.com
+  Headquarters:
+- Name: Caltrain
+  RailwayLogo: ./img/caltrain.png
+  CompanyName: Caltrain
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1985-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 124
+  WebsiteUrl: http://www.caltrain.com
+  Headquarters:
+- Name: CSX
+  RailwayLogo: ./img/csx.png
+  CompanyName: CSX Transportation
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1986-07-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 34000
+  WebsiteUrl: http://csx.com
+  Headquarters:
+- Name: Norfolk Southern
+  RailwayLogo: ./img/norfolk-southern.png
+  CompanyName: Norfolk Southern Railway
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1982-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 34600
+  WebsiteUrl: http://nscorp.com
+  Headquarters:
+- Name: KCS
+  RailwayLogo: ./img/kcs.png
+  CompanyName: Kansas City Southern Railway
+  Country: US
+  PeriodOfActivity:
+    Status: Active
+    OperatingSince: 1887-01-01
+    OperatingUntil:
+  RailwayGauge:
+    TrackGauge: standard
+    Millimeters: 1435
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 5500
+  WebsiteUrl: http://kcsouthern.com
+  Headquarters:
+- Name: FO
+  RailwayLogo: ./img/fo.png
+  CompanyName: Furka Oberalp Bahn
+  Country: CH
+  PeriodOfActivity:
+    Status: Inactive
+    OperatingSince: 1930-01-01
+    OperatingUntil: 2001-01-01
+  RailwayGauge:
+    TrackGauge: narrow
+    Millimeters: 1000
+    Inches:
+  Length:
+    Miles:
+    Kilometers:
+  WebsiteUrl:
+  Headquarters:
+- Name: BVZ
+  RailwayLogo: ./img/bvz.png
+  CompanyName: Brig-Visp-Zermatt-Bahn
+  Country: CH
+  PeriodOfActivity:
+    Status: Inactive
+    OperatingSince: 1890-07-03
+    OperatingUntil: 2001-01-01
+  RailwayGauge:
+    TrackGauge: narrow
+    Millimeters: 1000
+    Inches:
+  Length:
+    Miles:
+    Kilometers: 44
+  WebsiteUrl:
+  Headquarters:
