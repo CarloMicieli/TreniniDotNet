@@ -1,5 +1,4 @@
 using TreniniDotNet.Common.UseCases.Interfaces.Input;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems
 {
@@ -13,6 +12,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             string? livery,
             string? passengerCarType, string? serviceLevel,
             LengthOverBufferInput? lengthOverBuffer,
+            decimal? minRadius,
             string? control, string? dccInterface)
         {
             Epoch = epoch;
@@ -26,6 +26,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             PassengerCarType = passengerCarType;
             ServiceLevel = serviceLevel;
             LengthOverBuffer = lengthOverBuffer ?? LengthOverBufferInput.Default();
+            MinRadius = minRadius;
             Control = control;
             DccInterface = dccInterface;
         }
@@ -51,6 +52,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
         public string? ServiceLevel { get; }
 
         public LengthOverBufferInput LengthOverBuffer { get; }
+
+        public decimal? MinRadius { get; }
 
         public string? DccInterface { get; }
 

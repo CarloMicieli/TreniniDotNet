@@ -17,6 +17,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             string? couplers,
             string? livery,
             LengthOverBufferInput? lengthOverBuffer,
+            decimal? minRadius,
             string? control, string? dccInterface)
         {
             RollingStockId = rollingStockId;
@@ -29,6 +30,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 livery,
                 passengerCarType, serviceLevel,
                 lengthOverBuffer,
+                minRadius,
                 control, dccInterface);
         }
 
@@ -46,6 +48,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             string? couplers,
             string? livery, string? passengerCarType, string? serviceLevel,
             LengthOverBufferInput? lengthOverBuffer,
+            decimal? minRadius,
             string? control, string? dccInterface)
         {
             Epoch = epoch;
@@ -59,6 +62,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             PassengerCarType = passengerCarType;
             ServiceLevel = serviceLevel;
             LengthOverBuffer = lengthOverBuffer;
+            MinRadius = minRadius;
             Control = control;
             DccInterface = dccInterface;
         }
@@ -84,6 +88,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         public string? ServiceLevel { get; }
 
         public LengthOverBufferInput? LengthOverBuffer { get; }
+
+        public decimal? MinRadius { get; }
 
         public string? DccInterface { get; }
 

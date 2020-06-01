@@ -37,6 +37,8 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock
 
         public LengthOverBufferRequest? LengthOverBuffer { get; set; }
 
+        public decimal? MinRadius { get; set; }
+
         public string? DccInterface { get; set; }
 
         public string? Control { get; set; }

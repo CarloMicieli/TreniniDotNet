@@ -14,6 +14,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Category category,
             Epoch epoch,
             LengthOverBuffer? length,
+            MinRadius? minRadius,
             Prototype? prototype,
             Couplers? couplers,
             string? livery,
@@ -25,6 +26,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Category = category;
             Epoch = epoch;
             Length = length;
+            MinRadius = minRadius;
             Prototype = prototype;
             Couplers = couplers;
             Livery = livery;
@@ -44,6 +46,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public Epoch Epoch { get; }
 
         public LengthOverBuffer? Length { get; }
+
+        public MinRadius? MinRadius { get; }
 
         public Prototype? Prototype { get; }
 

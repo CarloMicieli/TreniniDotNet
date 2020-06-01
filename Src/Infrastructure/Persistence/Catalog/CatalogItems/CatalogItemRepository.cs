@@ -117,6 +117,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 catalogItem.CatalogItemId,
                 LengthMm = rs.Length?.Millimeters,
                 LengthIn = rs.Length?.Inches,
+                MinRadius = rs.MinRadius?.Millimeters,
                 rs.Prototype?.ClassName,
                 rs.Prototype?.RoadNumber,
                 rs.Prototype?.TypeName,
@@ -191,6 +192,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 catalogItem.CatalogItemId,
                 LengthMm = rollingStock.Length?.Millimeters,
                 LengthIn = rollingStock.Length?.Inches,
+                MinRadius = rollingStock.MinRadius?.Millimeters,
                 rollingStock.Prototype?.ClassName,
                 rollingStock.Prototype?.RoadNumber,
                 rollingStock.Prototype?.TypeName,
@@ -302,6 +304,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 dto.category,
                 dto.length_mm,
                 dto.length_in,
+                dto.min_radius,
                 dto.class_name,
                 dto.road_number,
                 dto.type_name,
@@ -318,7 +321,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         private const string GetLatestCatalogItemsQuery = @"SELECT 
                 ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,
                 ci.description, ci.model_description, ci.prototype_description, 
-                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, 
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, rs.min_radius,
                 rs.class_name, rs.road_number, rs.type_name, rs.couplers, rs.livery, rs.passenger_car_type, rs.service_level,
                 rs.dcc_interface, rs.control,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
@@ -343,7 +346,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         private const string GetCatalogItemByBrandAndItemNumberQuery = @"SELECT 
                 ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,
                 ci.description, ci.model_description, ci.prototype_description, 
-                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, 
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, rs.min_radius,
                 rs.class_name, rs.road_number, rs.type_name, rs.couplers, rs.livery, rs.passenger_car_type, rs.service_level,
                 rs.dcc_interface, rs.control,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
@@ -364,7 +367,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         private const string GetCatalogItemBySlug = @"SELECT 
                 ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,
                 ci.description, ci.model_description, ci.prototype_description, 
-                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in,
+                rs.rolling_stock_id, rs.era, rs.category, rs.length_mm, rs.length_in, rs.min_radius,
                 rs.class_name, rs.road_number, rs.type_name, rs.couplers, rs.livery, rs.passenger_car_type, rs.service_level,
                 rs.dcc_interface, rs.control,
                 b.brand_id, b.name as brand_name, b.slug as brand_slug,
@@ -391,7 +394,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 @Description, @ModelDescription, @PrototypeDescription, @Created, @Modified, @Version);";
 
         private const string UpdateRollingStockCommand = @"UPDATE rolling_stocks SET 
-	            era = @Era, category = @Category, railway_id = @RailwayId, length_mm = @LengthMm, length_in = @LengthIn,
+	            era = @Era, category = @Category, railway_id = @RailwayId, length_mm = @LengthMm, length_in = @LengthIn, min_radius = @MinRadius,
                 class_name = @ClassName, road_number = @RoadNumber, type_name = @TypeName, couplers = @Couplers, livery = @Livery,
                 passenger_car_type = @PassengerCarType, service_level = @ServiceLevel, 
                 dcc_interface = @DccInterface, control = @Control
@@ -400,9 +403,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         private const string DeleteRollingStockCommand = @"DELETE FROM rolling_stocks WHERE rolling_stock_id = @RollingStockId AND catalog_item_id = @CatalogItemId;";
 
         private const string InsertNewRollingStockCommand = @"INSERT INTO rolling_stocks(
-	            rolling_stock_id, era, category, railway_id, catalog_item_id, length_mm, length_in,
+	            rolling_stock_id, era, category, railway_id, catalog_item_id, length_mm, length_in, min_radius,
                 class_name, road_number, type_name, couplers, livery, passenger_car_type, service_level, dcc_interface, control)
-	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @LengthMm, @LengthIn, 
+	        VALUES(@RollingStockId, @Era, @Category, @RailwayId, @CatalogItemId, @LengthMm, @LengthIn, @MinRadius,
                 @ClassName, @RoadNumber, @TypeName, @Couplers, @Livery, @PassengerCarType, @ServiceLevel, @DccInterface, @Control);";
 
         private const string UpdateCatalogItemCommand = @"UPDATE catalog_items SET 

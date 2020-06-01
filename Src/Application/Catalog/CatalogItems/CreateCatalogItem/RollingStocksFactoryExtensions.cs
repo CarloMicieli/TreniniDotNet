@@ -28,6 +28,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             var era = Epoch.Parse(input.Epoch);
 
             var length = LengthOverBuffer.CreateOrDefault(input.LengthOverBuffer?.Inches, input.LengthOverBuffer?.Millimeters);
+            var minRadius = MinRadius.CreateOrDefault(input.MinRadius);
 
             var dccInterface = OptionalValueFor<DccInterface>(input.DccInterface) ?? DccInterface.None;
             var control = OptionalValueFor<Control>(input.Control) ?? Control.None;
@@ -40,6 +41,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     category,
                     era,
                     length,
+                    minRadius,
                     input.ClassName,
                     input.RoadNumber,
                     couplers,
@@ -58,6 +60,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     railwayInfo,
                     era,
                     length,
+                    minRadius,
                     input.TypeName,
                     couplers,
                     input.Livery,
@@ -71,6 +74,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     railwayInfo,
                     era,
                     length,
+                    minRadius,
                     input.TypeName,
                     couplers,
                     input.Livery);
@@ -83,6 +87,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     category,
                     era,
                     length,
+                    minRadius,
                     input.ClassName,
                     input.RoadNumber,
                     couplers,

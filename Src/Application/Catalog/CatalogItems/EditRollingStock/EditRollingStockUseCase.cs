@@ -59,6 +59,11 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 }
             }
 
+            var length = LengthOverBuffer.CreateOrDefault(input.Values.LengthOverBuffer?.Inches, input.Values.LengthOverBuffer?.Millimeters);
+            var minRadius = MinRadius.CreateOrDefault(input.Values.MinRadius);
+
+            var serviceLevel = input.Values.ServiceLevel.ToServiceLevelOpt();
+
             var couplers = EnumHelpers.OptionalValueFor<Couplers>(input.Values.Couplers);
             var epoch = !string.IsNullOrWhiteSpace(input.Values.Epoch) && Epoch.TryParse(input.Values.Epoch, out var e) ?
                 e : (Epoch?)null;
@@ -67,7 +72,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 railwayInfo,
                 EnumHelpers.OptionalValueFor<Category>(input.Values.Category),
                 epoch,
-                null,
+                length,
+                minRadius,
                 new Prototype(
                     input.Values.ClassName,
                     input.Values.RoadNumber,
@@ -75,7 +81,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 couplers,
                 input.Values.Livery,
                 EnumHelpers.OptionalValueFor<PassengerCarType>(input.Values.PassengerCarType),
-                null,
+                serviceLevel,
                 EnumHelpers.OptionalValueFor<DccInterface>(input.Values.DccInterface),
                 EnumHelpers.OptionalValueFor<Control>(input.Values.Control));
 

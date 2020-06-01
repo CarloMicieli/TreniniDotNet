@@ -3907,7 +3907,7 @@
           "category": {
             "type": "string"
           },
-          "era": {
+          "epoch": {
             "type": "string"
           },
           "lengthOverBuffer": {
@@ -3915,6 +3915,14 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/LengthOverBufferView"
+              }
+            ]
+          },
+          "minRadius": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MinRadiusView"
               }
             ]
           },
@@ -3935,6 +3943,10 @@
             "nullable": true
           },
           "livery": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceLevel": {
             "type": "string",
             "nullable": true
           },
@@ -3974,6 +3986,17 @@
             "nullable": true
           },
           "inches": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          }
+        }
+      },
+      "MinRadiusView": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "millimeters": {
             "type": "number",
             "format": "decimal",
             "nullable": true
@@ -4040,6 +4063,11 @@
                 "$ref": "#/components/schemas/LengthOverBufferRequest"
               }
             ]
+          },
+          "minRadius": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
           },
           "dccInterface": {
             "type": "string",
@@ -4133,6 +4161,11 @@
                 "$ref": "#/components/schemas/LengthOverBufferRequest"
               }
             ]
+          },
+          "minRadius": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
           },
           "railway": {
             "type": "string",

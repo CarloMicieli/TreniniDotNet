@@ -8,6 +8,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
     {
         private readonly IRollingStock _rs;
         private readonly LengthOverBufferView? _lob;
+        private readonly MinRadiusView? _minRadius;
 
         internal RollingStockView(IRollingStock rs)
         {
@@ -20,6 +21,11 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
             {
                 _lob = new LengthOverBufferView(rs.Length);
             }
+
+            if (!(rs.MinRadius is null))
+            {
+                _minRadius = new MinRadiusView(rs.MinRadius);
+            }
         }
 
         public Guid Id => _rs.RollingStockId.ToGuid();
@@ -28,9 +34,11 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
 
         public string Category => _rs.Category.ToString();
 
-        public string Era => _rs.Epoch.ToString();
+        public string Epoch => _rs.Epoch.ToString();
 
         public LengthOverBufferView? LengthOverBuffer => _lob;
+
+        public MinRadiusView? MinRadius => _minRadius;
 
         public string? ClassName => _rs.Prototype?.ClassName;
 
@@ -41,6 +49,8 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
         public string? Couplers => _rs.Couplers?.ToString();
 
         public string? Livery => _rs.Livery;
+
+        public string? ServiceLevel => _rs.ServiceLevel?.ToString();
 
         public string? DccInterface => _rs.DccInterface.ToString();
 
@@ -60,5 +70,17 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
         public decimal? Millimeters => decimal.Round(_lob.Millimeters.Value, 1);
 
         public decimal? Inches => decimal.Round(_lob.Inches.Value, 1);
+    }
+
+    public sealed class MinRadiusView
+    {
+        private readonly MinRadius _minRadius;
+
+        public MinRadiusView(MinRadius minRadius)
+        {
+            _minRadius = minRadius;
+        }
+
+        public decimal? Millimeters => decimal.Round(_minRadius.Millimeters, 1);
     }
 }

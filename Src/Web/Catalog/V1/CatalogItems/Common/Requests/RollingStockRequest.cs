@@ -6,6 +6,8 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests
 
         public LengthOverBufferRequest? LengthOverBuffer { set; get; }
 
+        public decimal? MinRadius { set; get; }
+
         public string? Railway { set; get; }
 
         public string? ClassName { set; get; }

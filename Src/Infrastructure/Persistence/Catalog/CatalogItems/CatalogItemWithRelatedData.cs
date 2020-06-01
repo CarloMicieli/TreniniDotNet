@@ -31,6 +31,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         public string category { set; get; } = null!;
         public decimal? length_mm { get; set; }
         public decimal? length_in { get; set; }
+        public decimal? min_radius { get; set; }
         public string? class_name { get; set; }
         public string? road_number { get; set; }
         public string? type_name { get; set; }

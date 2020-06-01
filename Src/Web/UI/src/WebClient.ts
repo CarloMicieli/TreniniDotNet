@@ -6150,13 +6150,15 @@ export class RollingStockView implements IRollingStockView {
     id?: string;
     railway?: RailwayInfoView;
     category?: string;
-    era?: string;
+    epoch?: string;
     lengthOverBuffer?: LengthOverBufferView | undefined;
+    minRadius?: MinRadiusView | undefined;
     className?: string | undefined;
     roadNumber?: string | undefined;
     typeName?: string | undefined;
     couplers?: string | undefined;
     livery?: string | undefined;
+    serviceLevel?: string | undefined;
     dccInterface?: string | undefined;
     control?: string | undefined;
 
@@ -6174,13 +6176,15 @@ export class RollingStockView implements IRollingStockView {
             this.id = _data["id"];
             this.railway = _data["railway"] ? RailwayInfoView.fromJS(_data["railway"]) : <any>undefined;
             this.category = _data["category"];
-            this.era = _data["era"];
+            this.epoch = _data["epoch"];
             this.lengthOverBuffer = _data["lengthOverBuffer"] ? LengthOverBufferView.fromJS(_data["lengthOverBuffer"]) : <any>undefined;
+            this.minRadius = _data["minRadius"] ? MinRadiusView.fromJS(_data["minRadius"]) : <any>undefined;
             this.className = _data["className"];
             this.roadNumber = _data["roadNumber"];
             this.typeName = _data["typeName"];
             this.couplers = _data["couplers"];
             this.livery = _data["livery"];
+            this.serviceLevel = _data["serviceLevel"];
             this.dccInterface = _data["dccInterface"];
             this.control = _data["control"];
         }
@@ -6198,13 +6202,15 @@ export class RollingStockView implements IRollingStockView {
         data["id"] = this.id;
         data["railway"] = this.railway ? this.railway.toJSON() : <any>undefined;
         data["category"] = this.category;
-        data["era"] = this.era;
+        data["epoch"] = this.epoch;
         data["lengthOverBuffer"] = this.lengthOverBuffer ? this.lengthOverBuffer.toJSON() : <any>undefined;
+        data["minRadius"] = this.minRadius ? this.minRadius.toJSON() : <any>undefined;
         data["className"] = this.className;
         data["roadNumber"] = this.roadNumber;
         data["typeName"] = this.typeName;
         data["couplers"] = this.couplers;
         data["livery"] = this.livery;
+        data["serviceLevel"] = this.serviceLevel;
         data["dccInterface"] = this.dccInterface;
         data["control"] = this.control;
         return data; 
@@ -6215,13 +6221,15 @@ export interface IRollingStockView {
     id?: string;
     railway?: RailwayInfoView;
     category?: string;
-    era?: string;
+    epoch?: string;
     lengthOverBuffer?: LengthOverBufferView | undefined;
+    minRadius?: MinRadiusView | undefined;
     className?: string | undefined;
     roadNumber?: string | undefined;
     typeName?: string | undefined;
     couplers?: string | undefined;
     livery?: string | undefined;
+    serviceLevel?: string | undefined;
     dccInterface?: string | undefined;
     control?: string | undefined;
 }
@@ -6310,6 +6318,42 @@ export interface ILengthOverBufferView {
     inches?: number | undefined;
 }
 
+export class MinRadiusView implements IMinRadiusView {
+    millimeters?: number | undefined;
+
+    constructor(data?: IMinRadiusView) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.millimeters = _data["millimeters"];
+        }
+    }
+
+    static fromJS(data: any): MinRadiusView {
+        data = typeof data === 'object' ? data : {};
+        let result = new MinRadiusView();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["millimeters"] = this.millimeters;
+        return data; 
+    }
+}
+
+export interface IMinRadiusView {
+    millimeters?: number | undefined;
+}
+
 export class EditRollingStockOutput implements IEditRollingStockOutput {
     slug?: Slug;
 
@@ -6358,6 +6402,7 @@ export class EditRollingStockRequest implements IEditRollingStockRequest {
     passengerCarType?: string | undefined;
     serviceLevel?: string | undefined;
     lengthOverBuffer?: LengthOverBufferRequest | undefined;
+    minRadius?: number | undefined;
     dccInterface?: string | undefined;
     control?: string | undefined;
 
@@ -6383,6 +6428,7 @@ export class EditRollingStockRequest implements IEditRollingStockRequest {
             this.passengerCarType = _data["passengerCarType"];
             this.serviceLevel = _data["serviceLevel"];
             this.lengthOverBuffer = _data["lengthOverBuffer"] ? LengthOverBufferRequest.fromJS(_data["lengthOverBuffer"]) : <any>undefined;
+            this.minRadius = _data["minRadius"];
             this.dccInterface = _data["dccInterface"];
             this.control = _data["control"];
         }
@@ -6408,6 +6454,7 @@ export class EditRollingStockRequest implements IEditRollingStockRequest {
         data["passengerCarType"] = this.passengerCarType;
         data["serviceLevel"] = this.serviceLevel;
         data["lengthOverBuffer"] = this.lengthOverBuffer ? this.lengthOverBuffer.toJSON() : <any>undefined;
+        data["minRadius"] = this.minRadius;
         data["dccInterface"] = this.dccInterface;
         data["control"] = this.control;
         return data; 
@@ -6426,6 +6473,7 @@ export interface IEditRollingStockRequest {
     passengerCarType?: string | undefined;
     serviceLevel?: string | undefined;
     lengthOverBuffer?: LengthOverBufferRequest | undefined;
+    minRadius?: number | undefined;
     dccInterface?: string | undefined;
     control?: string | undefined;
 }
@@ -6583,6 +6631,7 @@ export interface IEditCatalogItemRequest {
 export class RollingStockRequest implements IRollingStockRequest {
     epoch?: string | undefined;
     lengthOverBuffer?: LengthOverBufferRequest | undefined;
+    minRadius?: number | undefined;
     railway?: string | undefined;
     className?: string | undefined;
     roadNumber?: string | undefined;
@@ -6608,6 +6657,7 @@ export class RollingStockRequest implements IRollingStockRequest {
         if (_data) {
             this.epoch = _data["epoch"];
             this.lengthOverBuffer = _data["lengthOverBuffer"] ? LengthOverBufferRequest.fromJS(_data["lengthOverBuffer"]) : <any>undefined;
+            this.minRadius = _data["minRadius"];
             this.railway = _data["railway"];
             this.className = _data["className"];
             this.roadNumber = _data["roadNumber"];
@@ -6633,6 +6683,7 @@ export class RollingStockRequest implements IRollingStockRequest {
         data = typeof data === 'object' ? data : {};
         data["epoch"] = this.epoch;
         data["lengthOverBuffer"] = this.lengthOverBuffer ? this.lengthOverBuffer.toJSON() : <any>undefined;
+        data["minRadius"] = this.minRadius;
         data["railway"] = this.railway;
         data["className"] = this.className;
         data["roadNumber"] = this.roadNumber;
@@ -6651,6 +6702,7 @@ export class RollingStockRequest implements IRollingStockRequest {
 export interface IRollingStockRequest {
     epoch?: string | undefined;
     lengthOverBuffer?: LengthOverBufferRequest | undefined;
+    minRadius?: number | undefined;
     railway?: string | undefined;
     className?: string | undefined;
     roadNumber?: string | undefined;

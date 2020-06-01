@@ -20,7 +20,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 throw new ArgumentNullException(nameof(guidSource));
         }
 
-        public IRollingStock NewLocomotive(IRailwayInfo railway, Category category, Epoch epoch, LengthOverBuffer? length,
+        public IRollingStock NewLocomotive(IRailwayInfo railway, Category category, Epoch epoch,
+            LengthOverBuffer? length, MinRadius? minRadius,
             string? className, string? roadNumber,
             Couplers? couplers,
             string? livery, DccInterface dccInterface, Control control)
@@ -30,6 +31,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 epoch,
                 category,
                 length,
+                minRadius,
                 className,
                 roadNumber,
                 couplers: couplers,
@@ -38,7 +40,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 control: control);
         }
 
-        public IRollingStock NewPassengerCar(IRailwayInfo railway, Epoch epoch, LengthOverBuffer? length,
+        public IRollingStock NewPassengerCar(IRailwayInfo railway, Epoch epoch,
+            LengthOverBuffer? length, MinRadius? minRadius,
             string? typeName, Couplers? couplers, string? livery,
             PassengerCarType? passengerCarType, ServiceLevel? serviceLevel)
         {
@@ -47,14 +50,17 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 epoch,
                 Category.PassengerCar,
                 length,
+                minRadius,
                 typeName: typeName,
                 passengerCarType: passengerCarType,
                 serviceLevel: serviceLevel,
-                livery: livery
+                livery: livery,
+                couplers: couplers
             );
         }
 
-        public IRollingStock NewFreightCar(IRailwayInfo railway, Epoch era, LengthOverBuffer? length,
+        public IRollingStock NewFreightCar(IRailwayInfo railway, Epoch era,
+            LengthOverBuffer? length, MinRadius? minRadius,
             string? typeName,
             Couplers? couplers,
             string? livery)
@@ -64,11 +70,14 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 era,
                 Category.FreightCar,
                 length,
+                minRadius,
+                couplers: couplers,
                 typeName: typeName,
                 livery: livery);
         }
 
-        public IRollingStock NewTrain(IRailwayInfo railway, Category category, Epoch epoch, LengthOverBuffer? length,
+        public IRollingStock NewTrain(IRailwayInfo railway, Category category, Epoch epoch,
+            LengthOverBuffer? length, MinRadius? minRadius,
             string? className, string? roadNumber,
             Couplers? couplers,
             string? livery,
@@ -79,8 +88,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 epoch,
                 category,
                 length,
+                minRadius,
                 className,
                 roadNumber,
+                couplers: couplers,
                 livery: livery,
                 dccInterface: dccInterface,
                 control: control);
@@ -93,6 +104,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string category,
             decimal? lengthMillimeters,
             decimal? lengthInches,
+            decimal? minRadius = null,
             string? className = null, string? roadNumber = null, string? typeName = null,
             string? couplers = null,
             string? livery = null,
@@ -107,6 +119,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 RequiredValueFor<Category>(category),
                 Epoch.Parse(epoch),
                 LengthOverBuffer.CreateOrDefault(lengthInches, lengthMillimeters),
+                MinRadius.CreateOrDefault(minRadius),
                 new Prototype(className, roadNumber, typeName),
                 OptionalValueFor<Couplers>(couplers),
                 livery,
@@ -121,6 +134,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Epoch epoch,
             Category category,
             LengthOverBuffer? length,
+            MinRadius? minRadius = null,
             string? className = null, string? roadNumber = null, string? typeName = null,
             Couplers? couplers = null,
             string? livery = null,
@@ -136,6 +150,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 category,
                 epoch,
                 length,
+                minRadius,
                 new Prototype(className, roadNumber, typeName),
                 couplers,
                 livery,

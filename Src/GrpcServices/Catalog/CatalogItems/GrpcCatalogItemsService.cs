@@ -73,6 +73,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
                     it.PassengerCarType.ToPassengerCarType(),
                     it.ServiceLevel.ToNullableString(),
                     FromRollingStockLength(it.Length),
+                    it.MinRadius,
                     it.Control.ToControlName(),
                     it.DccInterface.ToDccInterfaceName()))
                 .ToList();

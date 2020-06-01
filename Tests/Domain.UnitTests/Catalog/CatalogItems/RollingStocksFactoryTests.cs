@@ -30,6 +30,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Fs(),
                 Epoch.VI,
                 LengthOverBuffer.OfMillimeters(135M),
+                MinRadius.OfMillimeters(360),
                 "Sdggmrs T2000",
                 Couplers.Nem352,
                 "red");
@@ -40,6 +41,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             newFreightCar.Prototype!.TypeName.Should().Be("Sdggmrs T2000");
             newFreightCar.Length?.Millimeters.Should().Be(Length.OfMillimeters(135M));
             newFreightCar.Livery.Should().Be("red");
+            newFreightCar.MinRadius.Should().Be(MinRadius.OfMillimeters(360));
+            newFreightCar.Couplers.Should().Be(Couplers.Nem352);
         }
 
         [Fact]
@@ -49,6 +52,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Fs(),
                 Epoch.IV,
                 LengthOverBuffer.OfMillimeters(242M),
+                MinRadius.OfMillimeters(360),
                 "Tipo 1921",
                 Couplers.Nem352,
                 "red",
@@ -64,6 +68,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             newPassengerCar.PassengerCarType.Should().Be(PassengerCarType.CompartmentCoach);
             newPassengerCar.ServiceLevel.Should().Be(ServiceLevel.SecondClass);
             newPassengerCar.Length?.Millimeters.Should().Be(Length.OfMillimeters(242M));
+            newPassengerCar.MinRadius.Should().Be(MinRadius.OfMillimeters(360));
+            newPassengerCar.Couplers.Should().Be(Couplers.Nem352);
         }
 
         [Fact]
@@ -74,6 +80,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Category.ElectricLocomotive,
                 Epoch.IV,
                 LengthOverBuffer.OfMillimeters(210M),
+                MinRadius.OfMillimeters(360),
                 "E 656",
                 "E 656 210",
                 Couplers.Nem352,
@@ -91,6 +98,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             newLocomotive.Livery.Should().Be("blue");
             newLocomotive.DccInterface.Should().Be(DccInterface.Nem652);
             newLocomotive.Control.Should().Be(Control.DccReady);
+            newLocomotive.MinRadius.Should().Be(MinRadius.OfMillimeters(360));
+            newLocomotive.Couplers.Should().Be(Couplers.Nem352);
         }
 
         [Fact]
@@ -101,6 +110,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Category.ElectricMultipleUnit,
                 Epoch.VI,
                 LengthOverBuffer.OfMillimeters(2321M),
+                MinRadius.OfMillimeters(360),
                 "Etr 400",
                 "",
                 Couplers.Nem352,
@@ -118,6 +128,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             newTrain.Livery.Should().Be("red");
             newTrain.DccInterface.Should().Be(DccInterface.Mtc21);
             newTrain.Control.Should().Be(Control.DccReady);
+            newTrain.MinRadius.Should().Be(MinRadius.OfMillimeters(360));
+            newTrain.Couplers.Should().Be(Couplers.Nem352);
         }
 
         [Fact]
@@ -131,6 +143,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Category.ElectricLocomotive.ToString(),
                 210M,
                 null,
+                360M,
                 "Class name",
                 "Road Number",
                 "Type name",
@@ -155,6 +168,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             rs.ServiceLevel.Should().Be(ServiceLevel.SecondClass);
             rs.DccInterface.Should().Be(DccInterface.Nem651);
             rs.Control.Should().Be(Control.DccReady);
+            rs.MinRadius.Should().Be(MinRadius.OfMillimeters(360));
+            rs.Couplers.Should().Be(Couplers.Nem352);
         }
 
         private static IRailwayInfo Fs() => CatalogSeedData.Railways.Fs();

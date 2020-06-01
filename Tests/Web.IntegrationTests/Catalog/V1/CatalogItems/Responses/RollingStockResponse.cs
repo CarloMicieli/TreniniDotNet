@@ -11,9 +11,11 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems.Responses
 
         public string Category { set; get; }
 
-        public string Era { set; get; }
+        public string Epoch { set; get; }
 
         public LengthOverBufferResponse LengthOverBuffer { set; get; }
+
+        public MinRadiusResponse MinRadius { set; get; }
 
         public string ClassName { set; get; }
 
@@ -28,6 +30,8 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems.Responses
         public string DccInterface { set; get; }
 
         public string Control { set; get; }
+
+        public string ServiceLevel { set; get; }
     }
 
     public sealed class LengthOverBufferResponse
@@ -35,5 +39,10 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems.Responses
         public decimal? Millimeters { set; get; }
 
         public decimal? Inches { set; get; }
+    }
+
+    public sealed class MinRadiusResponse
+    {
+        public decimal? Millimeters { set; get; }
     }
 }

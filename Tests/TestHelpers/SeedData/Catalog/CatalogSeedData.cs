@@ -131,6 +131,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 category ?? Category.PassengerCar,
                 epoch,
                 length,
+                MinRadius.OfMillimeters(360M),
                 new Prototype(
                     className,
                     roadNumber,

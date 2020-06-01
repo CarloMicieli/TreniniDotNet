@@ -244,10 +244,12 @@ namespace TreniniDotNet.Application.Catalog
                 string couplers = null,
                 string livery = null, string passengerCarType = null, string serviceLevel = null,
                 LengthOverBufferInput length = null,
+                decimal? minRadius = null,
                 string control = null, string dccInterface = null) =>
                 new RollingStockInput(epoch, category, railway,
                     className, roadNumber, typeName, couplers, livery, passengerCarType, serviceLevel,
                     length,
+                    minRadius,
                     control, dccInterface);
         }
 
@@ -273,6 +275,7 @@ namespace TreniniDotNet.Application.Catalog
                 string couplers = null,
                 string livery = null, string passengerCarType = null, string serviceLevel = null,
                 LengthOverBufferInput length = null,
+                decimal? minRadius = null,
                 string control = null, string dccInterface = null) =>
                 new EditRollingStockInput(
                     slug ?? Slug.Empty,
@@ -282,6 +285,7 @@ namespace TreniniDotNet.Application.Catalog
                     couplers,
                     livery,
                     length,
+                    minRadius,
                     control, dccInterface);
         }
 
