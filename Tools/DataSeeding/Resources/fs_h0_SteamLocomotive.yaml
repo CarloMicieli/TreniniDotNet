@@ -1,0 +1,3774 @@
+Description: FS / H0 / SteamLocomotive
+Version: 1
+ModifiedAt: 2020-06-01T15:35:20.4249270Z
+Elements:
+- Brand: ACME
+  ItemNumber: 60500
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, livrea fotografica grigia, respingenti a bovolo, fanali a petrolio, carboniera bassa
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 107
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60501
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, stato anni trenta, respingenti a bovolo, fanali a petrolio, carboniera alta
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: II/IIIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 172
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60502
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali elettrici, carboniera alta, resp. moderni, ruote rosso cinabro, cerchioni bianchi, luino 1988
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IVb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 196
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60503
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali elettrici, carboniera alta, respingenti moderni, ruotino a vela piena, cerchioni bianchi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 157
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60504
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali elettrici, carboniera alta, respingenti moderni, telaio lungo (69504 dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 222
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60505
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali a petrolio, carboniera alta, respingenti moderni, telaio lungo (69505 dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 226
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60510
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, distribuzione caprotti, stato fine carriera, deposito udine
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 963
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 69501
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, stato anni trenta, respingenti a bovolo, fanali a petrolio, carboniera alta, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: II/IIIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 172
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 69502
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali elettrici, carboniera alta, resp. moderni, ruote rosso cinabro, luino 1988, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IVb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 196
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 69503
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali elettrici, carboniera alta, respingenti moderni, ruotino a vela piena, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 157
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 69510
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, distribuzione caprotti, stato fine carriera, deposito udine, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 963
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: LE Models
+  ItemNumber: LE21270
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali a petrolio, carboniera di origine, visiere laterali complete, retro cabina saldato
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 110
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: LE Models
+  ItemNumber: LE21271
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali a petrolio, carboniera rialzata, visiere laterali ridotte, retro cabina chiodato
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 077
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: LE Models
+  ItemNumber: LE21272
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali elettrici, carboniera rialzata, marcatura post. rialzata, retro cabina saldato
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 124
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: LE Models
+  ItemNumber: LE21273
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali a petrolio, fumaiolo di origine, visiere ridotte, retro chiodato, cerchioni bianchi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 004
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: LE Models
+  ItemNumber: LE21274
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali elettrici anteriori, carboniera rialzata, vomere a scudo, vetro posteriore cieco
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 152
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: LE Models
+  ItemNumber: LE21275
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali a petrolio, serbatoi nafta per combustione mista, respingenti a bovolo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 167
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: LE Models
+  ItemNumber: LE21276
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali a petrolio, serbatoi nafta, respingenti a bovolo, sopralzo carboniera basso
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 160
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: LE Models
+  ItemNumber: LE21277
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali a petrolio anteriori, carboniera rialzata, vomere a scudo, carboniera metallica
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 191
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima Expert
+  ItemNumber: HL2670
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali elettrici, carboniera rialzata, vomere a scudo (hl2670d dcc)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2017
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 152
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima Expert
+  ItemNumber: HL2671
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali elettrici, carboniera rialzata, respingenti a bovolo (hl2671d dcc)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2017
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 197
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima Expert
+  ItemNumber: HL2672
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali a petrolio, retro cabina chiodato, fascio littorio (hl2672d dcc)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2017
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 851 072
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1623
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 623, fanali a petrolio, vomere ripiegabile, ruotino a razze
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 623
+    RoadNumber: 623 104
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1623.1
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 623, fanali elettrici, vomere ripiegabile, ruotino a vela piena
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 623
+    RoadNumber: 623 072
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1623.2
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 623, fanali a petrolio, vomere ripiegabile, ruotino a razze
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 623
+    RoadNumber: 623 014
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1625
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 625, versione attuale storica, fanali a petrolio, ruotino a vela piena, dep. bologna
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 625
+    RoadNumber: 625 100
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1626
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 625, fanali elettrici, ruotino a razze, pompa freno a doppio stadio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 625
+    RoadNumber: 625 062
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1627
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 625, fanali a petrolio, ruotino a vela piena, pompa freno a semplice stadio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 625
+    RoadNumber: 625 002
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1627-DS
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 625, fanali a petrolio, ruotino a vela piena, pompa freno a semplice stadio, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 625
+    RoadNumber: 625 002
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1628
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 625, fanali elettrici, ruotino a vela piena, pompa freno a doppio stadio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 625
+    RoadNumber: 625 091
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1628-DS
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 625, fanali elettrici, ruotino a vela piena, pompa freno a doppio stadio, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 625
+    RoadNumber: 625 091
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1628-LP
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 625, fanali elettrici, fanali a petrolio intercambiabili, ruotino a vela piena, pompa freno a doppio stadio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 625
+    RoadNumber: 625 091
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1629
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 625, tender a carrelli, fanali a petrolio, telaio rosso brillante, pompa freno a doppio stadio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 625
+    RoadNumber: 625 088
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1629-DS
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 625, tender a carrelli, fanali a petrolio, telaio rosso brillante, pompa freno a doppio stadio, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 625
+    RoadNumber: 625 088
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1640
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 640, versione attuale storica, fanali a petrolio, dep. bologna c.le
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 640
+    RoadNumber: 640 121
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1641
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 640, fanali elettrici, pompa freno a doppio stadio, dep. alessandria
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 640
+    RoadNumber: 640 019
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1642
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 640, fanali elettrici, pompa freno a semplice stadio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 640
+    RoadNumber: 640 088
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1642-DS
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 640, fanali elettrici, pompa freno a semplice stadio, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 640
+    RoadNumber: 640 088
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1643
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 640, fanali a petrolio, pompa freno a semplice stadio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 640
+    RoadNumber: 640 008
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1643-DS
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 640, fanali a petrolio, pompa freno a semplice stadio, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 640
+    RoadNumber: 640 008
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1644
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 640, fanali a petrolio, cerchioni bianchi, museale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 640
+    RoadNumber: 640 143
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1644-DS
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 640, fanali a petrolio, cerchioni bianchi, museale, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 640
+    RoadNumber: 640 143
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1680
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 680-681, fanali a petrolio, tender a carrelli, ruotino a vela piena, vomere ripiegabile
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 680-681
+    RoadNumber: 680 037
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1681
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 680-681, fanali a petrolio, tender carrelli scalette rettangolari, ruotino a vela piena, resp. a bovolo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 680-681
+    RoadNumber: 680 071
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1682
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 680-681, cilindri maggiorati, fanali a petrolio, tender carrelli scalette rettangolari, ruotino a vela piena
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 680-681
+    RoadNumber: 681 065
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1685
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali a petrolio, respingenti a bovolo, tender a carrelli 22 mc con scalette rettangolari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 352
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1686
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali a petrolio, respingenti moderni, vomere ripiegabile, tender a carrelli 22 mc
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 393
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1686-DS
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali a petrolio, respingenti moderni, vomere ripiegabile, tender a carrelli 22 mc, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 393
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1687
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali a petrolio, tender a carrelli 22 mc con scalette standard
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 443
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1688
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali elettrici, vomere ripiegabile, tender a carrelli 22 mc con scalette standard
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: 685 445
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1689
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali a petrolio, respingenti moderni, vomere ripiegabile, tender a carrelli 22 mc
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: S685 551
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1689.1
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 685, fanali a petrolio, respingenti moderni, vomere ripiegabile, tender a carrelli 29 mc
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 685
+    RoadNumber: S685 600
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1691
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 691, fanali a petrolio, tender 29 mc, cerchioni bianchi, pompa knorr moncilindrica
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2017
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 691
+    RoadNumber: 691 022
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1692
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 691, fanali a petrolio, tender 29 mc, vomere ripiegabile, pompa knorr moncilindrica
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2017
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 691
+    RoadNumber: 691 023
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1693
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 691, fanali elettrici, tender 29 mc, cerchioni bianchi, pompa knorr moncilindrica
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2017
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 691
+    RoadNumber: 691 014
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1694
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 691, fanali elettrici, tender 29 mc, vomere ripiegabile, pompa knorr moncilindrica
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2017
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 691
+    RoadNumber: 691 025
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1695
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 691, livrea fotografica grigia, fanali a petrolio, tender 29 mc, pompa knorr moncilindrica
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2017
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 691
+    RoadNumber: 691 027
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1851
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali a petrolio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1852
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 851, fanali a petrolio, carboniera rialzata
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 851
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1100
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua rivettate, fanali a petrolio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 835 194
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1101
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua saldate, fanali elettrici
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 835 240
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1102
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua rivettate, fanali elettrici
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 835 257
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1103
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua saldate, fanali a petrolio, sabbiera con spigoli arrotondati
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 835 271
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1105
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua saldate, fanali elettrici, corrimano e volantino camera a fumo rossi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1998
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 835 203
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1106
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua rivettate, fanali a petrolio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1999
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 835 212
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1107
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua rivettate, fanali a petrolio, sabbiera con spigoli arrotondati, bordini ruote bianchi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1999
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 835 234
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1108
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua rivettate, fanali a petrolio, sabbiera con spigoli arrotondati, bordini ruote bianchi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1999
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 835 268
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2028
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, vomere ripiegabile, fanali a petrolio, museo di trieste
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 108
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2032
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, senza spartineve, fanali a petrolio, museo di pistoia
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 451
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2054
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, vomere ripiegabile, fanali a petrolio, museo di trieste, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 108
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2078
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 743, preriscaldatori franco-crosti, fanali a petrolio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 743
+    RoadNumber: 743 301
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2158
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 741, vomere ripiegabile, fanali elettrici, tender con sopralzo, preriscaldatore
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 741
+    RoadNumber: 741 273
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2159
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 741, vomere ripiegabile, fanali elettrici, tender con sopralzo, preriscaldatore, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 741
+    RoadNumber: 741 273
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2160
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua rivettate, fanali a petrolio illuminati, bordini ruote bianchi, dep. la spezia
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 835 053
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2195
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 743, preriscaldatori franco-crosti, fanali a petrolio, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 743
+    RoadNumber: 743 301
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2240
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, vomere a scudo, fanali a petrolio, ruotino a vela piena, corrimani su fiancate cabina
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 144
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2241
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, vomere a scudo, fanali a petrolio, ruotino a vela piena, corrimani su fiancate cabina, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 144
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2275
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 743, vomere a scudo, preriscaldatori franco-crosti, fanali a petrolio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 743
+    RoadNumber: 743 366
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2276
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 743, vomere a scudo, preriscaldatori franco-crosti, fanali a petrolio, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 743
+    RoadNumber: 743 366
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2322
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua rivettate, fanali a petrolio illuminati, cerchioni bianchi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 835 257
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2323
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 741, senza vomere, fanali elettrici, tender con sopralzo, preriscaldatore, dep. pistoia
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 741
+    RoadNumber: 741 120
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2382
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, fanali a petrolio, tender a 3 assi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 306
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2383
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, fanali a petrolio, tender a 3 assi, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 306
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2384
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 741, fanali elettrici, tendera 3 assi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 741
+    RoadNumber: 741 205
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2385
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 741, fanali elettrici, tender a 3 assi, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 741
+    RoadNumber: 741 205
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2454
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, distribuzione caprotti, tender a carrelli, fanali a petrolio, vomere ripiegabile
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 697
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2457
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 744, distribuzione walschaerts, fanali a petrolio
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 744
+    RoadNumber: 744 006
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2458
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 744, distribuzione walschaerts, fanali a petrolio, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 744
+    RoadNumber: 744 006
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2459
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 744, distribuzione caprotti, fanali elettrici
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 744
+    RoadNumber: 744 119
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2460
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 744, distribuzione caprotti, fanali elettrici, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 744
+    RoadNumber: 744 119
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2482
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, distribuzione caprotti, tender a carrelli, fanali a petrolio, vomere ripiegabile, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 697
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2483
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, distribuzione caprotti, tender a 3 assi, fanali elettrici, vomere rigido
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 696
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2484
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 740, distribuzione caprotti, tender a 3 assi, fanali elettrici, vomere rigido, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 740
+    RoadNumber: 740 696
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2746
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 743, preriscaldatori franco-crosti, fanali elettrici
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 743
+    RoadNumber: 743 390
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2746S
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 743, preriscaldatori franco-crosti, fanali elettrici, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 743
+    RoadNumber: 743 390
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2787
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua rivettate, fanali a petrolio illuminati, pompa freno grande
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2788
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua saldate, fanali a petrolio illuminati, pompa freno grande
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2789
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua rivettate, fanali elettrici illuminati, pompa freno piccola (s dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2790
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 835, casse d’acqua rivettate, fanali elettrici illuminati, pompa freno grande (s dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 835
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2363
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 940, fanali elettrici, vomere ripiegabile, fumaiolo piccolo, bielle rosse, cerchioni bianchi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 940
+    RoadNumber: 940 044
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2364
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 940, fanali elettrici, fumaiolo piccolo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 940
+    RoadNumber: 940 018
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2471
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 940, fanali elettrici, vomere grande a scudo, fumaiolo piccolo, ex sfb
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 940
+    RoadNumber: 940 053
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2553
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 940, fanali elettrici, fumaiolo largo, decorazioni rosse, cerchioni bianchi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 940
+    RoadNumber: 940 030
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2724
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 940, fanali a petrolio, casse batterie, bielle e volantino rosso, per treni storici (hr2724d dcc)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 940
+    RoadNumber: 940 022
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2725
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 940, fanali a petrolio, casse batterie, bielle rosse, scritte pesi (hr2725d dcc)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 940
+    RoadNumber: 940 023
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43277
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 880, ruotino a razze, fanali elettrici, carboniera bassa
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1993
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 880
+    RoadNumber: 880 001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43277 (1)
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 880, ruotino a razze, fanali elettrici, carboniera bassa
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2001
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 880
+    RoadNumber: 880 011
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43277.1
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 880, ruotino a razze, fanali elettrici, carboniera bassa
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1994
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 880
+    RoadNumber: 880 051
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43277.2
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 880, ruotino a razze, fanali elettrici, carboniera alta
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1993
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 880
+    RoadNumber: 880 045
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43277.3
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 880, ruotino a razze, fanali elettrici, carboniera alta, mfp “pessinetto”
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1994
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 880
+    RoadNumber: 880.1
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43279
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 880, chemins de fer du brevenne ly11-130t, nera, casse acqua e cilindri verdi, ruote rosse, museale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2001
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: Vm
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 880
+    RoadNumber: 880 157
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43324
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 880, ruotino a vela piena, fanali elettrici, carboniera bassa
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2001
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 880
+    RoadNumber: 880 108
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43324.1
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 880, ruotino a vela piena, fanali elettrici, carboniera bassa
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2002
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 880
+    RoadNumber: 880 023
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43325
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 880, ruotino a vela piena, fanali elettrici, carboniera alta
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2002
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 880
+    RoadNumber: 880 019
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 51151
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, start set, gr. 875 con cabina chiusa + 2 carri ff a 2 assi fs italia, trasformatore, binari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 038
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 51329
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, start set dcc, gr. 875 con cabina chiusa + 3 carri ff a 2 assi, z21, multimaus, binari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 045
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62233
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina chiusa, fanali a petrolio, ruotino a vela piena, telaio rosso vagone
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 026
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62234
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina chiusa, fanali a petrolio, ruotino a razze, telaio rosso vagone
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 019
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62235
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina chiusa, fanali a petrolio, ruotino a razze, telaio rosso chiaro
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 038
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62235A
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina chiusa, fanali a petrolio, ruotino a razze, telaio rosso chiaro, finestrone chiuso, targhe
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2014
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 034
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62235B
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina chiusa, fanali a petrolio, telaio rosso chiaro, finestrone parzialmente chiuso, targhe
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2014
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 039
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62235C
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina chiusa, fanali a petrolio, ruotino a razze, telaio rosso chiaro, finestrone aperto, targhe
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2014
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 040
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62235D
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina chiusa, fanali a petrolio, ruotino a razze, un finestrino semiaperto, targhe
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2014
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 045
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62236
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina chiusa, fanali a petrolio, ruotino a vela piena, telaio rosso vagone
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 049
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63275
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina aperta, stato di origine, marcatura posteriore su parete cabina
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: I
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 87508
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63276
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina aperta, stato di origine, marcatura posteriore su pancone
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: I
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 87516
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63277
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina aperta, stato di origine, livrea fotografica grigia, marcatura posteriore su parete cabina
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: I
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 87513
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63278
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina aperta, stato di origine, marcatura posteriore su pancone
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: I
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 87530
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72258
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 880, ruotino a razze, fanali elettrici, carboniera alta, interfaccia dcc
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2017
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 880
+    RoadNumber: 880 047
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 73017
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva a vapore Gr. 875, cabina chiusa, fanali a petrolio, ruotino a vela piena, telaio rosso vagone
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2019
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: SteamLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 875
+    RoadNumber: 875 045
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:

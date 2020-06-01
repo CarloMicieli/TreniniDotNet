@@ -1,0 +1,7486 @@
+Description: FS / H0 / DieselLocomotive
+Version: 1
+ModifiedAt: 2020-06-01T15:35:20.4124643Z
+Elements:
+- Brand: ACME
+  ItemNumber: 60060
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D461, versione fiat di origine, livrea panna/verde
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2005
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D461
+    RoadNumber: D461 1001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60061
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D461, versione fs, livrea verde/castano
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2005
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D461
+    RoadNumber: D461 1001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60065
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella/rosso, 2 fanali, versione di origine, porta frontale, modanature, dep. cagliari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4013
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60066
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella/rosso, 3 fanali, senza porta frontale, modanature dipinte, dep. siena
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4008
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60067
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, set d342 castano/isabella/rosso, stato di origine, 2 fanali, porta frontale, modanature, dep. padova + carro riscaldo vrz livrea castano
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4011 +Vrz 808 914
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60068
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella/rosso, 2 fanali, corrimani sul tetto, porta frontale, modanature, dep. siena
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4006
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60250
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, verde fasce gialle, telaio nero, cabina corazzata, panconi rinforzati, dep. roma trastevere
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: D143 3019
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60251
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, verde fasce gialle, telaio nero, corrimani con battipiede, dep. ancona
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: D143 3002
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60252
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, verde fasce gialle, telaio verde, dep. loc. genova b.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2014
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: D143 3029
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60253
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, verde fasce gialle, telaio nero, cabina corazzata, battipiede, resp. rettangolari, dep. firenze
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2019
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: D143 3022
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60254
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, livrea isabella, telaio castano, cabina corazzata, 4 marmitte, fanali su pancone
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: Ne 120
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60257
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, usatc immatricolata fs, stato anni quaranta, livrea beige, un fanale centrale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2019
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIb/IIIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: U.S.A. 1256
+    TypeName:
+    Depot:
+    Series: Ne 120
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60258
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, livrea castano, cabina corazzata, 4 marmitte, fanali su pancone
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2019
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: Ne 120 036
+    TypeName:
+    Depot:
+    Series: Ne 120
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60259
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, verde fasce gialle, telaio rosso, carrelli e sottocassa castano, cabina corazzata, 2 marmitte
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2019
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: Ne 120 011
+    TypeName:
+    Depot:
+    Series: Ne 120
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60342
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D442, livrea isabella/bianco/rosso, tetto blu con “mezzaluna”, fregio ansaldo triangolare, carenature
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D442
+    RoadNumber: D442 401
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60345
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D442, livrea isabella fasce rosse, telaio tagliato rosso/castano con modanature
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D442
+    RoadNumber: D442 4001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60350
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella, telaio rosso, porta frontale, 2 fanali, modanature
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 2001
+    TypeName:
+    Depot:
+    Series: D342 BREDA PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60351
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella, telaio rosso, porta frontale, 2 fanali, modanature, presa aria su tetto, dep. torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 2001
+    TypeName:
+    Depot:
+    Series: D342 BREDA PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60355
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, sovralimentata, castano/isabella/rosso, 2 fanali, stato d’origine, porta frontale, modanature, dep.to
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4015
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60355S
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, sovralimentata, castano/isabella/rosso, 2 fanali, stato d’origine, porta frontale, modanature, dep. pd
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4017
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 60357
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, sovralimentata, castano/isabella/rosso, 3 fanali, senza porta frontale, modanature dipinte
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4016
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 69061
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D461, versione fs, livrea verde/castano, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D461
+    RoadNumber: D461 1001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 69257
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, usatc immatricolata fs, stato anni quaranta, livrea beige, un fanale centrale, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2020
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIb/IIIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: U.S.A. 1256
+    TypeName:
+    Depot:
+    Series: Ne 120
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 69345
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D442, livrea isabella fasce rosse, telaio tagliato rosso/castano con modanature, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D442
+    RoadNumber: D442 4001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 70047
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, set d342 castano/isabella/rosso sovralimentata, stato di origine, 2 fanali, porta frontale, modanature + carro riscaldo vrz livrea castano, dcc, disp. fumogeno, centralina daisy ii uhlenbrock
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4015 +Vrz 808 914
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ACME
+  ItemNumber: 90153
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, livrea castano, cabina corazzata, 4 marmitte, utilizzo su linea palazzolo-paratico, escl. essemme
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2019
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: Ne 120 015
+    TypeName:
+    Depot:
+    Series: Ne 120
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 01
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella, telaio rosso, livrea semplificata
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3001
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 02
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D442, livrea isabella/bianco/rosso, tetto bianco, “mezzaluna” blu, fregio ansaldo triangolare, carenature
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D442
+    RoadNumber: D442 401
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 03
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella con telaio rosso, livrea semplificata, porta frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3002
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 04
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D442, livrea isabella/bianco/rosso, tetto blu con “mezzaluna”, fregio ansaldo rettangolare, carenature
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D442
+    RoadNumber: D442 401
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 05
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella, telaio rosso, 3 fanali, modanature, deposito siena
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 2001
+    TypeName:
+    Depot:
+    Series: D342 BREDA PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 06
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella di origine, telaio e fasce castano, panconi rossi, porta frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3001
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 07
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D442, livrea isabella fasce rosse, telaio castano con modanature, carenature complete, fregio alato
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D442
+    RoadNumber: D442 4001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 08
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D442, livrea isabella/bianco/rosso, “mezzaluna” blu, fregio ansaldo triangolare, carenature, dep. bari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D442
+    RoadNumber: D442 4001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 09
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella con telaio rosso, fascia rossa su fanali, porta frontale, stato consegna (1961)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3002
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 10
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D442, livrea isabella fasce rosse, telaio castano con modanature, carenature complete, dep. bologna
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D442
+    RoadNumber: D442 4001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 11
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D442, livrea isabella/bianco/rosso, “mezzaluna” blu, fregio ansaldo rettangolare, carenature, dep. torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D442
+    RoadNumber: D442 401
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 12
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella, telaio rosso, porta frontale, 2 fanali, modanature, dep. torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 2001
+    TypeName:
+    Depot:
+    Series: D342 BREDA PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 13
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella con telaio rosso, fascia rossa su fanali, porta frontale, cerchioni bianchi (1960)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3002
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 14
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella, telaio rosso, porta frontale, 2 fanali, modanature, corrimani sul tetto (1963)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 2001
+    TypeName:
+    Depot:
+    Series: D342 BREDA PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 15
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, sovralimentata, castano/isabella/rosso, 3 fanali, modanature, serranda centrale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4015
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: ATM
+  ItemNumber: 16
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, sovralimentata, castano/isabella/rosso, 3 fanali, modanature dipinte
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4016
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Brawa
+  ItemNumber: 41616
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea verde, fasce gialle, telaio nero
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: 236 003
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Brawa
+  ItemNumber: 41618
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea verde, fasce gialle, telaio nero, dcc sound, ganci digitali
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: 236 003
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Comofer
+  ItemNumber: 200801
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde mancorrenti con battipiede respingenti rettangolari, costruz. ferrosud, dep. firenze
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 2200
+    TypeName:
+    Depot:
+    Series: 245 serie 2100 a bielle
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Comofer
+  ItemNumber: 200802
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde mancorrenti con battipiede, costruzione badoni, oml milano smistamento
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 2273
+    TypeName:
+    Depot:
+    Series: 245 serie 2100 a bielle
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Comofer
+  ItemNumber: 200803
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde mancorrenti senza battipiede, costruzione imer, dep. mestre
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 2178
+    TypeName:
+    Depot:
+    Series: 245 serie 2100 a bielle
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Comofer
+  ItemNumber: 200804
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde mancorrenti senza battipiede, costruzione ferrosud, dep. cuneo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 2217
+    TypeName:
+    Depot:
+    Series: 245 serie 2100 a bielle
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Comofer
+  ItemNumber: 200805
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde mancorrenti senza battipiede, cerchioni bianchi, costr. imer, dep. milano sm.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 2145
+    TypeName:
+    Depot:
+    Series: 245 serie 2100 a bielle
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Ferfyx
+  ItemNumber: F004
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D145, serie 2021-2062, kit non motorizzato
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2005
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D145
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Fleischmann
+  ItemNumber: 421604
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea castano/isabella, bielle rosse
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: 236 002
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Fleischmann
+  ItemNumber: 421684
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea castano/isabella, bielle rosse, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: 236 002
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: GT
+  ItemNumber: 2100
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D141, livrea verde fasce gialle, costruzione tibb
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D141
+    RoadNumber: D141 1017
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: GT
+  ItemNumber: 2101
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D141, livrea verde fasce gialle, costruzione tibb
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D141
+    RoadNumber: D141 1014
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: GT
+  ItemNumber: 2101/A
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D141, livrea verde fasce gialle, costruzione tibb
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D141
+    RoadNumber: D141 1001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: GT
+  ItemNumber: 2102
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D141, livrea verde fasce gialle, costruzione tibb
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D141
+    RoadNumber: D141 1020
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: GT
+  ItemNumber: 2103
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D141, livrea verde fasce gialle, costruzione reggiane
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D141
+    RoadNumber: D141 1011
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: GT
+  ItemNumber: 711
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, livrea verde fasce gialle
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: D143 3041
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: 16030
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218-225, livrea verde, tetto verde
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218-225
+    RoadNumber: 218 6098
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: 16031
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218-225, livrea verde
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218-225
+    RoadNumber: 225 6098
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: 16032
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218-225, livrea verde
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218-225
+    RoadNumber: 218 6098
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L112311
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, loco da manovra abl impresa co.rac.fer livrea rossa, scarichi modificati
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: 394
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L112323
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, stato d'origine, livrea castano isabella, doppia griglia frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: 150 002
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L112324
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, livrea verde, telaio verde, corrimani gialli, doppia griglia frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: 215 008
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L112325
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, stato d'origine, livrea castano isabella, doppia griglia frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: 150 001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L112326
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, livrea verde, telaio nero, corrimani gialli, doppia griglia frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: 215 014
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L112330
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, castano isabella, anni ‘60, griglia frontale unica (anche con sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: 218 001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L112331
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, livrea verde, telaio verde, fasce gialle frontali, griglia frontale unica, dep. livorno
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: 218 007
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L112332
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, abl vii700, livrea gialla imprese private, senza scritte, griglia frontale unica (anche con sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: -
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L132470
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218-225, livrea verde, tetto verde, luci, nuova motorizzazione, presa dcc
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218-225
+    RoadNumber: 218 6098
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L132477
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218-225, livrea verde, tetto verde, d.l. trieste, luci, nuova motorizzazione, presa dcc
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218-225
+    RoadNumber: 225 6098
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L132498
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218-225, livrea verde, tetto alluminio, luci, nuova motorizzazione, presa dcc
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2005
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218-225
+    RoadNumber: 225 6098
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L132499
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218-225, livrea verde, tetto alluminio, luci, nuova motorizzazione, dep. udine, presa dcc
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2004
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218-225
+    RoadNumber: 218 6098
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L230103
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, set treno cantiere “wiebe”, loco da manovra livrea gialla telaio grigio + 3 carri
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: Nr. 15
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L230105
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, set treno cantiere, automotore badoni livrea arancio telaio nero + 3 carri a 2 assi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L230119
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, set “raffinerie ingolstadt”, loco da manovra livrea rosso/blu con 3 cisterne a 2 assi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: V 14.03
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Liliput
+  ItemNumber: L240060
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218ABL, set “heitkamp rail”, loco da manovra livrea grigia + 3 carri, commemorativa bachmann/kader
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218ABL
+    RoadNumber: V16.01
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima Expert
+  ItemNumber: HL2650
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella 1a serie, vetri piani
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima Expert
+  ItemNumber: HL2651
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, mdvc navetta 3a serie, 4 fanali, vomere
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima Expert
+  ItemNumber: HL2652
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, xmpr2 navetta 3a serie, nuovo logo trenitalia, griglie grigie, vomere
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: VI
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208151
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella, dep. cremona, motore g
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1984
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1017
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208151 (1)
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella motore g
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1022
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208151L
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella, dep. bari, motore g
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1028
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208152
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, mdvc navetta 2 fanali, dep. cremona, motore g
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1041
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208152S
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, mdvc navetta 4 fanali, motore g
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1056
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208152S02
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, mdvc navetta 4 fanali, dep. verona, motore g
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1086
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208227
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella/rosso, 2 fanali, corrimani sul tetto, dep. siena, cardano singolo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1990
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4003
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208227-1
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella/rosso, 2 fanali, corrimani sul tetto, vomere nero, dep. padova, cardano singolo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4011
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208227LS
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella/rosso, 2 fanali, corrimani sul tetto, vomere nero, dep. siena, cardano singolo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1990
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4008
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208232
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fsf suzzara-ferrara livrea bordeaux fasce gialle, corrimani gialli, telaio nero, panconi rossi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: LD 62
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208241
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea verde fasce gialle
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1990
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: 236 003
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208244
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea castano/isabella
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1990
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: 236 002
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208294
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella/rosso, 2 fanali, cardano singolo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4014
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208422
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea gialla, telaio nero, serbatoio su radiatore, per treni cantiere
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: T 4097
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208423
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, ferrovia valle seriana livrea marrone, telaio nero, panconi rossi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: LD 61
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208515
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella/rosso, 3 fanali, vomere giallo/nero, dep. siena, mfp (uscito?)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4004
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: 208516
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella/rosso, 3 fanali, dep. siena, museo pietrarsa (uscito?)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 4011
+    TypeName:
+    Depot:
+    Series: D342 ANSALDO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: L208676
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, castano/isabella/rosso, 3 fanali, corrimani sul tetto, dep. taranto
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2000
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 2001
+    TypeName:
+    Depot:
+    Series: PRIMA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: L208677
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, isabella/verde, 3 fanali, corrimani sul tetto, dep. catanzaro lido
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2000
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1022
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: L208684
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, mdvc navetta 3a serie, 4 fanali, vomere, costruzione fiat-ansaldo, dep. verona
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2001
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1089
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: L208685
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, xmpr fasce blu, navetta 3a serie, 4 fanali, vomere, costruzione fiat-ansaldo, oml torino sm.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2001
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1110
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: L208686
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, isabella/verde, 3 fanali, corrimani sul tetto, dep. roma s. lorenzo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2001
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D3412024
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima
+  ItemNumber: L208687
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, castano/isabella/rosso, 3 fanali, corrimani sul tetto, dep. taranto
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2001
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1004
+    TypeName:
+    Depot:
+    Series: PRIMA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima/ Hornby
+  ItemNumber: HL1007
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella motorizzazione cardanica hobby line, start set con treno merci
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1017
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima/ Hornby
+  ItemNumber: HL2010
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, xmpr2 2 fanali, motorizzazione cardanica hobby line
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1052
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lima/ Hornby
+  ItemNumber: HL2037
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella motorizzazione cardanica hobby line
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1017
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lineamodel/ Safer
+  ItemNumber: LM 2038TM
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, livrea verde fasce gialle, corrimani senza battipiede, meccanica lineamodel
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: D143 3043
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lineamodel/ Safer
+  ItemNumber: LM 2039TM
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, livrea verde fasce gialle, meccanica lineamodel (lm 2039tmdgt dcc)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: D143 3017
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lineamodel/ Safer
+  ItemNumber: LM18143M
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, kit di montaggio d143, con motorizzazione lineamodel, varie numerazioni
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lineamodel/Safer
+  ItemNumber: LM 18145TM
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D145, livrea arancio, motore faulhaber, dep. genova, montato (.inv invecchiato)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D145
+    RoadNumber: D145 2037
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lineamodel/Safer
+  ItemNumber: LM 18245M
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, kit 245 verde mancorrenti con battipiede, telaio e assi in metallo, motore faulhaber
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 245 serie 0000 Badoni
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lineamodel/Safer
+  ItemNumber: LMS 19145
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D145, motorizzazione faulhaber + trasmissione per kit d145 lineamodel/safer/ferfyx
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: 
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D145
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lineamodel/Safer
+  ItemNumber: LMS 2034-3PM
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, kit 245 verde mancorrenti con battipiede, vernici lineamodel, motore a 3 poli
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 245 serie 0000 Badoni
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lineamodel/Safer
+  ItemNumber: LMS F004
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D145, serie 2021-2062, kit non motorizzato, decal 4 numerazioni, vernici lineamodel
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D145
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Lineamodel/Safer
+  ItemNumber: LMS F2035-M
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, kit 245 verde mancorrenti con battipiede, vernici lineamodel, motore faulhaber
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 245 serie 0000 Badoni
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: 1001
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, livrea d'origine isabella/verde, fascia verde frontale, 2 fanali, costr. fiat, dep. torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1017
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: 1002
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, isabella/verde, 2 fanali, costruzione fiat, dep. bari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1041
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: 1003
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, isabella/verde, 2 fanali, costruzione fiat, dep. taranto
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1062
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: 1004
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, isabella/verde, 2 fanali, costruzione fiat, dep. torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1020
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: 1005
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, isabella/verde, 3 fanali, corrimani sul tetto, costr. reggiane/breda, dep. taranto
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 2004
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: 1006
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, isabella/verde, 3 fanali, corrimani sul tetto, costr. reggiane/breda, dep. roma s. l.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 2018
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: 1007
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, isabella/verde, 3 fanali, corrimani sul tetto, costr. reggiane/breda, dep. bologna
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 2025
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: 1008
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, impresa salcef livrea bordeaux fascia alluminio, tetto alluminio, telaio nero
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: 1017
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, impresa armafer livrea gialla, telaio nero, tetto marrone, 3 fanali
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: -
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: OS-101.0
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, set d341 2a serie, 2 fanali + 4 carrozze corbellini ‘51r livrea grigio ardesia
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1041
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar nuova costruzione
+  ItemNumber: OS-101.1
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, set d341 2a serie, 2 fanali + 4 carrozze corbellini ‘51r livrea castano
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1020
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1001
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, livrea d'origine isabella/verde, fascia verde frontale, 2 fanali, costr. fiat, dep. torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2007
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1017
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1009
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, prototipo ansaldo, livrea castano/isabella
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 4001
+    TypeName:
+    Depot:
+    Series: PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1011
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, castano/isabella/rosso, righe alluminio, costruzione fiat, stato di origine, 2 fanali
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 102
+    TypeName:
+    Depot:
+    Series: PRIMA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1012
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, castano/isabella/rosso, costruzione fiat, 2 fanali, dep. taranto
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1015
+    TypeName:
+    Depot:
+    Series: PRIMA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1013
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, castano/isabella/rosso, costruzione reggiane, 2 fanali
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 5001
+    TypeName:
+    Depot:
+    Series: PRIMA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1014
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, castano/isabella/rosso, costruzione fiat, 3 fanali, barre sul tetto, dep. taranto
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1001
+    TypeName:
+    Depot:
+    Series: PRIMA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1015
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, castano/isabella/rosso, costruzione fiat, 3 fanali, barre sul tetto, dep. taranto
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1010
+    TypeName:
+    Depot:
+    Series: PRIMA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1020
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella di origine, telaio e fasce castano, porta frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3001
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1021
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella di origine, telaio e fasce castano, porta frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3002
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1022
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella con telaio rosso, fascia rossa su fanali, porta frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3001
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1023
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella con telaio rosso, fascia rossa su fanali, porta frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3002
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1024
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella con telaio rosso, livrea semplificata, porte frontali saldate
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3001
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1025
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, castano/isabella con telaio rosso, livrea semplificata, porte frontali saldate
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3002
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1100
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, verde/isabella, vetri piani, costruzione fiat, deposito catania
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 1007
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1101
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, verde/isabella, vetri piani, costruzione fiat, deposito bari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2014
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 1013
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1102
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, set motorizzata + folle verde/isabella, vetri piani, costruzione fiat dep. cagliari (1027) + reggiane dep. taranto (2014)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 1027 + D443 2014
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1103
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, xmpr fs trenitalia, vetri piani, costruzione reggiane
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 2013
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1104
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, xmpr fs trenitalia, vetri piani, costruzione reggiane, oml bologna s. d.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 2009
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1105
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, verde/isabella, vetri curvi e modanature, costruzione fiat, dep. bari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 1030
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1106
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, set motorizzata + folle versione d’origine verde/isabella, modanature, vetri curvi, costruzione fiat, deposito cremona
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 1014 + D443 1025
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1107
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, verde/isabella, versione d’origine, vetri curvi e modanature, costruzione reggiane, dep. cagliari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 2012
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1108
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, verde/isabella, versione d’origine, vetri curvi e modanature, costruzione fiat, carrelli in bruno
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 1001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1120
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, mdvc navetta 2a serie, 2 fanali, deposito cremona
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1042
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1121
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, mdvc navetta 2a serie, 2 fanali, vomere, deposito siena
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1039
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1122
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, xmpr fs trenitalia, navetta 2a serie, 2 fanali con fascia rossa, griglie grigie, vomere, dep. treviso
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1048
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1124
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella 1a serie, vetri curvi, deposito taranto
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1025
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1125
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella 1a serie, vetri curvi, deposito bari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2014
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1017
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: 1126
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella 1a serie, vetri curvi, deposito palermo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1031
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: OS-101.2
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, set d443 con modanature + 4 carrozze corbellini ‘51r livrea grigio ardesia
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 2012
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: OS-101.3
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D443, set d443 con modanature + 4 carrozze corbellini ‘51r livrea castano
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D443
+    RoadNumber: D443 1001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Os.Kar
+  ItemNumber: Osk. 100
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D342, set due d342 om livrea castano/isabella con telaio rosso, fascia rossa su fanali, porta frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2013
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D342
+    RoadNumber: D342 3001 +D342 3002
+    TypeName:
+    Depot:
+    Series: D342 OM PROTOTIPO
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Piko
+  ItemNumber: 52440
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D141, livrea verde fasce gialle, corrimani di origine (52442 dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D141
+    RoadNumber: D141 1019
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Piko
+  ItemNumber: 52444
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D141, livrea verde fasce gialle, corrimani gialli con battipiede, dep. mestre (52445 dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D141
+    RoadNumber: D141 1004
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Piko
+  ItemNumber: 52840
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D145, livrea arancio fasce gialle, logo tv, d.l. milano sm.to (52842 dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2019
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D145
+    RoadNumber: D145 2018
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Piko
+  ItemNumber: 52844
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D145, arancio fasce gialle, logo tv, corrimani con battipiede, dep. catania (52845 dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2020
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D145
+    RoadNumber: D145 2016
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Piko
+  ItemNumber: 52846
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D145, arancio fasce gialle, logo tv, corrimani senza battipiede (52847 dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D145
+    RoadNumber: D145 2004
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Piko
+  ItemNumber: 55908
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D145, arancio fasce gialle, logo tv, corrimani con battipiede, dep. catania, dcc sound, ganci dig.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2020
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D145
+    RoadNumber: D145 2016
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1750
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde fasce gialle, mancorrenti senza battipiede
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 2018
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1751
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde fasce gialle, mancorrenti con battipiede
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1995
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 6088
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1752
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, livrea arancio, corrimani e panconi gialli, logo fs inclinato frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 6120
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: 1753
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, 250 ex 245 2014, livrea arancio con fasce gialle
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 250 2001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: EX 10
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, versione di origine verde fasce gialle, senza corrimani laterali, serie limitata railpost
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1997
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 6027
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: R1757
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, mdvc navetta 3a serie, 4 fanali, vomere, costruzione casertane-ansaldo, dep. torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2002
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1082
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: R1758
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, xmpr fasce blu, navetta 3a serie, 4 fanali, vomere, costruzione fiat-ansaldo, oml torino sm.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2002
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1074
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi
+  ItemNumber: RT300003
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella 1a serie, vomere castano, vetri piani, costruzione fiat, deposito bari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2003
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1022
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2170
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea verde fasce gialle, bielle rosse
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: 236 003
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/ Hornby
+  ItemNumber: HR2171
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea castano/isabella, bielle rosse
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: 236 002
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2003
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, castano/isabella/rosso, 3 fanali, corrimani sul tetto, dep. taranto
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2006
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 5001
+    TypeName:
+    Depot:
+    Series: PRIMA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2003 (1)
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, castano/isabella/rosso, 3 fanali, corrimani sul tetto, dep. taranto, fanali corretti
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2007
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 5001
+    TypeName:
+    Depot:
+    Series: PRIMA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2004
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, isabella/verde, 3 fanali, corrimani sul tetto, dep. reggio calabria
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2006
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1035
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2004 (1)
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D341, isabella/verde, 3 fanali, corrimani sul tetto, dep. reggio calabria, fanali corretti
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2007
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D341
+    RoadNumber: D341 1035
+    TypeName:
+    Depot:
+    Series: SECONDA SERIE
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2018
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde fasce gialle, mancorrenti con battipiede, logo xmpr, respingenti rettangolari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2007
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 6040
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2025
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, 250 ex 245 2014, livrea arancio con fasce gialle grandi di origine
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2007
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 250 2001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2038
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel sogliola, livrea grigio delta, marcatura di origine
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2008
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: sogliola
+    RoadNumber: FS 0319
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2072
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel sogliola, set 208 con serbatoi aria sul tetto livrea verde + abl 4703 livrea isabella
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: sogliola
+    RoadNumber: 208 039 + ABL 4703
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2076
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, mdvc navetta 3a serie 4 fanali, corrimani riportati, vomere, deposito verona
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1075
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2080
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel sogliola, livrea verde, respingenti
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: sogliola
+    RoadNumber: 208 060
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2162
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella 1a serie, corrimani riportati, vetri piani, vomere, 78 poli, dep. taranto
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Va
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1025
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2163
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D445, verde/isabella 1a serie, corrimani riportati, vetri piani, vomere, 78 poli, dep. taranto, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Va
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D445
+    RoadNumber: D445 1025
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2238
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde fasce gialle, mancorrenti con battipiede
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 6048
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2239
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, livrea arancio, corrimani e panconi gialli, logo fs inclinato frontale
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2010
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 6120
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2325
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde fasce gialle, mancorrenti senza battipiede, costruzione reggiane
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 2012
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2726
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel sogliola, livrea verde, respingenti, corrimani gialli
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: sogliola
+    RoadNumber: 207 035
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2791
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde fasce gialle, mancorrenti senza battipiede (s dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2792
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde fasce gialle, mancorrenti senza battipiede (s dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2793
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde fasce gialle, mancorrenti con battipiede (s dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2794
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde fasce gialle, battipiede, respingenti rettangolari, marcatura uic (s dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: VI
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2795
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, 250 ex 245 2014, livrea arancio con fasce gialle (s dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 250 2001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Rivarossi/Hornby
+  ItemNumber: HR2796
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, 250 ex 245, arancio fasce gialle, resp. rettangolari, logo xmpr bianco (s dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: VI
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 250 2001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43445
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, costruzione fiat ferr. savigliano, deposito fortezza
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1985
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1085
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43445A
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, costruzione fiat ferr. savigliano, deposito fortezza
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1986
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1141
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43445B
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, costruzione fiat ferr. savigliano, deposito fortezza
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1986
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1104
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43445C
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, costruzione fiat ferr. savigliano, deposito fortezza
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1986
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1094
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43614
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, costruzione fiat ferr. savigliano, deposito fortezza
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1991
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1104
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43614 (1)
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, costruzione fiat ferr. savigliano, deposito treviso
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1992
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1081
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43614.1
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, costruzione sofer, deposito udine
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1991
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1065
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43614.1 (1)
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, costruzione fiat ferr. savigliano, deposito alessandria
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1992
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1088
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43614.2
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, costruzione sofer, strisce vomere a lisca di pesce, deposito udine
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1991
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1063
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43614.2 (1)
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, costruzione fiat ferr. savigliano, deposito benevento
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1992
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1092
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43614.3
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, deposito alessandria
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1060
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43614.4
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri tondi, deposito torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1118
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43728
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, livrea verde fasce gialle, costruzione greco, dep. verona
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4101
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43728.1
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, livrea verde fasce gialle, costruzione badoni
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4133
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43728.2
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, livrea verde fasce gialle, costruzione socimi, dep. milano sm.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 1996
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4026
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43743
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, livrea verde fasce gialle, logo fs xmpr
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2006
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4282
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 43743 (1)
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, livrea verde fasce gialle, logo fs xmpr bianco
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2006
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4278
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 51138
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, start set, 214 verde fasce gialle, dep. treviso + 2 carri merci, trasformatore, binari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2011
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4097
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 51144
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, start set, 214 rfi livrea gialla telaio nero + 2 carri merci, trasformatore, binari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2012
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4184
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 51157
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, start set, 214 verde fasce gialle + carro ff + carro gru + pianale, trasformatore, binari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4148
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 51158
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, start set, 214 verde fasce gialle, fs trenitalia + carri ff + gs + e, trasformatore, binari
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4046
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 52650
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, rfi livrea gialla telaio nero
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4184
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62869
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, set motorizzata + folle, livrea verde/isabella, vetri piani, costruzione breda pistoiesi, dep. torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1116 +D345 1124
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62870
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 2000, vetri curvi d’origine, griglia sul tetto tonda, fregio alluminio, dep. torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 2006
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62871
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 1000, vetri curvi d’origine, griglia sul tetto tonda, fregio verde
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 1009
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62872
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 1000, vetri piani di sicurezza, griglia sul tetto tonda, fregio rosso, dep. palermo
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 1021
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62873
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 2000, vetri piani di sicurezza, griglia sul tetto squadrata, fregio verde, dep. fabriano
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 2029
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62874
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, fnm livrea arancio fascia gialla, telaio nero, griglia sul tetto tonda, vetri piani
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 1034
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62875
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, fnm livrea verde/bianco/blu con griglia sul tetto tonda e vetri piani
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 1034 FM
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62876
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 2000, vetri piani, griglia squadrata, fregio verde, senza serranda su una fiancata, dep. cremona
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 2019
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 62877
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 2000, vetri curvi, griglia squadrata, fregio verde, senza serranda su una fiancata, dep. fabriano
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 2012
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63450
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri piani, deposito verona
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2002
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1093
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63451
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri piani, deposito alessandria
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2002
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1052
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63452
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, xmpr fs trenitalia con fascia rossa, vetri piani, o.m.r. bologna s.d.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2003
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1119
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63452(1)
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, xmpr fs trenitalia con fascia rossa, griglie grigie, vetri piani, o.m.r. bologna s.d.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2003
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1119
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63453
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, xmpr fs trenitalia senza fascia rossa, vetri piani, o.m.r. bologna s.d.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2003
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1014
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63453 (1)
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, xmpr fs trenitalia senza fascia rossa, griglie grigie, vetri piani, o.m.r. bologna s.d.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2003
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1014
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63454
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vetri piani, logo fs trenitalia, deposito bologna s. donato
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2004
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1028
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63454.1
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D345, verde/isabella, vomere rosso, vetri piani, logo fs trenitalia, marcatura tra i fanali, dep. udine
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2004
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D345
+    RoadNumber: D345 1076
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63938
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, rfi livrea gialla telaio nero
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2006
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4184
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 63939
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 214, livrea verde fasce gialle, logo fs trenitalia bianco
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2006
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 214
+    RoadNumber: 214 4018
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72002
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 218-225, livrea verde, panconi rossi, dcc sound, ganci digitali
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: III/IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 218-225
+    RoadNumber: 225 6099
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72810
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea verde fasce gialle, telaio castano, panconi rossi
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: 236 003
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72811
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D236, fs livrea verde fasce gialle, telaio castano, panconi rossi, dcc sound
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2018
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IIIb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D236
+    RoadNumber: 236 003
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72889
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 2000, vetri curvi, griglia squadrata, 2 scarichi centrali, fregio alluminio, dep. roma s.l.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2014
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 2010
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72890
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 1000 om, vetri curvi, modanature in rilievo, griglia curva, 1 scarico decentrato, dep. catania
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 1008
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72891
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 1000 om, vetri curvi, modanature in rilievo, griglia curva, 2 scarichi centrali, dep. torino
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 1014
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72892
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 1000 om, vetri curvi, modanature in rilievo, griglia curva, 2 scarichi centrali, dep. siracusa
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 1033
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72893
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 2000 breda, vetri curvi, modanature, griglia squadrata, 2 scarichi centrali, dep. lecco
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 2001
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72894
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 2000 breda, vetri curvi, modanature, griglia squadrata, 2 scarichi centrali, dep. roma s.l.
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 2010
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72895
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 2000 breda, vetri curvi, modanature, griglia squadrata, 2 scarichi centrali, dep. cremona
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVa
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 2019
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72896
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 1000 om, verde/isabella vetri curvi, griglia tonda,1 scarico, dep. catania (72897 dccsound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2015
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 1033
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco
+  ItemNumber: 72898
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 2000 breda, verde/isabella vetri curvi, griglia sul tetto squadrata (72899 dcc sound)
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: 
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco/Pi.r.a.t.a.
+  ItemNumber: PI84010
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, fnm livrea arancio fascia gialla, telaio nero, griglia sul tetto tonda, vetri piani, nuova pcb
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IVb/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 1034
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco/Pi.r.a.t.a.
+  ItemNumber: PI84011
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, fnm livrea verde/bianco/blu con griglia sul tetto tonda e vetri piani, nuova pcb
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: Vb
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 1034 FM
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Roco/Pi.r.a.t.a.
+  ItemNumber: PI84012
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D343, serie 2000, vetri piani, griglia squadrata, fregio verde, dep. fabriano, nuova pcb
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2016
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: 
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D343
+    RoadNumber: D343 2029
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Safer
+  ItemNumber: 2034
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde mancorrenti con battipiede
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 0051
+    TypeName:
+    Depot:
+    Series: 245 serie 0000 Badoni
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Safer
+  ItemNumber: 2035
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel 245, verde mancorrenti con battipiede, logo fs trenitalia
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 2009
+  Available: True
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV/V
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: 245
+    RoadNumber: 245 0035
+    TypeName:
+    Depot:
+    Series: 245 serie 0000 Badoni
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Timishoara
+  ItemNumber: 705
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, livrea verde fasce gialle
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: D143 3010
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Timishoara
+  ItemNumber: 706
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, livrea verde fasce gialle
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: D143 3017
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Timishoara
+  ItemNumber: 707
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D141, livrea verde fasce gialle, deposito livorno
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D141
+    RoadNumber: D141 1017
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Timishoara
+  ItemNumber: 708
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D141, livrea verde fasce gialle, deposito padova
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D141
+    RoadNumber: D141 1020
+    TypeName:
+    Depot:
+    Series: 
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
+- Brand: Timishoara
+  ItemNumber: 709
+  Scale: H0
+  PowerMethod: DC
+  Description: Locomotiva diesel D143, livrea verde fasce gialle, nuovi dettagli in fotoincisione
+  PrototypeDescription:
+  ModelDescription:
+  DeliveryDate: 
+  Available: False
+  Count: 1
+  RollingStocks:
+  - Railway: FS
+    Category: DieselLocomotive
+    Epoch: IV
+    Length:
+      Millimeters: 210
+      Inches:
+    ClassName: D143
+    RoadNumber: D143 3001
+    TypeName:
+    Depot:
+    Series: D143
+    Livery:
+    MinRadius: 360
+    Couplers: NEM-362
+    PassengerCarType:
+    ServiceLevel:
+    DccInterface:
+    Control:
