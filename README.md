@@ -2,6 +2,7 @@
 
 ![GitHub](https://img.shields.io/github/license/CarloMicieli/TreniniDotNet)
 ![GitHub last commit](https://img.shields.io/github/last-commit/CarloMicieli/TreniniDotNet)
+[![Coverage Status](https://coveralls.io/repos/github/CarloMicieli/TreniniDotNet/badge.svg)](https://coveralls.io/github/CarloMicieli/TreniniDotNet)
 ![.NET Core](https://github.com/CarloMicieli/TreniniDotNet/workflows/.NET%20Core/badge.svg)
 
 <img src="logo.png" alt="Logo" width="200"/>
