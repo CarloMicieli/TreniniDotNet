@@ -17,11 +17,17 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             {
                 {Epoch.I.ToString().ToUpper(), Epoch.I},
                 {Epoch.II.ToString().ToUpper(), Epoch.II},
+                {Epoch.IIa.ToString().ToUpper(), Epoch.IIa},
+                {Epoch.IIb.ToString().ToUpper(), Epoch.IIb},
                 {Epoch.III.ToString().ToUpper(), Epoch.III},
                 {Epoch.IIIa.ToString().ToUpper(), Epoch.IIIa},
                 {Epoch.IIIb.ToString().ToUpper(), Epoch.IIIb},
                 {Epoch.IV.ToString().ToUpper(), Epoch.IV},
+                {Epoch.IVa.ToString().ToUpper(), Epoch.IVa},
+                {Epoch.IVb.ToString().ToUpper(), Epoch.IVb},
                 {Epoch.V.ToString().ToUpper(), Epoch.V},
+                {Epoch.Va.ToString().ToUpper(), Epoch.Va},
+                {Epoch.Vb.ToString().ToUpper(), Epoch.Vb},
                 {Epoch.VI.ToString().ToUpper(), Epoch.VI},
             };
         }
@@ -36,6 +42,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public static readonly Epoch II = new Epoch("II");
 
+        public static readonly Epoch IIa = new Epoch("IIa");
+
+        public static readonly Epoch IIb = new Epoch("IIb");
+
         public static readonly Epoch III = new Epoch("III");
 
         public static readonly Epoch IIIa = new Epoch("IIIa");
@@ -44,7 +54,15 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         public static readonly Epoch IV = new Epoch("IV");
 
+        public static readonly Epoch IVa = new Epoch("IVa");
+
+        public static readonly Epoch IVb = new Epoch("IVb");
+
         public static readonly Epoch V = new Epoch("V");
+
+        public static readonly Epoch Va = new Epoch("Va");
+
+        public static readonly Epoch Vb = new Epoch("Vb");
 
         public static readonly Epoch VI = new Epoch("VI");
 
