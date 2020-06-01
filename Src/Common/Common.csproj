@@ -10,8 +10,8 @@
   <ItemGroup>
     <PackageReference Include="NodaTime" Version="3.0.0" />
     <PackageReference Include="System.Collections.Immutable" Version="1.7.1" />
-    <PackageReference Include="FluentValidation" Version="8.6.0" />
-    <PackageReference Include="libphonenumber-csharp" Version="8.12.1" />
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
+    <PackageReference Include="libphonenumber-csharp" Version="8.12.4" />
   </ItemGroup>
 
 </Project>
