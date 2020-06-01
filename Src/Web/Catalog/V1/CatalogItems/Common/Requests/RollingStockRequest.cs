@@ -16,7 +16,11 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests
 
         public string? TypeName { set; get; }
 
+        public string? Series { set; get; }
+
         public string? Livery { set; get; }
+
+        public string? Depot { set; get; }
 
         public string? Couplers { set; get; }
 

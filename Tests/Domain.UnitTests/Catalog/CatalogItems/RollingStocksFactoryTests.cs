@@ -54,6 +54,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 LengthOverBuffer.OfMillimeters(242M),
                 MinRadius.OfMillimeters(360),
                 "Tipo 1921",
+                "Serie",
                 Couplers.Nem352,
                 "red",
                 PassengerCarType.CompartmentCoach,
@@ -64,6 +65,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             newPassengerCar.Railway.Should().Be(Fs());
             newPassengerCar.Epoch.Should().Be(Epoch.IV);
             newPassengerCar.Prototype!.TypeName.Should().Be("Tipo 1921");
+            newPassengerCar.Prototype!.Series.Should().Be("Serie");
             newPassengerCar.Livery.Should().Be("red");
             newPassengerCar.PassengerCarType.Should().Be(PassengerCarType.CompartmentCoach);
             newPassengerCar.ServiceLevel.Should().Be(ServiceLevel.SecondClass);
@@ -83,8 +85,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 MinRadius.OfMillimeters(360),
                 "E 656",
                 "E 656 210",
+                "3 serie",
                 Couplers.Nem352,
                 "blue",
+                "Milano Smistamento",
                 DccInterface.Nem652,
                 Control.DccReady);
 
@@ -95,11 +99,13 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             newLocomotive.Length?.Millimeters.Should().Be(Length.OfMillimeters(210M));
             newLocomotive.Prototype!.ClassName.Should().Be("E 656");
             newLocomotive.Prototype!.RoadNumber.Should().Be("E 656 210");
+            newLocomotive.Prototype!.Series.Should().Be("3 serie");
             newLocomotive.Livery.Should().Be("blue");
             newLocomotive.DccInterface.Should().Be(DccInterface.Nem652);
             newLocomotive.Control.Should().Be(Control.DccReady);
             newLocomotive.MinRadius.Should().Be(MinRadius.OfMillimeters(360));
             newLocomotive.Couplers.Should().Be(Couplers.Nem352);
+            newLocomotive.Depot.Should().Be("Milano Smistamento");
         }
 
         [Fact]
@@ -113,8 +119,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 MinRadius.OfMillimeters(360),
                 "Etr 400",
                 "",
+                series: "Prototype",
                 Couplers.Nem352,
                 livery: "red",
+                depot: "Milano Centrale",
                 DccInterface.Mtc21,
                 Control.DccReady
             );
@@ -125,11 +133,13 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             newTrain.Epoch.Should().Be(Epoch.VI);
             newTrain.Length?.Millimeters.Should().Be(Length.OfMillimeters(2321M));
             newTrain.Prototype!.ClassName.Should().Be("Etr 400");
+            newTrain.Prototype!.Series.Should().Be("Prototype");
             newTrain.Livery.Should().Be("red");
             newTrain.DccInterface.Should().Be(DccInterface.Mtc21);
             newTrain.Control.Should().Be(Control.DccReady);
             newTrain.MinRadius.Should().Be(MinRadius.OfMillimeters(360));
             newTrain.Couplers.Should().Be(Couplers.Nem352);
+            newTrain.Depot.Should().Be("Milano Centrale");
         }
 
         [Fact]
@@ -147,8 +157,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 "Class name",
                 "Road Number",
                 "Type name",
+                "Series",
                 "Nem352",
                 "red",
+                "Depot name",
                 PassengerCarType.Observation.ToString(),
                 ServiceLevel.SecondClass.ToString(),
                 DccInterface.Nem651.ToString(),
@@ -170,6 +182,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             rs.Control.Should().Be(Control.DccReady);
             rs.MinRadius.Should().Be(MinRadius.OfMillimeters(360));
             rs.Couplers.Should().Be(Couplers.Nem352);
+            rs.Depot.Should().Be("Depot name");
+            rs.Prototype!.Series.Should().Be("Series");
         }
 
         private static IRailwayInfo Fs() => CatalogSeedData.Railways.Fs();

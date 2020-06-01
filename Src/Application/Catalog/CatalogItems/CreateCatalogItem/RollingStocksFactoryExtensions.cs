@@ -44,8 +44,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     minRadius,
                     input.ClassName,
                     input.RoadNumber,
+                    input.Series,
                     couplers,
                     input.Livery,
+                    input.Depot,
                     dccInterface,
                     control
                 );
@@ -62,6 +64,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     length,
                     minRadius,
                     input.TypeName,
+                    input.Series,
                     couplers,
                     input.Livery,
                     passengerCarType,
@@ -90,8 +93,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                     minRadius,
                     input.ClassName,
                     input.RoadNumber,
+                    input.Series,
                     couplers,
                     input.Livery,
+                    input.Depot,
                     dccInterface,
                     control);
             }

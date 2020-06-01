@@ -12,10 +12,11 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             RollingStockId rollingStockId,
             string? epoch, string? category,
             string? railway,
-            string? className, string? roadNumber,
-            string? typeName, string? passengerCarType, string? serviceLevel,
+            string? className, string? roadNumber, string? typeName, string? series,
+            string? passengerCarType, string? serviceLevel,
             string? couplers,
             string? livery,
+            string? depot,
             LengthOverBufferInput? lengthOverBuffer,
             decimal? minRadius,
             string? control, string? dccInterface)
@@ -25,9 +26,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             Values = new RollingStockModifiedValues(
                 epoch, category,
                 railway,
-                className, roadNumber, typeName,
+                className, roadNumber, typeName, series,
                 couplers,
-                livery,
+                livery, depot,
                 passengerCarType, serviceLevel,
                 lengthOverBuffer,
                 minRadius,
@@ -44,9 +45,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         public RollingStockModifiedValues(
             string? epoch, string? category,
             string? railway,
-            string? className, string? roadNumber, string? typeName,
+            string? className, string? roadNumber, string? typeName, string? series,
             string? couplers,
-            string? livery, string? passengerCarType, string? serviceLevel,
+            string? livery, string? depot,
+            string? passengerCarType, string? serviceLevel,
             LengthOverBufferInput? lengthOverBuffer,
             decimal? minRadius,
             string? control, string? dccInterface)
@@ -56,8 +58,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             Railway = railway;
             ClassName = className;
             RoadNumber = roadNumber;
+            Series = series;
             Couplers = couplers;
             Livery = livery;
+            Depot = depot;
             TypeName = typeName;
             PassengerCarType = passengerCarType;
             ServiceLevel = serviceLevel;
@@ -79,9 +83,13 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 
         public string? RoadNumber { get; }
 
+        public string? Series { get; }
+
         public string? Couplers { get; }
 
         public string? Livery { get; }
+
+        public string? Depot { get; }
 
         public string? PassengerCarType { get; }
 

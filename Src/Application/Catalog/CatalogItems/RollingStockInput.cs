@@ -7,9 +7,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
         public RollingStockInput(
             string epoch, string category,
             string railway,
-            string? className, string? roadNumber, string? typeName,
+            string? className, string? roadNumber, string? typeName, string? series,
             string? couplers,
             string? livery,
+            string? depot,
             string? passengerCarType, string? serviceLevel,
             LengthOverBufferInput? lengthOverBuffer,
             decimal? minRadius,
@@ -21,8 +22,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             ClassName = className;
             RoadNumber = roadNumber;
             TypeName = typeName;
+            Series = series;
             Couplers = couplers;
             Livery = livery;
+            Depot = depot;
             PassengerCarType = passengerCarType;
             ServiceLevel = serviceLevel;
             LengthOverBuffer = lengthOverBuffer ?? LengthOverBufferInput.Default();
@@ -43,6 +46,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
 
         public string? RoadNumber { get; }
 
+        public string? Series { get; }
+
         public string? Couplers { get; }
 
         public string? Livery { get; }
@@ -50,6 +55,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
         public string? PassengerCarType { get; }
 
         public string? ServiceLevel { get; }
+
+        public string? Depot { get; }
 
         public LengthOverBufferInput LengthOverBuffer { get; }
 

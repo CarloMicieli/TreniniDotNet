@@ -18,6 +18,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Prototype? prototype,
             Couplers? couplers,
             string? livery,
+            string? depot,
             PassengerCarType? passengerCarType, ServiceLevel? serviceLevel,
             DccInterface dccInterface, Control control)
         {
@@ -30,6 +31,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Prototype = prototype;
             Couplers = couplers;
             Livery = livery;
+            Depot = depot;
             ServiceLevel = serviceLevel;
             PassengerCarType = passengerCarType;
             DccInterface = dccInterface;
@@ -54,6 +56,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public Couplers? Couplers { get; }
 
         public string? Livery { get; }
+
+        public string? Depot { get; }
 
         public PassengerCarType? PassengerCarType { get; }
 

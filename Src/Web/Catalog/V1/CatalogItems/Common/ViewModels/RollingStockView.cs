@@ -46,9 +46,13 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
 
         public string? TypeName => _rs.Prototype?.TypeName;
 
+        public string? Series => _rs.Prototype?.Series;
+
         public string? Couplers => _rs.Couplers?.ToString();
 
         public string? Livery => _rs.Livery;
+
+        public string? Depot => _rs.Depot;
 
         public string? ServiceLevel => _rs.ServiceLevel?.ToString();
 

@@ -135,9 +135,11 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 new Prototype(
                     className,
                     roadNumber,
-                    typeName),
+                    typeName,
+                    null),
                 couplers,
                 livery,
+                null,
                 passengerCarType,
                 serviceLevel,
                 dccInterface,

@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 using Newtonsoft.Json;
 using TreniniDotNet.Common;
@@ -27,9 +26,13 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock
 
         public string? RoadNumber { get; set; }
 
+        public string? Series { get; set; }
+
         public string? Couplers { get; set; }
 
         public string? Livery { get; set; }
+
+        public string? Depot { get; set; }
 
         public string? PassengerCarType { get; set; }
 

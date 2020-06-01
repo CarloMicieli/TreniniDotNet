@@ -13,7 +13,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public void RollingStock_With_ShouldProduceNewModifiedValues()
         {
             var modified = CatalogSeedData.CatalogItems.Acme_60458().RollingStocks.First()
-                .With(prototype: new Prototype(null,"Modified", null));
+                .With(prototype: new Prototype(null,"Modified", null, null));
 
             modified.Should().NotBeNull();
             modified.Prototype!.RoadNumber.Should().Be("Modified");

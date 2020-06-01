@@ -11,9 +11,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Epoch epoch,
             LengthOverBuffer? length,
             MinRadius? minRadius,
-            string? className, string? roadNumber,
+            string? className, string? roadNumber, string? series,
             Couplers? couplers,
             string? livery,
+            string? depot,
             DccInterface dccInterface, Control control);
 
         IRollingStock NewPassengerCar(
@@ -21,7 +22,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             Epoch epoch,
             LengthOverBuffer? length,
             MinRadius? minRadius,
-            string? typeName,
+            string? typeName, string? series,
             Couplers? couplers,
             string? livery,
             PassengerCarType? passengerCarType,
@@ -44,8 +45,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             MinRadius? minRadius,
             string? className,
             string? roadNumber,
+            string? series,
             Couplers? couplers,
             string? livery,
+            string? depot,
             DccInterface dccInterface,
             Control control);
 
@@ -57,9 +60,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             decimal? lengthMillimeters,
             decimal? lengthInches,
             decimal? minRadius,
-            string? className = null, string? roadNumber = null, string? typeName = null,
+            string? className = null, string? roadNumber = null, string? typeName = null, string? series = null,
             string? couplers = null,
             string? livery = null,
+            string? depot = null,
             string? passengerCarType = null, string? serviceLevel = null,
             string? dccInterface = null, string? control = null);
     }

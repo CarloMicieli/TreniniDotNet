@@ -240,14 +240,16 @@ namespace TreniniDotNet.Application.Catalog
 
             public static RollingStockInput With(
                 string epoch = null, string category = null, string railway = null,
-                string className = null, string roadNumber = null, string typeName = null,
+                string className = null, string roadNumber = null, string typeName = null, string series = null,
                 string couplers = null,
-                string livery = null, string passengerCarType = null, string serviceLevel = null,
+                string livery = null, string depot = null,
+                string passengerCarType = null, string serviceLevel = null,
                 LengthOverBufferInput length = null,
                 decimal? minRadius = null,
                 string control = null, string dccInterface = null) =>
                 new RollingStockInput(epoch, category, railway,
-                    className, roadNumber, typeName, couplers, livery, passengerCarType, serviceLevel,
+                    className, roadNumber, typeName, series, couplers, livery, depot,
+                    passengerCarType, serviceLevel,
                     length,
                     minRadius,
                     control, dccInterface);
@@ -270,10 +272,10 @@ namespace TreniniDotNet.Application.Catalog
             public static EditRollingStockInput With(
                 Slug? slug = null, RollingStockId? rollingStockId = null,
                 string epoch = null, string category = null, string railway = null,
-                string className = null, string roadNumber = null,
-                string typeName = null,
+                string className = null, string roadNumber = null, string typeName = null, string series = null,
                 string couplers = null,
-                string livery = null, string passengerCarType = null, string serviceLevel = null,
+                string livery = null, string depot = null,
+                string passengerCarType = null, string serviceLevel = null,
                 LengthOverBufferInput length = null,
                 decimal? minRadius = null,
                 string control = null, string dccInterface = null) =>
@@ -281,9 +283,10 @@ namespace TreniniDotNet.Application.Catalog
                     slug ?? Slug.Empty,
                     rollingStockId ?? RollingStockId.Empty,
                     epoch, category, railway,
-                    className, roadNumber, typeName, passengerCarType, serviceLevel,
+                    className, roadNumber, typeName, passengerCarType, serviceLevel, series,
                     couplers,
                     livery,
+                    depot,
                     length,
                     minRadius,
                     control, dccInterface);

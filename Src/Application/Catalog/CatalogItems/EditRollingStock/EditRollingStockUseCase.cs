@@ -77,9 +77,11 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 new Prototype(
                     input.Values.ClassName,
                     input.Values.RoadNumber,
-                    input.Values.TypeName),
+                    input.Values.TypeName,
+                    input.Values.Series),
                 couplers,
                 input.Values.Livery,
+                input.Values.Depot,
                 EnumHelpers.OptionalValueFor<PassengerCarType>(input.Values.PassengerCarType),
                 serviceLevel,
                 EnumHelpers.OptionalValueFor<DccInterface>(input.Values.DccInterface),

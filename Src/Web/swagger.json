@@ -3938,11 +3938,19 @@
             "type": "string",
             "nullable": true
           },
+          "series": {
+            "type": "string",
+            "nullable": true
+          },
           "couplers": {
             "type": "string",
             "nullable": true
           },
           "livery": {
+            "type": "string",
+            "nullable": true
+          },
+          "depot": {
             "type": "string",
             "nullable": true
           },
@@ -4040,11 +4048,19 @@
             "type": "string",
             "nullable": true
           },
+          "series": {
+            "type": "string",
+            "nullable": true
+          },
           "couplers": {
             "type": "string",
             "nullable": true
           },
           "livery": {
+            "type": "string",
+            "nullable": true
+          },
+          "depot": {
             "type": "string",
             "nullable": true
           },
@@ -4183,7 +4199,15 @@
             "type": "string",
             "nullable": true
           },
+          "series": {
+            "type": "string",
+            "nullable": true
+          },
           "livery": {
+            "type": "string",
+            "nullable": true
+          },
+          "depot": {
             "type": "string",
             "nullable": true
           },
