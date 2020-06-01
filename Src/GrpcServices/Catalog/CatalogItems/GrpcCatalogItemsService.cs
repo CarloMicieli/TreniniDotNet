@@ -100,12 +100,12 @@ namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
 
             if (rpcLength.Millimeters.HasValue)
             {
-                millimeters = (decimal) rpcLength.Millimeters;
+                millimeters = (decimal)rpcLength.Millimeters;
             }
 
             if (rpcLength.Inches.HasValue)
             {
-                inches = (decimal) rpcLength.Inches;
+                inches = (decimal)rpcLength.Inches;
             }
 
             return new LengthOverBufferInput(millimeters, inches);

@@ -33,7 +33,7 @@ namespace DataSeeding.Clients.Catalog.CatalogItems
                     Length = new RollingStockLength
                     {
                         Millimeters = rs.Length.Millimeters,
-                        Inches =  rs.Length.Inches
+                        Inches = rs.Length.Inches
                     },
                     DccInterface = ExtractDccInterface(rs.DccInterface),
                     Control = ExtractControl(rs.Control),
