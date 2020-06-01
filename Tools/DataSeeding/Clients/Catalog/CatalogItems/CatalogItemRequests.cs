@@ -1,4 +1,5 @@
 using System;
+using DataSeeding.Clients.Extensions;
 using DataSeeding.DataLoader.Records.Catalog.CatalogItems;
 using TreniniDotNet.Catalog;
 using RollingStock = TreniniDotNet.Catalog.RollingStock;
@@ -7,41 +8,45 @@ namespace DataSeeding.Clients.Catalog.CatalogItems
 {
     public static class CatalogItemRequests
     {
-        public static CreateCatalogItemRequest From(CatalogItem catalogItem)
+        public static CreateCatalogItemRequest RequestFromRecord(CatalogItem catalogItem)
         {
             var request = new CreateCatalogItemRequest
             {
                 Brand = catalogItem.Brand,
-                DeliveryDate = catalogItem.DeliveryDate ?? "",
-                Description = catalogItem.Description ?? "",
+                DeliveryDate = catalogItem.DeliveryDate.ToStringOrBlank(),
+                Description = catalogItem.Description.ToStringOrBlank(),
                 IsAvailable = catalogItem.Available ?? true,
-                ItemNumber = catalogItem.ItemNumber ?? "",
-                ModelDescription = catalogItem.ModelDescription ?? "",
+                ItemNumber = catalogItem.ItemNumber.ToStringOrBlank(),
+                ModelDescription = catalogItem.ModelDescription.ToStringOrBlank(),
                 PowerMethod = ExtractPowerMethod(catalogItem.PowerMethod),
-                PrototypeDescription = catalogItem.PrototypeDescription ?? "",
-                Scale = catalogItem.Scale ?? ""
+                PrototypeDescription = catalogItem.PrototypeDescription.ToStringOrBlank(),
+                Scale = catalogItem.Scale.ToStringOrBlank()
             };
 
             foreach (var rs in catalogItem.RollingStocks)
             {
                 request.RollingStocks.Add(new RollingStock
                 {
-                    Railway = rs.Railway ?? "",
+                    Railway = rs.Railway.ToStringOrBlank(),
                     Category = ExtractCategory(rs.Category),
-                    ClassName = rs.ClassName ?? "",
-                    RoadNumber = rs.RoadNumber ?? "",
-                    TypeName = rs.TypeName ?? "",
-                    Control = ExtractControl(rs.Control),
-                    DccInterface = ExtractDccInterface(rs.DccInterface),
-                    Epoch = rs.Era ?? "",
+                    Epoch = rs.Epoch.ToStringOrBlank(),
                     Length = new RollingStockLength
                     {
-                        Millimeters = rs.Length.Millimeters ?? 0,
-                        Inches =  rs.Length.Inches ?? 0
+                        Millimeters = rs.Length.Millimeters,
+                        Inches =  rs.Length.Inches
                     },
-                    PassengerCarType = ExtractPassengerCarType(rs.PassengerCarType),
+                    DccInterface = ExtractDccInterface(rs.DccInterface),
+                    Control = ExtractControl(rs.Control),
+                    ClassName = rs.ClassName.ToStringOrBlank(),
+                    RoadNumber = rs.RoadNumber.ToStringOrBlank(),
+                    TypeName = rs.TypeName.ToStringOrBlank(),
+                    Series = rs.Series.ToStringOrBlank(),
+                    Depot = rs.Depot.ToStringOrBlank(),
+                    Livery = rs.Livery.ToStringOrBlank(),
+                    MinRadius = rs.MinRadius,
                     Couplers = ExtractCouplers(rs.Couplers),
-                    Livery = rs.Livery ?? ""
+                    ServiceLevel = rs.ServiceLevel.ToStringOrBlank(),
+                    PassengerCarType = ExtractPassengerCarType(rs.PassengerCarType)
                 });
             }
 

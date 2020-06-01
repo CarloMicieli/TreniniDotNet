@@ -39,5 +39,8 @@ namespace TreniniDotNet.GrpcServices.Infrastructure
 
         protected void AlreadyExists(string message) =>
             throw new RpcException(new Status(StatusCode.AlreadyExists, message));
+
+        protected void NotFound(string message) =>
+            throw new RpcException(new Status(StatusCode.NotFound, message));
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataSeeding.DataLoader.Records.Catalog.CatalogItems;
 using Grpc.Core;
@@ -18,21 +20,31 @@ namespace DataSeeding.Clients.Catalog.CatalogItems
             Client = new CatalogItemsService.CatalogItemsServiceClient(channel);
         }
 
-        public async Task NewCatalogItemAsync(CatalogItem catalogItem)
+        public async Task<int> SendCatalogItemsAsync(IEnumerable<CatalogItem> catalogItems)
         {
-            var request = CatalogItemRequests.From(catalogItem);
+            var requests = catalogItems.Select(CatalogItemRequests.RequestFromRecord);
 
-            Log.Debug("Sending catalog item : {0}", request);
+            Log.Debug("Sending catalog items...");
 
             try
             {
-                var response = await Client.CreateCatalogItemAsync(request);
-                Log.Information("Catalog item {0} {1} created", catalogItem.Brand, catalogItem.ItemNumber);
-                Log.Debug("Response was {0}", response);
+                var streamingClient = Client.CreateCatalogItems();
+
+                foreach (var request in requests)
+                {
+                    Log.Debug("Sending catalog item {0} {1}", request.Brand, request.ItemNumber);
+                    await streamingClient.RequestStream.WriteAsync(request);
+                }
+
+                await streamingClient.RequestStream.CompleteAsync();
+                var response = await streamingClient.ResponseAsync;
+                Log.Debug("{0} catalog item(s) has been created", response.Created);
+                return response.Created;
             }
             catch (RpcException e)
             {
-                Log.Error("Error {0}", e.Message);
+                Log.Error(e.Message);
+                return 0;
             }
         }
     }

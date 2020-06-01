@@ -19,28 +19,27 @@ namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
         private static CreateCatalogItemResponse Mapping(CreateCatalogItemOutput output) =>
             new CreateCatalogItemResponse
             {
-                Slug = output.Slug,
-                CatalogItemId = output.Id.ToString()
+                Slug = output.Slug
             };
 
         public void BrandNotFound(Slug brand)
         {
-            throw new NotImplementedException();
+            NotFound($"Brand {brand} was not found");
         }
 
         public void CatalogItemAlreadyExists(IBrandInfo brand, ItemNumber itemNumber)
         {
-            throw new NotImplementedException();
+            AlreadyExists($"Catalog item {brand} {itemNumber} already exist");
         }
 
         public void ScaleNotFound(Slug scale)
         {
-            throw new NotImplementedException();
+            NotFound($"Scale {scale} was not found");
         }
 
         public void RailwayNotFound(IEnumerable<Slug> railways)
         {
-            throw new NotImplementedException();
+            NotFound($"Railway(s) [{string.Join(", ", railways)}] not found");
         }
     }
 }

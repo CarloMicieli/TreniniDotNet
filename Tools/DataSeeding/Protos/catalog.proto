@@ -148,11 +148,13 @@ message RollingStock {
   string class_name = 7;
   string road_number = 8;
   string type_name = 9;
-  string service_level = 10;
-  PassengerCarType passenger_car_type = 11;
+  string series = 10;
+  string depot = 11;
   string livery = 12;
-  Couplers couplers = 13;
-  google.protobuf.FloatValue min_radius = 14;
+  google.protobuf.Int32Value min_radius = 13;
+  Couplers couplers = 14;
+  string service_level = 15;
+  PassengerCarType passenger_car_type = 16;
 }
 
 message RollingStockLength {
@@ -161,8 +163,7 @@ message RollingStockLength {
 }
 
 message CreateCatalogItemResponse {
-  string catalog_item_id = 1;
-  string slug = 2;
+  string slug = 1;
 }
 
 message CreateCatalogItemsResponse {

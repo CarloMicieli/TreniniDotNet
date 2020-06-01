@@ -8,6 +8,7 @@ using NodaTime;
 using Serilog;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.GrpcServices.Catalog.Brands;
+using TreniniDotNet.GrpcServices.Catalog.CatalogItems;
 using TreniniDotNet.GrpcServices.Catalog.DependencyInjection;
 using TreniniDotNet.GrpcServices.Catalog.Railways;
 using TreniniDotNet.GrpcServices.Catalog.Scales;
@@ -73,6 +74,7 @@ namespace TreniniDotNet.GrpcServices
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<GrpcBrandsService>();
+                endpoints.MapGrpcService<GrpcCatalogItemsService>();
                 endpoints.MapGrpcService<GrpcRailwaysService>();
                 endpoints.MapGrpcService<GrpcScalesService>();
             });

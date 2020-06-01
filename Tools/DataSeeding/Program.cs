@@ -81,11 +81,13 @@ namespace DataSeeding
             var catalogClient = new CatalogClient(o.EndpointUri.ToString(), log);
             var catalogItems = await YamlParser.Parse<CatalogItems>(o.InputFile);
 
-            foreach (var item in catalogItems.Elements)
+            if (o.Verbose)
             {
-                await catalogClient.CatalogItemsClient.NewCatalogItemAsync(item);
+                log.Information("Parsed {0} catalog item(s)", catalogItems.Elements.Count());
             }
-            return 0;
+
+            var created = await catalogClient.CatalogItemsClient.SendCatalogItemsAsync(catalogItems.Elements);
+            return created;
         }
 
         private static async Task<int> SendRailways(RailwaysOptions o, Logger log)
