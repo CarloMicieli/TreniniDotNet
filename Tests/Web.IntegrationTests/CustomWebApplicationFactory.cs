@@ -36,7 +36,7 @@ namespace TreniniDotNet.IntegrationTests
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.UseEnvironment("testing");
+            builder.UseEnvironment("Testing");
 
             builder.ConfigureAppConfiguration((hostingContext, config) =>
             {

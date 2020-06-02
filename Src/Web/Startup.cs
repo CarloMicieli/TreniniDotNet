@@ -151,6 +151,6 @@ namespace TreniniDotNet.Web
     public static class HostEnvironmentEnvExtensions
     {
         public static bool IsDevelopmentOrTesting(this IHostEnvironment hostEnvironment) =>
-            hostEnvironment.IsDevelopment() || "testing" == hostEnvironment.EnvironmentName;
+            hostEnvironment.IsDevelopment() || "Testing" == hostEnvironment.EnvironmentName;
     }
 }
