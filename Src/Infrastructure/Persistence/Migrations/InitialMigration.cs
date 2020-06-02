@@ -7,6 +7,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
     {
         private const string RollingStocks = "rolling_stocks";
         private const string CatalogItems = "catalog_items";
+        private const string CatalogItemsImages = "catalog_items_images";
         private const string Railways = "railways";
         private const string Brands = "brands";
         private const string Scales = "scales";
@@ -15,13 +16,22 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
         private const string Wishlists = "wishlists";
         private const string WishlistItems = "wishlist_items";
         private const string Shops = "shops";
+        private const string Images = "images";
 
         public override void Up()
         {
+            Create.Table(Images)
+                .WithColumn("filename").AsString(15).PrimaryKey()
+                .WithColumn("content_type").AsString(25).NotNullable()
+                .WithColumn("content").AsBinary(512).NotNullable()
+                .WithColumn("is_deleted").AsBoolean().Nullable()
+                .WithColumn("created").AsDateTime().NotNullable();
+
             Create.Table(Brands)
                 .WithColumn("brand_id").AsGuid().PrimaryKey()
                 .WithColumn("name").AsString(25).NotNullable()
                 .WithColumn("slug").AsString(25).NotNullable()
+                .WithColumn("brand_logo").AsString(15).Nullable()
                 .WithColumn("company_name").AsString(100).Nullable()
                 .WithColumn("group_name").AsString(100).Nullable()
                 .WithColumn("description").AsString(1000).Nullable()
@@ -75,6 +85,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("name").AsString(25).NotNullable()
                 .WithColumn("company_name").AsString(250).Nullable()
                 .WithColumn("slug").AsString(25).NotNullable()
+                .WithColumn("railway_logo").AsString(15).Nullable()
                 .WithColumn("country").AsString(2).Nullable()
                 .WithColumn("operating_since").AsDateTime().Nullable()
                 .WithColumn("operating_until").AsDateTime().Nullable()
@@ -161,6 +172,23 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
 
             Create.ForeignKey("FK_RollingStocks_CatalogItems")
                 .FromTable(RollingStocks).ForeignColumn("catalog_item_id")
+                .ToTable(CatalogItems).PrimaryColumn("catalog_item_id");
+
+            Create.Table(CatalogItemsImages)
+                .WithColumn("catalog_item_id").AsGuid().NotNullable()
+                .WithColumn("filename").AsString(15).NotNullable()
+                .WithColumn("is_default").AsBoolean().Nullable();
+
+            Create.PrimaryKey()
+                .OnTable(CatalogItemsImages)
+                .Columns("catalog_item_id", "filename");
+
+            Create.ForeignKey("FK_CatalogItemsImages_Images")
+                .FromTable(CatalogItemsImages).ForeignColumn("filename")
+                .ToTable(Images).PrimaryColumn("filename");
+
+            Create.ForeignKey("FK_CatalogItemsImages_CatalogItems")
+                .FromTable(CatalogItemsImages).ForeignColumn("catalog_item_id")
                 .ToTable(CatalogItems).PrimaryColumn("catalog_item_id");
             #endregion
 
@@ -275,11 +303,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
             Delete.Table(CollectionItems);
             Delete.Table(Collections);
             Delete.Table(Shops);
+            Delete.Table(CatalogItemsImages);
             Delete.Table(RollingStocks);
             Delete.Table(CatalogItems);
             Delete.Table(Scales);
             Delete.Table(Brands);
             Delete.Table(Railways);
+            Delete.Table(Images);
         }
     }
 }

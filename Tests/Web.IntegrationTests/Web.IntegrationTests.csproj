@@ -29,7 +29,10 @@
 
   <ItemGroup>
     <Folder Include="Collecting\V1\Common" />
-    <Folder Include="Helpers\Auth\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Uploads\images.jpg" />
   </ItemGroup>
 
 </Project>

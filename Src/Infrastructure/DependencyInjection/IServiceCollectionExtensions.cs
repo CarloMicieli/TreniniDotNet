@@ -15,6 +15,7 @@ using TreniniDotNet.Infrastructure.Persistence.Collecting.Collections;
 using TreniniDotNet.Infrastructure.Persistence.Collecting.Common;
 using TreniniDotNet.Infrastructure.Persistence.Collecting.Shops;
 using TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists;
+using TreniniDotNet.Infrastructure.Persistence.Images;
 
 namespace TreniniDotNet.Infrastructure.Persistence
 {
@@ -24,6 +25,9 @@ namespace TreniniDotNet.Infrastructure.Persistence
         {
             services.AddCatalogPersistence();
             services.AddCollectionPersistence();
+
+            services.AddScoped<ImagesRepository>();
+
             return services;
         }
 

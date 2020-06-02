@@ -23,6 +23,7 @@ using TreniniDotNet.Web.Catalog.V1;
 using TreniniDotNet.Web.Collecting.V1;
 using TreniniDotNet.Web.Infrastructure.DependencyInjection;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
+using TreniniDotNet.Web.Uploads;
 using TreniniDotNet.Web.UserProfiles.Identity;
 
 namespace TreniniDotNet.Web
@@ -87,6 +88,9 @@ namespace TreniniDotNet.Web
 
             services.AddSingleton<IGuidSource, GuidSource>();
             services.AddSingleton<IClock>(SystemClock.Instance);
+
+            var uploadsSection = Configuration.GetSection("Uploads");
+            services.Configure<UploadSettings>(uploadsSection);
 
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationIdentityDbContext>("DbHealthCheck");
