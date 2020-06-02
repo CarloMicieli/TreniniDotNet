@@ -222,7 +222,7 @@ interface IScale
 ## Project layout
 
 * `Common` contains the interfaces and utilities classes that don't have a clear place in other projects.
-* `Domain` contains the domain model, with all factories required to create new values. Domain objects are immutable, and the factories are using the `Validation` type from **lang ext** to validate the input. 
+* `Domain` contains the domain model, with all factories required to create new values. Domain objects are immutable.
 * `Application` contains the application services, and the **use cases** implementation. At this layer, we abstract the database access and depend on this abstraction. Business logic is cleanly separated from infrastructure details.
 * `Infrastructure` is the place where **use cases** are getting their persistence requirement satisfied. The database access is using plain old sql and dapper.
 * `Web` is the top layer - use cases are orchestrated using the IMediatr library and everything is wired together via the built-in dependency injection.
@@ -295,7 +295,7 @@ public async Task BrandsRepository_GetBySlug_ShouldFindOneBrandBySlug()
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
