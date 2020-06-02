@@ -3,7 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/CarloMicieli/TreniniDotNet)
 ![GitHub last commit](https://img.shields.io/github/last-commit/CarloMicieli/TreniniDotNet)
 ![.NET Core](https://github.com/CarloMicieli/TreniniDotNet/workflows/.NET%20Core/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/CarloMicieli/TreniniDotNet/badge.svg)](https://coveralls.io/github/CarloMicieli/TreniniDotNet)
+[![Coverage Status](https://coveralls.io/repos/github/CarloMicieli/TreniniDotNet/badge.svg?branch=master)](https://coveralls.io/github/CarloMicieli/TreniniDotNet?branch=master)
 
 <img src="logo.png" alt="Logo" width="200"/>
 
@@ -104,9 +104,9 @@ ERROR(S):
 To send all brands present in the `brands.yaml`, run:
 
 ```
-$ dotnet run -- brands -u https://localhost:6001 -i brands.yaml
-$ dotnet run -- railways -u https://localhost:6001 -i railways.yaml
-$ dotnet run -- scales -u https://localhost:6001 -i scales.yaml
+$ dotnet run -- brands -u https://localhost:6001 -i Resources/brands.yaml
+$ dotnet run -- railways -u https://localhost:6001 -i Resources/railways.yaml
+$ dotnet run -- scales -u https://localhost:6001 -i Resources/scales.yaml
 ```
 
 ## Running the tests
@@ -226,6 +226,7 @@ interface IScale
 * `Application` contains the application services, and the **use cases** implementation. At this layer, we abstract the database access and depend on this abstraction. Business logic is cleanly separated from infrastructure details.
 * `Infrastructure` is the place where **use cases** are getting their persistence requirement satisfied. The database access is using plain old sql and dapper.
 * `Web` is the top layer - use cases are orchestrated using the IMediatr library and everything is wired together via the built-in dependency injection.
+* `GrpcServices` another way to consume the use cases, via Grpc services. It currently implements only services to create new values.
 
 Tests project are in the `Tests` directory.
 
