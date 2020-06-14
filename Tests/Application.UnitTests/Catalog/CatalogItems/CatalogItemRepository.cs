@@ -22,20 +22,20 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
         public Task<CatalogItemId> AddAsync(ICatalogItem catalogItem)
         {
             _context.CatalogItems.Add(catalogItem);
-            return Task.FromResult(catalogItem.CatalogItemId);
+            return Task.FromResult(catalogItem.Id);
         }
 
         public Task<bool> ExistsAsync(IBrandInfo brand, ItemNumber itemNumber)
         {
             var exists = _context.CatalogItems
-                .Any(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber);
+                .Any(it => it?.Brand.Id == brand.Id && it.ItemNumber == itemNumber);
             return Task.FromResult(exists);
         }
 
         public Task<ICatalogItem> GetByBrandAndItemNumberAsync(IBrandInfo brand, ItemNumber itemNumber)
         {
             var catalogItem = _context.CatalogItems
-                .Where(it => it?.Brand.BrandId == brand.BrandId && it.ItemNumber == itemNumber)
+                .Where(it => it?.Brand.Id == brand.Id && it.ItemNumber == itemNumber)
                 .FirstOrDefault();
 
             return Task.FromResult(catalogItem);
@@ -52,7 +52,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
 
         public Task UpdateAsync(ICatalogItem catalogItem)
         {
-            _context.CatalogItems.RemoveAll(it => it.CatalogItemId == catalogItem.CatalogItemId);
+            _context.CatalogItems.RemoveAll(it => it.Id == catalogItem.Id);
             _context.CatalogItems.Add(catalogItem);
             return Task.CompletedTask;
         }
@@ -77,7 +77,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
         public Task UpdateRollingStockAsync(ICatalogItem catalogItem, IRollingStock rollingStock)
         {
             var rollingStocks = catalogItem.RollingStocks
-                .Where(it => it.RollingStockId != rollingStock.RollingStockId)
+                .Where(it => it.Id != rollingStock.Id)
                 .Concat(new List<IRollingStock> { rollingStock })
                 .ToList();
 
@@ -89,7 +89,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
         {
             var modifiedItem = catalogItem.With(rollingStocks: catalogItem
                 .RollingStocks
-                .Where(it => it.RollingStockId != rollingStockId)
+                .Where(it => it.Id != rollingStockId)
                 .ToList());
 
             return UpdateAsync(modifiedItem);

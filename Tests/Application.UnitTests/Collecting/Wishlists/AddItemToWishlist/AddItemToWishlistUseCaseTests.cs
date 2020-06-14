@@ -58,7 +58,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         {
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewAddItemToWishlist);
 
-            var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
+            var id = CollectionSeedData.Wishlists.George_First_List().Id;
             var input = CollectingInputs.AddItemToWishlist.With(
                 owner: "George",
                 id: id.ToGuid(),
@@ -76,7 +76,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewAddItemToWishlist);
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
-            var id = wishlist.WishlistId;
+            var id = wishlist.Id;
             var item = wishlist.Items.First();
 
             var input = CollectingInputs.AddItemToWishlist.With(
@@ -87,7 +87,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
-            outputPort.AssertCatalogItemAlreadyPresent(id, item.ItemId, item.CatalogItem);
+            outputPort.AssertCatalogItemAlreadyPresent(id, item.Id, item.CatalogItem);
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
             var (useCase, outputPort, unitOfWork) = ArrangeWishlistUseCase(Start.WithSeedData, NewAddItemToWishlist);
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
-            var id = wishlist.WishlistId;
+            var id = wishlist.Id;
             var item = CatalogSeedData.CatalogItems.Bemo_1254134();
 
             var itemId = Guid.NewGuid();

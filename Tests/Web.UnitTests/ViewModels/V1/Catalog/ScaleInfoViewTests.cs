@@ -17,7 +17,7 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
             view.Should().NotBeNull();
             view.Slug.Should().Be(H0.Slug);
             view.Name.Should().Be(H0.Name);
-            view.Id.Should().Be(H0.ScaleId.ToGuid());
+            view.Id.Should().Be(H0.Id.ToGuid());
         }
     }
 }

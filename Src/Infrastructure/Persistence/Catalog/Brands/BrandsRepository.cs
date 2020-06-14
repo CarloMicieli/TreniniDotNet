@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
+using TreniniDotNet.Common;
+using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
-using Dapper;
-using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
@@ -30,7 +30,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 
             var result = await connection.ExecuteAsync(InsertBrandCommand, new
             {
-                brand.BrandId,
+                BrandId = brand.Id,
                 brand.Name,
                 brand.Slug,
                 brand.CompanyName,
@@ -49,7 +49,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
                 Modified = brand.ModifiedDate?.ToDateTimeUtc(),
                 brand.Version
             });
-            return brand.BrandId;
+            return brand.Id;
         }
 
         public async Task UpdateAsync(IBrand brand)
@@ -59,7 +59,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 
             var _ = await connection.ExecuteAsync(UpdateBrandCommand, new
             {
-                brand.BrandId,
+                BrandId = brand.Id,
                 brand.Name,
                 brand.Slug,
                 brand.CompanyName,

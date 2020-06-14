@@ -62,7 +62,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         public Task EditItemAsync(WishlistId id, IWishlistItem item, LocalDate? addedDate, Money? price, Priority? priority, string? notes)
         {
             var modifiedItem = _wishlistsFactory.NewWishlistItem(
-                item.ItemId,
+                item.Id,
                 item.CatalogItem,
                 null,
                 priority ?? item.Priority,

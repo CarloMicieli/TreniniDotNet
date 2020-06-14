@@ -1,7 +1,7 @@
 using System;
-using Xunit;
 using FluentAssertions;
 using TreniniDotNet.Common.Lengths;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {

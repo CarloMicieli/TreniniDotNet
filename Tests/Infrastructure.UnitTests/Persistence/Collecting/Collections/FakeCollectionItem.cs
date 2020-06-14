@@ -10,7 +10,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 {
     internal class FakeCollectionItem : ICollectionItem
     {
-        public CollectionItemId ItemId { set; get; }
+        public CollectionItemId Id { set; get; }
 
         public ICatalogRef CatalogItem { set; get; }
 
@@ -28,7 +28,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 
         public FakeCollectionItem()
         {
-            ItemId = new CollectionItemId(new Guid("eff28064-28fc-402f-aa63-c6ea5099cc22"));
+            Id = new CollectionItemId(new Guid("eff28064-28fc-402f-aa63-c6ea5099cc22"));
             CatalogItem = CatalogRef.Of(new Guid("bce9490c-7050-444d-9127-0c2ac52fb068"), "acme-123456");
             Condition = Condition.New;
             Price = Money.Euro(150);
@@ -46,7 +46,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
         {
             return new FakeCollectionItem
             {
-                ItemId = this.ItemId,
+                Id = this.Id,
                 CatalogItem = this.CatalogItem,
                 Condition = Condition ?? this.Condition,
                 Price = Price ?? this.Price,

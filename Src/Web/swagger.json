@@ -2495,7 +2495,7 @@
         "x-abstract": true,
         "additionalProperties": false,
         "properties": {
-          "wishlistId": {
+          "id": {
             "$ref": "#/components/schemas/WishlistId"
           },
           "slug": {
@@ -2557,6 +2557,19 @@
             "items": {
               "$ref": "#/components/schemas/IWishlistItem"
             }
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -2565,7 +2578,7 @@
         "x-abstract": true,
         "additionalProperties": false,
         "properties": {
-          "itemId": {
+          "id": {
             "$ref": "#/components/schemas/WishlistItemId"
           },
           "priority": {
@@ -2899,6 +2912,19 @@
                 "$ref": "#/components/schemas/PhoneNumber"
               }
             ]
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -3159,11 +3185,24 @@
         "x-abstract": true,
         "additionalProperties": false,
         "properties": {
-          "collectionId": {
+          "id": {
             "$ref": "#/components/schemas/CollectionId"
           },
           "owner": {
             "$ref": "#/components/schemas/Owner"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
           },
           "items": {
             "type": "array",
@@ -3178,7 +3217,7 @@
         "x-abstract": true,
         "additionalProperties": false,
         "properties": {
-          "itemId": {
+          "id": {
             "$ref": "#/components/schemas/CollectionItemId"
           },
           "catalogItem": {
@@ -3233,7 +3272,7 @@
         "x-abstract": true,
         "additionalProperties": false,
         "properties": {
-          "shopId": {
+          "id": {
             "$ref": "#/components/schemas/ShopId"
           },
           "slug": {

@@ -62,8 +62,8 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
 
             var input = CollectingInputs.EditWishlistItem.With(
                 owner: "George",
-                id: wishlist.WishlistId.ToGuid(),
-                itemId: item.ItemId.ToGuid());
+                id: wishlist.Id.ToGuid(),
+                itemId: item.Id.ToGuid());
 
             await useCase.Execute(input);
 
@@ -73,8 +73,8 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
             unitOfWork.EnsureUnitOfWorkWasSaved();
 
             var output = outputPort.UseCaseOutput;
-            output.Id.Should().Be(wishlist.WishlistId);
-            output.ItemId.Should().Be(item.ItemId);
+            output.Id.Should().Be(wishlist.Id);
+            output.ItemId.Should().Be(item.Id);
         }
 
         private EditWishlistItemUseCase NewEditWishlistItem(

@@ -1,15 +1,13 @@
 using System.Collections.Generic;
 using NodaTime;
-using TreniniDotNet.Common;
 using TreniniDotNet.Common.DeliveryDates;
-using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public interface ICatalogItem : IModifiableEntity, ICatalogItemInfo
+    public interface ICatalogItem : ICatalogItemInfo
     {
         IReadOnlyList<IRollingStock> RollingStocks { get; }
 
@@ -26,6 +24,12 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         IScaleInfo Scale { get; }
 
         PowerMethod PowerMethod { get; }
+
+        Instant CreatedDate { get; }
+
+        Instant? ModifiedDate { get; }
+
+        int Version { get; }
 
         ICatalogItemInfo ToCatalogItemInfo();
 
@@ -48,7 +52,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             }
 
             return new CatalogItem(
-                CatalogItemId,
+                Id,
                 brand ?? Brand,
                 itemNumber ?? ItemNumber,
                 catalogItemSlug,

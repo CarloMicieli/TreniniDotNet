@@ -1,6 +1,6 @@
-﻿using Dapper;
-using System;
+﻿using System;
 using System.Data;
+using Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {

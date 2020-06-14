@@ -1,9 +1,9 @@
-using NodaTime;
-using NodaTime.Testing;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
+using NodaTime;
+using NodaTime.Testing;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Collecting.Shared;

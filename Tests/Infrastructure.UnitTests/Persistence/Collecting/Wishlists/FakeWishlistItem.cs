@@ -9,7 +9,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
 {
     public class FakeWishlistItem : IWishlistItem
     {
-        public WishlistItemId ItemId { set; get; }
+        public WishlistItemId Id { set; get; }
 
         public Priority Priority { set; get; }
 
@@ -25,7 +25,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
 
         public FakeWishlistItem()
         {
-            ItemId = new WishlistItemId(new Guid("833e3a24-346b-409b-8db9-c7ba0bbd7a48"));
+            Id = new WishlistItemId(new Guid("833e3a24-346b-409b-8db9-c7ba0bbd7a48"));
             Priority = Priority.High;
             AddedDate = new LocalDate(2019, 11, 25);
             Price = Money.Euro(250M);
@@ -38,7 +38,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
         {
             return new FakeWishlistItem
             {
-                ItemId = this.ItemId,
+                Id = this.Id,
                 Priority = Priority.HasValue ? Priority.Value : this.Priority,
                 AddedDate = this.AddedDate,
                 Price = Price.HasValue ? Price : this.Price,

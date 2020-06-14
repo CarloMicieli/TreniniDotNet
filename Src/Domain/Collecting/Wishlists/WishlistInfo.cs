@@ -8,13 +8,13 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
     {
         public WishlistInfo(WishlistId wishlistId, Slug slug, string? listName, Visibility visibility)
         {
-            WishlistId = wishlistId;
+            Id = wishlistId;
             Slug = slug;
             ListName = listName;
             Visibility = visibility;
         }
 
-        public WishlistId WishlistId { get; }
+        public WishlistId Id { get; }
 
         public Slug Slug { get; }
 
@@ -25,7 +25,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         #region [ Equality ]
 
         public bool Equals(WishlistInfo other) =>
-            this.WishlistId == other.WishlistId;
+            this.Id == other.Id;
 
         public override bool Equals(object obj)
         {
@@ -39,6 +39,6 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 
         #endregion
 
-        public override int GetHashCode() => WishlistId.GetHashCode();
+        public override int GetHashCode() => Id.GetHashCode();
     }
 }

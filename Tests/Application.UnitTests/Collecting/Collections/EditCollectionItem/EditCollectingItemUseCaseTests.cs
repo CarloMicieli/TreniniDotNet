@@ -41,7 +41,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewEditCollectionItem);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
-            var id = collection.CollectionId;
+            var id = collection.Id;
             var input = CollectingInputs.EditCollectionItem.With(
                 owner: collection.Owner.Value,
                 id: id.ToGuid(),
@@ -60,7 +60,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
-            var id = collection.CollectionId;
+            var id = collection.Id;
             var itemId = Guid.NewGuid();
             var input = CollectingInputs.EditCollectionItem.With(
                 owner: collection.Owner.Value,
@@ -80,7 +80,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
-            var id = collection.CollectionId;
+            var id = collection.Id;
             var itemId = Guid.NewGuid();
             var input = CollectingInputs.EditCollectionItem.With(
                 owner: collection.Owner.Value,
@@ -100,8 +100,8 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
-            var id = collection.CollectionId;
-            var itemId = collection.Items.Select(it => it.ItemId.ToGuid()).First();
+            var id = collection.Id;
+            var itemId = collection.Items.Select(it => it.Id.ToGuid()).First();
             var input = CollectingInputs.EditCollectionItem.With(
                 owner: collection.Owner,
                 id: id.ToGuid(),
@@ -121,8 +121,8 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var (useCase, outputPort, unitOfWork) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
-            var id = collection.CollectionId;
-            var itemId = collection.Items.Select(it => it.ItemId).First();
+            var id = collection.Id;
+            var itemId = collection.Items.Select(it => it.Id).First();
             var input = CollectingInputs.EditCollectionItem.With(
                 owner: collection.Owner,
                 id: id.ToGuid(),

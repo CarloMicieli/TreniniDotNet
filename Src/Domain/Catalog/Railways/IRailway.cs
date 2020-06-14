@@ -1,10 +1,10 @@
 ﻿using System;
+using NodaTime;
 using TreniniDotNet.Common;
-using TreniniDotNet.Common.Entities;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    public interface IRailway : IModifiableEntity, IRailwayInfo
+    public interface IRailway : IRailwayInfo
     {
         string? CompanyName { get; }
 
@@ -20,6 +20,12 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         string? Headquarters { get; }
 
+        Instant CreatedDate { get; }
+
+        Instant? ModifiedDate { get; }
+
+        int Version { get; }
+
         IRailwayInfo ToRailwayInfo();
 
         IRailway With(
@@ -30,7 +36,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             RailwayGauge? gauge = null,
             Uri? websiteUrl = null,
             string? headquarters = null) => new Railway(
-                RailwayId,
+                Id,
                 Slug,
                 Name,
                 companyName ?? CompanyName,

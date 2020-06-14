@@ -29,12 +29,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
             var newCollection = new FakeCollection();
             var id = await Repository.AddAsync(newCollection);
 
-            id.Should().Be(newCollection.CollectionId);
+            id.Should().Be(newCollection.Id);
 
             Database.Assert.RowInTable(Tables.Collections)
                 .WithPrimaryKey(new
                 {
-                    collection_id = newCollection.CollectionId.ToGuid()
+                    collection_id = newCollection.Id.ToGuid()
                 })
                 .WithValues(new
                 {
@@ -161,7 +161,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 
             notFound.Should().BeNull();
             found.Should().NotBeNull();
-            found.CollectionId.Should().Be(expectedId);
+            found.Id.Should().Be(expectedId);
             found.Owner.Should().Be(expectedOwner);
             found.Items.Should().HaveCount(2);
         }

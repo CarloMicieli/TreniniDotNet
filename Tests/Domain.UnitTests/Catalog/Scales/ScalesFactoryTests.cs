@@ -1,13 +1,13 @@
-﻿using Xunit;
+﻿using System.Collections.Immutable;
 using FluentAssertions;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
-using NodaTime.Testing;
 using NodaTime;
-using System.Collections.Immutable;
+using NodaTime.Testing;
+using TreniniDotNet.Common;
 using TreniniDotNet.Common.Lengths;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
@@ -39,7 +39,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 ImmutableHashSet<ScaleStandard>.Empty,
                 100);
 
-            scale.ScaleId.Should().Be(ExpectedScaleId);
+            scale.Id.Should().Be(ExpectedScaleId);
             scale.Name.Should().Be("Scale H0");
             scale.Slug.Should().Be(Slug.Of("scale-h0"));
             scale.Ratio.Should().Be(Ratio.Of(87.0M));
@@ -66,7 +66,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 ExpectedDateTime.ToDateTimeUtc(),
                 3);
 
-            scale.ScaleId.Should().Be(ExpectedScaleId);
+            scale.Id.Should().Be(ExpectedScaleId);
             scale.Name.Should().Be("Scale H0");
             scale.Slug.Should().Be(Slug.Of("scale-h0"));
             scale.Ratio.Should().Be(Ratio.Of(87.0M));
@@ -92,7 +92,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
                 null,
                 100);
 
-            scale.ScaleId.Should().Be(scaleH0.ScaleId);
+            scale.Id.Should().Be(scaleH0.Id);
             scale.Name.Should().Be("H0");
             scale.Slug.Should().Be(Slug.Of("h0"));
             scale.Ratio.Should().Be(Ratio.Of(87.0M));

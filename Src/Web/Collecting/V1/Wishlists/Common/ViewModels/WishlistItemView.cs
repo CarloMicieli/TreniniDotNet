@@ -33,7 +33,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
             }
         }
 
-        public Guid ItemId => _item.ItemId.ToGuid();
+        public Guid ItemId => _item.Id.ToGuid();
 
         public string Priority => _item.Priority.ToString();
 

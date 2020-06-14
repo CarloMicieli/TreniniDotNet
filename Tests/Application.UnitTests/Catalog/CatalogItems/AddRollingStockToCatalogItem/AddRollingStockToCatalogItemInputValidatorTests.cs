@@ -1,7 +1,7 @@
-using Xunit;
 using FluentValidation.TestHelper;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalogItem
 {

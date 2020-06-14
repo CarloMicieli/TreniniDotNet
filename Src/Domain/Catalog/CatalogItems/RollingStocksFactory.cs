@@ -1,9 +1,9 @@
 using System;
 using NodaTime;
-using static TreniniDotNet.Common.Enums.EnumHelpers;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using static TreniniDotNet.Common.Enums.EnumHelpers;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {

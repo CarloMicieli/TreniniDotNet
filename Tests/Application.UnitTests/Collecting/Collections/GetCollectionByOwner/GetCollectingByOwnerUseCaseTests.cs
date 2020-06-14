@@ -52,7 +52,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.GetCollectionByOwner
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
 
-            await useCase.Execute(new GetCollectionByOwnerInput(collection.CollectionId.ToGuid(), "George"));
+            await useCase.Execute(new GetCollectionByOwnerInput(collection.Id.ToGuid(), "George"));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();

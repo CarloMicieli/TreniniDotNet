@@ -1,7 +1,7 @@
-using Xunit;
 using FluentAssertions;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common.Lengths;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {

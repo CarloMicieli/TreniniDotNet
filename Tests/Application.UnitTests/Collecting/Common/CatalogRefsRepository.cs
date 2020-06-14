@@ -18,7 +18,7 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Common
         public Task<ICatalogRef> GetBySlugAsync(Slug slug)
         {
             var result = _context.CatalogItems.Where(it => it.Slug == slug)
-                .Select(it => CatalogRef.Of(it.CatalogItemId, it.Slug))
+                .Select(it => CatalogRef.Of(it.Id, it.Slug))
                 .FirstOrDefault();
             return Task.FromResult(result);
         }

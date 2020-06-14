@@ -37,8 +37,8 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
 
-            var id = wishlist.WishlistId;
-            var itemId = wishlist.Items.First().ItemId;
+            var id = wishlist.Id;
+            var itemId = wishlist.Items.First().Id;
 
             var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", Check.Nothing);
 
@@ -52,7 +52,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
 
-            var id = wishlist.WishlistId;
+            var id = wishlist.Id;
             var itemId = Guid.NewGuid();
 
             var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", Check.Nothing);
@@ -67,8 +67,8 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
 
-            var id = wishlist.WishlistId;
-            var itemId = wishlist.Items.First().ItemId;
+            var id = wishlist.Id;
+            var itemId = wishlist.Items.First().Id;
 
             var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", Check.Nothing);
 

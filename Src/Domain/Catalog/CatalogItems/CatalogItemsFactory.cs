@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NodaTime;
 using TreniniDotNet.Common;
-using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Common.DeliveryDates;
+using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
-using System;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
@@ -109,7 +109,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             }
 
             return new CatalogItem(
-                item.CatalogItemId,
+                item.Id,
                 brand ?? item.Brand,
                 itemNumber ?? item.ItemNumber,
                 itemSlug,

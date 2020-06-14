@@ -6,7 +6,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface ICatalogItemInfo
     {
-        CatalogItemId CatalogItemId { get; }
+        CatalogItemId Id { get; }
 
         IBrandInfo Brand { get; }
 

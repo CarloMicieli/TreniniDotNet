@@ -1,9 +1,10 @@
-﻿using NodaTime;
 using System;
+using NodaTime;
 
-namespace TreniniDotNet.Common.Entities
+namespace TreniniDotNet.Common
 {
-    public abstract class ModifiableEntity : IModifiableEntity
+    public class AggregateRoot<TKey> : Entity<TKey>
+        where TKey : IEquatable<TKey>
     {
         public Instant CreatedDate { get; }
 
@@ -11,7 +12,8 @@ namespace TreniniDotNet.Common.Entities
 
         public int Version { get; }
 
-        protected ModifiableEntity(Instant created, Instant? modified, int version)
+        protected AggregateRoot(TKey id, Instant created, Instant? modified, int version)
+            : base(id)
         {
             if (version < 0)
             {

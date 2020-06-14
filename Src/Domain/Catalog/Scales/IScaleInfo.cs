@@ -5,7 +5,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 {
     public interface IScaleInfo
     {
-        ScaleId ScaleId { get; }
+        ScaleId Id { get; }
 
         Slug Slug { get; }
 

@@ -1,5 +1,5 @@
-﻿using FluentAssertions;
-using System;
+﻿using System;
+using FluentAssertions;
 using TreniniDotNet.Common.Pagination;
 using Xunit;
 

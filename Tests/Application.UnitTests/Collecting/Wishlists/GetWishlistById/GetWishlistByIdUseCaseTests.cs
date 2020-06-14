@@ -50,7 +50,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
         {
             var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewGetWishlistById);
 
-            var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
+            var id = CollectionSeedData.Wishlists.George_First_List().Id;
             await useCase.Execute(new GetWishlistByIdInput("George", id.ToGuid()));
 
             outputPort.ShouldHaveNoValidationError();
@@ -58,7 +58,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
 
             var output = outputPort.UseCaseOutput;
             output.Wishlist.Should().NotBeNull();
-            output.Wishlist.WishlistId.Should().Be(id);
+            output.Wishlist.Id.Should().Be(id);
         }
 
         private GetWishlistByIdUseCase NewGetWishlistById(

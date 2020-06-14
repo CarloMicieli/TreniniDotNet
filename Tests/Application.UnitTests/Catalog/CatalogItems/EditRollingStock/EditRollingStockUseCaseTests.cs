@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Xunit;
 using FluentAssertions;
 using NodaTime;
 using NodaTime.Testing;
@@ -12,6 +11,7 @@ using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 {
@@ -67,7 +67,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 
             var input = CatalogInputs.NewEditRollingStockInput.With(
                 catalogItem.Slug,
-                catalogItem.RollingStocks.First().RollingStockId,
+                catalogItem.RollingStocks.First().Id,
                 railway: "Not found");
             await useCase.Execute(input);
 
@@ -81,7 +81,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             var (useCase, outputPort, unitOfWork, dbContext) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditRollingStock);
 
             var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
-            var rsId = catalogItem.RollingStocks.First().RollingStockId;
+            var rsId = catalogItem.RollingStocks.First().Id;
 
             var input = CatalogInputs.NewEditRollingStockInput.With(
                 catalogItem.Slug,
@@ -98,10 +98,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             outputPort.UseCaseOutput.Should().NotBeNull();
 
             var modifiedCatalogItem = dbContext.CatalogItems
-                .First(it => it.CatalogItemId == catalogItem.CatalogItemId);
+                .First(it => it.Id == catalogItem.Id);
 
             modifiedCatalogItem.RollingStocks
-                .Any(it => it.RollingStockId == rsId && it.Prototype!.RoadNumber == "Modified")
+                .Any(it => it.Id == rsId && it.Prototype!.RoadNumber == "Modified")
                 .Should().BeTrue();
         }
 

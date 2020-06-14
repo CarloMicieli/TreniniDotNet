@@ -35,7 +35,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
+            var id = CollectionSeedData.Wishlists.George_First_List().Id;
 
             var newItem = new
             {
@@ -57,7 +57,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
-            var id = wishlist.WishlistId;
+            var id = wishlist.Id;
             var catalogItem = wishlist.Items.First().CatalogItem.Slug.Value;
 
             var newItem = new
@@ -80,7 +80,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
-            var id = wishlist.WishlistId;
+            var id = wishlist.Id;
 
             var newItem = new
             {

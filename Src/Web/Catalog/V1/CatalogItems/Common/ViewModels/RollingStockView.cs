@@ -28,7 +28,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
             }
         }
 
-        public Guid Id => _rs.RollingStockId.ToGuid();
+        public Guid Id => _rs.Id.ToGuid();
 
         public RailwayInfoView Railway { get; }
 

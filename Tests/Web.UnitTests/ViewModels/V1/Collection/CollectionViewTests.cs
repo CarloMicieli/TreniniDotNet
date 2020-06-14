@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
-using NodaMoney;
-using NodaTime;
-using System;
+﻿using System;
 using System.Collections.Immutable;
 using System.Linq;
+using FluentAssertions;
+using NodaMoney;
+using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Collecting.Collections;
@@ -39,7 +39,7 @@ namespace TreniniDotNet.Web.ViewModels.V1.Collection
 
     internal class TestCollection : ICollection
     {
-        public CollectionId CollectionId => new CollectionId(new Guid("68b1d5a6-f35b-4ad7-9400-8cccddf3df1d"));
+        public CollectionId Id => new CollectionId(new Guid("68b1d5a6-f35b-4ad7-9400-8cccddf3df1d"));
 
         public Owner Owner => new Owner("George");
 
@@ -54,7 +54,7 @@ namespace TreniniDotNet.Web.ViewModels.V1.Collection
 
     internal class TestCollectionItem : ICollectionItem
     {
-        public CollectionItemId ItemId => new CollectionItemId(new Guid("739a7bba-a6b9-4e5a-8ece-22b145d91015"));
+        public CollectionItemId Id => new CollectionItemId(new Guid("739a7bba-a6b9-4e5a-8ece-22b145d91015"));
 
         public ICatalogRef CatalogItem => new TestCatalogRef();
 

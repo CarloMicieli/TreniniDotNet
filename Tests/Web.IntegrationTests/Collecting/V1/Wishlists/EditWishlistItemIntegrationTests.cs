@@ -36,8 +36,8 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
-            var id = wishlist.WishlistId;
-            var itemId = wishlist.Items.First().ItemId;
+            var id = wishlist.Id;
+            var itemId = wishlist.Items.First().Id;
 
             var response = await client.PutJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", new { }, Check.Nothing);
 
@@ -51,7 +51,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
 
-            var id = wishlist.WishlistId;
+            var id = wishlist.Id;
             var itemId = Guid.NewGuid();
 
             var response = await client.PutJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", new { }, Check.Nothing);
@@ -65,8 +65,8 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
-            var id = wishlist.WishlistId;
-            var itemId = wishlist.Items.First().ItemId;
+            var id = wishlist.Id;
+            var itemId = wishlist.Items.First().Id;
 
             var request = new
             {

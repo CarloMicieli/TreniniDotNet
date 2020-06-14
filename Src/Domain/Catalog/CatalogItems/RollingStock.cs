@@ -1,12 +1,13 @@
-﻿using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Domain.Catalog.Railways;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
+using TreniniDotNet.Common;
+using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 [assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public sealed class RollingStock : IEquatable<RollingStock>, IRollingStock
+    public sealed class RollingStock : Entity<RollingStockId>, IRollingStock
     {
         internal RollingStock(
             RollingStockId rollingStockId,
@@ -21,8 +22,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             string? depot,
             PassengerCarType? passengerCarType, ServiceLevel? serviceLevel,
             DccInterface dccInterface, Control control)
+            : base(rollingStockId)
         {
-            RollingStockId = rollingStockId;
             Railway = railway;
             Category = category;
             Epoch = epoch;
@@ -39,8 +40,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         }
 
         #region [ Properties ]
-        public RollingStockId RollingStockId { get; }
-
         public IRailwayInfo Railway { get; }
 
         public Category Category { get; }
@@ -68,30 +67,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public DccInterface DccInterface { get; }
         #endregion
 
-        #region [ Equality ]
-
-        public override bool Equals(object obj)
-        {
-            if (obj is RollingStock other)
-            {
-                return AreEquals(this, other);
-            }
-
-            return false;
-        }
-
-        public bool Equals(RollingStock other) => AreEquals(this, other);
-
-        private static bool AreEquals(RollingStock left, RollingStock right) =>
-            left.RollingStockId == right.RollingStockId;
-
-        #endregion
-
-        public override int GetHashCode() => RollingStockId.GetHashCode();
-
         public override string ToString()
         {
-            return $"RollingStock({RollingStockId} {Epoch} {Railway.Name} {Category})";
+            return $"RollingStock({Id} {Epoch} {Railway.Name} {Category})";
         }
     }
 }

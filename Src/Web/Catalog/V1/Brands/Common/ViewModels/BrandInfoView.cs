@@ -13,7 +13,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Brands.Common.ViewModels
                 throw new ArgumentNullException(nameof(brand));
         }
 
-        public Guid Id => _brand.BrandId.ToGuid();
+        public Guid Id => _brand.Id.ToGuid();
 
         public string Name => _brand.Name;
 

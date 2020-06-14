@@ -12,7 +12,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
         {
             Links = selfLink;
 
-            Id = scale.ScaleId.ToGuid();
+            Id = scale.Id.ToGuid();
             Name = scale.Name;
             Ratio = scale.Ratio.ToDecimal();
 

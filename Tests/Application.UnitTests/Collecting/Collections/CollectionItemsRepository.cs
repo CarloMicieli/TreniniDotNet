@@ -17,7 +17,7 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Collections
         }
 
         public Task<CollectionItemId> AddItemAsync(CollectionId id, ICollectionItem newItem) =>
-            Task.FromResult(newItem.ItemId);
+            Task.FromResult(newItem.Id);
 
         public Task EditItemAsync(CollectionId id, ICollectionItem item) =>
             Task.CompletedTask;
@@ -25,18 +25,18 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Collections
         public Task<ICollectionItem> GetItemByIdAsync(CollectionId collectionId, CollectionItemId itemId)
         {
             var result = _context.Collections
-                .Where(it => it.CollectionId == collectionId)
+                .Where(it => it.Id == collectionId)
                 .SelectMany(it => it.Items)
-                .FirstOrDefault(it => it.ItemId == itemId);
+                .FirstOrDefault(it => it.Id == itemId);
             return Task.FromResult(result);
         }
 
         public Task<bool> ItemExistsAsync(CollectionId id, CollectionItemId itemId)
         {
             var result = _context.Collections
-                .Where(it => it.CollectionId == id)
+                .Where(it => it.Id == id)
                 .SelectMany(it => it.Items)
-                .Any(it => it.ItemId == itemId);
+                .Any(it => it.Id == itemId);
             return Task.FromResult(result);
         }
 

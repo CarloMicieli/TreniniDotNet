@@ -1,10 +1,10 @@
-﻿using Dapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Domain.Catalog.Brands;
@@ -41,9 +41,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             var _rows1 = await connection.ExecuteAsync(InsertNewCatalogItem, new
             {
-                catalogItem.CatalogItemId,
-                catalogItem.Brand.BrandId,
-                catalogItem.Scale.ScaleId,
+                CatalogItemId = catalogItem.Id,
+                BrandId = catalogItem.Brand.Id,
+                ScaleId = catalogItem.Scale.Id,
                 catalogItem.ItemNumber,
                 catalogItem.Slug,
                 catalogItem.PowerMethod,
@@ -62,7 +62,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 await InsertNewRollingStock(connection, catalogItem, rs);
             }
 
-            return catalogItem.CatalogItemId;
+            return catalogItem.Id;
         }
 
         public async Task UpdateAsync(ICatalogItem catalogItem)
@@ -72,9 +72,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             var _rows1 = await connection.ExecuteAsync(UpdateCatalogItemCommand, new
             {
-                catalogItem.CatalogItemId,
-                catalogItem.Brand.BrandId,
-                catalogItem.Scale.ScaleId,
+                CatalogItemId = catalogItem.Id,
+                BrandId = catalogItem.Brand.Id,
+                ScaleId = catalogItem.Scale.Id,
                 catalogItem.ItemNumber,
                 catalogItem.Slug,
                 catalogItem.PowerMethod,
@@ -89,7 +89,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             var _rows2 = await connection.ExecuteAsync(DeleteAllRollingStocks, new
             {
-                catalogItem.CatalogItemId
+                CatalogItemId = catalogItem.Id
             });
 
             foreach (var rs in catalogItem.RollingStocks)
@@ -110,11 +110,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
         {
             var _rows3 = await connection.ExecuteAsync(InsertNewRollingStockCommand, new
             {
-                rs.RollingStockId,
+                RollingStockId = rs.Id,
                 Era = rs.Epoch.ToString(),
                 rs.Category,
-                rs.Railway.RailwayId,
-                catalogItem.CatalogItemId,
+                RailwayId = rs.Railway.Id,
+                CatalogItemId = catalogItem.Id,
                 LengthMm = rs.Length?.Millimeters,
                 LengthIn = rs.Length?.Inches,
                 MinRadius = rs.MinRadius?.Millimeters,
@@ -137,7 +137,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             var result = await connection.ExecuteScalarAsync<string>(
                 GetCatalogItemWithBrandAndItemNumberExistsQuery,
-                new { @brandId = brand.BrandId, @itemNumber = itemNumber.Value });
+                new { @brandId = brand.Id, @itemNumber = itemNumber.Value });
 
             return string.IsNullOrEmpty(result) == false;
         }
@@ -149,7 +149,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             var results = await connection.QueryAsync<CatalogItemWithRelatedData>(
                 GetCatalogItemByBrandAndItemNumberQuery,
-                new { @brandId = brand.BrandId, @itemNumber = itemNumber.Value });
+                new { @brandId = brand.Id, @itemNumber = itemNumber.Value });
 
             return FromCatalogItemDto(results);
         }
@@ -185,11 +185,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             var _ = await connection.ExecuteAsync(UpdateRollingStockCommand, new
             {
-                rollingStock.RollingStockId,
+                RollingStockId = rollingStock.Id,
                 Era = rollingStock.Epoch.ToString(),
                 rollingStock.Category,
-                rollingStock.Railway.RailwayId,
-                catalogItem.CatalogItemId,
+                RailwayId = rollingStock.Railway.Id,
+                CatalogItemId = catalogItem.Id,
                 LengthMm = rollingStock.Length?.Millimeters,
                 LengthIn = rollingStock.Length?.Inches,
                 MinRadius = rollingStock.MinRadius?.Millimeters,
@@ -212,7 +212,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             var _ = await connection.ExecuteAsync(DeleteRollingStockCommand, new
             {
-                catalogItem.CatalogItemId,
+                CatalogItemId = catalogItem.Id,
                 rollingStockId
             });
         }

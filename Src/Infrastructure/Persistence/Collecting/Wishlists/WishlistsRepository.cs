@@ -36,7 +36,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
 
             var result = await connection.ExecuteAsync(InsertNewWishlist, new
             {
-                WishlistId = wishlist.WishlistId.ToGuid(),
+                WishlistId = wishlist.Id.ToGuid(),
                 Owner = wishlist.Owner.Value,
                 Slug = wishlist.Slug.Value,
                 wishlist.ListName,
@@ -45,7 +45,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
                 wishlist.Version
             });
 
-            return wishlist.WishlistId;
+            return wishlist.Id;
         }
 
         public async Task DeleteAsync(WishlistId id)

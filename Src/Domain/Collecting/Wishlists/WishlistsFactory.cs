@@ -45,7 +45,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
             Instant? modifiedDate,
             int version)
         {
-            return new WishList(
+            return new Wishlist(
                 wishlistId,
                 owner,
                 slug,

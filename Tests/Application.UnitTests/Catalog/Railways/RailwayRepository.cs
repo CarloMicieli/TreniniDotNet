@@ -20,7 +20,7 @@ namespace TreniniDotNet.Application.Catalog.Railways
         public Task<RailwayId> AddAsync(IRailway railway)
         {
             _context.Railways.Add(railway);
-            return Task.FromResult(railway.RailwayId);
+            return Task.FromResult(railway.Id);
         }
 
         public Task<bool> ExistsAsync(Slug slug)
@@ -54,7 +54,7 @@ namespace TreniniDotNet.Application.Catalog.Railways
 
         public Task UpdateAsync(IRailway railway)
         {
-            _context.Railways.RemoveAll(it => it.RailwayId == railway.RailwayId);
+            _context.Railways.RemoveAll(it => it.Id == railway.Id);
             _context.Railways.Add(railway);
             return Task.CompletedTask;
         }

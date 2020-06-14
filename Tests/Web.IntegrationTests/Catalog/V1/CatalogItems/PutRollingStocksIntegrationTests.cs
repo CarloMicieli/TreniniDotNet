@@ -52,7 +52,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
             var item = CatalogSeedData.CatalogItems.Acme_60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().RollingStockId.ToGuid();
+            var id = item.RollingStocks.First().Id.ToGuid();
 
             var model = new
             {
@@ -72,7 +72,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
             var item = CatalogSeedData.CatalogItems.Acme_60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().RollingStockId.ToGuid();
+            var id = item.RollingStocks.First().Id.ToGuid();
 
             var model = new
             {
@@ -93,7 +93,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
             var item = CatalogSeedData.CatalogItems.Acme_60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().RollingStockId.ToGuid();
+            var id = item.RollingStocks.First().Id.ToGuid();
 
             var model = new
             {

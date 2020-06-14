@@ -13,7 +13,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
                 throw new ArgumentNullException(nameof(scale));
         }
 
-        public Guid Id => _scale.ScaleId.ToGuid();
+        public Guid Id => _scale.Id.ToGuid();
 
         public string Name => _scale.Name;
 

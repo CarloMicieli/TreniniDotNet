@@ -1,9 +1,9 @@
-﻿using Dapper;
-using FluentAssertions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Dapper;
+using FluentAssertions;
 using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Database.Testing

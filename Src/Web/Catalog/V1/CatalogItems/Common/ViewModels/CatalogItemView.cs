@@ -27,7 +27,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
         [JsonPropertyName("_links")]
         public LinksView? Links { set; get; }
 
-        public Guid Id => _item.CatalogItemId.ToGuid();
+        public Guid Id => _item.Id.ToGuid();
 
         public string ItemNumber => _item.ItemNumber.ToString();
 

@@ -1,8 +1,8 @@
-using NodaTime.Testing;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using NodaTime.Testing;
 using TreniniDotNet.Common.Addresses;
 using TreniniDotNet.Common.PhoneNumbers;
 using TreniniDotNet.Common.Uuid;

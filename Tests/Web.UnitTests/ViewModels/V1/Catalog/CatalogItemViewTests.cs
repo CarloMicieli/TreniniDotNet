@@ -1,8 +1,8 @@
-﻿using Xunit;
-using FluentAssertions;
+﻿using FluentAssertions;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
+using Xunit;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Catalog
 {
@@ -16,7 +16,7 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
 
             view.Should().NotBeNull();
 
-            view.Id.Should().Be(catItem.CatalogItemId.ToGuid());
+            view.Id.Should().Be(catItem.Id.ToGuid());
             view.ItemNumber.Should().Be(catItem.ItemNumber.ToString());
 
             view.Brand.Should().NotBeNull();

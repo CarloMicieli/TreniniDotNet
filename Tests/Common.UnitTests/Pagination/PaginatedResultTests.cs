@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using Xunit;
+﻿using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using TreniniDotNet.Common.Pagination;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Pagination
 {

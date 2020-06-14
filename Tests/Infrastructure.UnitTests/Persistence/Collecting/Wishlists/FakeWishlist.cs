@@ -10,7 +10,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
 {
     public class FakeWishlist : IWishlist
     {
-        public WishlistId WishlistId { set; get; }
+        public WishlistId Id { set; get; }
 
         public Owner Owner { set; get; }
 
@@ -30,7 +30,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
 
         public FakeWishlist()
         {
-            WishlistId = new WishlistId(new Guid("51e05ca4-a7f9-4634-af2f-8e0fe3c0d55d"));
+            Id = new WishlistId(new Guid("51e05ca4-a7f9-4634-af2f-8e0fe3c0d55d"));
             Owner = new Owner("George");
             Items = ImmutableList<IWishlistItem>.Empty;
             Slug = Slug.Of("My first list");
@@ -45,7 +45,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
         {
             return new FakeWishlist
             {
-                WishlistId = this.WishlistId,
+                Id = this.Id,
                 Owner = this.Owner,
                 Items = (Items is null) ? this.Items : Items,
                 Slug = this.Slug,

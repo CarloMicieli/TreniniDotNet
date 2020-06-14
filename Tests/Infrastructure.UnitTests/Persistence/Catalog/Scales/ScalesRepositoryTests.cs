@@ -1,15 +1,15 @@
-﻿using Xunit;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Infrastructure.Database.Testing;
 using NodaTime;
 using TreniniDotNet.Common;
-using System.Threading.Tasks;
 using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
@@ -37,7 +37,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             Database.Assert.RowInTable(Tables.Scales)
                 .WithPrimaryKey(new
                 {
-                    scale_id = scaleH0.ScaleId.ToGuid()
+                    scale_id = scaleH0.Id.ToGuid()
                 })
                 .AndValues(new
                 {
@@ -62,7 +62,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             var scaleH0 = CatalogSeedData.Scales.ScaleH0();
             Database.Arrange.InsertOne(Tables.Scales, new
             {
-                scale_id = scaleH0.ScaleId.ToGuid(),
+                scale_id = scaleH0.Id.ToGuid(),
                 name = scaleH0.Name,
                 slug = scaleH0.Slug.ToString(),
                 ratio = scaleH0.Ratio.ToDecimal(),
@@ -79,7 +79,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             Database.Assert.RowInTable(Tables.Scales)
                 .WithPrimaryKey(new
                 {
-                    scale_id = scaleH0.ScaleId.ToGuid()
+                    scale_id = scaleH0.Id.ToGuid()
                 })
                 .AndValues(new
                 {
@@ -96,7 +96,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             var scaleH0 = CatalogSeedData.Scales.ScaleH0();
             Database.Arrange.InsertOne(Tables.Scales, new
             {
-                scale_id = scaleH0.ScaleId.ToGuid(),
+                scale_id = scaleH0.Id.ToGuid(),
                 name = scaleH0.Name,
                 slug = scaleH0.Slug.ToString(),
                 ratio = scaleH0.Ratio.ToDecimal(),
@@ -122,7 +122,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             var scaleH0 = CatalogSeedData.Scales.ScaleH0();
             Database.Arrange.InsertOne(Tables.Scales, new
             {
-                scale_id = scaleH0.ScaleId.ToGuid(),
+                scale_id = scaleH0.Id.ToGuid(),
                 name = scaleH0.Name,
                 slug = scaleH0.Slug.ToString(),
                 ratio = scaleH0.Ratio.ToDecimal(),
@@ -151,7 +151,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             var scaleH0 = CatalogSeedData.Scales.ScaleH0();
             Database.Arrange.InsertOne(Tables.Scales, new
             {
-                scale_id = scaleH0.ScaleId.ToGuid(),
+                scale_id = scaleH0.Id.ToGuid(),
                 name = scaleH0.Name,
                 slug = scaleH0.Slug.ToString(),
                 ratio = scaleH0.Ratio.ToDecimal(),
@@ -189,7 +189,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
             Database.Arrange.Insert(Tables.Scales,
                 new
                 {
-                    scale_id = scaleH0.ScaleId.ToGuid(),
+                    scale_id = scaleH0.Id.ToGuid(),
                     name = scaleH0.Name,
                     slug = scaleH0.Slug.ToString(),
                     ratio = scaleH0.Ratio.ToDecimal(),
@@ -202,7 +202,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 },
                 new
                 {
-                    scale_id = scaleN.ScaleId.ToGuid(),
+                    scale_id = scaleN.Id.ToGuid(),
                     name = scaleN.Name,
                     slug = scaleN.Slug.ToString(),
                     ratio = scaleN.Ratio.ToDecimal(),

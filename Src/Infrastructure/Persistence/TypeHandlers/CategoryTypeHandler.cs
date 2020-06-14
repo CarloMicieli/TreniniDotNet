@@ -1,7 +1,7 @@
 using System.Data;
 using Dapper;
-using static TreniniDotNet.Common.Enums.EnumHelpers;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using static TreniniDotNet.Common.Enums.EnumHelpers;
 
 namespace Infrastructure.Infrastructure.TypeHandlers
 {

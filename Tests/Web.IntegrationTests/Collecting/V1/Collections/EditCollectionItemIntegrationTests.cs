@@ -72,7 +72,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
             };
 
             var response = await client.PutJsonAsync(
-                $"api/v1/collections/{georgeCollection.CollectionId}/items/{itemId}",
+                $"api/v1/collections/{georgeCollection.Id}/items/{itemId}",
                 request,
                 Check.Nothing);
 
@@ -90,14 +90,14 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
 
             var request = new
             {
-                ItemId = item.ItemId.ToGuid(),
+                ItemId = item.Id.ToGuid(),
                 Price = 250M,
                 Condition = "New",
                 AddedDate = DateTime.Now
             };
 
             var response = await client.PutJsonAsync(
-                $"api/v1/collections/{georgeCollection.CollectionId}/items/{item.ItemId}",
+                $"api/v1/collections/{georgeCollection.Id}/items/{item.Id}",
                 request,
                 Check.Nothing);
 

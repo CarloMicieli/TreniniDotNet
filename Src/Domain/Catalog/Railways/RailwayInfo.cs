@@ -13,18 +13,18 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public RailwayInfo(RailwayId railwayId, Slug slug, string name)
         {
-            RailwayId = railwayId;
+            Id = railwayId;
             Slug = slug;
             Name = name;
         }
 
-        public RailwayId RailwayId { get; }
+        public RailwayId Id { get; }
 
         public Slug Slug { get; }
 
         public string Name { get; }
 
-        public override int GetHashCode() => RailwayId.GetHashCode();
+        public override int GetHashCode() => Id.GetHashCode();
 
         public override bool Equals(object obj)
         {
@@ -40,6 +40,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             AreEquals(this, other);
 
         private static bool AreEquals(RailwayInfo left, RailwayInfo right) =>
-            left.RailwayId.Equals(right.RailwayId);
+            left.Id.Equals(right.Id);
     }
 }

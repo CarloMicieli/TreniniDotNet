@@ -37,14 +37,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 
             var result = await connection.ExecuteAsync(InsertNewCollection, new
             {
-                CollectionId = collection.CollectionId.ToGuid(),
+                CollectionId = collection.Id.ToGuid(),
                 Owner = collection.Owner.Value,
                 Created = collection.CreatedDate.ToDateTimeUtc(),
                 LastModified = collection.ModifiedDate?.ToDateTimeUtc(),
                 collection.Version
             });
 
-            return collection.CollectionId;
+            return collection.Id;
         }
 
         public async Task<bool> ExistsAsync(Owner owner)

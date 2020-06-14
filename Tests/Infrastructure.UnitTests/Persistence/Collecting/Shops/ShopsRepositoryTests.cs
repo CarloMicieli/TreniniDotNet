@@ -31,12 +31,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Shops
 
             var id = await Repository.AddAsync(shop);
 
-            id.Should().Be(shop.ShopId);
+            id.Should().Be(shop.Id);
 
             Database.Assert.RowInTable(Tables.Shops)
                 .WithPrimaryKey(new
                 {
-                    shop_id = shop.ShopId.ToGuid()
+                    shop_id = shop.Id.ToGuid()
                 })
                 .AndValues(new
                 {
@@ -75,7 +75,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Shops
             var notExists = await Repository.GetBySlugAsync(Slug.Empty);
 
             exists.Should().NotBeNull();
-            exists.ShopId.Should().Be(shop.ShopId);
+            exists.Id.Should().Be(shop.Id);
             exists.Slug.Should().Be(shop.Slug);
             exists.Name.Should().Be(shop.Name);
 
@@ -95,7 +95,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Shops
             var notExists = await Repository.GetShopInfoBySlugAsync(Slug.Empty);
 
             exists.Should().NotBeNull();
-            exists.ShopId.Should().Be(shop.ShopId);
+            exists.Id.Should().Be(shop.Id);
             exists.Slug.Should().Be(shop.Slug);
             exists.Name.Should().Be(shop.Name);
 

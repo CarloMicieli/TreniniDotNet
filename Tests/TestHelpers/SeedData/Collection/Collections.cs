@@ -1,10 +1,10 @@
-using NodaMoney;
-using NodaTime;
-using NodaTime.Testing;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
+using NodaMoney;
+using NodaTime;
+using NodaTime.Testing;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Collections;

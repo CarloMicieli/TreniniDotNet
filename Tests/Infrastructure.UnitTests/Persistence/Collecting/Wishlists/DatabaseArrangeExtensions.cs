@@ -10,7 +10,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
         {
             databaseArrange.InsertOne(Tables.Wishlists, new
             {
-                wishlist_id = wishlist.WishlistId.ToGuid(),
+                wishlist_id = wishlist.Id.ToGuid(),
                 owner = wishlist.Owner.Value,
                 slug = wishlist.Slug.Value,
                 wishlist_name = wishlist.ListName,
@@ -24,8 +24,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
                 {
                     databaseArrange.InsertOne(Tables.WishlistItems, new
                     {
-                        item_id = item.ItemId.ToGuid(),
-                        wishlist_id = wishlist.WishlistId.ToGuid(),
+                        item_id = item.Id.ToGuid(),
+                        wishlist_id = wishlist.Id.ToGuid(),
                         catalog_item_id = item.CatalogItem.CatalogItemId.ToGuid(),
                         catalog_item_slug = item.CatalogItem.Slug.Value,
                         priority = item.Priority.ToString(),

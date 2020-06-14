@@ -35,7 +35,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
             var wishlist = Factory.NewWishlist(owner, slug, listName, Visibility.Private);
 
             wishlist.Should().NotBeNull();
-            wishlist.WishlistId.Should().Be(new WishlistId(ExpectedId));
+            wishlist.Id.Should().Be(new WishlistId(ExpectedId));
             wishlist.Owner.Should().Be(new Owner(owner));
             wishlist.ListName.Should().Be(listName);
             wishlist.Visibility.Should().Be(Visibility.Private);
@@ -57,7 +57,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
                 "My notes");
 
             wishlistItem.Should().NotBeNull();
-            wishlistItem.ItemId.Should().Be(new WishlistItemId(ExpectedId));
+            wishlistItem.Id.Should().Be(new WishlistItemId(ExpectedId));
             wishlistItem.CatalogItem.Should().Be(catalogRef);
             wishlistItem.Notes.Should().Be("My notes");
             wishlistItem.Priority.Should().Be(Priority.Normal);

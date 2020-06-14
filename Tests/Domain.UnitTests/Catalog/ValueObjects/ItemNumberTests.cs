@@ -1,6 +1,6 @@
-﻿using Xunit;
+﻿using System;
 using FluentAssertions;
-using System;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {

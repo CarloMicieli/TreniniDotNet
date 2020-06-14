@@ -20,7 +20,7 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Wishlists
 
         public Task<WishlistId> AddAsync(IWishlist wishList)
         {
-            return Task.FromResult(wishList.WishlistId);
+            return Task.FromResult(wishList.Id);
         }
 
         public Task DeleteAsync(WishlistId id) =>
@@ -41,14 +41,14 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Wishlists
         public Task<bool> ExistAsync(Owner owner, WishlistId id)
         {
             var result = _context.WishLists
-                .Any(it => it.Owner == owner && it.WishlistId == id);
+                .Any(it => it.Owner == owner && it.Id == id);
             return Task.FromResult(result);
         }
 
         public Task<IWishlist> GetByIdAsync(WishlistId id)
         {
             var result = _context.WishLists
-                .FirstOrDefault(it => it.WishlistId == id);
+                .FirstOrDefault(it => it.Id == id);
             return Task.FromResult(result);
         }
 

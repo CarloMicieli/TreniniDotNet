@@ -25,7 +25,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
             }
         }
 
-        public Guid ItemId => _inner.ItemId.ToGuid();
+        public Guid ItemId => _inner.Id.ToGuid();
 
         public CatalogItemView CatalogItem { get; }
 

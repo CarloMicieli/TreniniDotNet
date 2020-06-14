@@ -1,5 +1,5 @@
-using Xunit;
 using FluentAssertions;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {

@@ -51,12 +51,12 @@ namespace TreniniDotNet.Application.Catalog.Scales
         public Task<ScaleId> AddAsync(IScale scale)
         {
             _context.Scales.Add(scale);
-            return Task.FromResult(scale.ScaleId);
+            return Task.FromResult(scale.Id);
         }
 
         public Task UpdateAsync(IScale scale)
         {
-            _context.Scales.RemoveAll(it => it.ScaleId == scale.ScaleId);
+            _context.Scales.RemoveAll(it => it.Id == scale.Id);
             _context.Scales.Add(scale);
             return Task.CompletedTask;
         }

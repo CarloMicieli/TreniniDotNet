@@ -54,7 +54,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.GetCollectionStatisti
             var totalValue = items.Select(it => it.TotalValue).Sum();
 
             ICollectionStats statistics = new CollectionStats(
-                collection.CollectionId,
+                collection.Id,
                 collection.Owner,
                 collection.ModifiedDate ?? collection.CreatedDate,
                 totalValue,

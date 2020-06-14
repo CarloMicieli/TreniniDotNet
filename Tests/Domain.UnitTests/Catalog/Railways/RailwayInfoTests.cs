@@ -1,6 +1,6 @@
+using FluentAssertions;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
-using FluentAssertions;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {

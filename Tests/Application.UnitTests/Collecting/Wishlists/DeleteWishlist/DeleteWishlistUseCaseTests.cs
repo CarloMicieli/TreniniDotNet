@@ -56,7 +56,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
             var wishlist = CollectionSeedData.Wishlists.George_First_List();
             var input = CollectingInputs.DeleteWishlist.With(
                 owner: "George",
-                id: wishlist.WishlistId.ToGuid());
+                id: wishlist.Id.ToGuid());
 
             await useCase.Execute(input);
 
@@ -66,7 +66,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
             unitOfWork.EnsureUnitOfWorkWasSaved();
 
             var output = outputPort.UseCaseOutput;
-            output.Id.Should().Be(wishlist.WishlistId);
+            output.Id.Should().Be(wishlist.Id);
         }
 
 

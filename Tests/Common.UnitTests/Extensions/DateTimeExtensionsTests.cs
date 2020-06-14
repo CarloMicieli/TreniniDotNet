@@ -1,8 +1,8 @@
-﻿using Xunit;
+﻿using System;
 using FluentAssertions;
-using System;
 using NodaTime;
 using NodaTime.Testing;
+using Xunit;
 
 namespace TreniniDotNet.Common.Extensions
 {

@@ -1,15 +1,15 @@
-using Xunit;
-using FluentAssertions;
 using System;
 using System.Net.Mail;
-using NodaTime.Testing;
+using FluentAssertions;
 using NodaTime;
+using NodaTime.Testing;
 using TreniniDotNet.Common;
-using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
@@ -58,7 +58,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 ExpectedAddress);
 
             b.Should().NotBeNull();
-            b.BrandId.Should().Be(ExpectedBrandId);
+            b.Id.Should().Be(ExpectedBrandId);
             b.Name.Should().Be("NAME");
             b.Slug.Should().Be(Slug.Of("name"));
             b.CompanyName.Should().Be("company name");
@@ -96,7 +96,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 2);
 
             b.Should().NotBeNull();
-            b.BrandId.Should().Be(ExpectedBrandId);
+            b.Id.Should().Be(ExpectedBrandId);
             b.Name.Should().Be("NAME");
             b.Slug.Should().Be(Slug.Of("name"));
             b.CompanyName.Should().Be("company name");

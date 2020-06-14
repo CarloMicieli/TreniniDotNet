@@ -17,7 +17,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
 
             result.Should().BeTrue();
             info.Should().NotBeNull();
-            info.ShopId.Should().Be(new ShopId(id));
+            info.Id.Should().Be(new ShopId(id));
             info.Name.Should().Be("Shop name");
             info.Slug.Should().Be(Slug.Of("shop-name"));
         }

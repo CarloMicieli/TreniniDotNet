@@ -5,7 +5,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public interface IBrandInfo
     {
-        BrandId BrandId { get; }
+        BrandId Id { get; }
 
         Slug Slug { get; }
 

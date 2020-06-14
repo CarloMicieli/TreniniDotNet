@@ -2714,7 +2714,7 @@ export enum VisibilityCriteria {
 }
 
 export abstract class IWishlistInfo implements IIWishlistInfo {
-    wishlistId?: WishlistId;
+    id?: WishlistId;
     slug?: Slug;
     listName?: string | undefined;
     visibility?: Visibility;
@@ -2730,7 +2730,7 @@ export abstract class IWishlistInfo implements IIWishlistInfo {
 
     init(_data?: any) {
         if (_data) {
-            this.wishlistId = _data["wishlistId"] ? WishlistId.fromJS(_data["wishlistId"]) : <any>undefined;
+            this.id = _data["id"] ? WishlistId.fromJS(_data["id"]) : <any>undefined;
             this.slug = _data["slug"] ? Slug.fromJS(_data["slug"]) : <any>undefined;
             this.listName = _data["listName"];
             this.visibility = _data["visibility"];
@@ -2744,7 +2744,7 @@ export abstract class IWishlistInfo implements IIWishlistInfo {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["wishlistId"] = this.wishlistId ? this.wishlistId.toJSON() : <any>undefined;
+        data["id"] = this.id ? this.id.toJSON() : <any>undefined;
         data["slug"] = this.slug ? this.slug.toJSON() : <any>undefined;
         data["listName"] = this.listName;
         data["visibility"] = this.visibility;
@@ -2753,7 +2753,7 @@ export abstract class IWishlistInfo implements IIWishlistInfo {
 }
 
 export interface IIWishlistInfo {
-    wishlistId?: WishlistId;
+    id?: WishlistId;
     slug?: Slug;
     listName?: string | undefined;
     visibility?: Visibility;
@@ -2869,6 +2869,9 @@ export interface IGetWishlistByIdOutput {
 export abstract class IWishlist implements IIWishlist {
     owner?: Owner;
     items?: IWishlistItem[];
+    createdDate?: Date;
+    modifiedDate?: Date | undefined;
+    version?: number;
 
     constructor(data?: IIWishlist) {
         if (data) {
@@ -2887,6 +2890,9 @@ export abstract class IWishlist implements IIWishlist {
                 for (let item of _data["items"])
                     this.items!.push(IWishlistItem.fromJS(item));
             }
+            this.createdDate = _data["createdDate"] ? new Date(_data["createdDate"].toString()) : <any>undefined;
+            this.modifiedDate = _data["modifiedDate"] ? new Date(_data["modifiedDate"].toString()) : <any>undefined;
+            this.version = _data["version"];
         }
     }
 
@@ -2903,6 +2909,9 @@ export abstract class IWishlist implements IIWishlist {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
+        data["createdDate"] = this.createdDate ? this.createdDate.toISOString() : <any>undefined;
+        data["modifiedDate"] = this.modifiedDate ? this.modifiedDate.toISOString() : <any>undefined;
+        data["version"] = this.version;
         return data; 
     }
 }
@@ -2910,10 +2919,13 @@ export abstract class IWishlist implements IIWishlist {
 export interface IIWishlist {
     owner?: Owner;
     items?: IWishlistItem[];
+    createdDate?: Date;
+    modifiedDate?: Date | undefined;
+    version?: number;
 }
 
 export abstract class IWishlistItem implements IIWishlistItem {
-    itemId?: WishlistItemId;
+    id?: WishlistItemId;
     priority?: Priority;
     addedDate?: Date;
     price?: Money | undefined;
@@ -2932,7 +2944,7 @@ export abstract class IWishlistItem implements IIWishlistItem {
 
     init(_data?: any) {
         if (_data) {
-            this.itemId = _data["itemId"] ? WishlistItemId.fromJS(_data["itemId"]) : <any>undefined;
+            this.id = _data["id"] ? WishlistItemId.fromJS(_data["id"]) : <any>undefined;
             this.priority = _data["priority"];
             this.addedDate = _data["addedDate"] ? new Date(_data["addedDate"].toString()) : <any>undefined;
             this.price = _data["price"] ? Money.fromJS(_data["price"]) : <any>undefined;
@@ -2949,7 +2961,7 @@ export abstract class IWishlistItem implements IIWishlistItem {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["itemId"] = this.itemId ? this.itemId.toJSON() : <any>undefined;
+        data["id"] = this.id ? this.id.toJSON() : <any>undefined;
         data["priority"] = this.priority;
         data["addedDate"] = this.addedDate ? formatDate(this.addedDate) : <any>undefined;
         data["price"] = this.price ? this.price.toJSON() : <any>undefined;
@@ -2961,7 +2973,7 @@ export abstract class IWishlistItem implements IIWishlistItem {
 }
 
 export interface IIWishlistItem {
-    itemId?: WishlistItemId;
+    id?: WishlistItemId;
     priority?: Priority;
     addedDate?: Date;
     price?: Money | undefined;
@@ -3733,6 +3745,9 @@ export abstract class IShop implements IIShop {
     emailAddress?: MailAddress | undefined;
     address?: Address | undefined;
     phoneNumber?: PhoneNumber | undefined;
+    createdDate?: Date;
+    modifiedDate?: Date | undefined;
+    version?: number;
 
     constructor(data?: IIShop) {
         if (data) {
@@ -3749,6 +3764,9 @@ export abstract class IShop implements IIShop {
             this.emailAddress = _data["emailAddress"] ? MailAddress.fromJS(_data["emailAddress"]) : <any>undefined;
             this.address = _data["address"] ? Address.fromJS(_data["address"]) : <any>undefined;
             this.phoneNumber = _data["phoneNumber"] ? PhoneNumber.fromJS(_data["phoneNumber"]) : <any>undefined;
+            this.createdDate = _data["createdDate"] ? new Date(_data["createdDate"].toString()) : <any>undefined;
+            this.modifiedDate = _data["modifiedDate"] ? new Date(_data["modifiedDate"].toString()) : <any>undefined;
+            this.version = _data["version"];
         }
     }
 
@@ -3763,6 +3781,9 @@ export abstract class IShop implements IIShop {
         data["emailAddress"] = this.emailAddress ? this.emailAddress.toJSON() : <any>undefined;
         data["address"] = this.address ? this.address.toJSON() : <any>undefined;
         data["phoneNumber"] = this.phoneNumber ? this.phoneNumber.toJSON() : <any>undefined;
+        data["createdDate"] = this.createdDate ? this.createdDate.toISOString() : <any>undefined;
+        data["modifiedDate"] = this.modifiedDate ? this.modifiedDate.toISOString() : <any>undefined;
+        data["version"] = this.version;
         return data; 
     }
 }
@@ -3772,6 +3793,9 @@ export interface IIShop {
     emailAddress?: MailAddress | undefined;
     address?: Address | undefined;
     phoneNumber?: PhoneNumber | undefined;
+    createdDate?: Date;
+    modifiedDate?: Date | undefined;
+    version?: number;
 }
 
 export class MailAddress implements IMailAddress {
@@ -4561,8 +4585,11 @@ export interface IGetCollectionByOwnerOutput {
 }
 
 export abstract class ICollection implements IICollection {
-    collectionId?: CollectionId;
+    id?: CollectionId;
     owner?: Owner;
+    createdDate?: Date;
+    modifiedDate?: Date | undefined;
+    version?: number;
     items?: ICollectionItem[];
 
     constructor(data?: IICollection) {
@@ -4576,8 +4603,11 @@ export abstract class ICollection implements IICollection {
 
     init(_data?: any) {
         if (_data) {
-            this.collectionId = _data["collectionId"] ? CollectionId.fromJS(_data["collectionId"]) : <any>undefined;
+            this.id = _data["id"] ? CollectionId.fromJS(_data["id"]) : <any>undefined;
             this.owner = _data["owner"] ? Owner.fromJS(_data["owner"]) : <any>undefined;
+            this.createdDate = _data["createdDate"] ? new Date(_data["createdDate"].toString()) : <any>undefined;
+            this.modifiedDate = _data["modifiedDate"] ? new Date(_data["modifiedDate"].toString()) : <any>undefined;
+            this.version = _data["version"];
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
@@ -4593,8 +4623,11 @@ export abstract class ICollection implements IICollection {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["collectionId"] = this.collectionId ? this.collectionId.toJSON() : <any>undefined;
+        data["id"] = this.id ? this.id.toJSON() : <any>undefined;
         data["owner"] = this.owner ? this.owner.toJSON() : <any>undefined;
+        data["createdDate"] = this.createdDate ? this.createdDate.toISOString() : <any>undefined;
+        data["modifiedDate"] = this.modifiedDate ? this.modifiedDate.toISOString() : <any>undefined;
+        data["version"] = this.version;
         if (Array.isArray(this.items)) {
             data["items"] = [];
             for (let item of this.items)
@@ -4605,13 +4638,16 @@ export abstract class ICollection implements IICollection {
 }
 
 export interface IICollection {
-    collectionId?: CollectionId;
+    id?: CollectionId;
     owner?: Owner;
+    createdDate?: Date;
+    modifiedDate?: Date | undefined;
+    version?: number;
     items?: ICollectionItem[];
 }
 
 export abstract class ICollectionItem implements IICollectionItem {
-    itemId?: CollectionItemId;
+    id?: CollectionItemId;
     catalogItem?: ICatalogRef;
     details?: ICatalogItemDetails | undefined;
     condition?: Condition;
@@ -4631,7 +4667,7 @@ export abstract class ICollectionItem implements IICollectionItem {
 
     init(_data?: any) {
         if (_data) {
-            this.itemId = _data["itemId"] ? CollectionItemId.fromJS(_data["itemId"]) : <any>undefined;
+            this.id = _data["id"] ? CollectionItemId.fromJS(_data["id"]) : <any>undefined;
             this.catalogItem = _data["catalogItem"] ? ICatalogRef.fromJS(_data["catalogItem"]) : <any>undefined;
             this.details = _data["details"] ? ICatalogItemDetails.fromJS(_data["details"]) : <any>undefined;
             this.condition = _data["condition"];
@@ -4649,7 +4685,7 @@ export abstract class ICollectionItem implements IICollectionItem {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["itemId"] = this.itemId ? this.itemId.toJSON() : <any>undefined;
+        data["id"] = this.id ? this.id.toJSON() : <any>undefined;
         data["catalogItem"] = this.catalogItem ? this.catalogItem.toJSON() : <any>undefined;
         data["details"] = this.details ? this.details.toJSON() : <any>undefined;
         data["condition"] = this.condition;
@@ -4662,7 +4698,7 @@ export abstract class ICollectionItem implements IICollectionItem {
 }
 
 export interface IICollectionItem {
-    itemId?: CollectionItemId;
+    id?: CollectionItemId;
     catalogItem?: ICatalogRef;
     details?: ICatalogItemDetails | undefined;
     condition?: Condition;
@@ -4678,7 +4714,7 @@ export enum Condition {
 }
 
 export abstract class IShopInfo implements IIShopInfo {
-    shopId?: ShopId;
+    id?: ShopId;
     slug?: Slug;
     name?: string;
 
@@ -4693,7 +4729,7 @@ export abstract class IShopInfo implements IIShopInfo {
 
     init(_data?: any) {
         if (_data) {
-            this.shopId = _data["shopId"] ? ShopId.fromJS(_data["shopId"]) : <any>undefined;
+            this.id = _data["id"] ? ShopId.fromJS(_data["id"]) : <any>undefined;
             this.slug = _data["slug"] ? Slug.fromJS(_data["slug"]) : <any>undefined;
             this.name = _data["name"];
         }
@@ -4706,7 +4742,7 @@ export abstract class IShopInfo implements IIShopInfo {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["shopId"] = this.shopId ? this.shopId.toJSON() : <any>undefined;
+        data["id"] = this.id ? this.id.toJSON() : <any>undefined;
         data["slug"] = this.slug ? this.slug.toJSON() : <any>undefined;
         data["name"] = this.name;
         return data; 
@@ -4714,7 +4750,7 @@ export abstract class IShopInfo implements IIShopInfo {
 }
 
 export interface IIShopInfo {
-    shopId?: ShopId;
+    id?: ShopId;
     slug?: Slug;
     name?: string;
 }

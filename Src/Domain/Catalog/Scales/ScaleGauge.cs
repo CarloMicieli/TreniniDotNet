@@ -1,6 +1,6 @@
 using System;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Common.Lengths;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
 
 namespace TreniniDotNet.Domain.Catalog.Scales

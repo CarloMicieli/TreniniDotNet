@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Xunit;
 using FluentAssertions;
 using NodaTime;
 using NodaTime.Testing;
@@ -10,6 +9,7 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalogItem
 {

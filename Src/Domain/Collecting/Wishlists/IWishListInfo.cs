@@ -5,7 +5,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 {
     public interface IWishlistInfo
     {
-        WishlistId WishlistId { get; }
+        WishlistId Id { get; }
 
         Slug Slug { get; }
 

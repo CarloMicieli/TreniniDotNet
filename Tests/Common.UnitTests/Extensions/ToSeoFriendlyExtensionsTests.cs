@@ -1,7 +1,7 @@
 ﻿namespace TreniniDotNet.Common.Extensions
 {
-    using Xunit;
     using System;
+    using Xunit;
 
     public class ToSeoFriendlyExtensionsTests
     {

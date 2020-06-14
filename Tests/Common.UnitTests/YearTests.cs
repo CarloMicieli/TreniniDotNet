@@ -1,6 +1,6 @@
-﻿using Xunit;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NodaTime;
+using Xunit;
 
 namespace TreniniDotNet.Common
 {

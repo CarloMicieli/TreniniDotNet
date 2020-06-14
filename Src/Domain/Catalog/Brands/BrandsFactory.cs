@@ -121,7 +121,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             var slug = (name is null) ? brand.Slug : Slug.Of(name);
 
             return new Brand(
-                brand.BrandId,
+                brand.Id,
                 name ?? brand.Name,
                 slug,
                 companyName ?? brand.CompanyName,

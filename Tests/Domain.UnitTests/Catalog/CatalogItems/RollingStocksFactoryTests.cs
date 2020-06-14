@@ -167,7 +167,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 Control.DccReady.ToString());
 
             rs.Should().NotBeNull();
-            rs.RollingStockId.Should().Be(new RollingStockId(rollingStockId));
+            rs.Id.Should().Be(new RollingStockId(rollingStockId));
             rs.Railway.Should().Be(Fs());
             rs.Epoch.Should().Be(Epoch.III);
             rs.Category.Should().Be(Category.ElectricLocomotive);

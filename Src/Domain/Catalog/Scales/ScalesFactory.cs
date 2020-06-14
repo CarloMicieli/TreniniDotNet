@@ -1,6 +1,6 @@
-using NodaTime;
 using System;
 using System.Collections.Immutable;
+using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Common.Uuid;
@@ -79,7 +79,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             Slug slug = (name is null) ? scale.Slug : Slug.Of(name);
 
             return new Scale(
-                scale.ScaleId,
+                scale.Id,
                 name ?? scale.Name,
                 slug,
                 ratio ?? scale.Ratio,

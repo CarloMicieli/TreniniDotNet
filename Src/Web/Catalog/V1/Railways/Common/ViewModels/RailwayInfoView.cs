@@ -13,7 +13,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels
                 throw new ArgumentNullException(nameof(railway));
         }
 
-        public Guid Id => _railway.RailwayId.ToGuid();
+        public Guid Id => _railway.Id.ToGuid();
 
         public string Name => _railway.Name;
 

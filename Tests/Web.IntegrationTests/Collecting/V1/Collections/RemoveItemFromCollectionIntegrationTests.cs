@@ -55,8 +55,8 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
 
-            var id = collection.CollectionId;
-            var itemId = collection.Items.First().ItemId;
+            var id = collection.Id;
+            var itemId = collection.Items.First().Id;
 
             var response = await client.DeleteJsonAsync(
                 $"api/v1/collections/{id}/items/{itemId}",

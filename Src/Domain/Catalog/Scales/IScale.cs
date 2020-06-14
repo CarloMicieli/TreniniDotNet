@@ -1,11 +1,10 @@
 using System.Collections.Immutable;
 using NodaTime;
-using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
-    public interface IScale : IModifiableEntity, IScaleInfo
+    public interface IScale : IScaleInfo
     {
         ScaleGauge Gauge { get; }
 
@@ -15,6 +14,12 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 
         IImmutableSet<ScaleStandard> Standards { get; }
 
+        Instant CreatedDate { get; }
+
+        Instant? ModifiedDate { get; }
+
+        int Version { get; }
+
         IScaleInfo ToScaleInfo();
 
         IScale With(
@@ -22,7 +27,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             ScaleGauge? gauge = null,
             string? description = null,
             IImmutableSet<ScaleStandard>? standards = null,
-            int? weight = null) => new Scale(ScaleId,
+            int? weight = null) => new Scale(Id,
             Name,
             Slug,
             ratio ?? Ratio,

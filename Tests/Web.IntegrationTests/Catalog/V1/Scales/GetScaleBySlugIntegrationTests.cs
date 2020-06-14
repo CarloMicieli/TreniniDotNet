@@ -27,7 +27,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
             content._Links.Slug.Should().Be("h0");
             content._Links._Self.Should().Be("http://localhost/api/v1/Scales/h0");
 
-            content.Id.Should().Be(scale.ScaleId.ToGuid());
+            content.Id.Should().Be(scale.Id.ToGuid());
             content.Name.Should().Be("H0");
         }
 

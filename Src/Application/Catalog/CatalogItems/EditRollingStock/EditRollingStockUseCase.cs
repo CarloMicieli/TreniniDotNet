@@ -40,7 +40,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             }
 
             var rollingStock = catalogItem.RollingStocks
-                .FirstOrDefault(it => it.RollingStockId == input.RollingStockId);
+                .FirstOrDefault(it => it.Id == input.RollingStockId);
             if (rollingStock is null)
             {
                 OutputPort.RollingStockWasNotFound(input.Slug, input.RollingStockId);

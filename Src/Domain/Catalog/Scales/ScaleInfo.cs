@@ -13,13 +13,13 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 
         public ScaleInfo(ScaleId scaleId, Slug slug, string name, Ratio ratio)
         {
-            ScaleId = scaleId;
+            Id = scaleId;
             Slug = slug;
             Name = name;
             Ratio = ratio;
         }
 
-        public ScaleId ScaleId { get; }
+        public ScaleId Id { get; }
 
         public Slug Slug { get; }
 
@@ -27,7 +27,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 
         public Ratio Ratio { get; }
 
-        public override int GetHashCode() => ScaleId.GetHashCode();
+        public override int GetHashCode() => Id.GetHashCode();
 
         public static bool operator ==(ScaleInfo left, ScaleInfo right) => AreEquals(left, right);
 
@@ -47,7 +47,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             AreEquals(this, other);
 
         private static bool AreEquals(ScaleInfo left, ScaleInfo right) =>
-            left.ScaleId.Equals(right.ScaleId);
+            left.Id.Equals(right.Id);
 
         public IScaleInfo ToScaleInfo() => this;
     }

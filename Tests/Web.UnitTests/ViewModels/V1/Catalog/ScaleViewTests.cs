@@ -1,8 +1,8 @@
-﻿using Xunit;
-using FluentAssertions;
+﻿using FluentAssertions;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
+using Xunit;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Catalog
 {

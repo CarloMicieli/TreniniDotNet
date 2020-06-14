@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Xunit;
 using FluentAssertions;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
@@ -8,6 +7,7 @@ using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromCatalogItem
 {
@@ -44,7 +44,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
             var (useCase, outputPort, unitOfWork, dbContext) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewRemoveRollingStockFromCatalogItemUseCase);
 
             var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
-            var rsId = catalogItem.RollingStocks.First().RollingStockId;
+            var rsId = catalogItem.RollingStocks.First().Id;
 
             var input = CatalogInputs.NewRemoveRollingStockFromCatalogItemInput.With(
                 catalogItem.Slug,
@@ -59,10 +59,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
             outputPort.UseCaseOutput.Should().NotBeNull();
 
             var modifiedCatalogItem = dbContext.CatalogItems
-                .First(it => it.CatalogItemId == catalogItem.CatalogItemId);
+                .First(it => it.Id == catalogItem.Id);
 
             modifiedCatalogItem.RollingStocks
-                .All(it => it.RollingStockId != rsId)
+                .All(it => it.Id != rsId)
                 .Should().BeTrue();
         }
 

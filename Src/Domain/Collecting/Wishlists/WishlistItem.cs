@@ -1,12 +1,12 @@
-﻿using System;
-using NodaMoney;
+﻿using NodaMoney;
 using NodaTime;
+using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collecting.Wishlists
 {
-    public sealed class WishlistItem : IWishlistItem, IEquatable<WishlistItem>
+    public sealed class WishlistItem : Entity<WishlistItemId>, IWishlistItem
     {
         internal WishlistItem(
             WishlistItemId itemId,
@@ -16,8 +16,8 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
             LocalDate addedDate,
             Money? price,
             string? notes)
+            : base(itemId)
         {
-            ItemId = itemId;
             Priority = priority;
             AddedDate = addedDate;
             Price = price;
@@ -25,8 +25,6 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
             Details = details;
             Notes = notes;
         }
-
-        public WishlistItemId ItemId { get; }
 
         public Priority Priority { get; }
 
@@ -40,31 +38,6 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 
         public string? Notes { get; }
 
-        #region [ Equality ]
-
-        public override bool Equals(object obj)
-        {
-            if (obj is WishlistItem that)
-            {
-                return AreEquals(this, that);
-            }
-
-            return false;
-        }
-
-        public bool Equals(WishlistItem other) => AreEquals(this, other);
-
-        public static bool operator ==(WishlistItem left, WishlistItem right) => AreEquals(left, right);
-
-        public static bool operator !=(WishlistItem left, WishlistItem right) => !AreEquals(left, right);
-
-        private static bool AreEquals(WishlistItem left, WishlistItem right) =>
-            left.ItemId == right.ItemId;
-
-        #endregion
-
-        public override int GetHashCode() => ItemId.GetHashCode();
-
-        public override string ToString() => $"WishlistItem({ItemId}, {CatalogItem}, {Priority})";
+        public override string ToString() => $"WishlistItem({Id}, {CatalogItem}, {Priority})";
     }
 }

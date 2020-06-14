@@ -1,14 +1,14 @@
-﻿using Xunit;
-using FluentAssertions;
-using TreniniDotNet.TestHelpers.SeedData.Catalog;
-using TreniniDotNet.Domain.Catalog.Brands;
-using System;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Common;
+﻿using System;
 using System.Net.Mail;
+using FluentAssertions;
+using TreniniDotNet.Common;
 using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Web.Catalog.V1.Brands.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
+using Xunit;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Catalog
 {

@@ -1,6 +1,6 @@
-﻿using Xunit;
+﻿using FluentAssertions;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
-using FluentAssertions;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {

@@ -1,16 +1,16 @@
-﻿using Xunit;
-using FluentAssertions;
-using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Infrastructure.Database.Testing;
-using NodaTime;
-using System;
-using TreniniDotNet.Common;
+﻿using System;
 using System.Threading.Tasks;
-using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Infrastructure.Dapper;
+using FluentAssertions;
+using NodaTime;
+using TreniniDotNet.Common;
 using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Common.Uuid;
+using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 {
@@ -37,7 +37,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             Database.Assert.RowInTable(Tables.Railways)
                 .WithPrimaryKey(new
                 {
-                    railway_id = fs.RailwayId.ToGuid()
+                    railway_id = fs.Id.ToGuid()
                 })
                 .AndValues(new
                 {
@@ -63,7 +63,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             Database.Arrange.InsertOne(Tables.Railways, new
             {
-                railway_id = testRailway.RailwayId.ToGuid(),
+                railway_id = testRailway.Id.ToGuid(),
                 slug = testRailway.Slug.Value,
                 name = testRailway.Name,
                 company_name = testRailway.CompanyName,
@@ -76,7 +76,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
             Database.Assert.RowInTable(Tables.Railways)
                 .WithPrimaryKey(new
                 {
-                    railway_id = testRailway.RailwayId.ToGuid()
+                    railway_id = testRailway.Id.ToGuid()
                 })
                 .AndValues(new
                 {

@@ -1,6 +1,6 @@
-﻿using NodaTime;
+﻿using System;
+using NodaTime;
 using NodaTime.Testing;
-using System;
 using TreniniDotNet.Infrastructure.Dapper;
 using Xunit;
 

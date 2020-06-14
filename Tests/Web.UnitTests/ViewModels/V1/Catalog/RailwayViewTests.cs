@@ -1,12 +1,12 @@
-﻿using Xunit;
+﻿using System;
 using FluentAssertions;
-using TreniniDotNet.TestHelpers.SeedData.Catalog;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using System;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
+using Xunit;
 
 namespace TreniniDotNet.Web.ViewModels.V1.Catalog
 {

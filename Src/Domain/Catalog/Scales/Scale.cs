@@ -1,9 +1,7 @@
-﻿using NodaTime;
-using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
+using NodaTime;
 using TreniniDotNet.Common;
-using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 [assembly: InternalsVisibleTo("TestHelpers")]
@@ -17,9 +15,10 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     /// </summary>
     /// <seealso cref="Gauge"/>
     /// <seealso cref="Ratio"/>
-    public sealed class Scale : ModifiableEntity, IEquatable<Scale>, IScale
+    public sealed class Scale : AggregateRoot<ScaleId>, IScale
     {
-        internal Scale(ScaleId id,
+        internal Scale(
+            ScaleId id,
             string name,
             Slug slug,
             Ratio ratio,
@@ -30,9 +29,8 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             Instant created,
             Instant? modified,
             int version)
-            : base(created, modified, version)
+            : base(id, created, modified, version)
         {
-            ScaleId = id;
             Slug = slug;
             Name = name;
             Ratio = ratio;
@@ -43,9 +41,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         }
 
         #region [ Properties ]
-
-        public ScaleId ScaleId { get; }
-
         public Slug Slug { get; }
 
         public string Name { get; }
@@ -61,36 +56,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         public IImmutableSet<ScaleStandard> Standards { get; }
         #endregion
 
-        #region [ Equality ]
-        public override bool Equals(object obj)
-        {
-            if (obj is Scale that)
-            {
-                return AreEquals(this, that);
-            }
-
-            return false;
-        }
-
-        public bool Equals(Scale other) => AreEquals(this, other);
-
-        private static bool AreEquals(Scale left, Scale right)
-        {
-            if (ReferenceEquals(left, right))
-            {
-                return true;
-            }
-
-            return left.Name == right.Name;
-        }
-        #endregion
-
-        #region [ Standard methods overrides ]
         public override string ToString() => $"{Name} ({Ratio})";
-
-        public override int GetHashCode() => HashCode.Combine(Name);
-
-        #endregion
 
         public IScaleInfo ToScaleInfo() => this;
     }

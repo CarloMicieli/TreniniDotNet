@@ -1,5 +1,5 @@
-﻿using PhoneNumbers;
-using System;
+﻿using System;
+using PhoneNumbers;
 
 namespace TreniniDotNet.Common.PhoneNumbers
 {

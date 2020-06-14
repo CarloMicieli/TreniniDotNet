@@ -7,7 +7,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 {
     public interface IWishlistItem
     {
-        WishlistItemId ItemId { get; }
+        WishlistItemId Id { get; }
 
         Priority Priority { get; }
 

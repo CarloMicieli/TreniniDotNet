@@ -1,7 +1,7 @@
+using FluentAssertions;
 using TreniniDotNet.Common;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
-using FluentAssertions;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {

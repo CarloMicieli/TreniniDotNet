@@ -61,8 +61,8 @@ namespace TreniniDotNet.Application.Collecting.Collections.RemoveItemFromCollect
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
 
-            var collectionId = collection.CollectionId;
-            var itemId = collection.Items.First().ItemId;
+            var collectionId = collection.Id;
+            var itemId = collection.Items.First().Id;
 
             var input = CollectingInputs.RemoveItemFromCollection.With(
                 owner: new Owner("George"),

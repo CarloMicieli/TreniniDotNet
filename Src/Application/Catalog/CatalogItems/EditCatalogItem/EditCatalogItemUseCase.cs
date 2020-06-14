@@ -7,12 +7,12 @@ using TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.DeliveryDates;
-using static TreniniDotNet.Common.Enums.EnumHelpers;
 using TreniniDotNet.Common.UseCases;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using static TreniniDotNet.Common.Enums.EnumHelpers;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 {

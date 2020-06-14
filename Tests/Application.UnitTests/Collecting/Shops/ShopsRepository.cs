@@ -52,7 +52,7 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Shops
         }
 
         public Task<ShopId> AddAsync(IShop shop) =>
-            Task.FromResult(shop.ShopId);
+            Task.FromResult(shop.Id);
 
         public Task<IEnumerable<IShop>> GetShopsAsync(Page page)
         {

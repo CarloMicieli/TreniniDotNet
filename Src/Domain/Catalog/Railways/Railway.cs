@@ -2,13 +2,12 @@
 using System.Runtime.CompilerServices;
 using NodaTime;
 using TreniniDotNet.Common;
-using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 [assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    public sealed class Railway : ModifiableEntity, IEquatable<Railway>, IRailway
+    public sealed class Railway : AggregateRoot<RailwayId>, IRailway
     {
         internal Railway(
             RailwayId id,
@@ -23,9 +22,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             Instant created,
             Instant? modified,
             int version)
-            : base(created, modified, version)
+            : base(id, created, modified, version)
         {
-            RailwayId = id;
             Slug = slug;
             Name = name;
             CompanyName = companyName;
@@ -38,8 +36,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         }
 
         #region [ Properties ]
-        public RailwayId RailwayId { get; }
-
         public Slug Slug { get; }
 
         public string Name { get; }
@@ -50,7 +46,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public PeriodOfActivity PeriodOfActivity { get; }
 
-        public RailwayGauge? TrackGauge { get; } = null!;
+        public RailwayGauge? TrackGauge { get; }
 
         public RailwayLength? TotalLength { get; }
 
@@ -59,37 +55,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public string? Headquarters { get; }
         #endregion
 
-        #region [ Equality ]
-
-        public override bool Equals(object obj)
-        {
-            if (obj is Railway that)
-            {
-                return AreEquals(this, that);
-            }
-
-            return false;
-        }
-
-        public bool Equals(Railway that) => AreEquals(this, that);
-
-        private static bool AreEquals(Railway left, Railway right)
-        {
-            if (ReferenceEquals(left, right))
-            {
-                return true;
-            }
-            return left.Name == right.Name;
-        }
-
-        #endregion
-
-        #region [ Standard methods overrides ]
-        public override int GetHashCode() => HashCode.Combine(Name);
-
-        public override string ToString() => $"{Name}";
-
-        #endregion
+        public override string ToString() => $"Railway({Name})";
 
         public IRailwayInfo ToRailwayInfo() => this;
     }

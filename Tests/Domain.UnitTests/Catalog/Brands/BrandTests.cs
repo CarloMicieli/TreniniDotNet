@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Mail;
 using FluentAssertions;
-using Xunit;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 using static TreniniDotNet.TestHelpers.SeedData.Catalog.CatalogSeedData;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
@@ -35,7 +35,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             var info = b.ToBrandInfo();
 
             info.Should().NotBeNull();
-            info.BrandId.Should().Be(b.BrandId);
+            info.Id.Should().Be(b.Id);
             info.Slug.Should().Be(b.Slug);
             info.Name.Should().Be(b.Name);
         }
@@ -58,6 +58,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 mailAddress: new MailAddress("mail@acmetreni.com"),
                 brandKind: BrandKind.Industrial);
 
+            //(acme1 == acme2).Should().BeTrue();
             acme1.Equals(acme2).Should().BeTrue();
         }
 

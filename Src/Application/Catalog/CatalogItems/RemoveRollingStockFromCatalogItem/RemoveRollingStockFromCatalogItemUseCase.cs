@@ -26,7 +26,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
         protected override async Task Handle(RemoveRollingStockFromCatalogItemInput input)
         {
             var catalogItem = await _catalogItemService.GetBySlugAsync(input.CatalogItemSlug);
-            if (catalogItem is null || catalogItem.RollingStocks.All(it => it.RollingStockId != input.RollingStockId))
+            if (catalogItem is null || catalogItem.RollingStocks.All(it => it.Id != input.RollingStockId))
             {
                 OutputPort.RollingStockWasNotFound(input.CatalogItemSlug, input.RollingStockId);
                 return;

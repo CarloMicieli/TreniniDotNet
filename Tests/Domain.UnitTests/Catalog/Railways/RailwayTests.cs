@@ -1,6 +1,6 @@
-﻿using Xunit;
+﻿using FluentAssertions;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
-using FluentAssertions;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
@@ -12,7 +12,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             var db1 = DieBahn();
             var db2 = DieBahn();
 
-            //(db1 == db2).Should().BeTrue();
+            (db1 == db2).Should().BeTrue();
             (db1.Equals(db2)).Should().BeTrue();
         }
 
@@ -29,7 +29,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         [Fact]
         public void Railways_ShouldProduce_AStringRepresentation()
         {
-            DieBahn().ToString().Should().Be("DB");
+            DieBahn().ToString().Should().Be("Railway(DB)");
             DieBahn().ToLabel().Should().Be("DB");
         }
 

@@ -21,7 +21,7 @@ namespace TreniniDotNet.Application.Catalog.Brands
         public Task<BrandId> AddAsync(IBrand brand)
         {
             _context.Brands.Add(brand);
-            return Task.FromResult(brand.BrandId);
+            return Task.FromResult(brand.Id);
         }
 
         public Task<bool> ExistsAsync(Slug slug)
@@ -63,7 +63,7 @@ namespace TreniniDotNet.Application.Catalog.Brands
         public Task UpdateAsync(IBrand brand)
         {
             var indexOf = _context.Brands
-                .RemoveAll(it => it.BrandId == brand.BrandId);
+                .RemoveAll(it => it.Id == brand.Id);
             _context.Brands.Add(brand);
             return Task.CompletedTask;
         }

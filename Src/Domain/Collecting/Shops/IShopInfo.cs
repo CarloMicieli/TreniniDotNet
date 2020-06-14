@@ -5,7 +5,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
 {
     public interface IShopInfo
     {
-        ShopId ShopId { get; }
+        ShopId Id { get; }
 
         Slug Slug { get; }
 

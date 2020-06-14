@@ -9,7 +9,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
     {
         private ShopInfo(ShopId shopId, Slug slug, string name)
         {
-            ShopId = shopId;
+            Id = shopId;
             Slug = slug;
             Name = name;
         }
@@ -19,7 +19,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         {
         }
 
-        public ShopId ShopId { get; }
+        public ShopId Id { get; }
 
         public Slug Slug { get; }
 

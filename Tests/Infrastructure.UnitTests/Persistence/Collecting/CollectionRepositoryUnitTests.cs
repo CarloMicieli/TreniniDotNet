@@ -31,14 +31,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
         {
             this.Acme = new TestBrandInfo
             {
-                BrandId = BrandId.NewId(),
+                Id = BrandId.NewId(),
                 Slug = Slug.Of("ACME"),
                 Name = "ACME"
             };
 
             this.Fs = new TestRailwayInfo
             {
-                RailwayId = RailwayId.NewId(),
+                Id = RailwayId.NewId(),
                 Slug = Slug.Of("FS"),
                 Name = "FS",
                 Country = Country.Of("IT")
@@ -46,7 +46,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
 
             this.H0 = new TestScaleInfo
             {
-                ScaleId = ScaleId.NewId(),
+                Id = ScaleId.NewId(),
                 Name = "H0",
                 Ratio = Ratio.Of(87M),
                 Slug = Slug.Of("h0")
@@ -63,7 +63,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
 
             Database.Arrange.InsertOne(CatalogTables.Brands, new
             {
-                brand_id = Acme.BrandId.ToGuid(),
+                brand_id = Acme.Id.ToGuid(),
                 name = Acme.Name,
                 slug = Acme.Slug.ToString(),
                 kind = BrandKind.Industrial.ToString(),
@@ -72,7 +72,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
 
             Database.Arrange.InsertOne(CatalogTables.Railways, new
             {
-                railway_id = Fs.RailwayId.ToGuid(),
+                railway_id = Fs.Id.ToGuid(),
                 name = Fs.Name,
                 slug = Fs.Slug.ToString(),
                 created = DateTime.UtcNow
@@ -80,7 +80,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
 
             Database.Arrange.InsertOne(CatalogTables.Scales, new
             {
-                scale_id = H0.ScaleId.ToGuid(),
+                scale_id = H0.Id.ToGuid(),
                 name = H0.Name,
                 slug = H0.Slug.ToString(),
                 ratio = H0.Ratio.ToDecimal(),
@@ -93,8 +93,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
             Database.Arrange.Insert(CatalogTables.CatalogItems, new
             {
                 catalog_item_id = Acme_123456.CatalogItemId.ToGuid(),
-                brand_id = Acme.BrandId.ToGuid(),
-                scale_id = H0.ScaleId.ToGuid(),
+                brand_id = Acme.Id.ToGuid(),
+                scale_id = H0.Id.ToGuid(),
                 item_number = "123456",
                 slug = Acme_123456.Slug.Value,
                 power_method = PowerMethod.DC.ToString(),
@@ -108,14 +108,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
                 catalog_item_id = Acme_123456.CatalogItemId.ToGuid(),
                 category = Category.ElectricLocomotive.ToString(),
                 era = Epoch.V.ToString(),
-                railway_id = Fs.RailwayId.ToGuid()
+                railway_id = Fs.Id.ToGuid()
             });
 
             Database.Arrange.Insert(CatalogTables.CatalogItems, new
             {
                 catalog_item_id = Acme_123457.CatalogItemId.ToGuid(),
-                brand_id = Acme.BrandId.ToGuid(),
-                scale_id = H0.ScaleId.ToGuid(),
+                brand_id = Acme.Id.ToGuid(),
+                scale_id = H0.Id.ToGuid(),
                 item_number = "123457",
                 slug = Acme_123457.Slug.Value,
                 power_method = PowerMethod.DC.ToString(),
@@ -129,14 +129,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
                 catalog_item_id = Acme_123457.CatalogItemId.ToGuid(),
                 category = Category.ElectricLocomotive.ToString(),
                 era = Epoch.V.ToString(),
-                railway_id = Fs.RailwayId.ToGuid()
+                railway_id = Fs.Id.ToGuid()
             });
         }
     }
 
     internal class TestBrandInfo : IBrandInfo
     {
-        public BrandId BrandId { set; get; }
+        public BrandId Id { set; get; }
 
         public Slug Slug { set; get; }
 
@@ -145,7 +145,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
 
     internal class TestRailwayInfo : IRailwayInfo
     {
-        public RailwayId RailwayId { set; get; }
+        public RailwayId Id { set; get; }
 
         public Slug Slug { set; get; }
 
@@ -156,7 +156,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
 
     internal class TestScaleInfo : IScaleInfo
     {
-        public ScaleId ScaleId { set; get; }
+        public ScaleId Id { set; get; }
 
         public Slug Slug { set; get; }
 

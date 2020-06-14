@@ -16,7 +16,7 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
             view.Should().NotBeNull();
             view.Name.Should().Be(acme.Name);
             view.Slug.Should().Be(acme.Slug);
-            view.Id.Should().Be(acme.BrandId.ToGuid());
+            view.Id.Should().Be(acme.Id.ToGuid());
         }
     }
 }

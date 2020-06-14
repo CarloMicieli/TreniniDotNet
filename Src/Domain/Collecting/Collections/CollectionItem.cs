@@ -1,12 +1,13 @@
 ﻿using NodaMoney;
 using NodaTime;
+using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Domain.Collecting.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collecting.Collections
 {
-    public sealed class CollectionItem : ICollectionItem
+    public sealed class CollectionItem : Entity<CollectionItemId>, ICollectionItem
     {
         internal CollectionItem(
             CollectionItemId itemId,
@@ -17,8 +18,8 @@ namespace TreniniDotNet.Domain.Collecting.Collections
             IShopInfo? purchasedAt,
             LocalDate addedDate,
             string? notes)
+            : base(itemId)
         {
-            ItemId = itemId;
             CatalogItem = catalogItem;
             Details = details;
             Condition = condition;
@@ -27,8 +28,6 @@ namespace TreniniDotNet.Domain.Collecting.Collections
             AddedDate = addedDate;
             Notes = notes;
         }
-
-        public CollectionItemId ItemId { get; }
 
         public ICatalogRef CatalogItem { get; }
 

@@ -1,8 +1,8 @@
-﻿using Dapper;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using Dapper;
+using Microsoft.Extensions.Options;
 using TreniniDotNet.Infrastructure.Dapper;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using static Dapper.SqlMapper;

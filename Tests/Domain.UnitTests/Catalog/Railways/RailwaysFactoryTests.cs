@@ -1,12 +1,12 @@
-using Xunit;
-using FluentAssertions;
 using System;
-using NodaTime.Testing;
+using FluentAssertions;
 using NodaTime;
+using NodaTime.Testing;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
@@ -40,7 +40,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 new Uri("https://www.site.com"),
                 "Rome");
 
-            railway.RailwayId.Should().Be(ExpectedRailwayId);
+            railway.Id.Should().Be(ExpectedRailwayId);
             railway.Name.Should().Be("name");
             railway.Slug.Should().Be(Slug.Of("name"));
             railway.CompanyName.Should().Be("company name");
@@ -81,7 +81,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
                 ExpectedDateTime.ToDateTimeUtc(),
                 2);
 
-            railway.RailwayId.Should().Be(ExpectedRailwayId);
+            railway.Id.Should().Be(ExpectedRailwayId);
             railway.Name.Should().Be("name");
             railway.Slug.Should().Be(Slug.Of("name"));
             railway.CompanyName.Should().Be("company name");

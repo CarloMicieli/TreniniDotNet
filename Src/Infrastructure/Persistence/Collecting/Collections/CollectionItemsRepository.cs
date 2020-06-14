@@ -33,19 +33,19 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 
             var result = await connection.ExecuteAsync(InsertNewCollectionItem, new
             {
-                ItemId = newItem.ItemId.ToGuid(),
+                ItemId = newItem.Id.ToGuid(),
                 CollectionId = id.ToGuid(),
                 CatalogItemId = newItem.CatalogItem.CatalogItemId.ToGuid(),
                 CatalogItemSlug = newItem.CatalogItem.Slug.Value,
                 Condition = newItem.Condition.ToString(),
                 Price = newItem.Price.Amount,
                 Currency = newItem.Price.Currency.Code,
-                ShopId = newItem.PurchasedAt?.ShopId.ToGuid(),
+                ShopId = newItem.PurchasedAt?.Id.ToGuid(),
                 AddedDate = newItem.AddedDate.ToDateTimeUnspecified(),
                 newItem.Notes
             });
 
-            return newItem.ItemId;
+            return newItem.Id;
         }
 
         public async Task EditItemAsync(CollectionId id, ICollectionItem item)
@@ -55,12 +55,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 
             var _ = await connection.ExecuteAsync(UpdateCollectionItem, new
             {
-                ItemId = item.ItemId.ToGuid(),
+                ItemId = item.Id.ToGuid(),
                 CollectionId = id.ToGuid(),
                 Condition = item.Condition.ToString(),
                 Price = item.Price.Amount,
                 Currency = item.Price.Currency.Code,
-                ShopId = item.PurchasedAt?.ShopId.ToGuid(),
+                ShopId = item.PurchasedAt?.Id.ToGuid(),
                 AddedDate = item.AddedDate.ToDateTimeUnspecified(),
                 item.Notes
             });

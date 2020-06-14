@@ -10,7 +10,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Shops
         {
             databaseArrange.InsertOne(Tables.Shops, new
             {
-                shop_id = shop.ShopId.ToGuid(),
+                shop_id = shop.Id.ToGuid(),
                 name = shop.Name,
                 slug = shop.Slug.Value,
                 created = DateTime.UtcNow,

@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using NodaTime;
-using Xunit;
 using FluentAssertions;
-using TreniniDotNet.Infrastructure.Database.Testing;
+using NodaTime;
 using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.Infrastructure.Dapper;
-using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 {
@@ -36,7 +36,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             Database.Arrange.InsertOne(Tables.Brands, new
             {
-                brand_id = _brand.BrandId.ToGuid(),
+                brand_id = _brand.Id.ToGuid(),
                 name = _brand.Name,
                 slug = _brand.Slug.ToString(),
                 kind = _brand.Kind.ToString(),
@@ -45,7 +45,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             Database.Arrange.InsertOne(Tables.Railways, new
             {
-                railway_id = _railway.RailwayId.ToGuid(),
+                railway_id = _railway.Id.ToGuid(),
                 name = _railway.Name,
                 slug = _railway.Slug.ToString(),
                 country = _railway.Country?.Code,
@@ -54,7 +54,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             Database.Arrange.InsertOne(Tables.Scales, new
             {
-                scale_id = _scale.ScaleId.ToGuid(),
+                scale_id = _scale.Id.ToGuid(),
                 name = _scale.Name,
                 slug = _scale.Slug.ToString(),
                 ratio = _scale.Ratio.ToDecimal(),
@@ -80,7 +80,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
             var catalogItemId = await Repository.AddAsync(catalogItem);
 
-            catalogItemId.Should().Be(catalogItem.CatalogItemId);
+            catalogItemId.Should().Be(catalogItem.Id);
 
             Database.Assert.RowInTable(Tables.CatalogItems)
                 .WithPrimaryKey(new
@@ -93,7 +93,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
                 .WithPrimaryKey(new
                 {
                     catalog_item_id = catalogItemId.ToGuid(),
-                    rolling_stock_id = catalogItem.RollingStocks[0].RollingStockId.ToGuid()
+                    rolling_stock_id = catalogItem.RollingStocks[0].Id.ToGuid()
                 })
                 .ShouldExists();
         }
@@ -176,7 +176,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             Database.Assert.RowInTable(Tables.CatalogItems)
                 .WithPrimaryKey(new
                 {
-                    catalog_item_id = item.CatalogItemId.ToGuid()
+                    catalog_item_id = item.Id.ToGuid()
                 })
                 .AndValues(new
                 {
@@ -201,8 +201,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             Database.Assert.RowInTable(Tables.RollingStocks)
                 .WithPrimaryKey(new
                 {
-                    catalog_item_id = item.CatalogItemId.ToGuid(),
-                    rolling_stock_id = rollingStock.RollingStockId.ToGuid()
+                    catalog_item_id = item.Id.ToGuid(),
+                    rolling_stock_id = rollingStock.Id.ToGuid()
                 })
                 .AndValues(new
                 {
@@ -224,8 +224,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             Database.Assert.RowInTable(Tables.RollingStocks)
                 .WithPrimaryKey(new
                 {
-                    catalog_item_id = item.CatalogItemId.ToGuid(),
-                    rolling_stock_id = rollingStock.RollingStockId.ToGuid()
+                    catalog_item_id = item.Id.ToGuid(),
+                    rolling_stock_id = rollingStock.Id.ToGuid()
                 })
                 .AndValues(new
                 {
@@ -241,13 +241,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
 
             var rollingStock = item.RollingStocks.First().With(control: Control.DccSound);
 
-            await Repository.DeleteRollingStockAsync(item, item.RollingStocks.First().RollingStockId);
+            await Repository.DeleteRollingStockAsync(item, item.RollingStocks.First().Id);
 
             Database.Assert.RowInTable(Tables.RollingStocks)
                 .WithPrimaryKey(new
                 {
-                    catalog_item_id = item.CatalogItemId.ToGuid(),
-                    rolling_stock_id = rollingStock.RollingStockId.ToGuid()
+                    catalog_item_id = item.Id.ToGuid(),
+                    rolling_stock_id = rollingStock.Id.ToGuid()
                 })
                 .ShouldNotExists();
         }
@@ -260,13 +260,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             db.Setup.TruncateTable(Tables.RollingStocks);
             db.Setup.TruncateTable(Tables.CatalogItems);
 
-            var catalogItemId = catalogItem.CatalogItemId.ToGuid();
+            var catalogItemId = catalogItem.Id.ToGuid();
 
             db.Arrange.Insert(Tables.CatalogItems, new
             {
                 catalog_item_id = catalogItemId,
-                brand_id = catalogItem.Brand.BrandId.ToGuid(),
-                scale_id = catalogItem.Scale.ScaleId.ToGuid(),
+                brand_id = catalogItem.Brand.Id.ToGuid(),
+                scale_id = catalogItem.Scale.Id.ToGuid(),
                 item_number = catalogItem.ItemNumber.Value,
                 slug = catalogItem.Slug.Value,
                 power_method = catalogItem.PowerMethod.ToString(),
@@ -278,11 +278,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems
             {
                 db.Arrange.Insert(Tables.RollingStocks, new
                 {
-                    rolling_stock_id = rs.RollingStockId.ToGuid(),
+                    rolling_stock_id = rs.Id.ToGuid(),
                     catalog_item_id = catalogItemId,
                     category = rs.Category.ToString(),
                     era = rs.Epoch.ToString(),
-                    railway_id = rs.Railway.RailwayId.ToGuid()
+                    railway_id = rs.Railway.Id.ToGuid()
                 });
             }
         }

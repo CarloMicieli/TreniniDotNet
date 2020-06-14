@@ -1,5 +1,5 @@
-﻿using TreniniDotNet.Common.Extensions;
-using System;
+﻿using System;
+using TreniniDotNet.Common.Extensions;
 
 namespace TreniniDotNet.Common
 {

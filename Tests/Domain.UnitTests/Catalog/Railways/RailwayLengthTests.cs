@@ -1,6 +1,6 @@
-using Xunit;
 using FluentAssertions;
 using TreniniDotNet.Common.Lengths;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {

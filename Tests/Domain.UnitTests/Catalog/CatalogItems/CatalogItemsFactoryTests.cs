@@ -1,9 +1,8 @@
-using Xunit;
-using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using FluentAssertions;
 using NodaTime;
 using NodaTime.Testing;
 using TreniniDotNet.Common;
@@ -13,6 +12,7 @@ using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
@@ -45,7 +45,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 true);
 
             catalogItem.Should().NotBeNull();
-            catalogItem.CatalogItemId.Should().Be(ExpectedItemId);
+            catalogItem.Id.Should().Be(ExpectedItemId);
             catalogItem.Slug.Should().Be(Slug.Of("acme-60392"));
             catalogItem.ItemNumber.Should().Be(new ItemNumber("60392"));
             catalogItem.Scale.Slug.Should().Be(H0().Slug);

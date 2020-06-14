@@ -34,14 +34,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
             Database.Setup.WithoutAnyWishlist();
             Database.Arrange.WithOneWishlist(wishlist);
 
-            var newId = await Repository.AddItemAsync(wishlist.WishlistId, newItem);
+            var newId = await Repository.AddItemAsync(wishlist.Id, newItem);
 
             newId.Should().NotBeNull();
 
             Database.Assert.RowInTable(Tables.WishlistItems)
                 .WithPrimaryKey(new
                 {
-                    item_id = newItem.ItemId.ToGuid()
+                    item_id = newItem.Id.ToGuid()
                 })
                 .AndValues(new
                 {
@@ -60,12 +60,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
             Database.Setup.WithoutAnyWishlist();
             Database.Arrange.WithOneWishlist(wishlist);
 
-            await Repository.DeleteItemAsync(wishlist.WishlistId, newItem.ItemId);
+            await Repository.DeleteItemAsync(wishlist.Id, newItem.Id);
 
             Database.Assert.RowInTable(Tables.WishlistItems)
                 .WithPrimaryKey(new
                 {
-                    item_id = newItem.ItemId.ToGuid()
+                    item_id = newItem.Id.ToGuid()
                 })
                 .ShouldNotExists();
         }
@@ -85,12 +85,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
                 Price: Money.Euro(199M),
                 Notes: "Modified notes");
 
-            await Repository.EditItemAsync(wishlist.WishlistId, modified);
+            await Repository.EditItemAsync(wishlist.Id, modified);
 
             Database.Assert.RowInTable(Tables.WishlistItems)
                 .WithPrimaryKey(new
                 {
-                    item_id = newItem.ItemId.ToGuid()
+                    item_id = newItem.Id.ToGuid()
                 })
                 .AndValues(new
                 {
@@ -113,10 +113,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
             Database.Arrange.WithOneWishlist(wishlist);
 
             var itemId1 = await Repository.GetItemIdByCatalogRefAsync(
-                wishlist.WishlistId,
+                wishlist.Id,
                 CatalogRef.Of(Guid.NewGuid(), "acme-123456"));
             var itemId2 = await Repository.GetItemIdByCatalogRefAsync(
-                wishlist.WishlistId,
+                wishlist.Id,
                 CatalogRef.Of(Guid.NewGuid(), "acme-not-found"));
 
             itemId1.Should().NotBeNull();
@@ -133,7 +133,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
             Database.Setup.WithoutAnyWishlist();
             Database.Arrange.WithOneWishlist(wishlist);
 
-            var item = await Repository.GetItemByIdAsync(wishlist.WishlistId, newItem.ItemId);
+            var item = await Repository.GetItemByIdAsync(wishlist.Id, newItem.Id);
 
             item.Should().NotBeNull();
         }

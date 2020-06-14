@@ -1,9 +1,9 @@
 using System;
-using System.Threading.Tasks;
 using System.Collections.Immutable;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using System.Threading.Tasks;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {

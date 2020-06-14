@@ -27,7 +27,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
             var collection = Factory.NewCollection("George");
 
             collection.Should().NotBeNull();
-            collection.CollectionId.Should().Be(new CollectionId(new Guid("af3f666c-8f81-438f-bff6-0d32f13b7eef")));
+            collection.Id.Should().Be(new CollectionId(new Guid("af3f666c-8f81-438f-bff6-0d32f13b7eef")));
             collection.Owner.Should().Be(new Owner("George"));
             collection.CreatedDate.Should().Be(Instant.FromUtc(1988, 11, 25, 0, 0));
             collection.Version.Should().Be(1);
@@ -46,7 +46,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
                 "My Notes");
 
             collectionItem.Should().NotBeNull();
-            collectionItem.ItemId.Should().Be(new CollectionItemId(new Guid("af3f666c-8f81-438f-bff6-0d32f13b7eef")));
+            collectionItem.Id.Should().Be(new CollectionItemId(new Guid("af3f666c-8f81-438f-bff6-0d32f13b7eef")));
         }
     }
 }

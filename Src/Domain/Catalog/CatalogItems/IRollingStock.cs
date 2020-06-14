@@ -5,7 +5,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public interface IRollingStock
     {
-        RollingStockId RollingStockId { get; }
+        RollingStockId Id { get; }
 
         IRailwayInfo Railway { get; }
 
@@ -47,7 +47,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             DccInterface? dccInterface = null, Control? control = null)
         {
             return new RollingStock(
-                RollingStockId,
+                Id,
                 railway ?? Railway,
                 category ?? Category,
                 epoch ?? Epoch,

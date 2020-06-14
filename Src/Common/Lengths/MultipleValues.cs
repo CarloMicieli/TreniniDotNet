@@ -1,6 +1,6 @@
 using System;
-using TreniniDotNet.Common.Extensions;
 using System.Diagnostics.CodeAnalysis;
+using TreniniDotNet.Common.Extensions;
 
 namespace TreniniDotNet.Common.Lengths
 {

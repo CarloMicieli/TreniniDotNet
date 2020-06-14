@@ -108,7 +108,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         {
             Slug slug = (name is null) ? railway.Slug : Slug.Of(name);
             return new Railway(
-                railway.RailwayId,
+                railway.Id,
                 slug,
                 name ?? railway.Name,
                 companyName ?? railway.CompanyName,

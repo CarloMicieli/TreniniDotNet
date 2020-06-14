@@ -33,7 +33,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
+            var id = CollectionSeedData.Wishlists.George_First_List().Id;
 
             var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id}", Check.Nothing);
 
@@ -45,7 +45,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
+            var id = CollectionSeedData.Wishlists.George_First_List().Id;
 
             var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id}", Check.Nothing);
 

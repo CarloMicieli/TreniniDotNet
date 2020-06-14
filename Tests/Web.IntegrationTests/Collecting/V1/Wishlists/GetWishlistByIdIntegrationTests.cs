@@ -47,7 +47,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
+            var id = CollectionSeedData.Wishlists.George_First_List().Id;
             var response = await client.GetAsync($"/api/v1/wishlists/{id}");
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -58,7 +58,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var id = CollectionSeedData.Wishlists.George_First_List().WishlistId;
+            var id = CollectionSeedData.Wishlists.George_First_List().Id;
             var wishlist = await client.GetJsonAsync<WishlistResponse>($"/api/v1/wishlists/{id}");
 
             wishlist.Should().NotBeNull();

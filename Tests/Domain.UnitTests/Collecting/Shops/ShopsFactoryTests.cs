@@ -33,7 +33,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
                 PhoneNumber.Of("+49 5231 9807 123"));
 
             shop.Should().NotBeNull();
-            shop.ShopId.Should().Be(new ShopId(new Guid("4ea17513-409b-4bda-9ffd-54e32f0e916a")));
+            shop.Id.Should().Be(new ShopId(new Guid("4ea17513-409b-4bda-9ffd-54e32f0e916a")));
             shop.Name.Should().Be("Modellbahnshop Lippe");
             shop.PhoneNumber.Should().Be(PhoneNumber.Of("+49 5231 9807 123"));
             shop.CreatedDate.Should().Be(Instant.FromUtc(1988, 11, 25, 0, 0));

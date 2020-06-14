@@ -116,7 +116,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 deliveryDate,
                 available);
             var _ = await _catalogItemsRepository.AddAsync(catalogItem);
-            return (catalogItem.CatalogItemId, catalogItem.Slug);
+            return (catalogItem.Id, catalogItem.Slug);
         }
 
         public Task UpdateCatalogItem(ICatalogItem item,

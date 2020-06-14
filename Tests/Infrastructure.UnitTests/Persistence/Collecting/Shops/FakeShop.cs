@@ -19,7 +19,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Shops
 
         public PhoneNumber? PhoneNumber { get; set; }
 
-        public ShopId ShopId { get; set; }
+        public ShopId Id { get; set; }
 
         public Slug Slug { get; set; }
 
@@ -33,7 +33,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Shops
 
         public FakeShop()
         {
-            ShopId = new ShopId(new Guid("dcba5221-cb2b-4961-976d-c6df34c2c6db"));
+            Id = new ShopId(new Guid("dcba5221-cb2b-4961-976d-c6df34c2c6db"));
             Name = "Test Shop";
             Slug = Slug.Of("Test Shop");
 

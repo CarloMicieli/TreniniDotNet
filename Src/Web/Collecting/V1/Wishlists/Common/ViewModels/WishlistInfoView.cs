@@ -12,7 +12,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
             _inner = inner;
         }
 
-        public Guid WishlistId => _inner.WishlistId.ToGuid();
+        public Guid WishlistId => _inner.Id.ToGuid();
 
         public string Slug => _inner.Slug.Value;
 

@@ -33,7 +33,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Shops
 
             var result = await connection.ExecuteAsync(InsertShopCommand, new
             {
-                ShopId = shop.ShopId.ToGuid(),
+                ShopId = shop.Id.ToGuid(),
                 shop.Name,
                 Slug = shop.Slug.ToString(),
                 WebsiteUrl = shop.WebsiteUrl?.ToString(),
@@ -50,7 +50,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Shops
                 shop.Version
             });
 
-            return shop.ShopId;
+            return shop.Id;
         }
 
         public async Task<bool> ExistsAsync(Slug slug)

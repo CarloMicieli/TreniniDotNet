@@ -1,7 +1,7 @@
-﻿using FluentMigrator.Runner;
+﻿using System;
+using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
 using TreniniDotNet.Infrastructure.Dapper;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 

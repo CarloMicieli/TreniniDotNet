@@ -1,6 +1,6 @@
-using Xunit;
-using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using FluentAssertions;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {

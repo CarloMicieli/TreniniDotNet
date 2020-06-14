@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Net.Mail;
+using NodaTime;
 using TreniniDotNet.Common.Addresses;
-using TreniniDotNet.Common.Entities;
 using TreniniDotNet.Common.PhoneNumbers;
 
 namespace TreniniDotNet.Domain.Collecting.Shops
 {
-    public interface IShop : IShopInfo, IModifiableEntity
+    public interface IShop : IShopInfo
     {
         Uri? WebsiteUrl { get; }
 
@@ -15,5 +15,11 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         Address? Address { get; }
 
         PhoneNumber? PhoneNumber { get; }
+
+        Instant CreatedDate { get; }
+
+        Instant? ModifiedDate { get; }
+
+        int Version { get; }
     }
 }

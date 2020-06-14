@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
 using NodaTime;
 using NodaTime.Testing;
 using TreniniDotNet.Application.Services;
@@ -13,7 +14,6 @@ using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
 using static TreniniDotNet.Application.Catalog.CatalogInputs;
-using FluentAssertions;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {
@@ -156,7 +156,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             var output = outputPort.UseCaseOutput;
             output.Should().NotBeNull();
             output.Slug.Should().Be(expectedSlug);
-            output.Id.Should().Be(catalogItem.CatalogItemId);
+            output.Id.Should().Be(catalogItem.Id);
         }
 
         private CreateCatalogItemUseCase NewCreateCatalogItem(CatalogItemService catalogItemService, CreateCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)

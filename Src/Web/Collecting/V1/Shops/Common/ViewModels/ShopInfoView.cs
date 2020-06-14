@@ -12,7 +12,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels
             _shopInfo = shopInfo;
         }
 
-        public Guid ShopId => _shopInfo.ShopId.ToGuid();
+        public Guid ShopId => _shopInfo.Id.ToGuid();
 
         public string Slug => _shopInfo.Slug.Value;
 

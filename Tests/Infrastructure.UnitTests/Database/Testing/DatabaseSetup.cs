@@ -1,5 +1,5 @@
-﻿using Dapper;
-using System;
+﻿using System;
+using Dapper;
 using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Database.Testing

@@ -1,8 +1,8 @@
-using Xunit;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 {

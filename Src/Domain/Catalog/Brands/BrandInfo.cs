@@ -13,18 +13,18 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         public BrandInfo(BrandId brandId, Slug slug, string name)
         {
-            BrandId = brandId;
+            Id = brandId;
             Slug = slug;
             Name = name;
         }
 
-        public BrandId BrandId { get; }
+        public BrandId Id { get; }
 
         public Slug Slug { get; }
 
         public string Name { get; }
 
-        public override int GetHashCode() => HashCode.Combine(BrandId, Name, Slug);
+        public override int GetHashCode() => HashCode.Combine(Id, Name, Slug);
 
         #region [ Equality ]
 
@@ -48,7 +48,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             AreEquals(this, other);
 
         private static bool AreEquals(BrandInfo left, BrandInfo right) =>
-            left.BrandId.Equals(right.BrandId) &&
+            left.Id.Equals(right.Id) &&
             left.Name.Equals(right.Name) &&
             left.Slug.Equals(right.Slug);
 

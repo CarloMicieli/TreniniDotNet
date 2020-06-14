@@ -8,7 +8,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 {
     public interface ICollectionItem
     {
-        CollectionItemId ItemId { get; }
+        CollectionItemId Id { get; }
 
         ICatalogRef CatalogItem { get; }
 

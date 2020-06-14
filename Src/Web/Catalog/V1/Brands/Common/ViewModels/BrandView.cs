@@ -11,7 +11,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Brands.Common.ViewModels
         {
             Links = selfLink;
 
-            Id = b.BrandId.ToGuid();
+            Id = b.Id.ToGuid();
             Name = b.Name;
             CompanyName = b.CompanyName;
             MailAddress = b.EmailAddress?.ToString();

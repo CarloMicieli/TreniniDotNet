@@ -1,8 +1,7 @@
-﻿using Xunit;
-using FluentAssertions;
-using System;
+﻿using System;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using FluentAssertions;
 using NodaTime;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Addresses;
@@ -10,9 +9,10 @@ using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.Infrastructure.Dapper;
+using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 {
@@ -34,12 +34,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             var testBrand = FakeBrand();
             var brandId = await Repository.AddAsync(testBrand);
 
-            brandId.Should().Be(testBrand.BrandId);
+            brandId.Should().Be(testBrand.Id);
 
             Database.Assert.RowInTable(Tables.Brands)
                 .WithPrimaryKey(new
                 {
-                    brand_id = testBrand.BrandId.ToGuid()
+                    brand_id = testBrand.Id.ToGuid()
                 })
                 .WithValues(new
                 {
@@ -59,7 +59,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
 
             Database.Arrange.InsertOne(Tables.Brands, new
             {
-                brand_id = testBrand.BrandId.ToGuid(),
+                brand_id = testBrand.Id.ToGuid(),
                 name = testBrand.Name,
                 slug = testBrand.Slug.Value,
                 company_name = testBrand.CompanyName,
@@ -73,7 +73,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Brands
             Database.Assert.RowInTable(Tables.Brands)
                 .WithPrimaryKey(new
                 {
-                    brand_id = testBrand.BrandId.ToGuid()
+                    brand_id = testBrand.Id.ToGuid()
                 })
                 .AndValues(new
                 {

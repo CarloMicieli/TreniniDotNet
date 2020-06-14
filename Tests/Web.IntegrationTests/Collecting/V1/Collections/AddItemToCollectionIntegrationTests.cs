@@ -55,7 +55,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
-            var id = collection.CollectionId;
+            var id = collection.Id;
 
             var request = new
             {
@@ -77,7 +77,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
-            var id = collection.CollectionId;
+            var id = collection.Id;
 
             var request = new
             {
@@ -100,7 +100,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
             var collection = CollectionSeedData.Collections.GeorgeCollection();
-            var id = collection.CollectionId;
+            var id = collection.Id;
 
             var request = new
             {

@@ -30,7 +30,7 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Collections
 
         public Task<bool> ExistsAsync(Owner owner, CollectionId id)
         {
-            var result = _context.Collections.Any(it => it.CollectionId == id && it.Owner == owner);
+            var result = _context.Collections.Any(it => it.Id == id && it.Owner == owner);
             return Task.FromResult(result);
         }
 
@@ -53,13 +53,13 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Collections
             }
             else
             {
-                result = collection.CollectionId;
+                result = collection.Id;
             }
 
             return Task.FromResult(result);
         }
 
         public Task<CollectionId> AddAsync(ICollection collection) =>
-            Task.FromResult(collection.CollectionId);
+            Task.FromResult(collection.Id);
     }
 }

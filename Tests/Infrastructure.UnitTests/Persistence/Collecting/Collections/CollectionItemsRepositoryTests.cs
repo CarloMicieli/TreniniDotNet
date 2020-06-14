@@ -24,7 +24,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 
             Database.Arrange.InsertOne(Tables.Collections, new
             {
-                collection_id = TestCollection.CollectionId.ToGuid(),
+                collection_id = TestCollection.Id.ToGuid(),
                 owner = TestCollection.Owner.Value,
                 created = TestCollection.CreatedDate.ToDateTimeUtc(),
                 version = 1
@@ -41,24 +41,24 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 
             var item = new FakeCollectionItem();
 
-            var id = await Repository.AddItemAsync(TestCollection.CollectionId, item);
+            var id = await Repository.AddItemAsync(TestCollection.Id, item);
 
-            id.Should().Be(item.ItemId);
+            id.Should().Be(item.Id);
 
             Database.Assert.RowInTable(Tables.CollectionItems)
                 .WithPrimaryKey(new
                 {
-                    item_id = item.ItemId.ToGuid()
+                    item_id = item.Id.ToGuid()
                 })
                 .WithValues(new
                 {
-                    collection_id = TestCollection.CollectionId.ToGuid(),
+                    collection_id = TestCollection.Id.ToGuid(),
                     catalog_item_id = item.CatalogItem.CatalogItemId.ToGuid(),
                     catalog_item_slug = item.CatalogItem.Slug.Value,
                     price = item.Price.Amount,
                     currency = item.Price.Currency.Code,
                     condition = item.Condition.ToString(),
-                    shop_id = item.PurchasedAt.ShopId.ToGuid()
+                    shop_id = item.PurchasedAt.Id.ToGuid()
                 })
                 .ShouldExists();
         }
@@ -74,16 +74,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
                 Condition: Condition.PreOwned,
                 Notes: "My modified notes");
 
-            await Repository.EditItemAsync(TestCollection.CollectionId, modifiedItem);
+            await Repository.EditItemAsync(TestCollection.Id, modifiedItem);
 
             Database.Assert.RowInTable(Tables.CollectionItems)
                 .WithPrimaryKey(new
                 {
-                    item_id = item.ItemId.ToGuid()
+                    item_id = item.Id.ToGuid()
                 })
                 .WithValues(new
                 {
-                    collection_id = TestCollection.CollectionId.ToGuid(),
+                    collection_id = TestCollection.Id.ToGuid(),
                     catalog_item_id = item.CatalogItem.CatalogItemId.ToGuid(),
                     catalog_item_slug = item.CatalogItem.Slug.Value,
                     condition = modifiedItem.Condition.ToString(),
@@ -100,13 +100,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
             ArrangeDatabaseWithOneCollectionItem(item);
 
             var exists = await Repository.ItemExistsAsync(
-                TestCollection.CollectionId,
-                item.ItemId);
+                TestCollection.Id,
+                item.Id);
 
             exists.Should().BeTrue();
 
             var dontExists = await Repository.ItemExistsAsync(
-                TestCollection.CollectionId,
+                TestCollection.Id,
                 CollectionItemId.NewId());
 
             dontExists.Should().BeFalse();
@@ -122,14 +122,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
             var removed = new LocalDate(2019, 11, 25);
 
             await Repository.RemoveItemAsync(
-                TestCollection.CollectionId,
-                item.ItemId,
+                TestCollection.Id,
+                item.Id,
                 removed);
 
             Database.Assert.RowInTable(Tables.CollectionItems)
                 .WithPrimaryKey(new
                 {
-                    item_id = item.ItemId.ToGuid()
+                    item_id = item.Id.ToGuid()
                 })
                 .WithValues(new
                 {
@@ -145,10 +145,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 
             ArrangeDatabaseWithOneCollectionItem(item);
 
-            var result = await Repository.GetItemByIdAsync(TestCollection.CollectionId, item.ItemId);
+            var result = await Repository.GetItemByIdAsync(TestCollection.Id, item.Id);
 
             result.Should().NotBeNull();
-            result.ItemId.Should().Be(item.ItemId);
+            result.Id.Should().Be(item.Id);
             result.CatalogItem.Should().NotBeNull();
             result.PurchasedAt.Slug.Should().NotBeNull();
         }
@@ -160,7 +160,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 
             Database.Arrange.InsertOne(Tables.Shops, new
             {
-                shop_id = item.PurchasedAt.ShopId.ToGuid(),
+                shop_id = item.PurchasedAt.Id.ToGuid(),
                 slug = item.PurchasedAt.Slug.Value,
                 name = item.PurchasedAt.Name,
                 created = DateTime.UtcNow
@@ -168,14 +168,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Collections
 
             Database.Arrange.InsertOne(Tables.CollectionItems, new
             {
-                item_id = item.ItemId.ToGuid(),
-                collection_id = TestCollection.CollectionId.ToGuid(),
+                item_id = item.Id.ToGuid(),
+                collection_id = TestCollection.Id.ToGuid(),
                 catalog_item_id = item.CatalogItem.CatalogItemId.ToGuid(),
                 catalog_item_slug = item.CatalogItem.Slug.Value,
                 price = item.Price.Amount,
                 currency = item.Price.Currency.Code,
                 condition = item.Condition.ToString(),
-                shop_id = item.PurchasedAt.ShopId.ToGuid()
+                shop_id = item.PurchasedAt.Id.ToGuid()
             });
         }
     }

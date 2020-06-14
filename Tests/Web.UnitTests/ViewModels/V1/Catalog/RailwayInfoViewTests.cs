@@ -17,7 +17,7 @@ namespace TreniniDotNet.Web.ViewModels.V1.Catalog
             view.Should().NotBeNull();
             view.Slug.Should().Be(fs.Slug);
             view.Name.Should().Be(fs.Name);
-            view.Id.Should().Be(fs.RailwayId.ToGuid());
+            view.Id.Should().Be(fs.Id.ToGuid());
         }
     }
 }

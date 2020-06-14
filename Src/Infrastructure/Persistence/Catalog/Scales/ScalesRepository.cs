@@ -1,12 +1,12 @@
-using System.Threading.Tasks;
 using System;
-using Dapper;
 using System.Linq;
-using TreniniDotNet.Infrastructure.Dapper;
-using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using System.Threading.Tasks;
+using Dapper;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Infrastructure.Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 {
@@ -31,7 +31,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
             var result = await connection.ExecuteAsync(InsertScaleCommand, new
             {
-                scale.ScaleId,
+                ScaleId = scale.Id,
                 scale.Name,
                 scale.Slug,
                 scale.Ratio,
@@ -44,7 +44,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
                 Modified = scale.ModifiedDate?.ToDateTimeUtc(),
                 scale.Version
             });
-            return scale.ScaleId;
+            return scale.Id;
         }
 
         public async Task UpdateAsync(IScale scale)
@@ -54,7 +54,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Scales
 
             var _ = await connection.ExecuteAsync(UpdateScaleCommand, new
             {
-                scale.ScaleId,
+                ScaleId = scale.Id,
                 scale.Name,
                 scale.Slug,
                 scale.Ratio,

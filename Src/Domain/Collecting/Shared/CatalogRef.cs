@@ -17,10 +17,10 @@ namespace TreniniDotNet.Domain.Collecting.Shared
             new CatalogRef(new CatalogItemId(catalogItemId), Slug.Of(slug));
 
         public static ICatalogRef From(ICatalogItemInfo info) =>
-            new CatalogRef(info.CatalogItemId, info.Slug);
+            new CatalogRef(info.Id, info.Slug);
 
         public static ICatalogRef From(ICatalogItem info) =>
-            new CatalogRef(info.CatalogItemId, info.Slug);
+            new CatalogRef(info.Id, info.Slug);
 
         public CatalogItemId CatalogItemId { get; }
 

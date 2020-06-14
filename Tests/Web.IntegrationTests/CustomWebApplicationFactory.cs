@@ -1,17 +1,17 @@
+using System;
+using System.IO;
+using System.Linq;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
-using TreniniDotNet.IntegrationTests.Helpers.Data;
-using System.IO;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Identity;
+using TreniniDotNet.IntegrationTests.Helpers.Data;
 using TreniniDotNet.Web.UserProfiles.Identity;
 
 namespace TreniniDotNet.IntegrationTests

@@ -35,7 +35,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
 
             var result = await connection.ExecuteAsync(InsertWishlistItem, new
             {
-                ItemId = newItem.ItemId.ToGuid(),
+                ItemId = newItem.Id.ToGuid(),
                 WishlistId = id.ToGuid(),
                 CatalogItemId = newItem.CatalogItem.CatalogItemId.ToGuid(),
                 CatalogItemSlug = newItem.CatalogItem.Slug.Value,
@@ -46,7 +46,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
                 newItem.Notes
             });
 
-            return newItem.ItemId;
+            return newItem.Id;
         }
 
         public async Task DeleteItemAsync(WishlistId id, WishlistItemId itemId)
@@ -68,7 +68,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Wishlists
 
             var _ = await connection.ExecuteAsync(UpdateWishlistItem, new
             {
-                ItemId = modifiedItem.ItemId.ToGuid(),
+                ItemId = modifiedItem.Id.ToGuid(),
                 WishlistId = id.ToGuid(),
                 Priority = modifiedItem.Priority.ToString(),
                 Price = modifiedItem.Price?.Amount,

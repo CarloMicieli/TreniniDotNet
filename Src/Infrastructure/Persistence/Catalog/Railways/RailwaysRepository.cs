@@ -1,6 +1,6 @@
-using Dapper;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using TreniniDotNet.Common;
 using TreniniDotNet.Common.Pagination;
 using TreniniDotNet.Domain.Catalog.Railways;
@@ -28,7 +28,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             var result = await connection.ExecuteAsync(InsertRailwayCommand, new
             {
-                railway.RailwayId,
+                RailwayId = railway.Id,
                 railway.Name,
                 railway.CompanyName,
                 railway.Slug,
@@ -47,7 +47,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
                 Modified = railway.ModifiedDate?.ToDateTimeUtc(),
                 railway.Version
             });
-            return railway.RailwayId;
+            return railway.Id;
         }
 
         public async Task UpdateAsync(IRailway railway)
@@ -57,7 +57,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Railways
 
             var result = await connection.ExecuteAsync(UpdateRailwayCommand, new
             {
-                railway.RailwayId,
+                RailwayId = railway.Id,
                 railway.Name,
                 railway.CompanyName,
                 railway.Slug,

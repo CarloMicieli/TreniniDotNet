@@ -17,7 +17,7 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Wishlists
         }
 
         public Task<WishlistItemId> AddItemAsync(WishlistId id, IWishlistItem newItem) =>
-            Task.FromResult(newItem.ItemId);
+            Task.FromResult(newItem.Id);
 
         public Task DeleteItemAsync(WishlistId id, WishlistItemId itemId) =>
             Task.CompletedTask;
@@ -28,11 +28,11 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Wishlists
         public Task<WishlistItemId?> GetItemIdByCatalogRefAsync(WishlistId id, ICatalogRef catalogRef)
         {
             var item = _context.WishLists
-                .Where(it => it.WishlistId == id)
+                .Where(it => it.Id == id)
                 .SelectMany(it => it.Items)
                 .FirstOrDefault(it => it.CatalogItem.Slug.Equals(catalogRef.Slug));
 
-            WishlistItemId? itemId = item?.ItemId;
+            WishlistItemId? itemId = item?.Id;
 
             return Task.FromResult(itemId);
         }
@@ -40,9 +40,9 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Wishlists
         public Task<IWishlistItem> GetItemByIdAsync(WishlistId id, WishlistItemId itemId)
         {
             var result = _context.WishLists
-                .Where(it => it.WishlistId == id)
+                .Where(it => it.Id == id)
                 .SelectMany(it => it.Items)
-                .FirstOrDefault(it => it.ItemId == itemId);
+                .FirstOrDefault(it => it.Id == itemId);
             return Task.FromResult(result);
         }
     }

@@ -15,7 +15,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
             Items = collection.Items.Select(it => new CollectionItemView(it)).ToList();
         }
 
-        public Guid Id => _inner.CollectionId.ToGuid();
+        public Guid Id => _inner.Id.ToGuid();
         public string Owner => _inner.Owner.Value;
         public IEnumerable<CollectionItemView> Items { get; }
     }

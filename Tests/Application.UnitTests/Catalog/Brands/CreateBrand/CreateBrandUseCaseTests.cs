@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
 using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
 using Xunit;
 using static TreniniDotNet.Application.Catalog.CatalogInputs;
-using FluentAssertions;
 
 namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
 {
