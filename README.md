@@ -13,7 +13,7 @@ An application to manage model railway collections.
 
 ### Requirements
 
-- `.NET Core 3.1.4`
+- `.NET Core 3.1.5`
 - `Postgres SQL 12`
 
 ### Setup
