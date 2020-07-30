@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Images.Configuration
 {
-    public class ImageConfiguration  : IEntityTypeConfiguration<Image>
+    public class ImageConfiguration : IEntityTypeConfiguration<Image>
     {
         public void Configure(EntityTypeBuilder<Image> builder)
         {

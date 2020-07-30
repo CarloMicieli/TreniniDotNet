@@ -7,7 +7,7 @@ namespace TreniniDotNet.Infrastructure.HealthChecks
     {
         public static IHealthChecksBuilder AddDatabaseHealthChecks(this IHealthChecksBuilder builder)
         {
-            return builder.AddDbContextCheck<ApplicationDbContext>("DbHealthCheck");;
+            return builder.AddDbContextCheck<ApplicationDbContext>("DbHealthCheck"); ;
         }
     }
 }

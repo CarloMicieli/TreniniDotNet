@@ -86,7 +86,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
             collection1?.Items.Should().HaveCount(1);
 
             var firstItem = collection1?.Items.First();
-           // firstItem?.PurchasedAt.Should().NotBeNull();
+            // firstItem?.PurchasedAt.Should().NotBeNull();
             firstItem?.CatalogItem.Should().NotBeNull();
             firstItem?.CatalogItem.Brand.Should().NotBeNull();
             firstItem?.CatalogItem.Scale.Should().NotBeNull();

@@ -5,7 +5,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Images
 #pragma warning disable CA1819 // Properties should not return arrays
     public sealed class Image
     {
-        private Image() {}
+        private Image() { }
 
         public Image(string filename, string contentType, byte[] content)
         {
