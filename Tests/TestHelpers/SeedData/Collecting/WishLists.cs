@@ -10,50 +10,39 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collecting
 {
     public sealed class WishLists
     {
-        private readonly Wishlist _georgeList1;
-        private readonly Wishlist _rocketList1;
-
-        private readonly IList<Wishlist> _all;
-
         public WishListsBuilder New() => new WishListsBuilder();
 
-        internal WishLists()
+        public IEnumerable<Wishlist> All()
         {
-            _georgeList1 = New()
-                .Id(new Guid("a3d61748-a85e-41e8-a904-f205c99495a3"))
-                .Owner(new Owner("George"))
-                .ListName("First list")
-                .Visibility(Visibility.Private)
-                .Item(ib => ib
-                    .CatalogItem(CatalogSeedData.CatalogItems.Acme_60392())
-                    .Priority(Priority.Normal)
-                    .AddedDate(new LocalDate(2019, 11, 25))
-                    .Build())
-                .Build();
-
-            _rocketList1 = New()
-                .Id(WishlistId.NewId())
-                .Owner(new Owner("Rocket"))
-                .ListName("First list")
-                .Visibility(Visibility.Public)
-                .Item(ib => ib
-                    .CatalogItem(CatalogSeedData.CatalogItems.Acme_60392())
-                    .Priority(Priority.Normal)
-                    .AddedDate(new LocalDate(2019, 11, 25))
-                    .Build())
-                .Build();
-
-            _all = new List<Wishlist>()
-            {
-                _georgeList1,
-                _rocketList1
-            };
+            yield return GeorgeFirstList();
+            yield return RocketFirstList();
         }
 
-        public IList<Wishlist> All() => _all;
-
-        public Wishlist GeorgeFirstList() => _georgeList1;
-        public Wishlist RocketFirstList() => _rocketList1;
+        public Wishlist GeorgeFirstList() => New()
+            .Id(new Guid("a3d61748-a85e-41e8-a904-f205c99495a3"))
+            .Owner(new Owner("George"))
+            .ListName("First list")
+            .Visibility(Visibility.Private)
+            .Item(ib => ib
+                .ItemId(new Guid("2f9020b0-c97e-4ac1-9c71-00724ccb424b"))
+                .CatalogItem(CatalogSeedData.CatalogItems.Acme_60392())
+                .Priority(Priority.Normal)
+                .AddedDate(new LocalDate(2019, 11, 25))
+                .Build())
+            .Build();
+        
+        public Wishlist RocketFirstList() => New()
+            .Id(new Guid("69624d68-6c65-4c0e-9382-176b8a23eee9"))
+            .Owner(new Owner("Rocket"))
+            .ListName("First list")
+            .Visibility(Visibility.Public)
+            .Item(ib => ib
+                .ItemId(new Guid("4f3ffa76-2a4f-46a6-8fd4-6c1b18b6c49c"))
+                .CatalogItem(CatalogSeedData.CatalogItems.Acme_60392())
+                .Priority(Priority.Normal)
+                .AddedDate(new LocalDate(2019, 11, 25))
+                .Build())
+            .Build();
     }
 
     public static class WishlistsRepositoryExtensions

@@ -41,8 +41,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         public Budget? Budget { get; }
 
         private readonly List<WishlistItem> _items = new List<WishlistItem>();
-        public IReadOnlyCollection<WishlistItem> Items => _items
-            .Where(it => it.RemovedDate.HasValue == false)
+        public IReadOnlyCollection<WishlistItem> Items => ItemsEn()
             .ToImmutableList();
 
         public Slug Slug { get; }
@@ -52,7 +51,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         public Visibility Visibility { get; }
         #endregion
 
-        public int Count => _items.Count;
+        public int Count => ItemsEn().Count();
 
         public void AddItem(WishlistItem item)
         {
@@ -75,6 +74,8 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 
             _items.Remove(item);
             _items.Add(item.With(removedDate: removeDate));
+
+            var count = _items.Where(it => it.RemovedDate.HasValue == false);
         }
 
         public bool Contains(CatalogItem catalogItem) =>
@@ -124,6 +125,9 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
                 return Slug.Of(owner.Value, listName ?? "");
             }
         }
+
+        private IEnumerable<WishlistItem> ItemsEn() =>
+            _items.Where(it => it.RemovedDate.HasValue == false);
 
         public override string ToString() => $"Wishlist({Id}, {Owner}, {ListName})";
     }
