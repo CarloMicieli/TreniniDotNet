@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.InMemory.Domain;
 using TreniniDotNet.TestHelpers.SeedData.Collecting;
@@ -94,6 +95,30 @@ namespace TreniniDotNet.Domain.Collecting.Shops
 
             results.Should().NotBeNull();
             results.Results.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public async Task ShopsService_AddShopToFavouritesAsync_ShouldAddShopToFavourites()
+        {
+            var owner = new Owner("George");
+            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+
+            RepositoryMock.Setup(x => x.AddShopToFavouritesAsync(owner, shop.Id))
+                .Returns(Task.CompletedTask);
+
+            await Service.AddShopToFavouritesAsync(owner, shop.Id);
+        }
+
+        [Fact]
+        public async Task ShopsService_RemoveFromFavouritesAsync_ShouldRemoveShopToFavourites()
+        {
+            var owner = new Owner("George");
+            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+
+            RepositoryMock.Setup(x => x.RemoveFromFavouritesAsync(owner, shop.Id))
+                .Returns(Task.CompletedTask);
+
+            await Service.RemoveFromFavouritesAsync(owner, shop.Id);
         }
     }
 }

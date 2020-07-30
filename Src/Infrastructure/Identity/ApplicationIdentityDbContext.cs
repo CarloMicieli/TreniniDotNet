@@ -9,5 +9,10 @@ namespace TreniniDotNet.Infrastructure.Identity
             : base(options)
         {
         }
+
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.UseNpgsql("Host=localhost;Database=TreniniDb;Username=tdbuser;Password=tdbpass");
+        // }
     }
 }

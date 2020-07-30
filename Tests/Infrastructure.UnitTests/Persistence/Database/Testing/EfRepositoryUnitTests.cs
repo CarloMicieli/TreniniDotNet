@@ -36,13 +36,13 @@ namespace Infrastructure.UnitTests.Persistence.Database.Testing
 
         protected ApplicationDbContext NewDbContext() => new ApplicationDbContext(ContextOptions);
 
-        protected async Task<TRepository> Repository(ApplicationDbContext dbContext, Create createOption = Create.Empty)
+        protected async Task<TRepository> Repository(ApplicationDbContext dbContext, Create createOption = Create.WithEmptyDatabase)
         {
             if (createOption == Create.WithSeedData)
             {
                 await SeedDatabase(NewDbContext());
             }
-            else
+            else if (createOption == Create.WithEmptyDatabase)
             {
                 await ResetDatabase(NewDbContext());
             }
@@ -50,13 +50,13 @@ namespace Infrastructure.UnitTests.Persistence.Database.Testing
             return RepositoryBuilder(dbContext);
         }
 
-        private static async Task ResetDatabase(ApplicationDbContext dbContext)
+        protected  static async Task ResetDatabase(ApplicationDbContext dbContext)
         {
             await dbContext.Database.EnsureDeletedAsync();
             await dbContext.Database.EnsureCreatedAsync();
         }
 
-        private static async Task SeedDatabase(ApplicationDbContext dbContext)
+        protected static async Task SeedDatabase(ApplicationDbContext dbContext)
         {
             await ResetDatabase(dbContext);
 
@@ -94,7 +94,8 @@ namespace Infrastructure.UnitTests.Persistence.Database.Testing
 
     public enum Create
     {
-        Empty,
-        WithSeedData
+        WithEmptyDatabase,
+        WithSeedData,
+        WithCurrentDatabase
     }
 }

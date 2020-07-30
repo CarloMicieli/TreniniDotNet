@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.InMemory.Repository;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 
 namespace TreniniDotNet.Application.Collecting.Shops
 {
@@ -59,6 +62,33 @@ namespace TreniniDotNet.Application.Collecting.Shops
         {
             var result = Context.Shops.FirstOrDefault(it => it.Slug == slug);
             return Task.FromResult(result);
+        }
+
+        public Task AddShopToFavouritesAsync(Owner owner, ShopId shopId)
+        {
+            Context.ShopFavourites.Add(new ShopFavourite
+            {
+                Owner = owner,
+                ShopId = shopId,
+                Shop = Context.Shops.FirstOrDefault(it => it.Id == shopId)
+            });
+            return Task.CompletedTask;
+        }
+
+        public Task RemoveFromFavouritesAsync(Owner owner, ShopId shopId)
+        {
+            Context.ShopFavourites
+                .RemoveAll(it => it.Owner == owner && it.ShopId == shopId);
+            return Task.CompletedTask;
+        }
+
+        public Task<List<Shop>> GetFavouriteShopsAsync(Owner owner)
+        {
+            var results = Context.ShopFavourites
+                .Where(it => it.Owner == owner)
+                .Select(it => it.Shop)
+                .ToList();
+            return Task.FromResult(results);
         }
     }
 }

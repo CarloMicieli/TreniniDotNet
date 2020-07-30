@@ -36,7 +36,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.RemoveShopFromFavourites
 
             var owner = new Owner(input.Owner);
 
-            await _shopsService.RemoveFromFavourites(owner, shopId);
+            await _shopsService.RemoveFromFavouritesAsync(owner, shopId);
             await _unitOfWork.SaveAsync();
 
             OutputPort.Standard(new RemoveShopFromFavouritesOutput());

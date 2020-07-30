@@ -28,6 +28,8 @@ namespace TreniniDotNet.TestHelpers.InMemory.Repository
 
         public List<Shop> Shops { private set; get; } = new List<Shop>();
 
+        public List<ShopFavourite> ShopFavourites { private set; get; } = new List<ShopFavourite>();
+
         public static InMemoryContext WithSeedData()
         {
             return new InMemoryContext
@@ -38,7 +40,8 @@ namespace TreniniDotNet.TestHelpers.InMemory.Repository
                 CatalogItems = CatalogSeedData.CatalogItems.All().ToList(),
                 Collections = CollectingSeedData.Collections.All().ToList(),
                 Shops = CollectingSeedData.Shops.All().ToList(),
-                WishLists = CollectingSeedData.Wishlists.All().ToList()
+                WishLists = CollectingSeedData.Wishlists.All().ToList(),
+                ShopFavourites = CollectingSeedData.ShopsFavourites.All().ToList()
             };
         }
     }

@@ -36,7 +36,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.AddShopToFavourites
 
             var owner = new Owner(input.Owner);
 
-            await _shopsService.AddShopToFavourites(owner, shopId);
+            await _shopsService.AddShopToFavouritesAsync(owner, shopId);
             await _unitOfWork.SaveAsync();
 
             OutputPort.Standard(new AddShopToFavouritesOutput());

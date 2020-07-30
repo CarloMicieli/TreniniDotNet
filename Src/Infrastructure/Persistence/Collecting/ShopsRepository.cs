@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.SharedKernel.Slugs;
 
@@ -22,5 +25,33 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting
 #pragma warning disable 8619
             DbContext.Shops.FirstOrDefaultAsync(it => it.Slug == slug);
 #pragma warning restore 8619
+
+        public Task AddShopToFavouritesAsync(Owner owner, ShopId shopId)
+        {
+            DbContext.ShopFavourites.Add(new ShopFavourite
+            {
+                ShopId = shopId,
+                Owner = owner
+            });
+            return Task.CompletedTask;
+        }
+
+        public async Task RemoveFromFavouritesAsync(Owner owner, ShopId shopId)
+        {
+            var element = await DbContext.ShopFavourites
+                .FirstOrDefaultAsync(it => it.Owner == owner && it.ShopId == shopId);
+
+            if (element != null)
+            {
+                DbContext.ShopFavourites.Remove(element);
+            }
+        }
+
+        public Task<List<Shop>> GetFavouriteShopsAsync(Owner owner) =>
+            DbContext.ShopFavourites
+                .Include(x => x.Shop)
+                .Where(it => it.Owner == owner)
+                .Select(it => it.Shop)
+                .ToListAsync();
     }
 }

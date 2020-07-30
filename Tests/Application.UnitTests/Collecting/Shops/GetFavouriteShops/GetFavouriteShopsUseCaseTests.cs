@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using FluentAssertions;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Shops;
@@ -28,10 +29,24 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops
             outputPort.ShouldHaveValidationErrors();
         }
 
+        [Fact]
+        public async Task GetFavouriteShops_ShouldReturnTheFavouriteShops()
+        {
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
+
+            await useCase.Execute(NewGetFavouriteShopsInput.With("George"));
+
+            outputPort.ShouldHaveNoValidationError();
+            outputPort.ShouldHaveStandardOutput();
+
+            var result = outputPort.UseCaseOutput.FavouriteShops;
+            result.Should().HaveCount(1);
+        }
+
         private GetFavouriteShopsUseCase CreateUseCase(
             IGetFavouriteShopsOutputPort outputPort,
             ShopsService shopsService,
             IUnitOfWork unitOfWork) =>
-            new GetFavouriteShopsUseCase(new GetFavouriteShopsInputValidator(), outputPort);
+            new GetFavouriteShopsUseCase(new GetFavouriteShopsInputValidator(), outputPort, shopsService);
     }
 }

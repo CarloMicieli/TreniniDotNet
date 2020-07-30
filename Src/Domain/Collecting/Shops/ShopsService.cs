@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Data.Pagination;
@@ -49,14 +50,13 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         public Task<PaginatedResult<Shop>> GetAllShopsAsync(Page page) =>
             _shopsRepository.GetAllAsync(page);
 
-        public Task AddShopToFavourites(Owner owner, ShopId shopId)
-        {
-            throw new NotImplementedException();
-        }
+        public Task AddShopToFavouritesAsync(Owner owner, ShopId shopId) =>
+            _shopsRepository.AddShopToFavouritesAsync(owner, shopId);
 
-        public Task RemoveFromFavourites(Owner owner, ShopId shopId)
-        {
-            throw new NotImplementedException();
-        }
+        public Task RemoveFromFavouritesAsync(Owner owner, ShopId shopId) =>
+            _shopsRepository.RemoveFromFavouritesAsync(owner, shopId);
+
+        public Task<List<Shop>> GetFavouriteShops(Owner owner) =>
+            _shopsRepository.GetFavouriteShopsAsync(owner);
     }
 }

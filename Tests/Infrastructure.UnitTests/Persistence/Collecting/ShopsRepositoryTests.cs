@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Infrastructure.UnitTests.Persistence.Database.Testing;
 using Microsoft.EntityFrameworkCore;
+using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Infrastructure.Persistence.Collecting;
 using TreniniDotNet.SharedKernel.PhoneNumbers;
@@ -89,6 +90,55 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
 
             shop1.Should().NotBeNull();
             shop2.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task ShopsRepository_AddShopToFavouritesAsync_ShouldAddShopsToFavourites()
+        {
+            var owner = new Owner("George");
+            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+
+            await using (var context = NewDbContext())
+            {
+                var repo = await Repository(context, Create.WithSeedData);
+
+                await repo.AddShopToFavouritesAsync(owner, shop.Id);
+                await context.SaveChangesAsync();
+            }
+
+            await using (var context = NewDbContext())
+            {
+                var exists = await context.ShopFavourites
+                    .AnyAsync(it => it.Owner == owner && it.Shop.Id == shop.Id);
+                exists.Should().BeTrue();
+            }
+        }
+
+        [Fact(Skip = "DbUpdateConcurrencyException")]
+        public async Task ShopsRepository_RemoveShopFromFavouritesAsync_ShouldRemoveShopFromFavourites()
+        {
+            var owner = new Owner("George");
+            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+
+            await using (var context = NewDbContext())
+            {
+                await SeedDatabase(context);
+            }
+
+            await using (var context = NewDbContext())
+            {
+                var repo = await Repository(context, Create.WithCurrentDatabase);
+
+                await repo.RemoveFromFavouritesAsync(owner, shop.Id);
+                await context.SaveChangesAsync();
+            }
+
+            await using (var context = NewDbContext())
+            {
+                var exists = await context.ShopFavourites
+                    .AnyAsync(it => it.Owner == owner && it.Shop.Id == shop.Id);
+                exists.Should().BeFalse();
+            }
         }
 
         private static Shop TestShop()

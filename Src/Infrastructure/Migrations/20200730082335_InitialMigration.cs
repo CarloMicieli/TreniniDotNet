@@ -51,6 +51,21 @@ namespace TreniniDotNet.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "images",
+                columns: table => new
+                {
+                    filename = table.Column<string>(maxLength: 15, nullable: false),
+                    content_type = table.Column<string>(maxLength: 25, nullable: false),
+                    content = table.Column<byte[]>(nullable: false),
+                    is_deleted = table.Column<bool>(nullable: true),
+                    created = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_images", x => x.filename);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "railways",
                 columns: table => new
                 {
@@ -177,6 +192,24 @@ namespace TreniniDotNet.Infrastructure.Migrations
                         column: x => x.scale_id,
                         principalTable: "scales",
                         principalColumn: "scale_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "shop_favourites",
+                columns: table => new
+                {
+                    owner = table.Column<string>(maxLength: 50, nullable: false),
+                    shop_id = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shop_favourites", x => new { x.owner, x.shop_id });
+                    table.ForeignKey(
+                        name: "FK_shop_favourites_shops_shop_id",
+                        column: x => x.shop_id,
+                        principalTable: "shops",
+                        principalColumn: "shop_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -390,6 +423,11 @@ namespace TreniniDotNet.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_shop_favourites_shop_id",
+                table: "shop_favourites",
+                column: "shop_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_wishlist_items_catalog_item_id",
                 table: "wishlist_items",
                 column: "catalog_item_id");
@@ -417,10 +455,16 @@ namespace TreniniDotNet.Infrastructure.Migrations
                 name: "collection_items");
 
             migrationBuilder.DropTable(
+                name: "images");
+
+            migrationBuilder.DropTable(
                 name: "rolling_stocks1");
 
             migrationBuilder.DropTable(
                 name: "rolling_stocks2");
+
+            migrationBuilder.DropTable(
+                name: "shop_favourites");
 
             migrationBuilder.DropTable(
                 name: "wishlist_items");
@@ -429,10 +473,10 @@ namespace TreniniDotNet.Infrastructure.Migrations
                 name: "collections");
 
             migrationBuilder.DropTable(
-                name: "shops");
+                name: "rolling_stocks");
 
             migrationBuilder.DropTable(
-                name: "rolling_stocks");
+                name: "shops");
 
             migrationBuilder.DropTable(
                 name: "wishlists");

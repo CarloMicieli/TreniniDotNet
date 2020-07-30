@@ -583,6 +583,58 @@ namespace TreniniDotNet.Infrastructure.Migrations
                     b.ToTable("wishlist_items");
                 });
 
+            modelBuilder.Entity("TreniniDotNet.Infrastructure.Persistence.Collecting.ShopFavourite", b =>
+                {
+                    b.Property<string>("Owner")
+                        .HasColumnName("owner")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50)
+                        .IsUnicode(true);
+
+                    b.Property<Guid>("ShopId")
+                        .HasColumnName("shop_id")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Owner", "ShopId");
+
+                    b.HasIndex("ShopId");
+
+                    b.ToTable("shop_favourites");
+                });
+
+            modelBuilder.Entity("TreniniDotNet.Infrastructure.Persistence.Images.Image", b =>
+                {
+                    b.Property<string>("Filename")
+                        .HasColumnName("filename")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15)
+                        .IsUnicode(true);
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnName("content")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnName("content_type")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25)
+                        .IsUnicode(true);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnName("created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnName("is_deleted")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Filename");
+
+                    b.ToTable("images");
+                });
+
             modelBuilder.Entity("TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks.FreightCar", b =>
                 {
                     b.HasBaseType("TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks.RollingStock");
@@ -1027,6 +1079,15 @@ namespace TreniniDotNet.Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("WishlistItemId");
                         });
+                });
+
+            modelBuilder.Entity("TreniniDotNet.Infrastructure.Persistence.Collecting.ShopFavourite", b =>
+                {
+                    b.HasOne("TreniniDotNet.Domain.Collecting.Shops.Shop", "Shop")
+                        .WithMany()
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks.Locomotive", b =>
