@@ -35,7 +35,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .DeliveryDate(DeliveryDate.FourthQuarterOf(2020))
                 .Available()
                 .Locomotive(lb => lb
-                    .Id(Guid.NewGuid())
+                    .Id(new Guid("0133a009-51e2-4cc0-a459-7e5c8b83a653"))
                     .Railway(CatalogSeedData.Railways.Fs())
                     .Category(Category.ElectricLocomotive)
                     .Epoch(Epoch.IV)
@@ -63,7 +63,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .DeliveryDate(DeliveryDate.FourthQuarterOf(2020))
                 .Unavailable()
                 .Locomotive(lb => lb
-                    .Id(Guid.NewGuid())
+                    .Id(new Guid("740af440-b189-47c7-a071-a2c1d6641e66"))
                     .Railway(CatalogSeedData.Railways.Fs())
                     .Category(Category.ElectricLocomotive)
                     .Epoch(Epoch.IV)
@@ -87,7 +87,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .DeliveryDate(DeliveryDate.FirstQuarterOf(2020))
                 .Available()
                 .PassengerCar(pb => pb
-                    .Id(Guid.NewGuid())
+                    .Id(new Guid("a7552253-0cce-4af5-aa0c-61d6ef3115ad"))
                     .Railway(CatalogSeedData.Railways.Fs())
                     .Category(Category.PassengerCar)
                     .Epoch(Epoch.IV)
@@ -113,7 +113,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .DeliveryDate(DeliveryDate.FirstQuarterOf(2020))
                 .Available()
                 .Locomotive(lb => lb
-                    .Id(Guid.NewGuid())
+                    .Id(new Guid("e7a46ec3-17e6-4250-a772-b11870d94477"))
                     .Railway(CatalogSeedData.Railways.DR())
                     .Category(Category.SteamLocomotive)
                     .Epoch(Epoch.III)
@@ -138,7 +138,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .DeliveryDate(DeliveryDate.FirstQuarterOf(2020))
                 .Available()
                 .Locomotive(lb => lb
-                    .Id(Guid.NewGuid())
+                    .Id(new Guid("920e7922-b837-48ba-8384-07d615a11329"))
                     .Railway(CatalogSeedData.Railways.RhB())
                     .Category(Category.ElectricLocomotive)
                     .Epoch(Epoch.V)
@@ -162,7 +162,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .DeliveryDate(DeliveryDate.FirstQuarterOf(2020))
                 .Available()
                 .Locomotive(lb => lb
-                    .Id(Guid.NewGuid())
+                    .Id(new Guid("68f1bef3-a47b-4cf3-8c97-1dc605a264e6"))
                     .Railway(CatalogSeedData.Railways.RhB())
                     .Category(Category.ElectricLocomotive)
                     .Epoch(Epoch.V)
@@ -186,7 +186,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .DeliveryDate(DeliveryDate.SecondQuarterOf(2020))
                 .Available()
                 .Train(tb => tb
-                    .Id(Guid.NewGuid())
+                    .Id(new Guid("39789fd9-721b-4699-8358-20bb331afa19"))
                     .Railway(CatalogSeedData.Railways.DieBahn())
                     .Epoch(Epoch.IV)
                     .Category(Category.ElectricMultipleUnit)
