@@ -41,7 +41,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
 
             var owner = new Owner("not-found");
 
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
             var input = NewAddItemToCollectionInput.With(
                 owner: owner,
@@ -59,7 +59,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         {
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
             var input = NewAddItemToCollectionInput.With(
                 owner: "George",
@@ -79,7 +79,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var catalogItem = Slug.Of("acme-123456");
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
             var input = NewAddItemToCollectionInput.With(
                 owner: "George",
@@ -100,7 +100,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
             var itemId = Guid.NewGuid();
             SetNextGeneratedGuid(itemId);
 
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
             var input = NewAddItemToCollectionInput.With(
                 owner: "George",

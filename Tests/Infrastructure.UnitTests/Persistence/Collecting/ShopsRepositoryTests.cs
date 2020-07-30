@@ -50,7 +50,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task ShopsRepository_ExistsAsync_ShouldCheckShopExistenceById()
         {
-            var shopId = CollectingSeedData.Shops.TecnomodelTreni().Id;
+            var shopId = CollectingSeedData.Shops.NewTecnomodelTreni().Id;
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);
@@ -65,7 +65,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task ShopsRepository_ExistsAsync_ShouldCheckShopExistenceBySlug()
         {
-            var shopSlug = CollectingSeedData.Shops.TecnomodelTreni().Slug;
+            var shopSlug = CollectingSeedData.Shops.NewTecnomodelTreni().Slug;
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);
@@ -80,7 +80,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task ShopsRepository_GetBySlugAsync_ShouldCheckShopExistenceBySlug()
         {
-            var shopSlug = CollectingSeedData.Shops.TecnomodelTreni().Slug;
+            var shopSlug = CollectingSeedData.Shops.NewTecnomodelTreni().Slug;
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);
@@ -96,7 +96,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         public async Task ShopsRepository_AddShopToFavouritesAsync_ShouldAddShopsToFavourites()
         {
             var owner = new Owner("George");
-            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+            var shop = CollectingSeedData.Shops.NewTecnomodelTreni();
 
             await using (var context = NewDbContext())
             {
@@ -118,16 +118,11 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         public async Task ShopsRepository_RemoveShopFromFavouritesAsync_ShouldRemoveShopFromFavourites()
         {
             var owner = new Owner("George");
-            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+            var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
 
             await using (var context = NewDbContext())
             {
-                await SeedDatabase(context);
-            }
-
-            await using (var context = NewDbContext())
-            {
-                var repo = await Repository(context, Create.WithCurrentDatabase);
+                var repo = await Repository(context, Create.WithSeedData);
 
                 await repo.RemoveFromFavouritesAsync(owner, shop.Id);
                 await context.SaveChangesAsync();

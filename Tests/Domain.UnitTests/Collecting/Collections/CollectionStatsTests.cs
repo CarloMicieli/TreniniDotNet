@@ -26,7 +26,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         [Fact]
         public void CollectionStats_ShouldCalculateCollectionStatistics()
         {
-            var collection = CollectingSeedData.Collections.RocketCollection();
+            var collection = CollectingSeedData.Collections.NewRocketCollection();
 
             var stats = CollectionStats.FromCollection(collection);
 

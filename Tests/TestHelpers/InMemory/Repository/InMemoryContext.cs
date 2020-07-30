@@ -37,10 +37,10 @@ namespace TreniniDotNet.TestHelpers.InMemory.Repository
                 Brands = CatalogSeedData.Brands.All().ToList(),
                 Railways = CatalogSeedData.Railways.All().ToList(),
                 Scales = CatalogSeedData.Scales.All().ToList(),
-                CatalogItems = CatalogSeedData.CatalogItems.All().ToList(),
-                Collections = CollectingSeedData.Collections.All().ToList(),
+                CatalogItems = CatalogSeedData.CatalogItems.NewList(),
+                Collections = CollectingSeedData.Collections.NewList(),
                 Shops = CollectingSeedData.Shops.All().ToList(),
-                WishLists = CollectingSeedData.Wishlists.All().ToList(),
+                WishLists = CollectingSeedData.Wishlists.NewList(),
                 ShopFavourites = CollectingSeedData.ShopsFavourites.All().ToList()
             };
         }

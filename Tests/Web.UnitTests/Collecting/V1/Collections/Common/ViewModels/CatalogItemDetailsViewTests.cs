@@ -11,7 +11,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
         [Fact]
         public void CatalogItemDetailsView_CreateFromCatalogItemDetails()
         {
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
             var view = new CatalogItemDetailsView(catalogItem);
 
             view.ItemNumber.Should().Be("60392");

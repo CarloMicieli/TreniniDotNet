@@ -48,7 +48,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
         {
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var id = CollectingSeedData.Wishlists.GeorgeFirstList().Id;
+            var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
             await useCase.Execute(new GetWishlistByIdInput("George", id));
 
             outputPort.ShouldHaveNoValidationError();

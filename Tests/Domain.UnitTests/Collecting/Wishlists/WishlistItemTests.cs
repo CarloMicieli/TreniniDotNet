@@ -17,7 +17,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 
             var item = new WishlistItem(
                 itemId,
-                CatalogSeedData.CatalogItems.Acme_60392(),
+                CatalogSeedData.CatalogItems.NewAcme60392(),
                 Priority.High,
                 new LocalDate(2020, 11, 25),
                 null,
@@ -25,7 +25,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
                 "My notes");
 
             item.Id.Should().Be(itemId);
-            item.CatalogItem.Should().Be(CatalogSeedData.CatalogItems.Acme_60392());
+            item.CatalogItem.Should().Be(CatalogSeedData.CatalogItems.NewAcme60392());
             item.Priority.Should().Be(Priority.High);
             item.AddedDate.Should().Be(new LocalDate(2020, 11, 25));
             item.Price.Should().Be(Price.Euro(123));
@@ -35,7 +35,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public void Wishlist_With_ShouldModifyWishlistItems()
         {
-            var item = CollectingSeedData.Wishlists.GeorgeFirstList().Items.First();
+            var item = CollectingSeedData.Wishlists.NewGeorgeFirstList().Items.First();
 
             var modified = item.With(
                 price: Price.Euro(321),

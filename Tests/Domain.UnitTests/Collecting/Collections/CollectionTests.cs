@@ -34,14 +34,14 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         [Fact]
         public void Collection_Add_ShouldAddNewItems()
         {
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             var item = new CollectionItem(
                 CollectionItemId.NewId(),
-                CatalogSeedData.CatalogItems.Bemo_1252125(),
+                CatalogSeedData.CatalogItems.NewBemo1252125(),
                 Condition.New,
                 Price.Euro(210),
-                CollectingSeedData.Shops.ModellbahnshopLippe(),
+                CollectingSeedData.Shops.NewModellbahnshopLippe(),
                 new LocalDate(2020, 11, 25),
                 null,
                 null
@@ -55,7 +55,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         [Fact]
         public void Collection_UpdateItem_ShouldModifyItems()
         {
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var item = collection.Items.First();
 
             var modifiedItem = item.With(price: Price.Euro(999));
@@ -68,7 +68,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         [Fact]
         public void Collection_FindItemById_ShouldFindCollectionItemsByTheirId()
         {
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var item = collection.Items.First();
 
             var item1 = collection.FindItemById(item.Id);

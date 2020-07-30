@@ -11,16 +11,41 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
     {
         public ScalesBuilder New() => new ScalesBuilder();
 
+        public Scale H0 { get; }
+        public Scale H0m { get; }
+        public Scale H0e { get; }
+        public Scale TT { get; }
+        public Scale One { get; }
+        public Scale Zero { get; }
+        public Scale N { get; }
+        public Scale Z { get; }
+
+        public Scales()
+        {
+            #region [ Init dataset ]
+
+            H0 = ScaleH0();
+            H0m = ScaleH0m();
+            H0e = ScaleH0e();
+            TT = ScaleTT();
+            One = Scale1();
+            Zero = Scale0();
+            N = ScaleN();
+            Z = ScaleZ();
+
+            #endregion
+        }
+
         public IEnumerable<Scale> All()
         {
-            yield return ScaleH0();
-            yield return ScaleH0m();
-            yield return ScaleN();
-            yield return Scale1();
-            yield return Scale0();
-            yield return ScaleZ();
-            yield return ScaleTT();
-            yield return ScaleH0e();
+            yield return H0;
+            yield return H0m;
+            yield return H0e;
+            yield return Zero;
+            yield return One;
+            yield return TT;
+            yield return Z;
+            yield return N;
         }
 
         public Scale ScaleH0() => New()
@@ -80,13 +105,12 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             .Build();
 
         public Scale ScaleH0e() => New()
-            .Id(new Guid("b5f2f033-a947-4b86-9d9e-52d7c1903ce0"))
-            .Name("H0e")
-            .Slug(Slug.Of("H0e"))
-            .Ratio(Ratio.Of(87.0M))
-            .NarrowGauge(Length.OfMillimeters(9.0M))
-            .Build();
-
+                .Id(new Guid("b5f2f033-a947-4b86-9d9e-52d7c1903ce0"))
+                .Name("H0e")
+                .Slug(Slug.Of("H0e"))
+                .Ratio(Ratio.Of(87.0M))
+                .NarrowGauge(Length.OfMillimeters(9.0M))
+                .Build();
     }
 
     public static class ScalesRepositoryExtensions

@@ -15,7 +15,9 @@ namespace TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels
         public void RailwayView_ShouldRenderARailway_WithBasicInfo()
         {
             var expectedId = new Guid("e8d33cd3-f36b-4622-90d1-76b450e0f313");
-            var view = RailwayViewWith(id: expectedId);
+            var view = RailwayViewWith(
+                id: expectedId,
+                periodOfActivity: PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1)));
 
             view.Should().NotBeNull();
             view.Id.Should().Be(expectedId);
@@ -27,7 +29,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels
 
             view.PeriodOfActivity.Should().NotBeNull();
             view.PeriodOfActivity?.Status.Should().Be("Active");
-            view.PeriodOfActivity?.OperatingSince.Should().BeNull();
+            view.PeriodOfActivity?.OperatingSince.Should().NotBeNull();
             view.PeriodOfActivity?.OperatingUntil.Should().BeNull();
             view.TrackGauge.Should().BeNull();
             view.TotalLength.Should().BeNull();

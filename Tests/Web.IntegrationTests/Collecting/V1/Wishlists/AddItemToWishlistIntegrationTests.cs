@@ -35,7 +35,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var id = CollectingSeedData.Wishlists.GeorgeFirstList().Id;
+            var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
 
             var newItem = new
             {
@@ -56,7 +56,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;
             var catalogItem = wishlist.Items.First().CatalogItem.Slug.Value;
 
@@ -79,12 +79,12 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;
 
             var newItem = new
             {
-                CatalogItem = CatalogSeedData.CatalogItems.Bemo_1254134().Slug.Value,
+                CatalogItem = CatalogSeedData.CatalogItems.NewBemo1254134().Slug.Value,
                 AddedDate = DateTime.Now,
                 Price = 250M,
                 Priority = "High",

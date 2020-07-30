@@ -10,7 +10,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public void CatalogItemCategories_ShouldFindCategory_FromSingleRollingStockCatalogItem()
         {
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var category = CatalogItemCategories.FromCatalogItem(item);
 
@@ -20,7 +20,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public void CatalogItemCategories_ShouldFindCategory_FromMultipleRollingStockCatalogItem()
         {
-            var item = CatalogSeedData.CatalogItems.Rivarossi_HR4298();
+            var item = CatalogSeedData.CatalogItems.NewRivarossiHR4298();
 
             var category = CatalogItemCategories.FromCatalogItem(item);
 
@@ -30,7 +30,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public void CatalogItemCategories_ShouldUseUnspecifiedCategory_FromCatalogItemWithoutRollingStocks()
         {
-            var item = CatalogSeedData.CatalogItems.Acme_999999();
+            var item = CatalogSeedData.CatalogItems.NewAcme999999();
 
             var category = CatalogItemCategories.FromCatalogItem(item);
 

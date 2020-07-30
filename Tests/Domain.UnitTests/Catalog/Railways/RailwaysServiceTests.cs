@@ -34,7 +34,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         [Fact]
         public async Task RailwaysService_RailwayAlreadyExists_ShouldCheckIfRailwayExists()
         {
-            var fs = CatalogSeedData.Railways.Fs();
+            var fs = CatalogSeedData.Railways.NewFs();
             RepositoryMock.Setup(x => x.ExistsAsync(fs.Slug))
                 .ReturnsAsync(true);
 
@@ -48,7 +48,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         [Fact]
         public async Task RailwaysService_CreateRailway_ShouldCreateNewRailways()
         {
-            var fs = CatalogSeedData.Railways.Fs();
+            var fs = CatalogSeedData.Railways.NewFs();
 
             RepositoryMock.Setup(x => x.AddAsync(It.IsAny<Railway>()))
                 .ReturnsAsync(new RailwayId(ExpectedId));
@@ -69,7 +69,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         [Fact]
         public async Task RailwaysService_GetBySlug_ShouldFindRailways()
         {
-            var fs = CatalogSeedData.Railways.Fs();
+            var fs = CatalogSeedData.Railways.NewFs();
 
             RepositoryMock.Setup(x => x.GetBySlugAsync(fs.Slug))
                 .ReturnsAsync(fs);
@@ -87,7 +87,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         [Fact]
         public async Task RailwaysService_UpdateRailway_ShouldUpdateRailways()
         {
-            var fs = CatalogSeedData.Railways.Fs();
+            var fs = CatalogSeedData.Railways.NewFs();
 
             RepositoryMock.Setup(x => x.UpdateAsync(fs))
                 .Returns(Task.CompletedTask);

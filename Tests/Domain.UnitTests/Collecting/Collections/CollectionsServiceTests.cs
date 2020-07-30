@@ -45,7 +45,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         [Fact]
         public async Task CollectionsService_GetByOwnerAsync_ShouldReturnCollectionsByTheirOwner()
         {
-            var georgeCollection = CollectingSeedData.Collections.GeorgeCollection();
+            var georgeCollection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             RepositoryMock.Setup(x => x.GetByOwnerAsync(georgeCollection.Owner))
                 .ReturnsAsync(georgeCollection);
@@ -63,7 +63,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         [Fact]
         public async Task CollectionsService_GetShopBySlugAsync_ShouldReturnShopsByTheirSlug()
         {
-            var shop = CollectingSeedData.Shops.TecnomodelTreni();
+            var shop = CollectingSeedData.Shops.NewTecnomodelTreni();
 
             ShopsRepositoryMock.Setup(x => x.GetBySlugAsync(shop.Slug))
                 .ReturnsAsync(shop);
@@ -81,7 +81,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         [Fact]
         public async Task CollectionsService_GetCatalogItemAsync_ShouldReturnCatalogItemsByTheirSlug()
         {
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             CatalogItemsRepositoryMock.Setup(x => x.GetBySlugAsync(item.Slug))
                 .ReturnsAsync(item);
@@ -99,7 +99,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         [Fact]
         public async Task CollectionsService_UpdateCollectionAsync_ShouldUpdateCollections()
         {
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             await Service.UpdateCollectionAsync(collection);
         }
@@ -107,7 +107,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         [Fact]
         public async Task CollectionsService_ExistsByOwnerAsync_ShouldCheckWhetherCollectionExistForTheOwner()
         {
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             RepositoryMock.Setup(x => x.ExistsAsync(collection.Owner))
                 .ReturnsAsync(true);

@@ -56,7 +56,7 @@ namespace TreniniDotNet.Domain.Collecting.Shared
         [Fact]
         public void Owner_CanViewWishlist_WhenIsTheOwner()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var owner = wishlist.Owner;
             var richard = new Owner("richard");
 
@@ -67,7 +67,7 @@ namespace TreniniDotNet.Domain.Collecting.Shared
         [Fact]
         public void Owner_CanViewWishlist_WhenWishlistIsPublic()
         {
-            var wishlist = CollectingSeedData.Wishlists.RocketFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewRocketFirstList();
             var owner = wishlist.Owner;
             var george = new Owner("George");
 
@@ -78,7 +78,7 @@ namespace TreniniDotNet.Domain.Collecting.Shared
         [Fact]
         public void Owner_CanEditWishlist_OnlyWhenIsTheOwner()
         {
-            var wishlist = CollectingSeedData.Wishlists.RocketFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewRocketFirstList();
             var owner = wishlist.Owner;
             var george = new Owner("George");
 

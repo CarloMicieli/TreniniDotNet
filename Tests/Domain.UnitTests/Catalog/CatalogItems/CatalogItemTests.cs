@@ -24,7 +24,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         {
             var catalogItem = new CatalogItem(
                 ExpectedItemId,
-                CatalogSeedData.Brands.Acme(),
+                CatalogSeedData.Brands.NewAcme(),
                 new ItemNumber("60392"),
                 CatalogSeedData.Scales.ScaleH0(),
                 PowerMethod.DC,
@@ -43,7 +43,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             catalogItem.Slug.Should().Be(Slug.Of("acme-60392"));
             catalogItem.ItemNumber.Should().Be(new ItemNumber("60392"));
             catalogItem.Scale.Should().Be(CatalogSeedData.Scales.ScaleH0());
-            catalogItem.Brand.Should().Be(CatalogSeedData.Brands.Acme());
+            catalogItem.Brand.Should().Be(CatalogSeedData.Brands.NewAcme());
             catalogItem.Description.Should().Be("FS Locomotiva elettrica E.656.291 (terza serie). Livrea d’origine con smorzatori.");
             catalogItem.ModelDescription.Should().Be("Model desc goes here");
             catalogItem.PrototypeDescription.Should().Be("Prototype desc goes here");
@@ -58,8 +58,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public void CatalogItem_ShouldCheckForEquality()
         {
-            var item1 = CatalogSeedData.CatalogItems.Acme_60392();
-            var item2 = CatalogSeedData.CatalogItems.Rivarossi_HR4298();
+            var item1 = CatalogSeedData.CatalogItems.NewAcme60392();
+            var item2 = CatalogSeedData.CatalogItems.NewRivarossiHR4298();
 
             (item1 == item2).Should().BeFalse();
             (item1 != item2).Should().BeTrue();
@@ -69,18 +69,18 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public void CatalogItem_With_ShouldProduceNewModifiedValues()
         {
-            var modified = CatalogSeedData.CatalogItems.Acme_60458()
+            var modified = CatalogSeedData.CatalogItems.NewAcme60458()
                 .With(prototypeDescription: "modified prototype desc");
 
             modified.Should().NotBeNull();
-            modified.Should().NotBeSameAs(CatalogSeedData.CatalogItems.Acme_60458());
+            modified.Should().NotBeSameAs(CatalogSeedData.CatalogItems.NewAcme60458());
             modified.PrototypeDescription.Should().Be("modified prototype desc");
         }
 
         [Fact]
         public void CatalogItem_With_ShouldChangeTheCatalogItemSlug()
         {
-            var modified = CatalogSeedData.CatalogItems.Acme_60458()
+            var modified = CatalogSeedData.CatalogItems.NewAcme60458()
                 .With(itemNumber: new ItemNumber("123456"));
 
             modified.Should().NotBeNull();
@@ -90,21 +90,21 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public void CatalogItem_ToString_ShouldProduceStringRepresentations()
         {
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60458();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60458();
             catalogItem.ToString().Should().Be("CatalogItem(ACME 60458)");
         }
 
         [Fact]
         public void CatalogItem_Count_ShouldCountTheRollingStocks()
         {
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60458();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60458();
             catalogItem.Count.Should().Be(1);
         }
 
         [Fact]
         public void CatalogItem_Category_ShouldCalculateCategoryFromRollingStocks()
         {
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60458();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60458();
 
             catalogItem.Category.Should().Be(CatalogItemCategory.Locomotives);
         }

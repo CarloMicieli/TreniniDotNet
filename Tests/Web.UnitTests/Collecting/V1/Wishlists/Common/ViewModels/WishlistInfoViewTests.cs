@@ -9,7 +9,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
         [Fact]
         public void WishlistInfoView_ShouldRenderWishlists()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             var view = new WishlistInfoView(wishlist);
 

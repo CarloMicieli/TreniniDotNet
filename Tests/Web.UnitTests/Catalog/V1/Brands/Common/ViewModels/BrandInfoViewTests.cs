@@ -9,7 +9,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Brands.Common.ViewModels
         [Fact]
         public void BrandInfoView_ShouldCreateViewFromValues()
         {
-            var acme = CatalogSeedData.Brands.Acme();
+            var acme = CatalogSeedData.Brands.NewAcme();
             var view = new BrandInfoView(acme);
 
             view.Should().NotBeNull();

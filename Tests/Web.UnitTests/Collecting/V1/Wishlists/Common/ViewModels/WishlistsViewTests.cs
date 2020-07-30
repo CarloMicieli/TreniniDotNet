@@ -14,7 +14,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
         {
             var list = new List<Wishlist>
             {
-                CollectingSeedData.Wishlists.GeorgeFirstList()
+                CollectingSeedData.Wishlists.NewGeorgeFirstList()
             };
 
             var wishlistsView = new WishlistsView(new Owner("George"), VisibilityCriteria.All, list);

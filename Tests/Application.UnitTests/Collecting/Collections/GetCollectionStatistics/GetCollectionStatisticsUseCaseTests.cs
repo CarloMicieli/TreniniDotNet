@@ -45,8 +45,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.GetCollectionStatisti
         public async Task GetCollectionStatistics_ShouldOutputCollectionStatistics()
         {
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
+            var input = NewGetCollectionStatisticsInput.With("George");
 
-            await useCase.Execute(NewGetCollectionStatisticsInput.With("George"));
+            await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();

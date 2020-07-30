@@ -9,7 +9,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels
         [Fact]
         public void RailwayInfoView_ShouldReturnViewFromValues()
         {
-            var fs = CatalogSeedData.Railways.Fs();
+            var fs = CatalogSeedData.Railways.NewFs();
 
             var view = new RailwayInfoView(fs);
 

@@ -24,19 +24,19 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         public void CollectionItemsFactory_ShouldCreateNewCollectionItems()
         {
             var item = Factory.CreateCollectionItem(
-                CatalogSeedData.CatalogItems.Acme_60392(),
+                CatalogSeedData.CatalogItems.NewAcme60392(),
                 Condition.New,
                 Price.Euro(200),
-                CollectingSeedData.Shops.ModellbahnshopLippe(),
+                CollectingSeedData.Shops.NewModellbahnshopLippe(),
                 new LocalDate(2020, 11, 25),
                 "notes");
 
             item.Should().NotBeNull();
             item.Id.Should().Be(_expectedItemId);
-            item.CatalogItem.Should().Be(CatalogSeedData.CatalogItems.Acme_60392());
+            item.CatalogItem.Should().Be(CatalogSeedData.CatalogItems.NewAcme60392());
             item.Condition.Should().Be(Condition.New);
             item.Price.Should().Be(Price.Euro(200));
-            item.PurchasedAt.Should().Be(CollectingSeedData.Shops.ModellbahnshopLippe());
+            item.PurchasedAt.Should().Be(CollectingSeedData.Shops.NewModellbahnshopLippe());
             item.AddedDate.Should().Be(new LocalDate(2020, 11, 25));
             item.RemovedDate.Should().BeNull();
             item.Notes.Should().Be("notes");

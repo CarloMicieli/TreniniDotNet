@@ -42,7 +42,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public async Task WishlistsService_GetByIdAsync_ShouldReturnWishlistsByTheirId()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             RepositoryMock.Setup(x => x.GetByIdAsync(wishlist.Id))
                 .ReturnsAsync(wishlist);
@@ -60,7 +60,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         public async Task WishlistsService_GetWishlistsByOwnerAsync_ShouldReturnWishlistsByTheirOwners()
         {
             var criteria = VisibilityCriteria.All;
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             RepositoryMock.Setup(x => x.GetByOwnerAsync(wishlist.Owner, criteria))
                 .ReturnsAsync(new List<Wishlist> { wishlist });
@@ -91,14 +91,14 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
             RepositoryMock.Setup(x => x.UpdateAsync(It.IsAny<Wishlist>()))
                 .Returns(Task.CompletedTask);
 
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             await Service.UpdateWishlistAsync(wishlist);
         }
 
         [Fact]
         public async Task WishlistsService_DeleteWishlistAsync_ShouldDeleteWishlists()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             RepositoryMock.Setup(x => x.DeleteAsync(wishlist.Id))
                 .Returns(Task.CompletedTask);
@@ -109,7 +109,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public async Task WishlistsService_ExistsAsync_ShouldCheckWhetherWishlistExists()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             RepositoryMock.Setup(x => x.ExistsAsync(wishlist.Id))
                 .ReturnsAsync(true);
@@ -124,7 +124,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public async Task WishlistsService_ExistsAsync_ShouldCheckWhetherWishlistNameExistsForOwner()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             RepositoryMock.Setup(x => x.ExistsAsync(wishlist.Owner, wishlist.ListName))
                 .ReturnsAsync(true);
@@ -139,7 +139,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public async Task WishlistsService_GetCatalogItemAsync_ShouldFindCatalogItemsByTheirSlug()
         {
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
 
             CatalogItemsRepositoryMock.Setup(x => x.GetBySlugAsync(catalogItem.Slug))
                 .ReturnsAsync(catalogItem);

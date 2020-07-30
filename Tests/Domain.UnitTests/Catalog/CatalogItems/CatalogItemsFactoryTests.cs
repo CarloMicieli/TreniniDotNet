@@ -26,7 +26,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public void CatalogItemsFactory_ShouldCreateNewCatalogItems()
         {
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var newItem = Factory.CreateCatalogItem(
                 item.Brand,

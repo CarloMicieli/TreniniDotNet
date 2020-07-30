@@ -49,7 +49,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.GetCollectionByOwner
         {
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             await useCase.Execute(new GetCollectionByOwnerInput(collection.Id, "George"));
 

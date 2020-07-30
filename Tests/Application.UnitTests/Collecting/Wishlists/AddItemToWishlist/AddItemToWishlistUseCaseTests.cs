@@ -56,7 +56,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         {
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var id = CollectingSeedData.Wishlists.GeorgeFirstList().Id;
+            var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
             var input = NewAddItemToWishlistInput.With(
                 owner: "George",
                 id: id,
@@ -73,7 +73,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         {
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;
             var item = wishlist.Items.First();
 
@@ -93,9 +93,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         {
             var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;
-            var item = CatalogSeedData.CatalogItems.Bemo_1254134();
+            var item = CatalogSeedData.CatalogItems.NewBemo1254134();
 
             var itemId = Guid.NewGuid();
             SetNextGeneratedGuid(itemId);
