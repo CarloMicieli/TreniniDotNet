@@ -23,14 +23,12 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlistItem
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> EditWishlistItem(Guid id, Guid itemId)
+        public Task<IActionResult> EditWishlistItem(Guid id, Guid itemId, EditWishlistItemRequest request)
         {
-            var request = new EditWishlistItemRequest
-            {
-                Id = id,
-                ItemId = itemId,
-                Owner = CurrentUser
-            };
+            request.Id = id;
+            request.ItemId = itemId;
+            request.Owner = CurrentUser;
+
             return HandleRequest(request);
         }
     }
