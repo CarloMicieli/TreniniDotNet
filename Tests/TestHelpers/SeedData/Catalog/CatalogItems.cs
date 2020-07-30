@@ -9,58 +9,24 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class CatalogItems
     {
-        private readonly CatalogItem _acme_60458;
-        private readonly CatalogItem _acme_60392;
-        private readonly CatalogItem _rivarossi_HR4298;
-        private readonly CatalogItem _roco_62182;
-        private readonly CatalogItem _Bemo_1252125;
-        private readonly CatalogItem _Bemo_1254134;
-        private readonly CatalogItem _Acme_999999;
-        private readonly CatalogItem _Roco_71934;
-
-        private readonly IList<CatalogItem> _all;
-
-        internal CatalogItems()
-        {
-            _acme_60392 = Build_Acme_60392();
-            _acme_60458 = Build_Acme_60458();
-            _rivarossi_HR4298 = Build_Rivarossi_HR4298();
-            _roco_62182 = Build_Roco_62182();
-            _Bemo_1252125 = Build_Bemo_1252125();
-            _Bemo_1254134 = Build_Bemo_1254134();
-            _Acme_999999 = Build_Acme_999999();
-            _Roco_71934 = Build_Roco_71934();
-
-            _all = new List<CatalogItem>()
-            {
-                _acme_60458,
-                _acme_60392,
-                _rivarossi_HR4298,
-                _roco_62182,
-                _Bemo_1252125,
-                _Bemo_1254134,
-                _Acme_999999,
-                _Roco_71934
-            };
-        }
-
         public CatalogItemsBuilder New() => new CatalogItemsBuilder();
 
-        public IList<CatalogItem> All() => _all;
+        public IEnumerable<CatalogItem> All()
+        {
+            yield return Acme_60392();
+            yield return Acme_60458();
+            yield return Acme_999999();
+            yield return Rivarossi_HR4298();
+            yield return Bemo_1252125();
+            yield return Bemo_1254134();
+            yield return Roco_62182();
+            yield return Roco_71934();
+        }
 
-        public CatalogItem Acme_60458() => _acme_60458;
-        public CatalogItem Acme_60392() => _acme_60392;
-        public CatalogItem Rivarossi_HR4298() => _rivarossi_HR4298;
-        public CatalogItem Roco_62182() => _roco_62182;
-        public CatalogItem Bemo_1252125() => _Bemo_1252125;
-        public CatalogItem Bemo_1254134() => _Bemo_1254134;
-        public CatalogItem Acme_999999() => _Acme_999999;
-        public CatalogItem Roco_71934() => _Roco_71934;
-
-        private CatalogItem Build_Acme_60392()
+        public CatalogItem Acme_60392()
         {
             return New()
-                .Id(Guid.NewGuid())
+                .Id(new Guid("bead1309-7daa-4eb4-8e50-05a0fd525f9b"))
                 .Brand(CatalogSeedData.Brands.Acme())
                 .Scale(CatalogSeedData.Scales.ScaleH0())
                 .ItemNumber(new ItemNumber("60392"))
@@ -84,10 +50,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .Build();
         }
 
-        private CatalogItem Build_Acme_60458()
+        public CatalogItem Acme_60458()
         {
             return New()
-                .Id(Guid.NewGuid())
+                .Id(new Guid("04f06fed-d972-4aac-ac31-000889642b06"))
                 .Brand(CatalogSeedData.Brands.Acme())
                 .Scale(CatalogSeedData.Scales.ScaleH0())
                 .ItemNumber(new ItemNumber("60458"))
@@ -109,10 +75,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .Build();
         }
 
-        private CatalogItem Build_Rivarossi_HR4298()
+        public CatalogItem Rivarossi_HR4298()
         {
             return New()
-                .Id(Guid.NewGuid())
+                .Id(new Guid("f65d97a6-6dd0-46c8-a8e5-833f0f0757c6"))
                 .Brand(CatalogSeedData.Brands.Rivarossi())
                 .Scale(CatalogSeedData.Scales.ScaleH0())
                 .ItemNumber(new ItemNumber("HR4298"))
@@ -135,10 +101,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .Build();
         }
 
-        private CatalogItem Build_Roco_62182()
+        public CatalogItem Roco_62182()
         {
             return New()
-                .Id(Guid.NewGuid())
+                .Id(new Guid("c8458578-3032-416d-9d9d-9b9035a1515d"))
                 .Brand(CatalogSeedData.Brands.Roco())
                 .Scale(CatalogSeedData.Scales.ScaleH0())
                 .ItemNumber(new ItemNumber("62182"))
@@ -159,10 +125,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .Build();
         }
 
-        private CatalogItem Build_Bemo_1252125()
+        public CatalogItem Bemo_1252125()
         {
             return New()
-                .Id(Guid.NewGuid())
+                .Id(new Guid("c5b1520f-78a1-4b14-b106-bb4cf07be2d3"))
                 .Brand(CatalogSeedData.Brands.Bemo())
                 .Scale(CatalogSeedData.Scales.ScaleH0m())
                 .ItemNumber(new ItemNumber("1252125"))
@@ -184,10 +150,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .Build();
         }
 
-        private CatalogItem Build_Bemo_1254134()
+        public CatalogItem Bemo_1254134()
         {
             return New()
-                .Id(Guid.NewGuid())
+                .Id(new Guid("0df689eb-cb5a-4813-9172-d156707c3651"))
                 .Brand(CatalogSeedData.Brands.Bemo())
                 .Scale(CatalogSeedData.Scales.ScaleH0m())
                 .ItemNumber(new ItemNumber("1254134"))
@@ -208,10 +174,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .Build();
         }
 
-        private CatalogItem Build_Roco_71934()
+        public CatalogItem Roco_71934()
         {
             return New()
-                .Id(Guid.NewGuid())
+                .Id(new Guid("b0da1567-157b-4f8d-9200-d79539720958"))
                 .Brand(CatalogSeedData.Brands.Roco())
                 .Scale(CatalogSeedData.Scales.ScaleH0())
                 .ItemNumber(new ItemNumber("71934"))
@@ -232,10 +198,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
                 .Build();
         }
 
-        private CatalogItem Build_Acme_999999()
+        public CatalogItem Acme_999999()
         {
             return New()
-                .Id(Guid.NewGuid())
+                .Id(new Guid("6dd6d484-2bc5-4a5d-8719-3b473ab7e471"))
                 .Brand(CatalogSeedData.Brands.Acme())
                 .Scale(CatalogSeedData.Scales.ScaleH0())
                 .ItemNumber(new ItemNumber("999999"))
