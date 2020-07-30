@@ -1,4 +1,5 @@
-﻿using TreniniDotNet.Application.Collecting.Shops.AddShopToFavourites;
+﻿using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Collecting.Shops.AddShopToFavourites;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
@@ -8,12 +9,12 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.AddShopToFavourites
     {
         public override void Standard(AddShopToFavouritesOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new OkResult();
         }
 
         public void ShopNotFound(ShopId shopId)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new { ShopId = shopId });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops;
+﻿using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
 namespace TreniniDotNet.Web.Collecting.V1.Shops.GetFavouriteShops
@@ -7,7 +8,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.GetFavouriteShops
     {
         public override void Standard(GetFavouriteShopsOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new OkResult();
         }
     }
 }
