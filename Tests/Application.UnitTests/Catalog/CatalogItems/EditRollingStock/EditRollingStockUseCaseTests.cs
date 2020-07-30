@@ -44,7 +44,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         {
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var input = NewEditRollingStockInput.With(
                 catalogItem.Slug,
@@ -60,7 +60,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         {
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var input = NewEditRollingStockInput.With(
                 catalogItem.Slug,
@@ -77,7 +77,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         {
             var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
             var rsId = catalogItem.RollingStocks.First().Id;
 
             var input = NewEditRollingStockInput.With(
@@ -96,10 +96,6 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 
             var modifiedCatalogItem = dbContext.CatalogItems
                 .First(it => it.Id == catalogItem.Id);
-
-            // modifiedCatalogItem.RollingStocks
-            //     .Any(it => it.Id == rsId && it.Prototype!.RoadNumber == "Modified")
-            //     .Should().BeTrue();
         }
 
         private EditRollingStockUseCase CreateUseCase(

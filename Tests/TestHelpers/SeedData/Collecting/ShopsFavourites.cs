@@ -14,7 +14,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collecting
                 new ShopFavourite()
                 {
                     Owner = new Owner("George"),
-                    ShopId = shops.ModellbahnshopLippe().Id
+                    ShopId = shops.NewModellbahnshopLippe().Id
                 }
             };
         }

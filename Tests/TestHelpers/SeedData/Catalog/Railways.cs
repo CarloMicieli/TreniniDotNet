@@ -11,18 +11,41 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
     {
         public RailwaysBuilder New() => new RailwaysBuilder();
 
-        public IEnumerable<Railway> All()
+        public Railway Fs { get; }
+        public Railway Sbb { get; }
+        public Railway DieBahn { get; }
+        public Railway Sncb { get; }
+        public Railway Sncf { get; }
+        public Railway RhB { get; }
+        public Railway Dr { get; }
+
+        internal Railways()
         {
-            yield return Fs();
-            yield return Sbb();
-            yield return DieBahn();
-            yield return Sncb();
-            yield return Sncf();
-            yield return RhB();
-            yield return DR();
+            #region [ Init dataset ]
+
+            Fs = NewFs();
+            Sbb = NewSbb();
+            DieBahn = NewDieBahn();
+            Sncb = NewSncb();
+            Sncf = NewSncf();
+            RhB = NewRhB();
+            Dr = NewDr();
+
+            #endregion
         }
 
-        public Railway Fs() => New()
+        public IEnumerable<Railway> All()
+        {
+            yield return Fs;
+            yield return Sbb;
+            yield return DieBahn;
+            yield return Sncb;
+            yield return Sncf;
+            yield return RhB;
+            yield return Dr;
+        }
+
+        public Railway NewFs() => New()
             .Id(new Guid("e8d33cd3-f36b-4622-90d1-76b450e0f313"))
             .Name("FS")
             .CompanyName("Ferrovie dello stato")
@@ -30,42 +53,42 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             .PeriodOfActivity(PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1)))
             .Build();
 
-        public Railway Sbb() => New()
+        public Railway NewSbb() => New()
             .Id(new Guid("1c44e65f-bb53-4f14-a368-23daa5bfee05"))
             .Name("SBB")
             .CompanyName("Schweizerische Bundesbahnen")
             .Country(Country.Of("CH"))
             .Build();
 
-        public Railway DieBahn() => New()
+        public Railway NewDieBahn() => New()
             .Id(new Guid("f12a3c5b-21f0-4d96-baf0-7bbf67e85e93"))
             .Name("DB")
             .CompanyName("Die Bahn AG")
             .Country(Country.Of("DE"))
             .Build();
 
-        public Railway Sncb() => New()
+        public Railway NewSncb() => New()
             .Id(new Guid("452ecf0f-0999-443d-a333-7afc23542d38"))
             .Name("SNCB")
             .CompanyName("Société Nationale des Chemins de fer belges")
             .Country(Country.Of("BE"))
             .Build();
 
-        public Railway Sncf() => New()
+        public Railway NewSncf() => New()
             .Id(new Guid("5cbccdd5-826d-4dc8-a0ff-d80572d43ac5"))
             .Name("SNCF")
             .CompanyName("Société Nationale des Chemins de fer Français")
             .Country(Country.Of("FR"))
             .Build();
 
-        public Railway RhB() => New()
+        public Railway NewRhB() => New()
             .Id(new Guid("fa307786-00a9-4257-9274-76f7a0c06fab"))
             .Name("RhB")
             .CompanyName("Rhätische Bahn / Viafier retica")
             .Country(Country.Of("CH"))
             .Build();
 
-        public Railway DR() => New()
+        public Railway NewDr() => New()
             .Id(new Guid("93a911d8-0422-41b0-80a4-9f4650f1e8b4"))
             .Name("DR")
             .CompanyName("Deutsche Reichsbahn (East Germany)")

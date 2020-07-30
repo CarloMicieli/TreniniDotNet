@@ -12,7 +12,20 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collecting
     {
         public ShopsBuilder New() => new ShopsBuilder();
 
-        public Shop ModellbahnshopLippe() => New()
+        public Shop ModellbahnshopLippe { get; }
+        public Shop TecnomodelTreni { get; }
+
+        internal Shops()
+        {
+            #region [ Init dataset ]
+
+            ModellbahnshopLippe = NewModellbahnshopLippe();
+            TecnomodelTreni = NewTecnomodelTreni();
+
+            #endregion
+        }
+
+        public Shop NewModellbahnshopLippe() => New()
             .Id(new Guid("2b62520d-b559-4c38-bf5e-3de49bef327a"))
             .Name("Modellbahnshop Lippe")
             .WebsiteUrl(new Uri("https://www.modellbahnshop-lippe.com"))
@@ -22,7 +35,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collecting
             .PhoneNumber(PhoneNumber.Of("+49 5231 9807 123"))
             .Build();
 
-        public Shop TecnomodelTreni() => New()
+        public Shop NewTecnomodelTreni() => New()
             .Id(new Guid("7675cba2-023a-42ef-b7fd-a16cda375c58"))
             .Name("Tecnomodel")
             .WebsiteUrl(new Uri("https://www.tecnomodel-treni.it"))
@@ -33,8 +46,8 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collecting
 
         public IEnumerable<Shop> All()
         {
-            yield return ModellbahnshopLippe();
-            yield return TecnomodelTreni();
+            yield return ModellbahnshopLippe;
+            yield return TecnomodelTreni;
         }
     }
 

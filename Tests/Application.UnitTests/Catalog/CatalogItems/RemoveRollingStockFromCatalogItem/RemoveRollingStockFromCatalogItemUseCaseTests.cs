@@ -44,7 +44,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
         {
             var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
             var rsId = catalogItem.RollingStocks.First().Id;
 
             var input = NewRemoveRollingStockFromCatalogItemInput.With(

@@ -61,7 +61,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var georgeCollection = CollectingSeedData.Collections.GeorgeCollection();
+            var georgeCollection = CollectingSeedData.Collections.NewGeorgeCollection();
             var itemId = Guid.NewGuid();
 
             var request = new
@@ -84,7 +84,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var georgeCollection = CollectingSeedData.Collections.GeorgeCollection();
+            var georgeCollection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             var item = georgeCollection.Items.First();
 

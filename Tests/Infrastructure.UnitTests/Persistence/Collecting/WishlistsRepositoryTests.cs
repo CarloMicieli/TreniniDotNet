@@ -20,7 +20,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task WishlistsRepository_GetByIdAsync_ReturnsWishlistsByTheirId()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);
@@ -45,7 +45,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task WishlistsRepository_GetByOwnerAsync_ReturnsWishlistsByTheirOwner()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);
@@ -89,7 +89,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task WishlistsRepository_ExistsAsync_ShouldCheckWishlistWithGiveIdAlreadyExists()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);

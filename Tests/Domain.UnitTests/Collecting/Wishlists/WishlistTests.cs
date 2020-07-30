@@ -43,11 +43,11 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public void Wishlist_AddItem_ShouldAddNewItems()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             var item = new WishlistItem(
                 WishlistItemId.NewId(),
-                CatalogSeedData.CatalogItems.Acme_60392(),
+                CatalogSeedData.CatalogItems.NewAcme60392(),
                 Priority.High,
                 new LocalDate(2020, 11, 25),
                 null,
@@ -62,7 +62,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public void Wishlist_RemoveItem_ShouldRemoveItems()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var item = wishlist.Items.First();
 
             wishlist.RemoveItem(item.Id, new LocalDate(2020, 11, 25));
@@ -73,10 +73,10 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public void Wishlist_Contains_ShouldCheckIfContainsCatalogItem()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             var contains1 = wishlist.Contains(wishlist.Items.First().CatalogItem);
-            var contains2 = wishlist.Contains(CatalogSeedData.CatalogItems.Bemo_1252125());
+            var contains2 = wishlist.Contains(CatalogSeedData.CatalogItems.NewBemo1252125());
 
             contains1.Should().BeTrue();
             contains2.Should().BeFalse();
@@ -85,7 +85,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public void Wishlist_Count_ShouldCountTheItems()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             var count = wishlist.Count;
 
@@ -95,7 +95,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public void Wishlist_With_ShouldModifyWishlist()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             var modified = wishlist.With(
                 listName: "modified list name",
@@ -109,7 +109,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         [Fact]
         public void Wishlist_FindItemById_ShouldSearchItemsById()
         {
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var itemId = wishlist.Items.First().Id;
 
             var item1 = wishlist.FindItemById(wishlist.Items.First().Id);

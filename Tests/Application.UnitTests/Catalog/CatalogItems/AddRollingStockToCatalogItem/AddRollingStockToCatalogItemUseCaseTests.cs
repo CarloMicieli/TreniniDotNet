@@ -49,7 +49,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalo
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = NewAddRollingStockToCatalogItemInput.With(
-                CatalogSeedData.CatalogItems.Acme_60392().Slug,
+                CatalogSeedData.CatalogItems.NewAcme60392().Slug,
                 NewRollingStockInput.With(
                     epoch: "IV",
                     railway: "not found",
@@ -66,7 +66,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalo
         {
             var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
             var input = NewAddRollingStockToCatalogItemInput.With(
                 catalogItem.Slug,
                 NewRollingStockInput.With(

@@ -67,7 +67,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         [Fact]
         public void Brand_With_ShouldProduceAModifiedNewValue()
         {
-            var modifiedAcme = CatalogSeedData.Brands.Acme()
+            var modifiedAcme = CatalogSeedData.Brands.NewAcme()
                 .With(groupName: "Modified ACME Group");
             modifiedAcme.Should().NotBeNull();
             modifiedAcme.GroupName.Should().Be("Modified ACME Group");

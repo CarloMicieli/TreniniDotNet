@@ -53,7 +53,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             var id = collection.Id;
             var itemId = collection.Items.First().Id;

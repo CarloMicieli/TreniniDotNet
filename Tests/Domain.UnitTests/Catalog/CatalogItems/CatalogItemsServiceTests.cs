@@ -48,7 +48,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemsService_GetBySlugAsync_ShouldFindCatalogItemBySlug()
         {
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             RepositoryMock.Setup(x => x.GetBySlugAsync(item.Slug))
                 .ReturnsAsync(item);
@@ -65,7 +65,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemsService_FindRailwayBySlug_ShouldFindRailwayBySlug()
         {
-            var fs = CatalogSeedData.Railways.Fs();
+            var fs = CatalogSeedData.Railways.NewFs();
 
             RailwaysRepositoryMock.Setup(x => x.GetBySlugAsync(fs.Slug))
                 .ReturnsAsync(fs);
@@ -82,7 +82,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemsService_FindBrandBySlug_ShouldFindBrandBySlug()
         {
-            var acme = CatalogSeedData.Brands.Acme();
+            var acme = CatalogSeedData.Brands.NewAcme();
 
             BrandsRepositoryMock.Setup(x => x.GetBySlugAsync(acme.Slug))
                 .ReturnsAsync(acme);
@@ -99,7 +99,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemsService_ItemAlreadyExists_ShouldCheckIfCatalogItemAlreadyExists()
         {
-            var acme = CatalogSeedData.Brands.Acme();
+            var acme = CatalogSeedData.Brands.NewAcme();
             var itemNumber = new ItemNumber("123456");
 
             RepositoryMock.Setup(x => x.ExistsAsync(acme, itemNumber))
@@ -132,8 +132,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemsService_FindRailwaysBySlug_ShouldFindMultipleRailwaysBySlug()
         {
-            var fs = CatalogSeedData.Railways.Fs();
-            var db = CatalogSeedData.Railways.DieBahn();
+            var fs = CatalogSeedData.Railways.NewFs();
+            var db = CatalogSeedData.Railways.NewDieBahn();
 
             RailwaysRepositoryMock.Setup(x => x.GetBySlugAsync(fs.Slug))
                 .ReturnsAsync(fs);
@@ -151,7 +151,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemsService_CreateCatalogItem_ShouldCreateNewCatalogItem()
         {
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             RepositoryMock.Setup(x => x.AddAsync(It.IsAny<CatalogItem>()))
                 .ReturnsAsync(new CatalogItemId(ExpectedId));
@@ -175,7 +175,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         [Fact]
         public async Task CatalogItemsService_UpdateCatalogItem_ShouldModifyCatalogItems()
         {
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             RepositoryMock.Setup(x => x.UpdateAsync(It.IsAny<CatalogItem>()))
                 .Returns(Task.CompletedTask);

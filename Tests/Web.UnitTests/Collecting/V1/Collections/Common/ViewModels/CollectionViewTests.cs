@@ -46,7 +46,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
                     .CatalogItem(CatalogSeedData.CatalogItems.New()
                         .Id(new Guid("d9af16b6-20bf-45ea-b44c-5ffcf6524018"))
                         .ItemNumber(new ItemNumber("123456"))
-                        .Brand(CatalogSeedData.Brands.Acme())
+                        .Brand(CatalogSeedData.Brands.NewAcme())
                         .Build())
                     .AddedDate(new LocalDate(2019, 11, 25))
                     .Notes("Some random notes")

@@ -37,7 +37,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         [Fact]
         public async Task ShopsService_ExistsAsync_ShouldCheckWhetherShopExists()
         {
-            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+            var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
 
             RepositoryMock.Setup(x => x.ExistsAsync(shop.Slug))
                 .ReturnsAsync(true);
@@ -68,7 +68,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         [Fact]
         public async Task ShopsService_GetBySlugAsync_ShouldReturnShopsByTheirSlug()
         {
-            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+            var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
 
             RepositoryMock.Setup(x => x.GetBySlugAsync(shop.Slug))
                 .ReturnsAsync(shop);
@@ -101,7 +101,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         public async Task ShopsService_AddShopToFavouritesAsync_ShouldAddShopToFavourites()
         {
             var owner = new Owner("George");
-            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+            var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
 
             RepositoryMock.Setup(x => x.AddShopToFavouritesAsync(owner, shop.Id))
                 .Returns(Task.CompletedTask);
@@ -113,7 +113,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         public async Task ShopsService_RemoveFromFavouritesAsync_ShouldRemoveShopToFavourites()
         {
             var owner = new Owner("George");
-            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+            var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
 
             RepositoryMock.Setup(x => x.RemoveFromFavouritesAsync(owner, shop.Id))
                 .Returns(Task.CompletedTask);

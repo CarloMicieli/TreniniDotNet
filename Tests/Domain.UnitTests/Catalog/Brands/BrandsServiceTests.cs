@@ -39,7 +39,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
                 .ReturnsAsync(new BrandId(ExpectedId))
                 .Callback<Brand>(b => { brand = b; });
 
-            var acme = CatalogSeedData.Brands.Acme();
+            var acme = CatalogSeedData.Brands.NewAcme();
 
             var brandId = await Service.CreateBrand(
                 acme.Name,
@@ -82,7 +82,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         [Fact]
         public async Task BrandsService_GetBrandBySlug_ShouldReturnABrandByItsSlug()
         {
-            var acme = CatalogSeedData.Brands.Acme();
+            var acme = CatalogSeedData.Brands.NewAcme();
 
             RepositoryMock.Setup(x => x.GetBySlugAsync(acme.Slug))
                 .ReturnsAsync(acme);
@@ -99,7 +99,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         [Fact]
         public async Task BrandsService_UpdateBrand_ShouldUpdateBrandValues()
         {
-            var acme = CatalogSeedData.Brands.Acme();
+            var acme = CatalogSeedData.Brands.NewAcme();
             Brand argument = null;
 
             RepositoryMock.Setup(x => x.UpdateAsync(It.IsAny<Brand>()))

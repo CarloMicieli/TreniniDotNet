@@ -61,7 +61,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
-            outputPort.AssertCatalogItemAlreadyExists(CatalogSeedData.Brands.Acme(), new ItemNumber("60458"));
+            outputPort.AssertCatalogItemAlreadyExists(CatalogSeedData.Brands.NewAcme(), new ItemNumber("60458"));
         }
 
         [Fact]

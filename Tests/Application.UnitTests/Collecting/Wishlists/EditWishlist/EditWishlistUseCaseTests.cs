@@ -47,7 +47,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlist
         public async Task EditWishlist_ShouldReturnError_WhenOwnerCannotEditTheWishlist()
         {
             var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
-            var id = CollectingSeedData.Wishlists.GeorgeFirstList().Id;
+            var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
 
             var input = NewEditWishlistInput.With(
                 id,
@@ -63,7 +63,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlist
         public async Task EditWishlist_ShouldEditWishlists()
         {
             var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             var input = NewEditWishlistInput.With(
                 wishlist.Id,

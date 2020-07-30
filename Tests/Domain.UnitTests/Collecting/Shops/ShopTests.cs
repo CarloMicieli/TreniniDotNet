@@ -47,8 +47,8 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         [Fact]
         public void Shop_ShouldCheckForEquality()
         {
-            var shop1 = CollectingSeedData.Shops.TecnomodelTreni();
-            var shop2 = CollectingSeedData.Shops.TecnomodelTreni();
+            var shop1 = CollectingSeedData.Shops.NewTecnomodelTreni();
+            var shop2 = CollectingSeedData.Shops.NewTecnomodelTreni();
 
             (shop1 == shop2).Should().BeTrue();
             (shop1 != shop2).Should().BeFalse();
@@ -58,8 +58,8 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         [Fact]
         public void Shop_ShouldCheckForInequality()
         {
-            var shop1 = CollectingSeedData.Shops.TecnomodelTreni();
-            var shop2 = CollectingSeedData.Shops.ModellbahnshopLippe();
+            var shop1 = CollectingSeedData.Shops.NewTecnomodelTreni();
+            var shop2 = CollectingSeedData.Shops.NewModellbahnshopLippe();
 
             (shop1 == shop2).Should().BeFalse();
             (shop1 != shop2).Should().BeTrue();

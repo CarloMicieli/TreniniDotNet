@@ -50,7 +50,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         {
             var client = await CreateAuthorizedHttpClientAsync();
 
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var itemSlug = item.Slug.Value;
             var id = item.RollingStocks.First().Id;
@@ -70,7 +70,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         {
             var client = await CreateAuthorizedHttpClientAsync();
 
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var itemSlug = item.Slug.Value;
             var id = item.RollingStocks.First().Id;
@@ -91,7 +91,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         {
             var client = await CreateAuthorizedHttpClientAsync();
 
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var itemSlug = item.Slug.Value;
             var id = item.RollingStocks.First().Id;

@@ -12,7 +12,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
         [Fact]
         public void CatalogItemView_Should_RenderPassengerCarViews()
         {
-            var passengerCar = CatalogSeedData.CatalogItems.Rivarossi_HR4298();
+            var passengerCar = CatalogSeedData.CatalogItems.NewRivarossiHR4298();
 
             var view = new CatalogItemView(passengerCar, new LinksView());
 
@@ -34,7 +34,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
         [Fact]
         public void CatalogItemView_Should_RenderLocomotiveViews()
         {
-            var locomotive = CatalogSeedData.CatalogItems.Acme_60392();
+            var locomotive = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var view = new CatalogItemView(locomotive, new LinksView());
 
@@ -57,7 +57,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
         [Fact]
         public void CatalogItemView_Should_RenderCatalogItemViews()
         {
-            var catItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catItem = CatalogSeedData.CatalogItems.NewAcme60392();
             var view = new CatalogItemView(catItem, new LinksView());
 
             view.Should().NotBeNull();

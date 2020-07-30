@@ -56,7 +56,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.RemoveItemFromCollect
         {
             var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             var collectionId = collection.Id;
             var itemId = collection.Items.First().Id;

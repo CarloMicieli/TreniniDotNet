@@ -11,7 +11,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 
         public LocomotiveTests()
         {
-            Locomotive = CatalogSeedData.CatalogItems.Acme_60392().RollingStocks.First() as Locomotive;
+            Locomotive = CatalogSeedData.CatalogItems.NewAcme60392().RollingStocks.First() as Locomotive;
         }
 
         [Fact]

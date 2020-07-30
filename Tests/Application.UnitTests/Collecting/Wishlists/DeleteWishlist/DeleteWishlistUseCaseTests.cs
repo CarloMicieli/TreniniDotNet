@@ -51,7 +51,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
         {
             var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var input = NewDeleteWishlistInput.With(
                 owner: "George",
                 id: wishlist.Id);

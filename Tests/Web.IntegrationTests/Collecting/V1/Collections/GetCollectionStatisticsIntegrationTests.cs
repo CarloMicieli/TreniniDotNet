@@ -49,7 +49,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var id = CollectingSeedData.Collections.GeorgeCollection().Id;
+            var id = CollectingSeedData.Collections.NewGeorgeCollection().Id;
 
             var response = await client.GetAsync($"api/v1/collections/{id}/statistics");
 
@@ -61,7 +61,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var id = CollectingSeedData.Collections.GeorgeCollection().Id;
+            var id = CollectingSeedData.Collections.NewGeorgeCollection().Id;
 
             var statistics = await client.GetJsonAsync<CollectionStatisticsResponse>($"api/v1/collections/{id}/statistics");
 

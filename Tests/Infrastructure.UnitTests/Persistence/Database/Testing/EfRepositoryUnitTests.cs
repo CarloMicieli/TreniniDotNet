@@ -50,7 +50,7 @@ namespace Infrastructure.UnitTests.Persistence.Database.Testing
             return RepositoryBuilder(dbContext);
         }
 
-        protected  static async Task ResetDatabase(ApplicationDbContext dbContext)
+        protected static async Task ResetDatabase(ApplicationDbContext dbContext)
         {
             await dbContext.Database.EnsureDeletedAsync();
             await dbContext.Database.EnsureCreatedAsync();

@@ -55,7 +55,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
         {
             var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var item = wishlist.Items.First();
 
             var input = NewEditWishlistItemInput.With(

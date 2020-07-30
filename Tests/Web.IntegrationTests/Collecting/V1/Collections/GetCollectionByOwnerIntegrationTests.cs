@@ -47,7 +47,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var id = CollectingSeedData.Collections.GeorgeCollection().Id;
+            var id = CollectingSeedData.Collections.NewGeorgeCollection().Id;
 
             var collection = await client.GetJsonAsync<CollectionResponse>($"api/v1/collections/{id}");
 

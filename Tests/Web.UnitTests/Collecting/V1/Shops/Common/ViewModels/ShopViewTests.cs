@@ -9,7 +9,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels
         [Fact]
         public void ShopView_ShouldRenderShops()
         {
-            var shop = CollectingSeedData.Shops.TecnomodelTreni();
+            var shop = CollectingSeedData.Shops.NewTecnomodelTreni();
 
             var view = new ShopView(shop);
 

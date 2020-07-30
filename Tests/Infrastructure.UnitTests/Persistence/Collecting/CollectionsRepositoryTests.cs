@@ -21,7 +21,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task CollectionsRepository_AddAsync_ShouldInsertNewCollections()
         {
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             await using (var context = NewDbContext())
             {
@@ -43,7 +43,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task CollectionsRepository_ExistsAsync_ShouldCheckCollectionExistenceById()
         {
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);
@@ -58,7 +58,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task CollectionsRepository_ExistsAsync_ShouldCheckCollectionExistenceByOwner()
         {
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);
@@ -73,7 +73,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task CollectionsRepository_GetByIdAsync_ReturnsCollectionsByTheirId()
         {
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);
@@ -99,7 +99,7 @@ namespace Infrastructure.UnitTests.Persistence.Collecting
         [Fact]
         public async Task CollectionsRepository_GetByOwnerAsync_ReturnsCollectionsByTheirId()
         {
-            var collection = CollectingSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);

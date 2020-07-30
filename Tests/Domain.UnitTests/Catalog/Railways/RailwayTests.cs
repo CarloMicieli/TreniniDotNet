@@ -58,11 +58,11 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         [Fact]
         public void Railway_With_ShouldModifyRailwayValues()
         {
-            var modifiedFs = CatalogSeedData.Railways.Fs()
+            var modifiedFs = CatalogSeedData.Railways.NewFs()
                 .With(companyName: "FS 2");
 
             modifiedFs.Should().NotBeNull();
-            modifiedFs.Should().NotBeSameAs(CatalogSeedData.Railways.Fs());
+            modifiedFs.Should().NotBeSameAs(CatalogSeedData.Railways.NewFs());
             modifiedFs.CompanyName.Should().Be("FS 2");
         }
     }

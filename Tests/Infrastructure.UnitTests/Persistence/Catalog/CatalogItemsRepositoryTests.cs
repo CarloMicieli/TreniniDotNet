@@ -21,7 +21,7 @@ namespace Infrastructure.UnitTests.Persistence.Catalog
         [Fact]
         public async Task CatalogItemsRepository_AddAsync_ShouldCreateNewCatalogItems()
         {
-            var testItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var testItem = CatalogSeedData.CatalogItems.NewAcme60392();
 
             await using (var context = NewDbContext())
             {
@@ -45,7 +45,7 @@ namespace Infrastructure.UnitTests.Persistence.Catalog
         [Fact]
         public async Task CatalogItemsRepository_GetBySlugAsync_ShouldFindOneCatalogItemBySlug()
         {
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);
@@ -68,8 +68,8 @@ namespace Infrastructure.UnitTests.Persistence.Catalog
             await using var context = NewDbContext();
             var repo = await Repository(context, Create.WithSeedData);
 
-            var found1 = await repo.ExistsAsync(CatalogSeedData.Brands.Acme(), new ItemNumber("60392"));
-            var found2 = await repo.ExistsAsync(CatalogSeedData.Brands.Acme(), new ItemNumber("12345"));
+            var found1 = await repo.ExistsAsync(CatalogSeedData.Brands.NewAcme(), new ItemNumber("60392"));
+            var found2 = await repo.ExistsAsync(CatalogSeedData.Brands.NewAcme(), new ItemNumber("12345"));
 
             found1.Should().BeTrue();
             found2.Should().BeFalse();

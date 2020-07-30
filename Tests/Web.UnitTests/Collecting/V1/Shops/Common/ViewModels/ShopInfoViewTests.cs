@@ -9,7 +9,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels
         [Fact]
         public void ShopInfoView_ShouldRenderShops()
         {
-            var shop = CollectingSeedData.Shops.ModellbahnshopLippe();
+            var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
 
             var view = new ShopInfoView(shop);
 
