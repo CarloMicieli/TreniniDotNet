@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using TreniniDotNet.Application.Catalog.Brands.CreateBrand;
 using TreniniDotNet.Common.Domain;
@@ -15,7 +17,7 @@ namespace TreniniDotNet.Web.Infrastructure.DependencyInjection
             services.RegisterByType(typeof(BrandsService).Assembly, typeof(IFactory<,>));
             services.RegisterByType(typeof(CreateBrandUseCase).Assembly, typeof(IUseCase<>));
             services.RegisterByType(typeof(CreateBrandInputValidator).Assembly, typeof(IUseCaseInputValidator<>));
-
+            
             return services;
         }
     }

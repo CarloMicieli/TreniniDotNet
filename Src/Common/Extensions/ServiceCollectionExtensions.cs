@@ -22,7 +22,9 @@ namespace TreniniDotNet.Common.Extensions
                 .ToList()
                 .ForEach(assignedTypes =>
                 {
-                    var serviceType = assignedTypes.GetInterfaces().First(i => i.GetGenericTypeDefinition() == type);
+                    var serviceType = assignedTypes.GetInterfaces()
+                        .Where(i => i.IsGenericType)
+                        .First(i => i.GetGenericTypeDefinition() == type);
                     services.AddScoped(serviceType, assignedTypes);
                 });
 
