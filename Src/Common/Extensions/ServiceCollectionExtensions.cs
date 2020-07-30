@@ -12,7 +12,8 @@ namespace TreniniDotNet.Common.Extensions
 
         public static IServiceCollection RegisterByType(this IServiceCollection services,
             Assembly assembly,
-            Type type)
+            Type type,
+            bool registerInterface = true)
         {
             assembly
                 .GetTypes()
@@ -25,7 +26,15 @@ namespace TreniniDotNet.Common.Extensions
                     var serviceType = assignedTypes.GetInterfaces()
                         .Where(i => i.IsGenericType)
                         .First(i => i.GetGenericTypeDefinition() == type);
-                    services.AddScoped(serviceType, assignedTypes);
+
+                    if (registerInterface)
+                    {
+                        services.AddScoped(serviceType, assignedTypes);
+                    }
+                    else
+                    {
+                        services.AddScoped(assignedTypes);
+                    }
                 });
 
             return services;

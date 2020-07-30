@@ -14,10 +14,27 @@ namespace TreniniDotNet.Web.Infrastructure.DependencyInjection
     {
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
-            services.RegisterByType(typeof(BrandsService).Assembly, typeof(IFactory<,>));
-            services.RegisterByType(typeof(CreateBrandUseCase).Assembly, typeof(IUseCase<>));
+            services.RegisterByType(typeof(BrandsService).Assembly, typeof(IFactory<,>), false);
+            services.RegisterByType(typeof(CreateBrandUseCase).Assembly, typeof(IUseCase<>), false);
             services.RegisterByType(typeof(CreateBrandInputValidator).Assembly, typeof(IUseCaseInputValidator<>));
+
+            services.RegisterDomainServices(typeof(BrandsService).Assembly);
             
+            return services;
+        }
+
+        public static IServiceCollection RegisterDomainServices(this IServiceCollection services, Assembly assembly)
+        {
+            var domainServices = assembly.GetTypes()
+                .Where(it => !it.IsAbstract && !it.IsInterface)
+                .Where(it => it.GetInterfaces().Any(i => i == typeof(IDomainService)))
+                .ToList();
+
+            foreach (var domainService in domainServices)
+            {
+                services.AddScoped(domainService);
+            }
+
             return services;
         }
     }

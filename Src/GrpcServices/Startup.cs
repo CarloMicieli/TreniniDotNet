@@ -45,6 +45,7 @@ namespace TreniniDotNet.GrpcServices
             services.AddCatalogUseCases();
             services.AddCatalogServices();
             services.AddCatalogPresenters();
+            services.AddUseCaseInputValidators();
 
             services.AddGrpc(options =>
             {
