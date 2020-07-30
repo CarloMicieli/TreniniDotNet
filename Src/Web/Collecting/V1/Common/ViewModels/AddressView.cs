@@ -1,4 +1,4 @@
-﻿using TreniniDotNet.Common.Addresses;
+﻿using TreniniDotNet.SharedKernel.Addresses;
 
 namespace TreniniDotNet.Web.Collecting.V1.Common.ViewModels
 {

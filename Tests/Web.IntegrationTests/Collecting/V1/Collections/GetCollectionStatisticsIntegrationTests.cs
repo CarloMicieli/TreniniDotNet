@@ -5,7 +5,7 @@ using FluentAssertions;
 using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Collecting.V1.Collections.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -49,7 +49,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var id = CollectionSeedData.Collections.GeorgeCollection().Id;
+            var id = CollectingSeedData.Collections.GeorgeCollection().Id;
 
             var response = await client.GetAsync($"api/v1/collections/{id}/statistics");
 
@@ -61,12 +61,12 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var id = CollectionSeedData.Collections.GeorgeCollection().Id;
+            var id = CollectingSeedData.Collections.GeorgeCollection().Id;
 
             var statistics = await client.GetJsonAsync<CollectionStatisticsResponse>($"api/v1/collections/{id}/statistics");
 
             statistics.Should().NotBeNull();
-            statistics.Id.Should().Be(id.ToGuid());
+            statistics.Id.Should().Be(id);
             statistics.Owner.Should().Be("George");
         }
     }

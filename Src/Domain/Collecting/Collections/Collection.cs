@@ -1,28 +1,54 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using NodaTime;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Domain;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collecting.Collections
 {
-    public sealed class Collection : AggregateRoot<CollectionId>, ICollection
+    public sealed class Collection : AggregateRoot<CollectionId>
     {
-        internal Collection(
+        private Collection() { }
+
+        public Collection(
             CollectionId collectionId,
             Owner owner,
-            IImmutableList<ICollectionItem> items,
+            string? notes,
+            IEnumerable<CollectionItem> items,
             Instant createdDate,
             Instant? modifiedDate,
             int version)
             : base(collectionId, createdDate, modifiedDate, version)
         {
             Owner = owner;
-            Items = items;
+            Notes = notes;
+            _items = items.ToList();
         }
 
         public Owner Owner { get; }
+        public string? Notes { get; }
 
-        public IImmutableList<ICollectionItem> Items { get; }
+        private readonly List<CollectionItem> _items = new List<CollectionItem>();
+        public IReadOnlyCollection<CollectionItem> Items => _items.ToImmutableList();
+
+        public void AddItem(CollectionItem collectionItem)
+        {
+            _items.Add(collectionItem);
+        }
+
+        public void UpdateItem(CollectionItem modifiedItem)
+        {
+            _items.RemoveAll(it => it.Id == modifiedItem.Id);
+            _items.Add(modifiedItem);
+        }
+
+        public void RemoveItem(CollectionItemId itemId)
+        {
+            _items.RemoveAll(it => it.Id == itemId);
+        }
+
+        public CollectionItem? FindItemById(CollectionItemId itemId) =>
+            _items.FirstOrDefault(it => it.Id == itemId);
     }
 }

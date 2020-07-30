@@ -1,5 +1,6 @@
 using FluentValidation;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Collections.AddItemToCollection;
-using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
 namespace TreniniDotNet.Web.Collecting.V1.Collections.AddItemToCollection
@@ -27,8 +27,8 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.AddItemToCollection
         {
             ViewModel = new OkObjectResult(new
             {
-                Id = output.CollectionId.ToGuid(),
-                ItemId = output.ItemId.ToGuid(),
+                Id = output.CollectionId,
+                ItemId = output.ItemId,
                 CatalogItem = output.CatalogItem.Value
             });
         }

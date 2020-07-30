@@ -8,7 +8,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
 {
     public sealed class ScaleView
     {
-        public ScaleView(IScale scale, LinksView? selfLink)
+        public ScaleView(Scale scale, LinksView? selfLink)
         {
             Links = selfLink;
 

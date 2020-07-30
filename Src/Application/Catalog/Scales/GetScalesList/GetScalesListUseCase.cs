@@ -1,25 +1,28 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Application.Catalog.Scales.GetScalesList
 {
-    public sealed class GetScalesListUseCase : IGetScalesListUseCase
+    public sealed class GetScalesListUseCase : AbstractUseCase<GetScalesListInput, GetScalesListOutput, IGetScalesListOutputPort>
     {
-        private readonly IGetScalesListOutputPort _outputPort;
-        private readonly ScaleService _scaleService;
+        private readonly ScalesService _scalesService;
 
-        public GetScalesListUseCase(IGetScalesListOutputPort outputPort, ScaleService scaleService)
+        public GetScalesListUseCase(
+            IUseCaseInputValidator<GetScalesListInput> inputValidator,
+            IGetScalesListOutputPort outputPort,
+            ScalesService scalesService)
+            : base(inputValidator, outputPort)
         {
-            _outputPort = outputPort;
-            _scaleService = scaleService;
+            _scalesService = scalesService ?? throw new ArgumentNullException(nameof(scalesService));
         }
 
-        public async Task Execute(GetScalesListInput input)
+        protected override async Task Handle(GetScalesListInput input)
         {
-            var paginatedResult = await _scaleService.FindAllScales(input.Page);
+            var paginatedResult = await _scalesService.FindAllScales(input.Page);
             OutputPort.Standard(new GetScalesListOutput(paginatedResult));
         }
-
-        private IGetScalesListOutputPort OutputPort => _outputPort;
     }
 }

@@ -1,18 +1,18 @@
-﻿using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using System.Threading.Tasks;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.Brands.GetBrandBySlug
 {
-    public class GetBrandBySlugUseCaseTests : CatalogUseCaseTests<GetBrandBySlugUseCase, GetBrandBySlugOutput, GetBrandBySlugOutputPort>
+    public sealed class GetBrandBySlugUseCaseTests : BrandUseCaseTests<GetBrandBySlugUseCase, GetBrandBySlugInput, GetBrandBySlugOutput, GetBrandBySlugOutputPort>
     {
         [Fact]
         public async Task GetBrandBySlug_ReturnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewGetBrandBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -22,7 +22,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.GetBrandBySlug
         [Fact]
         public async Task GetBrandBySlug_ReturnInvalidRequest_WhenInputIsInvalid()
         {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewGetBrandBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetBrandBySlugInput(Slug.Empty));
 
@@ -32,7 +32,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.GetBrandBySlug
         [Fact]
         public async Task GetBrandBySlug_ReturnsTheBrandWithTheProvidedSlug()
         {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.WithSeedData, NewGetBrandBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = new GetBrandBySlugInput(Slug.Of("acme"));
             await useCase.Execute(input);
@@ -45,7 +45,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.GetBrandBySlug
         [Fact]
         public async Task GetBrandBySlug_WhenBrandIsNotFound_OutputBrandNotFound()
         {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.WithSeedData, NewGetBrandBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = new GetBrandBySlugInput(Slug.Of("not-found"));
             await useCase.Execute(input);
@@ -53,9 +53,10 @@ namespace TreniniDotNet.Application.Catalog.Brands.GetBrandBySlug
             outputPort.ShouldHaveBrandNotFoundMessage("Brand 'not-found' not found");
         }
 
-        private GetBrandBySlugUseCase NewGetBrandBySlug(BrandService brandService, GetBrandBySlugOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new GetBrandBySlugUseCase(outputPort, brandService);
-        }
+        private GetBrandBySlugUseCase CreateUseCase(
+            GetBrandBySlugOutputPort outputPort,
+            BrandsService brandService,
+            IUnitOfWork unitOfWork) =>
+            new GetBrandBySlugUseCase(new GetBrandBySlugInputValidator(), outputPort, brandService);
     }
 }

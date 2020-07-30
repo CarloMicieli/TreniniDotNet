@@ -7,9 +7,9 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
 {
     public sealed class WishlistView
     {
-        private readonly IWishlist _wishlist;
+        private readonly Wishlist _wishlist;
 
-        public WishlistView(IWishlist wishlist)
+        public WishlistView(Wishlist wishlist)
         {
             _wishlist = wishlist;
 
@@ -18,7 +18,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
                 .ToList();
         }
 
-        public Guid Id => _wishlist.Id.ToGuid();
+        public Guid Id => _wishlist.Id;
 
         public string Slug => _wishlist.Slug.Value;
 

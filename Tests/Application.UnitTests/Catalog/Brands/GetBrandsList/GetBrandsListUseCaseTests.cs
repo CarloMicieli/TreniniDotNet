@@ -1,41 +1,44 @@
-﻿using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using FluentAssertions;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Common.Data;
+using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Catalog.Brands;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.Brands.GetBrandsList
 {
-    public sealed class GetBrandsListUseCaseTests : CatalogUseCaseTests<GetBrandsListUseCase, GetBrandsListOutput, GetBrandsListOutputPort>
+    public class GetBrandsListUseCaseTests : BrandUseCaseTests<GetBrandsListUseCase, GetBrandsListInput, GetBrandsListOutput, GetBrandsListOutputPort>
     {
         [Fact]
         public async Task GetBrandsList_ShouldReturnEmptyResult_WhenNoBrandIsFound()
         {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewGetBrandsList);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetBrandsListInput(new Page(0, 10)));
 
             var output = outputPort.UseCaseOutput;
-            Assert.True(output.Result.Count() == 0);
+
+            output.Result.Should().HaveCount(0);
         }
 
         [Fact]
         public async Task GetBrandsList_ShouldReturnBrandsList_WithPagination()
         {
-            var expextedElements = 2;
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.WithSeedData, NewGetBrandsList);
+            var expectedElements = 2;
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            await useCase.Execute(new GetBrandsListInput(new Page(0, expextedElements)));
+            await useCase.Execute(new GetBrandsListInput(new Page(0, expectedElements)));
 
             var output = outputPort.UseCaseOutput;
-            Assert.Equal(expextedElements, output.Result.Count());
+
+            output.Result.Should().HaveCount(expectedElements);
         }
 
-        private GetBrandsListUseCase NewGetBrandsList(BrandService brandService, GetBrandsListOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new GetBrandsListUseCase(outputPort, brandService);
-        }
+        private GetBrandsListUseCase CreateUseCase(
+            GetBrandsListOutputPort outputPort,
+            BrandsService brandService,
+            IUnitOfWork unitOfWork) =>
+            new GetBrandsListUseCase(new GetBrandsListInputValidator(), outputPort, brandService);
     }
 }

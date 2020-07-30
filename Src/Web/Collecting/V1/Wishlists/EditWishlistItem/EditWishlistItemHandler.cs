@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlistItem
 {
-    public sealed class EditWishlistItemHandler : UseCaseHandler<IEditWishlistItemUseCase, EditWishlistItemRequest, EditWishlistItemInput>
+    public sealed class EditWishlistItemHandler : UseCaseHandler<EditWishlistItemUseCase, EditWishlistItemRequest, EditWishlistItemInput>
     {
-        public EditWishlistItemHandler(IEditWishlistItemUseCase useCase, IMapper mapper)
+        public EditWishlistItemHandler(EditWishlistItemUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

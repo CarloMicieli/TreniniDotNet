@@ -3,18 +3,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistsByOwner
 {
-    public sealed class GetWishlistsByOwnerUseCase : ValidatedUseCase<GetWishlistsByOwnerInput, IGetWishlistsByOwnerOutputPort>, IGetWishlistsByOwnerUseCase
+    public sealed class GetWishlistsByOwnerUseCase : AbstractUseCase<GetWishlistsByOwnerInput, GetWishlistsByOwnerOutput, IGetWishlistsByOwnerOutputPort>
     {
-        private readonly WishlistService _wishlistService;
+        private readonly WishlistsService _wishlistService;
 
-        public GetWishlistsByOwnerUseCase(IGetWishlistsByOwnerOutputPort output, WishlistService wishlistService)
-            : base(new GetWishlistsByOwnerInputValidator(), output)
+        public GetWishlistsByOwnerUseCase(
+            IUseCaseInputValidator<GetWishlistsByOwnerInput> inputValidator,
+            IGetWishlistsByOwnerOutputPort outputPort,
+            WishlistsService wishlistService)
+            : base(inputValidator, outputPort)
         {
             _wishlistService = wishlistService ??
                 throw new ArgumentNullException(nameof(wishlistService));
@@ -25,7 +28,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistsByOwner
             var owner = new Owner(input.Owner);
             var visibility = EnumHelpers.OptionalValueFor<VisibilityCriteria>(input.Visibility) ?? VisibilityCriteria.All;
 
-            var wishlists = await _wishlistService.GetByOwnerAsync(owner, visibility);
+            var wishlists = await _wishlistService.GetWishlistsByOwnerAsync(owner, visibility);
             if (wishlists is null || wishlists.Count() == 0)
             {
                 OutputPort.WishlistsNotFoundForTheOwner(owner, visibility);

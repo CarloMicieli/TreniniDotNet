@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalogItem;
-using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 

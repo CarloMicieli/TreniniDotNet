@@ -1,5 +1,5 @@
 ﻿using System;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
 
 namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
 {

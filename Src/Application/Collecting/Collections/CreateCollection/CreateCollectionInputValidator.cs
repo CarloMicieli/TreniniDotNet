@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 
 namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
 {
-    public sealed class CreateCollectionInputValidator : AbstractValidator<CreateCollectionInput>
+    public sealed class CreateCollectionInputValidator : AbstractUseCaseValidator<CreateCollectionInput>
     {
         public CreateCollectionInputValidator()
         {

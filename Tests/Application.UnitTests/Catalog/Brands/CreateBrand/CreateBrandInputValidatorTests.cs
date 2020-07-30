@@ -1,16 +1,15 @@
-﻿using FluentValidation.TestHelper;
+using FluentValidation.TestHelper;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
 {
     public class CreateBrandInputValidatorTests
     {
-        private readonly CreateBrandInputValidator validator;
+        private CreateBrandInputValidator Validator { get; }
 
         public CreateBrandInputValidatorTests()
         {
-            validator = new CreateBrandInputValidator();
+            Validator = new CreateBrandInputValidator();
         }
 
         [Fact]
@@ -23,7 +22,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
                 emailAddress: "mail@acmetreni.com",
                 brandType: "Industrial");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldNotHaveAnyValidationErrors();
         }
@@ -33,7 +32,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         {
             var input = NewCreateBrandInput.Empty;
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Name);
         }
@@ -43,7 +42,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         {
             var input = NewCreateBrandInput.With(name: "  ");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Name);
         }
@@ -53,7 +52,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         {
             var input = NewCreateBrandInput.With(emailAddress: "not a mail");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.EmailAddress);
         }
@@ -63,7 +62,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         {
             var input = NewCreateBrandInput.With(websiteUrl: "not an url");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.WebsiteUrl);
         }
@@ -73,7 +72,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         {
             var input = NewCreateBrandInput.With(brandType: "not a valid type");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Kind);
         }

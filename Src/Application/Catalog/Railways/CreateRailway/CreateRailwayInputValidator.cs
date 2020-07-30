@@ -1,9 +1,11 @@
-﻿using FluentValidation;
-using TreniniDotNet.Common.Validation;
+#nullable disable
+using FluentValidation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
+using TreniniDotNet.SharedKernel.Countries;
 
 namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 {
-    public sealed class CreateRailwayInputValidator : AbstractValidator<CreateRailwayInput>
+    public sealed class CreateRailwayInputValidator : AbstractUseCaseValidator<CreateRailwayInput>
     {
         public CreateRailwayInputValidator()
         {

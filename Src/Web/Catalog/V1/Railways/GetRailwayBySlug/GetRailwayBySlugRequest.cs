@@ -1,17 +1,16 @@
 ﻿using MediatR;
 using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Web.Catalog.V1.Railways.GetRailwayBySlug
 {
     public class GetRailwayBySlugRequest : IRequest
     {
-        private readonly Slug _slug;
-
         public GetRailwayBySlugRequest(Slug slug)
         {
-            _slug = slug;
+            Slug = slug;
         }
 
-        public Slug Slug => _slug;
+        public Slug Slug { get; }
     }
 }

@@ -1,8 +1,8 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
 
 namespace TreniniDotNet.Application.Catalog.Brands.GetBrandsList
 {
-    public interface IGetBrandsListOutputPort : IOutputPortStandard<GetBrandsListOutput>
+    public interface IGetBrandsListOutputPort : IStandardOutputPort<GetBrandsListOutput>
     {
     }
 }

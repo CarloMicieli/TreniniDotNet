@@ -1,21 +1,21 @@
-﻿using TreniniDotNet.Domain.Collecting.Shared;
+﻿using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Web.Collecting.V1.Common.ViewModels
 {
     public sealed class CatalogItemDetailsView
     {
-        private ICatalogItemDetails _details;
+        private CatalogItem CatalogItem { get; }
 
-        public CatalogItemDetailsView(ICatalogItemDetails details)
+        public CatalogItemDetailsView(CatalogItem catalogItem)
         {
-            _details = details;
+            CatalogItem = catalogItem;
         }
 
-        public BrandRefView Brand => new BrandRefView(_details.Brand);
-        public string ItemNumber => _details.ItemNumber.Value;
-        public string Category => _details.Category.ToString();
-        public ScaleRefView Scale => new ScaleRefView(_details.Scale);
-        public int Count => _details.RollingStocksCount;
-        public string Description => _details.Description;
+        public BrandRefView Brand => new BrandRefView(CatalogItem.Brand);
+        public string ItemNumber => CatalogItem.ItemNumber.Value;
+        public string Category => CatalogItem.Category.ToString();
+        public ScaleRefView Scale => new ScaleRefView(CatalogItem.Scale);
+        public int Count => CatalogItem.Count;
+        public string Description => CatalogItem.Description;
     }
 }

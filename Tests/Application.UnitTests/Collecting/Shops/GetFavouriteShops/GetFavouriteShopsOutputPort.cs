@@ -1,7 +1,6 @@
-﻿using TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops;
-using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
+﻿using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Shops.OutputPorts
+namespace TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops
 {
     public sealed class GetFavouriteShopsOutputPort : OutputPortTestHelper<GetFavouriteShopsOutput>, IGetFavouriteShopsOutputPort
     {

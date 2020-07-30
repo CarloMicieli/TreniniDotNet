@@ -1,21 +1,24 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromCatalogItem
 {
-    public sealed class RemoveRollingStockFromCatalogItemUseCase : ValidatedUseCase<RemoveRollingStockFromCatalogItemInput, IRemoveRollingStockFromCatalogItemOutputPort>, IRemoveRollingStockFromCatalogItemUseCase
+    public sealed class RemoveRollingStockFromCatalogItemUseCase : AbstractUseCase<RemoveRollingStockFromCatalogItemInput, RemoveRollingStockFromCatalogItemOutput, IRemoveRollingStockFromCatalogItemOutputPort>
     {
-        private readonly CatalogItemService _catalogItemService;
+        private readonly CatalogItemsService _catalogItemService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public RemoveRollingStockFromCatalogItemUseCase(IRemoveRollingStockFromCatalogItemOutputPort output,
-            CatalogItemService catalogItemService,
+        public RemoveRollingStockFromCatalogItemUseCase(
+            IUseCaseInputValidator<RemoveRollingStockFromCatalogItemInput> inputValidator,
+            IRemoveRollingStockFromCatalogItemOutputPort output,
+            CatalogItemsService catalogItemService,
             IUnitOfWork unitOfWork)
-            : base(new RemoveRollingStockFromCatalogItemInputValidator(), output)
+            : base(inputValidator, output)
         {
             _catalogItemService = catalogItemService ??
                 throw new ArgumentNullException(nameof(catalogItemService));
@@ -32,7 +35,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
                 return;
             }
 
-            await _catalogItemService.DeleteRollingStockAsync(catalogItem, input.RollingStockId);
+            catalogItem.RemoveRollingStock(input.RollingStockId);
+
+            await _catalogItemService.UpdateCatalogItemAsync(catalogItem);
+
             var _ = await _unitOfWork.SaveAsync();
 
             OutputPort.Standard(new RemoveRollingStockFromCatalogItemOutput());

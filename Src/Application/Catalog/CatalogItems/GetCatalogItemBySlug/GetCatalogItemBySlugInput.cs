@@ -1,5 +1,5 @@
-﻿using TreniniDotNet.Common;
-using TreniniDotNet.Common.UseCases.Interfaces.Input;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.GetCatalogItemBySlug
 {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -53,7 +53,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.GeorgeCollection();
 
             var id = collection.Id;
             var itemId = collection.Items.First().Id;

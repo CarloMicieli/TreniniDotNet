@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Catalog.V1.Brands.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 
@@ -13,7 +13,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Brands.GetBrandBySlug
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class BrandsController : UseCaseController<GetBrandBySlugRequest, GetBrandBySlugPresenter>
+    public sealed class BrandsController : UseCaseController<GetBrandBySlugRequest, GetBrandBySlugPresenter>
     {
         public BrandsController(IMediator mediator, GetBrandBySlugPresenter presenter)
             : base(mediator, presenter)

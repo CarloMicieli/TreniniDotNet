@@ -1,12 +1,13 @@
-﻿using TreniniDotNet.Domain.Collecting.Shared;
+﻿using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Collecting.Shared;
 
 namespace TreniniDotNet.Web.Collecting.V1.Common.ViewModels
 {
     public sealed class ScaleRefView
     {
-        private readonly IScaleRef _scale;
+        private readonly Scale _scale;
 
-        public ScaleRefView(IScaleRef scale)
+        public ScaleRefView(Scale scale)
         {
             _scale = scale;
         }

@@ -5,9 +5,9 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
 {
     public sealed class ScaleInfoView
     {
-        private readonly IScaleInfo _scale;
+        private readonly Scale _scale;
 
-        public ScaleInfoView(IScaleInfo scale)
+        public ScaleInfoView(Scale scale)
         {
             _scale = scale ??
                 throw new ArgumentNullException(nameof(scale));

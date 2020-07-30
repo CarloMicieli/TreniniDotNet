@@ -1,46 +1,58 @@
-﻿using NodaMoney;
-using NodaTime;
-using TreniniDotNet.Common;
+﻿using NodaTime;
+using TreniniDotNet.Common.Domain;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collecting.Collections
 {
-    public sealed class CollectionItem : Entity<CollectionItemId>, ICollectionItem
+    public sealed class CollectionItem : Entity<CollectionItemId>
     {
-        internal CollectionItem(
+        private CollectionItem() { }
+
+        public CollectionItem(
             CollectionItemId itemId,
-            ICatalogRef catalogItem,
-            ICatalogItemDetails? details,
+            CatalogItem catalogItem,
             Condition condition,
-            Money price,
-            IShopInfo? purchasedAt,
+            Price price,
+            Shop? purchasedAt,
             LocalDate addedDate,
+            LocalDate? removedDate,
             string? notes)
-            : base(itemId)
         {
+            Id = itemId;
             CatalogItem = catalogItem;
-            Details = details;
             Condition = condition;
             Price = price;
             PurchasedAt = purchasedAt;
             AddedDate = addedDate;
+            RemovedDate = removedDate;
             Notes = notes;
         }
 
-        public ICatalogRef CatalogItem { get; }
-
-        public ICatalogItemDetails? Details { get; }
+        public CatalogItem CatalogItem { get; } = null!;
 
         public Condition Condition { get; }
 
-        public Money Price { get; }
+        public Price Price { get; } = null!;
 
-        public IShopInfo? PurchasedAt { get; }
+        public Shop? PurchasedAt { get; }
 
         public LocalDate AddedDate { get; }
 
+        public LocalDate? RemovedDate { get; }
+
         public string? Notes { get; }
+
+        public CollectionItem With(
+            CatalogItem? catalogItem = null,
+            Condition? condition = null,
+            Price? price = null,
+            Shop? purchasedAt = null,
+            LocalDate? addedDate = null,
+            LocalDate? removedDate = null,
+            string? notes = null) => new CollectionItem(Id, catalogItem ?? CatalogItem, condition ?? Condition,
+            price ?? Price, purchasedAt ?? PurchasedAt, addedDate ?? AddedDate, removedDate ?? removedDate,
+            notes ?? Notes);
     }
 }

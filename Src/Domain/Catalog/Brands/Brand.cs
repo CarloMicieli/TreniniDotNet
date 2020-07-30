@@ -1,31 +1,22 @@
-﻿using System;
+using System;
 using System.Net.Mail;
-using System.Runtime.CompilerServices;
 using NodaTime;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.Addresses;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Common.Domain;
+using TreniniDotNet.SharedKernel.Addresses;
+using TreniniDotNet.SharedKernel.Slugs;
 
-[assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
-    public sealed class Brand : AggregateRoot<BrandId>, IBrand
+    public sealed class Brand : AggregateRoot<BrandId>
     {
-        internal Brand(
-            BrandId brandId,
-            string name,
-            Slug slug,
-            string? companyName,
-            string? groupName,
-            string? description,
-            Uri? websiteUrl,
-            MailAddress? emailAddress,
-            BrandKind kind,
-            Address? address,
-            Instant created,
-            Instant? modified,
-            int version)
-            : base(brandId, created, modified, version)
+        private Brand() { }
+
+        public Brand(BrandId brandId, Slug slug, string name,
+            Uri? websiteUrl, MailAddress? emailAddress,
+            string? companyName, string? groupName, string? description,
+            Address? address, BrandKind kind,
+            Instant created, Instant? lastModified, int version)
+            : base(brandId, created, lastModified, version)
         {
             Slug = slug;
             Name = name;
@@ -41,7 +32,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         #region [ Properties ]
         public Slug Slug { get; }
 
-        public string Name { get; }
+        public string Name { get; } = null!;
 
         public Uri? WebsiteUrl { get; }
 
@@ -58,8 +49,33 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         public BrandKind Kind { get; }
         #endregion
 
-        public override string ToString() => $"Brand({Name})";
+        public Brand With(
+            string? name = null,
+            BrandKind? brandKind = null,
+            string? companyName = null,
+            string? groupName = null,
+            string? description = null,
+            Uri? websiteUrl = null,
+            MailAddress? mailAddress = null,
+            Address? address = null)
+        {
+            var slug = (name is null) ? Slug : Slug.Of(name);
+            return new Brand(
+                Id,
+                slug,
+                name ?? Name,
+                websiteUrl ?? WebsiteUrl,
+                mailAddress ?? EmailAddress,
+                companyName ?? CompanyName,
+                groupName ?? GroupName,
+                description ?? Description,
+                address ?? Address,
+                brandKind ?? Kind,
+                CreatedDate,
+                ModifiedDate,
+                Version);
+        }
 
-        public IBrandInfo ToBrandInfo() => this;
+        public override string ToString() => $"Brand({Name})";
     }
 }

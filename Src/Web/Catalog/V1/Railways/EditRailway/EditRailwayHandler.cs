@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.Railways.EditRailway
 {
-    public sealed class EditRailwayHandler : UseCaseHandler<IEditRailwayUseCase, EditRailwayRequest, EditRailwayInput>
+    public sealed class EditRailwayHandler : UseCaseHandler<EditRailwayUseCase, EditRailwayRequest, EditRailwayInput>
     {
-        public EditRailwayHandler(IEditRailwayUseCase useCase, IMapper mapper)
+        public EditRailwayHandler(EditRailwayUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

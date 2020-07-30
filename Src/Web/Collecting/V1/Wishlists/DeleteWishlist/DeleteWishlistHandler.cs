@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Wishlists.DeleteWishlist
 {
-    public sealed class DeleteWishlistHandler : UseCaseHandler<IDeleteWishlistUseCase, DeleteWishlistRequest, DeleteWishlistInput>
+    public sealed class DeleteWishlistHandler : UseCaseHandler<DeleteWishlistUseCase, DeleteWishlistRequest, DeleteWishlistInput>
     {
-        public DeleteWishlistHandler(IDeleteWishlistUseCase useCase, IMapper mapper)
+        public DeleteWishlistHandler(DeleteWishlistUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

@@ -1,24 +1,27 @@
 using System;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalogItem
 {
-    public sealed class AddRollingStockToCatalogItemUseCase : ValidatedUseCase<AddRollingStockToCatalogItemInput, IAddRollingStockToCatalogItemOutputPort>, IAddRollingStockToCatalogItemUseCase
+    public sealed class AddRollingStockToCatalogItemUseCase : AbstractUseCase<AddRollingStockToCatalogItemInput, AddRollingStockToCatalogItemOutput, IAddRollingStockToCatalogItemOutputPort>
     {
-        private readonly CatalogItemService _catalogItemsService;
-        private readonly IRollingStocksFactory _rollingStocksFactory;
+        private readonly CatalogItemsService _catalogItemsService;
+        private readonly RollingStocksFactory _rollingStocksFactory;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AddRollingStockToCatalogItemUseCase(IAddRollingStockToCatalogItemOutputPort output,
-            CatalogItemService catalogItemsService,
-            IRollingStocksFactory rollingStocksFactory,
+        public AddRollingStockToCatalogItemUseCase(
+            IUseCaseInputValidator<AddRollingStockToCatalogItemInput> inputValidator,
+            IAddRollingStockToCatalogItemOutputPort outputPort,
+            RollingStocksFactory rollingStocksFactory,
+            CatalogItemsService catalogItemsService,
             IUnitOfWork unitOfWork)
-            : base(new AddRollingStockToCatalogItemInputValidator(), output)
+            : base(inputValidator, outputPort)
         {
             _catalogItemsService = catalogItemsService ??
                 throw new ArgumentNullException(nameof(catalogItemsService));
@@ -39,16 +42,17 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalo
             }
 
             var railwaySlug = Slug.Of(input.RollingStock.Railway);
-            var railwayInfo = await _catalogItemsService.FindRailwayInfoBySlug(railwaySlug);
-            if (railwayInfo is null)
+            var railway = await _catalogItemsService.FindRailwayBySlug(railwaySlug);
+            if (railway is null)
             {
                 OutputPort.RailwayWasNotFound(railwaySlug);
                 return;
             }
 
-            var rollingStock = _rollingStocksFactory.FromInput(input.RollingStock, railwayInfo);
+            var rollingStock = _rollingStocksFactory.FromInput(input.RollingStock, railway);
+            catalogItem.AddRollingStock(rollingStock);
 
-            await _catalogItemsService.AddRollingStockAsync(catalogItem, rollingStock);
+            await _catalogItemsService.UpdateCatalogItemAsync(catalogItem);
 
             var _ = await _unitOfWork.SaveAsync();
 

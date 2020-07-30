@@ -1,50 +1,27 @@
+using System;
 using System.Threading.Tasks;
-using Dapper;
-using NodaTime;
-using TreniniDotNet.Infrastructure.Dapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Images
 {
     public sealed class ImagesRepository
     {
-        private readonly IDatabaseContext _dbContext;
-        private readonly IClock _clock;
+        private ApplicationDbContext DbContext { get; }
 
-        public ImagesRepository(IDatabaseContext dbContext, IClock clock)
+        public ImagesRepository(ApplicationDbContext dbContext)
         {
-            _dbContext = dbContext;
-            _clock = clock;
+            DbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public async Task SaveImage(Image image)
+        public async Task SaveImageAsync(Image image)
         {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            await connection.ExecuteAsync(InsertImageCommand, new
-            {
-                image.Filename,
-                image.ContentType,
-                image.Content,
-                Created = _clock.GetCurrentInstant().ToDateTimeUtc()
-            });
+            await DbContext.Images.AddAsync(image);
+            await DbContext.SaveChangesAsync();
         }
 
-        public async Task<Image?> GetImageByFilename(string filename)
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            return await connection.QueryFirstAsync<Image?>(SelectImageQuery, new
-            {
-                filename
-            });
-        }
-
-        private const string InsertImageCommand = @"
-            INSERT INTO images(filename, content_type, content, created) 
-            VALUES(@Filename, @ContentType, @Content, @Created);";
-
-        private const string SelectImageQuery = "SELECT filename, content_type AS ContentType, content FROM images WHERE filename = @Filename";
+        public Task<Image?> GetImageByFilenameAsync(string filename) =>
+#pragma warning disable 8619
+            DbContext.Images.FirstOrDefaultAsync(it => it.Filename == filename);
+#pragma warning restore 8619
     }
 }

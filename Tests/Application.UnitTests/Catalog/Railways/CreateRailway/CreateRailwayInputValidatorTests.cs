@@ -1,17 +1,16 @@
-﻿using System;
+using System;
 using FluentValidation.TestHelper;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 {
     public class CreateRailwayInputValidatorTests
     {
-        private readonly CreateRailwayInputValidator validator;
+        private CreateRailwayInputValidator Validator { get; }
 
         public CreateRailwayInputValidatorTests()
         {
-            validator = new CreateRailwayInputValidator();
+            Validator = new CreateRailwayInputValidator();
         }
 
         [Fact]
@@ -26,7 +25,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
                     operatingSince: DateTime.Now.AddDays(-1),
                     operatingUntil: DateTime.Now));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldNotHaveAnyValidationErrors();
         }
@@ -43,7 +42,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
                     operatingSince: DateTime.Now.AddDays(-1),
                     operatingUntil: DateTime.Now));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Name);
         }
@@ -60,7 +59,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
                     operatingSince: DateTime.Now.AddDays(-1),
                     operatingUntil: DateTime.Now));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Name);
         }
@@ -77,7 +76,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
                     operatingSince: DateTime.Now.AddDays(-1),
                     operatingUntil: DateTime.Now));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Country);
         }
@@ -94,7 +93,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
                     operatingSince: DateTime.Now.AddDays(1),
                     operatingUntil: DateTime.Now));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.PeriodOfActivity.OperatingUntil);
         }
@@ -111,7 +110,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
                     operatingSince: DateTime.Now.AddDays(-1),
                     operatingUntil: DateTime.Now));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.PeriodOfActivity.Status);
         }
@@ -128,7 +127,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
                     operatingSince: DateTime.Now.AddDays(-1),
                     operatingUntil: DateTime.Now));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.PeriodOfActivity.Status);
         }
@@ -146,7 +145,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
                     status: "active",
                     operatingSince: DateTime.Now));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.TotalLength.Kilometers);
             result.ShouldHaveValidationErrorFor(x => x.TotalLength.Miles);
@@ -165,7 +164,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
                     status: "active",
                     operatingSince: DateTime.Now));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Gauge.Millimeters);
             result.ShouldHaveValidationErrorFor(x => x.Gauge.Inches);

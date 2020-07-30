@@ -5,9 +5,9 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
 {
     public sealed class CollectionStatItem
     {
-        private readonly ICollectionStatsItem _item;
+        private readonly CollectionStatsItem _item;
 
-        public CollectionStatItem(ICollectionStatsItem item)
+        public CollectionStatItem(CollectionStatsItem item)
         {
             _item = item;
         }
@@ -18,6 +18,6 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
 
         public int Year => _item.Year.Value;
 
-        public MoneyView TotalValue => new MoneyView(_item.TotalValue);
+        public PriceView TotalValue => new PriceView(_item.TotalValue);
     }
 }

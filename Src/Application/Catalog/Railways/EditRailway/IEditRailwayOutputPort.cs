@@ -1,9 +1,9 @@
-﻿using TreniniDotNet.Common;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
 {
-    public interface IEditRailwayOutputPort : IOutputPortStandard<EditRailwayOutput>
+    public interface IEditRailwayOutputPort : IStandardOutputPort<EditRailwayOutput>
     {
         void RailwayNotFound(Slug slug);
     }

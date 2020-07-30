@@ -1,21 +1,19 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistsByOwner
 {
-    public class GetWishlistsByOwnerUseCaseTests : CollectingUseCaseTests<GetWishlistsByOwnerUseCase, GetWishlistsByOwnerOutput, GetWishlistsByOwnerOutputPort>
+    public class GetWishlistsByOwnerUseCaseTests : WishlistUseCaseTests<GetWishlistsByOwnerUseCase, GetWishlistsByOwnerInput, GetWishlistsByOwnerOutput, GetWishlistsByOwnerOutputPort>
     {
         [Fact]
         public async Task GetWishlistsByOwner_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewGetWishlistsByOwner);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -25,7 +23,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistsByOwner
         [Fact]
         public async Task GetWishlistsByOwner_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewGetWishlistsByOwner);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetWishlistsByOwnerInput("", Visibility.Public.ToString()));
 
@@ -35,7 +33,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistsByOwner
         [Fact]
         public async Task GetWishlistsByOwner_ShouldOutputError_WhenNoWishlistWasFound()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewGetWishlistsByOwner);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetWishlistsByOwnerInput("George", Visibility.Public.ToString()));
 
@@ -48,7 +46,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistsByOwner
         [Fact]
         public async Task GetWishlistsByOwner_ShouldOutputWishlistsByOwner()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewGetWishlistsByOwner);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             await useCase.Execute(new GetWishlistsByOwnerInput("George", Visibility.Private.ToString()));
 
@@ -61,12 +59,11 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistsByOwner
             output.Wishlists.Should().NotBeNull();
         }
 
-        private GetWishlistsByOwnerUseCase NewGetWishlistsByOwner(
-            WishlistService wishlistsService,
-            GetWishlistsByOwnerOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new GetWishlistsByOwnerUseCase(outputPort, wishlistsService);
-        }
+        private GetWishlistsByOwnerUseCase CreateUseCase(
+            IGetWishlistsByOwnerOutputPort outputPort,
+            WishlistsService wishlistsService,
+            WishlistItemsFactory wishlistItemsFactory,
+            IUnitOfWork unitOfWork) =>
+            new GetWishlistsByOwnerUseCase(new GetWishlistsByOwnerInputValidator(), outputPort, wishlistsService);
     }
 }

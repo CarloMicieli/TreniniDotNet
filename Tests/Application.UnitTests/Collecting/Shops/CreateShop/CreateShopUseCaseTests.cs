@@ -1,22 +1,20 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Shops.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Shops;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
 {
-    public class CreateShopUseCaseTests : CollectingUseCaseTests<CreateShopUseCase, CreateShopOutput, CreateShopOutputPort>
+    public class CreateShopUseCaseTests : ShopUseCaseTests<CreateShopUseCase, CreateShopInput, CreateShopOutput, CreateShopOutputPort>
     {
         [Fact]
         public async Task CreateShop_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeShopUseCase(Start.Empty, NewCreateShop);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -26,9 +24,9 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public async Task CreateShop_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeShopUseCase(Start.Empty, NewCreateShop);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.CreateShop.Empty);
+            await useCase.Execute(NewCreateShopInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -36,9 +34,9 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public async Task CreateShop_ShouldOutputError_WhenShopSlugAlreadyUsed()
         {
-            var (useCase, outputPort) = ArrangeShopUseCase(Start.WithSeedData, NewCreateShop);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.CreateShop.With(name: "Tecnomodel"));
+            await useCase.Execute(NewCreateShopInput.With(name: "Tecnomodel"));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.AssertShopAlreadyExists("Tecnomodel");
@@ -47,12 +45,12 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public async Task CreateShop_ShouldCreateNewShops()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeShopUseCase(Start.Empty, NewCreateShop);
+            var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var id = Guid.NewGuid();
             SetNextGeneratedGuid(id);
 
-            var input = CollectingInputs.CreateShop.With(name: "Tecnomodel");
+            var input = NewCreateShopInput.With(name: "Tecnomodel");
 
             await useCase.Execute(input);
 
@@ -66,12 +64,10 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
             output.Slug.Should().Be(Slug.Of("Tecnomodel"));
         }
 
-        private CreateShopUseCase NewCreateShop(
+        private CreateShopUseCase CreateUseCase(
+            ICreateShopOutputPort outputPort,
             ShopsService shopsService,
-            CreateShopOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new CreateShopUseCase(outputPort, shopsService, unitOfWork);
-        }
+            IUnitOfWork unitOfWork) =>
+            new CreateShopUseCase(new CreateShopInputValidator(), outputPort, shopsService, unitOfWork);
     }
 }

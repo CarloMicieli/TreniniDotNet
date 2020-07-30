@@ -1,80 +1,90 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Net.Mail;
+using System.Threading.Tasks;
 using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using static TreniniDotNet.TestHelpers.SeedData.Catalog.CatalogSeedData;
 
 namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class Brands
     {
-        private readonly List<IBrand> _all;
-        private readonly IBrand _brawa;
-        private readonly IBrand _acme;
-        private readonly IBrand _bemo;
-        private readonly IBrand _roco;
-        private readonly IBrand _maerklin;
-        private readonly IBrand _fleischmann;
-        private readonly IBrand _rivarossi;
+        private readonly List<Brand> _all;
+
+        private readonly Brand _brawa;
+        private readonly Brand _acme;
+        private readonly Brand _bemo;
+        private readonly Brand _roco;
+        private readonly Brand _maerklin;
+        private readonly Brand _fleischmann;
+        private readonly Brand _rivarossi;
+
+        public BrandsBuilder New() => new BrandsBuilder();
 
         internal Brands()
         {
             #region [ Init data ]
-            _acme = NewBrandWith(
-                new BrandId(new Guid("9ed9f089-2053-4a39-b669-a6d603080402")),
-                "ACME",
-                "Associazione Costruzioni Modellistiche Esatte",
-                websiteUrl: new Uri("http://www.acmetreni.com"),
-                mailAddress: new MailAddress("mail@acmetreni.com"),
-                brandKind: BrandKind.Industrial);
 
-            _roco = NewBrandWith(
-                new BrandId(new Guid("4b7a619b-65cc-41f5-a003-450537c85dea")),
-                "Roco",
-                "Modelleisenbahn GmbH",
-                websiteUrl: new Uri("http://www.roco.cc"),
-                mailAddress: new MailAddress("webshop@roco.cc"),
-                brandKind: BrandKind.Industrial);
+            _acme = New()
+                .Id(new Guid("9ed9f089-2053-4a39-b669-a6d603080402"))
+                .Name("ACME")
+                .CompanyName("Associazione Costruzioni Modellistiche Esatte")
+                .WebsiteUrl("http://www.acmetreni.com")
+                .MailAddress("mail@acmetreni.com")
+                .Industrial()
+                .Build();
 
-            _bemo = NewBrandWith(
-                new BrandId(new Guid("ff9f5055-8ae7-4d58-a68f-0cee3adb6656")),
-                "BEMO",
-                "BEMO Modelleisenbahnen GmbH u. Co KG",
-                websiteUrl: new Uri("https://www.bemo-modellbahn.de/"),
-                mailAddress: new MailAddress("mail@bemo-modellbahn.de"),
-                brandKind: BrandKind.Industrial);
+            _roco = New()
+                .Id(new Guid("4b7a619b-65cc-41f5-a003-450537c85dea"))
+                .Name("Roco")
+                .CompanyName("Modelleisenbahn GmbH")
+                .WebsiteUrl("http://www.roco.cc")
+                .MailAddress("webshop@roco.cc")
+                .Industrial()
+                .Build();
 
-            _brawa = NewBrandWith(
-               new BrandId(new Guid("c37f8ac1-991b-422c-b273-5c02efe2087e")),
-               "Brawa",
-               "BRAWA Artur Braun Modellspielwarenfabrik GmbH & Co. KG",
-               websiteUrl: new Uri("https://www.brawa.de/"),
-               brandKind: BrandKind.Industrial);
+            _bemo = New()
+                .Id(new Guid("ff9f5055-8ae7-4d58-a68f-0cee3adb6656"))
+                .Name("BEMO")
+                .CompanyName("BEMO Modelleisenbahnen GmbH u. Co KG")
+                .WebsiteUrl("https://www.bemo-modellbahn.de/")
+                .MailAddress("mail@bemo-modellbahn.de")
+                .Industrial()
+                .Build();
 
-            _rivarossi = NewBrandWith(
-               new BrandId(new Guid("1e16aee7-3102-4d03-b99f-1a59a8b07202")),
-               "Rivarossi",
-               "Rivarossi",
-               websiteUrl: new Uri("https://www.hornby.it/"),
-               brandKind: BrandKind.Industrial);
+            _brawa = New()
+                .Id(new Guid("c37f8ac1-991b-422c-b273-5c02efe2087e"))
+                .Name("Brawa")
+                .CompanyName("BRAWA Artur Braun Modellspielwarenfabrik GmbH & Co. KG")
+                .WebsiteUrl("https://www.brawa.de/")
+                .Industrial()
+                .Build();
 
-            _maerklin = NewBrandWith(
-                new BrandId(new Guid("66fa5a39-7e47-471f-9f92-d2bb01258c31")),
-                "Märklin",
-                "Gebr. Märklin & Cie. GmbH",
-                websiteUrl: new Uri("https://www.maerklin.de"),
-                brandKind: BrandKind.Industrial);
+            _rivarossi = New()
+                .Id(new Guid("1e16aee7-3102-4d03-b99f-1a59a8b07202"))
+                .Name("Rivarossi")
+                .CompanyName("Rivarossi")
+                .WebsiteUrl("https://www.hornby.it/")
+                .Industrial()
+                .Build();
 
-            _fleischmann = NewBrandWith(
-                new BrandId(new Guid("2a916d99-953f-44d6-8115-7e72ca22b081")),
-                "Fleischmann",
-                "Modelleisenbahn München GmbH",
-                websiteUrl: new Uri("https://www.fleischmann.de"),
-                brandKind: BrandKind.Industrial);
+            _maerklin = New()
+                .Id(new Guid("66fa5a39-7e47-471f-9f92-d2bb01258c31"))
+                .Name("Märklin")
+                .CompanyName("Gebr. Märklin & Cie. GmbH")
+                .WebsiteUrl("https://www.maerklin.de")
+                .Industrial()
+                .Build();
+
+            _fleischmann = New()
+                .Id(new Guid("2a916d99-953f-44d6-8115-7e72ca22b081"))
+                .Name("Fleischmann")
+                .CompanyName("Modelleisenbahn München GmbH")
+                .WebsiteUrl("https://www.fleischmann.de")
+                .Industrial()
+                .Build();
+
             #endregion
 
-            _all = new List<IBrand>()
+            _all = new List<Brand>()
             {
                 _acme,
                 _roco,
@@ -86,21 +96,21 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             };
         }
 
-        public IBrand Acme() => _acme;
+        public Brand Acme() => _acme;
 
-        public IBrand Roco() => _roco;
+        public Brand Roco() => _roco;
 
-        public IBrand Rivarossi() => _rivarossi;
+        public Brand Rivarossi() => _rivarossi;
 
-        public IBrand Bemo() => _bemo;
+        public Brand Bemo() => _bemo;
 
-        public IBrand Brawa() => _brawa;
+        public Brand Brawa() => _brawa;
 
-        public IBrand Maerklin() => _maerklin;
+        public Brand Maerklin() => _maerklin;
 
-        public IBrand Fleischmann() => _fleischmann;
+        public Brand Fleischmann() => _fleischmann;
 
-        public List<IBrand> All()
+        public List<Brand> All()
         {
             return _all;
         }
@@ -108,12 +118,12 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
     public static class BrandsRepositoryExtensions
     {
-        public static void SeedDatabase(this IBrandsRepository repo)
+        public static async Task SeedDatabase(this IBrandsRepository repo)
         {
             var brands = CatalogSeedData.Brands.All();
             foreach (var brand in brands)
             {
-                repo.AddAsync(brand);
+                await repo.AddAsync(brand);
             }
         }
     }

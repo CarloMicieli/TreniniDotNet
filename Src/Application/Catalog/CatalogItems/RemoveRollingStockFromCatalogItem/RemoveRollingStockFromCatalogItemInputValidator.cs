@@ -1,9 +1,10 @@
 using FluentValidation;
-using TreniniDotNet.Common.Validation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromCatalogItem
 {
-    public sealed class RemoveRollingStockFromCatalogItemInputValidator : AbstractValidator<RemoveRollingStockFromCatalogItemInput>
+    public sealed class RemoveRollingStockFromCatalogItemInputValidator : AbstractUseCaseValidator<RemoveRollingStockFromCatalogItemInput>
     {
         public RemoveRollingStockFromCatalogItemInputValidator()
         {

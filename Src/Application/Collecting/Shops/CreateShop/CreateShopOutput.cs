@@ -1,6 +1,6 @@
-﻿using TreniniDotNet.Common;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
+using TreniniDotNet.Domain.Collecting.Shops;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
 {

@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Net.Mail;
 using NodaTime;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.Addresses;
-using TreniniDotNet.Common.PhoneNumbers;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Common.Domain;
+using TreniniDotNet.SharedKernel.Addresses;
+using TreniniDotNet.SharedKernel.PhoneNumbers;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Domain.Collecting.Shops
 {
-    public sealed class Shop : AggregateRoot<ShopId>, IShop
+    public sealed class Shop : AggregateRoot<ShopId>
     {
-        internal Shop(
+        private Shop() { }
+
+        public Shop(
             ShopId shopId,
-            Slug slug, string name,
+            string name,
             Uri? websiteUrl,
             MailAddress? emailAddress,
             Address? address,
@@ -22,13 +24,18 @@ namespace TreniniDotNet.Domain.Collecting.Shops
             int version)
             : base(shopId, createdDate, modifiedDate, version)
         {
-            Slug = slug;
             Name = name;
             WebsiteUrl = websiteUrl;
             EmailAddress = emailAddress;
             Address = address;
             PhoneNumber = phoneNumber;
+            Slug = Slug.Of(name);
         }
+
+        #region [ Properties ]
+        public string Name { get; } = null!;
+
+        public Slug Slug { get; }
 
         public Uri? WebsiteUrl { get; }
 
@@ -38,9 +45,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
 
         public PhoneNumber? PhoneNumber { get; }
 
-        public Slug Slug { get; }
-
-        public string Name { get; }
+        #endregion
 
         public override string ToString() =>
             $"Shop({Id}, {Name}, {Slug})";

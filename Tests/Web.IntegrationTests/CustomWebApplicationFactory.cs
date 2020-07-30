@@ -2,17 +2,12 @@ using System;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using TreniniDotNet.Infrastructure.Identity;
 using TreniniDotNet.Infrastructure.Persistence;
-using TreniniDotNet.Infrastructure.Persistence.Migrations;
-using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
-using TreniniDotNet.IntegrationTests.Helpers.Data;
-using TreniniDotNet.Web.UserProfiles.Identity;
 
 namespace TreniniDotNet.IntegrationTests
 {
@@ -52,59 +47,45 @@ namespace TreniniDotNet.IntegrationTests
 
             builder.ConfigureServices(services =>
             {
+                services.ReplaceWithInMemory<ApplicationDbContext>("InMemoryDatabase");
                 services.ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
-
-                string connectionString = $"Data Source={contextId}.db";
-
-                // Replace with sqlite
-                services.ReplaceDapper(options =>
-                {
-                    options.UseSqlite(connectionString);
-                    options.ScanTypeHandlersIn(typeof(GuidTypeHandler).Assembly);
-                });
-
-                services.ReplaceMigrations(options =>
-                {
-                    options.UseSqlite(connectionString);
-                    options.ScanMigrationsIn(typeof(InitialMigration).Assembly);
-                });
 
                 // Build the service provider.
                 var sp = services.BuildServiceProvider();
 
                 // Create a scope to obtain a reference to the database
                 // context (ApplicationDbContext).
-                using (var scope = sp.CreateScope())
-                {
-                    var scopedServices = scope.ServiceProvider;
-                    var logger = scopedServices
-                        .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
-
-                    var userManager = scopedServices.GetRequiredService<UserManager<ApplicationUser>>();
-                    var roleManager = scopedServices.GetRequiredService<RoleManager<IdentityRole>>();
-
-                    var migration = scopedServices.GetRequiredService<IDatabaseMigration>();
-                    migration.Up();
-
-                    try
-                    {
-                        // Seed the database with test data.
-                        ApplicationContextSeed.SeedCatalog(scopedServices);
-                        ApplicationContextSeed.SeedCollections(scopedServices).Wait();
-                        AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).Wait();
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.LogError(ex, "An error occurred seeding the " +
-                            "database with test messages. Error: {Message}", ex.Message);
-                    }
-                }
+                // using (var scope = sp.CreateScope())
+                // {
+                //     var scopedServices = scope.ServiceProvider;
+                //     var logger = scopedServices
+                //         .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
+                //
+                //     var userManager = scopedServices.GetRequiredService<UserManager<ApplicationUser>>();
+                //     var roleManager = scopedServices.GetRequiredService<RoleManager<IdentityRole>>();
+                //
+                //     var migration = scopedServices.GetRequiredService<IDatabaseMigration>();
+                //     migration.Up();
+                //
+                //     try
+                //     {
+                //         // Seed the database with test data.
+                //         ApplicationContextSeed.SeedCatalog(scopedServices);
+                //         ApplicationContextSeed.SeedCollections(scopedServices).Wait();
+                //         AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).Wait();
+                //     }
+                //     catch (Exception ex)
+                //     {
+                //         logger.LogError(ex, "An error occurred seeding the " +
+                //             "database with test messages. Error: {Message}", ex.Message);
+                //     }
+                // }
             });
         }
     }
 #pragma warning restore CA1063 // Implement IDisposable Correctly
 
-    public static class IServiceCollectionTestExtensions
+    public static class ServiceCollectionTestExtensions
     {
         public static IServiceCollection ReplaceWithInMemory<TContext>(this IServiceCollection services, string databaseName)
             where TContext : DbContext

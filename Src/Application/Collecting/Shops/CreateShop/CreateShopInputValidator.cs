@@ -1,9 +1,12 @@
-﻿using FluentValidation;
+﻿#nullable disable
+using FluentValidation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Common.Validation;
+using TreniniDotNet.SharedKernel.PhoneNumbers;
 
 namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
 {
-    public sealed class CreateShopInputValidator : AbstractValidator<CreateShopInput>
+    public sealed class CreateShopInputValidator : AbstractUseCaseValidator<CreateShopInput>
     {
         public CreateShopInputValidator()
         {

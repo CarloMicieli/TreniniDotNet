@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using TreniniDotNet.IntegrationTests;
+using IntegrationTests;
 using TreniniDotNet.Web;
 using Xunit;
 
-namespace IntegrationTests
+namespace TreniniDotNet.IntegrationTests
 {
     public class HealthChecksTests : AbstractWebApplicationFixture
     {

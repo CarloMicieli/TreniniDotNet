@@ -80,7 +80,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             string dccInterface = "Nem652",
             string couplers = null)
         {
-            return CatalogInputs.NewRollingStockInput.With(
+            return NewRollingStockInput.With(
                 epoch: era,
                 category: category,
                 railway: "FS",

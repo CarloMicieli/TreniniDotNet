@@ -1,22 +1,21 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
 {
-    public class CreateScaleUseCaseTests : CatalogUseCaseTests<CreateScaleUseCase, CreateScaleOutput, CreateScaleOutputPort>
+    public class CreateScaleUseCaseTests : ScaleUseCaseTests<CreateScaleUseCase, CreateScaleInput, CreateScaleOutput, CreateScaleOutputPort>
     {
         [Fact]
         public async Task CreateScale_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewCreateScale);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(NewCreateScaleInput.Empty);
 
@@ -26,7 +25,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         [Fact]
         public async Task CreateScale_ShouldNotCreateANewScale_WhenScaleAlreadyExists()
         {
-            var (useCase, outputPort) = ArrangeScalesUseCase(Start.WithSeedData, NewCreateScale);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var name = "H0";
             var input = NewCreateScaleInput.With(
@@ -45,7 +44,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         [Fact]
         public async Task CreateScale_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeScalesUseCase(Start.WithSeedData, NewCreateScale);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -55,7 +54,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         [Fact]
         public async Task CreateScale_Should_CreateANewScale()
         {
-            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeScalesUseCase(Start.Empty, NewCreateScale);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var input = NewCreateScaleInput.With(
                 name: "H0",
@@ -80,9 +79,10 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
             dbContext.Scales.Any(it => it.Slug == Slug.Of("H0")).Should().BeTrue();
         }
 
-        private CreateScaleUseCase NewCreateScale(ScaleService scaleService, CreateScaleOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new CreateScaleUseCase(outputPort, scaleService, unitOfWork);
-        }
+        private CreateScaleUseCase CreateUseCase(
+            CreateScaleOutputPort outputPort,
+            ScalesService scalesService,
+            IUnitOfWork unitOfWork) =>
+            new CreateScaleUseCase(new CreateScaleInputValidator(), outputPort, scalesService, unitOfWork);
     }
 }

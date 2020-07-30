@@ -1,18 +1,19 @@
-﻿using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using System.Threading.Tasks;
+using FluentAssertions;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.Scales.GetScaleBySlug
 {
-    public class GetScaleBySlugUseCaseTests : CatalogUseCaseTests<GetScaleBySlugUseCase, GetScaleBySlugOutput, GetScaleBySlugOutputPort>
+    public class GetScaleBySlugUseCaseTests : ScaleUseCaseTests<GetScaleBySlugUseCase, GetScaleBySlugInput, GetScaleBySlugOutput, GetScaleBySlugOutputPort>
     {
         [Fact]
         public async Task GetScaleBySlug_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewGetScaleBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetScaleBySlugInput(Slug.Empty));
 
@@ -22,7 +23,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.GetScaleBySlug
         [Fact]
         public async Task GetScaleBySlug_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewGetScaleBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -32,7 +33,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.GetScaleBySlug
         [Fact]
         public async Task GetScaleBySlug_ShouldOutputNotFound_WhenScaleDoesNotExist()
         {
-            var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewGetScaleBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetScaleBySlugInput(Slug.Of("not-found")));
 
@@ -42,20 +43,22 @@ namespace TreniniDotNet.Application.Catalog.Scales.GetScaleBySlug
         [Fact]
         public async Task GetScaleBySlug_ShouldOutputScale_WhenScaleExists()
         {
-            var (useCase, outputPort) = ArrangeScalesUseCase(Start.WithSeedData, NewGetScaleBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             await useCase.Execute(new GetScaleBySlugInput(Slug.Of("H0")));
 
             outputPort.ShouldHaveStandardOutput();
             var output = outputPort.UseCaseOutput;
-            Assert.NotNull(output);
-            Assert.NotNull(output.Scale);
-            Assert.Equal(Slug.Of("H0"), output.Scale.Slug);
+
+            output.Should().NotBeNull();
+            output.Scale.Should().NotBeNull();
+            output.Scale.Slug.Should().Be(Slug.Of("H0"));
         }
 
-        private GetScaleBySlugUseCase NewGetScaleBySlug(ScaleService scaleService, GetScaleBySlugOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new GetScaleBySlugUseCase(outputPort, scaleService);
-        }
+        private GetScaleBySlugUseCase CreateUseCase(
+            GetScaleBySlugOutputPort outputPort,
+            ScalesService scalesService,
+            IUnitOfWork unitOfWork) =>
+            new GetScaleBySlugUseCase(new GetScaleBySlugInputValidator(), outputPort, scalesService);
     }
 }

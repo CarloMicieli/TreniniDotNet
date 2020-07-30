@@ -1,6 +1,7 @@
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.UseCases.Interfaces.Input;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromCatalogItem
 {

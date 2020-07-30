@@ -1,10 +1,10 @@
-﻿using System.Collections.Immutable;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using NodaTime;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Common.Domain;
+using TreniniDotNet.SharedKernel.Slugs;
 
-[assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
     /// <summary>
@@ -15,16 +15,20 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     /// </summary>
     /// <seealso cref="Gauge"/>
     /// <seealso cref="Ratio"/>
-    public sealed class Scale : AggregateRoot<ScaleId>, IScale
+    public sealed class Scale : AggregateRoot<ScaleId>
     {
-        internal Scale(
+        private Scale()
+        {
+        }
+
+        public Scale(
             ScaleId id,
             string name,
             Slug slug,
             Ratio ratio,
             ScaleGauge gauge,
             string? description,
-            IImmutableSet<ScaleStandard> standards,
+            ISet<ScaleStandard> standards,
             int? weight,
             Instant created,
             Instant? modified,
@@ -36,28 +40,51 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             Ratio = ratio;
             Gauge = gauge;
             Description = description;
-            Standards = standards;
             Weight = weight;
+            _standards = standards.ToHashSet();
         }
 
         #region [ Properties ]
         public Slug Slug { get; }
 
-        public string Name { get; }
+        public string Name { get; } = null!;
 
         public Ratio Ratio { get; }
 
-        public ScaleGauge Gauge { get; }
+        public ScaleGauge Gauge { get; } = null!;
 
         public string? Description { get; }
 
         public int? Weight { get; }
 
-        public IImmutableSet<ScaleStandard> Standards { get; }
+        private readonly HashSet<ScaleStandard> _standards = new HashSet<ScaleStandard>();
+        public IImmutableSet<ScaleStandard> Standards => _standards.ToImmutableHashSet();
         #endregion
 
-        public override string ToString() => $"{Name} ({Ratio})";
+        public Scale With(
+            string? name = null,
+            Ratio? ratio = null,
+            ScaleGauge? gauge = null,
+            string? description = null,
+            ISet<ScaleStandard>? standards = null,
+            int? weight = null)
+        {
+            var slug = (name is null) ? Slug : Slug.Of(name);
 
-        public IScaleInfo ToScaleInfo() => this;
+            return new Scale(
+                Id,
+                name ?? Name,
+                slug,
+                ratio ?? Ratio,
+                gauge ?? Gauge,
+                description ?? Description,
+                standards ?? _standards,
+                weight ?? Weight,
+                CreatedDate,
+                ModifiedDate,
+                Version);
+        }
+
+        public override string ToString() => $"{Name} ({Ratio})";
     }
 }

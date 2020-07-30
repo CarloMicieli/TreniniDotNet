@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromCatalogItem;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalogItem
@@ -18,7 +18,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.RemoveRollingStockFromCatalo
             ViewModel = new NotFoundObjectResult(new
             {
                 Slug = slug.Value,
-                RollingStockId = rollingStockId.ToGuid()
+                RollingStockId = rollingStockId
             });
         }
     }

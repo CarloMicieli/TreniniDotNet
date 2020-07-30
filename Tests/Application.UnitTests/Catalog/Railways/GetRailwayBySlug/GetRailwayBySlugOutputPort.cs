@@ -1,4 +1,4 @@
-﻿using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
+using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
 namespace TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug
 {

@@ -1,21 +1,30 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
 {
-    public sealed class CreateBrandUseCaseTests : CatalogUseCaseTests<CreateBrandUseCase, CreateBrandOutput, CreateBrandOutputPort>
+    public sealed class CreateBrandUseCaseTests : BrandUseCaseTests<CreateBrandUseCase, CreateBrandInput, CreateBrandOutput, CreateBrandOutputPort>
     {
+        [Fact]
+        public async Task CreateBrand_ShouldOutputAnError_WhenInputIsNull()
+        {
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
+
+            await useCase.Execute(null);
+
+            outputPort.ShouldHaveErrorMessage("The use case input is null");
+        }
+
         [Fact]
         public async Task CreateBrand_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(NewCreateBrandInput.Empty);
 
@@ -25,7 +34,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         [Fact]
         public async Task CreateBrand_Should_CreateANewBrand()
         {
-            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var expectedSlug = Slug.Of("acme");
 
@@ -42,7 +51,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
                     city: "city",
                     country: "DE",
                     region: "region name"
-                    ));
+                ));
 
             await useCase.Execute(input);
 
@@ -59,7 +68,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
         [Fact]
         public async Task CreateBrand_ShouldNotCreateANewBrand_WhenBrandAlreadyExists()
         {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.WithSeedData, NewCreateBrand);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var name = "ACME";
             var input = NewCreateBrandInput.With(
@@ -68,26 +77,17 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
                 websiteUrl: "http://www.acmetreni.com",
                 emailAddress: "mail@acmetreni.com",
                 brandType: BrandKind.Industrial.ToString()
-                );
+            );
 
             await useCase.Execute(input);
 
             outputPort.ShouldHaveBrandAlreadyExistsMessage(Slug.Of(name));
         }
 
-        [Fact]
-        public async Task CreateBrand_ShouldOutputAnError_WhenInputIsNull()
-        {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.WithSeedData, NewCreateBrand);
-
-            await useCase.Execute(null);
-
-            outputPort.ShouldHaveErrorMessage("The use case input is null");
-        }
-
-        private CreateBrandUseCase NewCreateBrand(BrandService brandService, CreateBrandOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new CreateBrandUseCase(outputPort, brandService, unitOfWork);
-        }
+        private CreateBrandUseCase CreateUseCase(
+            CreateBrandOutputPort outputPort,
+            BrandsService brandService,
+            IUnitOfWork unitOfWork) =>
+            new CreateBrandUseCase(new CreateBrandInputValidator(), outputPort, brandService, unitOfWork);
     }
 }

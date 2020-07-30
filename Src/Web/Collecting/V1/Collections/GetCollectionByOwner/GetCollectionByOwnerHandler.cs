@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Collections.GetCollectionByOwner
 {
-    public sealed class GetCollectionByOwnerHandler : UseCaseHandler<IGetCollectionByOwnerUseCase, GetCollectionByOwnerRequest, GetCollectionByOwnerInput>
+    public sealed class GetCollectionByOwnerHandler : UseCaseHandler<GetCollectionByOwnerUseCase, GetCollectionByOwnerRequest, GetCollectionByOwnerInput>
     {
-        public GetCollectionByOwnerHandler(IGetCollectionByOwnerUseCase useCase, IMapper mapper)
+        public GetCollectionByOwnerHandler(GetCollectionByOwnerUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

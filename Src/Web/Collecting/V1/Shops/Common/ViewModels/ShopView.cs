@@ -5,9 +5,9 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels
 {
     public sealed class ShopView
     {
-        private readonly IShop _shop;
+        private readonly Shop _shop;
 
-        public ShopView(IShop shop)
+        public ShopView(Shop shop)
         {
             _shop = shop;
 
@@ -17,7 +17,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels
             }
         }
 
-        public Guid ShopId => _shop.Id.ToGuid();
+        public Guid ShopId => _shop.Id;
 
         public string Slug => _shop.Slug.Value;
 

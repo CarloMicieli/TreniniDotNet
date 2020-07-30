@@ -5,15 +5,15 @@ namespace TreniniDotNet.Web.Catalog.V1.Brands.Common.ViewModels
 {
     public sealed class BrandInfoView
     {
-        private readonly IBrandInfo _brand;
+        private readonly Brand _brand;
 
-        public BrandInfoView(IBrandInfo brand)
+        public BrandInfoView(Brand brand)
         {
             _brand = brand ??
                 throw new ArgumentNullException(nameof(brand));
         }
 
-        public Guid Id => _brand.Id.ToGuid();
+        public Guid Id => _brand.Id;
 
         public string Name => _brand.Name;
 

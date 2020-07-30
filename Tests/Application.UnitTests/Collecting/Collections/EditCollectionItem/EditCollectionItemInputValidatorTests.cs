@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentValidation.TestHelper;
+using TreniniDotNet.Application.Collecting.Shared;
 using TreniniDotNet.TestHelpers.Common;
 using Xunit;
 
@@ -17,7 +18,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public void EditCollectionItemInput_ShouldFailValidation_WhenEmpty()
         {
-            var input = CollectingInputs.EditCollectionItem.Empty;
+            var input = NewEditCollectionItemInput.Empty;
 
             var result = Validator.TestValidate(input);
 
@@ -28,27 +29,29 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public void EditCollectionItemInput_ShouldFailValidation_WhenPriceIsZero()
         {
-            var input = CollectingInputs.EditCollectionItem.With(price: 0M);
+            var input = NewEditCollectionItemInput.With(price: NewPriceInput.Empty);
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.Price);
+            result.ShouldHaveValidationErrorFor(x => x.Price.Value);
+            result.ShouldHaveValidationErrorFor(x => x.Price.Currency);
         }
 
         [Fact]
         public void EditCollectionItemInput_ShouldFailValidation_WhenPriceIsNegative()
         {
-            var input = CollectingInputs.EditCollectionItem.With(price: -10M);
+            var input = NewEditCollectionItemInput.With(price: NewPriceInput.With(-10M));
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.Price);
+            result.ShouldHaveValidationErrorFor(x => x.Price.Value);
+            result.ShouldHaveValidationErrorFor(x => x.Price.Currency);
         }
 
         [Fact]
         public void EditCollectionItemInput_ShouldFailValidation_WhenConditionIsNotValid()
         {
-            var input = CollectingInputs.EditCollectionItem.With(condition: "--invalid--");
+            var input = NewEditCollectionItemInput.With(condition: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -58,7 +61,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public void EditCollectionItemInput_ShouldFailValidation_WhenNotesAreTooLong()
         {
-            var input = CollectingInputs.EditCollectionItem.With(
+            var input = NewEditCollectionItemInput.With(
                 notes: RandomString.WithLengthOf(151));
 
             var result = Validator.TestValidate(input);
@@ -69,7 +72,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public void EditCollectionItemInput_ShouldFailValidation_WhenShopIsTooLong()
         {
-            var input = CollectingInputs.EditCollectionItem.With(
+            var input = NewEditCollectionItemInput.With(
                 shop: RandomString.WithLengthOf(51));
 
             var result = Validator.TestValidate(input);
@@ -80,10 +83,10 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public void EditCollectionItemInput_ShouldSucceedsValidation_WhenValid()
         {
-            var input = CollectingInputs.EditCollectionItem.With(
+            var input = NewEditCollectionItemInput.With(
                 id: Guid.NewGuid(),
                 itemId: Guid.NewGuid(),
-                price: 10M);
+                price: NewPriceInput.With(10M, "EUR"));
 
             var result = Validator.TestValidate(input);
 

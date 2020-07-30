@@ -7,10 +7,10 @@ namespace TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels
 {
     public sealed class RailwayView
     {
-        public RailwayView(IRailway railway, LinksView? selfLink)
+        public RailwayView(Railway railway, LinksView? selfLink)
         {
             this.Links = selfLink;
-            this.Id = railway.Id.ToGuid();
+            this.Id = railway.Id;
             this.Name = railway.Name;
             this.CompanyName = railway.CompanyName;
             this.Country = railway.Country.ToString();

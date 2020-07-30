@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 
 namespace TreniniDotNet.Application.Collecting.Collections.RemoveItemFromCollection
 {
-    public sealed class RemoveItemFromCollectionInputValidator : AbstractValidator<RemoveItemFromCollectionInput>
+    public sealed class RemoveItemFromCollectionInputValidator : AbstractUseCaseValidator<RemoveItemFromCollectionInput>
     {
         public RemoveItemFromCollectionInputValidator()
         {

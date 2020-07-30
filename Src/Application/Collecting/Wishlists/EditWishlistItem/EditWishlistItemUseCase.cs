@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NodaMoney;
 using NodaTime;
-using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
 {
-    public sealed class EditWishlistItemUseCase : ValidatedUseCase<EditWishlistItemInput, IEditWishlistItemOutputPort>, IEditWishlistItemUseCase
+    public sealed class EditWishlistItemUseCase : AbstractUseCase<EditWishlistItemInput, EditWishlistItemOutput, IEditWishlistItemOutputPort>
     {
-        private readonly WishlistService _wishlistService;
+        private readonly WishlistsService _wishlistService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EditWishlistItemUseCase(IEditWishlistItemOutputPort output, WishlistService wishlistService, IUnitOfWork unitOfWork)
-            : base(new EditWishlistItemInputValidator(), output)
+        public EditWishlistItemUseCase(
+            IUseCaseInputValidator<EditWishlistItemInput> inputValidator,
+            IEditWishlistItemOutputPort outputPort,
+            WishlistsService wishlistService,
+            IUnitOfWork unitOfWork)
+            : base(inputValidator, outputPort)
         {
             _wishlistService = wishlistService ??
                 throw new ArgumentNullException(nameof(wishlistService));
@@ -32,33 +35,39 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
             var itemId = new WishlistItemId(input.ItemId);
             var owner = new Owner(input.Owner);
 
-            var exists = await _wishlistService.ExistAsync(owner, id);
-            if (exists == false)
+            var wishlist = await _wishlistService.GetByIdAsync(id);
+            if (wishlist is null)
             {
                 OutputPort.WishlistItemNotFound(id, itemId);
                 return;
             }
 
-            var item = await _wishlistService.GetItemByIdAsync(id, itemId);
+            if (owner.CanEdit(wishlist) == false)
+            {
+                OutputPort.NotAuthorizedToEditThisWishlist(owner);
+                return;
+            }
+
+            var item = wishlist.FindItemById(itemId);
             if (item is null)
             {
                 OutputPort.WishlistItemNotFound(id, itemId);
                 return;
             }
 
-            Money? price = input.Price.HasValue ?
-                Money.Euro(input.Price.Value) : (Money?)null; //TODO: fix currency management
+            var price = input.Price?.ToPriceOrDefault();
 
-            Priority? priority = EnumHelpers.OptionalValueFor<Priority>(input.Priority);
-
+            var priority = EnumHelpers.OptionalValueFor<Priority>(input.Priority);
             LocalDate? addedDate = input.AddedDate.ToLocalDateOrDefault();
 
-            await _wishlistService.EditItemAsync(id,
-                item,
-                addedDate,
-                price,
-                priority,
-                input.Notes);
+            var modifiedItem = item.With(
+                price: price,
+                priority: priority,
+                addedDate: addedDate,
+                notes: input.Notes);
+
+            wishlist.UpdateItem(modifiedItem);
+            await _wishlistService.UpdateWishlistAsync(wishlist);
 
             var _ = await _unitOfWork.SaveAsync();
 

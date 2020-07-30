@@ -1,19 +1,19 @@
 ﻿using System;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 using TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
 {
     public sealed class RollingStockView
     {
-        private readonly IRollingStock _rs;
+        private readonly RollingStock _rs;
         private readonly LengthOverBufferView? _lob;
         private readonly MinRadiusView? _minRadius;
 
-        internal RollingStockView(IRollingStock rs)
+        public RollingStockView(RollingStock rs)
         {
             _rs = rs ??
-                throw new ArgumentNullException(nameof(rs));
+                  throw new ArgumentNullException(nameof(rs));
 
             Railway = new RailwayInfoView(rs.Railway);
 
@@ -28,7 +28,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
             }
         }
 
-        public Guid Id => _rs.Id.ToGuid();
+        public Guid Id => _rs.Id;
 
         public RailwayInfoView Railway { get; }
 
@@ -40,51 +40,93 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
 
         public MinRadiusView? MinRadius => _minRadius;
 
-        public string? ClassName => _rs.Prototype?.ClassName;
+        public string? ClassName => _rs switch
+        {
+            Locomotive { Prototype: var proto } => proto?.ClassName,
+            _ => null
+        };
 
-        public string? RoadNumber => _rs.Prototype?.RoadNumber;
+        public string? RoadNumber => _rs switch
+        {
+            Locomotive { Prototype: var proto } => proto?.RoadNumber,
+            _ => null
+        };
 
-        public string? TypeName => _rs.Prototype?.TypeName;
+        public string? Series => _rs switch
+        {
+            Locomotive { Prototype: var proto } => proto?.Series,
+            _ => null
+        };
 
-        public string? Series => _rs.Prototype?.Series;
+        public string? TypeName => _rs switch
+        {
+            Train { TypeName: var typeName } => typeName,
+            FreightCar { TypeName: var typeName } => typeName,
+            PassengerCar { TypeName: var typeName } => typeName,
+            _ => null
+        };
 
         public string? Couplers => _rs.Couplers?.ToString();
 
         public string? Livery => _rs.Livery;
 
-        public string? Depot => _rs.Depot;
+        public string? Depot => _rs switch
+        {
+            Locomotive { Depot: var depot } => depot,
+            _ => null
+        };
 
-        public string? ServiceLevel => _rs.ServiceLevel?.ToString();
+        public string? PassengerCarType => _rs switch
+        {
+            PassengerCar { PassengerCarType: var passengerCarType } => passengerCarType?.ToString(),
+            _ => null
+        };
 
-        public string? DccInterface => _rs.DccInterface.ToString();
+        public string? ServiceLevel => _rs switch
+        {
+            PassengerCar { ServiceLevel: var level } => level?.ToString(),
+            _ => null
+        };
 
-        public string? Control => _rs.Control.ToString();
+        public string? DccInterface => _rs switch
+        {
+            Locomotive { DccInterface: var dccInterface } => dccInterface.ToString(),
+            Train { DccInterface: var dccInterface } => dccInterface.ToString(),
+            _ => null
+        };
+
+        public string? Control => _rs switch
+        {
+            Locomotive { Control: var control } => control.ToString(),
+            Train { Control: var control } => control.ToString(),
+            _ => null
+        };
     }
 
     public sealed class LengthOverBufferView
     {
-        private readonly LengthOverBuffer _lob;
+        private LengthOverBuffer Length { get; }
 
-        public LengthOverBufferView(LengthOverBuffer lob)
+        public LengthOverBufferView(LengthOverBuffer lengthOverBuffer)
         {
-            _lob = lob ??
-                throw new ArgumentNullException(nameof(lob));
+            Length = lengthOverBuffer ??
+                throw new ArgumentNullException(nameof(lengthOverBuffer));
         }
 
-        public decimal? Millimeters => decimal.Round(_lob.Millimeters.Value, 1);
+        public decimal? Millimeters => decimal.Round(Length.Millimeters.Value, 1);
 
-        public decimal? Inches => decimal.Round(_lob.Inches.Value, 1);
+        public decimal? Inches => decimal.Round(Length.Inches.Value, 1);
     }
 
     public sealed class MinRadiusView
     {
-        private readonly MinRadius _minRadius;
+        private MinRadius MinRadius { get; }
 
         public MinRadiusView(MinRadius minRadius)
         {
-            _minRadius = minRadius;
+            MinRadius = minRadius;
         }
 
-        public decimal? Millimeters => decimal.Round(_minRadius.Millimeters, 1);
+        public decimal? Millimeters => decimal.Round(MinRadius.Millimeters, 1);
     }
 }

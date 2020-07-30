@@ -50,7 +50,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
             var item = CatalogSeedData.CatalogItems.Acme_60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().Id.ToGuid();
+            var id = item.RollingStocks.First().Id;
 
             var response = await client.DeleteJsonAsync($"/api/v1/catalogItems/{itemSlug}/rollingStocks/{id}", Check.Nothing);
 

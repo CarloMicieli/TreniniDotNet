@@ -1,12 +1,13 @@
-﻿using TreniniDotNet.Domain.Collecting.Shared;
+﻿using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Domain.Collecting.Shared;
 
 namespace TreniniDotNet.Web.Collecting.V1.Common.ViewModels
 {
     public sealed class BrandRefView
     {
-        private readonly IBrandRef _brand;
+        private readonly Brand _brand;
 
-        public BrandRefView(IBrandRef brand)
+        public BrandRefView(Brand brand)
         {
             _brand = brand;
         }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -61,7 +61,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var georgeCollection = CollectionSeedData.Collections.GeorgeCollection();
+            var georgeCollection = CollectingSeedData.Collections.GeorgeCollection();
             var itemId = Guid.NewGuid();
 
             var request = new
@@ -84,13 +84,13 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var georgeCollection = CollectionSeedData.Collections.GeorgeCollection();
+            var georgeCollection = CollectingSeedData.Collections.GeorgeCollection();
 
             var item = georgeCollection.Items.First();
 
             var request = new
             {
-                ItemId = item.Id.ToGuid(),
+                ItemId = item.Id,
                 Price = 250M,
                 Condition = "New",
                 AddedDate = DateTime.Now

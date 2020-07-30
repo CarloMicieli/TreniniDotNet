@@ -1,9 +1,10 @@
 using FluentValidation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {
-    public sealed class CreateCatalogItemInputValidator : AbstractValidator<CreateCatalogItemInput>
+    public sealed class CreateCatalogItemInputValidator : AbstractUseCaseValidator<CreateCatalogItemInput>
     {
         public CreateCatalogItemInputValidator()
         {

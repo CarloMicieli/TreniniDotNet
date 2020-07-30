@@ -1,28 +1,24 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using NodaTime;
-using NodaTime.Testing;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {
-    public class CreateCatalogItemUseCaseTests : CatalogUseCaseTests<CreateCatalogItemUseCase, CreateCatalogItemOutput, CreateCatalogItemOutputPort>
+    public class CreateCatalogItemUseCaseTests :
+        CatalogItemUseCaseTests<CreateCatalogItemUseCase, CreateCatalogItemInput, CreateCatalogItemOutput, CreateCatalogItemOutputPort>
     {
         [Fact]
         public async Task CreateCatalogItem_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewCreateCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var input = NewCreateCatalogItemInput.Empty;
 
@@ -34,7 +30,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         [Fact]
         public async Task CreateCatalogItem_ShouldCheckTheBrandExists()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewCreateCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var input = NewCreateCatalogItemInput.With(
                 brand: "not found",
@@ -52,7 +48,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         [Fact]
         public async Task CreateCatalogItem_ShouldCheckTheCatalogItemDoesNotExistAlready()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = NewCreateCatalogItemInput.With(
                 brand: "acme",
@@ -71,7 +67,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         [Fact]
         public async Task CreateCatalogItem_ShouldCheckTheScaleExists()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = NewCreateCatalogItemInput.With(
                 brand: "acme",
@@ -90,7 +86,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         [Fact]
         public async Task CreateCatalogItem_ShouldCheckTheRollingStockRailwayExists()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = NewCreateCatalogItemInput.With(
                 brand: "acme",
@@ -109,7 +105,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         [Fact]
         public async Task CreateCatalogItem_ShouldCheckThat_AllRollingStockRailwaysExist()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = NewCreateCatalogItemInput.With(
                 brand: "acme",
@@ -130,7 +126,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         [Fact]
         public async Task CreateCatalogItem_ShouldCreateANewCatalogItem()
         {
-            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewCreateCatalogItem);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var expectedSlug = Slug.Of("acme-99999");
             var input = NewCreateCatalogItemInput.With(
@@ -159,22 +155,6 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             output.Id.Should().Be(catalogItem.Id);
         }
 
-        private CreateCatalogItemUseCase NewCreateCatalogItem(CatalogItemService catalogItemService, CreateCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            var fakeClock = new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0));
-
-            ICatalogItemsFactory catalogItemsFactory = new CatalogItemsFactory(
-                fakeClock,
-                FakeGuidSource.NewSource(new Guid("3d02506b-8263-4e14-880d-3f3caf22c562")));
-
-            IRollingStocksFactory rollingStocksFactory = new RollingStocksFactory(
-                fakeClock, FakeGuidSource.NewSource(Guid.NewGuid()));
-
-            return new CreateCatalogItemUseCase(outputPort,
-                catalogItemService, rollingStocksFactory,
-                unitOfWork);
-        }
-
         private IReadOnlyList<RollingStockInput> EmptyRollingStocks()
         {
             return new List<RollingStockInput>();
@@ -183,24 +163,31 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
         private static IReadOnlyList<RollingStockInput> RollingStockList(string era, string category, string railway)
         {
             var rollingStockInput = NewRollingStockInput.With(
-                    epoch: era,
-                    category: category,
-                    railway: railway);
+                epoch: era,
+                category: category,
+                railway: railway);
             return new List<RollingStockInput>() { rollingStockInput };
         }
 
         private static RollingStockInput RollingStock(string era, string category, string railway)
         {
             return NewRollingStockInput.With(
-                    epoch: era,
-                    category: category,
-                    railway: railway,
-                    length: new LengthOverBufferInput(999M, null));
+                epoch: era,
+                category: category,
+                railway: railway,
+                length: new LengthOverBufferInput(999M, null));
         }
 
         private static IReadOnlyList<RollingStockInput> RollingStockList(params RollingStockInput[] inputs)
         {
             return inputs.ToList();
         }
+
+        private CreateCatalogItemUseCase CreateUseCase(
+            ICreateCatalogItemOutputPort outputPort,
+            CatalogItemsService catalogItemsService,
+            RollingStocksFactory rollingStocksFactory,
+            IUnitOfWork unitOfWork) =>
+            new CreateCatalogItemUseCase(new CreateCatalogItemInputValidator(), outputPort, rollingStocksFactory, catalogItemsService, unitOfWork);
     }
 }

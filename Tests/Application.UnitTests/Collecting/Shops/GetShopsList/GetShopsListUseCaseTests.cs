@@ -1,20 +1,19 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Shops.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Common.Data;
+using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Collecting.Shops;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Shops.GetShopsList
 {
-    public class GetShopsListUseCaseTests : CollectingUseCaseTests<GetShopsListUseCase, GetShopsListOutput, GetShopsListOutputPort>
+    public class GetShopsListUseCaseTests : ShopUseCaseTests<GetShopsListUseCase, GetShopsListInput, GetShopsListOutput, GetShopsListOutputPort>
     {
         [Fact]
         public async Task GetShopsList_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeShopUseCase(Start.Empty, NewGetShopsList);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -24,7 +23,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetShopsList
         [Fact]
         public async Task GetShopsList_ShouldOutputShopsList()
         {
-            var (useCase, outputPort) = ArrangeShopUseCase(Start.WithSeedData, NewGetShopsList);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = new GetShopsListInput(new Page(0, 10));
 
@@ -39,12 +38,10 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetShopsList
             output.Shops.CurrentPage.Should().Be(new Page(0, 10));
         }
 
-        private GetShopsListUseCase NewGetShopsList(
+        private GetShopsListUseCase CreateUseCase(
+            IGetShopsListOutputPort outputPort,
             ShopsService shopsService,
-            GetShopsListOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new GetShopsListUseCase(outputPort, shopsService);
-        }
+            IUnitOfWork unitOfWork) =>
+            new GetShopsListUseCase(new GetShopsListInputValidator(), outputPort, shopsService);
     }
 }

@@ -1,46 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.DeliveryDates;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.UseCases;
-using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.DeliveryDates;
+using TreniniDotNet.SharedKernel.Slugs;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {
-    public sealed class CreateCatalogItemUseCase : ValidatedUseCase<CreateCatalogItemInput, ICreateCatalogItemOutputPort>, ICreateCatalogItemUseCase
+    public sealed class CreateCatalogItemUseCase : AbstractUseCase<CreateCatalogItemInput, CreateCatalogItemOutput, ICreateCatalogItemOutputPort>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly CatalogItemService _catalogItemService;
-        private readonly IRollingStocksFactory _rollingStocksFactory;
+        private readonly CatalogItemsService _catalogItemService;
+        private readonly RollingStocksFactory _rollingStocksFactory;
 
         public CreateCatalogItemUseCase(
+            IUseCaseInputValidator<CreateCatalogItemInput> inputValidator,
             ICreateCatalogItemOutputPort outputPort,
-            CatalogItemService catalogItemService,
-            IRollingStocksFactory rollingStocksFactory,
+            RollingStocksFactory rollingStocksFactory,
+            CatalogItemsService catalogItemService,
             IUnitOfWork unitOfWork)
-            : base(new CreateCatalogItemInputValidator(), outputPort)
+            : base(inputValidator, outputPort)
         {
-            _unitOfWork = unitOfWork ??
-                throw new ArgumentNullException(nameof(unitOfWork));
-            _catalogItemService = catalogItemService ??
-                throw new ArgumentNullException(nameof(catalogItemService));
-            _rollingStocksFactory = rollingStocksFactory ??
-                throw new ArgumentNullException(nameof(rollingStocksFactory));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _catalogItemService = catalogItemService ?? throw new ArgumentNullException(nameof(catalogItemService));
+            _rollingStocksFactory = rollingStocksFactory ?? throw new ArgumentNullException(nameof(rollingStocksFactory));
         }
 
         protected override async Task Handle(CreateCatalogItemInput input)
         {
             var brandSlug = Slug.Of(input.Brand);
-            var brand = await _catalogItemService.FindBrandInfoBySlug(brandSlug);
+            var brand = await _catalogItemService.FindBrandBySlug(brandSlug);
             if (brand is null)
             {
                 OutputPort.BrandNotFound(brandSlug);
@@ -56,7 +50,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             }
 
             var scaleSlug = Slug.Of(input.Scale);
-            var scale = await _catalogItemService.FindScaleInfoBySlug(scaleSlug);
+            var scale = await _catalogItemService.FindScaleBySlug(scaleSlug);
             if (scale is null)
             {
                 OutputPort.ScaleNotFound(scaleSlug);
@@ -68,7 +62,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
                 .Distinct();
 
             var (railways, railwaysNotFound) =
-                await _catalogItemService.FindRailwaysInfoBySlug(inputRailways);
+                await _catalogItemService.FindRailwaysBySlug(inputRailways);
 
             if (railwaysNotFound.Count > 0)
             {
@@ -78,23 +72,23 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 
             var rollingStocks = input.RollingStocks
                 .Select(it => _rollingStocksFactory.FromInput(it, railways))
-                .ToImmutableList();
+                .ToList();
 
             var powerMethod = RequiredValueFor<PowerMethod>(input.PowerMethod);
 
             var deliveryDate = input.DeliveryDate.ToDeliveryDateOpt();
 
-            var (newCatalogItemId, newSlug) = await _catalogItemService.CreateNewCatalogItem(
+            var (newCatalogItemId, newSlug) = await _catalogItemService.CreateCatalogItem(
                 brand,
                 itemNumber,
                 scale,
                 powerMethod,
-                rollingStocks,
                 input.Description,
                 input.PrototypeDescription,
                 input.ModelDescription,
                 deliveryDate,
-                input.Available);
+                input.Available,
+                rollingStocks);
             await _unitOfWork.SaveAsync();
 
             var output = new CreateCatalogItemOutput(newCatalogItemId, newSlug);

@@ -1,62 +1,63 @@
-﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Collecting.Shops;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.InMemory.Repository;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Shops
+namespace TreniniDotNet.Application.Collecting.Shops
 {
     public sealed class ShopsRepository : IShopsRepository
     {
-        private readonly InMemoryContext _context;
+        private InMemoryContext Context { get; }
 
         public ShopsRepository(InMemoryContext context)
         {
-            _context = context;
+            Context = context;
         }
 
-        public Task AddToFavouritesAsync(string user, ShopId shopId)
+        public Task<PaginatedResult<Shop>> GetAllAsync(Page page)
+        {
+            var result = Context.Shops.Skip(page.Start).Take(page.Limit);
+            return Task.FromResult(new PaginatedResult<Shop>(page, result));
+        }
+
+        public Task<ShopId> AddAsync(Shop catalogItem)
+        {
+            Context.Shops.Add(catalogItem);
+            return Task.FromResult(catalogItem.Id);
+        }
+
+        public Task UpdateAsync(Shop brand)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<IShopInfo> GetShopInfoBySlugAsync(Slug slug)
+        public Task DeleteAsync(ShopId id)
         {
-            IShopInfo result = _context.Shops.FirstOrDefault(it => it.Slug == slug);
+            throw new System.NotImplementedException();
+        }
+
+        public Task DeleteAsync(Shop shop)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<bool> ExistsAsync(ShopId shopId)
+        {
+            var result = Context.Shops.Any(it => it.Id == shopId);
             return Task.FromResult(result);
-        }
-
-        public Task<IEnumerable<IShopInfo>> GetFavouritesAsync(string user)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IShop> GetBySlugAsync(Slug slug)
-        {
-            var result = _context.Shops.FirstOrDefault(it => it.Slug == slug);
-            return Task.FromResult(result);
-        }
-
-        public Task RemoveFromFavouritesAsync(string user, ShopId shopId)
-        {
-            throw new System.NotImplementedException();
         }
 
         public Task<bool> ExistsAsync(Slug slug)
         {
-            var result = _context.Shops.Any(it => it.Slug == slug);
+            var result = Context.Shops.Any(it => it.Slug == slug);
             return Task.FromResult(result);
         }
 
-        public Task<ShopId> AddAsync(IShop shop) =>
-            Task.FromResult(shop.Id);
-
-        public Task<IEnumerable<IShop>> GetShopsAsync(Page page)
+        public Task<Shop> GetBySlugAsync(Slug slug)
         {
-            var result = _context.Shops.Skip(page.Start).Take(page.Limit);
+            var result = Context.Shops.FirstOrDefault(it => it.Slug == slug);
             return Task.FromResult(result);
         }
     }

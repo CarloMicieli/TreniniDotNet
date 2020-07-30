@@ -1,26 +1,30 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 {
-    public sealed class EditRollingStockUseCase : ValidatedUseCase<EditRollingStockInput, IEditRollingStockOutputPort>, IEditRollingStockUseCase
+    public sealed class EditRollingStockUseCase : AbstractUseCase<EditRollingStockInput, EditRollingStockOutput, IEditRollingStockOutputPort>
     {
-        private readonly CatalogItemService _catalogItemService;
-        private readonly IRollingStocksFactory _rollingStocksFactory;
+        private readonly CatalogItemsService _catalogItemService;
+        private readonly RollingStocksFactory _rollingStocksFactory;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EditRollingStockUseCase(IEditRollingStockOutputPort output,
-            CatalogItemService catalogItemService,
-            IRollingStocksFactory rollingStocksFactory,
+        public EditRollingStockUseCase(
+            IUseCaseInputValidator<EditRollingStockInput> inputValidator,
+            IEditRollingStockOutputPort outputPort,
+            RollingStocksFactory rollingStocksFactory,
+            CatalogItemsService catalogItemService,
             IUnitOfWork unitOfWork)
-            : base(new EditRollingStockInputValidator(), output)
+            : base(inputValidator, outputPort)
         {
             _catalogItemService = catalogItemService ??
                 throw new ArgumentNullException(nameof(catalogItemService));
@@ -47,12 +51,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                 return;
             }
 
-            IRailwayInfo? railwayInfo = null;
+            Railway? railway = null;
             if (!string.IsNullOrWhiteSpace(input.Values.Railway))
             {
                 var railwaySlug = Slug.Of(input.Values.Railway);
-                railwayInfo = await _catalogItemService.FindRailwayInfoBySlug(railwaySlug);
-                if (railwayInfo is null)
+                railway = await _catalogItemService.FindRailwayBySlug(railwaySlug);
+                if (railway is null)
                 {
                     OutputPort.RailwayWasNotFound(railwaySlug);
                     return;
@@ -62,32 +66,75 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             var length = LengthOverBuffer.CreateOrDefault(input.Values.LengthOverBuffer?.Inches, input.Values.LengthOverBuffer?.Millimeters);
             var minRadius = MinRadius.CreateOrDefault(input.Values.MinRadius);
 
-            var serviceLevel = input.Values.ServiceLevel.ToServiceLevelOpt();
-
             var couplers = EnumHelpers.OptionalValueFor<Couplers>(input.Values.Couplers);
             var epoch = !string.IsNullOrWhiteSpace(input.Values.Epoch) && Epoch.TryParse(input.Values.Epoch, out var e) ?
                 e : (Epoch?)null;
 
-            var modifiedRollingStock = rollingStock.With(
-                railwayInfo,
-                EnumHelpers.OptionalValueFor<Category>(input.Values.Category),
-                epoch,
-                length,
-                minRadius,
-                new Prototype(
-                    input.Values.ClassName,
-                    input.Values.RoadNumber,
-                    input.Values.TypeName,
-                    input.Values.Series),
-                couplers,
-                input.Values.Livery,
-                input.Values.Depot,
-                EnumHelpers.OptionalValueFor<PassengerCarType>(input.Values.PassengerCarType),
-                serviceLevel,
-                EnumHelpers.OptionalValueFor<DccInterface>(input.Values.DccInterface),
-                EnumHelpers.OptionalValueFor<Control>(input.Values.Control));
+            var category = EnumHelpers.OptionalValueFor<Category>(input.Values.Category);
+            var dccInterface = EnumHelpers.OptionalValueFor<DccInterface>(input.Values.DccInterface);
+            var control = EnumHelpers.OptionalValueFor<Control>(input.Values.Control);
 
-            await _catalogItemService.UpdateRollingStockAsync(catalogItem, modifiedRollingStock);
+            switch (rollingStock)
+            {
+                case Locomotive l:
+                    var updatedLocomotive = l.With(
+                        railway,
+                        category,
+                        epoch,
+                        length,
+                        minRadius,
+                        Prototype.OfLocomotive("", ""), //TODO
+                        couplers,
+                        input.Values.Livery,
+                        input.Values.Depot,
+                        dccInterface,
+                        control);
+                    catalogItem.UpdateRollingStock(updatedLocomotive);
+                    break;
+                case PassengerCar p:
+                    var serviceLevel = input.Values.ServiceLevel.ToServiceLevelOpt();
+                    var passengerCarType =
+                        EnumHelpers.OptionalValueFor<PassengerCarType>(input.Values.PassengerCarType);
+                    var passengerCar = p.With(
+                        railway,
+                        epoch,
+                        length,
+                        minRadius,
+                        couplers,
+                        input.Values.TypeName,
+                        input.Values.Livery,
+                        passengerCarType,
+                        serviceLevel);
+                    catalogItem.UpdateRollingStock(passengerCar);
+                    break;
+                case FreightCar f:
+                    var freightCar = f.With(
+                        railway,
+                        epoch,
+                        length,
+                        minRadius,
+                        couplers,
+                        input.Values.TypeName,
+                        input.Values.Livery);
+                    catalogItem.UpdateRollingStock(freightCar);
+                    break;
+                case Train t:
+                    var train = t.With(
+                        railway,
+                        category,
+                        epoch,
+                        length,
+                        minRadius,
+                        couplers,
+                        input.Values.TypeName,
+                        input.Values.Livery,
+                        dccInterface,
+                        control);
+                    catalogItem.UpdateRollingStock(train);
+                    break;
+            }
+
+            await _catalogItemService.UpdateCatalogItemAsync(catalogItem);
 
             var _ = await _unitOfWork.SaveAsync();
 

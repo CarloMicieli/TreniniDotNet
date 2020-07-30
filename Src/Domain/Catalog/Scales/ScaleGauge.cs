@@ -1,13 +1,15 @@
 using System;
-using TreniniDotNet.Common.Lengths;
+using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using static TreniniDotNet.Common.Enums.EnumHelpers;
+using TreniniDotNet.SharedKernel.Lengths;
 
 namespace TreniniDotNet.Domain.Catalog.Scales
 {
-    public sealed class ScaleGauge : IEquatable<ScaleGauge>
+    public sealed class ScaleGauge
     {
         private static TwoGauges gauges = new TwoGauges();
+
+        private ScaleGauge() { }
 
         private ScaleGauge(Gauge millimetres, Gauge inches, TrackGauge trackGauge)
         {
@@ -28,7 +30,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             return new ScaleGauge(
                 millimetres: mm,
                 inches: ins,
-                RequiredValueFor<TrackGauge>(trackGauge));
+                EnumHelpers.RequiredValueFor<TrackGauge>(trackGauge));
         }
 
         public Gauge InMillimeters { get; }
@@ -38,7 +40,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 
         #region [ Equality ]
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is ScaleGauge that)
             {
@@ -48,17 +50,12 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             return false;
         }
 
-        public bool Equals(ScaleGauge other)
-        {
-            return AreEquals(this, other);
-        }
-
         private static bool AreEquals(ScaleGauge left, ScaleGauge right) =>
             left.InInches.Equals(right.InInches) &&
             left.InMillimeters.Equals(right.InMillimeters) &&
             left.TrackGauge.Equals(right.TrackGauge);
 
-        #endregion  
+        #endregion
 
         public override int GetHashCode() =>
             HashCode.Combine(InInches, InMillimeters, TrackGauge);

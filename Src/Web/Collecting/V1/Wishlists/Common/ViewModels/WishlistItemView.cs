@@ -6,9 +6,9 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
 {
     public sealed class WishlistItemView
     {
-        private readonly IWishlistItem _item;
+        private readonly WishlistItem _item;
 
-        public WishlistItemView(IWishlistItem item)
+        public WishlistItemView(WishlistItem item)
         {
             _item = item;
 
@@ -20,26 +20,26 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
             }
             else
             {
-                Price = new MoneyView(item.Price.Value);
+                Price = new PriceView(item.Price);
             }
 
-            if (item.Details is null)
-            {
-                Details = null;
-            }
-            else
-            {
-                Details = new CatalogItemDetailsView(item.Details);
-            }
+            // if (item.Details is null)
+            // {
+            //     Details = null;
+            // }
+            // else
+            // {
+            //     Details = new CatalogItemDetailsView(item.Details);
+            // }
         }
 
-        public Guid ItemId => _item.Id.ToGuid();
+        public Guid ItemId => _item.Id;
 
         public string Priority => _item.Priority.ToString();
 
         public DateTime AddedDate => _item.AddedDate.ToDateTimeUnspecified();
 
-        public MoneyView? Price { get; }
+        public PriceView? Price { get; }
 
         public CatalogItemView CatalogItem { get; }
 

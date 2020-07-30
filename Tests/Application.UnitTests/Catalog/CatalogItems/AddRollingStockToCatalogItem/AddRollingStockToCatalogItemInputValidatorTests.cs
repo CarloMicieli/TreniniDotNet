@@ -1,6 +1,6 @@
 using FluentValidation.TestHelper;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalogItem
@@ -17,7 +17,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalo
         [Fact]
         public void AddRollingStockToCatalogItemInputValidator_ShouldFailToValidate_EmptyInputs()
         {
-            var result = Validator.TestValidate(CatalogInputs.NewAddRollingStockToCatalogItemInput.Empty);
+            var result = Validator.TestValidate(NewAddRollingStockToCatalogItemInput.Empty);
 
             result.ShouldHaveValidationErrorFor(x => x.Slug);
             result.ShouldHaveValidationErrorFor(x => x.RollingStock.Epoch);
@@ -28,9 +28,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.AddRollingStockToCatalo
         [Fact]
         public void AddRollingStockToCatalogItemInputValidator_ShouldPassValidation_WhenInputIsValid()
         {
-            var input = CatalogInputs.NewAddRollingStockToCatalogItemInput.With(
+            var input = NewAddRollingStockToCatalogItemInput.With(
                 Slug.Of("acme-123456"),
-                CatalogInputs.NewRollingStockInput.With(
+                NewRollingStockInput.With(
                     category: Category.ElectricLocomotive.ToString(),
                     railway: "fs",
                     epoch: "IV")

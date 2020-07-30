@@ -1,15 +1,15 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
 {
     public sealed class GetWishlistByIdOutput : IUseCaseOutput
     {
-        public GetWishlistByIdOutput(IWishlist wishlist)
+        public GetWishlistByIdOutput(Wishlist wishlist)
         {
             Wishlist = wishlist;
         }
 
-        public IWishlist Wishlist { get; }
+        public Wishlist Wishlist { get; }
     }
 }

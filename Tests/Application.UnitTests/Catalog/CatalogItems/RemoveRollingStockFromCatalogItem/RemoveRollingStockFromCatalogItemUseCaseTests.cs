@@ -1,24 +1,25 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromCatalogItem
 {
-    public class RemoveRollingStockFromCatalogItemUseCaseTests : CatalogUseCaseTests<RemoveRollingStockFromCatalogItemUseCase, RemoveRollingStockFromCatalogItemOutput, RemoveRollingStockFromCatalogItemOutputPort>
+    public class RemoveRollingStockFromCatalogItemUseCaseTests :
+        CatalogItemUseCaseTests<RemoveRollingStockFromCatalogItemUseCase, RemoveRollingStockFromCatalogItemInput, RemoveRollingStockFromCatalogItemOutput, RemoveRollingStockFromCatalogItemOutputPort>
     {
         [Fact]
         public async Task RemoveRollingStockFromCatalogItem_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewRemoveRollingStockFromCatalogItemUseCase);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            var input = CatalogInputs.NewRemoveRollingStockFromCatalogItemInput.Empty;
+            var input = NewRemoveRollingStockFromCatalogItemInput.Empty;
             await useCase.Execute(input);
 
             outputPort.ShouldHaveValidationErrors();
@@ -27,9 +28,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
         [Fact]
         public async Task RemoveRollingStockFromCatalogItem_ShouldOutputAnErrorWhenRollingStockToDeleteWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewRemoveRollingStockFromCatalogItemUseCase);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            var input = CatalogInputs.NewRemoveRollingStockFromCatalogItemInput.With(
+            var input = NewRemoveRollingStockFromCatalogItemInput.With(
                 Slug.Of("not found"),
                 RollingStockId.NewId());
             await useCase.Execute(input);
@@ -41,12 +42,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
         [Fact]
         public async Task RemoveRollingStockFromCatalogItem_ShouldRemoveTheRollingStock()
         {
-            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewRemoveRollingStockFromCatalogItemUseCase);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
             var rsId = catalogItem.RollingStocks.First().Id;
 
-            var input = CatalogInputs.NewRemoveRollingStockFromCatalogItemInput.With(
+            var input = NewRemoveRollingStockFromCatalogItemInput.With(
                 catalogItem.Slug,
                 rsId);
 
@@ -66,14 +67,11 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.RemoveRollingStockFromC
                 .Should().BeTrue();
         }
 
-        private RemoveRollingStockFromCatalogItemUseCase NewRemoveRollingStockFromCatalogItemUseCase(
-            CatalogItemService catalogItemService,
-            RemoveRollingStockFromCatalogItemOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new RemoveRollingStockFromCatalogItemUseCase(outputPort,
-                catalogItemService,
-                unitOfWork);
-        }
+        private RemoveRollingStockFromCatalogItemUseCase CreateUseCase(
+            IRemoveRollingStockFromCatalogItemOutputPort outputPort,
+            CatalogItemsService catalogItemsService,
+            RollingStocksFactory rollingStocksFactory,
+            IUnitOfWork unitOfWork) =>
+            new RemoveRollingStockFromCatalogItemUseCase(new RemoveRollingStockFromCatalogItemInputValidator(), outputPort, catalogItemsService, unitOfWork);
     }
 }

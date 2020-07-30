@@ -1,27 +1,26 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
+using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Application.Catalog.Brands.GetBrandsList
 {
-    public sealed class GetBrandsListUseCase : IGetBrandsListUseCase
+    public sealed class GetBrandsListUseCase : AbstractUseCase<GetBrandsListInput, GetBrandsListOutput, IGetBrandsListOutputPort>
     {
-        private readonly BrandService _brandService;
+        private readonly BrandsService _brandsService;
 
-        public GetBrandsListUseCase(IGetBrandsListOutputPort outputPort, BrandService brandService)
+        public GetBrandsListUseCase(IUseCaseInputValidator<GetBrandsListInput> inputValidator, IGetBrandsListOutputPort outputPort, BrandsService brandsService)
+            : base(inputValidator, outputPort)
         {
-            OutputPort = outputPort ??
-                throw new ArgumentNullException(nameof(outputPort));
-            _brandService = brandService ??
-                throw new ArgumentNullException(nameof(brandService));
+            _brandsService = brandsService ??
+                             throw new ArgumentNullException(nameof(brandsService));
         }
 
-        public async Task Execute(GetBrandsListInput input)
+        protected override async Task Handle(GetBrandsListInput input)
         {
-            var paginatedResult = await _brandService.FindAllBrands(input.Page);
+            var paginatedResult = await _brandsService.FindAllBrands(input.Page);
             OutputPort.Standard(new GetBrandsListOutput(paginatedResult));
         }
-
-        private IGetBrandsListOutputPort OutputPort { get; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Common.Data.Pagination;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Shops.GetShopsList

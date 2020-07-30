@@ -1,23 +1,21 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Wishlists;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
 {
-    public class RemoveItemFromWishlistUseCaseTests : CollectingUseCaseTests<RemoveItemFromWishlistUseCase, RemoveItemFromWishlistOutput, RemoveItemFromWishlistOutputPort>
+    public class RemoveItemFromWishlistUseCaseTests : WishlistUseCaseTests<RemoveItemFromWishlistUseCase, RemoveItemFromWishlistInput, RemoveItemFromWishlistOutput, RemoveItemFromWishlistOutputPort>
     {
         [Fact]
         public async Task RemoveItemFromWishlist_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewRemoveItemFromWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -27,9 +25,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
         [Fact]
         public async Task RemoveItemFromWishlist_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewRemoveItemFromWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.RemoveItemFromWishlist.Empty);
+            await useCase.Execute(NewRemoveItemFromWishlistInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -37,9 +35,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
         [Fact]
         public async Task RemoveItemFromWishlist_ShouldOutputError_WhenItemWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewRemoveItemFromWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            var input = CollectingInputs.RemoveItemFromWishlist.With(
+            var input = NewRemoveItemFromWishlistInput.With(
                 owner: "George",
                 id: Guid.NewGuid(),
                 itemId: Guid.NewGuid());
@@ -55,15 +53,15 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
         [Fact]
         public async Task RemoveItemFromWishlist_ShouldDeleteItems()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeWishlistUseCase(Start.WithSeedData, NewRemoveItemFromWishlist);
+            var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
+            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
             var item = wishlist.Items.First();
 
-            var input = CollectingInputs.RemoveItemFromWishlist.With(
+            var input = NewRemoveItemFromWishlistInput.With(
                 owner: "George",
-                id: wishlist.Id.ToGuid(),
-                itemId: item.Id.ToGuid());
+                id: wishlist.Id,
+                itemId: item.Id);
 
             await useCase.Execute(input);
 
@@ -77,12 +75,11 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
             output.ItemId.Should().Be(item.Id);
         }
 
-        private RemoveItemFromWishlistUseCase NewRemoveItemFromWishlist(
-            WishlistService wishlistsService,
-            RemoveItemFromWishlistOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new RemoveItemFromWishlistUseCase(outputPort, wishlistsService, unitOfWork);
-        }
+        private RemoveItemFromWishlistUseCase CreateUseCase(
+            IRemoveItemFromWishlistOutputPort outputPort,
+            WishlistsService wishlistsService,
+            WishlistItemsFactory wishlistItemsFactory,
+            IUnitOfWork unitOfWork) =>
+            new RemoveItemFromWishlistUseCase(new RemoveItemFromWishlistInputValidator(), outputPort, wishlistsService, unitOfWork);
     }
 }

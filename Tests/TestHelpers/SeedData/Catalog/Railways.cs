@@ -1,75 +1,84 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using TreniniDotNet.Common;
+using System.Threading.Tasks;
+using NodaTime.TimeZones;
 using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using static TreniniDotNet.TestHelpers.SeedData.Catalog.CatalogSeedData;
+using TreniniDotNet.SharedKernel.Countries;
 
 namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 {
     public sealed class Railways
     {
-        private readonly IRailway _fs;
-        private readonly IRailway _sbb;
-        private readonly IRailway _dieBahn;
-        private readonly IRailway _sncb;
-        private readonly IRailway _sncf;
-        private readonly IRailway _rhb;
-        private readonly IRailway _dr;
+        private readonly Railway _fs;
+        private readonly Railway _sbb;
+        private readonly Railway _dieBahn;
+        private readonly Railway _sncb;
+        private readonly Railway _sncf;
+        private readonly Railway _rhb;
+        private readonly Railway _dr;
 
-        private readonly IList<IRailway> _all;
+        private readonly IList<Railway> _all;
+
+        public RailwaysBuilder New() => new RailwaysBuilder();
 
         internal Railways()
         {
             #region [ Init data ]
-            _fs = NewRailwayWith(
-                id: new RailwayId(new Guid("e8d33cd3-f36b-4622-90d1-76b450e0f313")),
-                name: "FS",
-                companyName: "Ferrovie dello stato",
-                country: Country.Of("IT"),
-                periodOfActivity: PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1)));
+            _fs = New()
+                .Id(new Guid("e8d33cd3-f36b-4622-90d1-76b450e0f313"))
+                .Name("FS")
+                .CompanyName("Ferrovie dello stato")
+                .Country(Country.Of("IT"))
+                .PeriodOfActivity(PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1)))
+                .Build();
 
-            _sbb = NewRailwayWith(
-                id: new RailwayId(new Guid("1c44e65f-bb53-4f14-a368-23daa5bfee05")),
-                name: "SBB",
-                companyName: "Schweizerische Bundesbahnen",
-                country: Country.Of("CH"));
+            _sbb = New()
+                .Id(new Guid("1c44e65f-bb53-4f14-a368-23daa5bfee05"))
+                .Name("SBB")
+                .CompanyName("Schweizerische Bundesbahnen")
+                .Country(Country.Of("CH"))
+                .Build();
 
-            _dieBahn = NewRailwayWith(
-                id: new RailwayId(new Guid("f12a3c5b-21f0-4d96-baf0-7bbf67e85e93")),
-                name: "DB",
-                companyName: "Die Bahn AG",
-                country: Country.Of("DE"));
+            _dieBahn = New()
+                .Id(new Guid("f12a3c5b-21f0-4d96-baf0-7bbf67e85e93"))
+                .Name("DB")
+                .CompanyName("Die Bahn AG")
+                .Country(Country.Of("DE"))
+                .Build();
 
-            _sncb = NewRailwayWith(
-                id: new RailwayId(new Guid("452ecf0f-0999-443d-a333-7afc23542d38")),
-                name: "SNCB",
-                companyName: "Société Nationale des Chemins de fer belges",
-                country: Country.Of("BE"));
+            _sncb = New()
+                .Id(new Guid("452ecf0f-0999-443d-a333-7afc23542d38"))
+                .Name("SNCB")
+                .CompanyName("Société Nationale des Chemins de fer belges")
+                .Country(Country.Of("BE"))
+                .Build();
 
-            _sncf = NewRailwayWith(
-                id: new RailwayId(new Guid("5cbccdd5-826d-4dc8-a0ff-d80572d43ac5")),
-                name: "SNCF",
-                companyName: "Société Nationale des Chemins de fer Français",
-                country: Country.Of("FR"));
+            _sncf = New()
+                .Id(new Guid("5cbccdd5-826d-4dc8-a0ff-d80572d43ac5"))
+                .Name("SNCF")
+                .CompanyName("Société Nationale des Chemins de fer Français")
+                .Country(Country.Of("FR"))
+                .Build();
 
-            _rhb = NewRailwayWith(
-                id: new RailwayId(new Guid("fa307786-00a9-4257-9274-76f7a0c06fab")),
-                name: "RhB",
-                companyName: "Rhätische Bahn / Viafier retica",
-                country: Country.Of("CH"));
+            _rhb = New()
+                .Id(new Guid("fa307786-00a9-4257-9274-76f7a0c06fab"))
+                .Name("RhB")
+                .CompanyName("Rhätische Bahn / Viafier retica")
+                .Country(Country.Of("CH"))
+                .Build();
 
-            _dr = NewRailwayWith(
-                id: new RailwayId(new Guid("93a911d8-0422-41b0-80a4-9f4650f1e8b4")),
-                name: "DR",
-                companyName: "Deutsche Reichsbahn (East Germany)",
-                country: Country.Of("DE"),
-                periodOfActivity: PeriodOfActivity.InactiveRailway(
+            _dr = New()
+                .Id(new Guid("93a911d8-0422-41b0-80a4-9f4650f1e8b4"))
+                .Name("DR")
+                .CompanyName("Deutsche Reichsbahn (East Germany)")
+                .Country(Country.Of("DE"))
+                .PeriodOfActivity(PeriodOfActivity.InactiveRailway(
                     new DateTime(1949, 1, 1),
-                    new DateTime(1993, 12, 31)));
+                    new DateTime(1993, 12, 31)))
+                .Build();
             #endregion
 
-            _all = new List<IRailway>()
+            _all = new List<Railway>()
             {
                 _fs,
                 _sbb,
@@ -81,31 +90,31 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             };
         }
 
-        public IList<IRailway> All() => _all;
+        public IList<Railway> All() => _all;
 
-        public IRailway Fs() => _fs;
+        public Railway Fs() => _fs;
 
-        public IRailway Sbb() => _sbb;
+        public Railway Sbb() => _sbb;
 
-        public IRailway DieBahn() => _dieBahn;
+        public Railway DieBahn() => _dieBahn;
 
-        private IRailway Sncb() => _sncb;
+        public Railway Sncb() => _sncb;
 
-        public IRailway Sncf() => _sncf;
+        public Railway Sncf() => _sncf;
 
-        public IRailway RhB() => _rhb;
+        public Railway RhB() => _rhb;
 
-        public IRailway DR() => _dr;
+        public Railway DR() => _dr;
     }
 
     public static class RailwaysRepositoryExtensions
     {
-        public static void SeedDatabase(this IRailwaysRepository repo)
+        public static async Task SeedDatabase(this IRailwaysRepository repo)
         {
             var railways = CatalogSeedData.Railways.All();
             foreach (var railway in railways)
             {
-                repo.AddAsync(railway);
+                await repo.AddAsync(railway);
             }
         }
     }

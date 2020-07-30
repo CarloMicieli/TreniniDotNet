@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -35,7 +35,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
+            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
             var id = wishlist.Id;
             var itemId = wishlist.Items.First().Id;
 
@@ -49,7 +49,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
+            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
 
             var id = wishlist.Id;
             var itemId = Guid.NewGuid();
@@ -64,7 +64,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
+            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
             var id = wishlist.Id;
             var itemId = wishlist.Items.First().Id;
 

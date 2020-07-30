@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.Scales.EditScale
 {
-    public sealed class EditScaleHandler : UseCaseHandler<IEditScaleUseCase, EditScaleRequest, EditScaleInput>
+    public sealed class EditScaleHandler : UseCaseHandler<EditScaleUseCase, EditScaleRequest, EditScaleInput>
     {
-        public EditScaleHandler(IEditScaleUseCase useCase, IMapper mapper)
+        public EditScaleHandler(EditScaleUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

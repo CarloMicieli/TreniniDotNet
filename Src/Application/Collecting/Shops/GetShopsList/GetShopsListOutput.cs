@@ -1,16 +1,16 @@
-﻿using TreniniDotNet.Common.Pagination;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+﻿using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
 using TreniniDotNet.Domain.Collecting.Shops;
 
 namespace TreniniDotNet.Application.Collecting.Shops.GetShopsList
 {
     public sealed class GetShopsListOutput : IUseCaseOutput
     {
-        public GetShopsListOutput(PaginatedResult<IShop> shops)
+        public GetShopsListOutput(PaginatedResult<Shop> shops)
         {
             Shops = shops;
         }
 
-        public PaginatedResult<IShop> Shops { get; }
+        public PaginatedResult<Shop> Shops { get; }
     }
 }

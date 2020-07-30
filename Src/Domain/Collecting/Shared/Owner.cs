@@ -1,8 +1,9 @@
 ﻿using System;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Domain.Collecting.Shared
 {
-    public readonly struct Owner
+    public readonly struct Owner : IEquatable<Owner>
     {
         public string Value { get; }
 
@@ -13,29 +14,34 @@ namespace TreniniDotNet.Domain.Collecting.Shared
                 throw new ArgumentException("Input value for owner is empty or null", nameof(value));
             }
 
-            this.Value = value;
+            Value = value;
         }
 
-        public static implicit operator string(Owner o) { return o.Value; }
+        public static implicit operator string(Owner o) => o.Value;
+
+        public bool CanView(Wishlist wishlist) =>
+            this == wishlist.Owner || wishlist.Visibility == Visibility.Public;
+
+        public bool CanEdit(Wishlist wishlist) =>
+            this == wishlist.Owner;
 
         #region [ Equality ]
 
-        public override bool Equals(object obj)
+        public bool Equals(Owner other) => this == other;
+
+        public override bool Equals(object? obj)
         {
             if (obj is Owner that)
             {
-                return AreEquals(this, that);
+                return this == that;
             }
 
             return false;
         }
 
-        public static bool operator ==(Owner left, Owner right) => AreEquals(left, right);
+        public static bool operator ==(Owner left, Owner right) => left.Value == right.Value;
 
-        public static bool operator !=(Owner left, Owner right) => !AreEquals(left, right);
-
-        private static bool AreEquals(Owner left, Owner right) =>
-            left.Value == right.Value;
+        public static bool operator !=(Owner left, Owner right) => !(left == right);
 
         #endregion
 

@@ -1,8 +1,7 @@
-﻿using TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+﻿using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts
+namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
 {
     public sealed class GetWishlistByIdOutputPort : OutputPortTestHelper<GetWishlistByIdOutput>, IGetWishlistByIdOutputPort
     {

@@ -1,68 +1,45 @@
 using System;
 using FluentAssertions;
-using NodaMoney;
 using NodaTime;
 using NodaTime.Testing;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Uuid.Testing;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
-using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
 
 namespace TreniniDotNet.Domain.Collecting.Wishlists
 {
     public class WishlistsFactoryTests
     {
-        private Guid ExpectedId = new Guid("15455823-fca5-42ab-b4dc-99ed2f4e3dac");
-
         private WishlistsFactory Factory { get; }
 
         public WishlistsFactoryTests()
         {
             Factory = new WishlistsFactory(
-                FakeClock.FromUtc(1988, 11, 25, 9, 0, 0),
-                FakeGuidSource.NewSource(ExpectedId));
+                FakeClock.FromUtc(1988, 11, 25),
+                FakeGuidSource.NewSource(new Guid("af3f666c-8f81-438f-bff6-0d32f13b7eef")));
         }
 
         [Fact]
-        public void WishlistsFactory_NewWishlist_ShouldCreateNewValues()
+        public void WishlistsFactory_ShouldCreateNewValues()
         {
-            string listName = "My first list";
-
-            var owner = new Owner("George");
-            var slug = Slug.Of(listName);
-
-            var wishlist = Factory.NewWishlist(owner, slug, listName, Visibility.Private);
+            var wishlist = Factory.CreateWishlist(
+                new Owner("George"),
+                "My first list",
+                Visibility.Private,
+                new Budget(1000M, "EUR"));
 
             wishlist.Should().NotBeNull();
-            wishlist.Id.Should().Be(new WishlistId(ExpectedId));
-            wishlist.Owner.Should().Be(new Owner(owner));
-            wishlist.ListName.Should().Be(listName);
+            wishlist.Id.Should().Be(new WishlistId(new Guid("af3f666c-8f81-438f-bff6-0d32f13b7eef")));
+            wishlist.Owner.Should().Be(new Owner("George"));
+            wishlist.Slug.Should().Be(Slug.Of("george-my-first-list"));
+            wishlist.ListName.Should().Be("My first list");
             wishlist.Visibility.Should().Be(Visibility.Private);
+            wishlist.Budget.Should().Be(new Budget(1000M, "EUR"));
             wishlist.Items.Should().HaveCount(0);
-            wishlist.CreatedDate.Should().Be(Instant.FromUtc(1988, 11, 25, 9, 0, 0));
+            wishlist.CreatedDate.Should().Be(Instant.FromUtc(1988, 11, 25, 0, 0, 0));
+            wishlist.ModifiedDate.Should().BeNull();
             wishlist.Version.Should().Be(1);
-        }
-
-        [Fact]
-        public void WishlistsFactory_NewWishlistItem_ShouldCreateNewItems()
-        {
-            var catalogRef = CatalogRef.Of(Guid.NewGuid(), "acme-123456");
-
-            var wishlistItem = Factory.NewWishlistItem(
-                catalogRef,
-                Priority.Normal,
-                new LocalDate(2020, 11, 25),
-                Money.Euro(199),
-                "My notes");
-
-            wishlistItem.Should().NotBeNull();
-            wishlistItem.Id.Should().Be(new WishlistItemId(ExpectedId));
-            wishlistItem.CatalogItem.Should().Be(catalogRef);
-            wishlistItem.Notes.Should().Be("My notes");
-            wishlistItem.Priority.Should().Be(Priority.Normal);
-            wishlistItem.AddedDate.Should().Be(new LocalDate(2020, 11, 25));
-            wishlistItem.Price.Should().Be(Money.Euro(199));
         }
     }
 }

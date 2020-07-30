@@ -5,26 +5,22 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using NodaTime;
 using Serilog;
-using TreniniDotNet.Application.Catalog;
-using TreniniDotNet.Application.Collecting;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Infrastructure.Persistence;
-using TreniniDotNet.Infrastructure.Persistence.Migrations;
-using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
+using TreniniDotNet.Infrastructure.HealthChecks;
+using TreniniDotNet.Infrastructure.Identity.DependencyInjection;
+using TreniniDotNet.Infrastructure.Persistence.DependencyInjection;
 using TreniniDotNet.Web.Catalog.V1;
 using TreniniDotNet.Web.Collecting.V1;
 using TreniniDotNet.Web.Infrastructure.DependencyInjection;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
 using TreniniDotNet.Web.Uploads;
-using TreniniDotNet.Web.UserProfiles.Identity;
 
 namespace TreniniDotNet.Web
 {
@@ -35,7 +31,7 @@ namespace TreniniDotNet.Web
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -56,19 +52,10 @@ namespace TreniniDotNet.Web
                 });
             services.AddHttpContextAccessor();
 
-            var connectionString = Configuration.GetConnectionString("Default");
-
-            services.AddDapper(options =>
-            {
-                options.UsePostgres(connectionString);
-                options.ScanTypeHandlersIn(typeof(GuidTypeHandler).Assembly);
-            });
-
-            services.AddMigrations(options =>
-            {
-                options.UsePostgres(connectionString);
-                options.ScanMigrationsIn(typeof(InitialMigration).Assembly);
-            });
+            services.AddRepositories(Configuration);
+            services.AddUseCases();
+            services.AddCatalogPresenters();
+            services.AddCollectingPresenter();
 
             services.AddOpenApi();
             services.AddVersioning();
@@ -78,38 +65,23 @@ namespace TreniniDotNet.Web
 
             services.AddSingleton<ILinksGenerator, AspNetLinksGenerator>();
 
-            services.AddCatalogUseCases();
-            services.AddCatalogPresenters();
-
-            services.AddCollectingUseCases();
-            services.AddCollectingPresenter();
-
-            services.AddRepositories();
-
             services.AddSingleton<IGuidSource, GuidSource>();
             services.AddSingleton<IClock>(SystemClock.Instance);
 
             var uploadsSection = Configuration.GetSection("Uploads");
             services.Configure<UploadSettings>(uploadsSection);
 
+            services.AddIdentityManagement(Configuration);
+
             services.AddHealthChecks()
-                .AddDbContextCheck<ApplicationIdentityDbContext>("DbHealthCheck");
-
-            services.AddEntityFrameworkIdentity(Configuration);
-
-            services.AddJwtAuthentication(Configuration)
-                .AddJwtAuthorization();
+                .AddDatabaseHealthChecks();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopmentOrTesting())
             {
                 app.UseExceptionHandler("/error-local-development");
-
-                // Run database migration
-                var migration = serviceProvider.GetRequiredService<IDatabaseMigration>();
-                migration.Up();
             }
             else
             {
@@ -137,17 +109,12 @@ namespace TreniniDotNet.Web
 
             app.UseHealthChecks("/health");
 
-            app.UseSpa(spa =>
+            app.UseEndpoints(endpoints =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "UI";
-
-                if (env.IsDevelopmentOrTesting())
+                endpoints.MapGet("/", async context =>
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
+                    await context.Response.WriteAsync("Hello World!");
+                });
             });
         }
     }

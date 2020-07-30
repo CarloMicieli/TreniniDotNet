@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistsByOwner

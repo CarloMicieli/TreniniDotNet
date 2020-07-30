@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 

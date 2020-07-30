@@ -1,22 +1,25 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.SharedKernel.Countries;
 
 namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
 {
-    public sealed class EditRailwayUseCase : ValidatedUseCase<EditRailwayInput, IEditRailwayOutputPort>, IEditRailwayUseCase
+    public sealed class EditRailwayUseCase : AbstractUseCase<EditRailwayInput, EditRailwayOutput, IEditRailwayOutputPort>
     {
-        private readonly RailwayService _railwayService;
+        private readonly RailwaysService _railwayService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EditRailwayUseCase(IEditRailwayOutputPort output,
-            RailwayService railwayService,
+        public EditRailwayUseCase(
+            IUseCaseInputValidator<EditRailwayInput> inputValidator,
+            IEditRailwayOutputPort outputPort,
+            RailwaysService railwayService,
             IUnitOfWork unitOfWork)
-            : base(new EditRailwayInputValidator(), output)
+            : base(inputValidator, outputPort)
         {
             _railwayService = railwayService ??
                 throw new ArgumentNullException(nameof(railwayService));
@@ -43,8 +46,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
             var railwayLength = values.TotalLength.ToRailwayLength();
             var periodOfActivity = values.PeriodOfActivity.ToPeriodOfActivity();
 
-            await _railwayService.UpdateRailway(
-                railway,
+            var modifiedRailway = railway.With(
                 values.Name,
                 values.CompanyName,
                 country,
@@ -53,6 +55,8 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
                 railwayGauge,
                 websiteUrl,
                 values.Headquarters);
+
+            await _railwayService.UpdateRailway(modifiedRailway);
 
             await _unitOfWork.SaveAsync();
 

@@ -1,29 +1,33 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NodaMoney;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 using TreniniDotNet.Domain.Collecting.Wishlists;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
 {
-    public sealed class AddItemToWishlistUseCase : ValidatedUseCase<AddItemToWishlistInput, IAddItemToWishlistOutputPort>, IAddItemToWishlistUseCase
+    public sealed class AddItemToWishlistUseCase : AbstractUseCase<AddItemToWishlistInput, AddItemToWishlistOutput, IAddItemToWishlistOutputPort>
     {
-        private readonly WishlistService _wishlistService;
+        private readonly WishlistsService _wishlistService;
+        private readonly WishlistItemsFactory _wishlistItemsFactory;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AddItemToWishlistUseCase(IAddItemToWishlistOutputPort output, WishlistService wishlistService, IUnitOfWork unitOfWork)
-            : base(new AddItemToWishlistInputValidator(), output)
+        public AddItemToWishlistUseCase(
+            IUseCaseInputValidator<AddItemToWishlistInput> inputValidator,
+            IAddItemToWishlistOutputPort output,
+            WishlistsService wishlistService,
+            WishlistItemsFactory wishlistItemsFactory,
+            IUnitOfWork unitOfWork)
+            : base(inputValidator, output)
         {
-            _wishlistService = wishlistService ??
-                throw new ArgumentNullException(nameof(wishlistService));
-            _unitOfWork = unitOfWork ??
-                throw new ArgumentNullException(nameof(unitOfWork));
+            _wishlistService = wishlistService ?? throw new ArgumentNullException(nameof(wishlistService));
+            _wishlistItemsFactory = wishlistItemsFactory ?? throw new ArgumentNullException(nameof(wishlistItemsFactory));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         protected override async Task Handle(AddItemToWishlistInput input)
@@ -31,44 +35,50 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
             var id = new WishlistId(input.Id);
             var owner = new Owner(input.Owner);
 
-            var wishlistExists = await _wishlistService.ExistAsync(owner, id);
-            if (wishlistExists == false)
+            var wishlist = await _wishlistService.GetByIdAsync(id);
+            if (wishlist is null)
             {
                 OutputPort.WishlistNotFound(id);
                 return;
             }
 
+            if (owner.CanEdit(wishlist) == false)
+            {
+                OutputPort.NotAuthorizedToEditThisWishlist(owner);
+                return;
+            }
+
             var catalogItemSlug = Slug.Of(input.CatalogItem);
-            var catalogRef = await _wishlistService.GetCatalogRef(catalogItemSlug);
-            if (catalogRef is null)
+            var catalogItem = await _wishlistService.GetCatalogItemAsync(catalogItemSlug);
+            if (catalogItem is null)
             {
                 OutputPort.CatalogItemNotFound(catalogItemSlug);
                 return;
             }
 
-            var itemIdForCatalogItem = await _wishlistService.GetItemIdByCatalogRefAsync(id, catalogRef);
-            if (itemIdForCatalogItem.HasValue)
+            if (wishlist.Contains(catalogItem))
             {
-                OutputPort.CatalogItemAlreadyPresent(id, itemIdForCatalogItem.Value, catalogRef);
+                OutputPort.CatalogItemAlreadyPresent(id, catalogItem);
                 return;
             }
 
-            Money? price = input.Price.HasValue ?
-                Money.Euro(input.Price.Value) : (Money?)null; //TODO: fix currency management
+            var price = input.Price?.ToPriceOrDefault();
 
-            Priority priority = EnumHelpers.OptionalValueFor<Priority>(input.Priority) ??
-                Priority.Normal;
+            var priority = EnumHelpers.OptionalValueFor<Priority>(input.Priority) ?? Priority.Normal;
 
-            var itemId = await _wishlistService.AddItemAsync(id,
-                catalogRef,
+            var item = _wishlistItemsFactory.CreateWishlistItem(
+                catalogItem,
                 priority,
                 input.AddedDate.ToLocalDate(),
                 price,
                 input.Notes);
+            wishlist.AddItem(item);
+
+            await _wishlistService.UpdateWishlistAsync(wishlist);
 
             var _ = await _unitOfWork.SaveAsync();
 
-            OutputPort.Standard(new AddItemToWishlistOutput(id, itemId));
+            OutputPort.Standard(new AddItemToWishlistOutput(id, item.Id));
         }
     }
 }

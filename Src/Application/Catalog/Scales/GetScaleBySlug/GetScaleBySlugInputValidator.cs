@@ -1,9 +1,9 @@
-﻿using FluentValidation;
-using TreniniDotNet.Common.Validation;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.GetScaleBySlug
 {
-    public sealed class GetScaleBySlugInputValidator : AbstractValidator<GetScaleBySlugInput>
+    public sealed class GetScaleBySlugInputValidator : AbstractUseCaseValidator<GetScaleBySlugInput>
     {
         public GetScaleBySlugInputValidator()
         {

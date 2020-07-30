@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Shops.GetShopBySlug

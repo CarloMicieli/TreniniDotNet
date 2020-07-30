@@ -1,9 +1,12 @@
-﻿using FluentValidation;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+﻿#nullable disable
+using FluentValidation;
+using TreniniDotNet.Application.Collecting.Shared;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
+using TreniniDotNet.Domain.Collecting.Collections;
 
 namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
 {
-    public sealed class EditCollectionItemInputValidator : AbstractValidator<EditCollectionItemInput>
+    public sealed class EditCollectionItemInputValidator : AbstractUseCaseValidator<EditCollectionItemInput>
     {
         public EditCollectionItemInputValidator()
         {
@@ -14,7 +17,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
                 .NotEmpty();
 
             RuleFor(x => x.Price)
-                .GreaterThan(0M);
+                .SetValidator(new PriceInputValidator());
 
             RuleFor(x => x.Condition)
                 .IsEnumName(typeof(Condition), caseSensitive: false);

@@ -1,21 +1,20 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
 {
-    public class EditBrandUseCaseTests : CatalogUseCaseTests<EditBrandUseCase, EditBrandOutput, EditBrandOutputPort>
+    public sealed class EditBrandUseCaseTests : BrandUseCaseTests<EditBrandUseCase, EditBrandInput, EditBrandOutput, EditBrandOutputPort>
     {
         [Fact]
         public async Task EditBrand_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(NewEditBrandInput.With(websiteUrl: "--invalid--"));
 
@@ -25,7 +24,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
         [Fact]
         public async Task EditBrand_ShouldOutputBrandNotFound_WhenBrandToEditWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeBrandsUseCase(Start.Empty, NewCreateBrand);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var brandSlug = Slug.Of("ACME");
 
@@ -38,7 +37,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
         [Fact]
         public async Task EditBrand_ShouldUpdateBrands()
         {
-            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeBrandsUseCase(Start.WithSeedData, NewCreateBrand);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var brandSlug = Slug.Of("ACME");
             var expectedSlug = Slug.Of("A.C.M.E.");
@@ -57,9 +56,10 @@ namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
             dbContext.Brands.Any(it => it.Slug == expectedSlug).Should().BeTrue();
         }
 
-        private EditBrandUseCase NewCreateBrand(BrandService brandService, EditBrandOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new EditBrandUseCase(outputPort, brandService, unitOfWork);
-        }
+        private EditBrandUseCase CreateUseCase(
+            EditBrandOutputPort outputPort,
+            BrandsService brandService,
+            IUnitOfWork unitOfWork) =>
+            new EditBrandUseCase(new EditBrandInputValidator(), outputPort, brandService, unitOfWork);
     }
 }

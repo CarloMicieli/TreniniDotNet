@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
@@ -8,25 +8,25 @@ using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 
 namespace TreniniDotNet.TestHelpers.InMemory.Repository
 {
     public sealed class InMemoryContext
     {
-        public List<IBrand> Brands { private set; get; } = new List<IBrand>();
+        public List<Brand> Brands { private set; get; } = new List<Brand>();
 
-        public List<IScale> Scales { private set; get; } = new List<IScale>();
+        public List<Scale> Scales { private set; get; } = new List<Scale>();
 
-        public List<IRailway> Railways { private set; get; } = new List<IRailway>();
+        public List<Railway> Railways { private set; get; } = new List<Railway>();
 
-        public List<ICatalogItem> CatalogItems { private set; get; } = new List<ICatalogItem>();
+        public List<CatalogItem> CatalogItems { private set; get; } = new List<CatalogItem>();
 
-        public List<ICollection> Collections { private set; get; } = new List<ICollection>();
+        public List<Collection> Collections { private set; get; } = new List<Collection>();
 
-        public List<IWishlist> WishLists { private set; get; } = new List<IWishlist>();
+        public List<Wishlist> WishLists { private set; get; } = new List<Wishlist>();
 
-        public List<IShop> Shops { private set; get; } = new List<IShop>();
+        public List<Shop> Shops { private set; get; } = new List<Shop>();
 
         public static InMemoryContext WithSeedData()
         {
@@ -36,9 +36,9 @@ namespace TreniniDotNet.TestHelpers.InMemory.Repository
                 Railways = CatalogSeedData.Railways.All().ToList(),
                 Scales = CatalogSeedData.Scales.All().ToList(),
                 CatalogItems = CatalogSeedData.CatalogItems.All().ToList(),
-                Collections = CollectionSeedData.Collections.All().ToList(),
-                Shops = CollectionSeedData.Shops.All().ToList(),
-                WishLists = CollectionSeedData.Wishlists.All().ToList()
+                Collections = CollectingSeedData.Collections.All().ToList(),
+                Shops = CollectingSeedData.Shops.All().ToList(),
+                WishLists = CollectingSeedData.Wishlists.All().ToList()
             };
         }
     }

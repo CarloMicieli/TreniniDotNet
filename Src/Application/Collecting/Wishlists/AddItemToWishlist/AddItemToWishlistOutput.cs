@@ -1,5 +1,5 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
 {
@@ -11,7 +11,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
             ItemId = itemId;
         }
 
-        public WishlistId Id { set; get; }
-        public WishlistItemId ItemId { set; get; }
+        public WishlistId Id { get; }
+        public WishlistItemId ItemId { get; }
     }
 }

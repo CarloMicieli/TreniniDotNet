@@ -1,23 +1,22 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 {
-    public class CreateRailwayUseCaseTests : CatalogUseCaseTests<CreateRailwayUseCase, CreateRailwayOutput, CreateRailwayOutputPort>
+    public sealed class CreateRailwayUseCaseTests : RailwayUseCaseTests<CreateRailwayUseCase, CreateRailwayInput, CreateRailwayOutput, CreateRailwayOutputPort>
     {
         [Fact]
         public async Task CreateRailway_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(NewCreateRailwayInput.Empty);
 
@@ -27,7 +26,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
         [Fact]
         public async Task CreateRailway_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -37,7 +36,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
         [Fact]
         public async Task CreateRailway_ShouldNotCreateANewRailway_WhenRailwayAlreadyExists()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.WithSeedData, NewCreateRailway);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var name = "DB";
             var input = NewCreateRailwayInput.With(
@@ -57,7 +56,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
         [Fact]
         public async Task CreateRailway_Should_CreateANewRailway()
         {
-            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeRailwaysUseCase(Start.Empty, NewCreateRailway);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var expectedSlug = Slug.Of("db");
 
@@ -92,9 +91,10 @@ namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
             dbContext.Railways.Any(it => it.Slug == expectedSlug).Should().BeTrue();
         }
 
-        private CreateRailwayUseCase NewCreateRailway(RailwayService railwayService, CreateRailwayOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new CreateRailwayUseCase(outputPort, railwayService, unitOfWork);
-        }
+        private CreateRailwayUseCase CreateUseCase(
+            CreateRailwayOutputPort outputPort,
+            RailwaysService railwaysService,
+            IUnitOfWork unitOfWork) =>
+            new CreateRailwayUseCase(new CreateRailwayInputValidator(), outputPort, railwaysService, unitOfWork);
     }
 }

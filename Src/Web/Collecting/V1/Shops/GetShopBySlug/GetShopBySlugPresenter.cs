@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Shops.GetShopBySlug;
 using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 

@@ -1,9 +1,9 @@
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
 {
-    public interface ICreateScaleOutputPort : IOutputPortStandard<CreateScaleOutput>
+    public interface ICreateScaleOutputPort : IStandardOutputPort<CreateScaleOutput>
     {
         void ScaleAlreadyExists(Slug scaleSlug);
     }

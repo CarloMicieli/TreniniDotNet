@@ -1,22 +1,20 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Wishlists;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
 {
-    public class DeleteWishlistUseCaseTests : CollectingUseCaseTests<DeleteWishlistUseCase, DeleteWishlistOutput, DeleteWishlistOutputPort>
+    public class DeleteWishlistUseCaseTests : WishlistUseCaseTests<DeleteWishlistUseCase, DeleteWishlistInput, DeleteWishlistOutput, DeleteWishlistOutputPort>
     {
         [Fact]
         public async Task DeleteWishlist_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewDeleteWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -26,9 +24,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
         [Fact]
         public async Task DeleteWishlist_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewDeleteWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.DeleteWishlist.Empty);
+            await useCase.Execute(NewDeleteWishlistInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -36,9 +34,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
         [Fact]
         public async Task DeleteWishlist_ShouldOutputError_WhenWishlistWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewDeleteWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            var input = CollectingInputs.DeleteWishlist.With(
+            var input = NewDeleteWishlistInput.With(
                 owner: "George",
                 id: Guid.NewGuid());
 
@@ -51,12 +49,12 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
         [Fact]
         public async Task DeleteWishlist_ShouldDeleteWishlist()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeWishlistUseCase(Start.WithSeedData, NewDeleteWishlist);
+            var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
-            var input = CollectingInputs.DeleteWishlist.With(
+            var wishlist = CollectingSeedData.Wishlists.GeorgeFirstList();
+            var input = NewDeleteWishlistInput.With(
                 owner: "George",
-                id: wishlist.Id.ToGuid());
+                id: wishlist.Id);
 
             await useCase.Execute(input);
 
@@ -69,13 +67,11 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
             output.Id.Should().Be(wishlist.Id);
         }
 
-
-        private DeleteWishlistUseCase NewDeleteWishlist(
-            WishlistService wishlistsService,
-            DeleteWishlistOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new DeleteWishlistUseCase(outputPort, wishlistsService, unitOfWork);
-        }
+        private DeleteWishlistUseCase CreateUseCase(
+            IDeleteWishlistOutputPort outputPort,
+            WishlistsService wishlistsService,
+            WishlistItemsFactory wishlistItemsFactory,
+            IUnitOfWork unitOfWork) =>
+            new DeleteWishlistUseCase(new DeleteWishlistInputValidator(), outputPort, wishlistsService, unitOfWork);
     }
 }

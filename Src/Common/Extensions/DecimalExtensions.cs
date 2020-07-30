@@ -11,10 +11,5 @@ namespace TreniniDotNet.Common.Extensions
         {
             return d < 0M;
         }
-
-        public static float ToFloat(this decimal d)
-        {
-            return (float)d;
-        }
     }
 }

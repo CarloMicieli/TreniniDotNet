@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TreniniDotNet.Common;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Collecting.Shops;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Collecting.Shops.GetShopBySlug
 {
-    public sealed class GetShopBySlugUseCase : ValidatedUseCase<GetShopBySlugInput, IGetShopBySlugOutputPort>, IGetShopBySlugUseCase
+    public sealed class GetShopBySlugUseCase : AbstractUseCase<GetShopBySlugInput, GetShopBySlugOutput, IGetShopBySlugOutputPort>
     {
         private readonly ShopsService _shopService;
 
-        public GetShopBySlugUseCase(IGetShopBySlugOutputPort output, ShopsService service)
-            : base(new GetShopBySlugInputValidator(), output)
+        public GetShopBySlugUseCase(IUseCaseInputValidator<GetShopBySlugInput> inputValidator, IGetShopBySlugOutputPort output, ShopsService service)
+            : base(inputValidator, output)
         {
             _shopService = service ??
                 throw new ArgumentNullException(nameof(service));

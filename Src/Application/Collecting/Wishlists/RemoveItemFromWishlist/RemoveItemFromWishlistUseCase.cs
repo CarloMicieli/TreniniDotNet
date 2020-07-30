@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using NodaTime;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
 {
-    public sealed class RemoveItemFromWishlistUseCase : ValidatedUseCase<RemoveItemFromWishlistInput, IRemoveItemFromWishlistOutputPort>, IRemoveItemFromWishlistUseCase
+    public sealed class RemoveItemFromWishlistUseCase : AbstractUseCase<RemoveItemFromWishlistInput, RemoveItemFromWishlistOutput, IRemoveItemFromWishlistOutputPort>
     {
-        private readonly WishlistService _wishlistService;
+        private readonly WishlistsService _wishlistService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public RemoveItemFromWishlistUseCase(IRemoveItemFromWishlistOutputPort output, WishlistService wishlistService, IUnitOfWork unitOfWork)
-            : base(new RemoveItemFromWishlistInputValidator(), output)
+        public RemoveItemFromWishlistUseCase(
+            IUseCaseInputValidator<RemoveItemFromWishlistInput> inputValidator,
+            IRemoveItemFromWishlistOutputPort outputPort,
+            WishlistsService wishlistService,
+            IUnitOfWork unitOfWork)
+            : base(inputValidator, outputPort)
         {
             _wishlistService = wishlistService ??
                 throw new ArgumentNullException(nameof(wishlistService));
@@ -28,21 +33,23 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
             var itemId = new WishlistItemId(input.ItemId);
             var owner = new Owner(input.Owner);
 
-            var exists = await _wishlistService.ExistAsync(owner, id);
-            if (exists == false)
+            var wishlist = await _wishlistService.GetByIdAsync(id);
+            if (wishlist is null)
             {
                 OutputPort.WishlistItemNotFound(id, itemId);
                 return;
             }
 
-            var item = await _wishlistService.GetItemByIdAsync(id, itemId);
+            var item = wishlist.FindItemById(itemId);
             if (item is null)
             {
                 OutputPort.WishlistItemNotFound(id, itemId);
                 return;
             }
 
-            await _wishlistService.DeleteItemAsync(id, itemId);
+            wishlist.RemoveItem(item.Id, LocalDate.MaxIsoValue);
+
+            await _wishlistService.UpdateWishlistAsync(wishlist);
             var _ = await _unitOfWork.SaveAsync();
 
             OutputPort.Standard(new RemoveItemFromWishlistOutput(id, itemId));

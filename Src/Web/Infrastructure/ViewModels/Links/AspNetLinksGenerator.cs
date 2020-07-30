@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Web.Infrastructure.ViewModels.Links
 {

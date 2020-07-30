@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Pagination;

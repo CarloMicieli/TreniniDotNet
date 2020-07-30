@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using TreniniDotNet.Infrastructure.Persistence.Images;
@@ -54,7 +52,7 @@ namespace TreniniDotNet.Web.Uploads.V1.Images
             string encodedFilename = WebUtility.HtmlEncode(imageUpload.File.FileName);
 
             var newImage = new Image(trustedFilenameForStorage, imageUpload.File.ContentType, memoryStream.ToArray());
-            await Images.SaveImage(newImage);
+            await Images.SaveImageAsync(newImage);
 
             return Ok(new
             {
@@ -68,7 +66,7 @@ namespace TreniniDotNet.Web.Uploads.V1.Images
         [HttpGet("{filename}", Name = "GetImage")]
         public async Task<IActionResult> GetImageByFilename(string filename)
         {
-            var image = await Images.GetImageByFilename(filename);
+            var image = await Images.GetImageByFilenameAsync(filename);
             if (image is null)
             {
                 return NotFound();
@@ -110,13 +108,5 @@ namespace TreniniDotNet.Web.Uploads.V1.Images
                     }
                 }
             };
-    }
-
-    public class ImageUpload
-    {
-        [Required]
-        public IFormFile File { set; get; } = null!;
-
-        public string? Tag { set; get; }
     }
 }

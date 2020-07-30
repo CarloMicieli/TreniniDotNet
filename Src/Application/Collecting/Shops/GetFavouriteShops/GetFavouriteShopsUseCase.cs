@@ -1,12 +1,15 @@
 ﻿using System.Threading.Tasks;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 
 namespace TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops
 {
-    public sealed class GetFavouriteShopsUseCase : ValidatedUseCase<GetFavouriteShopsInput, IGetFavouriteShopsOutputPort>, IGetFavouriteShopsUseCase
+    public sealed class GetFavouriteShopsUseCase : AbstractUseCase<GetFavouriteShopsInput, GetFavouriteShopsOutput, IGetFavouriteShopsOutputPort>
     {
-        public GetFavouriteShopsUseCase(IGetFavouriteShopsOutputPort output)
-            : base(new GetFavouriteShopsInputValidator(), output)
+        public GetFavouriteShopsUseCase(
+            IUseCaseInputValidator<GetFavouriteShopsInput> inputValidator,
+            IGetFavouriteShopsOutputPort outputPort)
+            : base(inputValidator, outputPort)
         {
         }
 

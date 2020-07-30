@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Collections.AddItemToCollection
 {
-    public sealed class AddItemToCollectionHandler : UseCaseHandler<IAddItemToCollectionUseCase, AddItemToCollectionRequest, AddItemToCollectionInput>
+    public sealed class AddItemToCollectionHandler : UseCaseHandler<AddItemToCollectionUseCase, AddItemToCollectionRequest, AddItemToCollectionInput>
     {
-        public AddItemToCollectionHandler(IAddItemToCollectionUseCase useCase, IMapper mapper)
+        public AddItemToCollectionHandler(AddItemToCollectionUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

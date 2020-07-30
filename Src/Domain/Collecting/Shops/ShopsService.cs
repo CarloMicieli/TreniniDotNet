@@ -1,54 +1,62 @@
-﻿using System;
+using System;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.Addresses;
-using TreniniDotNet.Common.Pagination;
-using TreniniDotNet.Common.PhoneNumbers;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Common.Domain;
+using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.SharedKernel.Addresses;
+using TreniniDotNet.SharedKernel.PhoneNumbers;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Domain.Collecting.Shops
 {
-    public sealed class ShopsService
+    public sealed class ShopsService : IDomainService
     {
-        private readonly IShopsRepository _shops;
-        private readonly IShopsFactory _factory;
+        private readonly IShopsRepository _shopsRepository;
+        private readonly ShopsFactory _shopsFactory;
 
-        public ShopsService(IShopsRepository shopsRepository, IShopsFactory factory)
+        public ShopsService(ShopsFactory shopsFactory, IShopsRepository shopsRepository)
         {
-            _shops = shopsRepository ??
-                throw new ArgumentNullException(nameof(shopsRepository));
-            _factory = factory ??
-                throw new ArgumentNullException(nameof(factory));
+            _shopsFactory = shopsFactory ?? throw new ArgumentNullException(nameof(shopsFactory));
+            _shopsRepository = shopsRepository ?? throw new ArgumentNullException(nameof(shopsRepository));
         }
+
+        public Task<bool> ExistsAsync(ShopId shopId) => _shopsRepository.ExistsAsync(shopId);
 
         public Task<bool> ExistsAsync(Slug slug) =>
-            _shops.ExistsAsync(slug);
+            _shopsRepository.ExistsAsync(slug);
 
-        public async Task<PaginatedResult<IShop>> GetShopsAsync(Page page)
-        {
-            var results = await _shops.GetShopsAsync(page);
-            return new PaginatedResult<IShop>(page, results);
-        }
-
-        public Task<ShopId> CreateShop(
+        public Task<ShopId> CreateShopAsync(
             string name,
             Uri? websiteUrl,
             MailAddress? mailAddress,
             Address? address,
             PhoneNumber? phoneNumber)
         {
-            var newShop = _factory.NewShop(
+            var shop = _shopsFactory.CreateShop(
                 name,
                 websiteUrl,
                 mailAddress,
                 address,
                 phoneNumber);
 
-            return _shops.AddAsync(newShop);
+            return _shopsRepository.AddAsync(shop);
         }
 
-        public Task<IShop?> GetBySlugAsync(Slug slug) =>
-            _shops.GetBySlugAsync(slug);
+        public Task<Shop?> GetBySlugAsync(Slug slug) =>
+            _shopsRepository.GetBySlugAsync(slug);
+
+        public Task<PaginatedResult<Shop>> GetAllShopsAsync(Page page) =>
+            _shopsRepository.GetAllAsync(page);
+
+        public Task AddShopToFavourites(Owner owner, ShopId shopId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveFromFavourites(Owner owner, ShopId shopId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

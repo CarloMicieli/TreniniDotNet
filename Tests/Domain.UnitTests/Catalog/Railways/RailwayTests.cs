@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+using System;
+using FluentAssertions;
+using TreniniDotNet.SharedKernel.Countries;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
 
@@ -7,34 +9,61 @@ namespace TreniniDotNet.Domain.Catalog.Railways
     public class RailwayTests
     {
         [Fact]
-        public void ItShouldCheckRailwaysEquality()
+        public void Railway_Equals_ShouldCheckForRailwaysEquality()
         {
-            var db1 = DieBahn();
-            var db2 = DieBahn();
+            var fs1 = CatalogSeedData.Railways.New()
+                .Id(new Guid("e8d33cd3-f36b-4622-90d1-76b450e0f313"))
+                .Name("FS")
+                .CompanyName("Ferrovie dello stato")
+                .Country(Country.Of("IT"))
+                .PeriodOfActivity(PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1)))
+                .Build();
 
-            (db1 == db2).Should().BeTrue();
-            (db1.Equals(db2)).Should().BeTrue();
+            var fs2 = CatalogSeedData.Railways.New()
+                .Id(new Guid("e8d33cd3-f36b-4622-90d1-76b450e0f313"))
+                .Name("FS")
+                .CompanyName("Ferrovie dello stato")
+                .Country(Country.Of("IT"))
+                .PeriodOfActivity(PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1)))
+                .Build();
+
+            (fs1 == fs2).Should().BeTrue();
+            fs1.Equals(fs2).Should().BeTrue();
+            (fs1 != fs2).Should().BeFalse();
         }
 
         [Fact]
-        public void ItShouldCheckRailwaysInequality()
+        public void Railway_Equals_ShouldCheckForRailwaysInequality()
         {
-            var db = DieBahn();
-            var fs = Fs();
+            var fs1 = CatalogSeedData.Railways.New()
+                .Id(new Guid("e8d33cd3-f36b-4622-90d1-76b450e0f313"))
+                .Name("FS")
+                .CompanyName("Ferrovie dello stato")
+                .Country(Country.Of("IT"))
+                .PeriodOfActivity(PeriodOfActivity.ActiveRailway(new DateTime(1905, 7, 1)))
+                .Build();
 
-            (db != fs).Should().BeTrue();
-            (db.Equals(fs)).Should().BeFalse();
+            var dieBahn = CatalogSeedData.Railways.New()
+                .Id(new Guid("f12a3c5b-21f0-4d96-baf0-7bbf67e85e93"))
+                .Name("DB")
+                .CompanyName("Die Bahn AG")
+                .Country(Country.Of("DE"))
+                .Build();
+
+            (fs1 == dieBahn).Should().BeFalse();
+            fs1.Equals(dieBahn).Should().BeFalse();
+            (fs1 != dieBahn).Should().BeTrue();
         }
 
         [Fact]
-        public void Railways_ShouldProduce_AStringRepresentation()
+        public void Railway_With_ShouldModifyRailwayValues()
         {
-            DieBahn().ToString().Should().Be("Railway(DB)");
-            DieBahn().ToLabel().Should().Be("DB");
+            var modifiedFs = CatalogSeedData.Railways.Fs()
+                .With(companyName: "FS 2");
+
+            modifiedFs.Should().NotBeNull();
+            modifiedFs.Should().NotBeSameAs(CatalogSeedData.Railways.Fs());
+            modifiedFs.CompanyName.Should().Be("FS 2");
         }
-
-        private static IRailway DieBahn() => CatalogSeedData.Railways.DieBahn();
-
-        private static IRailway Fs() => CatalogSeedData.Railways.Fs();
     }
 }

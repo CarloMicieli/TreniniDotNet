@@ -5,7 +5,7 @@ using FluentAssertions;
 using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -47,7 +47,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
 
-            var id = CollectionSeedData.Wishlists.George_First_List().Id;
+            var id = CollectingSeedData.Wishlists.GeorgeFirstList().Id;
             var response = await client.GetAsync($"/api/v1/wishlists/{id}");
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -58,7 +58,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         {
             var client = await CreateHttpClientAsync("George", "Pa$$word88");
 
-            var id = CollectionSeedData.Wishlists.George_First_List().Id;
+            var id = CollectingSeedData.Wishlists.GeorgeFirstList().Id;
             var wishlist = await client.GetJsonAsync<WishlistResponse>($"/api/v1/wishlists/{id}");
 
             wishlist.Should().NotBeNull();

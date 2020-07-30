@@ -1,7 +1,6 @@
-﻿using TreniniDotNet.Application.Collecting.Shops.GetShopsList;
-using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
+﻿using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Shops.OutputPorts
+namespace TreniniDotNet.Application.Collecting.Shops.GetShopsList
 {
     public class GetShopsListOutputPort : OutputPortTestHelper<GetShopsListOutput>, IGetShopsListOutputPort
     {

@@ -7,6 +7,7 @@ using IntegrationTests;
 using TreniniDotNet.Common;
 using TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Web;
 using Xunit;
@@ -52,7 +53,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
             var item = CatalogSeedData.CatalogItems.Acme_60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().Id.ToGuid();
+            var id = item.RollingStocks.First().Id;
 
             var model = new
             {
@@ -72,7 +73,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
             var item = CatalogSeedData.CatalogItems.Acme_60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().Id.ToGuid();
+            var id = item.RollingStocks.First().Id;
 
             var model = new
             {
@@ -93,7 +94,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
             var item = CatalogSeedData.CatalogItems.Acme_60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().Id.ToGuid();
+            var id = item.RollingStocks.First().Id;
 
             var model = new
             {

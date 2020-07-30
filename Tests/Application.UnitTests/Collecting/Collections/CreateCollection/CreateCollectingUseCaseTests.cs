@@ -1,20 +1,20 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Collections.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Collections;
+using TreniniDotNet.Domain.Collecting.Shared;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
 {
-    public class CreateCollectingUseCaseTests : CollectingUseCaseTests<CreateCollectionUseCase, CreateCollectionOutput, CreateCollectionOutputPort>
+    public class CreateCollectingUseCaseTests : CollectionUseCaseTests<CreateCollectionUseCase, CreateCollectionInput, CreateCollectionOutput, CreateCollectionOutputPort>
     {
         [Fact]
         public async Task CreateCollection_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewCreateCollection);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -24,9 +24,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
         [Fact]
         public async Task CreateCollection_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewCreateCollection);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.CreateCollection.Empty);
+            await useCase.Execute(NewCreateCollectionInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -34,11 +34,11 @@ namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
         [Fact]
         public async Task CreateCollection_ShouldFail_WhenUserHasAlreadyCollection()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewCreateCollection);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.CreateCollection.With(owner: "George"));
+            await useCase.Execute(NewCreateCollectionInput.With(owner: "George"));
 
-            outputPort.ShouldHaveUserHasAlreadyOneCollectionMessage("The user already owns a collection");
+            outputPort.ShouldHaveUserHasAlreadyOneCollectionMessage(new Owner("George"));
         }
 
         [Fact]
@@ -47,9 +47,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
             var expectedId = Guid.NewGuid();
             SetNextGeneratedGuid(expectedId);
 
-            var (useCase, outputPort, unitOfWork) = ArrangeCollectionUseCase(Start.WithSeedData, NewCreateCollection);
+            var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.CreateCollection.With(
+            await useCase.Execute(NewCreateCollectionInput.With(
                 owner: "John",
                 notes: "My notes"));
 
@@ -63,12 +63,11 @@ namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
             output.Owner.Should().Be("John");
         }
 
-        private CreateCollectionUseCase NewCreateCollection(
-            CollectionsService collectionService,
-            CreateCollectionOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new CreateCollectionUseCase(outputPort, collectionService, unitOfWork);
-        }
+        private CreateCollectionUseCase CreateUseCase(
+            ICreateCollectionOutputPort outputPort,
+            CollectionsService collectionsService,
+            CollectionItemsFactory collectionItemsFactory,
+            IUnitOfWork unitOfWork) =>
+            new CreateCollectionUseCase(new CreateCollectionInputValidator(), outputPort, collectionsService, unitOfWork);
     }
 }

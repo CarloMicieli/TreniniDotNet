@@ -1,17 +1,19 @@
-﻿using System.Threading.Tasks;
+using System;
+using System.Threading.Tasks;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Railways;
 
 namespace TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug
 {
-    public sealed class GetRailwayBySlugUseCase : ValidatedUseCase<GetRailwayBySlugInput, IGetRailwayBySlugOutputPort>, IGetRailwayBySlugUseCase
+    public sealed class GetRailwayBySlugUseCase : AbstractUseCase<GetRailwayBySlugInput, GetRailwayBySlugOutput, IGetRailwayBySlugOutputPort>
     {
-        private readonly RailwayService _railwayService;
+        private readonly RailwaysService _railwayService;
 
-        public GetRailwayBySlugUseCase(IGetRailwayBySlugOutputPort outputPort, RailwayService railwayService)
-            : base(new GetRailwayBySlugInputValidator(), outputPort)
+        public GetRailwayBySlugUseCase(IUseCaseInputValidator<GetRailwayBySlugInput> inputValidator, IGetRailwayBySlugOutputPort outputPort, RailwaysService railwayService)
+            : base(inputValidator, outputPort)
         {
-            _railwayService = railwayService;
+            _railwayService = railwayService ?? throw new ArgumentNullException(nameof(railwayService));
         }
 
         protected override async Task Handle(GetRailwayBySlugInput input)

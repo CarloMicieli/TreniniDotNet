@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
 namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlistItem
@@ -11,8 +12,8 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlistItem
         {
             ViewModel = new OkObjectResult(new
             {
-                Id = output.Id.ToGuid(),
-                ItemId = output.ItemId.ToGuid()
+                Id = output.Id,
+                ItemId = output.ItemId
             });
         }
 
@@ -20,9 +21,14 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlistItem
         {
             ViewModel = new NotFoundObjectResult(new
             {
-                Id = id.ToGuid(),
-                ItemId = itemId.ToGuid()
+                Id = id,
+                ItemId = itemId
             });
+        }
+
+        public void NotAuthorizedToEditThisWishlist(Owner owner)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

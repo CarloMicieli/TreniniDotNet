@@ -1,5 +1,5 @@
-using TreniniDotNet.Common.Pagination;
-using TreniniDotNet.Common.UseCases.Interfaces.Input;
+using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.GetLatestCatalogItems
 {

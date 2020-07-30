@@ -1,10 +1,10 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
+using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 
 namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
 {
-    public interface IEditCollectionItemOutputPort : IOutputPortStandard<EditCollectionItemOutput>
+    public interface IEditCollectionItemOutputPort : IStandardOutputPort<EditCollectionItemOutput>
     {
         void CollectionNotFound(Owner owner, CollectionId id);
 

@@ -1,26 +1,28 @@
+using System;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
 {
-    public class CreateScaleUseCase : ValidatedUseCase<CreateScaleInput, ICreateScaleOutputPort>, ICreateScaleUseCase
+    public sealed class CreateScaleUseCase : AbstractUseCase<CreateScaleInput, CreateScaleOutput, ICreateScaleOutputPort>
     {
-        private readonly ScaleService _scaleService;
+        private readonly ScalesService _scaleService;
         private readonly IUnitOfWork _unitOfWork;
 
         public CreateScaleUseCase(
+            IUseCaseInputValidator<CreateScaleInput> inputValidator,
             ICreateScaleOutputPort outputPort,
-            ScaleService scaleService,
+            ScalesService scalesService,
             IUnitOfWork unitOfWork)
-            : base(new CreateScaleInputValidator(), outputPort)
+            : base(inputValidator, outputPort)
         {
-            _scaleService = scaleService;
-            _unitOfWork = unitOfWork;
+            _scaleService = scalesService ?? throw new ArgumentNullException(nameof(scalesService));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         protected override async Task Handle(CreateScaleInput input)

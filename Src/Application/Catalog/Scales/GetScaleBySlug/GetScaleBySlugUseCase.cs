@@ -1,22 +1,24 @@
+using System;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Application.Catalog.Scales.GetScaleBySlug
 {
-    public class GetScaleBySlugUseCase : ValidatedUseCase<GetScaleBySlugInput, IGetScaleBySlugOutputPort>, IGetScaleBySlugUseCase
+    public sealed class GetScaleBySlugUseCase : AbstractUseCase<GetScaleBySlugInput, GetScaleBySlugOutput, IGetScaleBySlugOutputPort>
     {
-        private readonly ScaleService _scaleService;
+        private readonly ScalesService _scalesService;
 
-        public GetScaleBySlugUseCase(IGetScaleBySlugOutputPort output, ScaleService scaleService)
-            : base(new GetScaleBySlugInputValidator(), output)
+        public GetScaleBySlugUseCase(IUseCaseInputValidator<GetScaleBySlugInput> inputValidator, IGetScaleBySlugOutputPort outputPort, ScalesService scalesService)
+            : base(inputValidator, outputPort)
         {
-            this._scaleService = scaleService;
+            _scalesService = scalesService ?? throw new ArgumentNullException(nameof(scalesService));
         }
 
         protected override async Task Handle(GetScaleBySlugInput input)
         {
-            var scale = await _scaleService.GetBySlugAsync(input.Slug);
+            var scale = await _scalesService.GetBySlugAsync(input.Slug);
             if (scale is null)
             {
                 OutputPort.ScaleNotFound($"The '{input.Slug}' scale was not found");

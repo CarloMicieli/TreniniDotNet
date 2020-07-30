@@ -1,7 +1,6 @@
-using FluentAssertions;
 using FluentValidation.TestHelper;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
@@ -18,7 +17,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         [Fact]
         public void EditRollingStockInputValidator_ShouldFailToValidateEmptyInputs()
         {
-            var input = CatalogInputs.NewEditRollingStockInput.Empty;
+            var input = NewEditRollingStockInput.Empty;
 
             var result = Validator.TestValidate(input);
 
@@ -29,7 +28,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         [Fact]
         public void EditRollingStockInputValidator_ShouldPassValidationForValidInputs()
         {
-            var input = CatalogInputs.NewEditRollingStockInput.With(
+            var input = NewEditRollingStockInput.With(
                 Slug.Of("item-123456"),
                 RollingStockId.NewId());
 
@@ -41,7 +40,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         [Fact]
         public void EditRollingStockInputValidator_ShouldValidateModifiedValues()
         {
-            var input = CatalogInputs.NewEditRollingStockInput.With(
+            var input = NewEditRollingStockInput.With(
                 Slug.Of("item-123456"),
                 RollingStockId.NewId(),
                 epoch: "Invalid",

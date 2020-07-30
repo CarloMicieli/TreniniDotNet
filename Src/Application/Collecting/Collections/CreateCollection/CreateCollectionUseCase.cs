@@ -1,46 +1,44 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 
 namespace TreniniDotNet.Application.Collecting.Collections.CreateCollection
 {
-    public sealed class CreateCollectionUseCase : ValidatedUseCase<CreateCollectionInput, ICreateCollectionOutputPort>, ICreateCollectionUseCase
+    public sealed class CreateCollectionUseCase : AbstractUseCase<CreateCollectionInput, CreateCollectionOutput, ICreateCollectionOutputPort>
     {
         private readonly CollectionsService _collectionService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateCollectionUseCase(ICreateCollectionOutputPort output, CollectionsService collectionService, IUnitOfWork unitOfWork)
-            : base(new CreateCollectionInputValidator(), output)
+        public CreateCollectionUseCase(
+            IUseCaseInputValidator<CreateCollectionInput> inputValidator,
+            ICreateCollectionOutputPort output,
+            CollectionsService collectionService,
+            IUnitOfWork unitOfWork)
+            : base(inputValidator, output)
         {
-            _collectionService = collectionService ??
-                throw new ArgumentNullException();
-            _unitOfWork = unitOfWork ??
-                throw new ArgumentNullException();
+            _collectionService = collectionService ?? throw new ArgumentNullException();
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException();
         }
 
         protected override async Task Handle(CreateCollectionInput input)
         {
             var owner = new Owner(input.Owner);
 
-            var userHasCollection = await _collectionService.UserAlredyOwnCollectionAsync(owner);
-            if (userHasCollection)
+            var exists = await _collectionService.ExistsByOwnerAsync(owner);
+            if (exists)
             {
-                OutputPort.UserHasAlreadyOneCollection("The user already owns a collection");
+                OutputPort.UserHasAlreadyOneCollection(owner);
                 return;
             }
 
-            var id = await _collectionService.CreateAsync(input.Owner, input.Notes);
-
+            var id = await _collectionService.CreateAsync(owner, input.Notes);
             var _ = await _unitOfWork.SaveAsync();
 
-            CollectionCreated(id, input.Owner);
+            OutputPort.Standard(new CreateCollectionOutput(id, owner));
         }
-
-        private void CollectionCreated(CollectionId id, string owner) =>
-            OutputPort.Standard(new CreateCollectionOutput(id.ToGuid(), owner));
     }
 }

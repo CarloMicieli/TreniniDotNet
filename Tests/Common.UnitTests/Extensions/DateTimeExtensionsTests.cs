@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using FluentAssertions;
 using NodaTime;
 using NodaTime.Testing;
@@ -8,31 +8,31 @@ namespace TreniniDotNet.Common.Extensions
 {
     public class DateTimeExtensionsTests
     {
-        private readonly IClock clock;
+        private readonly Instant _currentInstant;
+        private readonly IClock _clock;
 
         public DateTimeExtensionsTests()
         {
-            clock = FakeClock.FromUtc(1988, 11, 25, 10, 0, 0);
+            _currentInstant = Instant.FromUtc(1988, 11, 25, 10, 30);
+            _clock = new FakeClock(_currentInstant);
         }
 
         [Fact]
-        public void DateTime_ToUtcOrGetCurrent_ShouldGetTheValue()
+        public void DateTime_ToUtcOrGetCurrent_ShouldReturnTheValueAsUtc_WhenItIsNotNull()
         {
-            DateTime? date = new DateTime(2020, 11, 25, 10, 0, 0);
+            DateTime? dateValue = new DateTime(2020, 11, 25, 10, 30, 0);
+            Instant instant = dateValue.ToUtcOrGetCurrent(_clock);
 
-            var result = date.ToUtcOrGetCurrent(clock);
-
-            result.Should().Be(Instant.FromUtc(2020, 11, 25, 10, 0, 0));
+            instant.Should().Be(Instant.FromUtc(2020, 11, 25, 10, 30));
         }
 
         [Fact]
-        public void DateTime_ToUtcOrGetCurrent_ShouldGetCurrentValueFromClock()
+        public void DateTime_ToUtcOrGetCurrent_ShouldReturnCurrentInstant_WhenItIsNull()
         {
-            DateTime? date = null;
+            DateTime? dateValue = null;
+            Instant instant = dateValue.ToUtcOrGetCurrent(_clock);
 
-            var result = date.ToUtcOrGetCurrent(clock);
-
-            result.Should().Be(Instant.FromUtc(1988, 11, 25, 10, 0, 0));
+            instant.Should().Be(_currentInstant);
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist;
-using TreniniDotNet.Common;
+﻿using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts
+namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
 {
     public sealed class CreateWishlistOutputPort : OutputPortTestHelper<CreateWishlistOutput>, ICreateWishlistOutputPort
     {

@@ -1,23 +1,27 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.GetCatalogItemBySlug
 {
-    public class GetCatalogItemBySlugUseCase : IGetCatalogItemBySlugUseCase
+    public class GetCatalogItemBySlugUseCase : AbstractUseCase<GetCatalogItemBySlugInput, GetCatalogItemBySlugOutput, IGetCatalogItemBySlugOutputPort>
     {
-        private readonly CatalogItemService _catalogItemService;
+        private readonly CatalogItemsService _catalogItemService;
 
-        public GetCatalogItemBySlugUseCase(CatalogItemService catalogItemService, IGetCatalogItemBySlugOutputPort outputPort)
+        public GetCatalogItemBySlugUseCase(
+            IUseCaseInputValidator<GetCatalogItemBySlugInput> inputValidator,
+            IGetCatalogItemBySlugOutputPort outputPort,
+            CatalogItemsService catalogItemService)
+            : base(inputValidator, outputPort)
         {
-            OutputPort = outputPort;
-            _catalogItemService = catalogItemService;
+            _catalogItemService = catalogItemService ?? throw new ArgumentNullException(nameof(catalogItemService));
         }
 
-        public IGetCatalogItemBySlugOutputPort OutputPort { get; }
-
-        public async Task Execute(GetCatalogItemBySlugInput input)
+        protected override async Task Handle(GetCatalogItemBySlugInput input)
         {
-            ICatalogItem? item = await _catalogItemService.GetBySlugAsync(input.Slug);
+            var item = await _catalogItemService.GetBySlugAsync(input.Slug);
             if (item is null)
             {
                 OutputPort.CatalogItemNotFound($"The catalog item '{input.Slug}' was not found");

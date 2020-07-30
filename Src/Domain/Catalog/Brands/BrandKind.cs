@@ -1,4 +1,4 @@
-﻿namespace TreniniDotNet.Domain.Catalog.Brands
+namespace TreniniDotNet.Domain.Catalog.Brands
 {
     /// <summary>
     /// The kinds for railway models brands
@@ -11,8 +11,8 @@
         Industrial,
 
         /// <summary>
-        /// these manufacturers produce models which are made of brass or similar alloys. 
-        /// 
+        /// these manufacturers produce models which are made of brass or similar alloys.
+        ///
         /// They are usually more expensive than the industrial series due to the limited
         /// production quantities and the "hand made" nature of the production
         /// </summary>

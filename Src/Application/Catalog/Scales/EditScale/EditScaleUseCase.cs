@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.Catalog.Scales.EditScale
 {
-    public sealed class EditScaleUseCase : ValidatedUseCase<EditScaleInput, IEditScaleOutputPort>, IEditScaleUseCase
+    public sealed class EditScaleUseCase : AbstractUseCase<EditScaleInput, EditScaleOutput, IEditScaleOutputPort>
     {
-        private readonly ScaleService _scaleService;
+        private readonly ScalesService _scaleService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EditScaleUseCase(IEditScaleOutputPort output,
-            ScaleService scaleService,
+        public EditScaleUseCase(
+            IUseCaseInputValidator<EditScaleInput> inputValidator,
+            IEditScaleOutputPort output,
+            ScalesService scaleService,
             IUnitOfWork unitOfWork)
-            : base(new EditScaleInputValidator(), output)
+            : base(inputValidator, output)
         {
             _scaleService = scaleService ??
                 throw new ArgumentNullException(nameof(scaleService));
@@ -40,14 +42,15 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
 
             var ratio = values.Ratio.HasValue ? Ratio.Of(values.Ratio.Value) : (Ratio?)null;
 
-            await _scaleService.UpdateScale(
-                scale,
+            var modifiedScale = scale.With(
                 values.Name,
                 ratio,
                 scaleGauge,
                 values.Description,
                 ImmutableHashSet<ScaleStandard>.Empty,
                 values.Weight);
+
+            await _scaleService.UpdateScaleAsync(modifiedScale);
 
             await _unitOfWork.SaveAsync();
 

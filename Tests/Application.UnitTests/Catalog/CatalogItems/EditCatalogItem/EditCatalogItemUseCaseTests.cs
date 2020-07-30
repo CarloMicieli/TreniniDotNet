@@ -1,26 +1,23 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using NodaTime;
-using NodaTime.Testing;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 {
-    public class EditCatalogItemUseCaseTests : CatalogUseCaseTests<EditCatalogItemUseCase, EditCatalogItemOutput, EditCatalogItemOutputPort>
+    public class EditCatalogItemUseCaseTests :
+        CatalogItemUseCaseTests<EditCatalogItemUseCase, EditCatalogItemInput, EditCatalogItemOutput, EditCatalogItemOutputPort>
     {
         [Fact]
         public async Task EditCatalogItem_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewEditCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(NewEditCatalogItemInput.Empty);
 
@@ -30,7 +27,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
         [Fact]
         public async Task EditCatalogItem_ShouldOutputCatalogItemNotFound_WhenSlugToEditWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewEditCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(NewEditCatalogItemInput.With(itemSlug: Slug.Of("acme-99999")));
 
@@ -41,7 +38,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
         [Fact]
         public async Task EditCatalogItem_ShouldOutputBrandNotFound_WhenBrandWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = NewEditCatalogItemInput.With(
                 itemSlug: Slug.Of("acme-60392"),
@@ -56,7 +53,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
         [Fact]
         public async Task EditCatalogItem_ShouldOutputScaleNotFound_WhenScaleWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = NewEditCatalogItemInput.With(
                 itemSlug: Slug.Of("acme-60392"),
@@ -71,7 +68,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
         [Fact]
         public async Task EditCatalogItem_ShouldOutputRailwayNotFound_WhenARailwayWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = NewEditCatalogItemInput.With(
                 itemSlug: Slug.Of("acme-60392"),
@@ -86,7 +83,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
         [Fact]
         public async Task EditCatalogItem_ShouldUpdateCatalogItem()
         {
-            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditCatalogItem);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = NewEditCatalogItemInput.With(
                 itemSlug: Slug.Of("acme-60392"),
@@ -105,23 +102,20 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             catalogItem?.Description.Should().Be(input.Values.Description);
         }
 
-        private EditCatalogItemUseCase NewEditCatalogItem(CatalogItemService catalogItemService, EditCatalogItemOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            var fakeClock = new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0));
-
-            IRollingStocksFactory rollingStocksFactory = new RollingStocksFactory(
-                fakeClock, FakeGuidSource.NewSource(Guid.NewGuid()));
-
-            return new EditCatalogItemUseCase(outputPort, rollingStocksFactory, catalogItemService, unitOfWork);
-        }
-
-        private static IReadOnlyList<RollingStockInput> RollingStockList(string era, string category, string railway)
+        private static IReadOnlyList<RollingStockInput> RollingStockList(string epoch, string category, string railway)
         {
             var rollingStockInput = NewRollingStockInput.With(
-                epoch: era,
+                epoch: epoch,
                 category: category,
                 railway: railway);
             return new List<RollingStockInput>() { rollingStockInput };
         }
+
+        private EditCatalogItemUseCase CreateUseCase(
+            IEditCatalogItemOutputPort outputPort,
+            CatalogItemsService catalogItemsService,
+            RollingStocksFactory rollingStocksFactory,
+            IUnitOfWork unitOfWork) =>
+            new EditCatalogItemUseCase(new EditCatalogItemInputValidator(), outputPort, rollingStocksFactory, catalogItemsService, unitOfWork);
     }
 }

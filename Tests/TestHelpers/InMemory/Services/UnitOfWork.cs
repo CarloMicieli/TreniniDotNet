@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common.Data;
 
 namespace TreniniDotNet.TestHelpers.InMemory.Services
 {
-    public class UnitOfWork : IUnitOfWork
+    public sealed class UnitOfWork : IUnitOfWork
     {
         private bool _saved = false;
 

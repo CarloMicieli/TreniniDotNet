@@ -1,13 +1,12 @@
-﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Common;
+using FluentValidation.TestHelper;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
 {
     public class EditRailwayInputValidatorTests
     {
-        private readonly EditRailwayInputValidator Validator;
+        private EditRailwayInputValidator Validator { get; }
 
         public EditRailwayInputValidatorTests()
         {

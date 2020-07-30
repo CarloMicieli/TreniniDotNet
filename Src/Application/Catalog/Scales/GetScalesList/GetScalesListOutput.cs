@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
-using TreniniDotNet.Common.Pagination;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
 using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Application.Catalog.Scales.GetScalesList
 {
     public sealed class GetScalesListOutput : IUseCaseOutput
     {
-        public GetScalesListOutput(PaginatedResult<IScale> paginatedResult)
+        public GetScalesListOutput(PaginatedResult<Scale> paginatedResult)
         {
             this.PaginatedResult = paginatedResult;
         }
 
-        public PaginatedResult<IScale> PaginatedResult { get; }
+        public PaginatedResult<Scale> PaginatedResult { get; }
 
-        public IEnumerable<IScale> Result => PaginatedResult.Results;
+        public IEnumerable<Scale> Result => PaginatedResult.Results;
     }
 }
