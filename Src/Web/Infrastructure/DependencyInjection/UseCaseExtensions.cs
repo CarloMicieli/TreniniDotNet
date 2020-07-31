@@ -19,7 +19,7 @@ namespace TreniniDotNet.Web.Infrastructure.DependencyInjection
             services.RegisterByType(typeof(CreateBrandInputValidator).Assembly, typeof(IUseCaseInputValidator<>));
 
             services.RegisterDomainServices(typeof(BrandsService).Assembly);
-            
+
             return services;
         }
 
