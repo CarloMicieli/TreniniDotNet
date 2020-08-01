@@ -47,7 +47,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Configuration
 
             builder.OwnsOne(x => x.Gauge, g =>
             {
-                g.Property(x => x.InInches)
+                g.Property(x => x.InMillimeters)
                     .HasColumnName("gauge_mm")
                     .HasConversion(
                         gauge => gauge.Value,

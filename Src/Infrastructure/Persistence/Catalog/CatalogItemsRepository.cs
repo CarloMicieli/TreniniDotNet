@@ -36,12 +36,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog
 
         public override Task<CatalogItemId> AddAsync(CatalogItem catalogItem)
         {
-            DbContext.Entry(catalogItem.Brand).MarkAsUnchanged();
-            DbContext.Entry(catalogItem.Scale).MarkAsUnchanged();
-
+            DbContext.Entry(catalogItem.Brand).State = EntityState.Unchanged;
+            DbContext.Entry(catalogItem.Scale).State = EntityState.Unchanged;
+            
             foreach (var rs in catalogItem.RollingStocks)
             {
-                DbContext.Entry(rs.Railway).MarkAsUnchanged();
+                DbContext.Entry(rs.Railway).State = EntityState.Unchanged;
             }
             
             DbContext.CatalogItems.Add(catalogItem);
@@ -50,12 +50,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog
         
         public override Task UpdateAsync(CatalogItem catalogItem)
         {
-            DbContext.Entry(catalogItem.Brand).MarkAsUnchanged();
-            DbContext.Entry(catalogItem.Scale).MarkAsUnchanged();
-
+            DbContext.Entry(catalogItem.Brand).State = EntityState.Unchanged;
+            DbContext.Entry(catalogItem.Scale).State = EntityState.Unchanged;
+            
             foreach (var rs in catalogItem.RollingStocks)
             {
-                DbContext.Entry(rs.Railway).State = EntityState.Detached;
+                var r = DbContext.Railways.Find(rs.Railway.Id);
+                DbContext.Entry(rs.Railway).State = EntityState.Unchanged;
             }
             
             DbContext.CatalogItems.Update(catalogItem);

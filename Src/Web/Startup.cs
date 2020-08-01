@@ -88,19 +88,14 @@ namespace TreniniDotNet.Web
             else
             {
                 app.UseExceptionHandler("/error");
+                app.UseHttpsRedirection();
             }
-
-            app.UseHttpsRedirection();
+            
             app.UseSerilogRequestLogging();
 
             app.UseRouting();
             app.UseAuthorization();
             app.UseAuthentication();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
 
             app.UseOpenApi();
             app.UseSwaggerUi3(settings =>
@@ -110,13 +105,10 @@ namespace TreniniDotNet.Web
             });
 
             app.UseHealthChecks("/health");
-
+            
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }
