@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using TreniniDotNet.Common;
 using TreniniDotNet.Common.Extensions;
 
 namespace TreniniDotNet.SharedKernel.Lengths
@@ -15,7 +14,7 @@ namespace TreniniDotNet.SharedKernel.Lengths
 
         public static Length ZeroMillimeters => new Length(decimal.Zero, MeasureUnit.Millimeters);
         public static Length ZeroInches => new Length(decimal.Zero, MeasureUnit.Inches);
-
+        
         private Length(decimal value, MeasureUnit measureUnit)
         {
             if (value.IsNegative())

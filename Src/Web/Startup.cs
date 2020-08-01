@@ -1,4 +1,3 @@
-using System;
 using System.Text.Json;
 using AutoMapper;
 using MediatR;
@@ -75,13 +74,16 @@ namespace TreniniDotNet.Web
 
             services.AddHealthChecks()
                 .AddDatabaseHealthChecks();
+
+            services.AddMigrations(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopmentOrTesting())
             {
                 app.UseExceptionHandler("/error-local-development");
+                app.EnsureDatabaseCreated();
             }
             else
             {

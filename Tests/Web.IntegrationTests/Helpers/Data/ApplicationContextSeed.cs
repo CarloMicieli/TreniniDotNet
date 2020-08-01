@@ -13,21 +13,21 @@ using TreniniDotNet.TestHelpers.SeedData.Collecting;
 
 namespace TreniniDotNet.IntegrationTests.Helpers.Data
 {
-    public class ApplicationContextSeed
+    public static class ApplicationContextSeed
     {
-        public static void SeedCatalog(IServiceProvider scopedServices)
+        public static async Task SeedCatalog(IServiceProvider scopedServices)
         {
             var brands = scopedServices.GetRequiredService<IBrandsRepository>();
-            brands.SeedDatabase();
+            await brands.SeedDatabase();
 
             var railways = scopedServices.GetRequiredService<IRailwaysRepository>();
-            railways.SeedDatabase();
+            await railways.SeedDatabase();
 
             var scales = scopedServices.GetRequiredService<IScalesRepository>();
-            scales.SeedDatabase();
+            await scales.SeedDatabase();
 
             var catalogItems = scopedServices.GetRequiredService<ICatalogItemsRepository>();
-            catalogItems.SeedDatabase();
+            await catalogItems.SeedDatabase();
         }
 
         public static async Task SeedCollections(IServiceProvider scopedServices)

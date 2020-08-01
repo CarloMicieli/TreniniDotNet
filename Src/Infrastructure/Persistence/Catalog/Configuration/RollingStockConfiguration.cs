@@ -18,7 +18,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Configuration
             builder.HasKey(x => x.Id);
 
             builder.HasDiscriminator<string>("rolling_stock_type");
-
+            
             builder.Property(x => x.Id)
                 .HasColumnName("rolling_stock_id")
                 .HasConversion<Guid>(
@@ -36,7 +36,22 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Configuration
                 .HasConversion(
                     id => (Guid)id,
                     guid => new RailwayId(guid));
-
+ 
+            builder.OwnsOne(x => x.Length, length =>
+            {
+                length.Property(x => x.Inches)
+                    .HasColumnName("length_in")
+                    .HasConversion(
+                        len => len.Value,
+                        d => Length.OfInches(d));
+            
+                length.Property(x => x.Millimeters)
+                    .HasColumnName("length_mm")
+                    .HasConversion(
+                        len => len.Value,
+                        d => Length.OfMillimeters(d));
+            });
+            
             builder.Property(x => x.Category)
                 .HasColumnName("category")
                 .HasMaxLength(25)
@@ -52,21 +67,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog.Configuration
                 .HasConversion(
                     ep => ep.ToString(),
                     s => Epoch.Parse(s));
-
-            builder.OwnsOne(x => x.Length, l =>
-            {
-                l.Property(x => x.Inches)
-                    .HasColumnName("length_in")
-                    .HasConversion(
-                        len => len.Value,
-                        d => Length.OfInches(d));
-
-                l.Property(x => x.Millimeters)
-                    .HasColumnName("length_mm")
-                    .HasConversion(
-                        len => len.Value,
-                        d => Length.OfMillimeters(d));
-            });
 
             builder.Property(x => x.MinRadius)
                 .HasColumnName("min_radius")

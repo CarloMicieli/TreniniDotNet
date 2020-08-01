@@ -2,7 +2,6 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.TestHelpers.SeedData.Collecting;

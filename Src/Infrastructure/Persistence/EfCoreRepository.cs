@@ -23,7 +23,7 @@ namespace TreniniDotNet.Infrastructure.Persistence
         {
             var results = await DbContext.Set<TAggregateRoot>()
                 .AsQueryable()
-                .OrderBy(it => it.Id)
+                //.OrderBy(it => it.Id)
                 .Skip(page.Start)
                 .Take(page.Limit + 1)
                 .ToListAsync();

@@ -1,8 +1,9 @@
 ﻿using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Catalog.V1.Scales.Responses;
+using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -10,15 +11,18 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
 {
     public sealed class GetScalesListIntegrationTests : AbstractWebApplicationFixture
     {
+        private HttpClient _client;
+
         public GetScalesListIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            _client = factory.CreateClient();
         }
 
         [Fact]
         public async Task GetScalesList_ShouldReturn200OK_AndTheScalesList()
         {
-            var content = await GetJsonAsync<ScalesListResponse>("/api/v1/scales");
+            var content = await _client.GetJsonAsync<ScalesListResponse>("/api/v1/scales");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be("http://localhost/api/v1/Scales?start=0&limit=50");
@@ -36,7 +40,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         public async Task GetScalesList_ShouldReturn200OK_AndTheFirstPageOfScales()
         {
             var limit = 2;
-            var content = await GetJsonAsync<ScalesListResponse>($"/api/v1/scales?start=0&limit={limit}");
+            var content = await _client.GetJsonAsync<ScalesListResponse>($"/api/v1/scales?start=0&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Scales?start=0&limit={limit}");
@@ -57,7 +61,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         public async Task GetScalesList_ShouldReturn200OK_AndTheScalesWithPagination()
         {
             var limit = 2;
-            var content = await GetJsonAsync<ScalesListResponse>($"/api/v1/scales?start=2&limit={limit}");
+            var content = await _client.GetJsonAsync<ScalesListResponse>($"/api/v1/scales?start=2&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Scales?start=2&limit={limit}");

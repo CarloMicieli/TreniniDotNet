@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
@@ -6,6 +7,7 @@ using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Domain.Collecting.Wishlists;
+using TreniniDotNet.Infrastructure.Identity;
 using TreniniDotNet.Infrastructure.Persistence.Catalog.Configuration;
 using TreniniDotNet.Infrastructure.Persistence.Collecting;
 using TreniniDotNet.Infrastructure.Persistence.Collecting.Configuration;
@@ -14,7 +16,7 @@ using TreniniDotNet.Infrastructure.Persistence.Images.Configuration;
 
 namespace TreniniDotNet.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -24,6 +26,7 @@ namespace TreniniDotNet.Infrastructure.Persistence
         // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         // {
         //     optionsBuilder.UseNpgsql("Host=localhost;Database=TreniniDb;Username=tdbuser;Password=tdbpass");
+        //     base.OnConfiguring(optionsBuilder);
         // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,7 +47,6 @@ namespace TreniniDotNet.Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new WishlistConfiguration());
             modelBuilder.ApplyConfiguration(new WishlistItemConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
-
             base.OnModelCreating(modelBuilder);
         }
 

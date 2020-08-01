@@ -1,7 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.Web;
 using Xunit;
 

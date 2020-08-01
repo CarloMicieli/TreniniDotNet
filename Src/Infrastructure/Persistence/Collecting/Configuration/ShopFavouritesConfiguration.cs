@@ -1,6 +1,8 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.Domain.Collecting.Shops;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Configuration
 {
@@ -22,7 +24,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Collecting.Configuration
 
             builder.HasOne(x => x.Shop);
             builder.Property(x => x.ShopId)
-                .HasColumnName("shop_id");
+                .HasColumnName("shop_id")
+                .HasConversion<Guid>(
+                    id => id,
+                    guid => new ShopId(guid));
         }
     }
 }

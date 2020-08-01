@@ -1,7 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Collecting.V1.Shops.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;

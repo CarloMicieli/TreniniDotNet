@@ -105,12 +105,12 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
             .Build();
 
         public Scale ScaleH0e() => New()
-                .Id(new Guid("b5f2f033-a947-4b86-9d9e-52d7c1903ce0"))
-                .Name("H0e")
-                .Slug(Slug.Of("H0e"))
-                .Ratio(Ratio.Of(87.0M))
-                .NarrowGauge(Length.OfMillimeters(9.0M))
-                .Build();
+            .Id(new Guid("b5f2f033-a947-4b86-9d9e-52d7c1903ce0"))
+            .Name("H0e")
+            .Slug(Slug.Of("H0e"))
+            .Ratio(Ratio.Of(87.0M))
+            .NarrowGauge(Length.OfMillimeters(9.0M))
+            .Build();
     }
 
     public static class ScalesRepositoryExtensions

@@ -1,8 +1,9 @@
 ﻿using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Catalog.V1.Scales.Responses;
+using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Web;
 using Xunit;
@@ -11,9 +12,12 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
 {
     public class GetScaleBySlugIntegrationTests : AbstractWebApplicationFixture
     {
+        private HttpClient _client;
+
         public GetScaleBySlugIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            _client = factory.CreateClient();
         }
 
         [Fact]
@@ -21,7 +25,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         {
             var scale = CatalogSeedData.Scales.ScaleH0();
 
-            var content = await GetJsonAsync<ScaleResponse>($"/api/v1/scales/{scale.Slug.Value}");
+            var content = await _client.GetJsonAsync<ScaleResponse>($"/api/v1/scales/{scale.Slug.Value}");
 
             content._Links.Should().NotBeNull();
             content._Links.Slug.Should().Be("h0");
@@ -34,7 +38,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         [Fact]
         public async Task GetScaleBySlug_ShouldReturn404NotFound_WhenTheScaleDoesNotExist()
         {
-            var response = await GetAsync("/api/v1/scales/not-found");
+            var response = await _client.GetAsync("/api/v1/scales/not-found");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }

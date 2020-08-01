@@ -2,7 +2,6 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.SharedKernel.Slugs;

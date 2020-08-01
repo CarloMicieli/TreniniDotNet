@@ -1,4 +1,3 @@
-using IntegrationTests;
 using TreniniDotNet.Web;
 
 namespace TreniniDotNet.IntegrationTests.Collecting.V1.Shops

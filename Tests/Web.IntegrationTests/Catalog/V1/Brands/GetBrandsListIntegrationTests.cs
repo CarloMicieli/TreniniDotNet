@@ -1,24 +1,28 @@
-﻿using System.Linq;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Catalog.V1.Brands.Responses;
+using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
 
 namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
 {
-    public sealed class GetBrandsListIntegrationTests : AbstractWebApplicationFixture
+    public class GetBrandsListIntegrationTests : AbstractWebApplicationFixture
     {
-        public GetBrandsListIntegrationTests(CustomWebApplicationFactory<Startup> factory)
+        private readonly HttpClient _client;
+
+        public GetBrandsListIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
             : base(factory)
         {
+            _client = factory.CreateClient();
         }
-
+        
         [Fact]
         public async Task GetBrandsList_ShouldReturn200OK_AndTheBrands()
         {
-            var content = await GetJsonAsync<BrandsListResponse>("/api/v1/brands");
+            var content = await _client.GetJsonAsync<BrandsListResponse>("/api/v1/brands");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be("http://localhost/api/v1/Brands?start=0&limit=50");
@@ -35,7 +39,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         public async Task GetBrandsList_ShouldReturn200OK_AndTheFirstPageOfBrands()
         {
             var limit = 2;
-            var content = await GetJsonAsync<BrandsListResponse>($"/api/v1/brands?start=0&limit={limit}");
+            var content = await _client.GetJsonAsync<BrandsListResponse>($"/api/v1/brands?start=0&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Brands?start=0&limit={limit}");
@@ -52,7 +56,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         public async Task GetBrandsList_ShouldReturn200OK_AndOnePageOfBrands()
         {
             var limit = 2;
-            var content = await GetJsonAsync<BrandsListResponse>($"/api/v1/brands?start=2&limit={limit}");
+            var content = await _client.GetJsonAsync<BrandsListResponse>($"/api/v1/brands?start=2&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Brands?start=2&limit={limit}");

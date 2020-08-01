@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using TreniniDotNet.Infrastructure.Persistence;
 
 namespace TreniniDotNet.Infrastructure.Identity.DependencyInjection
 {
@@ -24,11 +25,8 @@ namespace TreniniDotNet.Infrastructure.Identity.DependencyInjection
 
         private static IServiceCollection AddEntityFrameworkIdentity(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationIdentityDbContext>(options =>
-                options.UseNpgsql(configuration.GetConnectionString("IdentityConnection")));
-
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             return services;
@@ -51,7 +49,7 @@ namespace TreniniDotNet.Infrastructure.Identity.DependencyInjection
             {
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,

@@ -4,12 +4,11 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TreniniDotNet.IntegrationTests;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
 
-namespace IntegrationTests
+namespace TreniniDotNet.IntegrationTests
 {
     public abstract class AbstractWebApplicationFixture : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
@@ -22,18 +21,18 @@ namespace IntegrationTests
 
         protected HttpClient CreateHttpClient() => _factory.CreateClient();
 
-        protected async Task<HttpClient> CreateHttpClientAsync(string username, string password)
-        {
-            var client = _factory.CreateClient();
-
-            var token = await client.GenerateJwtTokenAsync(username, password);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            return client;
-        }
-
-        protected Task<HttpClient> CreateAuthorizedHttpClientAsync() =>
-            CreateHttpClientAsync("George", "Pa$$word88");
+         protected async Task<HttpClient> CreateHttpClientAsync(string username, string password)
+         {
+             var client = _factory.CreateClient();
+        
+             var token = await client.GenerateJwtTokenAsync(username, password);
+             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        
+             return client;
+         }
+        
+         protected Task<HttpClient> CreateAuthorizedHttpClientAsync() =>
+             CreateHttpClientAsync("George", "Pa$$word88");
 
         protected List<object> JsonArray(object element) => new List<object>() { element };
 
@@ -49,16 +48,6 @@ namespace IntegrationTests
             {
                 PropertyNameCaseInsensitive = true
             });
-        }
-
-        protected Task<TContent> GetJsonAsync<TContent>(string requestUri)
-        {
-            return CreateHttpClient().GetJsonAsync<TContent>(requestUri);
-        }
-
-        protected Task<HttpResponseMessage> GetAsync(string requestUri)
-        {
-            return CreateHttpClient().GetAsync(requestUri);
         }
     }
 }
