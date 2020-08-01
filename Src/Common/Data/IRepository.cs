@@ -16,7 +16,5 @@ namespace TreniniDotNet.Common.Data
         Task UpdateAsync(TAggregateRoot brand);
 
         Task DeleteAsync(TKey id);
-
-        Task DeleteAsync(TAggregateRoot aggregate);
     }
 }
