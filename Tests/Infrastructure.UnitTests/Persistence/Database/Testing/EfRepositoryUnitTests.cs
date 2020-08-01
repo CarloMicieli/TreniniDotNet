@@ -68,10 +68,14 @@ namespace Infrastructure.UnitTests.Persistence.Database.Testing
 
             var scales = new ScalesRepository(dbContext);
             await scales.SeedDatabase();
-
+            
+            await dbContext.SaveChangesAsync();
+            
             var catalogItems = new CatalogItemsRepository(dbContext);
             await catalogItems.SeedDatabase();
-
+            
+            await dbContext.SaveChangesAsync();
+            
             var collections = new CollectionsRepository(dbContext);
             await collections.SeedDatabase();
 

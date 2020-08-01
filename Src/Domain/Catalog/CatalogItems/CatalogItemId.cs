@@ -2,7 +2,7 @@ using System;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
-    public readonly struct CatalogItemId : IEquatable<CatalogItemId>
+    public readonly struct CatalogItemId : IEquatable<CatalogItemId>, IComparable<CatalogItemId>
     {
         private readonly Guid _id;
 
@@ -57,5 +57,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             return left._id == right._id;
         }
         #endregion
+
+        public int CompareTo(CatalogItemId other)
+        {
+            return _id.CompareTo(other._id);
+        }
     }
 }

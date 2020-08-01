@@ -2,7 +2,7 @@ using System;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    public readonly struct RailwayId : IEquatable<RailwayId>
+    public readonly struct RailwayId : IEquatable<RailwayId>, IComparable<RailwayId>
     {
         private Guid Id { get; }
 
@@ -56,5 +56,10 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             return left.Id == right.Id;
         }
         #endregion
+
+        public int CompareTo(RailwayId other)
+        {
+            return Id.CompareTo(other.Id);
+        }
     }
 }

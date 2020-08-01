@@ -34,6 +34,34 @@ namespace TreniniDotNet.Infrastructure.Persistence.Catalog
         public Task<bool> ExistsAsync(Brand brand, ItemNumber itemNumber) =>
             DbContext.CatalogItems.AnyAsync(it => it.Brand.Id == brand.Id && it.ItemNumber == itemNumber);
 
+        public override Task<CatalogItemId> AddAsync(CatalogItem catalogItem)
+        {
+            DbContext.Entry(catalogItem.Brand).MarkAsUnchanged();
+            DbContext.Entry(catalogItem.Scale).MarkAsUnchanged();
+
+            foreach (var rs in catalogItem.RollingStocks)
+            {
+                DbContext.Entry(rs.Railway).MarkAsUnchanged();
+            }
+            
+            DbContext.CatalogItems.Add(catalogItem);
+            return Task.FromResult(catalogItem.Id);
+        }
+        
+        public override Task UpdateAsync(CatalogItem catalogItem)
+        {
+            DbContext.Entry(catalogItem.Brand).MarkAsUnchanged();
+            DbContext.Entry(catalogItem.Scale).MarkAsUnchanged();
+
+            foreach (var rs in catalogItem.RollingStocks)
+            {
+                DbContext.Entry(rs.Railway).State = EntityState.Detached;
+            }
+            
+            DbContext.CatalogItems.Update(catalogItem);
+            return Task.CompletedTask;
+        }
+
         private IQueryable<CatalogItem> EagerLoadedCatalogItems() =>
             DbContext.CatalogItems
                 .Include(c => c.Brand)

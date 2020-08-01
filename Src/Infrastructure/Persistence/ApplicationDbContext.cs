@@ -16,18 +16,13 @@ using TreniniDotNet.Infrastructure.Persistence.Images.Configuration;
 
 namespace TreniniDotNet.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public sealed class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
-
-        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        // {
-        //     optionsBuilder.UseNpgsql("Host=localhost;Database=TreniniDb;Username=tdbuser;Password=tdbpass");
-        //     base.OnConfiguring(optionsBuilder);
-        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

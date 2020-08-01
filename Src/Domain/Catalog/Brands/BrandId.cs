@@ -2,7 +2,7 @@ using System;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
-    public readonly struct BrandId : IEquatable<BrandId>
+    public readonly struct BrandId : IEquatable<BrandId>, IComparable<BrandId>
     {
         private Guid Id { get; }
 
@@ -56,5 +56,10 @@ namespace TreniniDotNet.Domain.Catalog.Brands
             return left.Id == right.Id;
         }
         #endregion
+
+        public int CompareTo(BrandId other)
+        {
+            return Id.CompareTo(other.Id);
+        }
     }
 }

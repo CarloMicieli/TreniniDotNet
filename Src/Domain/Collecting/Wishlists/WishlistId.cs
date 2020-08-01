@@ -2,7 +2,7 @@
 
 namespace TreniniDotNet.Domain.Collecting.Wishlists
 {
-    public readonly struct WishlistId : IEquatable<WishlistId>
+    public readonly struct WishlistId : IEquatable<WishlistId>, IComparable<WishlistId>
     {
         private Guid Value { get; }
 
@@ -21,7 +21,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         public static implicit operator Guid(WishlistId d) => d.Value;
         public static explicit operator WishlistId(Guid guid) => new WishlistId(guid);
 
-        public override string ToString() => $"WishlistId({Value})";
+        public override string ToString() => Value.ToString();
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -42,5 +42,10 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 
         public bool Equals(WishlistId other) => this == other;
         #endregion
+
+        public int CompareTo(WishlistId other)
+        {
+            return Value.CompareTo(other.Value);
+        }
     }
 }

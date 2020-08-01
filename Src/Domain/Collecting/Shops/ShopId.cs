@@ -2,7 +2,7 @@
 
 namespace TreniniDotNet.Domain.Collecting.Shops
 {
-    public readonly struct ShopId : IEquatable<ShopId>
+    public readonly struct ShopId : IEquatable<ShopId>, IComparable<ShopId>
     {
         private Guid Value { get; }
 
@@ -43,5 +43,10 @@ namespace TreniniDotNet.Domain.Collecting.Shops
 
         public bool Equals(ShopId other) => this == other;
         #endregion
+
+        public int CompareTo(ShopId other)
+        {
+            return Value.CompareTo(other.Value);
+        }
     }
 }

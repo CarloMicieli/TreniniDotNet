@@ -35,6 +35,7 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
 
             var scales = scopedServices.GetRequiredService<IScalesRepository>();
             await scales.SeedDatabase();
+            await applicationDbContext.SaveChangesAsync();
 
             var catalogItems = scopedServices.GetRequiredService<ICatalogItemsRepository>();
             await catalogItems.SeedDatabase();
@@ -46,6 +47,8 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
         {
             var shops = scopedServices.GetRequiredService<IShopsRepository>();
             await shops.SeedDatabase();
+
+            await applicationDbContext.SaveChangesAsync();
 
             var collections = scopedServices.GetRequiredService<ICollectionsRepository>();
             await collections.SeedDatabase();

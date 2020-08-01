@@ -19,19 +19,14 @@ namespace TreniniDotNet.Infrastructure.Persistence
             DbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public virtual async Task<PaginatedResult<TAggregateRoot>> GetAllAsync(Page page)
+        public virtual Task<PaginatedResult<TAggregateRoot>> GetAllAsync(Page page)
         {
-            var results = await DbContext.Set<TAggregateRoot>()
+            return DbContext.Set<TAggregateRoot>()
                 .AsQueryable()
-                //.OrderBy(it => it.Id)
-                .Skip(page.Start)
-                .Take(page.Limit + 1)
-                .ToListAsync();
-
-            return new PaginatedResult<TAggregateRoot>(page, results);
+                .ToPaginatedResultAsync(page, x => x.Id);
         }
 
-        public Task<TKey> AddAsync(TAggregateRoot aggregate)
+        public virtual Task<TKey> AddAsync(TAggregateRoot aggregate)
         {
             DbContext.Set<TAggregateRoot>().Add(aggregate);
             return Task.FromResult(aggregate.Id);

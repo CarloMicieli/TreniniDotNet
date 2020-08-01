@@ -2,7 +2,7 @@ using System;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 {
-    public readonly struct RollingStockId : IEquatable<RollingStockId>
+    public readonly struct RollingStockId : IEquatable<RollingStockId>, IComparable<RollingStockId>
     {
         private Guid Value { get; }
 
@@ -20,7 +20,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 
         public static implicit operator Guid(RollingStockId id) { return id.Value; }
 
-        public override string ToString() => $"RollingStockId({Value})";
+        public override string ToString() => Value.ToString();
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -43,5 +43,10 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         public bool Equals(RollingStockId other) => this == other;
 
         #endregion
+
+        public int CompareTo(RollingStockId other)
+        {
+            return Value.CompareTo(other.Value);
+        }
     }
 }

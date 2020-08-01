@@ -2,7 +2,7 @@
 
 namespace TreniniDotNet.Domain.Collecting.Collections
 {
-    public readonly struct CollectionId : IEquatable<CollectionId>
+    public readonly struct CollectionId : IEquatable<CollectionId>, IComparable<CollectionId>
     {
         private Guid Value { get; }
 
@@ -21,7 +21,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         public static implicit operator Guid(CollectionId d) => d.Value;
         public static explicit operator CollectionId(Guid guid) => new CollectionId(guid);
 
-        public override string ToString() => $"CollectionId({Value})";
+        public override string ToString() => Value.ToString();
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -44,5 +44,10 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         public bool Equals(CollectionId other) => this == other;
 
         #endregion
+
+        public int CompareTo(CollectionId other)
+        {
+            return Value.CompareTo(other.Value);
+        }
     }
 }

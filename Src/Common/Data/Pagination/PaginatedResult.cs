@@ -14,7 +14,7 @@ namespace TreniniDotNet.Common.Data.Pagination
             HasPrevious = currentPage.Start > 0;
             HasNext = results.Count() > currentPage.Limit;
         }
-
+        
         public Page CurrentPage { get; }
 
         public bool HasPrevious { get; }
