@@ -21,6 +21,8 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         public static implicit operator Guid(WishlistItemId d) => d.Value;
         public static explicit operator WishlistItemId(Guid guid) => new WishlistItemId(guid);
 
+        public Guid ToGuid() => Value;
+        
         public override string ToString() => $"WishlistItemId({Value})";
 
         public override int GetHashCode() => Value.GetHashCode();
@@ -44,5 +46,6 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         public bool Equals(WishlistItemId other) => this == other;
 
         #endregion
+        
     }
 }

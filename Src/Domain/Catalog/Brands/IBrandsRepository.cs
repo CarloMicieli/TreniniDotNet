@@ -11,6 +11,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         Task<Brand?> GetBySlugAsync(Slug slug);
 
-        Task<PaginatedResult<Brand>> GetAllAsync(Page page);
+        Task<PaginatedResult<Brand>> GetBrandsAsync(Page page);
     }
 }

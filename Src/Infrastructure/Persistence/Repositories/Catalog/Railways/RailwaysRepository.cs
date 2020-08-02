@@ -20,7 +20,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<PaginatedResult<Railway>> GetAllAsync(Page page)
+        public async Task<PaginatedResult<Railway>> GetRailwaysAsync(Page page)
         {
             var results = await _unitOfWork.QueryAsync<RailwayDto>(
                 GetAllRailwaysWithPaginationQuery,

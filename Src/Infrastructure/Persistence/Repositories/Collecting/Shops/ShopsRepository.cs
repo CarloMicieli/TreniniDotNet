@@ -23,7 +23,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
                 throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<PaginatedResult<Shop>> GetAllAsync(Page page)
+        public async Task<PaginatedResult<Shop>> GetShopsAsync(Page page)
         {
             var results = await _unitOfWork.QueryAsync<ShopDto>(
                 GetShopsWithPaginationQuery,

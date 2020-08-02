@@ -11,6 +11,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 
         Task<Scale?> GetBySlugAsync(Slug slug);
         
-        Task<PaginatedResult<Scale>> GetAllAsync(Page page);
+        Task<PaginatedResult<Scale>> GetScalesAsync(Page page);
     }
 }

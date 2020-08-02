@@ -97,108 +97,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 await RemoveRollingStock(catalogItem.Id, new RollingStockId(id));
             }
         }
-
-        private static object RollingStockToParam(RollingStock rs, CatalogItemId catalogItemId)
-        {
-            return rs switch
-            {
-                Locomotive l => new
-                {
-                    RollingStockId = l.Id.ToGuid(),
-                    Epoch = l.Epoch.ToString(),
-                    l.Category,
-                    RailwayId = l.Railway.Id.ToGuid(),
-                    CatalogItemId = catalogItemId,
-                    LengthMm = l.Length?.Millimeters.Value,
-                    LengthIn = l.Length?.Inches.Value,
-                    MinRadius = l.MinRadius?.Millimeters,
-                    l.Prototype?.ClassName,
-                    l.Prototype?.RoadNumber,
-                    l.Prototype?.Series,
-                    TypeName = (string?) null,
-                    Couplers = l.Couplers?.ToString(),
-                    l.Livery,
-                    PassengerCarType = (string?) null,
-                    ServiceLevel = (string?) null,
-                    DccInterface = l.DccInterface.ToString(),
-                    Control = l.Control.ToString()
-                },
-                PassengerCar p => new
-                {
-                    RollingStockId = p.Id.ToGuid(),
-                    Epoch = p.Epoch.ToString(),
-                    p.Category,
-                    RailwayId = p.Railway.Id.ToGuid(),
-                    CatalogItemId = catalogItemId,
-                    LengthMm = p.Length?.Millimeters.Value,
-                    LengthIn = p.Length?.Inches.Value,
-                    MinRadius = p.MinRadius?.Millimeters,
-                    ClassName = (string?) null,
-                    RoadNumber = (string?) null,
-                    Series = (string?) null,
-                    p.TypeName,
-                    Couplers = p.Couplers?.ToString(),
-                    p.Livery,
-                    PassengerCarType = p.PassengerCarType?.ToString(),
-                    ServiceLevel = p.ServiceLevel?.ToString(),
-                    DccInterface = (string?) null,
-                    Control = (string?) null
-                },
-                Train t => new
-                {
-                    RollingStockId = rs.Id.ToGuid(),
-                    Era = rs.Epoch.ToString(),
-                    rs.Category,
-                    RailwayId = rs.Railway.Id.ToGuid(),
-                    CatalogItemId = catalogItemId,
-                    LengthMm = rs.Length?.Millimeters.Value,
-                    LengthIn = rs.Length?.Inches.Value,
-                    MinRadius = rs.MinRadius?.Millimeters,
-                    ClassName = (string?) null,
-                    RoadNumber = (string?) null,
-                    Series = (string?) null,
-                    t.TypeName,
-                    Couplers = rs.Couplers?.ToString(),
-                    rs.Livery,
-                    PassengerCarType = (string?) null,
-                    ServiceLevel = (string?) null,
-                    DccInterface = t.DccInterface.ToString(),
-                    Control = t.Control.ToString()
-                },
-                FreightCar f => new
-                {
-                    RollingStockId = rs.Id.ToGuid(),
-                    Era = rs.Epoch.ToString(),
-                    rs.Category,
-                    RailwayId = rs.Railway.Id.ToGuid(),
-                    CatalogItemId = catalogItemId,
-                    LengthMm = rs.Length?.Millimeters.Value,
-                    LengthIn = rs.Length?.Inches.Value,
-                    MinRadius = rs.MinRadius?.Millimeters,
-                    ClassName = (string?) null,
-                    RoadNumber = (string?) null,
-                    Series = (string?) null,
-                    f.TypeName,
-                    Couplers = rs.Couplers?.ToString(),
-                    rs.Livery,
-                    PassengerCarType = (string?) null,
-                    ServiceLevel = (string?) null,
-                    DccInterface = (string?) null,
-                    Control = (string?) null
-                },
-                _ => throw new InvalidOperationException("")
-            };
-        }
         
         private Task InsertRollingStock(CatalogItemId catalogItemId, RollingStock rs)
         {
-            var param = RollingStockToParam(rs, catalogItemId);
+            var param = RollingStocks.ToValues(catalogItemId, rs);
             return _unitOfWork.ExecuteAsync(InsertNewRollingStockCommand, param);
         }
         
         private Task UpdateRollingStock(CatalogItemId catalogItemId, RollingStock rs)
         {
-            var param = RollingStockToParam(rs, catalogItemId);
+            var param = RollingStocks.ToValues(catalogItemId, rs);
             return _unitOfWork.ExecuteAsync(UpdateRollingStockCommand, param);
         }
         

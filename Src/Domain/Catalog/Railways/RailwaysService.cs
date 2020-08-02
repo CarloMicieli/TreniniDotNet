@@ -47,6 +47,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public Task UpdateRailway(Railway railway) => _railwaysRepository.UpdateAsync(railway);
 
-        public Task<PaginatedResult<Railway>> FindAllRailways(Page page) => _railwaysRepository.GetAllAsync(page);
+        public Task<PaginatedResult<Railway>> FindAllRailways(Page page) => _railwaysRepository.GetRailwaysAsync(page);
     }
 }

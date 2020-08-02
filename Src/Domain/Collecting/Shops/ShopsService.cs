@@ -48,7 +48,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
             _shopsRepository.GetBySlugAsync(slug);
 
         public Task<PaginatedResult<Shop>> GetAllShopsAsync(Page page) =>
-            _shopsRepository.GetAllAsync(page);
+            _shopsRepository.GetShopsAsync(page);
 
         public Task AddShopToFavouritesAsync(Owner owner, ShopId shopId) =>
             _shopsRepository.AddShopToFavouritesAsync(owner, shopId);

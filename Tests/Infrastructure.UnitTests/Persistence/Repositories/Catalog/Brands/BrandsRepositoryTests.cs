@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Infrastructure.Dapper;
 using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
@@ -25,9 +26,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
 
             var testBrand = FakeBrand();
             var brandId = await Repository.AddAsync(testBrand);
-
+            await UnitOfWork.SaveAsync();
+            
             brandId.Should().Be(testBrand.Id);
-
+            
             Database.Assert.RowInTable(Tables.Brands)
                 .WithPrimaryKey(new
                 {
@@ -43,7 +45,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
         }
 
         [Fact]
-        public async Task BrandsRepository_Update_ShouldUpdateBrands()
+        public async Task BrandsRepository_UpdateAsync_ShouldUpdateBrands()
         {
             Database.Setup.TruncateTable(Tables.Brands);
 
@@ -61,7 +63,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
             });
 
             await Repository.UpdateAsync(testBrand.With(companyName: "Modified company"));
-
+            await UnitOfWork.SaveAsync();
+            
             Database.Assert.RowInTable(Tables.Brands)
                 .WithPrimaryKey(new
                 {
@@ -75,7 +78,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
         }
 
         [Fact]
-        public async Task BrandsRepository_GetBySlug_ShouldFindOneBrandBySlug()
+        public async Task BrandsRepository_GetBySlugAsync_ShouldFindOneBrandBySlug()
         {
             Database.Setup.TruncateTable(Tables.Brands);
 
@@ -97,7 +100,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
         }
        
         [Fact]
-        public async Task BrandsRepository_GetBrands_ShouldFindBrandsPaginated()
+        public async Task BrandsRepository_GetBrandsAsync_ShouldFindBrandsPaginated()
         {
             Database.Setup.TruncateTable(Tables.Brands);
 
@@ -113,14 +116,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
                     created = DateTime.UtcNow
                 });
 
-            var result = await Repository.GetAllAsync(new Page(10, 5));
+            var result = await Repository.GetBrandsAsync(new Page(10, 5));
 
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(5);
         }
 
         [Fact]
-        public async Task BrandsRepository_ExistsBySlug_ShouldReturnTrueWhenBrandExists()
+        public async Task BrandsRepository_ExistsAsync_ShouldReturnTrueWhenBrandExists()
         {
             Database.Setup.TruncateTable(Tables.Brands);
 
@@ -141,7 +144,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
         }
 
         [Fact]
-        public async Task BrandsRepository_ExistsBySlug_ShouldReturnFalseWhenBrandDoesNotExist()
+        public async Task BrandsRepository_ExistsAsync_ShouldReturnFalseWhenBrandDoesNotExist()
         {
             Database.Setup.TruncateTable(Tables.Brands);
 

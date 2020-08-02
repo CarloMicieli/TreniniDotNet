@@ -21,7 +21,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<PaginatedResult<Brand>> GetAllAsync(Page page)
+        public async Task<PaginatedResult<Brand>> GetBrandsAsync(Page page)
         {
             var results = await _unitOfWork.QueryAsync<BrandDto>(
                 GetAllBrandsWithPaginationQuery,

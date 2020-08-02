@@ -17,29 +17,29 @@ namespace TreniniDotNet.Infrastructure.Dapper
             _connection = databaseContext.NewConnection();
             _connection.Open();
         }
-
+        
         public Task<int> ExecuteAsync(string cmd, object param)
         {
-            if (_transaction != null) _transaction = _connection.BeginTransaction();
+            _transaction ??= _connection.BeginTransaction();
             return _connection.ExecuteAsync(cmd, param, _transaction);
         }
 
         public Task<TResult> ExecuteScalarAsync<TResult>(string sql, object param)
         {
-            if (_transaction != null) _transaction = _connection.BeginTransaction();
+            _transaction ??= _connection.BeginTransaction();
             return _connection.ExecuteScalarAsync<TResult>(sql, param, _transaction);
         }
 
         public Task<IEnumerable<TResult>> QueryAsync<TResult>(string sql, object param)
         {
-            if (_transaction != null) _transaction = _connection.BeginTransaction();
+            _transaction ??= _connection.BeginTransaction();
             return _connection.QueryAsync<TResult>(sql, param, _transaction);
         }
 
         public Task<TResult?> QueryFirstOrDefaultAsync<TResult>(string sql, object param)
             where TResult : class
         {
-            if (_transaction != null) _transaction = _connection.BeginTransaction();
+            _transaction ??= _connection.BeginTransaction();
             return _connection.QueryFirstOrDefaultAsync<TResult?>(sql, param, _transaction);
         }
 

@@ -51,6 +51,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 
         public Task UpdateBrand(Brand brand) => _brandRepository.UpdateAsync(brand);
 
-        public Task<PaginatedResult<Brand>> FindAllBrands(Page page) => _brandRepository.GetAllAsync(page);
+        public Task<PaginatedResult<Brand>> FindAllBrands(Page page) => _brandRepository.GetBrandsAsync(page);
     }
 }

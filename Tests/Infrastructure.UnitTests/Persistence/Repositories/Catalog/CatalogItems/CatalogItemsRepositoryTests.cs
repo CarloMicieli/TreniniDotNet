@@ -14,16 +14,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
 {
     public class CatalogItemsRepositoryTests : RepositoryUnitTests<ICatalogItemsRepository>
     {
-        private readonly Brand _brand;
-        private readonly Railway _railway;
-        private readonly Scale _scale;
+        private Brand Acme { get; }
+        private Railway Fs { get; }
+        private Scale H0 { get; }
         
         public CatalogItemsRepositoryTests(SqliteDatabaseFixture fixture) 
             : base(fixture, unitOfWork => new CatalogItemsRepository(unitOfWork))
         {
-            _brand = CatalogSeedData.Brands.Acme;
-            _railway = CatalogSeedData.Railways.Fs;
-            _scale = CatalogSeedData.Scales.H0;
+            Acme = CatalogSeedData.Brands.Acme;
+            Fs = CatalogSeedData.Railways.Fs;
+            H0 = CatalogSeedData.Scales.H0;
 
             Database.Setup.TruncateTable(Tables.Brands);
             Database.Setup.TruncateTable(Tables.Railways);
@@ -31,43 +31,44 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
 
             Database.Arrange.InsertOne(Tables.Brands, new
             {
-                brand_id = _brand.Id.ToGuid(),
-                name = _brand.Name,
-                slug = _brand.Slug.ToString(),
-                kind = _brand.Kind.ToString(),
+                brand_id = Acme.Id.ToGuid(),
+                name = Acme.Name,
+                slug = Acme.Slug.ToString(),
+                kind = Acme.Kind.ToString(),
                 created = DateTime.UtcNow
             });
 
             Database.Arrange.InsertOne(Tables.Railways, new
             {
-                railway_id = _railway.Id.ToGuid(),
-                name = _railway.Name,
-                slug = _railway.Slug.ToString(),
-                country = _railway.Country.Code,
+                railway_id = Fs.Id.ToGuid(),
+                name = Fs.Name,
+                slug = Fs.Slug.ToString(),
+                country = Fs.Country.Code,
                 created = DateTime.UtcNow
             });
 
             Database.Arrange.InsertOne(Tables.Scales, new
             {
-                scale_id = _scale.Id.ToGuid(),
-                name = _scale.Name,
-                slug = _scale.Slug.ToString(),
-                ratio = _scale.Ratio.ToDecimal(),
-                gauge_mm = _scale.Gauge.InMillimeters.Value,
-                gauge_in = _scale.Gauge.InInches.Value,
-                track_type = _scale.Gauge.TrackGauge.ToString(),
+                scale_id = H0.Id.ToGuid(),
+                name = H0.Name,
+                slug = H0.Slug.ToString(),
+                ratio = H0.Ratio.ToDecimal(),
+                gauge_mm = H0.Gauge.InMillimeters.Value,
+                gauge_in = H0.Gauge.InInches.Value,
+                track_type = H0.Gauge.TrackGauge.ToString(),
                 created = DateTime.UtcNow
             });
         }
         
         [Fact]
-        public async Task CatalogItemRepository_AddAsync_ShouldCreateNewCatalogItems()
+        public async Task CatalogItemsRepository_AddAsync_ShouldCreateNewCatalogItems()
         {
             Database.Setup.TruncateTable(Tables.RollingStocks);
             Database.Setup.TruncateTable(Tables.CatalogItems);
 
             var catalogItem = CatalogSeedData.CatalogItems.Acme60392;
             var catalogItemId = await Repository.AddAsync(catalogItem);
+            await UnitOfWork.SaveAsync();
 
             catalogItemId.Should().Be(catalogItem.Id);
 
@@ -89,28 +90,28 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         
         
         [Fact]
-        public async Task CatalogItemRepository_Exists_ShouldCheckCatalogItemExists()
+        public async Task CatalogItemsRepository_ExistsAsync_ShouldCheckCatalogItemExists()
         {
             var item = CatalogSeedData.CatalogItems.Acme60392;
             Database.ArrangeWithOneCatalogItem(item);
 
-            var exists = await Repository.ExistsAsync(_brand, item.ItemNumber);
+            var exists = await Repository.ExistsAsync(Acme, item.ItemNumber);
 
             exists.Should().BeTrue();
         }
 
         [Fact]
-        public async Task CatalogItemRepository_Exists_ShouldReturnFalseWhenCatalogItemDoesNotExist()
+        public async Task CatalogItemsRepository_ExistsAsync_ShouldReturnFalseWhenCatalogItemDoesNotExist()
         {
             Database.ArrangeWithOneCatalogItem(CatalogSeedData.CatalogItems.Acme60392);
 
-            var exists = await Repository.ExistsAsync(_brand, new ItemNumber("654321"));
+            var exists = await Repository.ExistsAsync(Acme, new ItemNumber("654321"));
 
             exists.Should().BeFalse();
         }
 
         [Fact]
-        public async Task CatalogItemRepository_GetBySlug_ShouldReturnsCatalogItem()
+        public async Task CatalogItemsRepository_GetBySlugAsync_ShouldReturnsCatalogItem()
         {
             var item = CatalogSeedData.CatalogItems.Acme60392;
             Database.ArrangeWithOneCatalogItem(item);
@@ -122,7 +123,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         }
 
         [Fact]
-        public async Task CatalogItemRepository_GetBySlug_ShouldReturnsNullWhenCatalogItemIsNotFound()
+        public async Task CatalogItemsRepository_GetBySlugAsync_ShouldReturnsNullWhenCatalogItemIsNotFound()
         {
             Database.ArrangeWithOneCatalogItem(CatalogSeedData.CatalogItems.Acme60392);
 
@@ -161,7 +162,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
             var item = CatalogSeedData.CatalogItems.Acme60392;
             Database.ArrangeWithOneCatalogItem(item);
 
-            await Repository.UpdateAsync(item);
+            var modified = item.With(
+                description: "Modified description");
+            
+            await Repository.UpdateAsync(modified);
+            await UnitOfWork.SaveAsync();
 
             Database.Assert.RowInTable(Tables.CatalogItems)
                 .WithPrimaryKey(new
@@ -170,7 +175,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 })
                 .AndValues(new
                 {
-                    version = 2,
+                    description = "Modified description"
                 });
         }
 
@@ -271,7 +276,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                     rolling_stock_id = rs.Id.ToGuid(),
                     catalog_item_id = catalogItemId,
                     category = rs.Category.ToString(),
-                    era = rs.Epoch.ToString(),
+                    epoch = rs.Epoch.ToString(),
                     railway_id = rs.Railway.Id.ToGuid()
                 });
             }

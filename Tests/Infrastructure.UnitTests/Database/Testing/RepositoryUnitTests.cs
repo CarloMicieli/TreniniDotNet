@@ -7,6 +7,8 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
     public abstract class RepositoryUnitTests<TRepository> : IClassFixture<SqliteDatabaseFixture>
     {
         protected DatabaseTestHelpers Database { get; }
+        
+        protected IUnitOfWork UnitOfWork { get; }
 
         // Repository under test
         protected TRepository Repository { get; }
@@ -15,7 +17,8 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
             SqliteDatabaseFixture fixture,
             Func<IUnitOfWork, TRepository> builder)
         {
-            Repository = builder(fixture.UnitOfWork);
+            UnitOfWork = fixture.UnitOfWork;
+            Repository = builder(UnitOfWork);
             Database = new DatabaseTestHelpers(fixture.DatabaseContext);
         }
     }

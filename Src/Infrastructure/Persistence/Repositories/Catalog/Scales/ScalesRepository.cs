@@ -22,7 +22,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<PaginatedResult<Scale>> GetAllAsync(Page page)
+        public async Task<PaginatedResult<Scale>> GetScalesAsync(Page page)
         {
             var results = await _unitOfWork.QueryAsync<ScaleDto>(
                 GetAllScalesWithPaginationQuery,

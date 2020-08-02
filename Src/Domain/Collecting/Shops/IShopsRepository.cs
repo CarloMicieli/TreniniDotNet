@@ -21,6 +21,6 @@ namespace TreniniDotNet.Domain.Collecting.Shops
 
         Task<List<Shop>> GetFavouriteShopsAsync(Owner owner);
         
-        Task<PaginatedResult<Shop>> GetAllAsync(Page page);
+        Task<PaginatedResult<Shop>> GetShopsAsync(Page page);
     }
 }

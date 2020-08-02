@@ -26,6 +26,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
             var fs = FakeRailway();
 
             var railwayId = await Repository.AddAsync(fs);
+            await UnitOfWork.SaveAsync();
 
             railwayId.Should().NotBeNull();
             Database.Assert.RowInTable(Tables.Railways)
@@ -66,7 +67,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
             });
 
             await Repository.UpdateAsync(testRailway.With(companyName: "Trenitalia"));
-
+            await UnitOfWork.SaveAsync();
+            
             Database.Assert.RowInTable(Tables.Railways)
                 .WithPrimaryKey(new
                 {
@@ -143,7 +145,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
         }
 
         [Fact]
-        public async Task RailwaysRepository_GetAllAsync_ShouldReturnTheRailwaysPaginated()
+        public async Task RailwaysRepository_GetRailwaysAsync_ShouldReturnTheRailwaysPaginated()
         {
             Database.Setup.TruncateTable(Tables.Railways);
 
@@ -159,7 +161,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
                     version = 1
                 });
 
-            var result = await Repository.GetAllAsync(new Page(10, 5));
+            var result = await Repository.GetRailwaysAsync(new Page(10, 5));
 
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(5);

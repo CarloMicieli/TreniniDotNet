@@ -25,9 +25,4 @@
     <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Repositories\Collecting\Shops" />
-    <Folder Include="Persistence\Repositories\Collecting\Wishlists" />
-  </ItemGroup>
-
 </Project>

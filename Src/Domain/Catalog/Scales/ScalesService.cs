@@ -36,6 +36,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 
         public Task UpdateScaleAsync(Scale scale) => _scalesRepository.UpdateAsync(scale);
 
-        public Task<PaginatedResult<Scale>> FindAllScales(Page page) => _scalesRepository.GetAllAsync(page);
+        public Task<PaginatedResult<Scale>> FindAllScales(Page page) => _scalesRepository.GetScalesAsync(page);
     }
 }

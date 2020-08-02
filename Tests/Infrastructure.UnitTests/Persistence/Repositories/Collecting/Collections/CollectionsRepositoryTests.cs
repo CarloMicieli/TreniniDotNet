@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Domain.Collecting.Collections;
@@ -20,8 +21,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
             Database.Setup.TruncateTable(Tables.Collections);
 
             var newCollection = FakeCollection();
+            var item = newCollection.Items.First();
+            
             var id = await Repository.AddAsync(newCollection);
-
+            await UnitOfWork.SaveAsync();
+            
             id.Should().Be(newCollection.Id);
 
             Database.Assert.RowInTable(Tables.Collections)
@@ -34,6 +38,23 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                     owner = newCollection.Owner.Value,
                     //created = Instant.FromUtc(2019, 11, 25, 9, 0).ToDateTimeUtc(),
                     version = newCollection.Version,
+                })
+                .ShouldExists();
+            
+            Database.Assert.RowInTable(Tables.CollectionItems)
+                .WithPrimaryKey(new
+                {
+                    item_id = item.Id.ToGuid()
+                })
+                .WithValues(new
+                {
+                    collection_id = newCollection.Id.ToGuid(),
+                    catalog_item_id = item.CatalogItem.Id.ToGuid(),
+                    catalog_item_slug = item.CatalogItem.Slug,
+                    price = item.Price.Amount,
+                    currency = item.Price.Currency,
+                    condition = item.Condition.ToString(),
+                    shop_id = item.PurchasedAt?.Id.ToGuid()
                 })
                 .ShouldExists();
         }
@@ -159,6 +180,37 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
             found.Items.Should().HaveCount(2);
         }
         
-        public Collection FakeCollection() => throw new NotImplementedException();
+        // [Fact]
+        // public async Task CollectionsRepository_UpdateAsync_ShouldEditCollectionItems()
+        // {
+        //     var item = FakeCollectionItem();
+        //
+        //     ArrangeDatabaseWithOneCollectionItem(item);
+        //
+        //     var modifiedItem = item.With(
+        //         condition: Condition.PreOwned,
+        //         notes: "My modified notes");
+        //
+        //     await Repository.UpdateAsync(TestCollection.Id, modifiedItem);
+        //
+        //     Database.Assert.RowInTable(Tables.CollectionItems)
+        //         .WithPrimaryKey(new
+        //         {
+        //             item_id = item.Id.ToGuid()
+        //         })
+        //         .WithValues(new
+        //         {
+        //             collection_id = TestCollection.Id.ToGuid(),
+        //             catalog_item_id = item.CatalogItem.Id.ToGuid(),
+        //             catalog_item_slug = item.CatalogItem.Slug,
+        //             condition = modifiedItem.Condition.ToString(),
+        //             notes = modifiedItem.Notes
+        //         })
+        //         .ShouldExists();
+        // }
+
+        private Collection FakeCollection() => throw new NotImplementedException();
+        
+        private CollectionItem FakeCollectionItem()=> throw new NotImplementedException();
     }
 }

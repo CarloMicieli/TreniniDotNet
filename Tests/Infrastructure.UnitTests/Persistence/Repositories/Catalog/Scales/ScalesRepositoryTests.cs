@@ -17,14 +17,15 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
         }
         
         [Fact]
-        public async Task ScalesRepository_Add_ShouldCreateANewScale()
+        public async Task ScalesRepository_AddAsync_ShouldCreateANewScale()
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
             var scaleH0 = CatalogSeedData.Scales.ScaleH0();
 
             var scaleId = await Repository.AddAsync(scaleH0);
-
+            await UnitOfWork.SaveAsync();
+            
             scaleId.Should().NotBeNull();
 
             Database.Assert.RowInTable(Tables.Scales)
@@ -48,7 +49,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
         }
 
         [Fact]
-        public async Task ScalesRepository_Update_ShouldUpdateScales()
+        public async Task ScalesRepository_UpdateAsync_ShouldUpdateScales()
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
@@ -68,7 +69,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
             });
 
             await Repository.UpdateAsync(scaleH0.With(ratio: Ratio.Of(100M)));
-
+            await UnitOfWork.SaveAsync();
+            
             Database.Assert.RowInTable(Tables.Scales)
                 .WithPrimaryKey(new
                 {
@@ -82,7 +84,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
         }
 
         [Fact]
-        public async Task ScalesRepository_GetBySlug_ShouldReturnScaleWithSlug()
+        public async Task ScalesRepository_GetBySlugAsync_ShouldReturnScaleWithSlug()
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
@@ -108,7 +110,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
         }
         
         [Fact]
-        public async Task ScalesRepository_Exists_ShouldReturnScaleWithSlug()
+        public async Task ScalesRepository_ExistsAsync_ShouldReturnScaleWithSlug()
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
@@ -133,7 +135,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
         }
 
         [Fact]
-        public async Task ScalesRepository_Exists_ShouldReturnNullWhenScaleDoesNotExist()
+        public async Task ScalesRepository_ExistsAsync_ShouldReturnNullWhenScaleDoesNotExist()
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
@@ -143,7 +145,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
         }
 
         [Fact]
-        public async Task ScalesRepository_GetScales_ShouldReturnAllScalesPaginated()
+        public async Task ScalesRepository_GetScalesAsync_ShouldReturnAllScalesPaginated()
         {
             Database.Setup.TruncateTable(Tables.Scales);
 
@@ -178,7 +180,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
                     version = scaleN.Version
                 });
 
-            var result = await Repository.GetAllAsync(new Page(1, 1));
+            var result = await Repository.GetScalesAsync(new Page(1, 1));
 
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(1);

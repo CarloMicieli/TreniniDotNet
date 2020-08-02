@@ -11,6 +11,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         Task<Railway?> GetBySlugAsync(Slug slug);
         
-        Task<PaginatedResult<Railway>> GetAllAsync(Page page);
+        Task<PaginatedResult<Railway>> GetRailwaysAsync(Page page);
     }
 }
