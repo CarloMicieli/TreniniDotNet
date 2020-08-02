@@ -33,24 +33,24 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 1 => FromCategory(item.RollingStocks.First().Category),
                 _ => FromCategories(item.RollingStocks.Select(it => it.Category))
             };
-
-            static CatalogItemCategory FromCategories(IEnumerable<Category> categoriesList)
-            {
-                var categories = categoriesList
-                    .Select(FromCategory)
-                    .Where(it => it != CatalogItemCategory.Unspecified)
-                    .Distinct()
-                    .ToList();
-
-                return categories.Count switch
-                {
-                    0 => CatalogItemCategory.Unspecified,
-                    1 => categories.First(),
-                    _ => CatalogItemCategory.Trains
-                };
-            }
         }
 
+        public static CatalogItemCategory FromCategories(IEnumerable<Category> categoriesList)
+        {
+            var categories = categoriesList
+                .Select(FromCategory)
+                .Where(it => it != CatalogItemCategory.Unspecified)
+                .Distinct()
+                .ToList();
+
+            return categories.Count switch
+            {
+                0 => CatalogItemCategory.Unspecified,
+                1 => categories.First(),
+                _ => CatalogItemCategory.Trains
+            };
+        }
+        
         private static CatalogItemCategory FromCategory(Category cat)
         {
             if (Categories.IsLocomotive(cat))

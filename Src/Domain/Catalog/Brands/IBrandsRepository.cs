@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Data;
+using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
@@ -9,5 +10,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         Task<bool> ExistsAsync(Slug slug);
 
         Task<Brand?> GetBySlugAsync(Slug slug);
+
+        Task<PaginatedResult<Brand>> GetAllAsync(Page page);
     }
 }

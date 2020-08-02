@@ -2,7 +2,6 @@ using NodaTime;
 using TreniniDotNet.Common.Domain;
 using TreniniDotNet.Common.Uuid;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.Shops;
 
 namespace TreniniDotNet.Domain.Collecting.Collections
 {
@@ -17,7 +16,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
             CatalogItemRef catalogItem,
             Condition condition,
             Price price,
-            Shop? purchasedAt,
+            ShopRef? purchasedAt,
             LocalDate addedDate,
             string? notes)
         {

@@ -1,21 +1,21 @@
 ﻿using System;
-using TreniniDotNet.Domain.Collecting.Shops;
+using TreniniDotNet.Domain.Collecting.Collections;
 
 namespace TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels
 {
     public sealed class ShopInfoView
     {
-        private readonly Shop _shop;
+        private readonly ShopRef _shop;
 
-        public ShopInfoView(Shop shop)
+        public ShopInfoView(ShopRef shop)
         {
             _shop = shop;
         }
 
         public Guid ShopId => _shop.Id;
 
-        public string Slug => _shop.Slug.Value;
+        public string Slug => _shop.Slug;
 
-        public string Name => _shop.Name;
+        public string Name => _shop.ToString();
     }
 }

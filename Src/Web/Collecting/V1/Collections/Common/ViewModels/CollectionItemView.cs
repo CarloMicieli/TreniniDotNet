@@ -14,11 +14,6 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
             _inner = it;
             CatalogItem = new CatalogItemView(it.CatalogItem);
 
-            // if (it.Details != null)
-            // {
-            //     Details = new CatalogItemDetailsView(it.Details);
-            // }
-
             if (it.PurchasedAt != null)
             {
                 PurchasedAt = new ShopInfoView(it.PurchasedAt);

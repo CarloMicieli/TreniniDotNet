@@ -47,5 +47,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         {
             return Value.CompareTo(other.Value);
         }
+
+        public Guid ToGuid() => Value;
     }
 }

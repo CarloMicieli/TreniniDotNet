@@ -2,36 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapper;
-using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Common.Data;
+using TreniniDotNet.Common.Enums;
+using TreniniDotNet.Common.Extensions;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Wishlists;
-using TreniniDotNet.Infrastructure.Dapper;
 using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishlists
 {
     public sealed class WishlistsRepository : IWishlistsRepository
     {
-        private readonly IDatabaseContext _dbContext;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public WishlistsRepository(IDatabaseContext dbContext)
+        public WishlistsRepository(IUnitOfWork unitOfWork)
         {
-            _dbContext = dbContext ??
-                throw new ArgumentNullException(nameof(dbContext));
-        }
-
-        public Task<PaginatedResult<Wishlist>> GetAllAsync(Page page)
-        {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         public async Task<WishlistId> AddAsync(Wishlist wishlist)
         {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.ExecuteAsync(InsertNewWishlist, new
+            var _ = await _unitOfWork.ExecuteAsync(InsertNewWishlist, new
             {
                 WishlistId = wishlist.Id,
                 Owner = wishlist.Owner.Value,
@@ -42,90 +35,95 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                 wishlist.Version
             });
 
+            await UpdateWishlistItemsAsync(wishlist);
+            
             return wishlist.Id;
         }
-
-        public Task UpdateAsync(Wishlist brand)
+        
+        private async Task UpdateWishlistItemsAsync(Wishlist wishlist)
         {
-            throw new NotImplementedException();
+            var resultItemIds = await GetWishlistItemIdsAsync(wishlist.Id);
+            var itemIds = resultItemIds.Select(id => new WishlistItemId(id))
+                .ToList();
+            
+            foreach (var item in wishlist.Items)
+            {
+                var param = new WishlistItemDto { };
+                
+                if (itemIds.Contains(item.Id))
+                {
+                    await UpdateWishlistItemAsync(param);
+                    itemIds.Remove(item.Id);
+                }
+                else
+                {
+                    await InsertWishlistItemAsync(param);
+                }
+            }
+
+            foreach (var id in itemIds)
+            {
+                await RemoveWishlistItem(wishlist.Id, id);
+            }
+        }
+
+        private Task UpdateWishlistItemAsync(WishlistItemDto param) => throw new NotImplementedException();
+        
+        private Task InsertWishlistItemAsync(WishlistItemDto param) => throw new NotImplementedException();
+        
+        private Task RemoveWishlistItem(WishlistId id, WishlistItemId itemId) => throw new NotImplementedException();
+        
+        public async Task UpdateAsync(Wishlist wishlist)
+        {
+            var _ = await _unitOfWork.ExecuteAsync(UpdateWishlistCommand, new
+            {
+                WishlistId = wishlist.Id,
+                Owner = wishlist.Owner.Value,
+                Slug = wishlist.Slug.Value,
+                wishlist.ListName,
+                Visibility = wishlist.Visibility.ToString(),
+                Created = wishlist.CreatedDate.ToDateTimeUtc(),
+                wishlist.Version
+            });
+
+            await UpdateWishlistItemsAsync(wishlist);
         }
 
         public async Task DeleteAsync(WishlistId id)
         {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var _rows = await connection.ExecuteAsync(DeleteWishlistItems, new
+            await _unitOfWork.ExecuteAsync(DeleteWishlistItems, new
             {
                 WishlistId = id
             });
 
-            var _rows2 = await connection.ExecuteAsync(DeleteWishlist, new
+            await _unitOfWork.ExecuteAsync(DeleteWishlist, new
             {
                 WishlistId = id
             });
         }
-
-        public Task DeleteAsync(Wishlist aggregate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> ExistAsync(Owner owner, Slug wishlistSlug)
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.QueryFirstOrDefaultAsync<Guid?>(
-                WishlishExistsForOwnerAndSlug,
-                new
-                {
-                    Owner = owner.Value,
-                    Slug = wishlistSlug.Value
-                });
-
-            return result.HasValue;
-        }
-
-        public async Task<bool> ExistAsync(Owner owner, WishlistId id)
-        {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
-            var result = await connection.QueryFirstOrDefaultAsync<Guid?>(
-                WishlishExistsForId,
-                new
-                {
-                    Owner = owner.Value,
-                    WishlistId = id
-                });
-
-            return result.HasValue;
-        }
-
+  
         public async Task<List<Wishlist>> GetByOwnerAsync(Owner owner, VisibilityCriteria visibility)
         {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
-
             if (visibility == VisibilityCriteria.All)
             {
-                var result = await connection.QueryAsync<WishlistDto>(GetWishlists, new
+                var results = await _unitOfWork.QueryAsync<WishlistDto>(
+                    GetWishlists, new
                 {
                     Owner = owner.Value
                 });
 
-                return result.Select(ProjectToDomain).ToList();
+                return ProjectToDomain(results).ToList();
             }
             else
             {
-                var result = await connection.QueryAsync<WishlistDto>(GetWishlistsByVisibility, new
+                var results = await _unitOfWork.QueryAsync<WishlistDto>(
+                    GetWishlistsByVisibility, new
                 {
                     Owner = owner.Value,
                     Visibility = visibility.ToString()
                 });
 
-                return result.Select(ProjectToDomain).ToList();
+                return ProjectToDomain(results).ToList();
             }
         }
 
@@ -146,82 +144,92 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
 
         public async Task<Wishlist?> GetByIdAsync(WishlistId id)
         {
-            await using var connection = _dbContext.NewConnection();
-            await connection.OpenAsync();
+            var results = await _unitOfWork.QueryAsync<WishlistDto>(
+                GetWishlistById, new {Id = id.ToGuid()});
 
-            var wishlist = await connection.QueryFirstOrDefaultAsync<WishlistDto>(
-                GetWishlistById, new { WishlistId = id });
-
-            if (wishlist is null)
-            {
-                return null;
-            }
-
-            var wishlistItems = await connection.QueryAsync<WishlistItemWithDataDto>(
-                GetWishlistItemsWithDetails, new { WishlistId = id });
-
-            return ProjectToDomain(wishlist, wishlistItems);
+            return ProjectToDomain(results)
+                .FirstOrDefault();
         }
 
-        private Wishlist ProjectToDomain(WishlistDto wishlistDto)
+        private IEnumerable<Wishlist> ProjectToDomain(IEnumerable<WishlistDto> results)
         {
-            throw new NotImplementedException();
+            return results
+                .GroupBy(it => new
+                {
+                    WishlistId = new WishlistId(it.wishlist_id),
+                    Owner = new Owner(it.owner),
+                    Slug = Slug.Of(it.slug),
+                    WishlistName = it.wishlist_name,
+                    Visibility = EnumHelpers.RequiredValueFor<Visibility>(it.visibility),
+                    Budget = ToBudget(it.budget_amount, it.budget_currency),
+                    it.created,
+                    it.last_modified,
+                    it.version
+                })
+                .Select(it =>
+                {
+                    var items = it
+                        .Where(x => x.wishlist_item_id.HasValue)
+                        .GroupBy(x => new
+                        {
+                            x.wishlist_item_id,
+                            x.catalog_item_id,
+                            x.catalog_item_slug,
+                            x.brand_name,
+                            x.item_number,
+                            x.description,
+                            x.priority,
+                            x.added_date,
+                            x.removed_date,
+                            Price = ToPrice(x.price_amount, x.price_currency),
+                            x.notes
+                        })
+                        .Select(x =>
+                        {
+                            var catalogItem = new CatalogItemRef(
+                                new CatalogItemId(x.Key.catalog_item_id ?? Guid.Empty),
+                                x.Key.catalog_item_slug!,
+                                x.Key.brand_name!,
+                                x.Key.item_number!,
+                                x.Key.description!,
+                                x.Select(y => EnumHelpers.RequiredValueFor<Category>(y.category!)));
+
+                            return new WishlistItem(
+                                new WishlistItemId(x.Key.wishlist_item_id ?? Guid.Empty),
+                                catalogItem,
+                                EnumHelpers.RequiredValueFor<Priority>(x.Key.priority!),
+                                x.Key.added_date!.Value.ToLocalDate(),
+                                x.Key.removed_date.ToLocalDateOrDefault(),
+                                x.Key.Price,
+                                x.Key.notes);
+                        });
+
+                    var wishlist = new Wishlist(
+                        it.Key.WishlistId,
+                        it.Key.Owner,
+                        it.Key.WishlistName,
+                        it.Key.Visibility,
+                        it.Key.Budget,
+                        items,
+                        it.Key.created.ToUtc(),
+                        it.Key.last_modified.ToUtcOrDefault(),
+                        it.Key.version);
+                    return wishlist;
+                });
         }
         
-        private Wishlist ProjectToDomain(WishlistDto wishlist, IEnumerable<WishlistItemWithDataDto> items)
-        {
-            // var wishlistItems = items.Select(it => ProjectItemToDomain(it))
-            //     .ToImmutableList();
-            //
-            // return _wishlistsFactory.NewWishlist(
-            //     new WishlistId(wishlist.wishlist_id),
-            //     new Owner(wishlist.owner),
-            //     Slug.Of(wishlist.slug),
-            //     wishlist.wishlist_name,
-            //     EnumHelpers.RequiredValueFor<Visibility>(wishlist.visibility),
-            //     wishlistItems,
-            //     wishlist.created.ToUtc(),
-            //     wishlist.last_modified.ToUtcOrDefault(),
-            //     wishlist.version);
-            throw new NotImplementedException();
-        }
+        private static Price? ToPrice(decimal? amount, string? currency) =>
+            (amount.HasValue && !string.IsNullOrWhiteSpace(currency)) ? new Price(amount.Value, currency) : null; 
+        
+        private static Budget? ToBudget(decimal? amount, string? currency) =>
+            (amount.HasValue && !string.IsNullOrWhiteSpace(currency)) ? new Budget(amount.Value, currency) : null;
 
-        // private IWishlistItem ProjectItemToDomain(WishlistItemWithDataDto dto)
-        // {
-        //     Money? price = null;
-        //     if (dto.price.HasValue && !string.IsNullOrWhiteSpace(dto.currency))
-        //     {
-        //         price = new Money(dto.price.Value, dto.currency);
-        //     }
-        //
-        //     return _wishlistsFactory.NewWishlistItem(
-        //         new WishlistItemId(dto.item_id),
-        //         CatalogRef.Of(dto.catalog_item_id, dto.catalog_item_slug),
-        //         ProjectToCatalogItemDetails(dto),
-        //         EnumHelpers.RequiredValueFor<Priority>(dto.priority),
-        //         dto.added_date.ToLocalDate(),
-        //         price,
-        //         dto.notes);
-        // }
-
-        // private static ICatalogItemDetails ProjectToCatalogItemDetails(WishlistItemWithDataDto dto)
-        // {
-        //     IBrandRef brand = new BrandRef(dto.brand_name, Slug.Of(dto.brand_slug));
-        //     ItemNumber itemNumber = new ItemNumber(dto.item_number);
-        //
-        //     CollectionCategory category =
-        //         CollectionCategories.From(dto.category_1, dto.category_2);
-        //
-        //     IScaleRef scale = new ScaleRef(dto.scale_name, Slug.Of(dto.scale_slug));
-        //
-        //     return new CatalogItemDetails(
-        //         brand, itemNumber,
-        //         category,
-        //         scale,
-        //         dto.rolling_stock_count,
-        //         dto.description);
-        // }
-
+        private Task<IEnumerable<Guid>> GetWishlistItemIdsAsync(WishlistId id) =>
+            _unitOfWork.QueryAsync<Guid>("SELECT wishlist_item_id FROM wishlist_items WHERE wishlist_id = @Id", new
+            {
+                Id = id.ToGuid()
+            });
+        
         #region [ Query / Commands ]
 
         private const string InsertNewWishlist = @"INSERT INTO wishlists(
@@ -278,6 +286,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             WHERE owner = @Owner AND wishlist_id = @WishlistId
             LIMIT 1;";
 
+        private const string UpdateWishlistCommand = "";
+        
         private const string DeleteWishlistItems = @"DELETE FROM wishlist_items WHERE wishlist_id = @WishlistId";
 
         private const string DeleteWishlist = @"DELETE FROM wishlists WHERE wishlist_id = @WishlistId";

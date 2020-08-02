@@ -21,6 +21,8 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         public static implicit operator Guid(CollectionItemId d) => d.Value;
         public static explicit operator CollectionItemId(Guid guid) => new CollectionItemId(guid);
 
+        public Guid ToGuid() => Value;
+        
         public override string ToString() => $"CollectionItemId({Value})";
 
         public override int GetHashCode() => Value.GetHashCode();
@@ -44,5 +46,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         public bool Equals(CollectionItemId other) => this == other;
 
         #endregion
+
+        
     }
 }

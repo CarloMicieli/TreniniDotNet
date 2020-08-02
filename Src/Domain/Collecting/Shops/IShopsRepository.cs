@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Data;
+using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.SharedKernel.Slugs;
 
@@ -19,5 +20,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         Task RemoveFromFavouritesAsync(Owner owner, ShopId shopId);
 
         Task<List<Shop>> GetFavouriteShopsAsync(Owner owner);
+        
+        Task<PaginatedResult<Shop>> GetAllAsync(Page page);
     }
 }

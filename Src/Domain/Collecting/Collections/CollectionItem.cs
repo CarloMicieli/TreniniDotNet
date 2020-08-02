@@ -12,7 +12,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
             CatalogItemRef catalogItem,
             Condition condition,
             Price price,
-            Shop? purchasedAt,
+            ShopRef? purchasedAt,
             LocalDate addedDate,
             LocalDate? removedDate,
             string? notes)
@@ -33,7 +33,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 
         public Price Price { get; }
 
-        public Shop? PurchasedAt { get; }
+        public ShopRef? PurchasedAt { get; }
 
         public LocalDate AddedDate { get; }
 
@@ -45,7 +45,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
             CatalogItemRef? catalogItem = null,
             Condition? condition = null,
             Price? price = null,
-            Shop? purchasedAt = null,
+            ShopRef? purchasedAt = null,
             LocalDate? addedDate = null,
             LocalDate? removedDate = null,
             string? notes = null)

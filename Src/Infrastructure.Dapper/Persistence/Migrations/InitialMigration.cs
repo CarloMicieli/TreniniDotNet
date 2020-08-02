@@ -239,6 +239,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
             Create.Table(Collections)
                 .WithColumn("collection_id").AsGuid().PrimaryKey()
                 .WithColumn("owner").AsString(50).NotNullable()
+                .WithColumn("notes").AsString(250).NotNullable()
                 .WithColumn("created").AsDateTime().NotNullable()
                 .WithColumn("last_modified").AsDateTime().Nullable()
                 .WithColumn("version").AsInt32().WithDefaultValue(1);
@@ -254,7 +255,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("condition").AsString(15).NotNullable()
                 .WithColumn("price").AsDecimal().NotNullable()
                 .WithColumn("currency").AsString(3).NotNullable()
-                .WithColumn("PurchasedAtId").AsGuid().Nullable()
+                .WithColumn("purchased_at").AsGuid().Nullable()
                 .WithColumn("added_date").AsDateTime().Nullable()
                 .WithColumn("removed_date").AsDateTime().Nullable()
                 .WithColumn("notes").AsString(150).Nullable();

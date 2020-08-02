@@ -247,11 +247,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
             return new PaginatedResult<CatalogItem>(page, FromCatalogItemsDto(results));
         }
 
-        public Task<PaginatedResult<CatalogItem>> GetAllAsync(Page page)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task DeleteAsync(CatalogItemId id)
         {
             throw new NotImplementedException();

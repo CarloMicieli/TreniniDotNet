@@ -49,5 +49,10 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         {
             return Value.CompareTo(other.Value);
         }
+
+        public Guid ToGuid()
+        {
+            return Value;
+        }
     }
 }
