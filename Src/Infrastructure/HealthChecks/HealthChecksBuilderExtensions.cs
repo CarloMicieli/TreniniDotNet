@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using TreniniDotNet.Infrastructure.Persistence;
+using TreniniDotNet.Infrastructure.Identity;
 
 namespace TreniniDotNet.Infrastructure.HealthChecks
 {
@@ -7,7 +7,7 @@ namespace TreniniDotNet.Infrastructure.HealthChecks
     {
         public static IHealthChecksBuilder AddDatabaseHealthChecks(this IHealthChecksBuilder builder)
         {
-            return builder.AddDbContextCheck<ApplicationDbContext>("DbHealthCheck"); ;
+            return builder.AddDbContextCheck<ApplicationIdentityDbContext>("DbHealthCheck"); ;
         }
     }
 }

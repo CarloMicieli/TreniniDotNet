@@ -4,7 +4,10 @@ using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Infrastructure.Persistence.Catalog;
+using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands;
+using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogItems;
+using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways;
+using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales;
 
 namespace TreniniDotNet.GrpcServices.Catalog.DependencyInjection
 {

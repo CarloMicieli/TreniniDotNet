@@ -10,7 +10,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         where TBuilder : RollingStocksBuilder<TBuilder, TOutput>
     {
         protected RollingStockId _id;
-        protected Railway _railway;
+        protected RailwayRef _railway;
         protected Category _category;
         protected Epoch _epoch;
         protected LengthOverBuffer _lengthOverBuffer;
@@ -33,7 +33,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         public TBuilder Railway(Railway railway)
         {
-            _railway = railway;
+            _railway = new RailwayRef(railway);
             return Instance;
         }
 

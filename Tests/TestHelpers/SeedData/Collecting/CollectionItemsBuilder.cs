@@ -10,10 +10,10 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collecting
     public sealed class CollectionItemsBuilder
     {
         private CollectionItemId _itemId;
-        private CatalogItem _catalogItem;
+        private CatalogItemRef _catalogItem;
         private Condition _condition;
         private Price _price;
-        private Shop _purchasedAt;
+        private ShopRef _purchasedAt;
         private LocalDate _addedDate;
         private LocalDate? _removedDate;
         private string _notes;
@@ -32,7 +32,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collecting
 
         public CollectionItemsBuilder CatalogItem(CatalogItem catalogItem)
         {
-            _catalogItem = catalogItem;
+            _catalogItem = new CatalogItemRef(catalogItem);
             return this;
         }
 
@@ -50,7 +50,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collecting
 
         public CollectionItemsBuilder Shop(Shop purchasedAt)
         {
-            _purchasedAt = purchasedAt;
+            _purchasedAt = new ShopRef(purchasedAt);
             return this;
         }
 

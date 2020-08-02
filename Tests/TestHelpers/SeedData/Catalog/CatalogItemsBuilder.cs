@@ -13,9 +13,9 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
     public sealed class CatalogItemsBuilder
     {
         private CatalogItemId _id;
-        private Brand _brand;
+        private BrandRef _brand;
         private ItemNumber _itemNumber;
-        private Scale _scale;
+        private ScaleRef _scale;
         private PowerMethod _powerMethod;
         private string _description;
         private string _prototypeDescription;
@@ -80,13 +80,13 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
 
         public CatalogItemsBuilder Brand(Brand brand)
         {
-            _brand = brand;
+            _brand = new BrandRef(brand);
             return this;
         }
 
         public CatalogItemsBuilder Scale(Scale scale)
         {
-            _scale = scale;
+            _scale = new ScaleRef(scale);
             return this;
         }
 

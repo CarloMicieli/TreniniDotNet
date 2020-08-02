@@ -10,7 +10,12 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         {
         }
 
+        public ShopRef(Shop shop)
+            : this(shop.Id, shop.Slug.Value, shop.Name)
+        {
+        }
+
         public static ShopRef? AsOptional(Shop? shop) =>
-            (shop is null) ? null : new ShopRef(shop.Id, shop.Slug.Value, shop.Name);
+            (shop is null) ? null : new ShopRef(shop);
     }
 }

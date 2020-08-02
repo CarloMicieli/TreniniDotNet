@@ -1,4 +1,4 @@
-using System.Data;
+﻿using System.Data;
 using FluentMigrator;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Migrations
@@ -68,6 +68,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("gauge_in").AsDecimal().Nullable()
                 .WithColumn("track_type").AsString(25).NotNullable()
                 .WithColumn("description").AsString(250).Nullable()
+                .WithColumn("standards").AsString(100).Nullable()
                 .WithColumn("weight").AsInt32().Nullable()
                 .WithColumn("created").AsDateTime().NotNullable()
                 .WithColumn("last_modified").AsDateTime().Nullable()
@@ -151,15 +152,19 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
 
             Create.Table(RollingStocks)
                 .WithColumn("rolling_stock_id").AsGuid().PrimaryKey()
+                .WithColumn("catalog_item_id").AsGuid().NotNullable()
                 .WithColumn("railway_id").AsGuid().NotNullable()
                 .WithColumn("category").AsString(25).NotNullable()
                 .WithColumn("epoch").AsString(10).NotNullable()
                 .WithColumn("min_radius").AsDecimal().Nullable()
                 .WithColumn("couplers").AsString(10).Nullable()
                 .WithColumn("livery").AsString(50).Nullable()
-                .WithColumn("catalog_item_id").AsGuid().NotNullable()
-                .WithColumn("rolling_stock_type").AsString(50).NotNullable()
+                .WithColumn("length_mm").AsDecimal().Nullable()
+                .WithColumn("length_in").AsDecimal().Nullable()
                 .WithColumn("type_name").AsString(25).Nullable()
+                .WithColumn("class_name").AsString(15).Nullable()
+                .WithColumn("road_number").AsString(15).Nullable()
+                .WithColumn("series").AsString(25).Nullable()
                 .WithColumn("depot").AsString(100).Nullable()
                 .WithColumn("dcc_interface").AsString(10).Nullable()
                 .WithColumn("control").AsString(10).Nullable()
@@ -173,27 +178,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
             Create.ForeignKey("FK_RollingStocks_CatalogItems")
                 .FromTable(RollingStocks).ForeignColumn("catalog_item_id")
                 .ToTable(CatalogItems).PrimaryColumn("catalog_item_id");
-
-            Create.Table("rolling_stocks1")
-                .WithColumn("RollingStockId").AsGuid().PrimaryKey()
-                .WithColumn("length_mm").AsDecimal().Nullable()
-                .WithColumn("length_in").AsDecimal().Nullable();
-
-            Create.ForeignKey("FK_rolling_stocks1_rolling_stocks_RollingStockId")
-                .FromTable("rolling_stocks1").ForeignColumn("RollingStockId")
-                .ToTable(RollingStocks).PrimaryColumn("rolling_stock_id")
-                .OnDelete(Rule.Cascade);
-
-            Create.Table("rolling_stocks2")
-                .WithColumn("LocomotiveId").AsGuid().PrimaryKey()
-                .WithColumn("class_name").AsString(15).Nullable()
-                .WithColumn("road_number").AsString(15).Nullable()
-                .WithColumn("series").AsString(25).Nullable();
-
-            Create.ForeignKey("FK_rolling_stocks2_rolling_stocks_LocomotiveId")
-                .FromTable("rolling_stocks2").ForeignColumn("LocomotiveId")
-                .ToTable(RollingStocks).PrimaryColumn("rolling_stock_id")
-                .OnDelete(Rule.Cascade);
             
             Create.Table(CatalogItemsImages)
                 .WithColumn("catalog_item_id").AsGuid().NotNullable()
@@ -255,6 +239,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
             Create.Table(Collections)
                 .WithColumn("collection_id").AsGuid().PrimaryKey()
                 .WithColumn("owner").AsString(50).NotNullable()
+                .WithColumn("notes").AsString(250).NotNullable()
                 .WithColumn("created").AsDateTime().NotNullable()
                 .WithColumn("last_modified").AsDateTime().Nullable()
                 .WithColumn("version").AsInt32().WithDefaultValue(1);
@@ -270,7 +255,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("condition").AsString(15).NotNullable()
                 .WithColumn("price").AsDecimal().NotNullable()
                 .WithColumn("currency").AsString(3).NotNullable()
-                .WithColumn("PurchasedAtId").AsGuid().Nullable()
+                .WithColumn("purchased_at").AsGuid().Nullable()
                 .WithColumn("added_date").AsDateTime().Nullable()
                 .WithColumn("removed_date").AsDateTime().Nullable()
                 .WithColumn("notes").AsString(150).Nullable();

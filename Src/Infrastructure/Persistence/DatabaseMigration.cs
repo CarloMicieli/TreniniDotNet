@@ -1,4 +1,4 @@
-using FluentMigrator.Runner;
+﻿using FluentMigrator.Runner;
 
 namespace TreniniDotNet.Infrastructure.Persistence
 {

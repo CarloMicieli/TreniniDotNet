@@ -7,26 +7,27 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using TreniniDotNet.Infrastructure.Persistence;
 
 namespace TreniniDotNet.Infrastructure.Identity.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddIdentityManagement(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddIdentityManagement(this IServiceCollection services,
+            IConfiguration configuration)
         {
-            services.AddEntityFrameworkIdentity(configuration);
-
-            services.AddJwtAuthentication(configuration)
+            services.AddDbContext<ApplicationIdentityDbContext>(options =>
+                options.UseNpgsql(configuration.GetConnectionString("Default")));
+            
+            return services
+                .AddEntityFrameworkIdentity(configuration)
+                .AddJwtAuthentication(configuration)
                 .AddJwtAuthorization();
-
-            return services;
         }
 
         private static IServiceCollection AddEntityFrameworkIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
             return services;
