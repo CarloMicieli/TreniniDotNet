@@ -3,9 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using NodaTime;
 using TreniniDotNet.Common.Domain;
-using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
-using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.SharedKernel.DeliveryDates;
 using TreniniDotNet.SharedKernel.Slugs;
 
@@ -13,13 +11,11 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public sealed class CatalogItem : AggregateRoot<CatalogItemId>
     {
-        private CatalogItem() { }
-
         public CatalogItem(
             CatalogItemId id,
-            Brand brand,
+            BrandRef brand,
             ItemNumber itemNumber,
-            Scale scale,
+            ScaleRef scale,
             PowerMethod powerMethod,
             string description,
             string? prototypeDescription,
@@ -42,31 +38,31 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             PowerMethod = powerMethod;
             DeliveryDate = deliveryDate;
             IsAvailable = available;
-            Slug = brand.Slug.CombineWith(itemNumber);
+            Slug = Slug.Of(brand.Slug).CombineWith(itemNumber);
         }
 
         #region [ Properties ]
 
-        public Brand Brand { get; } = null!;
+        public BrandRef Brand { get; }
         public Slug Slug { get; }
         public ItemNumber ItemNumber { get; }
 
-        private readonly List<RollingStock> _rollingStocks = new List<RollingStock>();
+        private readonly List<RollingStock> _rollingStocks;
         public IReadOnlyList<RollingStock> RollingStocks => _rollingStocks.ToImmutableList();
 
-        public string Description { get; } = null!;
+        public string Description { get; }
         public string? PrototypeDescription { get; }
         public string? ModelDescription { get; }
-        public Scale Scale { get; } = null!;
+        public ScaleRef Scale { get; }
         public PowerMethod PowerMethod { get; }
         public DeliveryDate? DeliveryDate { get; }
         public bool IsAvailable { get; }
         #endregion
 
         public CatalogItem With(
-            Brand? brand = null,
+            BrandRef? brand = null,
             ItemNumber? itemNumber = null,
-            Scale? scale = null,
+            ScaleRef? scale = null,
             PowerMethod? powerMethod = null,
             IEnumerable<RollingStock>? rollingStocks = null,
             string? description = null,
@@ -119,6 +115,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public CatalogItemCategory Category =>
             CatalogItemCategories.FromCatalogItem(this);
 
-        public override string ToString() => $"CatalogItem({Brand.Name} {ItemNumber.Value})";
+        public override string ToString() => $"CatalogItem({Brand}, {ItemNumber})";
     }
 }

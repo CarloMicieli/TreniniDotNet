@@ -9,8 +9,6 @@ namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public sealed class Brand : AggregateRoot<BrandId>
     {
-        private Brand() { }
-
         public Brand(BrandId brandId, Slug slug, string name,
             Uri? websiteUrl, MailAddress? emailAddress,
             string? companyName, string? groupName, string? description,
@@ -32,7 +30,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         #region [ Properties ]
         public Slug Slug { get; }
 
-        public string Name { get; } = null!;
+        public string Name { get; }
 
         public Uri? WebsiteUrl { get; }
 

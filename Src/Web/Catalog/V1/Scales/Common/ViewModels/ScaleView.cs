@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
@@ -18,7 +19,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
 
             Gauge = new ScaleGaugeView(scale.Gauge);
 
-            Standards = new List<string>();
+            Standards = scale.Standards.Select(it => it.ToString()).ToList();
             Weight = scale.Weight;
             Description = scale.Description;
         }

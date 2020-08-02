@@ -1,6 +1,5 @@
 ﻿using NodaTime;
 using TreniniDotNet.Common.Domain;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 
@@ -8,11 +7,9 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 {
     public sealed class CollectionItem : Entity<CollectionItemId>
     {
-        private CollectionItem() { }
-
         public CollectionItem(
             CollectionItemId itemId,
-            CatalogItem catalogItem,
+            CatalogItemRef catalogItem,
             Condition condition,
             Price price,
             Shop? purchasedAt,
@@ -30,11 +27,11 @@ namespace TreniniDotNet.Domain.Collecting.Collections
             Notes = notes;
         }
 
-        public CatalogItem CatalogItem { get; } = null!;
+        public CatalogItemRef CatalogItem { get; }
 
         public Condition Condition { get; }
 
-        public Price Price { get; } = null!;
+        public Price Price { get; }
 
         public Shop? PurchasedAt { get; }
 
@@ -45,14 +42,22 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         public string? Notes { get; }
 
         public CollectionItem With(
-            CatalogItem? catalogItem = null,
+            CatalogItemRef? catalogItem = null,
             Condition? condition = null,
             Price? price = null,
             Shop? purchasedAt = null,
             LocalDate? addedDate = null,
             LocalDate? removedDate = null,
-            string? notes = null) => new CollectionItem(Id, catalogItem ?? CatalogItem, condition ?? Condition,
-            price ?? Price, purchasedAt ?? PurchasedAt, addedDate ?? AddedDate, removedDate ?? removedDate,
-            notes ?? Notes);
+            string? notes = null)
+        {
+            return new CollectionItem(Id, 
+                catalogItem ?? CatalogItem, 
+                condition ?? Condition,
+                price ?? Price, 
+                purchasedAt ?? PurchasedAt, 
+                addedDate ?? AddedDate, 
+                removedDate ?? removedDate,
+                notes ?? Notes);
+        }
     }
 }

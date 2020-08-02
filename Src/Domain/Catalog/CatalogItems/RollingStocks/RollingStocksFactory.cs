@@ -12,10 +12,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         {
         }
 
-
-
         public Locomotive CreateLocomotive(
-            Railway railway,
+            RailwayRef railway,
             Category category,
             Epoch epoch,
             LengthOverBuffer? length,
@@ -43,7 +41,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         }
 
         public FreightCar CreateFreightCar(
-            Railway railway,
+            RailwayRef railway,
             Epoch epoch,
             LengthOverBuffer? length,
             MinRadius? minRadius,
@@ -64,7 +62,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         }
 
         public PassengerCar CreatePassengerCar(
-            Railway railway,
+            RailwayRef railway,
             Epoch epoch,
             LengthOverBuffer? length,
             MinRadius? minRadius,
@@ -89,7 +87,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         }
 
         public Train CreateTrain(
-            Railway railway,
+            RailwayRef railway,
             Category category,
             Epoch epoch,
             LengthOverBuffer? length,

@@ -8,9 +8,9 @@ namespace TreniniDotNet.Web.Collecting.V1.Common.ViewModels
 {
     public sealed class CatalogItemView
     {
-        private readonly CatalogItem _catalogItem;
+        private readonly CatalogItemRef _catalogItem;
 
-        public CatalogItemView(CatalogItem catalogItem)
+        public CatalogItemView(CatalogItemRef catalogItem)
         {
             //Links = selfLink;
             this._catalogItem = catalogItem;
@@ -21,6 +21,6 @@ namespace TreniniDotNet.Web.Collecting.V1.Common.ViewModels
 
         public Guid CatalogItemId => _catalogItem.Id;
 
-        public string Slug => _catalogItem.Slug.Value;
+        public string Slug => _catalogItem.Slug;
     }
 }

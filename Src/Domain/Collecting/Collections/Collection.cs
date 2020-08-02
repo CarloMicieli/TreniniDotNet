@@ -9,8 +9,6 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 {
     public sealed class Collection : AggregateRoot<CollectionId>
     {
-        private Collection() { }
-
         public Collection(
             CollectionId collectionId,
             Owner owner,
@@ -29,7 +27,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         public Owner Owner { get; }
         public string? Notes { get; }
 
-        private readonly List<CollectionItem> _items = new List<CollectionItem>();
+        private readonly List<CollectionItem> _items;
         public IReadOnlyCollection<CollectionItem> Items => _items.ToImmutableList();
 
         public void AddItem(CollectionItem collectionItem)

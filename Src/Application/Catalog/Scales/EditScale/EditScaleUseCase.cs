@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Data;
+using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.UseCases;
 using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Scales;
@@ -37,17 +39,23 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
 
             var values = input.Values;
 
-            ScaleGauge? scaleGauge = (values.Gauge.Inches is null && values.Gauge.Millimeters is null) ?
-                (ScaleGauge?)null : values.Gauge.ToScaleGauge();
+            var scaleGauge = (values.Gauge.Inches is null && values.Gauge.Millimeters is null) ?
+                null : values.Gauge.ToScaleGauge();
 
             var ratio = values.Ratio.HasValue ? Ratio.Of(values.Ratio.Value) : (Ratio?)null;
-
+            
+            var standards = values.Standards
+                .Select(EnumHelpers.OptionalValueFor<ScaleStandard>)
+                .Where(it => it.HasValue)
+                .Select(it => it!.Value)
+                .ToHashSet();
+            
             var modifiedScale = scale.With(
                 values.Name,
                 ratio,
                 scaleGauge,
                 values.Description,
-                ImmutableHashSet<ScaleStandard>.Empty,
+                standards,
                 values.Weight);
 
             await _scaleService.UpdateScaleAsync(modifiedScale);

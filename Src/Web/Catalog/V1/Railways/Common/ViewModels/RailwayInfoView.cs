@@ -1,13 +1,13 @@
 ﻿using System;
-using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 
 namespace TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels
 {
     public sealed class RailwayInfoView
     {
-        private readonly Railway _railway;
+        private readonly RailwayRef _railway;
 
-        public RailwayInfoView(Railway railway)
+        public RailwayInfoView(RailwayRef railway)
         {
             _railway = railway ??
                 throw new ArgumentNullException(nameof(railway));
@@ -15,8 +15,8 @@ namespace TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels
 
         public Guid Id => _railway.Id;
 
-        public string Name => _railway.Name;
+        public string Name => _railway.ToString();
 
-        public string Slug => _railway.Slug.ToString();
+        public string Slug => _railway.Slug;
     }
 }

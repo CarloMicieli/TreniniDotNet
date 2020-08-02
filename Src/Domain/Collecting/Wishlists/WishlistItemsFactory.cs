@@ -1,7 +1,6 @@
 using NodaTime;
 using TreniniDotNet.Common.Domain;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 
 namespace TreniniDotNet.Domain.Collecting.Wishlists
@@ -14,7 +13,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         }
 
         public WishlistItem CreateWishlistItem(
-            CatalogItem catalogItem,
+            CatalogItemRef catalogItem,
             Priority priority,
             LocalDate addedDate,
             Price? price,

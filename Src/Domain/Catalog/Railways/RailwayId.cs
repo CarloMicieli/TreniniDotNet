@@ -21,6 +21,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public static implicit operator Guid(RailwayId railwayId) => railwayId.Id;
         public static explicit operator RailwayId(Guid id) => new RailwayId(id);
 
+        public Guid ToGuid() => Id;
+        
         public override string ToString() => Id.ToString();
 
         public override int GetHashCode() => Id.GetHashCode();
@@ -61,5 +63,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         {
             return Id.CompareTo(other.Id);
         }
+
+
     }
 }

@@ -17,10 +17,6 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     /// <seealso cref="Ratio"/>
     public sealed class Scale : AggregateRoot<ScaleId>
     {
-        private Scale()
-        {
-        }
-
         public Scale(
             ScaleId id,
             string name,
@@ -47,17 +43,17 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         #region [ Properties ]
         public Slug Slug { get; }
 
-        public string Name { get; } = null!;
+        public string Name { get; }
 
         public Ratio Ratio { get; }
 
-        public ScaleGauge Gauge { get; } = null!;
+        public ScaleGauge Gauge { get; }
 
         public string? Description { get; }
 
         public int? Weight { get; }
 
-        private readonly HashSet<ScaleStandard> _standards = new HashSet<ScaleStandard>();
+        private readonly HashSet<ScaleStandard> _standards;
         public IImmutableSet<ScaleStandard> Standards => _standards.ToImmutableHashSet();
         #endregion
 

@@ -81,7 +81,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
 
             await _unitOfWork.SaveAsync();
 
-            OutputPort.Standard(new EditCollectionItemOutput(collectionId, itemId, item.CatalogItem.Slug));
+            OutputPort.Standard(new EditCollectionItemOutput(collectionId, itemId, Slug.Of(item.CatalogItem.Slug)));
         }
     }
 }

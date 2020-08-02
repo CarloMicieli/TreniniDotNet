@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿#nullable disable
+using System.Data;
 using Dapper;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 

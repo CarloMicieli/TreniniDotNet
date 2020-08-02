@@ -103,9 +103,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             var powerMethod = OptionalValueFor<PowerMethod>(input.Values.PowerMethod);
 
             var modifiedCatalogItem = item.With(
-                brand,
+                BrandRef.AsOptional(brand),
                 itemNumber,
-                scale,
+                ScaleRef.AsOptional(scale),
                 powerMethod,
                 rollingStocks,
                 input.Values.Description,

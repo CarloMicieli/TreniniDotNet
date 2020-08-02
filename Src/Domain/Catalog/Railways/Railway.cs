@@ -9,8 +9,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public sealed class Railway : AggregateRoot<RailwayId>
     {
-        private Railway() { }
-
         public Railway(
             RailwayId id,
             string name,
@@ -40,13 +38,13 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         #region [ Properties ]
         public Slug Slug { get; }
 
-        public string Name { get; } = null!;
+        public string Name { get; }
 
         public string? CompanyName { get; }
 
         public Country Country { get; }
 
-        public PeriodOfActivity PeriodOfActivity { get; } = null!;
+        public PeriodOfActivity PeriodOfActivity { get; }
 
         public RailwayGauge? TrackGauge { get; }
 

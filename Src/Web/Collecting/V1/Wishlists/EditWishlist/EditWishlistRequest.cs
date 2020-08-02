@@ -14,7 +14,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlist
 
         public string? ListName { set; get; }
 
-        public string Visibility { set; get; }
+        public string? Visibility { set; get; }
 
         public BudgetRequest? Budget { set; get; }
     }

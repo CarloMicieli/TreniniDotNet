@@ -26,7 +26,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
             var items = collection.Items
                 .Select(it => new
                 {
-                    Count = it.CatalogItem.RollingStocks.Count,
+                    Count = it.CatalogItem.Count,
                     Category = it.CatalogItem.Category,
                     Year = Year.FromLocalDate(it.AddedDate),
                     it.Price

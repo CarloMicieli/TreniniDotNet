@@ -11,10 +11,6 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 {
     public sealed class Wishlist : AggregateRoot<WishlistId>
     {
-        private Wishlist()
-        {
-        }
-
         public Wishlist(
             WishlistId wishlistId,
             Owner owner,
@@ -40,7 +36,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 
         public Budget? Budget { get; }
 
-        private readonly List<WishlistItem> _items = new List<WishlistItem>();
+        private readonly List<WishlistItem> _items;
         public IReadOnlyCollection<WishlistItem> Items => ItemsEn()
             .ToImmutableList();
 
@@ -79,7 +75,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         }
 
         public bool Contains(CatalogItem catalogItem) =>
-            _items.Any(it => it.CatalogItem == catalogItem);
+            _items.Any(it => it.CatalogItem.Id == catalogItem.Id);
 
         public WishlistItem? FindItemById(WishlistItemId itemId) =>
             _items.FirstOrDefault(it => it.Id == itemId);
@@ -118,7 +114,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         {
             if (string.IsNullOrEmpty(listName))
             {
-                return SharedKernel.Slugs.Slug.Of(owner.Value);
+                return Slug.Of(owner.Value);
             }
             else
             {

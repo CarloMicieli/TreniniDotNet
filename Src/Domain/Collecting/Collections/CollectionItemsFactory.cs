@@ -1,7 +1,6 @@
 using NodaTime;
 using TreniniDotNet.Common.Domain;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 
@@ -15,7 +14,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         }
 
         public CollectionItem CreateCollectionItem(
-            CatalogItem catalogItem,
+            CatalogItemRef catalogItem,
             Condition condition,
             Price price,
             Shop? purchasedAt,

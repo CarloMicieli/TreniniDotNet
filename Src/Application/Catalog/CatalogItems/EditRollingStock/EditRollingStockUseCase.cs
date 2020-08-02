@@ -78,7 +78,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
             {
                 case Locomotive l:
                     var updatedLocomotive = l.With(
-                        railway,
+                        RailwayRef.AsOptional(railway),
                         category,
                         epoch,
                         length,
@@ -96,7 +96,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                     var passengerCarType =
                         EnumHelpers.OptionalValueFor<PassengerCarType>(input.Values.PassengerCarType);
                     var passengerCar = p.With(
-                        railway,
+                        RailwayRef.AsOptional(railway),
                         epoch,
                         length,
                         minRadius,
@@ -109,7 +109,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                     break;
                 case FreightCar f:
                     var freightCar = f.With(
-                        railway,
+                        RailwayRef.AsOptional(railway),
                         epoch,
                         length,
                         minRadius,
@@ -120,7 +120,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
                     break;
                 case Train t:
                     var train = t.With(
-                        railway,
+                        RailwayRef.AsOptional(railway),
                         category,
                         epoch,
                         length,

@@ -2,8 +2,6 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 {
     public sealed class Prototype
     {
-        private Prototype() { }
-
         private Prototype(string className, string roadNumber, string? series)
         {
             ClassName = className;
@@ -34,5 +32,17 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 
         public static Prototype OfLocomotive(string className, string roadNumber, string? series) =>
             new Prototype(className, roadNumber, series);
+        
+        //TODO: testme
+        public static Prototype? TryCreate(string? className, string? roadNumber, string? series)
+        {
+            if (string.IsNullOrWhiteSpace(className) == false &&
+                string.IsNullOrWhiteSpace(roadNumber) == false)
+            {
+                return Prototype.OfLocomotive(className, roadNumber, series);
+            }
+
+            return null;
+        }
     }
 }

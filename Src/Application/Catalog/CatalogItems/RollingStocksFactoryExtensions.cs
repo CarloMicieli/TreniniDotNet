@@ -27,6 +27,8 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
         {
             var category = RequiredValueFor<Category>(input.Category);
 
+            var railwayRef = new RailwayRef(railway);
+            
             var epoch = Epoch.Parse(input.Epoch);
 
             var length = LengthOverBuffer.CreateOrDefault(input.LengthOverBuffer?.Inches, input.LengthOverBuffer?.Millimeters);
@@ -43,7 +45,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
                     : null;
 
                 return factory.CreateLocomotive(
-                    railway,
+                    railwayRef, 
                     category,
                     epoch,
                     length,
@@ -63,7 +65,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
                 var serviceLevel = input.ServiceLevel.ToServiceLevelOpt();
 
                 return factory.CreatePassengerCar(
-                    railway,
+                    railwayRef,
                     epoch,
                     length,
                     minRadius,
@@ -77,7 +79,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             if (Categories.IsFreightCar(category))
             {
                 return factory.CreateFreightCar(
-                    railway,
+                    railwayRef,
                     epoch,
                     length,
                     minRadius,
@@ -89,7 +91,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             if (Categories.IsTrain(category))
             {
                 return factory.CreateTrain(
-                    railway,
+                    railwayRef,
                     category,
                     epoch,
                     length,

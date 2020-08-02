@@ -1,11 +1,10 @@
 using TreniniDotNet.Common.Domain;
-using TreniniDotNet.Domain.Catalog.Railways;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 {
     public abstract class RollingStock : Entity<RollingStockId>
     {
-        public Railway Railway { get; protected set; } = null!;
+        public RailwayRef Railway { get; protected set; } = null!;
 
         public Category Category { get; protected set; }
 

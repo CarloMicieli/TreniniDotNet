@@ -21,6 +21,8 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         public static implicit operator Guid(BrandId d) => d.Id;
         public static explicit operator BrandId(Guid guid) => new BrandId(guid);
 
+        public Guid ToGuid() => Id;
+        
         public override string ToString() => Id.ToString();
 
         public override int GetHashCode() => Id.GetHashCode();

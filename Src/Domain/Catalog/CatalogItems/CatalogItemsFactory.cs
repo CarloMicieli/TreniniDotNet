@@ -30,9 +30,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         {
             return new CatalogItem(
                 NewId(id => new CatalogItemId(id)),
-                brand,
+                new BrandRef(brand),
                 itemNumber,
-                scale,
+                new ScaleRef(scale),
                 powerMethod,
                 description,
                 prototypeDescription,

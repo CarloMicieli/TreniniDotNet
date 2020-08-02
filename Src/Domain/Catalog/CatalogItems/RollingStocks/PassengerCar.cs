@@ -4,11 +4,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 {
     public sealed class PassengerCar : RollingStock
     {
-        private PassengerCar() { }
-
         public PassengerCar(
             RollingStockId rollingStockId,
-            Railway railway,
+            RailwayRef railway,
             Category category,
             Epoch epoch,
             LengthOverBuffer? length,
@@ -37,7 +35,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         public ServiceLevel? ServiceLevel { get; }
 
         public PassengerCar With(
-            Railway? railway = null,
+            RailwayRef? railway = null,
             Epoch? epoch = null,
             LengthOverBuffer? length = null,
             MinRadius? minRadius = null,

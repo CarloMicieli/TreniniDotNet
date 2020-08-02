@@ -1,16 +1,10 @@
-using TreniniDotNet.Domain.Catalog.Railways;
-
 namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 {
     public sealed class FreightCar : RollingStock
     {
-        private FreightCar()
-        {
-        }
-
         public FreightCar(
             RollingStockId rollingStockId,
-            Railway railway,
+            RailwayRef railway,
             Category category,
             Epoch epoch,
             LengthOverBuffer? length,
@@ -33,7 +27,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         public string? TypeName { get; }
 
         public FreightCar With(
-            Railway? railway = null,
+            RailwayRef? railway = null,
             Epoch? epoch = null,
             LengthOverBuffer? length = null,
             MinRadius? minRadius = null,

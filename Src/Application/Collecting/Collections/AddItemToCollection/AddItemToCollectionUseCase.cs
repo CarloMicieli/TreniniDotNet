@@ -69,7 +69,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
             var price = input.Price.ToPrice();
 
             var collectionItem = _collectionItemsFactory.CreateCollectionItem(
-                catalogItem,
+                new CatalogItemRef(catalogItem),
                 condition,
                 price,
                 shop,

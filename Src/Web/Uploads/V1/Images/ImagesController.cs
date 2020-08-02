@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using TreniniDotNet.Infrastructure.Persistence.Images;
+using TreniniDotNet.Infrastructure.Persistence.Repositories.Images;
 
 namespace TreniniDotNet.Web.Uploads.V1.Images
 {

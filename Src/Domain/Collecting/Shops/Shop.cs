@@ -10,8 +10,6 @@ namespace TreniniDotNet.Domain.Collecting.Shops
 {
     public sealed class Shop : AggregateRoot<ShopId>
     {
-        private Shop() { }
-
         public Shop(
             ShopId shopId,
             string name,
@@ -33,7 +31,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         }
 
         #region [ Properties ]
-        public string Name { get; } = null!;
+        public string Name { get; }
 
         public Slug Slug { get; }
 

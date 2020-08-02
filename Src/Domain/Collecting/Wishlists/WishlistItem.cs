@@ -1,17 +1,14 @@
 ﻿using NodaTime;
 using TreniniDotNet.Common.Domain;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 
 namespace TreniniDotNet.Domain.Collecting.Wishlists
 {
     public sealed class WishlistItem : Entity<WishlistItemId>
     {
-        private WishlistItem() { }
-
         public WishlistItem(
             WishlistItemId itemId,
-            CatalogItem catalogItem,
+            CatalogItemRef catalogItem,
             Priority priority,
             LocalDate addedDate,
             LocalDate? removedDate,
@@ -36,13 +33,13 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 
         public Price? Price { get; }
 
-        public CatalogItem CatalogItem { get; } = null!;
+        public CatalogItemRef CatalogItem { get; }
 
         public string? Notes { get; }
         #endregion
 
         public WishlistItem With(
-            CatalogItem? catalogItem = null,
+            CatalogItemRef? catalogItem = null,
             Priority? priority = null,
             LocalDate? addedDate = null,
             LocalDate? removedDate = null,
