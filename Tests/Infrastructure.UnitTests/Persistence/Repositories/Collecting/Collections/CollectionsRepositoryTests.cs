@@ -13,8 +13,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
 {
     public class CollectionsRepositoryTests : CollectionRepositoryUnitTests<ICollectionsRepository>
     {
-        public CollectionsRepositoryTests(SqliteDatabaseFixture fixture)
-            : base(fixture, unitOfWork => new CollectionsRepository(unitOfWork))
+        public CollectionsRepositoryTests()
+            : base(unitOfWork => new CollectionsRepository(unitOfWork))
         {
         }
 

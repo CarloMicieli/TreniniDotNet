@@ -11,8 +11,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
 {
     public class WishlistsRepositoryTests : CollectionRepositoryUnitTests<IWishlistsRepository>
     {
-        public WishlistsRepositoryTests(SqliteDatabaseFixture fixture)
-            : base(fixture, unitOfWork => new WishlistsRepository(unitOfWork))
+        public WishlistsRepositoryTests()
+            : base(unitOfWork => new WishlistsRepository(unitOfWork))
         {
         }
 

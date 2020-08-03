@@ -8,8 +8,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
     internal class ShopParam
     {
         public Guid shop_id { set; get; }
-        public string name { set; get; }
-        public string slug { set; get; }
+        public string name { set; get; } = null!;
+        public string slug { set; get; } = null!;
         public string? website_url { set; get; }
         public string? phone_number { set; get; }
         public string? mail_address { set; get; }

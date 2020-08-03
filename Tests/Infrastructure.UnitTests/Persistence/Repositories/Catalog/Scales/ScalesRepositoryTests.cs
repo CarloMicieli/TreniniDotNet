@@ -2,17 +2,16 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
 {
-    public class ScalesRepositoryTests : RepositoryUnitTests<IScalesRepository>
+    public class ScalesRepositoryTests : DapperRepositoryUnitTests<IScalesRepository>
     {
-        public ScalesRepositoryTests(SqliteDatabaseFixture fixture)
-            : base(fixture, unitOfWork => new ScalesRepository(unitOfWork))
+        public ScalesRepositoryTests()
+            : base(unitOfWork => new ScalesRepository(unitOfWork))
         {
         }
 

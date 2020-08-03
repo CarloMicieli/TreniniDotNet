@@ -4,18 +4,16 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Infrastructure.Dapper;
-using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
 {
-    public sealed class BrandsRepositoryTests : RepositoryUnitTests<IBrandsRepository>
+    public sealed class BrandsRepositoryTests : DapperRepositoryUnitTests<IBrandsRepository>
     {
-        public BrandsRepositoryTests(SqliteDatabaseFixture fixture)
-            : base(fixture, unitOfWork => new BrandsRepository(unitOfWork))
+        public BrandsRepositoryTests()
+            : base(unitOfWork => new BrandsRepository(unitOfWork))
         {
         }
 

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.SharedKernel.Countries;
 using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
@@ -11,10 +10,10 @@ using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
 {
-    public class RailwaysRepositoryTests : RepositoryUnitTests<IRailwaysRepository>
+    public class RailwaysRepositoryTests : DapperRepositoryUnitTests<IRailwaysRepository>
     {
-        public RailwaysRepositoryTests(SqliteDatabaseFixture fixture)
-            : base(fixture, unitOfWork => new RailwaysRepository(unitOfWork))
+        public RailwaysRepositoryTests()
+            : base(unitOfWork => new RailwaysRepository(unitOfWork))
         {
         }
 

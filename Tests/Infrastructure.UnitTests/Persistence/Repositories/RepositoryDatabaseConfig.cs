@@ -1,25 +1,23 @@
-﻿using System;
+using System;
 using System.Linq;
-using System.Reflection;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Options;
-using TreniniDotNet.Common.Data;
 using TreniniDotNet.Infrastructure.Dapper;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using static Dapper.SqlMapper;
 
-namespace TreniniDotNet.Infrastructure
+namespace TreniniDotNet.Infrastructure.Persistence.Repositories
 {
-    public class SqliteDatabaseFixture
+    public sealed class RepositoryDatabaseConfig
     {
-        public SqliteDatabaseFixture()
+        public RepositoryDatabaseConfig()
         {
-            var connectionString = new SqliteConnectionStringBuilder("Data Source=:Sharable:")
+            var connectionString = new SqliteConnectionStringBuilder($"Data Source={Guid.NewGuid()}")
             {
                 ForeignKeys = true,
                 Cache = SqliteCacheMode.Private,
-                Mode = SqliteOpenMode.Memory
+                Mode = SqliteOpenMode.ReadWriteCreate
             }.ToString();
 
             var options = Options.Create(new DatabaseOptions
@@ -28,7 +26,6 @@ namespace TreniniDotNet.Infrastructure
             });
 
             DatabaseContext = new SqliteDatabaseContext(options);
-            UnitOfWork = new DapperUnitOfWork(DatabaseContext);
 
             RegisterTypeHandlers();
 
@@ -38,12 +35,10 @@ namespace TreniniDotNet.Infrastructure
 
         public IDatabaseContext DatabaseContext { get; }
 
-        public IUnitOfWork UnitOfWork { get; }
-
         private static void RegisterTypeHandlers()
         {
-            Assembly assembly = typeof(GuidTypeHandler).Assembly;
-            Type baseType = typeof(ITypeHandler);
+            var assembly = typeof(GuidTypeHandler).Assembly;
+            var baseType = typeof(ITypeHandler);
 
             var typeHandlers = assembly
                 .GetTypes()

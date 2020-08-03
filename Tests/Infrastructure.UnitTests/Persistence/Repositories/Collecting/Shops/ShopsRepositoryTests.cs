@@ -3,17 +3,16 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Collecting.Shops;
-using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
 {
-    public class ShopsRepositoryTests : RepositoryUnitTests<IShopsRepository>
+    public class ShopsRepositoryTests : DapperRepositoryUnitTests<IShopsRepository>
     {
-        public ShopsRepositoryTests(SqliteDatabaseFixture fixture)
-            : base(fixture, unitOfWork => new ShopsRepository(unitOfWork))
+        public ShopsRepositoryTests()
+            : base(unitOfWork => new ShopsRepository(unitOfWork))
         {
         }
 
@@ -92,7 +91,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
             var shops = await Repository.GetShopsAsync(new Page(0, 5));
 
             shops.Should().NotBeNull();
-            shops.Results.Should().HaveCount(6);
+            shops.Results.Should().HaveCount(5);
         }
     }
 }

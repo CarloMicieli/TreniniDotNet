@@ -12,14 +12,14 @@ using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogItems
 {
-    public class CatalogItemsRepositoryTests : RepositoryUnitTests<ICatalogItemsRepository>
+    public class CatalogItemsRepositoryTests : DapperRepositoryUnitTests<ICatalogItemsRepository>
     {
         private Brand Acme { get; }
         private Railway Fs { get; }
         private Scale H0 { get; }
 
-        public CatalogItemsRepositoryTests(SqliteDatabaseFixture fixture)
-            : base(fixture, unitOfWork => new CatalogItemsRepository(unitOfWork))
+        public CatalogItemsRepositoryTests()
+            : base(unitOfWork => new CatalogItemsRepository(unitOfWork))
         {
             Acme = CatalogSeedData.Brands.Acme;
             Fs = CatalogSeedData.Railways.Fs;

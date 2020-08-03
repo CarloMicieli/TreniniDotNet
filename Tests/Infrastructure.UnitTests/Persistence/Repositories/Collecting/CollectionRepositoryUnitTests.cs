@@ -6,16 +6,15 @@ using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.Infrastructure.Database.Testing;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using CatalogTables = TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Tables;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting
 {
-    public abstract class CollectionRepositoryUnitTests<TRepository> : RepositoryUnitTests<TRepository>
+    public abstract class CollectionRepositoryUnitTests<TRepository> : DapperRepositoryUnitTests<TRepository>
     {
-        protected CollectionRepositoryUnitTests(SqliteDatabaseFixture fixture, Func<IUnitOfWork, TRepository> builder)
-            : base(fixture, builder)
+        protected CollectionRepositoryUnitTests(Func<IUnitOfWork, TRepository> builder)
+            : base(builder)
         {
         }
 
