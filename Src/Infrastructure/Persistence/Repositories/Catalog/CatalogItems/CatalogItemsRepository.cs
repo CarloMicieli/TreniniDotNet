@@ -45,12 +45,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 Modified = catalogItem.ModifiedDate?.ToDateTimeUtc(),
                 catalogItem.Version
             });
-        
+
             foreach (var rs in catalogItem.RollingStocks)
             {
                 await InsertRollingStock(catalogItem.Id, rs);
             }
-        
+
             return catalogItem.Id;
         }
 
@@ -74,11 +74,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
             });
 
             var rollingStocksIds = await _unitOfWork.QueryAsync<Guid>(
-                "SELECT rolling_stock_id FROM rolling_stocks WHERE catalog_item_id = @Id", 
-                new {Id = catalogItem.Id});
+                "SELECT rolling_stock_id FROM rolling_stocks WHERE catalog_item_id = @Id",
+                new { Id = catalogItem.Id });
 
             var ids = rollingStocksIds.ToList();
-        
+
             foreach (var rs in catalogItem.RollingStocks)
             {
                 if (ids.Contains(rs.Id))
@@ -97,19 +97,19 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 await RemoveRollingStock(catalogItem.Id, new RollingStockId(id));
             }
         }
-        
+
         private Task InsertRollingStock(CatalogItemId catalogItemId, RollingStock rs)
         {
             var param = RollingStocks.ToValues(catalogItemId, rs);
             return _unitOfWork.ExecuteAsync(InsertNewRollingStockCommand, param);
         }
-        
+
         private Task UpdateRollingStock(CatalogItemId catalogItemId, RollingStock rs)
         {
             var param = RollingStocks.ToValues(catalogItemId, rs);
             return _unitOfWork.ExecuteAsync(UpdateRollingStockCommand, param);
         }
-        
+
         private Task RemoveRollingStock(CatalogItemId catalogItemId, RollingStockId rollingStockId)
         {
             return _unitOfWork.ExecuteAsync(DeleteRollingStockCommand, new
@@ -248,7 +248,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                     Depot = dto.depot,
                     DccInterface = dto.dcc_interface,
                     Control = dto.control,
-                    ClassName = dto.class_name,      
+                    ClassName = dto.class_name,
                     RoadNumber = dto.road_number,
                     Series = dto.series,
                     TypeName = dto.type_name,
@@ -370,6 +370,6 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         private const string DeleteAllRollingStocks = @"DELETE FROM rolling_stocks WHERE catalog_item_id = @CatalogItemId;";
 
         #endregion
- 
+
     }
 }

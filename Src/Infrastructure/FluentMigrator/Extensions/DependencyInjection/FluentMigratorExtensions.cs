@@ -13,7 +13,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
     public static class FluentMigratorExtensions
     {
 
-        
+
         public static IServiceCollection ReplaceMigrations(this IServiceCollection services, Action<MigrationOptions> options)
         {
             var descriptors = services
@@ -30,7 +30,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
             return AddMigrations(services, options);
         }
 
-       
+
         public static IServiceCollection AddMigrations(this IServiceCollection services, Action<MigrationOptions> options)
         {
             MigrationOptions migrationOptions = new MigrationOptions();

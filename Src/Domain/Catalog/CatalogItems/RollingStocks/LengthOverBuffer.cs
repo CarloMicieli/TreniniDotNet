@@ -6,7 +6,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
     public sealed class LengthOverBuffer
     {
         private static TwoLengths TwoLengths = new TwoLengths(MeasureUnit.Inches, MeasureUnit.Millimeters);
-  
+
         private LengthOverBuffer(Length inches, Length millimeters)
         {
             Inches = inches;

@@ -23,7 +23,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Share
         {
             var results = await _unitOfWork.QueryAsync<CatalogItemRefDto>(
                 GetCatalogItemQuery,
-                new {slug = slug.Value});
+                new { slug = slug.Value });
 
             return results
                 .GroupBy(it => new

@@ -37,7 +37,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
         public async Task<ShopId> AddAsync(Shop shop)
         {
             var _ = await _unitOfWork.ExecuteAsync(
-                InsertShopCommand, 
+                InsertShopCommand,
                 ToValuesObject(shop));
             return shop.Id;
         }
@@ -45,14 +45,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
         public Task UpdateAsync(Shop shop)
         {
             return _unitOfWork.ExecuteAsync(
-                UpdateShopCommand, 
+                UpdateShopCommand,
                 ToValuesObject(shop));
         }
 
         public Task DeleteAsync(ShopId id)
         {
             return _unitOfWork.ExecuteAsync(
-                DeleteShopCommand, new {shop_id = id.ToGuid()});
+                DeleteShopCommand, new { shop_id = id.ToGuid() });
         }
 
         public async Task<bool> ExistsAsync(ShopId shopId)
@@ -148,7 +148,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
             last_modified = shop.ModifiedDate?.ToDateTimeUtc(),
             version = shop.Version
         };
-        
+
         #region [ Query / Commands ]
 
         private const string InsertShopCommand = @"INSERT INTO shops(shop_id, name, slug, website_url, phone_number, mail_address,
@@ -170,7 +170,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
             WHERE shop_id = @shop_id;";
 
         private const string GetShopExistsQuery = @"SELECT slug FROM shops WHERE slug = @slug LIMIT 1;";
-        
+
         private const string GetShopExistsByIdQuery = @"SELECT slug FROM shops WHERE shop_id = @shop_id LIMIT 1;";
 
         private const string GetShopBySlugQuery = @"SELECT * FROM shops WHERE slug = @slug LIMIT 1;";

@@ -12,11 +12,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
 {
     public class ShopsRepositoryTests : RepositoryUnitTests<IShopsRepository>
     {
-        public ShopsRepositoryTests(SqliteDatabaseFixture fixture) 
+        public ShopsRepositoryTests(SqliteDatabaseFixture fixture)
             : base(fixture, unitOfWork => new ShopsRepository(unitOfWork))
         {
         }
-        
+
         [Fact]
         public async Task ShopsRepository_AddAsync_ShouldInsertNewShop()
         {
@@ -40,7 +40,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
                 })
                 .ShouldExists();
         }
-        
+
         [Fact]
         public async Task ShopsRepository_ExistsAsync_ShouldCheckShopExistence()
         {
@@ -55,7 +55,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
             exists.Should().BeTrue();
             notExists.Should().BeFalse();
         }
-        
+
         [Fact]
         public async Task ShopsRepository_GetBySlugAsync_ShouldReturnTheShop()
         {
@@ -74,7 +74,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
 
             notExists.Should().BeNull();
         }
-        
+
         [Fact]
         public async Task ShopsRepository_GetShopsAsync_ShouldReturnTheShops()
         {

@@ -15,7 +15,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
             : base(fixture, unitOfWork => new ScalesRepository(unitOfWork))
         {
         }
-        
+
         [Fact]
         public async Task ScalesRepository_AddAsync_ShouldCreateANewScale()
         {
@@ -25,7 +25,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
 
             var scaleId = await Repository.AddAsync(scaleH0);
             await UnitOfWork.SaveAsync();
-            
+
             scaleId.Should().NotBeNull();
 
             Database.Assert.RowInTable(Tables.Scales)
@@ -70,7 +70,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
 
             await Repository.UpdateAsync(scaleH0.With(ratio: Ratio.Of(100M)));
             await UnitOfWork.SaveAsync();
-            
+
             Database.Assert.RowInTable(Tables.Scales)
                 .WithPrimaryKey(new
                 {
@@ -108,7 +108,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
             scale.Should().NotBeNull();
             scale?.Slug.Should().Be(scaleH0.Slug);
         }
-        
+
         [Fact]
         public async Task ScalesRepository_ExistsAsync_ShouldReturnScaleWithSlug()
         {

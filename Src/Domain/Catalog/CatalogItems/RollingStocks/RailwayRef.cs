@@ -5,7 +5,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 {
     public sealed class RailwayRef : AggregateRootRef<Railway, RailwayId>
     {
-        public RailwayRef(RailwayId id, string slug, string name) 
+        public RailwayRef(RailwayId id, string slug, string name)
             : base(id, slug, name)
         {
         }

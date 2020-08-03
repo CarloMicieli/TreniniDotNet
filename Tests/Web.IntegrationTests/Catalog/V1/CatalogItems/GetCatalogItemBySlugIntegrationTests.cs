@@ -12,7 +12,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
     public class GetCatalogItemBySlugIntegrationTests : AbstractWebApplicationFixture
     {
         private readonly HttpClient _client;
-        
+
         public GetCatalogItemBySlugIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {

@@ -11,19 +11,19 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
         {
             database.Setup.TruncateTable(Tables.CollectionItems);
             database.Setup.TruncateTable(Tables.Collections);
-            
+
             database.Setup.TruncateTable(Tables.Shops);
-            
+
             database.Setup.TruncateTable(CatalogTables.RollingStocks);
             database.Setup.TruncateTable(CatalogTables.CatalogItems);
             database.Setup.TruncateTable(CatalogTables.Brands);
             database.Setup.TruncateTable(CatalogTables.Railways);
             database.Setup.TruncateTable(CatalogTables.Scales);
-            
+
             database.Arrange.ArrangeCatalogData();
 
             var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
-            
+
             database.Arrange.InsertOne(Tables.Shops, new
             {
                 shop_id = shop.Id.ToGuid(),
@@ -33,7 +33,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                 last_modified = shop.ModifiedDate?.ToDateTimeUtc(),
                 version = shop.Version
             });
-            
+
             database.Arrange.InsertOne(Tables.Collections, new
             {
                 collection_id = collection.Id.ToGuid(),

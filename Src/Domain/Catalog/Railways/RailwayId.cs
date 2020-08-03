@@ -22,7 +22,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public static explicit operator RailwayId(Guid id) => new RailwayId(id);
 
         public Guid ToGuid() => Id;
-        
+
         public override string ToString() => Id.ToString();
 
         public override int GetHashCode() => Id.GetHashCode();

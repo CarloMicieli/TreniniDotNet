@@ -21,7 +21,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         public static implicit operator Guid(RollingStockId id) { return id.Value; }
 
         public Guid ToGuid() => Value;
-        
+
         public override string ToString() => Value.ToString();
 
         public override int GetHashCode() => Value.GetHashCode();

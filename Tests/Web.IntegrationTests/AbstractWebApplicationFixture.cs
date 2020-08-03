@@ -21,18 +21,18 @@ namespace TreniniDotNet.IntegrationTests
 
         protected HttpClient CreateHttpClient() => _factory.CreateClient();
 
-         protected async Task<HttpClient> CreateHttpClientAsync(string username, string password)
-         {
-             var client = _factory.CreateClient();
-        
-             var token = await client.GenerateJwtTokenAsync(username, password);
-             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        
-             return client;
-         }
-        
-         protected Task<HttpClient> CreateAuthorizedHttpClientAsync() =>
-             CreateHttpClientAsync("George", "Pa$$word88");
+        protected async Task<HttpClient> CreateHttpClientAsync(string username, string password)
+        {
+            var client = _factory.CreateClient();
+
+            var token = await client.GenerateJwtTokenAsync(username, password);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            return client;
+        }
+
+        protected Task<HttpClient> CreateAuthorizedHttpClientAsync() =>
+            CreateHttpClientAsync("George", "Pa$$word88");
 
         protected List<object> JsonArray(object element) => new List<object>() { element };
 

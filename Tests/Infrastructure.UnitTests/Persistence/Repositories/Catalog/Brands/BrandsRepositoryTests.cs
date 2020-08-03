@@ -27,9 +27,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
             var testBrand = FakeBrand();
             var brandId = await Repository.AddAsync(testBrand);
             await UnitOfWork.SaveAsync();
-            
+
             brandId.Should().Be(testBrand.Id);
-            
+
             Database.Assert.RowInTable(Tables.Brands)
                 .WithPrimaryKey(new
                 {
@@ -64,7 +64,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
 
             await Repository.UpdateAsync(testBrand.With(companyName: "Modified company"));
             await UnitOfWork.SaveAsync();
-            
+
             Database.Assert.RowInTable(Tables.Brands)
                 .WithPrimaryKey(new
                 {
@@ -98,7 +98,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
             brand.Should().NotBeNull();
             brand?.Slug.Should().Be(Slug.Of("acme"));
         }
-       
+
         [Fact]
         public async Task BrandsRepository_GetBrandsAsync_ShouldFindBrandsPaginated()
         {

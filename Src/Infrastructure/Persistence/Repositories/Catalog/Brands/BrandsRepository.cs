@@ -130,7 +130,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
                     dto.address_postal_code,
                     dto.address_city);
             }
-            
+
             return new Brand(
                 new BrandId(dto.brand_id),
                 Slug.Of(dto.slug),
@@ -152,7 +152,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands
         #region [ Query / Commands ]
 
         private const string GetBrandBySlugQuery = @"SELECT * FROM brands WHERE slug = @slug LIMIT 1;";
-        
+
         private const string GetAllBrandsWithPaginationQuery = @"SELECT * FROM brands ORDER BY name LIMIT @limit OFFSET @skip;";
 
         private const string GetBrandExistsQuery = @"SELECT slug FROM brands WHERE slug = @slug LIMIT 1;";

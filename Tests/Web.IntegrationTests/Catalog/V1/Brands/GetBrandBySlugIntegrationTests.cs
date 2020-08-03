@@ -18,10 +18,10 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         public GetBrandBySlugIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
-            factory.ClientOptions.BaseAddress= new Uri("http://localhost/api/v1/brands/");
+            factory.ClientOptions.BaseAddress = new Uri("http://localhost/api/v1/brands/");
             _client = factory.CreateClient();
         }
-        
+
         [Fact]
         public async Task GetBrandBySlug_ShouldReturn200OK_WhenTheBrandExists()
         {

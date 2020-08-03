@@ -50,12 +50,12 @@ namespace TreniniDotNet.Domain.Collecting.Collections
             LocalDate? removedDate = null,
             string? notes = null)
         {
-            return new CollectionItem(Id, 
-                catalogItem ?? CatalogItem, 
+            return new CollectionItem(Id,
+                catalogItem ?? CatalogItem,
                 condition ?? Condition,
-                price ?? Price, 
-                purchasedAt ?? PurchasedAt, 
-                addedDate ?? AddedDate, 
+                price ?? Price,
+                purchasedAt ?? PurchasedAt,
+                addedDate ?? AddedDate,
                 removedDate ?? removedDate,
                 notes ?? Notes);
         }

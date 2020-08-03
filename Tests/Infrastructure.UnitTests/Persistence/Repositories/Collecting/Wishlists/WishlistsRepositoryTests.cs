@@ -11,11 +11,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
 {
     public class WishlistsRepositoryTests : CollectionRepositoryUnitTests<IWishlistsRepository>
     {
-        public WishlistsRepositoryTests(SqliteDatabaseFixture fixture) 
+        public WishlistsRepositoryTests(SqliteDatabaseFixture fixture)
             : base(fixture, unitOfWork => new WishlistsRepository(unitOfWork))
         {
         }
-        
+
         [Fact]
         public async Task WishlistsRepository_AddAsync_ShouldCreateWishlist()
         {
@@ -41,7 +41,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                     visibility = wishlist.Visibility.ToString()
                 });
         }
-        
+
         [Fact]
         public async Task WishlistsRepository_GetByOwnerAsync_ShouldReturnWishlists()
         {
@@ -62,7 +62,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             result.Should().NotBeNull();
             result.Should().HaveCount(5);
         }
-        
+
         // [Fact]
         // public async Task WishlistsRepository_ExistAsync_ShouldCheckIfWishlistExistsForTheOwner()
         // {
@@ -111,7 +111,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                 })
                 .ShouldNotExists();
         }
-        
+
         [Fact]
         public async Task WishlistsRepository_GetByIdAsync_ShouldReturnWishlist()
         {
@@ -122,7 +122,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
 
             wishlist.Should().NotBeNull();
         }
-        
+
         [Fact]
         public async Task WishlistsRepository_UpdateAsync_ShouldAddNewWishlistItem()
         {
@@ -133,7 +133,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             Database.Arrange.WithOneWishlist(wishlist);
 
             await Repository.UpdateAsync(wishlist);
-            await UnitOfWork.SaveAsync(); 
+            await UnitOfWork.SaveAsync();
 
             Database.Assert.RowInTable(Tables.WishlistItems)
                 .WithPrimaryKey(new
@@ -199,9 +199,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                 })
                 .ShouldExists();
         }
-        
+
         private static Wishlist FakeWishlist() => throw new NotImplementedException();
-        
-        private static WishlistItem FakeWishlistItem() => throw new NotImplementedException(); 
+
+        private static WishlistItem FakeWishlistItem() => throw new NotImplementedException();
     }
 }

@@ -13,7 +13,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
             {
                 return null;
             }
-            
+
             return new Uri(value.ToString());
         }
 

@@ -28,33 +28,33 @@ namespace TreniniDotNet.IntegrationTests
         {
             _contextId = Guid.NewGuid();
         }
-        
+
         public new void Dispose()
         {
             File.Delete($"{_contextId}.db");
             base.Dispose();
         }
-        
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("Testing");
-            
+
             builder.ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.Sources.Clear();
-            
+
                 var env = hostingContext.HostingEnvironment;
-            
+
                 config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
                       .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: false);
-            
+
                 config.AddEnvironmentVariables();
             });
 
             builder.ConfigureServices(services =>
             {
                 var connectionString = $"Data Source={_contextId}.db";
-                
+
                 services.ReplaceWithSqlite<ApplicationDbContext>(connectionString);
 
                 services.ReplaceMigrations(options =>
@@ -62,27 +62,27 @@ namespace TreniniDotNet.IntegrationTests
                     options.UseSqlite(connectionString);
                     options.ScanMigrationsIn(typeof(InitialMigration).Assembly);
                 });
-                
+
                 var sp = services.BuildServiceProvider();
                 using (var scope = sp.CreateScope())
                 {
                     var scopedServices = scope.ServiceProvider;
                     var logger = scopedServices
                         .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
-                
+
                     var userManager = scopedServices.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = scopedServices.GetRequiredService<RoleManager<IdentityRole>>();
 
                     var migration = scopedServices.GetRequiredService<IDatabaseMigration>();
                     migration.Up();
-                    
+
                     try
                     {
                         // Seed the database with test data.
                         DatabaseHelper.InitialiseDbForTests(scopedServices)
                             .GetAwaiter()
                             .GetResult();
-                        
+
                         AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).GetAwaiter().GetResult();
                     }
                     catch (Exception ex)
@@ -99,7 +99,7 @@ namespace TreniniDotNet.IntegrationTests
     public static class ServiceCollectionTestExtensions
     {
         public static IServiceCollection ReplaceWithSqlite<TContext>(
-            this IServiceCollection services, 
+            this IServiceCollection services,
             string connectionString)
             where TContext : DbContext
         {
@@ -118,9 +118,9 @@ namespace TreniniDotNet.IntegrationTests
 
             return services;
         }
-        
+
         public static IServiceCollection ReplaceWithInMemory<TContext>(
-            this IServiceCollection services, 
+            this IServiceCollection services,
             string databaseName,
             InMemoryDatabaseRoot dbRoot)
             where TContext : DbContext

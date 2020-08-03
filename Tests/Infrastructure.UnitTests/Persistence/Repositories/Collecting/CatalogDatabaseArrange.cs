@@ -17,7 +17,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting
 
             var acme60392 = CatalogSeedData.CatalogItems.NewAcme60392();
             var acme60458 = CatalogSeedData.CatalogItems.NewAcme60458();
-            
+
             databaseArrange.InsertOne(CatalogTables.Brands, new
             {
                 brand_id = acme.Id.ToGuid(),

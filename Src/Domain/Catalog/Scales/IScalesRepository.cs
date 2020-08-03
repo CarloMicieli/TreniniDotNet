@@ -10,7 +10,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         Task<bool> ExistsAsync(Slug slug);
 
         Task<Scale?> GetBySlugAsync(Slug slug);
-        
+
         Task<PaginatedResult<Scale>> GetScalesAsync(Page page);
     }
 }

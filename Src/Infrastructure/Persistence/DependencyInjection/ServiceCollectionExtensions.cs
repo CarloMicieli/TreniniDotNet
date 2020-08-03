@@ -36,7 +36,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.DependencyInjection
                 options.ScanMigrationsIn(typeof(InitialMigration).Assembly);
             });
         }
-        
+
         public static IApplicationBuilder EnsureDatabaseCreated(this IApplicationBuilder app)
         {
             var logger = app.ApplicationServices.GetRequiredService<ILogger<IDatabaseMigration>>();
@@ -50,7 +50,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.DependencyInjection
 
             return app;
         }
-        
+
         public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("Default");
@@ -59,7 +59,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.DependencyInjection
                 options.UsePostgres(connectionString);
                 options.ScanTypeHandlersIn(typeof(GuidTypeHandler).Assembly);
             });
-            
+
             services.AddScoped<IBrandsRepository, BrandsRepository>();
             services.AddScoped<ICatalogItemsRepository, CatalogItemsRepository>();
             services.AddScoped<IRailwaysRepository, RailwaysRepository>();

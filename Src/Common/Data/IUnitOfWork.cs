@@ -6,7 +6,7 @@ namespace TreniniDotNet.Common.Data
     public interface IUnitOfWork
     {
         Task<int> SaveAsync();
-        
+
         Task<int> ExecuteAsync(string cmd, object param);
 
         Task<TResult> ExecuteScalarAsync<TResult>(string sql, object param);

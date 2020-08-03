@@ -13,11 +13,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
 {
     public class RailwaysRepositoryTests : RepositoryUnitTests<IRailwaysRepository>
     {
-        public RailwaysRepositoryTests(SqliteDatabaseFixture fixture) 
+        public RailwaysRepositoryTests(SqliteDatabaseFixture fixture)
             : base(fixture, unitOfWork => new RailwaysRepository(unitOfWork))
         {
         }
-        
+
         [Fact]
         public async Task RailwaysRepository_AddAsync_ShouldCreateANewRailway()
         {
@@ -68,7 +68,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
 
             await Repository.UpdateAsync(testRailway.With(companyName: "Trenitalia"));
             await UnitOfWork.SaveAsync();
-            
+
             Database.Assert.RowInTable(Tables.Railways)
                 .WithPrimaryKey(new
                 {
@@ -165,8 +165,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
 
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(5);
-        }        
-        
+        }
+
         private static Railway FakeRailway()
         {
             return CatalogSeedData.Railways.New()

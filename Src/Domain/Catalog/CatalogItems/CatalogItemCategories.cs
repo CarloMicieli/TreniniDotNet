@@ -50,7 +50,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
                 _ => CatalogItemCategory.Trains
             };
         }
-        
+
         private static CatalogItemCategory FromCategory(Category cat)
         {
             if (Categories.IsLocomotive(cat))

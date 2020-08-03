@@ -3,7 +3,7 @@
     public interface IDatabaseMigration
     {
         void Up();
-        
+
         void Down(long version);
     }
 }

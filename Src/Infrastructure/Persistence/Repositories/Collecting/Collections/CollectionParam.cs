@@ -9,7 +9,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
     internal class CollectionParam
     {
         public Guid collection_id { get; set; }
-        public string owner{ get; set; }
+        public string owner { get; set; }
         public string? notes { set; get; }
         public DateTime created { set; get; }
         public DateTime? last_modified { set; get; }

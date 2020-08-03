@@ -24,7 +24,7 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
             await SeedCatalog(serviceProvider, applicationDbContext);
             await SeedCollections(serviceProvider, applicationDbContext);
         }
-        
+
         private static async Task SeedCatalog(IServiceProvider scopedServices, DbContext applicationDbContext)
         {
             var brands = scopedServices.GetRequiredService<IBrandsRepository>();
@@ -55,7 +55,7 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
 
             var wishLists = scopedServices.GetRequiredService<IWishlistsRepository>();
             await wishLists.SeedDatabase();
-            
+
             await applicationDbContext.SaveChangesAsync();
         }
     }

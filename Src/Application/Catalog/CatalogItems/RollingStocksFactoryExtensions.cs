@@ -28,7 +28,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
             var category = RequiredValueFor<Category>(input.Category);
 
             var railwayRef = new RailwayRef(railway);
-            
+
             var epoch = Epoch.Parse(input.Epoch);
 
             var length = LengthOverBuffer.CreateOrDefault(input.LengthOverBuffer?.Inches, input.LengthOverBuffer?.Millimeters);
@@ -45,7 +45,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems
                     : null;
 
                 return factory.CreateLocomotive(
-                    railwayRef, 
+                    railwayRef,
                     category,
                     epoch,
                     length,

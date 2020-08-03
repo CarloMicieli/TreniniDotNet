@@ -14,7 +14,7 @@ namespace TreniniDotNet.SharedKernel.Lengths
 
         public static Length ZeroMillimeters => new Length(decimal.Zero, MeasureUnit.Millimeters);
         public static Length ZeroInches => new Length(decimal.Zero, MeasureUnit.Inches);
-        
+
         private Length(decimal value, MeasureUnit measureUnit)
         {
             if (value.IsNegative())

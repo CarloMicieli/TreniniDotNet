@@ -26,10 +26,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
         public async Task DeleteAsync(CollectionId id)
         {
             await _unitOfWork.ExecuteAsync("DELETE FROM collection_items WHERE collection_id = @collection_id",
-                new {collection_id = id.ToGuid()});
-            
+                new { collection_id = id.ToGuid() });
+
             await _unitOfWork.ExecuteAsync("DELETE FROM collections WHERE collection_id = @collection_id",
-                new {collection_id = id.ToGuid()});
+                new { collection_id = id.ToGuid() });
         }
 
         public async Task<bool> ExistsAsync(Owner owner)
@@ -54,15 +54,15 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
         {
             var results = await _unitOfWork.QueryAsync<CollectionDto>(
                 GetCollectionByOwnerQuery,
-                new {owner = owner.Value});
+                new { owner = owner.Value });
 
             return ProjectToDomain(results);
         }
-        
+
         public async Task UpdateAsync(Collection collection)
         {
             var param = CollectionToParam(collection);
-            
+
             var _ = await _unitOfWork.ExecuteAsync(UpdateCollection, param);
 
             await UpdateCollectionItemsAsync(collection);
@@ -71,7 +71,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
         public async Task<CollectionId> AddAsync(Collection collection)
         {
             var param = CollectionToParam(collection);
-            
+
             var _ = await _unitOfWork.ExecuteAsync(InsertNewCollection, param);
 
             await UpdateCollectionItemsAsync(collection);
@@ -95,7 +95,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
             var itemIdsResults = await GetCollectionItemIdsAsync(collection.Id);
             var itemIds = itemIdsResults.Select(id => new CollectionItemId(id))
                 .ToList();
-            
+
             foreach (var item in collection.Items)
             {
                 var param = new CollectionItemDto
@@ -111,7 +111,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                     notes = item.Notes,
                     purchased_at = item.PurchasedAt?.Id.ToGuid()
                 };
-                
+
                 if (itemIds.Contains(item.Id))
                 {
                     await UpdateCollectionItemAsync(param);
@@ -132,10 +132,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
 
         private Task UpdateCollectionItemAsync(CollectionItemDto param) =>
             _unitOfWork.ExecuteAsync(UpdateCollectionItem, param);
-        
+
         private Task InsertCollectionItemAsync(CollectionItemDto param) =>
             _unitOfWork.ExecuteAsync(InsertCollectionItem, param);
-        
+
         private Task DeleteCollectionItemAsync(CollectionId id, CollectionItemId itemId) =>
             _unitOfWork.ExecuteAsync(DeleteCollectionItem, new
             {
@@ -148,12 +148,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
             return results
                 .GroupBy(it => new
                 {
-                    it.collection_id, it.owner, it.collection_notes, it.created, it.last_modified, it.version
+                    it.collection_id,
+                    it.owner,
+                    it.collection_notes,
+                    it.created,
+                    it.last_modified,
+                    it.version
                 })
                 .Select(it =>
                 {
                     var items = it
-                        .Where(y => y.collection_item_id.HasValue && y.catalog_item_id.HasValue) 
+                        .Where(y => y.collection_item_id.HasValue && y.catalog_item_id.HasValue)
                         .GroupBy(y => new
                         {
                             ItemId = new CollectionItemId(y.collection_item_id ?? Guid.Empty),
@@ -172,7 +177,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                         .Select(z =>
                         {
                             var k = z.Key;
-                            
+
                             var catalogItem = new CatalogItemRef(
                                 k.CatalogItemId,
                                 k.CatalogItemSlug,
@@ -180,17 +185,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                                 k.ItemNumber!,
                                 k.Description!,
                                 z.Select(y => EnumHelpers.RequiredValueFor<Category>(y.category!)));
-                            
-                            return new CollectionItem(k.ItemId, 
+
+                            return new CollectionItem(k.ItemId,
                                 catalogItem,
                                 EnumHelpers.RequiredValueFor<Condition>(k.Condition!),
                                 k.Price,
-                                k.Shop, 
+                                k.Shop,
                                 k.AddedDate,
                                 k.RemovedDate,
                                 k.Notes);
                         });
-                    
+
                     var collection = new Collection(
                         new CollectionId(it.Key.collection_id),
                         new Owner(it.Key.owner),
@@ -199,7 +204,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                         it.Key.created.ToUtc(),
                         it.Key.last_modified.ToUtcOrDefault(),
                         it.Key.version);
-                    
+
                     return collection;
                 })
                 .FirstOrDefault();
@@ -217,7 +222,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
         }
 
         private Task<IEnumerable<Guid>> GetCollectionItemIdsAsync(CollectionId id) =>
-            _unitOfWork.QueryAsync<Guid>(GetCollectionItemIdsQuery, new {Id = id.ToGuid()});
+            _unitOfWork.QueryAsync<Guid>(GetCollectionItemIdsQuery, new { Id = id.ToGuid() });
 
         private static Price ToPrice(decimal? amount, string? currency)
         {
@@ -225,7 +230,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                 ? new Price(amount.Value, currency)
                 : throw new InvalidOperationException("Price is required - it was null instead");
         }
-            
+
         #region [ Query / Commands ]
 
         private const string UpdateCollection = @"UPDATE collections SET 
@@ -235,16 +240,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                last_modified = @last_modified, 
                version = @version
             WHERE collection_id = @collection_id;";
-        
+
         private const string InsertNewCollection = @"INSERT INTO collections(
                 collection_id, owner, notes, created, last_modified, version)
             VALUES(@collection_id, @owner, @notes, @created, @last_modified, @version);";
 
-        private const string CollectionExistsByOwnerQuery= @"SELECT collection_id FROM collections WHERE owner = @owner LIMIT 1;";
-        
+        private const string CollectionExistsByOwnerQuery = @"SELECT collection_id FROM collections WHERE owner = @owner LIMIT 1;";
+
         private const string GetCollectionItemIdsQuery =
             @"SELECT collection_item_id FROM collection_items WHERE collection_id = @Id";
-        
+
         private const string GetCollectionIdByOwnerQuery = @"SELECT collection_id FROM collections WHERE owner = @Owner LIMIT 1;";
 
         private const string GetCollectionQuery = @"
@@ -265,7 +270,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
 
         private const string GetCollectionByIdQuery = GetCollectionQuery + " WHERE collection_id = @CollectionId;";
 
-        private const string UpdateCollectionItem =  @"UPDATE collection_items 
+        private const string UpdateCollectionItem = @"UPDATE collection_items 
              SET 
                  condition = @condition, 
                  price = @price, 

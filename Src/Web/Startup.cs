@@ -89,7 +89,7 @@ namespace TreniniDotNet.Web
                 app.UseExceptionHandler("/error");
                 app.UseHttpsRedirection();
             }
-            
+
             app.UseSerilogRequestLogging();
 
             app.UseRouting();
@@ -104,7 +104,7 @@ namespace TreniniDotNet.Web
             });
 
             app.UseHealthChecks("/health");
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

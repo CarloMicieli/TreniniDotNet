@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Dapper;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Options;
 using TreniniDotNet.Common.Data;
 using TreniniDotNet.Infrastructure.Dapper;
@@ -14,24 +15,29 @@ namespace TreniniDotNet.Infrastructure
     {
         public SqliteDatabaseFixture()
         {
-            var contextId = Guid.NewGuid();
+            var connectionString = new SqliteConnectionStringBuilder("Data Source=:Sharable:")
+            {
+                ForeignKeys = true,
+                Cache = SqliteCacheMode.Private,
+                Mode = SqliteOpenMode.Memory
+            }.ToString();
 
             var options = Options.Create(new DatabaseOptions
             {
-                ConnectionString = $"Data Source={contextId};Mode=Memory;Cache=Shared;Version=3;Pooling=False;PRAGMA foreign_keys=ON;"
+                ConnectionString = connectionString
             });
 
             DatabaseContext = new SqliteDatabaseContext(options);
             UnitOfWork = new DapperUnitOfWork(DatabaseContext);
-            
+
             RegisterTypeHandlers();
 
             var migrationsRunner = new SqliteMigrationsRunner(options);
             migrationsRunner.MigrateUp();
         }
 
-       public IDatabaseContext DatabaseContext { get; }
-        
+        public IDatabaseContext DatabaseContext { get; }
+
         public IUnitOfWork UnitOfWork { get; }
 
         private static void RegisterTypeHandlers()

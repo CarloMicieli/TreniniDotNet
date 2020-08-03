@@ -5,7 +5,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public sealed class ScaleRef : AggregateRootRef<Scale, ScaleId>
     {
-        public ScaleRef(ScaleId id, string slug, string name, decimal ratio) 
+        public ScaleRef(ScaleId id, string slug, string name, decimal ratio)
             : base(id, slug, $"{name} (1:{ratio})")
         {
         }

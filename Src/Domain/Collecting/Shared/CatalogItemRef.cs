@@ -18,9 +18,9 @@ namespace TreniniDotNet.Domain.Collecting.Shared
             ItemNumber = catalogItem.ItemNumber;
         }
 
-        public CatalogItemRef(CatalogItemId id, string slug, 
+        public CatalogItemRef(CatalogItemId id, string slug,
             string brand,
-            string itemNumber, 
+            string itemNumber,
             string description,
             IEnumerable<Category> rsCategories)
             : base(id, slug, description)
@@ -30,7 +30,7 @@ namespace TreniniDotNet.Domain.Collecting.Shared
             Count = rsCategories.Count();
             Category = CatalogItemCategories.FromCategories(rsCategories);
         }
-        
+
         public int Count { get; }
         public CatalogItemCategory Category { get; }
         public ItemNumber ItemNumber { get; }

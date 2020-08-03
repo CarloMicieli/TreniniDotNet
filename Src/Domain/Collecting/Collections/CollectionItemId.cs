@@ -22,7 +22,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         public static explicit operator CollectionItemId(Guid guid) => new CollectionItemId(guid);
 
         public Guid ToGuid() => Value;
-        
+
         public override string ToString() => $"CollectionItemId({Value})";
 
         public override int GetHashCode() => Value.GetHashCode();
@@ -47,6 +47,6 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 
         #endregion
 
-        
+
     }
 }

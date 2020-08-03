@@ -32,7 +32,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 
         public static Prototype OfLocomotive(string className, string roadNumber, string? series) =>
             new Prototype(className, roadNumber, series);
-        
+
         //TODO: testme
         public static Prototype? TryCreate(string? className, string? roadNumber, string? series)
         {

@@ -27,7 +27,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
 
             var id = await Repository.AddAsync(collection);
             await UnitOfWork.SaveAsync();
-            
+
             id.Should().Be(collection.Id);
 
             Database.Assert.RowInTable(Tables.Collections)
@@ -43,7 +43,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                 })
                 .ShouldExists();
         }
-       
+
         [Fact]
         public async Task CollectionsRepository_AddAsync_ShouldInsertCollectionItems()
         {
@@ -52,12 +52,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
             var collection = CollectionWithTwoItems();
             var firstItem = collection.Items.First();
             var secondItem = collection.Items.Last();
-            
+
             var id = await Repository.AddAsync(collection);
             await UnitOfWork.SaveAsync();
-            
+
             id.Should().Be(collection.Id);
-           
+
             Database.Assert.RowInTable(Tables.CollectionItems)
                 .WithPrimaryKey(new
                 {
@@ -74,7 +74,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                     purchased_at = firstItem.PurchasedAt?.Id.ToGuid()
                 })
                 .ShouldExists();
-            
+
             Database.Assert.RowInTable(Tables.CollectionItems)
                 .WithPrimaryKey(new
                 {
@@ -118,13 +118,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
             var notFound = await Repository.GetByOwnerAsync(new Owner("Not found"));
 
             notFound.Should().BeNull();
-            
+
             found.Should().NotBeNull();
             found?.Id.Should().Be(expectedId);
             found?.Owner.Should().Be(expectedOwner);
             found?.Items.Should().HaveCount(2);
         }
-        
+
         [Fact]
         public async Task CollectionsRepository_UpdateAsync_ShouldUpdateCollections()
         {
@@ -132,10 +132,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
             Database.ArrangeWithCollection(collection);
 
             var modifiedCollection = collection.With(notes: "Modified notes");
-        
+
             await Repository.UpdateAsync(modifiedCollection);
             await UnitOfWork.SaveAsync();
-        
+
             Database.Assert.RowInTable(Tables.Collections)
                 .WithPrimaryKey(new
                 {
@@ -147,24 +147,24 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                 })
                 .ShouldExists();
         }
-        
+
         [Fact]
         public async Task CollectionsRepository_UpdateAsync_ShouldEditCollectionItems()
         {
             var collection = CollectionWithTwoItems();
             var item = collection.Items.First();
-            
+
             Database.ArrangeWithCollection(collection);
-        
+
             var modifiedItem = item.With(
                 condition: Condition.PreOwned,
                 notes: "My modified notes");
-            
+
             collection.UpdateItem(modifiedItem);
-        
+
             await Repository.UpdateAsync(collection);
             await UnitOfWork.SaveAsync();
-        
+
             Database.Assert.RowInTable(Tables.CollectionItems)
                 .WithPrimaryKey(new
                 {
@@ -179,20 +179,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
                 })
                 .ShouldExists();
         }
-        
+
         [Fact]
         public async Task CollectionsRepository_UpdateAsync_ShouldRemoveCollectionItems()
         {
             var collection = CollectionWithTwoItems();
             var item = collection.Items.First();
-            
+
             Database.ArrangeWithCollection(collection);
-        
+
             collection.RemoveItem(item.Id);
-        
+
             await Repository.UpdateAsync(collection);
             await UnitOfWork.SaveAsync();
-        
+
             Database.Assert.RowInTable(Tables.CollectionItems)
                 .WithPrimaryKey(new
                 {

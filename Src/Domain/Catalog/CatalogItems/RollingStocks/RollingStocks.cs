@@ -49,7 +49,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
                 values.TypeName = p.TypeName;
                 return values;
             }
-            
+
             static RollingStockValues AppendTrainValues(RollingStockValues values, Train t)
             {
                 values.DccInterface = t.DccInterface.ToString();
@@ -57,7 +57,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
                 values.TypeName = t.TypeName;
                 return values;
             }
-            
+
             static RollingStockValues AppendFreightCarValues(RollingStockValues values, FreightCar f)
             {
                 values.TypeName = f.TypeName;
@@ -73,21 +73,21 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
                 new RailwayId(values.RailwayId), values.RailwaySlug ?? "", values.RailwayName ?? "");
 
             var id = new RollingStockId(values.RollingStockId);
-            
+
             var epoch = Epoch.Parse(values.Epoch);
-            
+
             var lengthOverBuffer = LengthOverBuffer.CreateOrDefault(values.LengthIn, values.LengthMm);
             var minRadius = MinRadius.CreateOrDefault(values.MinRadius);
 
             var couplers = EnumHelpers.OptionalValueFor<Couplers>(values.Couplers);
-            
+
             if (Categories.IsLocomotive(category))
             {
                 var prototype = Prototype.TryCreate(values.ClassName, values.RoadNumber, values.Series);
 
                 var dccInterface = EnumHelpers.RequiredValueFor<DccInterface>(values.DccInterface!);
                 var control = EnumHelpers.RequiredValueFor<Control>(values.Control!);
-                
+
                 return new Locomotive(
                     id,
                     railway,
@@ -106,7 +106,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
             {
                 var passengerCarType = EnumHelpers.OptionalValueFor<PassengerCarType>(values.PassengerCarType);
                 var serviceLevel = values.ServiceLevel.ToServiceLevelOpt();
-                
+
                 return new PassengerCar(
                     id,
                     railway,
@@ -137,7 +137,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
             {
                 var dccInterface = EnumHelpers.RequiredValueFor<DccInterface>(values.DccInterface!);
                 var control = EnumHelpers.RequiredValueFor<Control>(values.Control!);
-                
+
                 return new Train(
                     id,
                     railway,
@@ -157,13 +157,13 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
     public sealed class RollingStockValues
     {
         public Guid CatalogItemId { get; set; }
-        
+
         public Guid RollingStockId { get; set; }
-        
+
         public Guid RailwayId { get; set; }
-        
+
         public string? RailwayName { get; set; }
-        
+
         public string? RailwaySlug { get; set; }
 
         public string Category { get; set; } = null!;
@@ -171,7 +171,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         public string Epoch { get; set; } = null!;
 
         public decimal? LengthMm { get; set; }
-        
+
         public decimal? LengthIn { get; set; }
 
         public decimal? MinRadius { get; set; }
@@ -179,23 +179,23 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         public string? Couplers { get; set; }
 
         public string? Livery { get; set; }
-        
+
         public string? Depot { get; set; }
-        
+
         public string? DccInterface { get; set; }
-        
+
         public string? Control { get; set; }
-        
-        public string? ClassName { get; set; }      
-        
+
+        public string? ClassName { get; set; }
+
         public string? RoadNumber { get; set; }
-        
+
         public string? Series { get; set; }
-        
+
         public string? TypeName { get; set; }
-        
+
         public string? PassengerCarType { get; set; }
-        
+
         public string? ServiceLevel { get; set; }
     }
 }

@@ -43,13 +43,13 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
                 null : values.Gauge.ToScaleGauge();
 
             var ratio = values.Ratio.HasValue ? Ratio.Of(values.Ratio.Value) : (Ratio?)null;
-            
+
             var standards = values.Standards
                 .Select(EnumHelpers.OptionalValueFor<ScaleStandard>)
                 .Where(it => it.HasValue)
                 .Select(it => it!.Value)
                 .ToHashSet();
-            
+
             var modifiedScale = scale.With(
                 values.Name,
                 ratio,

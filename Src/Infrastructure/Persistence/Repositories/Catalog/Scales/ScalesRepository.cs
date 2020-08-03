@@ -105,8 +105,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
                 return null;
             }
 
-            var scaleGauge = ScaleGauge.Of(dto.gauge_mm, 
-                MeasureUnit.Millimeters, 
+            var scaleGauge = ScaleGauge.Of(dto.gauge_mm,
+                MeasureUnit.Millimeters,
                 EnumHelpers.RequiredValueFor<TrackGauge>(dto.track_type));
 
             var standards = (dto.standards is null)
@@ -115,7 +115,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
                     .Where(it => string.IsNullOrWhiteSpace(it) == false)
                     .Select(EnumHelpers.RequiredValueFor<ScaleStandard>)
                     .ToHashSet();
-            
+
             return new Scale(
                 new ScaleId(dto.scale_id),
                 dto.name,
@@ -123,7 +123,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
                 Ratio.Of(dto.ratio),
                 scaleGauge,
                 dto.description,
-                standards, 
+                standards,
                 dto.weight,
                 dto.created.ToUtc(),
                 dto.last_modified.ToUtcOrDefault(),

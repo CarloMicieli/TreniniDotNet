@@ -3,7 +3,7 @@ using System;
 namespace TreniniDotNet.Common.Domain
 {
     public abstract class AggregateRootRef<TAggregate, TKey>
-        where TKey: struct, IEquatable<TKey>
+        where TKey : struct, IEquatable<TKey>
         where TAggregate : AggregateRoot<TKey>
     {
         protected AggregateRootRef(TKey id, string slug, string stringRepresentation)
@@ -41,7 +41,7 @@ namespace TreniniDotNet.Common.Domain
                 return false;
             }
         }
-        
+
         public static bool operator ==(AggregateRootRef<TAggregate, TKey> a, AggregateRootRef<TAggregate, TKey> b)
         {
             if (ReferenceEquals(a, null) && ReferenceEquals(b, null))

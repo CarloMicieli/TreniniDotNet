@@ -5,7 +5,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
 #pragma warning disable CA1707 // Identifiers should not contain underscores
 #pragma warning disable CA1812 // Avoid uninstantiated internal classes
 #pragma warning disable IDE1006 // Naming Styles
-    internal sealed class ShopDto 
+    internal sealed class ShopDto
     {
         public Guid shop_id { get; set; }
         public string name { get; set; } = null!;

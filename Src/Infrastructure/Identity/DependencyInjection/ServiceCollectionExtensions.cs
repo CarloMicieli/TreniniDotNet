@@ -17,7 +17,7 @@ namespace TreniniDotNet.Infrastructure.Identity.DependencyInjection
         {
             services.AddDbContext<ApplicationIdentityDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("Default")));
-            
+
             return services
                 .AddEntityFrameworkIdentity(configuration)
                 .AddJwtAuthentication(configuration)

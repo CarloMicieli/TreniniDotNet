@@ -5,7 +5,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     public sealed class BrandRef : AggregateRootRef<Brand, BrandId>
     {
-        public BrandRef(BrandId id, string slug, string name) 
+        public BrandRef(BrandId id, string slug, string name)
             : base(id, slug, name)
         {
         }

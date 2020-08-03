@@ -5,7 +5,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 {
     public sealed class ShopRef : AggregateRootRef<Shop, ShopId>
     {
-        public ShopRef(ShopId id, string slug, string name) 
+        public ShopRef(ShopId id, string slug, string name)
             : base(id, slug, name)
         {
         }

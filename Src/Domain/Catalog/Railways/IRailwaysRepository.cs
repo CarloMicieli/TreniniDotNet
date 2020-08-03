@@ -10,7 +10,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         Task<bool> ExistsAsync(Slug slug);
 
         Task<Railway?> GetBySlugAsync(Slug slug);
-        
+
         Task<PaginatedResult<Railway>> GetRailwaysAsync(Page page);
     }
 }

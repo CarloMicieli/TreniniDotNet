@@ -22,7 +22,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         public static explicit operator ShopId(Guid guid) => new ShopId(guid);
 
         public Guid ToGuid() => Value;
-        
+
         public override string ToString() => $"ShopId({Value})";
 
         public override int GetHashCode() => Value.GetHashCode();

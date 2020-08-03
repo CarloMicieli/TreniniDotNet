@@ -72,7 +72,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
                 new CatalogItemRef(catalogItem),
                 condition,
                 price,
-                ShopRef.AsOptional(shop), 
+                ShopRef.AsOptional(shop),
                 addedDate,
                 input.Notes);
 

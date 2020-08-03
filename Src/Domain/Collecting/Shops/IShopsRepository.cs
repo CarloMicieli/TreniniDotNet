@@ -20,7 +20,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         Task RemoveFromFavouritesAsync(Owner owner, ShopId shopId);
 
         Task<List<Shop>> GetFavouriteShopsAsync(Owner owner);
-        
+
         Task<PaginatedResult<Shop>> GetShopsAsync(Page page);
     }
 }

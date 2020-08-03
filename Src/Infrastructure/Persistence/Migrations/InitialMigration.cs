@@ -178,7 +178,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
             Create.ForeignKey("FK_RollingStocks_CatalogItems")
                 .FromTable(RollingStocks).ForeignColumn("catalog_item_id")
                 .ToTable(CatalogItems).PrimaryColumn("catalog_item_id");
-            
+
             Create.Table(CatalogItemsImages)
                 .WithColumn("catalog_item_id").AsGuid().NotNullable()
                 .WithColumn("filename").AsString(15).NotNullable()
@@ -223,11 +223,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
             Create.Table(ShopFavourites)
                 .WithColumn("shop_id").AsGuid().NotNullable()
                 .WithColumn("owner").AsString(50).NotNullable();
-            
+
             Create.PrimaryKey()
                 .OnTable(ShopFavourites)
                 .Columns("shop_id", "owner");
-            
+
             Create.ForeignKey("FK_ShopFavourites_ShopId")
                 .FromTable(ShopFavourites).ForeignColumn("shop_id")
                 .ToTable(Shops).PrimaryColumn("shop_id");
@@ -259,7 +259,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("added_date").AsDateTime().NotNullable()
                 .WithColumn("removed_date").AsDateTime().Nullable()
                 .WithColumn("notes").AsString(150).Nullable();
-            
+
             Create.ForeignKey("FK_CollectionItems_Collections")
                 .FromTable(CollectionItems).ForeignColumn("collection_id")
                 .ToTable(Collections).PrimaryColumn("collection_id");

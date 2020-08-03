@@ -17,7 +17,7 @@ namespace TreniniDotNet.Infrastructure.Dapper
             _connection = databaseContext.NewConnection();
             _connection.Open();
         }
-        
+
         public Task<int> ExecuteAsync(string cmd, object param)
         {
             _transaction ??= _connection.BeginTransaction();

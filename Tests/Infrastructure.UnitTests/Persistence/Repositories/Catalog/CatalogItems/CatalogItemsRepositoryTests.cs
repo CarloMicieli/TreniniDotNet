@@ -17,8 +17,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         private Brand Acme { get; }
         private Railway Fs { get; }
         private Scale H0 { get; }
-        
-        public CatalogItemsRepositoryTests(SqliteDatabaseFixture fixture) 
+
+        public CatalogItemsRepositoryTests(SqliteDatabaseFixture fixture)
             : base(fixture, unitOfWork => new CatalogItemsRepository(unitOfWork))
         {
             Acme = CatalogSeedData.Brands.Acme;
@@ -59,7 +59,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 created = DateTime.UtcNow
             });
         }
-        
+
         [Fact]
         public async Task CatalogItemsRepository_AddAsync_ShouldCreateNewCatalogItems()
         {
@@ -87,8 +87,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 })
                 .ShouldExists();
         }
-        
-        
+
+
         [Fact]
         public async Task CatalogItemsRepository_ExistsAsync_ShouldCheckCatalogItemExists()
         {
@@ -164,7 +164,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
 
             var modified = item.With(
                 description: "Modified description");
-            
+
             await Repository.UpdateAsync(modified);
             await UnitOfWork.SaveAsync();
 
@@ -247,7 +247,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         //         .ShouldNotExists();
         // }
     }
-    
+
     public static class DatabaseTestHelpersExtensions
     {
         public static void ArrangeWithOneCatalogItem(this DatabaseTestHelpers db, CatalogItem catalogItem)
@@ -281,5 +281,5 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 });
             }
         }
-    }    
+    }
 }

@@ -129,7 +129,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
                 railwayLength,
                 railwayGauge,
                 dto.website_url.ToUriOpt(),
-                dto.headquarters,                
+                dto.headquarters,
                 dto.created.ToUtc(),
                 dto.last_modified.ToUtcOrDefault(),
                 dto.version ?? 1);
@@ -162,7 +162,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
         private const string GetAllRailwaysWithPaginationQuery = @"SELECT * FROM railways ORDER BY name LIMIT @limit OFFSET @skip;";
 
         private const string DeleteRailwayCommand = @"DELETE FROM railways WHERE railway_id = @Id;";
-        
+
         #endregion
     }
 }

@@ -36,20 +36,20 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             });
 
             await UpdateWishlistItemsAsync(wishlist);
-            
+
             return wishlist.Id;
         }
-        
+
         private async Task UpdateWishlistItemsAsync(Wishlist wishlist)
         {
             var resultItemIds = await GetWishlistItemIdsAsync(wishlist.Id);
             var itemIds = resultItemIds.Select(id => new WishlistItemId(id))
                 .ToList();
-            
+
             foreach (var item in wishlist.Items)
             {
                 var param = new WishlistItemDto { };
-                
+
                 if (itemIds.Contains(item.Id))
                 {
                     await UpdateWishlistItemAsync(param);
@@ -68,11 +68,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         }
 
         private Task UpdateWishlistItemAsync(WishlistItemDto param) => throw new NotImplementedException();
-        
+
         private Task InsertWishlistItemAsync(WishlistItemDto param) => throw new NotImplementedException();
-        
+
         private Task RemoveWishlistItem(WishlistId id, WishlistItemId itemId) => throw new NotImplementedException();
-        
+
         public async Task UpdateAsync(Wishlist wishlist)
         {
             var _ = await _unitOfWork.ExecuteAsync(UpdateWishlistCommand, new
@@ -101,16 +101,16 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                 WishlistId = id
             });
         }
-  
+
         public async Task<List<Wishlist>> GetByOwnerAsync(Owner owner, VisibilityCriteria visibility)
         {
             if (visibility == VisibilityCriteria.All)
             {
                 var results = await _unitOfWork.QueryAsync<WishlistDto>(
                     GetWishlists, new
-                {
-                    Owner = owner.Value
-                });
+                    {
+                        Owner = owner.Value
+                    });
 
                 return ProjectToDomain(results).ToList();
             }
@@ -118,10 +118,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             {
                 var results = await _unitOfWork.QueryAsync<WishlistDto>(
                     GetWishlistsByVisibility, new
-                {
-                    Owner = owner.Value,
-                    Visibility = visibility.ToString()
-                });
+                    {
+                        Owner = owner.Value,
+                        Visibility = visibility.ToString()
+                    });
 
                 return ProjectToDomain(results).ToList();
             }
@@ -145,7 +145,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         public async Task<Wishlist?> GetByIdAsync(WishlistId id)
         {
             var results = await _unitOfWork.QueryAsync<WishlistDto>(
-                GetWishlistById, new {Id = id.ToGuid()});
+                GetWishlistById, new { Id = id.ToGuid() });
 
             return ProjectToDomain(results)
                 .FirstOrDefault();
@@ -217,10 +217,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                     return wishlist;
                 });
         }
-        
+
         private static Price? ToPrice(decimal? amount, string? currency) =>
-            (amount.HasValue && !string.IsNullOrWhiteSpace(currency)) ? new Price(amount.Value, currency) : null; 
-        
+            (amount.HasValue && !string.IsNullOrWhiteSpace(currency)) ? new Price(amount.Value, currency) : null;
+
         private static Budget? ToBudget(decimal? amount, string? currency) =>
             (amount.HasValue && !string.IsNullOrWhiteSpace(currency)) ? new Budget(amount.Value, currency) : null;
 
@@ -229,7 +229,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             {
                 Id = id.ToGuid()
             });
-        
+
         #region [ Query / Commands ]
 
         private const string InsertNewWishlist = @"INSERT INTO wishlists(
@@ -287,7 +287,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             LIMIT 1;";
 
         private const string UpdateWishlistCommand = "";
-        
+
         private const string DeleteWishlistItems = @"DELETE FROM wishlist_items WHERE wishlist_id = @WishlistId";
 
         private const string DeleteWishlist = @"DELETE FROM wishlists WHERE wishlist_id = @WishlistId";

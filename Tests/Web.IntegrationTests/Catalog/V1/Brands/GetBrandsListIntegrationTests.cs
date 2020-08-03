@@ -13,12 +13,12 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
     {
         private readonly HttpClient _client;
 
-        public GetBrandsListIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
+        public GetBrandsListIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
             _client = factory.CreateClient();
         }
-        
+
         [Fact]
         public async Task GetBrandsList_ShouldReturn200OK_AndTheBrands()
         {
