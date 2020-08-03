@@ -52,14 +52,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
         public Task DeleteAsync(ShopId id)
         {
             return _unitOfWork.ExecuteAsync(
-                DeleteShopCommand, new {Id = id.ToGuid()});
+                DeleteShopCommand, new {shop_id = id.ToGuid()});
         }
 
         public async Task<bool> ExistsAsync(ShopId shopId)
         {
             var result = await _unitOfWork.ExecuteScalarAsync<string>(
                 GetShopExistsByIdQuery,
-                new { Id = shopId.ToGuid() });
+                new { shop_id = shopId.ToGuid() });
 
             return string.IsNullOrEmpty(result) == false;
         }
@@ -130,23 +130,23 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
                 dto.version);
         }
 
-        private static object ToValuesObject(Shop shop) => new
+        private static ShopParam ToValuesObject(Shop shop) => new ShopParam
         {
-            ShopId = shop.Id,
-            shop.Name,
-            Slug = shop.Slug.ToString(),
-            WebsiteUrl = shop.WebsiteUrl?.ToString(),
-            PhoneNumber = shop.PhoneNumber?.ToString(),
-            MailAddress = shop.EmailAddress?.ToString(),
-            shop.Address?.Line1,
-            shop.Address?.Line2,
-            shop.Address?.City,
-            shop.Address?.Region,
-            shop.Address?.PostalCode,
-            shop.Address?.Country,
-            Created = shop.CreatedDate.ToDateTimeUtc(),
-            LastModified = shop.ModifiedDate?.ToDateTimeUtc(),
-            shop.Version
+            shop_id = shop.Id.ToGuid(),
+            name = shop.Name,
+            slug = shop.Slug.ToString(),
+            website_url = shop.WebsiteUrl?.ToString(),
+            phone_number = shop.PhoneNumber?.ToString(),
+            mail_address = shop.EmailAddress?.ToString(),
+            address_line1 = shop.Address?.Line1,
+            address_line2 = shop.Address?.Line2,
+            address_city = shop.Address?.City,
+            address_region = shop.Address?.Region,
+            address_postal_code = shop.Address?.PostalCode,
+            address_country = shop.Address?.Country,
+            created = shop.CreatedDate.ToDateTimeUtc(),
+            last_modified = shop.ModifiedDate?.ToDateTimeUtc(),
+            version = shop.Version
         };
         
         #region [ Query / Commands ]
@@ -154,29 +154,30 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
         private const string InsertShopCommand = @"INSERT INTO shops(shop_id, name, slug, website_url, phone_number, mail_address,
                 address_line1, address_line2, address_city, address_region, address_postal_code, address_country,
                 created, last_modified, version) 
-            VALUES(@ShopId, @Name, @Slug, @WebsiteUrl, @PhoneNumber, @MailAddress,
-                @Line1, @Line2, @City, @Region, @PostalCode, @Country,
-                @Created, @LastModified, @Version);";
+            VALUES(@shop_id, @name, @slug, @website_url, @phone_number, @mail_address,
+                @address_line1, @address_line2, @address_city, @address_region, @address_postal_code, @address_country,
+                @created, @last_modified, @version);";
 
         private const string UpdateShopCommand = @"UPDATE shops SET
-                name = @Ņame, slug = @Slug, website_url = @WebsiteUrl, 
-                phone_number = @PhoneNumber, mail_address = @MailAddress,
-                address_line1 = @Line1, 
-                address_line2 = @Line2, 
-                address_city = @City, address_region = @Region, address_postal_code = @PostalCode, 
-                address_country = @Country,
-                created = @Created, last_modified = @LastModified, version = @Version
-            WHERE shop_id = @Id;";
+                name = @name, slug = @slug, website_url = @website_url, 
+                phone_number = @phone_number, mail_address = @mail_address,
+                address_line1 = @address_line1, 
+                address_line2 = @address_line2, 
+                address_city = @address_city, address_region = @address_region, 
+                address_postal_code = @address_postal_code, 
+                address_country = @address_country,
+                created = @created, last_modified = @last_modified, version = @version
+            WHERE shop_id = @shop_id;";
 
         private const string GetShopExistsQuery = @"SELECT slug FROM shops WHERE slug = @slug LIMIT 1;";
         
-        private const string GetShopExistsByIdQuery = @"SELECT slug FROM shops WHERE shop_id = @Id LIMIT 1;";
+        private const string GetShopExistsByIdQuery = @"SELECT slug FROM shops WHERE shop_id = @shop_id LIMIT 1;";
 
         private const string GetShopBySlugQuery = @"SELECT * FROM shops WHERE slug = @slug LIMIT 1;";
 
         private const string GetShopsWithPaginationQuery = @"SELECT * FROM shops ORDER BY name LIMIT @limit OFFSET @skip;";
 
-        private const string DeleteShopCommand = @"DELETE FROM shops WHERE shop_id = @Id";
+        private const string DeleteShopCommand = @"DELETE FROM shops WHERE shop_id = @shop_id";
 
         #endregion
     }
