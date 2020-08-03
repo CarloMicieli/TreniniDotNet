@@ -48,5 +48,10 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 
         public CollectionItem? FindItemById(CollectionItemId itemId) =>
             _items.FirstOrDefault(it => it.Id == itemId);
+
+        public Collection With(string? notes = null)
+        {
+            return new Collection(Id, Owner, notes ?? Notes, _items, CreatedDate, ModifiedDate, Version);
+        }
     }
 }

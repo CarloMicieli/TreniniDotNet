@@ -2,8 +2,11 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
+using NodaTime;
 using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Collections
@@ -14,47 +17,78 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
             : base(fixture, unitOfWork => new CollectionsRepository(unitOfWork))
         {
         }
-       
+
         [Fact]
-        public async Task CollectionsRepository_AddAsync_ShouldInsertNewCollections()
+        public async Task CollectionsRepository_AddAsync_ShouldInsertCollectionWithoutItems()
         {
             Database.Setup.TruncateTable(Tables.Collections);
 
-            var newCollection = FakeCollection();
-            var item = newCollection.Items.First();
-            
-            var id = await Repository.AddAsync(newCollection);
+            var collection = CollectionWithoutItems();
+
+            var id = await Repository.AddAsync(collection);
             await UnitOfWork.SaveAsync();
             
-            id.Should().Be(newCollection.Id);
+            id.Should().Be(collection.Id);
 
             Database.Assert.RowInTable(Tables.Collections)
                 .WithPrimaryKey(new
                 {
-                    collection_id = newCollection.Id.ToGuid()
+                    collection_id = collection.Id.ToGuid()
                 })
                 .WithValues(new
                 {
-                    owner = newCollection.Owner.Value,
+                    owner = collection.Owner.Value,
+                    notes = collection.Notes
                     //created = Instant.FromUtc(2019, 11, 25, 9, 0).ToDateTimeUtc(),
-                    version = newCollection.Version,
+                })
+                .ShouldExists();
+        }
+       
+        [Fact]
+        public async Task CollectionsRepository_AddAsync_ShouldInsertCollectionItems()
+        {
+            Database.Setup.TruncateTable(Tables.Collections);
+
+            var collection = CollectionWithTwoItems();
+            var firstItem = collection.Items.First();
+            var secondItem = collection.Items.Last();
+            
+            var id = await Repository.AddAsync(collection);
+            await UnitOfWork.SaveAsync();
+            
+            id.Should().Be(collection.Id);
+           
+            Database.Assert.RowInTable(Tables.CollectionItems)
+                .WithPrimaryKey(new
+                {
+                    collection_item_id = firstItem.Id.ToGuid()
+                })
+                .WithValues(new
+                {
+                    collection_id = collection.Id.ToGuid(),
+                    catalog_item_id = firstItem.CatalogItem.Id.ToGuid(),
+                    notes = firstItem.Notes,
+                    price = firstItem.Price.Amount,
+                    currency = firstItem.Price.Currency,
+                    condition = firstItem.Condition.ToString(),
+                    purchased_at = firstItem.PurchasedAt?.Id.ToGuid()
                 })
                 .ShouldExists();
             
             Database.Assert.RowInTable(Tables.CollectionItems)
                 .WithPrimaryKey(new
                 {
-                    item_id = item.Id.ToGuid()
+                    collection_item_id = secondItem.Id.ToGuid()
                 })
                 .WithValues(new
                 {
-                    collection_id = newCollection.Id.ToGuid(),
-                    catalog_item_id = item.CatalogItem.Id.ToGuid(),
-                    catalog_item_slug = item.CatalogItem.Slug,
-                    price = item.Price.Amount,
-                    currency = item.Price.Currency,
-                    condition = item.Condition.ToString(),
-                    shop_id = item.PurchasedAt?.Id.ToGuid()
+                    collection_id = collection.Id.ToGuid(),
+                    catalog_item_id = secondItem.CatalogItem.Id.ToGuid(),
+                    notes = secondItem.Notes,
+                    price = secondItem.Price.Amount,
+                    currency = secondItem.Price.Currency,
+                    condition = secondItem.Condition.ToString(),
+                    purchased_at = secondItem.PurchasedAt?.Id.ToGuid()
                 })
                 .ShouldExists();
         }
@@ -62,155 +96,153 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
         [Fact]
         public async Task CollectionsRepository_ExistsAsync_ShouldCheckCollectionExistenceByOwner()
         {
-            Database.Setup.TruncateTable(Tables.Collections);
+            Database.ArrangeWithCollection(CollectionWithTwoItems());
 
-            Database.Arrange.InsertOne(Tables.Collections, new
-            {
-                collection_id = Guid.NewGuid(),
-                owner = "George",
-                created = DateTime.UtcNow,
-                last_modified = DateTime.UtcNow,
-                version = 2
-            });
-
-            bool exists = await Repository.ExistsAsync(new Owner("George"));
-            bool dontExist = await Repository.ExistsAsync(new Owner("Not found"));
+            var exists = await Repository.ExistsAsync(new Owner("George"));
+            var dontExist = await Repository.ExistsAsync(new Owner("Not found"));
 
             exists.Should().BeTrue();
             dontExist.Should().BeFalse();
         }
 
-        // [Fact]
-        // public async Task CollectionsRepository_ExistsAsync_ShouldCheckCollectionExistenceById()
-        // {
-        //     Database.Setup.TruncateTable(Tables.Collections);
-        //
-        //     var id = Guid.NewGuid();
-        //     var owner = new Owner("George");
-        //
-        //     Database.Arrange.InsertOne(Tables.Collections, new
-        //     {
-        //         collection_id = id,
-        //         owner = "George",
-        //         created = DateTime.UtcNow,
-        //         last_modified = DateTime.UtcNow,
-        //         version = 2
-        //     });
-        //
-        //     bool exists = await Repository.ExistsAsync(owner, new CollectionId(id));
-        //     bool dontExist = await Repository.ExistsAsync(owner, new CollectionId(Guid.NewGuid()));
-        //
-        //     exists.Should().BeTrue();
-        //     dontExist.Should().BeFalse();
-        // }
-
-        // [Fact]
-        // public async Task CollectionsRepository_GetIdByOwnerAsync_ReturnsCollectionIdFromOwner()
-        // {
-        //     Database.Setup.TruncateTable(Tables.Collections);
-        //
-        //     var id = Guid.NewGuid();
-        //
-        //     Database.Arrange.InsertOne(Tables.Collections, new
-        //     {
-        //         collection_id = id,
-        //         owner = "George",
-        //         created = DateTime.UtcNow,
-        //         last_modified = DateTime.UtcNow,
-        //         version = 2
-        //     });
-        //
-        //     CollectionId? found = await Repository.GetIdByOwnerAsync(new Owner("George"));
-        //     CollectionId? notFound = await Repository.GetIdByOwnerAsync(new Owner("Not found"));
-        //
-        //     found.HasValue.Should().BeTrue();
-        //     found.Value.Should().Be(new CollectionId(id));
-        //     notFound.HasValue.Should().BeFalse();
-        // }
-
         [Fact]
         public async Task CollectionsRepository_GetByOwnerAsync_ReturnsCollectionByOwner()
         {
-            Database.Setup.TruncateTable(Tables.CollectionItems);
-            Database.Setup.TruncateTable(Tables.Collections);
+            var collection = CollectionWithTwoItems();
+            var expectedId = collection.Id;
+            var expectedOwner = collection.Owner;
 
-            ArrangeCatalogData();
-
-            var expectedId = new CollectionId(Guid.NewGuid());
-            var expectedOwner = new Owner("George");
-
-            Database.Arrange.InsertOne(Tables.Collections, new
-            {
-                collection_id = expectedId.ToGuid(),
-                owner = expectedOwner.Value,
-                created = DateTime.UtcNow,
-                last_modified = DateTime.UtcNow,
-                version = 2
-            });
-
-            Database.Arrange.InsertOne(Tables.CollectionItems, new
-            {
-                item_id = Guid.NewGuid(),
-                collection_id = expectedId.ToGuid(),
-                catalog_item_id = Acme_60392.Id.ToGuid(),
-                catalog_item_slug = Acme_60458.Slug.Value,
-                condition = Condition.New.ToString(),
-                price = 210M,
-                currency = "EUR"
-            });
-
-            Database.Arrange.InsertOne(Tables.CollectionItems, new
-            {
-                item_id = Guid.NewGuid(),
-                collection_id = expectedId.ToGuid(),
-                catalog_item_id = Acme_60392.Id.ToGuid(),
-                catalog_item_slug = Acme_60392.Slug.Value,
-                condition = Condition.New.ToString(),
-                price = 190M,
-                currency = "EUR"
-            });
+            Database.ArrangeWithCollection(collection);
 
             var found = await Repository.GetByOwnerAsync(expectedOwner);
             var notFound = await Repository.GetByOwnerAsync(new Owner("Not found"));
 
             notFound.Should().BeNull();
+            
             found.Should().NotBeNull();
-            found.Id.Should().Be(expectedId);
-            found.Owner.Should().Be(expectedOwner);
-            found.Items.Should().HaveCount(2);
+            found?.Id.Should().Be(expectedId);
+            found?.Owner.Should().Be(expectedOwner);
+            found?.Items.Should().HaveCount(2);
         }
         
-        // [Fact]
-        // public async Task CollectionsRepository_UpdateAsync_ShouldEditCollectionItems()
-        // {
-        //     var item = FakeCollectionItem();
-        //
-        //     ArrangeDatabaseWithOneCollectionItem(item);
-        //
-        //     var modifiedItem = item.With(
-        //         condition: Condition.PreOwned,
-        //         notes: "My modified notes");
-        //
-        //     await Repository.UpdateAsync(TestCollection.Id, modifiedItem);
-        //
-        //     Database.Assert.RowInTable(Tables.CollectionItems)
-        //         .WithPrimaryKey(new
-        //         {
-        //             item_id = item.Id.ToGuid()
-        //         })
-        //         .WithValues(new
-        //         {
-        //             collection_id = TestCollection.Id.ToGuid(),
-        //             catalog_item_id = item.CatalogItem.Id.ToGuid(),
-        //             catalog_item_slug = item.CatalogItem.Slug,
-        //             condition = modifiedItem.Condition.ToString(),
-        //             notes = modifiedItem.Notes
-        //         })
-        //         .ShouldExists();
-        // }
+        [Fact]
+        public async Task CollectionsRepository_UpdateAsync_ShouldUpdateCollections()
+        {
+            var collection = CollectionWithTwoItems();
+            Database.ArrangeWithCollection(collection);
 
-        private Collection FakeCollection() => throw new NotImplementedException();
+            var modifiedCollection = collection.With(notes: "Modified notes");
         
-        private CollectionItem FakeCollectionItem()=> throw new NotImplementedException();
+            await Repository.UpdateAsync(modifiedCollection);
+            await UnitOfWork.SaveAsync();
+        
+            Database.Assert.RowInTable(Tables.Collections)
+                .WithPrimaryKey(new
+                {
+                    collection_id = modifiedCollection.Id.ToGuid()
+                })
+                .WithValues(new
+                {
+                    notes = modifiedCollection.Notes
+                })
+                .ShouldExists();
+        }
+        
+        [Fact]
+        public async Task CollectionsRepository_UpdateAsync_ShouldEditCollectionItems()
+        {
+            var collection = CollectionWithTwoItems();
+            var item = collection.Items.First();
+            
+            Database.ArrangeWithCollection(collection);
+        
+            var modifiedItem = item.With(
+                condition: Condition.PreOwned,
+                notes: "My modified notes");
+            
+            collection.UpdateItem(modifiedItem);
+        
+            await Repository.UpdateAsync(collection);
+            await UnitOfWork.SaveAsync();
+        
+            Database.Assert.RowInTable(Tables.CollectionItems)
+                .WithPrimaryKey(new
+                {
+                    collection_item_id = item.Id.ToGuid()
+                })
+                .WithValues(new
+                {
+                    collection_id = collection.Id.ToGuid(),
+                    catalog_item_id = item.CatalogItem.Id.ToGuid(),
+                    condition = modifiedItem.Condition.ToString(),
+                    notes = modifiedItem.Notes
+                })
+                .ShouldExists();
+        }
+        
+        [Fact]
+        public async Task CollectionsRepository_UpdateAsync_ShouldRemoveCollectionItems()
+        {
+            var collection = CollectionWithTwoItems();
+            var item = collection.Items.First();
+            
+            Database.ArrangeWithCollection(collection);
+        
+            collection.RemoveItem(item.Id);
+        
+            await Repository.UpdateAsync(collection);
+            await UnitOfWork.SaveAsync();
+        
+            Database.Assert.RowInTable(Tables.CollectionItems)
+                .WithPrimaryKey(new
+                {
+                    collection_item_id = item.Id.ToGuid()
+                })
+               .ShouldNotExists();
+        }
+
+        private static Collection CollectionWithoutItems()
+        {
+            return CollectingSeedData.Collections.New()
+                .Id(new Guid("54262f02-7cde-40fc-bb30-03e38067b170"))
+                .Owner(new Owner("George"))
+                .Notes("My awesome collection")
+                .CreatedDate(Instant.FromUtc(2020, 11, 25, 10, 30))
+                .Build();
+        }
+
+        private static Collection CollectionWithTwoItems()
+        {
+            return CollectingSeedData.Collections.New()
+                .Id(new Guid("c99e92f6-e055-4102-a30a-958a33bc5286"))
+                .Owner(new Owner("George"))
+                .Item(builder =>
+                {
+                    builder
+                        .ItemId(new Guid("957fcce6-63a9-4377-9288-8b62059ea006"))
+                        .CatalogItem(CatalogSeedData.CatalogItems.NewAcme60392())
+                        .Condition(Condition.New)
+                        .Notes("My item notes")
+                        .Price(Price.Euro(299M))
+                        .AddedDate(new LocalDate(2020, 11, 25))
+                        .Shop(CollectingSeedData.Shops.NewModellbahnshopLippe())
+                        .Build();
+                })
+                .Item(builder =>
+                {
+                    builder
+                        .ItemId(new Guid("d764c0d8-24cc-49cb-9ced-542936865677"))
+                        .CatalogItem(CatalogSeedData.CatalogItems.NewAcme60458())
+                        .Condition(Condition.New)
+                        .Notes("My second item notes")
+                        .Price(Price.Euro(199M))
+                        .AddedDate(new LocalDate(2020, 11, 25))
+                        .Shop(CollectingSeedData.Shops.NewModellbahnshopLippe())
+                        .Build();
+                })
+                .Notes("My awesome collection")
+                .CreatedDate(Instant.FromUtc(2020, 11, 25, 10, 30))
+                .Build();
+        }
     }
 }

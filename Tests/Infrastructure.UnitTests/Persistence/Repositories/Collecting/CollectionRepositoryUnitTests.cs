@@ -87,7 +87,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting
                 rolling_stock_id = Guid.NewGuid(),
                 catalog_item_id = Acme_60392.Id.ToGuid(),
                 category = Category.ElectricLocomotive.ToString(),
-                era = Epoch.V.ToString(),
+                epoch = Epoch.V.ToString(),
                 railway_id = Fs.Id.ToGuid()
             });
 
@@ -108,7 +108,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting
                 rolling_stock_id = Guid.NewGuid(),
                 catalog_item_id = Acme_60458.Id.ToGuid(),
                 category = Category.ElectricLocomotive.ToString(),
-                era = Epoch.V.ToString(),
+                epoch = Epoch.V.ToString(),
                 railway_id = Fs.Id.ToGuid()
             });
         }

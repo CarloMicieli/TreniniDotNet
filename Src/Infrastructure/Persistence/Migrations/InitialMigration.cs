@@ -239,7 +239,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
             Create.Table(Collections)
                 .WithColumn("collection_id").AsGuid().PrimaryKey()
                 .WithColumn("owner").AsString(50).NotNullable()
-                .WithColumn("notes").AsString(250).NotNullable()
+                .WithColumn("notes").AsString(250).Nullable()
                 .WithColumn("created").AsDateTime().NotNullable()
                 .WithColumn("last_modified").AsDateTime().Nullable()
                 .WithColumn("version").AsInt32().WithDefaultValue(1);
@@ -256,7 +256,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .WithColumn("price").AsDecimal().NotNullable()
                 .WithColumn("currency").AsString(3).NotNullable()
                 .WithColumn("purchased_at").AsGuid().Nullable()
-                .WithColumn("added_date").AsDateTime().Nullable()
+                .WithColumn("added_date").AsDateTime().NotNullable()
                 .WithColumn("removed_date").AsDateTime().Nullable()
                 .WithColumn("notes").AsString(150).Nullable();
             
@@ -269,7 +269,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Migrations
                 .ToTable(CatalogItems).PrimaryColumn("catalog_item_id");
 
             Create.ForeignKey("FK_CollectionItems_Shops")
-                .FromTable(CollectionItems).ForeignColumn("PurchasedAtId")
+                .FromTable(CollectionItems).ForeignColumn("purchased_at")
                 .ToTable(Shops).PrimaryColumn("shop_id");
 
             #endregion
