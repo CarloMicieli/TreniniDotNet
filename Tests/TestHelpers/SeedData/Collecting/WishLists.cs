@@ -43,10 +43,12 @@ namespace TreniniDotNet.TestHelpers.SeedData.Collecting
             .Owner(new Owner("George"))
             .ListName("First list")
             .Visibility(Visibility.Private)
+            .Budget(new Budget(1000, "EUR"))
             .Item(ib => ib
                 .ItemId(new Guid("2f9020b0-c97e-4ac1-9c71-00724ccb424b"))
                 .CatalogItem(CatalogSeedData.CatalogItems.Acme60392)
                 .Priority(Priority.Normal)
+                .Price(Price.Euro(200))
                 .AddedDate(new LocalDate(2019, 11, 25))
                 .Build())
             .Build();

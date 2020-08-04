@@ -39,10 +39,40 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                     wishlist_name = wishlist.ListName,
                     owner = wishlist.Owner.Value,
                     slug = wishlist.Slug.Value,
+                    budget = wishlist.Budget?.Amount,
+                    currency = wishlist.Budget?.Currency,
                     visibility = wishlist.Visibility.ToString()
-                });
+                })
+                .ShouldExists();
         }
 
+        [Fact]
+        public async Task WishlistsRepository_AddAsync_ShouldCreateWishlistWithItems()
+        {
+            Database.ArrangeWithoutAnyWishlist();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            var item = wishlist.Items.First();
+            
+            var id = await Repository.AddAsync(wishlist);
+            await UnitOfWork.SaveAsync();
+
+            Database.Assert.RowInTable(Tables.WishlistItems)
+                .WithPrimaryKey(new
+                {
+                    wishlist_id = id.ToGuid(),
+                    wishlist_item_id = item.Id.ToGuid(),
+                })
+                .AndValues(new
+                {
+                    notes = item.Notes,
+                    price = item.Price?.Amount,
+                    currency = item.Price?.Currency,
+                    priority = item.Priority.ToString(),
+                    catalog_item_id = item.CatalogItem.Id.ToGuid()
+                })
+                .ShouldExists();
+        }
+        
         [Fact]
         public async Task WishlistsRepository_GetByOwnerAsync_ShouldReturnWishlists()
         {
@@ -133,11 +163,28 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         public async Task WishlistsRepository_GetByIdAsync_ShouldReturnWishlist()
         {
             var expectedWishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            var expectedItem = expectedWishlist.Items.First();
             Database.ArrangeWithOneWishlist(expectedWishlist);
 
             var wishlist = await Repository.GetByIdAsync(expectedWishlist.Id);
 
             wishlist.Should().NotBeNull();
+
+            wishlist?.Id.Should().Be(expectedWishlist.Id);
+            wishlist?.Owner.Should().Be(expectedWishlist.Owner);
+            wishlist?.Budget.Should().Be(expectedWishlist.Budget);
+            wishlist?.Slug.Should().Be(expectedWishlist.Slug);
+            wishlist?.ListName.Should().Be(expectedWishlist.ListName);
+            wishlist?.Visibility.Should().Be(expectedWishlist.Visibility);
+
+            var items = wishlist?.Items;
+            items.Should().HaveCount(1);
+
+            var item = items?.First();
+            item?.Notes.Should().Be(expectedItem.Notes);
+            item?.Priority.Should().Be(expectedItem.Priority);
+            item?.Price.Should().Be(expectedItem.Price);
+            item?.CatalogItem.Should().Be(expectedItem.CatalogItem);
         }
 
         [Fact]

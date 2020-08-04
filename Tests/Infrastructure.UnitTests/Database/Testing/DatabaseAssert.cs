@@ -117,9 +117,8 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                                     if (!(value is null) && expectedUtcDateTimes.Contains(field))
                                     {
                                         int hours = (int)DateTime.UtcNow.Subtract(DateTime.Now).TotalHours;
-
-
-                                        resultValues[field] = DateTime.SpecifyKind(Convert.ToDateTime(value), DateTimeKind.Utc);
+                                        resultValues[field] = DateTime.SpecifyKind(
+                                            Convert.ToDateTime(value), DateTimeKind.Utc);
                                     }
                                 }
                             }
@@ -127,7 +126,13 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 
                         if (expectedValues.Count > 0)
                         {
-                            resultValues.Should().BeEquivalentTo(expectedValues);
+                            foreach (var (key, expected) in expectedValues)
+                            {
+                                if (resultValues.TryGetValue(key, out var actual))
+                                {
+                                    actual.Should().BeEquivalentTo(expected);
+                                }
+                            }
                         }
                     }
                 }

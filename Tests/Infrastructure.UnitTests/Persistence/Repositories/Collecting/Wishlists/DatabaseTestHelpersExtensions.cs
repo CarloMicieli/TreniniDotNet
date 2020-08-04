@@ -25,7 +25,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                 slug = wishlist.Slug.Value,
                 wishlist_name = wishlist.ListName,
                 visibility = wishlist.Visibility.ToString(),
-                created = DateTime.UtcNow
+                budget = wishlist.Budget?.Amount,
+                currency = wishlist.Budget?.Currency,
+                created = DateTime.UtcNow                
             });
 
             if (wishlist.Items.Count > 0)
@@ -38,7 +40,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                         wishlist_id = wishlist.Id.ToGuid(),
                         catalog_item_id = item.CatalogItem.Id.ToGuid(),
                         priority = item.Priority.ToString(),
-                        added_date = item.AddedDate.ToDateTimeUnspecified()
+                        added_date = item.AddedDate.ToDateTimeUnspecified(),
+                        price = item.Price?.Amount,
+                        currency = item.Price?.Currency
                     });
                 }
             }
