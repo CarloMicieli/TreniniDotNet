@@ -105,8 +105,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             Database.ArrangeWithOneWishlist(wishlist);
 
-            bool found = await Repository.ExistsAsync(wishlist.Id);
-            bool notFound = await Repository.ExistsAsync(WishlistId.NewId());
+            var found = await Repository.ExistsAsync(wishlist.Id);
+            var notFound = await Repository.ExistsAsync(WishlistId.NewId());
 
             found.Should().BeTrue();
             notFound.Should().BeFalse();
