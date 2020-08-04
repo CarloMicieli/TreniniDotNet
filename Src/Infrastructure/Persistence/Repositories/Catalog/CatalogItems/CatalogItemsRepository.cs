@@ -126,9 +126,13 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
             return new PaginatedResult<CatalogItem>(page, FromCatalogItemsDto(results));
         }
 
-        public Task DeleteAsync(CatalogItemId id)
+        public async Task DeleteAsync(CatalogItemId id)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.ExecuteAsync("DELETE FROM rolling_stocks WHERE catalog_item_id = @catalog_item_id",
+                new {catalog_item_id = id.ToGuid()});
+            
+            await _unitOfWork.ExecuteAsync("DELETE FROM catalog_items WHERE catalog_item_id = @catalog_item_id",
+                new {catalog_item_id = id.ToGuid()});
         }
 
         private IEnumerable<CatalogItem> FromCatalogItemsDto(IEnumerable<CatalogItemWithRelatedData> results)
