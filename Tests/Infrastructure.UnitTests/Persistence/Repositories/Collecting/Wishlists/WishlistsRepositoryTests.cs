@@ -1,15 +1,17 @@
 using System;
-using System.Collections.Immutable;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
+using NodaTime;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.SharedKernel.Slugs;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishlists
 {
-    public class WishlistsRepositoryTests : CollectionRepositoryUnitTests<IWishlistsRepository>
+    public class WishlistsRepositoryTests : DapperRepositoryUnitTests<IWishlistsRepository>
     {
         public WishlistsRepositoryTests()
             : base(unitOfWork => new WishlistsRepository(unitOfWork))
@@ -19,9 +21,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         [Fact]
         public async Task WishlistsRepository_AddAsync_ShouldCreateWishlist()
         {
-            Database.Setup.WithoutAnyWishlist();
-
-            var wishlist = FakeWishlist();
+            Database.ArrangeWithoutAnyWishlist();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             var id = await Repository.AddAsync(wishlist);
             await UnitOfWork.SaveAsync();
@@ -45,7 +46,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         [Fact]
         public async Task WishlistsRepository_GetByOwnerAsync_ShouldReturnWishlists()
         {
-            Database.Setup.WithoutAnyWishlist();
+            Database.ArrangeWithoutAnyWishlist();
 
             Database.Arrange.InsertMany(Tables.Wishlists, 10, id => new
             {
@@ -63,43 +64,59 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             result.Should().HaveCount(5);
         }
 
-        // [Fact]
-        // public async Task WishlistsRepository_ExistAsync_ShouldCheckIfWishlistExistsForTheOwner()
-        // {
-        //     var wishlist = FakeWishlist();
-        //
-        //     Database.Setup.WithoutAnyWishlist();
-        //     Database.Arrange.WithOneWishlist(wishlist);
-        //
-        //     bool found = await Repository.ExistAsync(wishlist.Owner, wishlist.Slug);
-        //     bool notFound = await Repository.ExistAsync(new Owner("Not found"), Slug.Empty);
-        //
-        //     found.Should().BeTrue();
-        //     notFound.Should().BeFalse();
-        // }
+        [Fact]
+        public async Task WishlistsRepository_CountWishlistsAsync_ShouldCountOwnerNumberOfWishlists()
+        {
+            Database.ArrangeWithoutAnyWishlist();
 
-        // [Fact]
-        // public async Task WishlistsRepository_ExistAsync_ShouldCheckIfWishlistExistsForTheId()
-        // {
-        //     var wishlist = FakeWishlist();
-        //
-        //     Database.Setup.WithoutAnyWishlist();
-        //     Database.Arrange.WithOneWishlist(wishlist);
-        //
-        //     bool found = await Repository.ExistAsync(new Owner("George"), wishlist.Id);
-        //     bool notFound = await Repository.ExistAsync(new Owner("George"), WishlistId.NewId());
-        //
-        //     found.Should().BeTrue();
-        //     notFound.Should().BeFalse();
-        // }
+            Database.Arrange.InsertMany(Tables.Wishlists, 10, id => new
+            {
+                wishlist_id = Guid.NewGuid(),
+                owner = "George",
+                slug = Slug.Of($"George's wish list {id}"),
+                wishlist_name = $"George's wish list {id}",
+                visibility = (id % 2 == 0) ? Visibility.Private.ToString() : Visibility.Public.ToString(),
+                created = DateTime.UtcNow
+            });
+
+            var result1 = await Repository.CountWishlistsAsync(new Owner("George"));
+            var result2 = await Repository.CountWishlistsAsync(new Owner("Not found"));
+
+            result1.Should().Be(10);
+            result2.Should().Be(0);
+        }
+
+        [Fact]
+        public async Task WishlistsRepository_ExistsAsync_ShouldCheckIfWishlistExistsForTheOwner()
+        {
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            Database.ArrangeWithOneWishlist(wishlist);
+
+            var found = await Repository.ExistsAsync(wishlist.Owner, wishlist.ListName!);
+            var notFound = await Repository.ExistsAsync(new Owner("Not found"), "not found");
+
+            found.Should().BeTrue();
+            notFound.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task WishlistsRepository_ExistsAsync_ShouldCheckIfWishlistExistsForTheId()
+        {
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            Database.ArrangeWithOneWishlist(wishlist);
+
+            bool found = await Repository.ExistsAsync(wishlist.Id);
+            bool notFound = await Repository.ExistsAsync(WishlistId.NewId());
+
+            found.Should().BeTrue();
+            notFound.Should().BeFalse();
+        }
 
         [Fact]
         public async Task WishlistsRepository_DeleteAsync_ShouldDeleteWishlist()
         {
-            var wishlist = FakeWishlist();
-
-            Database.Setup.WithoutAnyWishlist();
-            Database.Arrange.WithOneWishlist(wishlist);
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            Database.ArrangeWithOneWishlist(wishlist);
 
             await Repository.DeleteAsync(wishlist.Id);
             await UnitOfWork.SaveAsync();
@@ -115,8 +132,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         [Fact]
         public async Task WishlistsRepository_GetByIdAsync_ShouldReturnWishlist()
         {
-            var newItem = FakeWishlistItem();
-            var expectedWishlist = FakeWishlist(); //.With(ImmutableList.Create((WishlistItem)newItem));
+            var expectedWishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            Database.ArrangeWithOneWishlist(expectedWishlist);
 
             var wishlist = await Repository.GetByIdAsync(expectedWishlist.Id);
 
@@ -126,11 +143,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         [Fact]
         public async Task WishlistsRepository_UpdateAsync_ShouldAddNewWishlistItem()
         {
-            var wishlist = FakeWishlist();
-            var newItem = FakeWishlistItem();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            Database.ArrangeWithOneWishlist(wishlist);
 
-            Database.Setup.WithoutAnyWishlist();
-            Database.Arrange.WithOneWishlist(wishlist);
+            var modified = wishlist.Items.First()
+                .With(notes: "Modified notes");
+            wishlist.UpdateItem(modified);
 
             await Repository.UpdateAsync(wishlist);
             await UnitOfWork.SaveAsync();
@@ -138,12 +156,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             Database.Assert.RowInTable(Tables.WishlistItems)
                 .WithPrimaryKey(new
                 {
-                    item_id = newItem.Id.ToGuid()
+                    wishlist_item_id = modified.Id.ToGuid()
                 })
                 .AndValues(new
                 {
-                    // catalog_item_id = newItem.CatalogItem.CatalogItemId.ToGuid(),
-                    catalog_item_slug = newItem.CatalogItem.Slug
+                    notes = "Modified notes"
                 })
                 .ShouldExists();
         }
@@ -151,11 +168,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         [Fact]
         public async Task WishlistsRepository_UpdateAsync_ShouldRemoveWishlistItem()
         {
-            var newItem = FakeWishlistItem();
-            var wishlist = FakeWishlist();
-
-            Database.Setup.WithoutAnyWishlist();
-            Database.Arrange.WithOneWishlist(wishlist);
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            var wishlistItemId = wishlist.Items.First().Id;
+            wishlist.RemoveItem(wishlistItemId, new LocalDate(2020, 11, 25));
 
             await Repository.UpdateAsync(wishlist);
             await UnitOfWork.SaveAsync();
@@ -163,7 +178,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             Database.Assert.RowInTable(Tables.WishlistItems)
                 .WithPrimaryKey(new
                 {
-                    item_id = newItem.Id.ToGuid()
+                    wishlist_item_id = wishlistItemId.ToGuid()
                 })
                 .ShouldNotExists();
         }
@@ -171,16 +186,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         [Fact]
         public async Task WishlistsRepository_UpdateAsync_ShouldModifyWishlistItem()
         {
-            var newItem = FakeWishlistItem();
-            var wishlist = FakeWishlist();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            Database.ArrangeWithOneWishlist(wishlist);
 
-            Database.Setup.WithoutAnyWishlist();
-            Database.Arrange.WithOneWishlist(wishlist);
-
-            var modified = newItem.With(
-                priority: Priority.Low,
-                price: Price.Euro(199M),
-                notes: "Modified notes");
+            var modified = wishlist.Items.First()
+                .With
+                (
+                    priority: Priority.Low,
+                    price: Price.Euro(199M),
+                    notes: "Modified notes"
+                );
+            wishlist.UpdateItem(modified);
 
             await Repository.UpdateAsync(wishlist);
             await UnitOfWork.SaveAsync();
@@ -188,7 +204,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             Database.Assert.RowInTable(Tables.WishlistItems)
                 .WithPrimaryKey(new
                 {
-                    item_id = newItem.Id.ToGuid()
+                    wishlist_item_id = modified.Id.ToGuid()
                 })
                 .AndValues(new
                 {
@@ -199,9 +215,5 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                 })
                 .ShouldExists();
         }
-
-        private static Wishlist FakeWishlist() => throw new NotImplementedException();
-
-        private static WishlistItem FakeWishlistItem() => throw new NotImplementedException();
     }
 }

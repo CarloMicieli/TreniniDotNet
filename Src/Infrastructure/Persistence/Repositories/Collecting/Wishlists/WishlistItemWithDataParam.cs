@@ -3,7 +3,7 @@
 #pragma warning disable CA1707 // Identifiers should not contain underscores
 #pragma warning disable CA1812 // Avoid uninstantiated internal classes
 #pragma warning disable IDE1006 // Naming Styles
-    internal class WishlistItemWithDataDto : WishlistItemDto
+    internal class WishlistItemWithDataParam : WishlistItemParam
     {
         public string brand_name { set; get; } = null!;
         public string brand_slug { set; get; } = null!;

@@ -24,21 +24,28 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
 
         public async Task<WishlistId> AddAsync(Wishlist wishlist)
         {
-            var _ = await _unitOfWork.ExecuteAsync(InsertNewWishlist, new
-            {
-                WishlistId = wishlist.Id,
-                Owner = wishlist.Owner.Value,
-                Slug = wishlist.Slug.Value,
-                wishlist.ListName,
-                Visibility = wishlist.Visibility.ToString(),
-                Created = wishlist.CreatedDate.ToDateTimeUtc(),
-                wishlist.Version
-            });
+            var param = WishlistToParam(wishlist);
+            var _ = await _unitOfWork.ExecuteAsync(InsertNewWishlist, param);
 
             await UpdateWishlistItemsAsync(wishlist);
 
             return wishlist.Id;
         }
+
+        private WishlistParam WishlistToParam(Wishlist wishlist) =>
+            new WishlistParam
+            {
+                wishlist_id = wishlist.Id.ToGuid(),
+                owner = wishlist.Owner.Value,
+                slug = wishlist.Slug.Value,
+                wishlist_name = wishlist.ListName,
+                visibility = wishlist.Visibility.ToString(),
+                budget = wishlist.Budget?.Amount,
+                currency = wishlist.Budget?.Currency,
+                created = wishlist.CreatedDate.ToDateTimeUtc(),
+                last_modified = wishlist.ModifiedDate?.ToDateTimeUtc(),
+                version = wishlist.Version
+            };
 
         private async Task UpdateWishlistItemsAsync(Wishlist wishlist)
         {
@@ -48,7 +55,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
 
             foreach (var item in wishlist.Items)
             {
-                var param = new WishlistItemDto { };
+                var param = WishlistItemToParam(wishlist.Id, item);
 
                 if (itemIds.Contains(item.Id))
                 {
@@ -67,24 +74,36 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             }
         }
 
-        private Task UpdateWishlistItemAsync(WishlistItemDto param) => throw new NotImplementedException();
+        private Task UpdateWishlistItemAsync(WishlistItemParam param) =>
+            _unitOfWork.ExecuteAsync(UpdateWishlistItem, param);
 
-        private Task InsertWishlistItemAsync(WishlistItemDto param) => throw new NotImplementedException();
+        private Task InsertWishlistItemAsync(WishlistItemParam param) =>
+            _unitOfWork.ExecuteAsync(InsertWishlistItem, param);
 
-        private Task RemoveWishlistItem(WishlistId id, WishlistItemId itemId) => throw new NotImplementedException();
+        private Task RemoveWishlistItem(WishlistId id, WishlistItemId itemId) =>
+            _unitOfWork.ExecuteAsync(DeleteWishlistItem, new
+            {
+                wishlist_id = id.ToGuid(),
+                wishlist_item_id = itemId.ToGuid()
+            });
+
+        private WishlistItemParam WishlistItemToParam(WishlistId id, WishlistItem item) => new WishlistItemParam
+        {
+            wishlist_id = id.ToGuid(),
+            wishlist_item_id = item.Id.ToGuid(),
+            catalog_item_id = item.CatalogItem.Id.ToGuid(),
+            price = item.Price?.Amount,
+            currency = item.Price?.Currency,
+            notes = item.Notes,
+            added_date = item.AddedDate.ToDateTimeUnspecified(),
+            removed_date = item.RemovedDate?.ToDateTimeUnspecified(),
+            priority = item.Priority.ToString()
+        };
 
         public async Task UpdateAsync(Wishlist wishlist)
         {
-            var _ = await _unitOfWork.ExecuteAsync(UpdateWishlistCommand, new
-            {
-                WishlistId = wishlist.Id,
-                Owner = wishlist.Owner.Value,
-                Slug = wishlist.Slug.Value,
-                wishlist.ListName,
-                Visibility = wishlist.Visibility.ToString(),
-                Created = wishlist.CreatedDate.ToDateTimeUtc(),
-                wishlist.Version
-            });
+            var param = WishlistToParam(wishlist);
+            var _ = await _unitOfWork.ExecuteAsync(UpdateWishlistCommand, param);
 
             await UpdateWishlistItemsAsync(wishlist);
         }
@@ -93,12 +112,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         {
             await _unitOfWork.ExecuteAsync(DeleteWishlistItems, new
             {
-                WishlistId = id
+                wishlist_id = id.ToGuid()
             });
 
             await _unitOfWork.ExecuteAsync(DeleteWishlist, new
             {
-                WishlistId = id
+                wishlist_id = id.ToGuid()
             });
         }
 
@@ -127,25 +146,31 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             }
         }
 
-        public Task<bool> ExistsAsync(Owner owner, string listName)
+        public async Task<bool> ExistsAsync(Owner owner, string listName)
         {
-            throw new NotImplementedException();
+            var result = await _unitOfWork.ExecuteScalarAsync<Guid?>(
+                "SELECT wishlist_id FROM wishlists WHERE owner = @owner AND wishlist_name = @wishlist_name",
+                new { owner = owner.Value, wishlist_name = listName });
+
+            return result.HasValue;
         }
 
-        public Task<int> CountWishlistsAsync(Owner owner)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<int> CountWishlistsAsync(Owner owner) =>
+            _unitOfWork.ExecuteScalarAsync<int>(CountWishlistsByOwner, new { owner = owner.Value });
 
-        public Task<bool> ExistsAsync(WishlistId id)
+        public async Task<bool> ExistsAsync(WishlistId id)
         {
-            throw new NotImplementedException();
+            var result = await _unitOfWork.ExecuteScalarAsync<Guid?>(
+                "SELECT wishlist_id FROM wishlists WHERE wishlist_id = @wishlist_id",
+                new { wishlist_id = id.ToGuid() });
+
+            return result.HasValue;
         }
 
         public async Task<Wishlist?> GetByIdAsync(WishlistId id)
         {
             var results = await _unitOfWork.QueryAsync<WishlistDto>(
-                GetWishlistById, new { Id = id.ToGuid() });
+                GetWishlistById, new { wishlist_id = id.ToGuid() });
 
             return ProjectToDomain(results)
                 .FirstOrDefault();
@@ -233,64 +258,74 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
         #region [ Query / Commands ]
 
         private const string InsertNewWishlist = @"INSERT INTO wishlists(
-                wishlist_id, owner, slug, wishlist_name, visibility, created, last_modified, version) 
+                wishlist_id, owner, slug, wishlist_name, visibility,
+                      budget, currency, created, last_modified, version) 
             VALUES(
-                @WishlistId, @Owner, @Slug, @ListName, @Visibility, @Created, NULL, @Version);";
+                @wishlist_id, @owner, @slug, @wishlist_name, @visibility, 
+                   @budget, @currency, @created, @last_modified, @version);";
 
-        private const string GetWishlistById = @"SELECT *
-            FROM wishlists
-            WHERE wishlist_id = @WishlistId
-            LIMIT 1;";
+        private const string UpdateWishlistCommand = @"UPDATE wishlists SET 
+                owner = @owner, slug = @slug, wishlist_name = @wishlist_name, visibility = @visibility, 
+                budget = @budget, currency = @currency, 
+                created = @created, last_modified = @last_modified, version = @version
+            WHERE wishlist_id = @wishlist_id;";
 
-        private const string GetWishlistItemsWithDetails = @"SELECT
-                it.item_id, it.catalog_item_id, it.catalog_item_slug, it.priority, it.added_date,
-                it.price, it.currency, it.notes,
-                b.name AS brand_name, b.slug AS brand_slug,
-                ci.item_number, s.name AS scale_name, s.slug AS scale_slug, ci.description,
-                COUNT(rolling_stock_id) AS rolling_stock_count,
-                MIN(rs.category) AS category_1,
-                MAX(rs.category) AS category_2
-            FROM wishlist_items AS it
-            JOIN catalog_items AS ci
-            ON it.catalog_item_id = ci.catalog_item_id
-            JOIN brands AS b
-            ON b.brand_id = ci.brand_id
-            JOIN scales AS s
-            ON s.scale_id = ci.scale_id
-            JOIN rolling_stocks AS rs
-            ON rs.catalog_item_id = ci.catalog_item_id
-            WHERE wishlist_id = @WishlistId
-            GROUP BY 
-                it.item_id, it.catalog_item_id, it.catalog_item_slug, it.priority, it.added_date,
-                it.price, it.currency, it.notes,
-                b.name, b.slug,
-                ci.item_number, s.name, s.slug, ci.description";
+        private const string InsertWishlistItem = @"INSERT INTO wishlist_items(
+                 wishlist_item_id, wishlist_id, catalog_item_id, priority, added_date, price, currency, notes
+             ) VALUES(
+                 @wishlist_item_id, @wishlist_id, @catalog_item_id, @priority, @added_date, @price, @currency, @notes
+             );";
 
-        private const string GetWishlistsByVisibility = @"SELECT wishlist_id, slug, wishlist_name, visibility 
-            FROM wishlists 
-            WHERE owner = @Owner AND visibility = @Visibility 
-            ORDER BY slug;";
+        private const string DeleteWishlistItem = @"DELETE FROM wishlist_items 
+             WHERE wishlist_item_id = @wishlist_item_id AND wishlist_id = @wishlist_id;";
 
-        private const string GetWishlists = @"SELECT wishlist_id, slug, wishlist_name, visibility 
-            FROM wishlists 
-            WHERE owner = @Owner
-            ORDER BY slug;";
+        private const string UpdateWishlistItem = @"UPDATE wishlist_items
+             SET 
+                 priority = @priority, 
+                 price = @price, 
+                 currency = @currency, 
+                 notes = @notes
+             WHERE wishlist_item_id = @wishlist_item_id AND wishlist_id = @wishlist_id;";
 
-        private const string WishlishExistsForOwnerAndSlug = @"SELECT wishlist_id
+        private const string DeleteWishlistItems = @"DELETE FROM wishlist_items WHERE wishlist_id = @wishlist_id";
+
+        private const string DeleteWishlist = @"DELETE FROM wishlists WHERE wishlist_id = @wishlist_id";
+
+        private const string GetWishlistsWithItemsSelect = @"
+            SELECT w.wishlist_id, w.owner, w.slug, w.wishlist_name, w.visibility,
+                   w.budget AS budget_amount, w.currency AS budget_currency, wi.wishlist_item_id, wi.catalog_item_id,
+                   ci.slug AS catalog_item_slug, b.name as brand_name,
+                   ci.item_number, ci.description, rs.category, wi.priority,
+                   wi.added_date, wi.removed_date, wi.price AS price_amount, wi.currency AS price_currency, 
+                   wi.notes, w.created, w.last_modified, w.version
+            FROM wishlists AS w
+            LEFT JOIN wishlist_items AS wi ON w.wishlist_id = wi.wishlist_id
+            LEFT JOIN catalog_items AS ci on wi.catalog_item_id = ci.catalog_item_id
+            LEFT JOIN brands AS b on ci.brand_id = b.brand_id
+            LEFT JOIN rolling_stocks AS rs on ci.catalog_item_id = rs.catalog_item_id";
+
+        private const string GetWishlistsByVisibility = GetWishlistsWithItemsSelect +
+            " WHERE owner = @owner AND visibility = @visibility ORDER BY w.slug;";
+
+        private const string GetWishlists = GetWishlistsWithItemsSelect +
+            " WHERE owner = @owner ORDER BY w.slug;";
+
+        private const string GetWishlistById = GetWishlistsWithItemsSelect +
+                " WHERE w.wishlist_id = @wishlist_id;";
+
+        private const string WishlistExistsForOwnerAndSlug = @"SELECT wishlist_id
             FROM wishlists 
             WHERE owner = @Owner AND slug = @Slug 
             LIMIT 1;";
 
-        private const string WishlishExistsForId = @"SELECT wishlist_id
+        private const string WishlistExistsForId = @"SELECT wishlist_id
             FROM wishlists 
-            WHERE owner = @Owner AND wishlist_id = @WishlistId
+            WHERE owner = @owner AND wishlist_id = @wishlist_id
             LIMIT 1;";
 
-        private const string UpdateWishlistCommand = "";
-
-        private const string DeleteWishlistItems = @"DELETE FROM wishlist_items WHERE wishlist_id = @WishlistId";
-
-        private const string DeleteWishlist = @"DELETE FROM wishlists WHERE wishlist_id = @WishlistId";
+        private const string CountWishlistsByOwner = @"SELECT COUNT(*) 
+            FROM wishlists
+            WHERE owner = @owner;";
 
         #endregion
     }

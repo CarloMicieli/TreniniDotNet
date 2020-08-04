@@ -4,11 +4,21 @@ using TreniniDotNet.Infrastructure.Database.Testing;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishlists
 {
-    public static class DatabaseArrangeExtensions
+    public static class DatabaseTestHelpersExtensions
     {
-        public static void WithOneWishlist(this DatabaseArrange databaseArrange, Wishlist wishlist)
+        public static void ArrangeWithoutAnyWishlist(this DatabaseTestHelpers database)
         {
-            databaseArrange.InsertOne(Tables.Wishlists, new
+            database.Setup.TruncateTable(Tables.WishlistItems);
+            database.Setup.TruncateTable(Tables.Wishlists);
+        }
+
+        public static void ArrangeWithOneWishlist(this DatabaseTestHelpers database, Wishlist wishlist)
+        {
+            database.ArrangeWithoutAnyWishlist();
+
+            database.ArrangeCatalogData();
+
+            database.Arrange.InsertOne(Tables.Wishlists, new
             {
                 wishlist_id = wishlist.Id.ToGuid(),
                 owner = wishlist.Owner.Value,
@@ -22,12 +32,11 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             {
                 foreach (var item in wishlist.Items)
                 {
-                    databaseArrange.InsertOne(Tables.WishlistItems, new
+                    database.Arrange.InsertOne(Tables.WishlistItems, new
                     {
-                        item_id = item.Id.ToGuid(),
+                        wishlist_item_id = item.Id.ToGuid(),
                         wishlist_id = wishlist.Id.ToGuid(),
                         catalog_item_id = item.CatalogItem.Id.ToGuid(),
-                        catalog_item_slug = item.CatalogItem.Slug,
                         priority = item.Priority.ToString(),
                         added_date = item.AddedDate.ToDateTimeUnspecified()
                     });

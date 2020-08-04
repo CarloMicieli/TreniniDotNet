@@ -11,7 +11,7 @@ using Xunit;
 
 namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Collections
 {
-    public class CollectionsRepositoryTests : CollectionRepositoryUnitTests<ICollectionsRepository>
+    public class CollectionsRepositoryTests : DapperRepositoryUnitTests<ICollectionsRepository>
     {
         public CollectionsRepositoryTests()
             : base(unitOfWork => new CollectionsRepository(unitOfWork))
