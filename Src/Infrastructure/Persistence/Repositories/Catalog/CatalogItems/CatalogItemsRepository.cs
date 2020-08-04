@@ -28,27 +28,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
 
         public async Task<CatalogItemId> AddAsync(CatalogItem catalogItem)
         {
-            var _ = await _unitOfWork.ExecuteAsync(InsertNewCatalogItem, new
-            {
-                CatalogItemId = catalogItem.Id.ToGuid(),
-                BrandId = catalogItem.Brand.Id.ToGuid(),
-                ScaleId = catalogItem.Scale.Id.ToGuid(),
-                catalogItem.ItemNumber,
-                catalogItem.Slug,
-                catalogItem.PowerMethod,
-                DeliveryDate = catalogItem.DeliveryDate?.ToString(),
-                Available = catalogItem.IsAvailable,
-                catalogItem.Description,
-                catalogItem.ModelDescription,
-                catalogItem.PrototypeDescription,
-                Created = catalogItem.CreatedDate.ToDateTimeUtc(),
-                Modified = catalogItem.ModifiedDate?.ToDateTimeUtc(),
-                catalogItem.Version
-            });
+            var _ = await _unitOfWork.ExecuteAsync(InsertNewCatalogItem,
+                ToCatalogItemParams(catalogItem));
 
             foreach (var rs in catalogItem.RollingStocks)
             {
-                await InsertRollingStock(catalogItem.Id, rs);
+                await InsertRollingStockAsync(catalogItem.Id, rs);
             }
 
             return catalogItem.Id;
@@ -56,26 +41,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
 
         public async Task UpdateAsync(CatalogItem catalogItem)
         {
-            var _ = await _unitOfWork.ExecuteAsync(UpdateCatalogItemCommand, new
-            {
-                CatalogItemId = catalogItem.Id.ToGuid(),
-                BrandId = catalogItem.Brand.Id.ToGuid(),
-                ScaleId = catalogItem.Scale.Id.ToGuid(),
-                catalogItem.ItemNumber,
-                catalogItem.Slug,
-                catalogItem.PowerMethod,
-                DeliveryDate = catalogItem.DeliveryDate?.ToString(),
-                Available = catalogItem.IsAvailable,
-                catalogItem.Description,
-                catalogItem.ModelDescription,
-                catalogItem.PrototypeDescription,
-                Modified = catalogItem.ModifiedDate?.ToDateTimeUtc(),
-                catalogItem.Version
-            });
+            var _ = await _unitOfWork.ExecuteAsync(UpdateCatalogItemCommand,
+                ToCatalogItemParams(catalogItem));
 
             var rollingStocksIds = await _unitOfWork.QueryAsync<Guid>(
-                "SELECT rolling_stock_id FROM rolling_stocks WHERE catalog_item_id = @Id",
-                new { Id = catalogItem.Id });
+                "SELECT rolling_stock_id FROM rolling_stocks WHERE catalog_item_id = @catalog_item_id",
+                new { catalog_item_id = catalogItem.Id.ToGuid() });
 
             var ids = rollingStocksIds.ToList();
 
@@ -83,39 +54,39 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
             {
                 if (ids.Contains(rs.Id))
                 {
-                    await UpdateRollingStock(catalogItem.Id, rs);
+                    await UpdateRollingStockAsync(catalogItem.Id, rs);
                     ids.Remove(rs.Id);
                 }
                 else
                 {
-                    await InsertRollingStock(catalogItem.Id, rs);
+                    await InsertRollingStockAsync(catalogItem.Id, rs);
                 }
             }
 
             foreach (var id in ids)
             {
-                await RemoveRollingStock(catalogItem.Id, new RollingStockId(id));
+                await RemoveRollingStockAsync(catalogItem.Id, new RollingStockId(id));
             }
         }
 
-        private Task InsertRollingStock(CatalogItemId catalogItemId, RollingStock rs)
+        private Task InsertRollingStockAsync(CatalogItemId catalogItemId, RollingStock rs)
         {
-            var param = RollingStocks.ToValues(catalogItemId, rs);
+            var param = ToRollingStockParam(catalogItemId, rs);
             return _unitOfWork.ExecuteAsync(InsertNewRollingStockCommand, param);
         }
 
-        private Task UpdateRollingStock(CatalogItemId catalogItemId, RollingStock rs)
+        private Task UpdateRollingStockAsync(CatalogItemId catalogItemId, RollingStock rs)
         {
-            var param = RollingStocks.ToValues(catalogItemId, rs);
+            var param = ToRollingStockParam(catalogItemId, rs);
             return _unitOfWork.ExecuteAsync(UpdateRollingStockCommand, param);
         }
 
-        private Task RemoveRollingStock(CatalogItemId catalogItemId, RollingStockId rollingStockId)
+        private Task RemoveRollingStockAsync(CatalogItemId catalogItemId, RollingStockId rollingStockId)
         {
             return _unitOfWork.ExecuteAsync(DeleteRollingStockCommand, new
             {
-                catalogItemId,
-                rollingStockId
+                catalog_item_id = catalogItemId.ToGuid(),
+                rolling_stock_id = rollingStockId.ToGuid()
             });
         }
 
@@ -123,7 +94,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         {
             var result = await _unitOfWork.ExecuteScalarAsync<string>(
                 GetCatalogItemWithBrandAndItemNumberExistsQuery,
-                new { @brandId = brand.Id.ToGuid(), @itemNumber = itemNumber.Value });
+                new { brand_id = brand.Id.ToGuid(), item_number = itemNumber.Value });
 
             return string.IsNullOrEmpty(result) == false;
         }
@@ -132,7 +103,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         {
             var results = await _unitOfWork.QueryAsync<CatalogItemWithRelatedData>(
                 GetCatalogItemByBrandAndItemNumberQuery,
-                new { @brandId = brand.Id.ToGuid(), @itemNumber = itemNumber.Value });
+                new { brand_id = brand.Id.ToGuid(), item_number = itemNumber.Value });
 
             return FromCatalogItemDto(results);
         }
@@ -141,7 +112,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         {
             var results = await _unitOfWork.QueryAsync<CatalogItemWithRelatedData>(
                 GetCatalogItemBySlug,
-                new { @slug = slug.ToString() });
+                new { slug = slug.ToString() });
 
             return FromCatalogItemDto(results);
         }
@@ -150,7 +121,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         {
             var results = await _unitOfWork.QueryAsync<CatalogItemWithRelatedData>(
                 GetLatestCatalogItemsQuery,
-                new { @skip = page.Start, @limit = page.Limit + 1 });
+                new { skip = page.Start, limit = page.Limit + 1 });
 
             return new PaginatedResult<CatalogItem>(page, FromCatalogItemsDto(results));
         }
@@ -198,7 +169,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
             }
         }
 
-        private static CatalogItem ProjectToCatalogItem(IGrouping<CatalogItemGroupingKey, CatalogItemWithRelatedData> dto)
+        private static CatalogItem ProjectToCatalogItem(
+            IGrouping<CatalogItemGroupingKey, CatalogItemWithRelatedData> dto)
         {
             IReadOnlyList<RollingStock> rollingStocks = dto
                 .Select(it => ProjectToRollingStock(it)!)
@@ -215,7 +187,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 it.description,
                 it.prototype_description,
                 it.model_description,
-                DeliveryDate.Parse(it.delivery_date),
+                DeliveryDate.TryParse(it.delivery_date, out var dd) ? dd : null,
                 it.available,
                 rollingStocks,
                 it.created_at.ToUtc(),
@@ -223,40 +195,173 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 it.version ?? 1);
         }
 
-        private static RollingStock? ProjectToRollingStock(CatalogItemWithRelatedData? dto)
+        private static RollingStock? ProjectToRollingStock(CatalogItemWithRelatedData? values)
         {
-            if (dto is null)
+            if (values is null)
             {
                 return null;
             }
+
+            var category = EnumHelpers.RequiredValueFor<Category>(values.category);
+
+            var railway = new RailwayRef(
+                new RailwayId(values.railway_id), values.railway_slug ?? "", values.railway_name ?? "");
+
+            var id = new RollingStockId(values.rolling_stock_id);
+
+            var epoch = Epoch.Parse(values.epoch);
+
+            var lengthOverBuffer = LengthOverBuffer.CreateOrDefault(values.length_in, values.length_mm);
+            var minRadius = MinRadius.CreateOrDefault(values.min_radius);
+
+            var couplers = EnumHelpers.OptionalValueFor<Couplers>(values.couplers);
+
+            if (Categories.IsLocomotive(category))
+            {
+                var prototype = Prototype.TryCreate(values.class_name, values.road_number, values.series);
+
+                var dccInterface = EnumHelpers.RequiredValueFor<DccInterface>(values.dcc_interface!);
+                var control = EnumHelpers.RequiredValueFor<Control>(values.control!);
+
+                return new Locomotive(
+                    id,
+                    railway,
+                    category,
+                    epoch,
+                    lengthOverBuffer,
+                    minRadius,
+                    prototype,
+                    couplers,
+                    values.livery,
+                    values.depot,
+                    dccInterface,
+                    control);
+            }
+            else if (Categories.IsPassengerCar(category))
+            {
+                var passengerCarType = EnumHelpers.OptionalValueFor<PassengerCarType>(values.passenger_car_type);
+                var serviceLevel = values.service_level.ToServiceLevelOpt();
+
+                return new PassengerCar(
+                    id,
+                    railway,
+                    category,
+                    epoch,
+                    lengthOverBuffer,
+                    minRadius,
+                    couplers,
+                    values.type_name,
+                    values.livery,
+                    passengerCarType,
+                    serviceLevel);
+            }
+            else if (Categories.IsFreightCar(category))
+            {
+                return new FreightCar(
+                    id,
+                    railway,
+                    category,
+                    epoch,
+                    lengthOverBuffer,
+                    minRadius,
+                    couplers,
+                    values.type_name,
+                    values.livery);
+            }
             else
             {
-                var values = new RollingStockValues
-                {
-                    CatalogItemId = dto.catalog_item_id,
-                    RollingStockId = dto.rolling_stock_id,
-                    RailwayId = dto.railway_id,
-                    RailwayName = dto.railway_name,
-                    RailwaySlug = dto.railway_slug,
-                    Category = dto.category,
-                    Epoch = dto.epoch,
-                    LengthMm = dto.length_mm,
-                    LengthIn = dto.length_in,
-                    MinRadius = dto.min_radius,
-                    Couplers = dto.couplers,
-                    Livery = dto.livery,
-                    Depot = dto.depot,
-                    DccInterface = dto.dcc_interface,
-                    Control = dto.control,
-                    ClassName = dto.class_name,
-                    RoadNumber = dto.road_number,
-                    Series = dto.series,
-                    TypeName = dto.type_name,
-                    PassengerCarType = dto.passenger_car_type,
-                    ServiceLevel = dto.service_level
-                };
+                var dccInterface = EnumHelpers.RequiredValueFor<DccInterface>(values.dcc_interface!);
+                var control = EnumHelpers.RequiredValueFor<Control>(values.control!);
 
-                return RollingStocks.FromValues(values);
+                return new Train(
+                    id,
+                    railway,
+                    category,
+                    epoch,
+                    lengthOverBuffer,
+                    minRadius,
+                    couplers,
+                    values.type_name,
+                    values.livery,
+                    dccInterface,
+                    control);
+            }
+        }
+
+        private static CatalogItemParam ToCatalogItemParams(CatalogItem catalogItem) =>
+            new CatalogItemParam
+            {
+                catalog_item_id = catalogItem.Id.ToGuid(),
+                brand_id = catalogItem.Brand.Id.ToGuid(),
+                scale_id = catalogItem.Scale.Id.ToGuid(),
+                item_number = catalogItem.ItemNumber.Value,
+                slug = catalogItem.Slug,
+                power_method = catalogItem.PowerMethod.ToString(),
+                delivery_date = catalogItem.DeliveryDate?.ToString(),
+                available = catalogItem.IsAvailable,
+                description = catalogItem.Description,
+                model_description = catalogItem.ModelDescription,
+                prototype_description = catalogItem.PrototypeDescription,
+                last_modified = catalogItem.ModifiedDate?.ToDateTimeUtc(),
+                version = catalogItem.Version
+            };
+
+        private static RollingStockParam ToRollingStockParam(CatalogItemId catalogItemId, RollingStock rs)
+        {
+            var values = new RollingStockParam
+            {
+                catalog_item_id = catalogItemId,
+                rolling_stock_id = rs.Id.ToGuid(),
+                epoch = rs.Epoch.ToString(),
+                category = rs.Category.ToString(),
+                railway_id = rs.Railway.Id.ToGuid(),
+                length_mm = rs.Length?.Millimeters.Value,
+                length_in = rs.Length?.Inches.Value,
+                min_radius = rs.MinRadius?.Millimeters,
+                couplers = rs.Couplers?.ToString(),
+                livery = rs.Livery
+            };
+
+            return rs switch
+            {
+                Locomotive l => AppendLocomotiveValues(values, l),
+                PassengerCar p => AppendPassengerCarValues(values, p),
+                Train t => AppendTrainValues(values, t),
+                FreightCar f => AppendFreightCarValues(values, f),
+                _ => values
+            };
+
+            static RollingStockParam AppendLocomotiveValues(RollingStockParam param, Locomotive l)
+            {
+                param.depot = l.Depot;
+                param.dcc_interface = l.DccInterface.ToString();
+                param.control = l.Control.ToString();
+                param.class_name = l.Prototype?.ClassName;
+                param.road_number = l.Prototype?.RoadNumber;
+                param.series = l.Prototype?.Series;
+                return param;
+            }
+
+            static RollingStockParam AppendPassengerCarValues(RollingStockParam param, PassengerCar p)
+            {
+                param.passenger_car_type = p.PassengerCarType?.ToString();
+                param.service_level = p.ServiceLevel?.ToString();
+                param.type_name = p.TypeName;
+                return param;
+            }
+
+            static RollingStockParam AppendTrainValues(RollingStockParam param, Train t)
+            {
+                param.dcc_interface = t.DccInterface.ToString();
+                param.control = t.Control.ToString();
+                param.type_name = t.TypeName;
+                return param;
+            }
+
+            static RollingStockParam AppendFreightCarValues(RollingStockParam param, FreightCar f)
+            {
+                param.type_name = f.TypeName;
+                return param;
             }
         }
 
@@ -306,7 +411,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
             ON rs.catalog_item_id = ci.catalog_item_id
             JOIN railways AS r
             ON r.railway_id = rs.railway_id
-            WHERE b.brand_id = @brandId AND ci.item_number = @itemNumber;";
+            WHERE b.brand_id = @brand_id AND ci.item_number = @item_number;";
 
         private const string GetCatalogItemBySlug = @"SELECT 
                 ci.catalog_item_id, ci.item_number, ci.slug, ci.power_method, ci.delivery_date, ci.available,
@@ -329,47 +434,53 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
             ON r.railway_id = rs.railway_id
             WHERE ci.slug = @slug;";
 
-        private const string GetCatalogItemWithBrandAndItemNumberExistsQuery = @"SELECT slug FROM catalog_items WHERE brand_id = @brandId AND item_number = @itemNumber LIMIT 1;";
+        private const string GetCatalogItemWithBrandAndItemNumberExistsQuery =
+            @"SELECT slug FROM catalog_items WHERE brand_id = @brand_id AND item_number = @item_number LIMIT 1;";
 
         private const string InsertNewCatalogItem = @"INSERT INTO catalog_items(
 	            catalog_item_id, brand_id, scale_id, item_number, slug, power_method, delivery_date, available,
                 description, model_description, prototype_description, created, last_modified, version)
-            VALUES(@CatalogItemId, @BrandId, @ScaleId, @ItemNumber, @Slug, @PowerMethod, @DeliveryDate, @Available,
-                @Description, @ModelDescription, @PrototypeDescription, @Created, @Modified, @Version);";
+            VALUES(@catalog_item_id, @brand_id, @scale_id, @item_number, @slug, @power_method, @delivery_date, @available,
+                @description, @model_description, @prototype_description, @created, @last_modified, @version);";
 
         private const string UpdateRollingStockCommand = @"UPDATE rolling_stocks SET 
-	            epoch = @Epoch, category = @Category, railway_id = @RailwayId, length_mm = @LengthMm, length_in = @LengthIn, min_radius = @MinRadius,
-                class_name = @ClassName, road_number = @RoadNumber, type_name = @TypeName, couplers = @Couplers, livery = @Livery,
-                passenger_car_type = @PassengerCarType, service_level = @ServiceLevel, 
-                dcc_interface = @DccInterface, control = @Control
-            WHERE rolling_stock_id = @RollingStockId AND catalog_item_id = @CatalogItemId;";
+	            epoch = @epoch, category = @category, railway_id = @railway_id, 
+                length_mm = @length_mm, length_in = @length_in, min_radius = @min_radius,
+                class_name = @class_name, road_number = @road_number, type_name = @type_name, 
+                couplers = @couplers, livery = @livery, depot = @Depot,
+                passenger_car_type = @passenger_car_type, service_level = @service_level, 
+                dcc_interface = @dcc_interface, control = @control
+            WHERE rolling_stock_id = @rolling_stock_id AND catalog_item_id = @catalog_item_id;";
 
-        private const string DeleteRollingStockCommand = @"DELETE FROM rolling_stocks WHERE rolling_stock_id = @RollingStockId AND catalog_item_id = @CatalogItemId;";
+        private const string DeleteRollingStockCommand =
+            @"DELETE FROM rolling_stocks WHERE rolling_stock_id = @rolling_stock_id AND catalog_item_id = @catalog_item_id;";
 
         private const string InsertNewRollingStockCommand = @"INSERT INTO rolling_stocks(
-	            rolling_stock_id, epoch, category, railway_id, catalog_item_id, length_mm, length_in, min_radius,
-                class_name, road_number, series, type_name, couplers, livery, passenger_car_type, service_level, dcc_interface, control)
-	        VALUES(@RollingStockId, @Epoch, @Category, @RailwayId, @CatalogItemId, @LengthMm, @LengthIn, @MinRadius,
-                @ClassName, @RoadNumber, @Series, @TypeName, @Couplers, @Livery, @PassengerCarType, @ServiceLevel, @DccInterface, @Control);";
+	                rolling_stock_id, epoch, category, railway_id, catalog_item_id, length_mm, length_in, min_radius,
+                    class_name, road_number, series, type_name, couplers, livery, depot, 
+                    passenger_car_type, service_level, dcc_interface, control)
+	        VALUES(@rolling_stock_id, @epoch, @category, @railway_id, @catalog_item_id, @length_mm, @length_in, @min_radius,
+                    @class_name, @road_number, @series, @type_name, @couplers, @livery, @depot, 
+	                @passenger_car_type, @service_level, @dcc_interface, @control);";
 
         private const string UpdateCatalogItemCommand = @"UPDATE catalog_items SET 
-                brand_id = @BrandId, 
-                scale_id = @ScaleId, 
-                item_number = @ItemNumber, 
-                slug = @Slug, 
-                power_method = @PowerMethod,
-                delivery_date = @DeliveryDate,
-                available = @Available,
-                description = @Description, 
-                model_description = @ModelDescription,
-                prototype_description = @PrototypeDescription,
-                last_modified = @Modified, 
-                version = @Version
-            WHERE catalog_item_id = @CatalogItemId;";
+                brand_id = @brand_id, 
+                scale_id = @scale_id, 
+                item_number = @item_number, 
+                slug = @slug, 
+                power_method = @power_method,
+                delivery_date = @delivery_date,
+                available = @available,
+                description = @description, 
+                model_description = @model_description,
+                prototype_description = @prototype_description,
+                last_modified = @last_modified, 
+                version = @version
+            WHERE catalog_item_id = @catalog_item_id;";
 
-        private const string DeleteAllRollingStocks = @"DELETE FROM rolling_stocks WHERE catalog_item_id = @CatalogItemId;";
+        private const string DeleteAllRollingStocks =
+            @"DELETE FROM rolling_stocks WHERE catalog_item_id = @catalog_item_id;";
 
         #endregion
-
     }
 }

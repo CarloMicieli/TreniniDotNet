@@ -1,11 +1,11 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.Common.Uuid.Testing;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Infrastructure.Database.Testing;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.DeliveryDates;
 using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
@@ -14,59 +14,18 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
 {
     public class CatalogItemsRepositoryTests : DapperRepositoryUnitTests<ICatalogItemsRepository>
     {
-        private Brand Acme { get; }
-        private Railway Fs { get; }
-        private Scale H0 { get; }
-
         public CatalogItemsRepositoryTests()
             : base(unitOfWork => new CatalogItemsRepository(unitOfWork))
         {
-            Acme = CatalogSeedData.Brands.Acme;
-            Fs = CatalogSeedData.Railways.Fs;
-            H0 = CatalogSeedData.Scales.H0;
-
-            Database.Setup.TruncateTable(Tables.Brands);
-            Database.Setup.TruncateTable(Tables.Railways);
-            Database.Setup.TruncateTable(Tables.Scales);
-
-            Database.Arrange.InsertOne(Tables.Brands, new
-            {
-                brand_id = Acme.Id.ToGuid(),
-                name = Acme.Name,
-                slug = Acme.Slug.ToString(),
-                kind = Acme.Kind.ToString(),
-                created = DateTime.UtcNow
-            });
-
-            Database.Arrange.InsertOne(Tables.Railways, new
-            {
-                railway_id = Fs.Id.ToGuid(),
-                name = Fs.Name,
-                slug = Fs.Slug.ToString(),
-                country = Fs.Country.Code,
-                created = DateTime.UtcNow
-            });
-
-            Database.Arrange.InsertOne(Tables.Scales, new
-            {
-                scale_id = H0.Id.ToGuid(),
-                name = H0.Name,
-                slug = H0.Slug.ToString(),
-                ratio = H0.Ratio.ToDecimal(),
-                gauge_mm = H0.Gauge.InMillimeters.Value,
-                gauge_in = H0.Gauge.InInches.Value,
-                track_type = H0.Gauge.TrackGauge.ToString(),
-                created = DateTime.UtcNow
-            });
         }
 
         [Fact]
         public async Task CatalogItemsRepository_AddAsync_ShouldCreateNewCatalogItems()
         {
-            Database.Setup.TruncateTable(Tables.RollingStocks);
-            Database.Setup.TruncateTable(Tables.CatalogItems);
+            Database.ArrangeWithoutCatalogItems();
 
             var catalogItem = CatalogSeedData.CatalogItems.Acme60392;
+
             var catalogItemId = await Repository.AddAsync(catalogItem);
             await UnitOfWork.SaveAsync();
 
@@ -92,6 +51,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         [Fact]
         public async Task CatalogItemsRepository_ExistsAsync_ShouldCheckCatalogItemExists()
         {
+            var Acme = CatalogSeedData.Brands.Acme;
             var item = CatalogSeedData.CatalogItems.Acme60392;
             Database.ArrangeWithOneCatalogItem(item);
 
@@ -103,6 +63,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         [Fact]
         public async Task CatalogItemsRepository_ExistsAsync_ShouldReturnFalseWhenCatalogItemDoesNotExist()
         {
+            var Acme = CatalogSeedData.Brands.Acme;
             Database.ArrangeWithOneCatalogItem(CatalogSeedData.CatalogItems.Acme60392);
 
             var exists = await Repository.ExistsAsync(Acme, new ItemNumber("654321"));
@@ -133,37 +94,17 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
             catalogItem.Should().BeNull();
         }
 
-        // [Fact]
-        // public async Task CatalogItemRepository_GetByBrandAndItemNumber_ShouldReturnsCatalogItem()
-        // {
-        //     var item = CatalogSeedData.CatalogItems.Acme_60392();
-        //     Database.ArrangeWithOneCatalogItem(item);
-        //
-        //     var catalogItem = await Repository.GetByBrandAndItemNumberAsync(_brand, item.ItemNumber);
-        //
-        //     catalogItem.Should().NotBeNull();
-        //     catalogItem.Brand.Slug.Should().Be(_brand.Slug);
-        //     catalogItem.ItemNumber.Should().Be(item.ItemNumber);
-        // }
-
-        // [Fact]
-        // public async Task CatalogItemRepository_GetByBrandAndItemNumber_ShouldReturnsNullWhenCatalogItemIsNotFound()
-        // {
-        //     Database.ArrangeWithOneCatalogItem(CatalogSeedData.CatalogItems.Acme60392);
-        //
-        //     var catalogItem = await Repository.GetByBrandAndItemNumberAsync(_brand, new ItemNumber("654321"));
-        //
-        //     catalogItem.Should().BeNull();
-        // }
-
         [Fact]
         public async Task CatalogItemRepository_UpdateAsync_ShouldUpdateCatalogItem()
         {
-            var item = CatalogSeedData.CatalogItems.Acme60392;
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
             Database.ArrangeWithOneCatalogItem(item);
 
             var modified = item.With(
-                description: "Modified description");
+                description: "Modified description",
+                prototypeDescription: "Modified prototype description",
+                modelDescription: "Modified model description",
+                deliveryDate: DeliveryDate.FirstQuarterOf(2020));
 
             await Repository.UpdateAsync(modified);
             await UnitOfWork.SaveAsync();
@@ -175,111 +116,130 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 })
                 .AndValues(new
                 {
-                    description = "Modified description"
-                });
+                    description = modified.Description,
+                    model_description = modified.ModelDescription,
+                    prototype_description = modified.PrototypeDescription,
+                    delivery_date = "2020/Q1"
+                })
+                .ShouldExists();
         }
 
-        // [Fact]
-        // public async Task CatalogItemRepository_AddRollingStockAsync_ShouldAddNewRollingStocks()
-        // {
-        //     var item = CatalogSeedData.CatalogItems.Acme_60392();
-        //     Database.ArrangeWithOneCatalogItem(item);
-        //
-        //     var rollingStock = CatalogSeedData.NewRollingStockWith(
-        //         RollingStockId.NewId(),
-        //         _railway,
-        //         Category.DieselLocomotive,
-        //         Epoch.III);
-        //
-        //     await Repository.AddRollingStockAsync(item, rollingStock);
-        //
-        //     Database.Assert.RowInTable(Tables.RollingStocks)
-        //         .WithPrimaryKey(new
-        //         {
-        //             catalog_item_id = item.Id.ToGuid(),
-        //             rolling_stock_id = rollingStock.Id.ToGuid()
-        //         })
-        //         .AndValues(new
-        //         {
-        //             epoch = "III",
-        //             category = rollingStock.Category.ToString()
-        //         });
-        // }
-
-        // [Fact]
-        // public async Task CatalogItemRepository_UpdateRollingStockAsync_ShouldAddNewRollingStocks()
-        // {
-        //     var item = CatalogSeedData.CatalogItems.Acme_60392();
-        //     Database.ArrangeWithOneCatalogItem(item);
-        //
-        //     var rollingStock = item.RollingStocks.First().With(control: Control.DccSound);
-        //
-        //     await Repository.UpdateRollingStockAsync(item, item.RollingStocks.First());
-        //
-        //     Database.Assert.RowInTable(Tables.RollingStocks)
-        //         .WithPrimaryKey(new
-        //         {
-        //             catalog_item_id = item.Id.ToGuid(),
-        //             rolling_stock_id = rollingStock.Id.ToGuid()
-        //         })
-        //         .AndValues(new
-        //         {
-        //             control = "DccSound"
-        //         });
-        // }
-
-        // [Fact]
-        // public async Task CatalogItemRepository_DeleteRollingStockAsync_ShouldAddNewRollingStocks()
-        // {
-        //     var item = CatalogSeedData.CatalogItems.Acme_60392();
-        //     Database.ArrangeWithOneCatalogItem(item);
-        //
-        //     var rollingStock = item.RollingStocks.First().With(control: Control.DccSound);
-        //
-        //     await Repository.DeleteRollingStockAsync(item, item.RollingStocks.First().Id);
-        //
-        //     Database.Assert.RowInTable(Tables.RollingStocks)
-        //         .WithPrimaryKey(new
-        //         {
-        //             catalog_item_id = item.Id.ToGuid(),
-        //             rolling_stock_id = rollingStock.Id.ToGuid()
-        //         })
-        //         .ShouldNotExists();
-        // }
-    }
-
-    public static class DatabaseTestHelpersExtensions
-    {
-        public static void ArrangeWithOneCatalogItem(this DatabaseTestHelpers db, CatalogItem catalogItem)
+        [Fact]
+        public async Task CatalogItemRepository_UpdateAsync_ShouldAddNewRollingStocks()
         {
-            db.Setup.TruncateTable(Tables.RollingStocks);
-            db.Setup.TruncateTable(Tables.CatalogItems);
+            var id = Guid.NewGuid();
+            var rollingStocksFactory = new RollingStocksFactory(
+                FakeGuidSource.NewSource(id));
 
-            var catalogItemId = catalogItem.Id.ToGuid();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
+            Database.ArrangeWithOneCatalogItem(catalogItem);
 
-            db.Arrange.Insert(Tables.CatalogItems, new
-            {
-                catalog_item_id = catalogItemId,
-                brand_id = catalogItem.Brand.Id.ToGuid(),
-                scale_id = catalogItem.Scale.Id.ToGuid(),
-                item_number = catalogItem.ItemNumber.Value,
-                slug = catalogItem.Slug.Value,
-                power_method = catalogItem.PowerMethod.ToString(),
-                description = catalogItem.Description,
-                created = DateTime.UtcNow
-            });
+            var newLocomotive = rollingStocksFactory.CreateLocomotive(
+                new RailwayRef(CatalogSeedData.Railways.Fs),
+                Category.ElectricLocomotive,
+                Epoch.IV,
+                LengthOverBuffer.OfMillimeters(210M),
+                MinRadius.OfMillimeters(360M),
+                Prototype.OfLocomotive("E652", "057"),
+                Couplers.Nem352,
+                "blu grigio",
+                "Milano C.le",
+                DccInterface.Mtc21,
+                Control.DccReady);
+            catalogItem.AddRollingStock(newLocomotive);
 
-            foreach (var rs in catalogItem.RollingStocks)
-            {
-                db.Arrange.Insert(Tables.RollingStocks, new
+            await Repository.UpdateAsync(catalogItem);
+            await UnitOfWork.SaveAsync();
+
+            Database.Assert.RowInTable(Tables.RollingStocks)
+                .WithPrimaryKey(new
                 {
-                    rolling_stock_id = rs.Id.ToGuid(),
-                    catalog_item_id = catalogItemId,
-                    category = rs.Category.ToString(),
-                    epoch = rs.Epoch.ToString(),
-                    railway_id = rs.Railway.Id.ToGuid()
-                });
-            }
+                    catalog_item_id = catalogItem.Id.ToGuid(),
+                    rolling_stock_id = newLocomotive.Id.ToGuid()
+                })
+                .AndValues(new
+                {
+                    railway_id = newLocomotive.Railway.Id.ToGuid(),
+                    category = newLocomotive.Category.ToString(),
+                    epoch = newLocomotive.Epoch.ToString(),
+                    length_mm = 210M,
+                    min_radius = 360M,
+                    road_number = newLocomotive.Prototype?.RoadNumber,
+                    class_name = newLocomotive.Prototype?.ClassName,
+                    livery = newLocomotive.Livery,
+                    depot = newLocomotive.Depot,
+                    dcc_interface = newLocomotive.DccInterface.ToString(),
+                    control = newLocomotive.Control.ToString()
+                })
+                .ShouldExists();
+        }
+
+        [Fact]
+        public async Task CatalogItemRepository_UpdateAsync_ShouldUpdateRollingStocks()
+        {
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
+            Database.ArrangeWithOneCatalogItem(catalogItem);
+
+            var locomotive = catalogItem.RollingStocks.First() as Locomotive;
+            var modified = locomotive.With(
+                epoch: Epoch.IV,
+                length: LengthOverBuffer.OfMillimeters(210M),
+                minRadius: MinRadius.OfMillimeters(360M),
+                prototype: Prototype.OfLocomotive("E652", "057"),
+                couplers: Couplers.Nem352,
+                livery: "blu grigio",
+                depot: "Milano C.le",
+                dccInterface: DccInterface.Mtc21,
+                control: Control.DccReady);
+            catalogItem.UpdateRollingStock(modified);
+
+            await Repository.UpdateAsync(catalogItem);
+            await UnitOfWork.SaveAsync();
+
+            Database.Assert.RowInTable(Tables.RollingStocks)
+                .WithPrimaryKey(new
+                {
+                    catalog_item_id = catalogItem.Id.ToGuid(),
+                    rolling_stock_id = modified.Id.ToGuid()
+                })
+                .AndValues(new
+                {
+                    railway_id = modified.Railway.Id.ToGuid(),
+                    category = modified.Category.ToString(),
+                    epoch = modified.Epoch.ToString(),
+                    length_mm = 210M,
+                    min_radius = 360M,
+                    road_number = modified.Prototype?.RoadNumber,
+                    class_name = modified.Prototype?.ClassName,
+                    livery = modified.Livery,
+                    depot = modified.Depot,
+                    dcc_interface = modified.DccInterface.ToString(),
+                    control = modified.Control.ToString()
+                })
+                .ShouldExists();
+        }
+
+        [Fact]
+        public async Task CatalogItemRepository_UpdateAsync_ShouldRemoveRollingStocks()
+        {
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
+            Database.ArrangeWithOneCatalogItem(catalogItem);
+
+            var rollingStockId = catalogItem.RollingStocks.First().Id;
+            catalogItem.RemoveRollingStock(rollingStockId);
+
+            await Repository.UpdateAsync(catalogItem);
+            await UnitOfWork.SaveAsync();
+
+            Database.Assert.RowInTable(Tables.RollingStocks)
+                .WithPrimaryKey(new
+                {
+                    catalog_item_id = catalogItem.Id.ToGuid(),
+                    rolling_stock_id = rollingStockId.ToGuid()
+                })
+                .AndValues(new
+                { })
+                .ShouldNotExists();
         }
     }
 }
