@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,11 +45,19 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
 
             var ratio = values.Ratio.HasValue ? Ratio.Of(values.Ratio.Value) : (Ratio?)null;
 
-            var standards = values.Standards
-                .Select(EnumHelpers.OptionalValueFor<ScaleStandard>)
-                .Where(it => it.HasValue)
-                .Select(it => it!.Value)
-                .ToHashSet();
+            ISet<ScaleStandard> standards;
+            if (values.Standards is null)
+            {
+                standards = new HashSet<ScaleStandard>();
+            }
+            else
+            {
+                standards = values.Standards
+                    .Select(EnumHelpers.OptionalValueFor<ScaleStandard>)
+                    .Where(it => it.HasValue)
+                    .Select(it => it!.Value)
+                    .ToHashSet();
+            }
 
             var modifiedScale = scale.With(
                 values.Name,

@@ -31,7 +31,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 
             item.Should().NotBeNull();
             item.Id.Should().Be(_expectedItemId);
-            item.CatalogItem.Should().Be(CatalogSeedData.CatalogItems.NewAcme60392());
+            item.CatalogItem.Should().Be(new CatalogItemRef(CatalogSeedData.CatalogItems.NewAcme60392()));
             item.Priority.Should().Be(Priority.High);
             item.AddedDate.Should().Be(new LocalDate(2020, 11, 25));
             item.RemovedDate.Should().BeNull();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,11 +41,19 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
             }
 
             var scaleGauge = input.Gauge.ToScaleGauge();
-            var standards = input.Standards
-                .Select(EnumHelpers.OptionalValueFor<ScaleStandard>)
-                .Where(it => it.HasValue)
-                .Select(it => it!.Value)
-                .ToHashSet();
+            ISet<ScaleStandard> standards;
+            if (input.Standards is null)
+            {
+                standards = new HashSet<ScaleStandard>();
+            }
+            else
+            {
+               standards = input.Standards
+                    .Select(EnumHelpers.OptionalValueFor<ScaleStandard>)
+                    .Where(it => it.HasValue)
+                    .Select(it => it!.Value)
+                    .ToHashSet();
+            }
 
             var _ = await _scaleService.CreateScale(
                 name,

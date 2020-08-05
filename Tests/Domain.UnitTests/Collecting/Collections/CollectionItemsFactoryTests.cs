@@ -33,10 +33,10 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 
             item.Should().NotBeNull();
             item.Id.Should().Be(_expectedItemId);
-            item.CatalogItem.Should().Be(CatalogSeedData.CatalogItems.NewAcme60392());
+            item.CatalogItem.Should().Be(new CatalogItemRef(CatalogSeedData.CatalogItems.NewAcme60392()));
             item.Condition.Should().Be(Condition.New);
             item.Price.Should().Be(Price.Euro(200));
-            item.PurchasedAt.Should().Be(CollectingSeedData.Shops.NewModellbahnshopLippe());
+            item.PurchasedAt.Should().Be(new ShopRef(CollectingSeedData.Shops.NewModellbahnshopLippe()));
             item.AddedDate.Should().Be(new LocalDate(2020, 11, 25));
             item.RemovedDate.Should().BeNull();
             item.Notes.Should().Be("notes");

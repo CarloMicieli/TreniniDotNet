@@ -42,8 +42,8 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
             catalogItem.Id.Should().Be(ExpectedItemId);
             catalogItem.Slug.Should().Be(Slug.Of("acme-60392"));
             catalogItem.ItemNumber.Should().Be(new ItemNumber("60392"));
-            catalogItem.Scale.Should().Be(CatalogSeedData.Scales.ScaleH0());
-            catalogItem.Brand.Should().Be(CatalogSeedData.Brands.NewAcme());
+            catalogItem.Scale.Should().Be(new ScaleRef(CatalogSeedData.Scales.ScaleH0()));
+            catalogItem.Brand.Should().Be(new BrandRef(CatalogSeedData.Brands.NewAcme()));
             catalogItem.Description.Should().Be("FS Locomotiva elettrica E.656.291 (terza serie). Livrea d’origine con smorzatori.");
             catalogItem.ModelDescription.Should().Be("Model desc goes here");
             catalogItem.PrototypeDescription.Should().Be("Prototype desc goes here");
@@ -91,7 +91,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         public void CatalogItem_ToString_ShouldProduceStringRepresentations()
         {
             var catalogItem = CatalogSeedData.CatalogItems.NewAcme60458();
-            catalogItem.ToString().Should().Be("CatalogItem(ACME 60458)");
+            catalogItem.ToString().Should().Be("CatalogItem(ACME, 60458)");
         }
 
         [Fact]

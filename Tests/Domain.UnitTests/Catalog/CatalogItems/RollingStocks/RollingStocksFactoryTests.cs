@@ -35,7 +35,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 
             locomotive.Should().NotBeNull();
             locomotive.Id.Should().Be(_expectedItemId);
-            locomotive.Railway.Should().Be(CatalogSeedData.Railways.NewFs());
+            locomotive.Railway.Should().Be(new RailwayRef(CatalogSeedData.Railways.NewFs()));
             locomotive.Category.Should().Be(Category.ElectricLocomotive);
             locomotive.Epoch.Should().Be(Epoch.IV);
             locomotive.Length.Should().Be(LengthOverBuffer.OfMillimeters(210));
@@ -64,7 +64,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
 
             train.Should().NotBeNull();
             train.Id.Should().Be(_expectedItemId);
-            train.Railway.Should().Be(CatalogSeedData.Railways.NewFs());
+            train.Railway.Should().Be(new RailwayRef(CatalogSeedData.Railways.NewFs()));
             train.Category.Should().Be(Category.ElectricMultipleUnit);
             train.Epoch.Should().Be(Epoch.IV);
             train.Length.Should().Be(LengthOverBuffer.OfMillimeters(210));
@@ -94,7 +94,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
             passengerCar.Should().NotBeNull();
             passengerCar.Id.Should().Be(_expectedItemId);
             passengerCar.Category.Should().Be(Category.PassengerCar);
-            passengerCar.Railway.Should().Be(CatalogSeedData.Railways.NewFs());
+            passengerCar.Railway.Should().Be(new RailwayRef(CatalogSeedData.Railways.NewFs()));
             passengerCar.Epoch.Should().Be(Epoch.IV);
             passengerCar.Length.Should().Be(LengthOverBuffer.OfMillimeters(210));
             passengerCar.MinRadius.Should().Be(MinRadius.OfMillimeters(360));
@@ -121,7 +121,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
             freightCar.Should().NotBeNull();
             freightCar.Id.Should().Be(_expectedItemId);
             freightCar.Category.Should().Be(Category.FreightCar);
-            freightCar.Railway.Should().Be(CatalogSeedData.Railways.NewFs());
+            freightCar.Railway.Should().Be(new RailwayRef(CatalogSeedData.Railways.NewFs()));
             freightCar.Epoch.Should().Be(Epoch.IV);
             freightCar.Length.Should().Be(LengthOverBuffer.OfMillimeters(210));
             freightCar.MinRadius.Should().Be(MinRadius.OfMillimeters(360));

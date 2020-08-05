@@ -20,7 +20,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
             view.Category.Should().Be(CatalogItemCategory.Locomotives.ToString());
             view.Brand.Value.Should().Be("ACME");
             view.Brand.Slug.Should().Be("acme");
-            view.Scale.Value.Should().Be("H0");
+            view.Scale.Value.Should().Be("H0 (1:87)");
             view.Scale.Slug.Should().Be("h0");
         }
     }
