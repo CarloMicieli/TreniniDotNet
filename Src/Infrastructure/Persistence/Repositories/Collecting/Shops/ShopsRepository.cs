@@ -87,19 +87,26 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
             return ProjectToDomain(result);
         }
 
-        public Task AddShopToFavouritesAsync(Owner owner, ShopId shopId)
-        {
-            throw new NotImplementedException();
-        }
+        public Task AddShopToFavouritesAsync(Owner owner, ShopId shopId) =>
+            _unitOfWork.ExecuteAsync(InsertShopFavourite, new
+            {
+                owner = owner.Value,
+                shop_id = shopId.ToGuid()
+            });
 
-        public Task RemoveFromFavouritesAsync(Owner owner, ShopId shopId)
-        {
-            throw new NotImplementedException();
-        }
+        public Task RemoveFromFavouritesAsync(Owner owner, ShopId shopId) =>
+            _unitOfWork.ExecuteAsync(RemoveShopFavourite, new
+            {
+                owner = owner.Value,
+                shop_id = shopId.ToGuid()
+            });
 
-        public Task<List<Shop>> GetFavouriteShopsAsync(Owner owner)
+        public async Task<List<Shop>> GetFavouriteShopsAsync(Owner owner)
         {
-            throw new NotImplementedException();
+            var results = await _unitOfWork.QueryAsync<ShopDto>(
+                GetFavouriteShopsQuery,
+                new {owner = owner.Value});
+            return results.Select(ProjectToDomain).ToList();
         }
 
         private Shop ProjectToDomain(ShopDto dto)
@@ -177,7 +184,19 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
 
         private const string GetShopsWithPaginationQuery = @"SELECT * FROM shops ORDER BY name LIMIT @limit OFFSET @skip;";
 
-        private const string DeleteShopCommand = @"DELETE FROM shops WHERE shop_id = @shop_id";
+        private const string DeleteShopCommand = @"DELETE FROM shops WHERE shop_id = @shop_id;";
+
+        private const string GetFavouriteShopsQuery = @"SELECT s.* 
+                FROM shops AS s 
+                JOIN shop_favourites sf on s.shop_id = sf.shop_id
+                WHERE owner = @owner
+                ORDER BY s.name";
+        
+        private const string InsertShopFavourite =
+            @"INSERT INTO shop_favourites(shop_id, owner) VALUES(@shop_id, @owner);";
+
+        private const string RemoveShopFavourite =
+            @"DELETE FROM shop_favourites WHERE shop_id = @shop_id AND owner = @owner;";
 
         #endregion
     }

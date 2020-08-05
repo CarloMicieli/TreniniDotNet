@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Collecting;
@@ -46,7 +47,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
             Database.Setup.TruncateTable(Tables.Shops);
 
             var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
-            Database.Arrange.WithOneShop(shop);
+            Database.ArrangeWithOneShop(shop);
 
             var exists = await Repository.ExistsAsync(shop.Slug);
             var notExists = await Repository.ExistsAsync(Slug.Empty);
@@ -61,7 +62,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
             Database.Setup.TruncateTable(Tables.Shops);
 
             var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
-            Database.Arrange.WithOneShop(shop);
+            Database.ArrangeWithOneShop(shop);
 
             var exists = await Repository.GetBySlugAsync(shop.Slug);
             var notExists = await Repository.GetBySlugAsync(Slug.Empty);
@@ -92,6 +93,59 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
 
             shops.Should().NotBeNull();
             shops.Results.Should().HaveCount(5);
+        }
+
+        [Fact]
+        public async Task ShopsRepository_AddShopToFavouritesAsync_ShouldAddOneShopToUserFavourites()
+        {
+            var owner = new Owner("George");
+            var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
+            Database.ArrangeWithOneShop(shop);
+
+            await Repository.AddShopToFavouritesAsync(owner, shop.Id);
+            await UnitOfWork.SaveAsync();
+
+            Database.Assert.RowInTable(Tables.ShopFavourites)
+                .WithPrimaryKey(new
+                {
+                    owner = owner.Value,
+                    shop_id = shop.Id.ToGuid()
+                })
+                .ShouldExists();
+        }
+        
+        [Fact]
+        public async Task ShopsRepository_RemoveFromFavouritesAsync_ShouldRemoveTheShopFromUserFavourites()
+        {
+            var owner = new Owner("George");
+            var shop = CollectingSeedData.Shops.NewModellbahnshopLippe();
+            Database.ArrangeWithOneShop(shop);
+
+            await Repository.RemoveFromFavouritesAsync(owner, shop.Id);
+            await UnitOfWork.SaveAsync();
+
+            Database.Assert.RowInTable(Tables.ShopFavourites)
+                .WithPrimaryKey(new
+                {
+                    owner = owner.Value,
+                    shop_id = shop.Id.ToGuid()
+                })
+                .ShouldNotExists();
+        }
+        
+        [Fact]
+        public async Task ShopsRepository_GetFavouriteShopsAsync_ShouldAddOneShopToUserFavourites()
+        {
+            var owner = new Owner("George");
+            var modellbahnshopLippe = CollectingSeedData.Shops.NewModellbahnshopLippe();
+            var tecnomodel = CollectingSeedData.Shops.NewTecnomodelTreni();
+            Database.ArrangeWithShopFavourites(owner, modellbahnshopLippe, tecnomodel);
+
+            var results = await Repository.GetFavouriteShopsAsync(owner);
+
+            results.Should().HaveCount(2);
+            results.Should().Contain(modellbahnshopLippe);
+            results.Should().Contain(tecnomodel);
         }
     }
 }
