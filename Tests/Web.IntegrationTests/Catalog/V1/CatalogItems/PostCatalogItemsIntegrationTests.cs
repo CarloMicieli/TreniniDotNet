@@ -30,7 +30,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostCatalogItems_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var response = await client.PostJsonAsync("/api/v1/catalogItems", new { }, Check.Nothing);
 
@@ -40,7 +40,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostCatalogItems_ShouldReturn422UnprocessableEntity_WhenScaleNotExist()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var content = new
             {
@@ -65,7 +65,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostCatalogItems_ShouldReturn422UnprocessableEntity_WhenBrandNotExist()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var content = new
             {
@@ -90,7 +90,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostCatalogItems_ShouldReturn422UnprocessableEntity_WhenRailwayNotExist()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var content = new
             {
@@ -115,7 +115,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostCatalogItems_ShouldReturn201Created_WhenNewLocomotiveIsCreated()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var model = new
             {
@@ -158,7 +158,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostCatalogItems_ShouldReturn201Created_WhenNewPassengerCarIsCreated()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var model = new
             {

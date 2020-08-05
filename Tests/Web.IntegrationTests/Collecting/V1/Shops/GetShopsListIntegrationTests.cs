@@ -28,7 +28,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Shops
         [Fact]
         public async Task GetShopsList_ShouldReturnShopsList()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var response = await client.GetJsonAsync<ShopsListResponse>($"/api/v1/shops");
 

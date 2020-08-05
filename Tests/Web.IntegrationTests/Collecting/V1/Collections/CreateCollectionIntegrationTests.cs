@@ -28,7 +28,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         [Fact]
         public async Task CreateCollection_ShouldReturn409Conflict_WhenUserHasAlreadyCollection()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var response = await client.PostJsonAsync("/api/v1/collections", new { }, Check.Nothing);
 
@@ -38,7 +38,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         [Fact]
         public async Task CreateCollection_ShouldCreateNewCollections()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
             var request = new
             {

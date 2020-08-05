@@ -35,7 +35,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         [Fact]
         public async Task RemoveItemFromCollection_ShouldReturn404NotFound_WhenCollectionWasNotFound()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
             var id = Guid.NewGuid();
             var itemId = Guid.NewGuid();
@@ -50,7 +50,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         [Fact]
         public async Task RemoveItemFromCollection_ShouldReturn204NoContent_WhenCollectionItemWasRemoved()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var collection = CollectingSeedData.Collections.NewGeorgeCollection();
 

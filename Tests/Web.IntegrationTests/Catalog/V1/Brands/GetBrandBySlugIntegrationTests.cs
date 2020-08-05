@@ -13,7 +13,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
 {
     public sealed class GetBrandBySlugIntegrationTests : AbstractWebApplicationFixture
     {
-        private HttpClient _client;
+        private readonly HttpClient _client;
 
         public GetBrandBySlugIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)

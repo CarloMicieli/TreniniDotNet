@@ -27,7 +27,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task CreateWishlist_ShouldReturn409Conflict_WhenUserHasAnotherWishlistWithTheSameName()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var request = new
             {
@@ -44,7 +44,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task CreateWishlist_ShouldCreateNewWishlist()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var request = new
             {

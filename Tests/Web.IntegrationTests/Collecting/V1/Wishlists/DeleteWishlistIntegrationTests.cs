@@ -30,7 +30,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task DeleteWishlist_ShouldReturn404NotFound_WhenUserIsNotTheWishlistOwner()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
             var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
 
@@ -42,7 +42,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task DeleteWishlist_ShouldDeleteWishlist()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
 

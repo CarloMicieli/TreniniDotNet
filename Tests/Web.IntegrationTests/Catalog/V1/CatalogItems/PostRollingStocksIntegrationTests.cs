@@ -31,7 +31,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostRollingStocks_ShouldReturn404NotFound_WhenTheCatalogItemIsNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "not-found";
 
@@ -50,7 +50,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostRollingStocks_ShouldReturn422UnprocessableEntity_WhenTheRailwayIsNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "acme-60458";
 
@@ -69,7 +69,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostRollingStocks_ShouldReturn201Created_WhenTheRollingStockIsAddedToTheCatalogItem()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "acme-60458";
 

@@ -28,7 +28,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Shops
         [Fact]
         public async Task CreateShop_ShouldCreateNewShops()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
             var request = new
             {

@@ -28,7 +28,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PutCatalogItems_ShouldReturn404NotFound_WhenTheItemIsNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "not-found";
             var response = await client.PutJsonAsync($"/api/v1/catalogItems/{itemSlug}", new { }, Check.Nothing);
@@ -39,7 +39,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PutCatalogItems_ShouldReturn409Conflict_WhenTheBrandIsNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "acme-60458";
 
@@ -56,7 +56,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PutCatalogItems_ShouldReturn409Conflict_WhenTheScaleIsNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "acme-60458";
 
@@ -73,7 +73,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PutCatalogItems_ShouldReturn200OK_WhenTheScaleIsUpdated()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "acme-60458";
 

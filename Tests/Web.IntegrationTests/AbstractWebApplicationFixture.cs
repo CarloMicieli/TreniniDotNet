@@ -4,6 +4,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using TreniniDotNet.Infrastructure.Identity;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
@@ -13,26 +15,34 @@ namespace TreniniDotNet.IntegrationTests
     public abstract class AbstractWebApplicationFixture : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private readonly CustomWebApplicationFactory<Startup> _factory;
-
+        private readonly ITokensService _tokensService;
+        
         protected AbstractWebApplicationFixture(CustomWebApplicationFactory<Startup> factory)
         {
+            _tokensService = new JwtTokensService(new JwtSettings
+            {
+                Secret = "My super secret secure key",
+                Issuer = "http://www.trenini.net",
+                Audience = "http://www.trenini.net"
+            });
             _factory = factory;
         }
 
         protected HttpClient CreateHttpClient() => _factory.CreateClient();
 
-        protected async Task<HttpClient> CreateHttpClientAsync(string username, string password)
+        protected HttpClient CreateHttpClient(string username, string password)
         {
             var client = _factory.CreateClient();
 
-            var token = await client.GenerateJwtTokenAsync(username, password);
+            var token = _tokensService.CreateToken(username); // await client.GenerateJwtTokenAsync(username, password);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             return client;
         }
+        
+        protected HttpClient CreateAuthorizedHttpClient() =>
+            CreateHttpClient("George", "Pa$$word88");
 
-        protected Task<HttpClient> CreateAuthorizedHttpClientAsync() =>
-            CreateHttpClientAsync("George", "Pa$$word88");
 
         protected List<object> JsonArray(object element) => new List<object>() { element };
 

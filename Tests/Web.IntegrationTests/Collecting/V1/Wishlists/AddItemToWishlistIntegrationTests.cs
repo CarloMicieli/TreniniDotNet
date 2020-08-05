@@ -32,7 +32,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task AddItemToWishlist_ShouldReturn404NotFound_WhenUserIsNotTheWishlistOwner()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
             var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
 
@@ -53,7 +53,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task AddItemToWishlist_ShouldReturn409Conflict_WhenTheCatalogItemIsAlreadyInTheWishlist()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;
@@ -76,7 +76,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task AddItemToWishlist_ShouldAddTheItemToTheWishlist()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;

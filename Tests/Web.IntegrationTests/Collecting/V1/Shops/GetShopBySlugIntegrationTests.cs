@@ -29,7 +29,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Shops
         [Fact]
         public async Task GetShopBySlug_ShouldReturn404_WhenShopIsNotFound()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var slug = "not-found";
             var response = await client.GetAsync($"/api/v1/shops/{slug}");
@@ -40,7 +40,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Shops
         [Fact]
         public async Task GetShopBySlug_ShouldReturnShop()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var slug = "Tecnomodel";
             var response = await client.GetJsonAsync<ShopResponse>($"/api/v1/shops/{slug}");

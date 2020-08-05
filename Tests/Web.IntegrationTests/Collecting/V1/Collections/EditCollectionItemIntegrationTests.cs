@@ -35,7 +35,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         [Fact]
         public async Task EditCollectionItem_ShouldReturn404NotFound_WhenCollectionWasNotFound()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
             var id = Guid.NewGuid();
             var itemId = Guid.NewGuid();
@@ -58,7 +58,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         [Fact]
         public async Task EditCollectionItem_ShouldReturn404NotFound_WhenUserIsNotTheCollectionOwner()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
             var georgeCollection = CollectingSeedData.Collections.NewGeorgeCollection();
             var itemId = Guid.NewGuid();
@@ -81,7 +81,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         [Fact]
         public async Task EditCollectionItem_ShouldReturn200OK_WhenCollectionItemWasModified()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var georgeCollection = CollectingSeedData.Collections.NewGeorgeCollection();
 

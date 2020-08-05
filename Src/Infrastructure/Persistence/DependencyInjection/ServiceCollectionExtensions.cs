@@ -9,6 +9,7 @@ using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Collecting.Collections;
+using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.Infrastructure.Dapper;
@@ -18,6 +19,7 @@ using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogItems
 using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways;
 using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales;
 using TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Collections;
+using TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shared;
 using TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops;
 using TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishlists;
 using TreniniDotNet.Infrastructure.Persistence.Repositories.Images;
@@ -67,6 +69,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.DependencyInjection
             services.AddScoped<ICollectionsRepository, CollectionsRepository>();
             services.AddScoped<IShopsRepository, ShopsRepository>();
             services.AddScoped<IWishlistsRepository, WishlistsRepository>();
+            services.AddScoped<ICatalogItemRefsRepository, CatalogItemRefsRepository>();
             services.AddScoped<ImagesRepository>();
             return services;
         }

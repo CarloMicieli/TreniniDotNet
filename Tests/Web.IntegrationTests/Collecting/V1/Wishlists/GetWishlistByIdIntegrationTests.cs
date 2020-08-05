@@ -33,7 +33,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task GetWishlistById_ShouldReturn404_WhenTheWishlistWasNotFound()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
             var id = Guid.NewGuid();
             var response = await client.GetAsync($"/api/v1/wishlists/{id}");
@@ -44,7 +44,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task GetWishlistById_ShouldReturn404_WhenTheUserIsNotTheOwnerOfPrivateWishlist()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
             var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
             var response = await client.GetAsync($"/api/v1/wishlists/{id}");
@@ -55,7 +55,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task GetWishlistById_ShouldReturnWishlist()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
             var wishlist = await client.GetJsonAsync<WishlistResponse>($"/api/v1/wishlists/{id}");

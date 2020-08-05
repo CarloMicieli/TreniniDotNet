@@ -28,7 +28,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Railways
         [Fact]
         public async Task PutRailways_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var railway = "db";
             var request = new
@@ -44,7 +44,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Railways
         [Fact]
         public async Task PutRailways_ShouldReturn404NotFound_WhenRailwayToEditWasNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var railway = "not-found";
             var request = new
@@ -61,7 +61,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Railways
         [Fact]
         public async Task PutRailways_ShouldReturn200OK_WhenRailwayWasUpdated()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var railway = "db";
             var request = new

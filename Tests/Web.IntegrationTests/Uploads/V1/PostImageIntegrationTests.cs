@@ -20,7 +20,7 @@ namespace TreniniDotNet.IntegrationTests.Uploads.V1
         [Fact]
         public async Task PostImage_ShouldReturn200OK_WhenImageWasUploaded()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             byte[] imageData = default(byte[]);
             using var reader = new StreamReader(@"../../../Uploads/image.jpg");

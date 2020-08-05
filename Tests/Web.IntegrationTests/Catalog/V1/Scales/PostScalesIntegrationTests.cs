@@ -31,7 +31,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         [Fact]
         public async Task PostScales_ShouldReturn201Created_WhenTheNewScaleIsCreated()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var model = new
             {
@@ -60,7 +60,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         [Fact]
         public async Task PostScales_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var content = new
             {
@@ -80,7 +80,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         [Fact]
         public async Task PostScales_ShouldReturn409Conflict_WhenTheScaleAlreadyExist()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var content = new
             {

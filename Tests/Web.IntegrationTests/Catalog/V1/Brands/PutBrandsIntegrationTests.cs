@@ -32,7 +32,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         [Fact]
         public async Task PutBrands_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var request = new
             {
@@ -48,7 +48,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         [Fact]
         public async Task PutBrands_ShouldReturn404NotFound_WhenBrandToEditWasNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             const string brand = "not-found";
             var response = await client.PutJsonAsync($"/api/v1/brands/{brand}", new { }, Check.Nothing);
@@ -59,7 +59,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         [Fact]
         public async Task PutBrands_ShouldReturn200OK_WhenBrandWasUpdated()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             const string brand = "acme";
             var request = new
