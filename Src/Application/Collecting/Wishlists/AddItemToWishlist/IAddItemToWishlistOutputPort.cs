@@ -1,5 +1,4 @@
 ﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.SharedKernel.Slugs;
@@ -12,7 +11,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
 
         void CatalogItemNotFound(Slug catalogItem);
 
-        void CatalogItemAlreadyPresent(WishlistId wishlistId, CatalogItem catalogItem);
+        void CatalogItemAlreadyPresent(WishlistId wishlistId, CatalogItemRef catalogItem);
 
         void NotAuthorizedToEditThisWishlist(Owner owner);
     }

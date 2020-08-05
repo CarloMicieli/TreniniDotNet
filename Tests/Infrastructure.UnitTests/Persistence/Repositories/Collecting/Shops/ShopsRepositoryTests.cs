@@ -113,7 +113,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
                 })
                 .ShouldExists();
         }
-        
+
         [Fact]
         public async Task ShopsRepository_RemoveFromFavouritesAsync_ShouldRemoveTheShopFromUserFavourites()
         {
@@ -132,7 +132,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
                 })
                 .ShouldNotExists();
         }
-        
+
         [Fact]
         public async Task ShopsRepository_GetFavouriteShopsAsync_ShouldAddOneShopToUserFavourites()
         {

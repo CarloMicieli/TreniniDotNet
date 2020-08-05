@@ -88,7 +88,7 @@ namespace TreniniDotNet.Domain.Collecting.Shops
         {
             var page = new Page();
 
-            RepositoryMock.Setup(x => x.GetAllAsync(page))
+            RepositoryMock.Setup(x => x.GetShopsAsync(page))
                 .ReturnsAsync(new PaginatedResult<Shop>(page, new List<Shop>()));
 
             var results = await Service.GetAllShopsAsync(page);

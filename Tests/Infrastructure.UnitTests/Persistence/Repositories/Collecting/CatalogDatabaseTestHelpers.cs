@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
@@ -11,6 +12,65 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting
 {
     public static class CatalogDatabaseTestHelpers
     {
+        public static void ArrangeCatalogData(this DatabaseTestHelpers database, CatalogItem catalogItem)
+        {
+            var brand = catalogItem.Brand;
+            var scale = catalogItem.Scale;
+
+            database.Arrange.InsertOne(CatalogTables.Brands, new
+            {
+                brand_id = brand.Id.ToGuid(),
+                name = brand.ToString(),
+                slug = brand.Slug.ToString(),
+                kind = BrandKind.Industrial.ToString(),
+                created = DateTime.UtcNow
+            });
+
+            database.Arrange.InsertOne(CatalogTables.Scales, new
+            {
+                scale_id = scale.Id.ToGuid(),
+                name = scale.ToString(),
+                slug = scale.Slug.ToString(),
+                ratio = 87M,
+                gauge_mm = 16.5M,
+                gauge_in = 0.65M,
+                track_type = TrackGauge.Standard.ToString(),
+                created = DateTime.UtcNow
+            });
+
+            database.Arrange.Insert(CatalogTables.CatalogItems, new
+            {
+                catalog_item_id = catalogItem.Id.ToGuid(),
+                brand_id = brand.Id.ToGuid(),
+                scale_id = scale.Id.ToGuid(),
+                item_number = catalogItem.ItemNumber.Value,
+                slug = catalogItem.Slug.Value,
+                power_method = PowerMethod.DC.ToString(),
+                description = catalogItem.Description,
+                created = DateTime.UtcNow
+            });
+
+            foreach (var rs in catalogItem.RollingStocks)
+            {
+                database.Arrange.InsertOne(CatalogTables.Railways, new
+                {
+                    railway_id = rs.Id.ToGuid(),
+                    name = rs.Railway.ToString(),
+                    slug = rs.Railway.Slug,
+                    created = DateTime.UtcNow
+                });
+
+                database.Arrange.Insert(CatalogTables.RollingStocks, new
+                {
+                    rolling_stock_id = Guid.NewGuid(),
+                    catalog_item_id = catalogItem.Id.ToGuid(),
+                    category = Category.ElectricLocomotive.ToString(),
+                    epoch = Epoch.V.ToString(),
+                    railway_id = rs.Railway.Id.ToGuid()
+                });
+            }
+        }
+
         public static void ArrangeCatalogData(this DatabaseTestHelpers database)
         {
             var acme = CatalogSeedData.Brands.NewAcme();

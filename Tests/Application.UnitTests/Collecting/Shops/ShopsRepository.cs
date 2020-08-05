@@ -19,7 +19,7 @@ namespace TreniniDotNet.Application.Collecting.Shops
             Context = context;
         }
 
-        public Task<PaginatedResult<Shop>> GetAllAsync(Page page)
+        public Task<PaginatedResult<Shop>> GetShopsAsync(Page page)
         {
             var result = Context.Shops.Skip(page.Start).Take(page.Limit);
             return Task.FromResult(new PaginatedResult<Shop>(page, result));

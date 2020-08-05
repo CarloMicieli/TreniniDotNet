@@ -13,6 +13,7 @@ using TreniniDotNet.Infrastructure.Identity;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.DependencyInjection;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
+using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using TreniniDotNet.IntegrationTests.Helpers.Data;
 
 namespace TreniniDotNet.IntegrationTests
@@ -55,7 +56,11 @@ namespace TreniniDotNet.IntegrationTests
             {
                 var connectionString = $"Data Source={_contextId}.db";
 
-                services.ReplaceWithSqlite<ApplicationDbContext>(connectionString);
+                services.ReplaceDapper(options =>
+                {
+                    options.UseSqlite(connectionString);
+                    options.ScanTypeHandlersIn(typeof(GuidTypeHandler).Assembly);
+                });
 
                 services.ReplaceMigrations(options =>
                 {

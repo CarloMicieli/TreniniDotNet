@@ -21,7 +21,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         public void RollingStocksFactory_CreateLocomotive_ShouldCreateNewValues()
         {
             var locomotive = Factory.CreateLocomotive(
-                CatalogSeedData.Railways.NewFs(),
+                new RailwayRef(CatalogSeedData.Railways.NewFs()),
                 Category.ElectricLocomotive,
                 Epoch.IV,
                 LengthOverBuffer.OfMillimeters(210),
@@ -51,7 +51,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         public void RollingStocksFactory_CreateTrain_ShouldCreateNewValues()
         {
             var train = Factory.CreateTrain(
-                CatalogSeedData.Railways.NewFs(),
+                new RailwayRef(CatalogSeedData.Railways.NewFs()),
                 Category.ElectricMultipleUnit,
                 Epoch.IV,
                 LengthOverBuffer.OfMillimeters(210),
@@ -80,7 +80,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         public void RollingStocksFactory_CreatePassengerCar_ShouldCreateNewValues()
         {
             var passengerCar = Factory.CreatePassengerCar(
-                CatalogSeedData.Railways.NewFs(),
+                new RailwayRef(CatalogSeedData.Railways.NewFs()),
                 Epoch.IV,
                 LengthOverBuffer.OfMillimeters(210),
                 MinRadius.OfMillimeters(360),
@@ -109,7 +109,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks
         public void RollingStocksFactory_CreateFreightCar_ShouldCreateNewValues()
         {
             var freightCar = Factory.CreateFreightCar(
-                CatalogSeedData.Railways.NewFs(),
+                new RailwayRef(CatalogSeedData.Railways.NewFs()),
                 Epoch.IV,
                 LengthOverBuffer.OfMillimeters(210),
                 MinRadius.OfMillimeters(360),

@@ -27,7 +27,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                 visibility = wishlist.Visibility.ToString(),
                 budget = wishlist.Budget?.Amount,
                 currency = wishlist.Budget?.Currency,
-                created = DateTime.UtcNow                
+                created = DateTime.UtcNow
             });
 
             if (wishlist.Items.Count > 0)

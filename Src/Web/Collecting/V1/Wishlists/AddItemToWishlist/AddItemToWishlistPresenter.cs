@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.SharedKernel.Slugs;
@@ -10,13 +9,13 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.AddItemToWishlist
 {
     public sealed class AddItemToWishlistPresenter : DefaultHttpResultPresenter<AddItemToWishlistOutput>, IAddItemToWishlistOutputPort
     {
-        public void CatalogItemAlreadyPresent(WishlistId wishlistId, WishlistItemId itemId, CatalogItem catalogRef)
+        public void CatalogItemAlreadyPresent(WishlistId wishlistId, WishlistItemId itemId, CatalogItemRef catalogRef)
         {
             ViewModel = new ConflictObjectResult(new
             {
                 Id = wishlistId,
                 ItemId = itemId,
-                CatalogItem = catalogRef.Slug.Value
+                CatalogItem = catalogRef.Slug
             });
         }
 
@@ -28,14 +27,20 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.AddItemToWishlist
             });
         }
 
-        public void CatalogItemAlreadyPresent(WishlistId wishlistId, CatalogItem catalogItem)
+        public void CatalogItemAlreadyPresent(WishlistId wishlistId, CatalogItemRef catalogItem)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new ConflictObjectResult(new
+            {
+                Id = wishlistId,
+                CatalogItem = catalogItem.Slug
+            });
         }
 
         public void NotAuthorizedToEditThisWishlist(Owner owner)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundObjectResult(new
+            {
+            });
         }
 
         public override void Standard(AddItemToWishlistOutput output)

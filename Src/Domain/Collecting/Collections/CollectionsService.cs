@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Domain;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.SharedKernel.Slugs;
@@ -13,12 +12,12 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         private readonly ICollectionsRepository _collectionsRepository;
         private readonly IShopsRepository _shopsRepository;
         private readonly CollectionsFactory _collectionsFactory;
-        private readonly ICatalogItemsRepository _catalogItemsRepository;
+        private readonly ICatalogItemRefsRepository _catalogItemsRepository;
 
         public CollectionsService(
             CollectionsFactory collectionsFactory,
             ICollectionsRepository collectionsRepository,
-            ICatalogItemsRepository catalogItemsRepository,
+            ICatalogItemRefsRepository catalogItemsRepository,
             IShopsRepository shopsRepository)
         {
             _collectionsRepository = collectionsRepository ?? throw new ArgumentNullException(nameof(collectionsRepository));
@@ -34,8 +33,8 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         public Task<Shop?> GetShopBySlugAsync(Slug slug) =>
             _shopsRepository.GetBySlugAsync(slug);
 
-        public Task<CatalogItem?> GetCatalogItemAsync(Slug slug) =>
-            _catalogItemsRepository.GetBySlugAsync(slug);
+        public Task<CatalogItemRef?> GetCatalogItemAsync(Slug slug) =>
+            _catalogItemsRepository.GetCatalogItemAsync(slug);
 
         public Task UpdateCollectionAsync(Collection collection) =>
             _collectionsRepository.UpdateAsync(collection);

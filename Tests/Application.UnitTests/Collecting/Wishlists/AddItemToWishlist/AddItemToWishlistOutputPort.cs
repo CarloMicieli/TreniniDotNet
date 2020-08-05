@@ -10,16 +10,16 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
     {
         private MethodInvocation<Slug> CatalogItemNotFoundMethod { set; get; }
         private MethodInvocation<WishlistId> WishlistNotFoundMethod { set; get; }
-        private MethodInvocation<WishlistId, CatalogItem> CatalogItemAlreadyPresentMethod { set; get; }
+        private MethodInvocation<WishlistId, CatalogItemRef> CatalogItemAlreadyPresentMethod { set; get; }
 
         public AddItemToWishlistOutputPort()
         {
             WishlistNotFoundMethod = MethodInvocation<WishlistId>.NotInvoked(nameof(WishlistNotFound));
             CatalogItemNotFoundMethod = MethodInvocation<Slug>.NotInvoked(nameof(CatalogItemNotFound));
-            CatalogItemAlreadyPresentMethod = MethodInvocation<WishlistId, CatalogItem>.NotInvoked(nameof(CatalogItemAlreadyPresent));
+            CatalogItemAlreadyPresentMethod = MethodInvocation<WishlistId, CatalogItemRef>.NotInvoked(nameof(CatalogItemAlreadyPresent));
         }
 
-        public void CatalogItemAlreadyPresent(WishlistId wishlistId, CatalogItem catalogRef)
+        public void CatalogItemAlreadyPresent(WishlistId wishlistId, CatalogItemRef catalogRef)
         {
             CatalogItemAlreadyPresentMethod = CatalogItemAlreadyPresentMethod.Invoked(wishlistId, catalogRef);
         }
@@ -39,7 +39,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
             WishlistNotFoundMethod = WishlistNotFoundMethod.Invoked(wishlistId);
         }
 
-        public void AssertCatalogItemAlreadyPresent(WishlistId wishlistId, CatalogItem catalogRef) =>
+        public void AssertCatalogItemAlreadyPresent(WishlistId wishlistId, CatalogItemRef catalogRef) =>
             CatalogItemAlreadyPresentMethod.ShouldBeInvokedWithTheArguments(wishlistId, catalogRef);
 
         public void AssertCatalogItemNotFound(Slug expectedCatalogItem) =>

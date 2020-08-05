@@ -116,7 +116,7 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         public async Task BrandsService_FindAllBrands_ShouldReturnTheBrands()
         {
             var page = new Page();
-            RepositoryMock.Setup(x => x.GetAllAsync(It.IsAny<Page>()))
+            RepositoryMock.Setup(x => x.GetBrandsAsync(It.IsAny<Page>()))
                 .ReturnsAsync(new PaginatedResult<Brand>(page, new List<Brand>()));
 
             var results = await Service.FindAllBrands(page);

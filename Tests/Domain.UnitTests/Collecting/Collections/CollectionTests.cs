@@ -38,10 +38,10 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 
             var item = new CollectionItem(
                 CollectionItemId.NewId(),
-                CatalogSeedData.CatalogItems.NewBemo1252125(),
+                new CatalogItemRef(CatalogSeedData.CatalogItems.NewBemo1252125()),
                 Condition.New,
                 Price.Euro(210),
-                CollectingSeedData.Shops.NewModellbahnshopLippe(),
+                new ShopRef(CollectingSeedData.Shops.NewModellbahnshopLippe()),
                 new LocalDate(2020, 11, 25),
                 null,
                 null

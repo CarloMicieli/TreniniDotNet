@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
@@ -9,7 +9,7 @@ using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Domain.Collecting.Wishlists;
-using TreniniDotNet.Infrastructure.Persistence;
+using TreniniDotNet.TestHelpers.InMemory.Services;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.TestHelpers.SeedData.Collecting;
 
@@ -19,13 +19,13 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
     {
         public static async Task InitialiseDbForTests(IServiceProvider serviceProvider)
         {
-            var applicationDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+            var unitOfWork = serviceProvider.GetRequiredService<UnitOfWork>();
 
-            await SeedCatalog(serviceProvider, applicationDbContext);
-            await SeedCollections(serviceProvider, applicationDbContext);
+            await SeedCatalog(serviceProvider, unitOfWork);
+            await SeedCollections(serviceProvider, unitOfWork);
         }
 
-        private static async Task SeedCatalog(IServiceProvider scopedServices, DbContext applicationDbContext)
+        private static async Task SeedCatalog(IServiceProvider scopedServices, IUnitOfWork unitOfWork)
         {
             var brands = scopedServices.GetRequiredService<IBrandsRepository>();
             await brands.SeedDatabase();
@@ -35,20 +35,20 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
 
             var scales = scopedServices.GetRequiredService<IScalesRepository>();
             await scales.SeedDatabase();
-            await applicationDbContext.SaveChangesAsync();
+            await unitOfWork.SaveAsync();
 
             var catalogItems = scopedServices.GetRequiredService<ICatalogItemsRepository>();
             await catalogItems.SeedDatabase();
 
-            await applicationDbContext.SaveChangesAsync();
+            await unitOfWork.SaveAsync();
         }
 
-        private static async Task SeedCollections(IServiceProvider scopedServices, DbContext applicationDbContext)
+        private static async Task SeedCollections(IServiceProvider scopedServices, IUnitOfWork unitOfWork)
         {
             var shops = scopedServices.GetRequiredService<IShopsRepository>();
             await shops.SeedDatabase();
 
-            await applicationDbContext.SaveChangesAsync();
+            await unitOfWork.SaveAsync();
 
             var collections = scopedServices.GetRequiredService<ICollectionsRepository>();
             await collections.SeedDatabase();
@@ -56,7 +56,7 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
             var wishLists = scopedServices.GetRequiredService<IWishlistsRepository>();
             await wishLists.SeedDatabase();
 
-            await applicationDbContext.SaveChangesAsync();
+            await unitOfWork.SaveAsync();
         }
     }
 }

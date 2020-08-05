@@ -3,7 +3,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using NodaTime;
 using TreniniDotNet.Common.Domain;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.SharedKernel.Slugs;
 
@@ -74,7 +73,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
             var count = _items.Where(it => it.RemovedDate.HasValue == false);
         }
 
-        public bool Contains(CatalogItem catalogItem) =>
+        public bool Contains(CatalogItemRef catalogItem) =>
             _items.Any(it => it.CatalogItem.Id == catalogItem.Id);
 
         public WishlistItem? FindItemById(WishlistItemId itemId) =>

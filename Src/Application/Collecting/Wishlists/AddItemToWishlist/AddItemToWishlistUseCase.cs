@@ -67,7 +67,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
             var priority = EnumHelpers.OptionalValueFor<Priority>(input.Priority) ?? Priority.Normal;
 
             var item = _wishlistItemsFactory.CreateWishlistItem(
-                new CatalogItemRef(catalogItem),
+                catalogItem,
                 priority,
                 input.AddedDate.ToLocalDate(),
                 price,

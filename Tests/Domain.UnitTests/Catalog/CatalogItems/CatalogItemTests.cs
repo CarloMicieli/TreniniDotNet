@@ -24,9 +24,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         {
             var catalogItem = new CatalogItem(
                 ExpectedItemId,
-                CatalogSeedData.Brands.NewAcme(),
+                new BrandRef(CatalogSeedData.Brands.NewAcme()),
                 new ItemNumber("60392"),
-                CatalogSeedData.Scales.ScaleH0(),
+                new ScaleRef(CatalogSeedData.Scales.ScaleH0()),
                 PowerMethod.DC,
                 "FS Locomotiva elettrica E.656.291 (terza serie). Livrea d’origine con smorzatori.",
                 "Prototype desc goes here",

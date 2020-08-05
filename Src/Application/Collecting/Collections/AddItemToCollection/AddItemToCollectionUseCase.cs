@@ -69,7 +69,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
             var price = input.Price.ToPrice();
 
             var collectionItem = _collectionItemsFactory.CreateCollectionItem(
-                new CatalogItemRef(catalogItem),
+                catalogItem,
                 condition,
                 price,
                 ShopRef.AsOptional(shop),
@@ -83,7 +83,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
             var _ = await _unitOfWork.SaveAsync();
 
             OutputPort.Standard(
-                new AddItemToCollectionOutput(collection.Id, collectionItem.Id, catalogItem.Slug));
+                new AddItemToCollectionOutput(collection.Id, collectionItem.Id, catalogItemSlug));
         }
     }
 }

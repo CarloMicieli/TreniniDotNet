@@ -52,7 +52,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
             Database.ArrangeWithoutAnyWishlist();
             var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var item = wishlist.Items.First();
-            
+
             var id = await Repository.AddAsync(wishlist);
             await UnitOfWork.SaveAsync();
 
@@ -72,7 +72,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                 })
                 .ShouldExists();
         }
-        
+
         [Fact]
         public async Task WishlistsRepository_GetByOwnerAsync_ShouldReturnWishlists()
         {

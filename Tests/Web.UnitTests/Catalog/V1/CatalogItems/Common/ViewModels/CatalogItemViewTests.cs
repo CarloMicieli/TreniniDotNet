@@ -66,10 +66,10 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
             view.ItemNumber.Should().Be(catItem.ItemNumber.ToString());
 
             view.Brand.Should().NotBeNull();
-            view.Brand.Name.Should().Be(catItem.Brand.Name);
+            view.Brand.Name.Should().Be(catItem.Brand.ToString()); //TODO
 
             view.Scale.Should().NotBeNull();
-            view.Scale.Name.Should().Be(catItem.Scale.Name);
+            view.Scale.Name.Should().Be(catItem.Scale.ToString()); //TODO
 
             view.RollingStocks.Should().NotBeNull();
             view.RollingStocks.Should().HaveCount(1);

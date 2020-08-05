@@ -23,7 +23,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         public void WishlistItemsFactory_ShouldCreateNewWishlistItems()
         {
             var item = Factory.CreateWishlistItem(
-                CatalogSeedData.CatalogItems.NewAcme60392(),
+                new CatalogItemRef(CatalogSeedData.CatalogItems.NewAcme60392()),
                 Priority.High,
                 new LocalDate(2020, 11, 25),
                 Price.Euro(250),

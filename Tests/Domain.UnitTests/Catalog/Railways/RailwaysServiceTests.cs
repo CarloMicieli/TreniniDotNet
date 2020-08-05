@@ -100,7 +100,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         {
             var page = new Page();
 
-            RepositoryMock.Setup(x => x.GetAllAsync(page))
+            RepositoryMock.Setup(x => x.GetRailwaysAsync(page))
                 .ReturnsAsync(new PaginatedResult<Railway>(page, new List<Railway>()));
 
             var results = await Service.FindAllRailways(page);

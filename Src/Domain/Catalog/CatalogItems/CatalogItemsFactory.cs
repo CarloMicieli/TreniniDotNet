@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using NodaTime;
 using TreniniDotNet.Common.Domain;
 using TreniniDotNet.Common.Uuid;
-using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
-using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.SharedKernel.DeliveryDates;
 
 namespace TreniniDotNet.Domain.Catalog.CatalogItems
@@ -17,9 +15,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         }
 
         public CatalogItem CreateCatalogItem(
-            Brand brand,
+            BrandRef brand,
             ItemNumber itemNumber,
-            Scale scale,
+            ScaleRef scale,
             PowerMethod powerMethod,
             string description,
             string? prototypeDescription,
@@ -30,9 +28,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         {
             return new CatalogItem(
                 NewId(id => new CatalogItemId(id)),
-                new BrandRef(brand),
+                brand,
                 itemNumber,
-                new ScaleRef(scale),
+                scale,
                 powerMethod,
                 description,
                 prototypeDescription,

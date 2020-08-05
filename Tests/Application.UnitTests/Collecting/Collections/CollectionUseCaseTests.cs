@@ -1,5 +1,5 @@
 using System;
-using TreniniDotNet.Application.Catalog.CatalogItems;
+using TreniniDotNet.Application.Collecting.Shared;
 using TreniniDotNet.Application.Collecting.Shops;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common.Data;
@@ -27,7 +27,7 @@ namespace TreniniDotNet.Application.Collecting.Collections
             var collectionsService = new CollectionsService(
                 new CollectionsFactory(Clock, GuidSource),
                 new CollectionsRepository(context),
-                new CatalogItemsRepository(context),
+                new CatalogItemRefsRepository(context),
                 new ShopsRepository(context));
 
             return BuildUseCaseFixture(

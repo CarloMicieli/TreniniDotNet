@@ -1,5 +1,5 @@
 using System;
-using TreniniDotNet.Application.Catalog.CatalogItems;
+using TreniniDotNet.Application.Collecting.Shared;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.UseCases;
@@ -26,7 +26,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists
             var wishlistsService = new WishlistsService(
                 new WishlistsFactory(Clock, GuidSource),
                 new WishlistsRepository(context),
-                new CatalogItemsRepository(context));
+                new CatalogItemRefsRepository(context));
 
             return BuildUseCaseFixture(
                 useCaseBuilder(OutputPort, wishlistsService, wishlistItemsFactory, UnitOfWork),

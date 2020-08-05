@@ -96,7 +96,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         public async Task ScalesService_FindAllScales_ShouldReturnScales()
         {
             var page = new Page();
-            RepositoryMock.Setup(x => x.GetAllAsync(page))
+            RepositoryMock.Setup(x => x.GetScalesAsync(page))
                 .ReturnsAsync(new PaginatedResult<Scale>(page, new List<Scale>()));
 
             var results = await Service.FindAllScales(page);

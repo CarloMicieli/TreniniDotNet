@@ -19,7 +19,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 
         private CollectionsService Service { get; }
         private Mock<ICollectionsRepository> RepositoryMock { get; }
-        private Mock<ICatalogItemsRepository> CatalogItemsRepositoryMock { get; }
+        private Mock<ICatalogItemRefsRepository> CatalogItemsRepositoryMock { get; }
         private Mock<IShopsRepository> ShopsRepositoryMock { get; }
 
         public CollectionsServiceTests()
@@ -28,7 +28,7 @@ namespace TreniniDotNet.Domain.Collecting.Collections
 
             RepositoryMock = new Mock<ICollectionsRepository>();
             ShopsRepositoryMock = new Mock<IShopsRepository>();
-            CatalogItemsRepositoryMock = new Mock<ICatalogItemsRepository>();
+            CatalogItemsRepositoryMock = new Mock<ICatalogItemRefsRepository>();
 
             var factory = Factories<CollectionsFactory>
                 .New((clock, guidSource) => new CollectionsFactory(clock, guidSource))
@@ -83,8 +83,8 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         {
             var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
-            CatalogItemsRepositoryMock.Setup(x => x.GetBySlugAsync(item.Slug))
-                .ReturnsAsync(item);
+            CatalogItemsRepositoryMock.Setup(x => x.GetCatalogItemAsync(item.Slug))
+                .ReturnsAsync(new CatalogItemRef(item));
 
             var catalogItem1 = await Service.GetCatalogItemAsync(item.Slug);
             var catalogItem2 = await Service.GetCatalogItemAsync(Slug.Of("not empty"));

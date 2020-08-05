@@ -17,7 +17,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 
             var item = new WishlistItem(
                 itemId,
-                CatalogSeedData.CatalogItems.NewAcme60392(),
+                new CatalogItemRef(CatalogSeedData.CatalogItems.NewAcme60392()),
                 Priority.High,
                 new LocalDate(2020, 11, 25),
                 null,

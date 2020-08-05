@@ -79,9 +79,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             var deliveryDate = input.DeliveryDate.ToDeliveryDateOpt();
 
             var (newCatalogItemId, newSlug) = await _catalogItemService.CreateCatalogItem(
-                brand,
+                new BrandRef(brand),
                 itemNumber,
-                scale,
+                new ScaleRef(scale),
                 powerMethod,
                 input.Description,
                 input.PrototypeDescription,

@@ -44,10 +44,11 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         public void Wishlist_AddItem_ShouldAddNewItems()
         {
             var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            var catalogItem = new CatalogItemRef(CatalogSeedData.CatalogItems.NewAcme60392());
 
             var item = new WishlistItem(
                 WishlistItemId.NewId(),
-                CatalogSeedData.CatalogItems.NewAcme60392(),
+                catalogItem,
                 Priority.High,
                 new LocalDate(2020, 11, 25),
                 null,
@@ -76,7 +77,8 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
             var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             var contains1 = wishlist.Contains(wishlist.Items.First().CatalogItem);
-            var contains2 = wishlist.Contains(CatalogSeedData.CatalogItems.NewBemo1252125());
+            var contains2 = wishlist.Contains(
+                new CatalogItemRef(CatalogSeedData.CatalogItems.NewBemo1252125()));
 
             contains1.Should().BeTrue();
             contains2.Should().BeFalse();

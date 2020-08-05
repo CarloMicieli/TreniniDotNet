@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.Catalog.Scales
             Context = context;
         }
 
-        public Task<PaginatedResult<Scale>> GetAllAsync(Page page)
+        public Task<PaginatedResult<Scale>> GetScalesAsync(Page page)
         {
             var results = Context.Scales
                 .OrderBy(r => r.Name)

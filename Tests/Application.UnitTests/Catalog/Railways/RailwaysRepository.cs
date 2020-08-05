@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.Catalog.Railways
             Context = context;
         }
 
-        public Task<PaginatedResult<Railway>> GetAllAsync(Page page)
+        public Task<PaginatedResult<Railway>> GetRailwaysAsync(Page page)
         {
             var results = Context.Railways
                 .OrderBy(r => r.Name)

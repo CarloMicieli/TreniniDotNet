@@ -68,9 +68,9 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
         }
 
         public async Task<(CatalogItemId, Slug)> CreateCatalogItem(
-            Brand brand,
+            BrandRef brand,
             ItemNumber itemNumber,
-            Scale scale,
+            ScaleRef scale,
             PowerMethod powerMethod,
             string description,
             string? prototypeDescription,

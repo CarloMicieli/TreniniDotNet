@@ -26,7 +26,7 @@ namespace TreniniDotNet.Application.Catalog.Brands
             throw new System.NotImplementedException();
         }
 
-        public Task<PaginatedResult<Brand>> GetAllAsync(Page page)
+        public Task<PaginatedResult<Brand>> GetBrandsAsync(Page page)
         {
             var results = Context.Brands
                 .OrderBy(r => r.Name)

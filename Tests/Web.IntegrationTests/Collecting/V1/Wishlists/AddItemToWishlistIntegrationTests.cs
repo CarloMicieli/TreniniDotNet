@@ -57,7 +57,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
 
             var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;
-            var catalogItem = wishlist.Items.First().CatalogItem.Slug.Value;
+            var catalogItem = wishlist.Items.First().CatalogItem.Slug;
 
             var newItem = new
             {

@@ -12,7 +12,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
             foreach (var shop in shops)
             {
                 database.ArrangeWithOneShop(shop);
-                
+
                 database.Arrange.InsertOne(Tables.ShopFavourites, new
                 {
                     owner = owner.Value,
@@ -20,7 +20,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
                 });
             }
         }
-        
+
         public static void ArrangeWithOneShop(this DatabaseTestHelpers database, Shop shop)
         {
             database.Arrange.InsertOne(Tables.Shops, new

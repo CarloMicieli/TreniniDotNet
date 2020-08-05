@@ -24,10 +24,10 @@ namespace TreniniDotNet.Domain.Collecting.Collections
         public void CollectionItemsFactory_ShouldCreateNewCollectionItems()
         {
             var item = Factory.CreateCollectionItem(
-                CatalogSeedData.CatalogItems.NewAcme60392(),
+                new CatalogItemRef(CatalogSeedData.CatalogItems.NewAcme60392()),
                 Condition.New,
                 Price.Euro(200),
-                CollectingSeedData.Shops.NewModellbahnshopLippe(),
+                new ShopRef(CollectingSeedData.Shops.NewModellbahnshopLippe()),
                 new LocalDate(2020, 11, 25),
                 "notes");
 

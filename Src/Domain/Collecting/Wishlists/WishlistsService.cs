@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.Domain;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.SharedKernel.Slugs;
 
@@ -11,13 +10,13 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
     public sealed class WishlistsService : IDomainService
     {
         private readonly IWishlistsRepository _wishlistsRepository;
-        private readonly ICatalogItemsRepository _catalogItemsRepository;
+        private readonly ICatalogItemRefsRepository _catalogItemsRepository;
         private readonly WishlistsFactory _wishlistsFactory;
 
         public WishlistsService(
             WishlistsFactory wishlistsFactory,
             IWishlistsRepository wishlistsRepository,
-            ICatalogItemsRepository catalogItemsRepository)
+            ICatalogItemRefsRepository catalogItemsRepository)
         {
             _wishlistsFactory = wishlistsFactory ?? throw new ArgumentNullException(nameof(wishlistsFactory));
             _wishlistsRepository = wishlistsRepository ?? throw new ArgumentNullException(nameof(wishlistsRepository));
@@ -60,7 +59,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         public Task<bool> ExistsAsync(Owner owner, string listName) =>
             _wishlistsRepository.ExistsAsync(owner, listName);
 
-        public Task<CatalogItem?> GetCatalogItemAsync(Slug slug) =>
-            _catalogItemsRepository.GetBySlugAsync(slug);
+        public Task<CatalogItemRef?> GetCatalogItemAsync(Slug slug) =>
+            _catalogItemsRepository.GetCatalogItemAsync(slug);
     }
 }

@@ -19,7 +19,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
 
         private WishlistsService Service { get; }
         private Mock<IWishlistsRepository> RepositoryMock { get; }
-        private Mock<ICatalogItemsRepository> CatalogItemsRepositoryMock { get; }
+        private Mock<ICatalogItemRefsRepository> CatalogItemsRepositoryMock { get; }
 
         public WishlistsServiceTests()
         {
@@ -27,7 +27,7 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
             ExpectedId = new WishlistId(newId);
 
             RepositoryMock = new Mock<IWishlistsRepository>();
-            CatalogItemsRepositoryMock = new Mock<ICatalogItemsRepository>();
+            CatalogItemsRepositoryMock = new Mock<ICatalogItemRefsRepository>();
 
             var factory = Factories<WishlistsFactory>
                 .New((clock, guidSource) => new WishlistsFactory(clock, guidSource))
@@ -141,8 +141,8 @@ namespace TreniniDotNet.Domain.Collecting.Wishlists
         {
             var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
 
-            CatalogItemsRepositoryMock.Setup(x => x.GetBySlugAsync(catalogItem.Slug))
-                .ReturnsAsync(catalogItem);
+            CatalogItemsRepositoryMock.Setup(x => x.GetCatalogItemAsync(catalogItem.Slug))
+                .ReturnsAsync(new CatalogItemRef(catalogItem));
 
             var item1 = await Service.GetCatalogItemAsync(catalogItem.Slug);
             var item2 = await Service.GetCatalogItemAsync(Slug.Of("not found"));

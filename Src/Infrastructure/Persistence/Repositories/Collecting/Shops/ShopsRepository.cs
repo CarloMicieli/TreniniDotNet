@@ -105,7 +105,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
         {
             var results = await _unitOfWork.QueryAsync<ShopDto>(
                 GetFavouriteShopsQuery,
-                new {owner = owner.Value});
+                new { owner = owner.Value });
             return results.Select(ProjectToDomain).ToList();
         }
 
@@ -191,7 +191,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Shops
                 JOIN shop_favourites sf on s.shop_id = sf.shop_id
                 WHERE owner = @owner
                 ORDER BY s.name";
-        
+
         private const string InsertShopFavourite =
             @"INSERT INTO shop_favourites(shop_id, owner) VALUES(@shop_id, @owner);";
 
