@@ -45,7 +45,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
         {
             var results = await _unitOfWork.QueryAsync<CollectionDto>(
                 GetCollectionByIdQuery,
-                new { id = id.ToGuid() });
+                new { collection_id = id.ToGuid() });
 
             return ProjectToDomain(results);
         }
@@ -248,7 +248,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
         private const string CollectionExistsByOwnerQuery = @"SELECT collection_id FROM collections WHERE owner = @owner LIMIT 1;";
 
         private const string GetCollectionItemIdsQuery =
-            @"SELECT collection_item_id FROM collection_items WHERE collection_id = @Id";
+            @"SELECT collection_item_id FROM collection_items WHERE collection_id = @collection_id";
 
         private const string GetCollectionIdByOwnerQuery = @"SELECT collection_id FROM collections WHERE owner = @Owner LIMIT 1;";
 
@@ -268,7 +268,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
 
         private const string GetCollectionByOwnerQuery = GetCollectionQuery + " WHERE owner = @Owner;";
 
-        private const string GetCollectionByIdQuery = GetCollectionQuery + " WHERE collection_id = @CollectionId;";
+        private const string GetCollectionByIdQuery = GetCollectionQuery + " WHERE c.collection_id = @collection_id;";
 
         private const string UpdateCollectionItem = @"UPDATE collection_items 
              SET 

@@ -9,7 +9,6 @@ using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Domain.Collecting.Wishlists;
-using TreniniDotNet.TestHelpers.InMemory.Services;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.TestHelpers.SeedData.Collecting;
 
@@ -19,10 +18,12 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
     {
         public static async Task InitialiseDbForTests(IServiceProvider serviceProvider)
         {
-            var unitOfWork = serviceProvider.GetRequiredService<UnitOfWork>();
+            var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
 
             await SeedCatalog(serviceProvider, unitOfWork);
             await SeedCollections(serviceProvider, unitOfWork);
+
+            await unitOfWork.SaveAsync();
         }
 
         private static async Task SeedCatalog(IServiceProvider scopedServices, IUnitOfWork unitOfWork)
@@ -35,12 +36,9 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
 
             var scales = scopedServices.GetRequiredService<IScalesRepository>();
             await scales.SeedDatabase();
-            await unitOfWork.SaveAsync();
 
             var catalogItems = scopedServices.GetRequiredService<ICatalogItemsRepository>();
             await catalogItems.SeedDatabase();
-
-            await unitOfWork.SaveAsync();
         }
 
         private static async Task SeedCollections(IServiceProvider scopedServices, IUnitOfWork unitOfWork)
@@ -48,15 +46,11 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
             var shops = scopedServices.GetRequiredService<IShopsRepository>();
             await shops.SeedDatabase();
 
-            await unitOfWork.SaveAsync();
-
             var collections = scopedServices.GetRequiredService<ICollectionsRepository>();
             await collections.SeedDatabase();
 
             var wishLists = scopedServices.GetRequiredService<IWishlistsRepository>();
             await wishLists.SeedDatabase();
-
-            await unitOfWork.SaveAsync();
         }
     }
 }

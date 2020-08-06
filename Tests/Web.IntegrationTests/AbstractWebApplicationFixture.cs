@@ -4,9 +4,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using TreniniDotNet.Infrastructure.Identity;
-using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
 

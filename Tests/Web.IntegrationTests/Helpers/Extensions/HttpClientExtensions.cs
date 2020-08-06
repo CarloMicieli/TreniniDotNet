@@ -1,5 +1,4 @@
 using System;
-using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -87,16 +86,6 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Extensions
             return response;
         }
 
-        public static void SetBearerToken(this HttpClient http, string username)
-        {
-            dynamic data = new ExpandoObject();
-            data.sub = username;
-            data.jti = Guid.NewGuid().ToString();
-            data.role = new [] {"sub_role","admin"};
-            
-            http.SetFakeBearerToken((object)data);
-        }
-        
         public static async Task<string> GenerateJwtTokenAsync(this HttpClient http, string username, string password)
         {
             var login = new

@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,12 +54,15 @@ namespace TreniniDotNet.IntegrationTests
             {
                 services
                     .ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
+               
+                var connectionString = new SqliteConnectionStringBuilder($"Data Source={_contextId}.db")
+                {
+                    ForeignKeys = true,
+                    Cache = SqliteCacheMode.Private,
+                    Mode = SqliteOpenMode.ReadWriteCreate
+                }.ToString();
                 
-                // services
-                //     .AddAuthentication(FakeJwtBearerDefaults.AuthenticationScheme)
-                //     .AddFakeJwtBearer();
-                
-                var connectionString = $"Data Source={_contextId}.db";
+              //  var connectionString = $"Data Source=:memory:;Version=3;New=True;";
 
                 services.ReplaceDapper(options =>
                 {
@@ -81,20 +85,17 @@ namespace TreniniDotNet.IntegrationTests
 
                     var userManager = scopedServices.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = scopedServices.GetRequiredService<RoleManager<IdentityRole>>();
-
-                    var tokensService = scopedServices.GetRequiredService<ITokensService>();
-
+                    
                     var migration = scopedServices.GetRequiredService<IDatabaseMigration>();
                     migration.Up();
 
                     try
                     {
+                        AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).Wait();
+                        
                         // Seed the database with test data.
                         DatabaseHelper.InitialiseDbForTests(scopedServices)
-                            .GetAwaiter()
-                            .GetResult();
-
-                        AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).Wait();
+                            .Wait();
                     }
                     catch (Exception ex)
                     {

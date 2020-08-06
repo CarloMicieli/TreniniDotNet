@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Catalog.Railways;
@@ -12,7 +10,6 @@ using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Domain.Collecting.Wishlists;
-using TreniniDotNet.Infrastructure.Dapper;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands;
 using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogItems;

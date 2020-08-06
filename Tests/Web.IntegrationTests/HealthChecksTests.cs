@@ -7,7 +7,7 @@ namespace TreniniDotNet.IntegrationTests
 {
     public class HealthChecksTests : AbstractWebApplicationFixture
     {
-        private HttpClient _client;
+        private readonly HttpClient _client;
 
         public HealthChecksTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
