@@ -9,21 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Domain.Catalog.Railways;
-using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Collecting.Collections;
-using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.Shops;
-using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.Infrastructure.Identity;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using TreniniDotNet.IntegrationTests.Helpers.Data;
-using TreniniDotNet.IntegrationTests.Helpers.Data.MockRepositories;
-using TreniniDotNet.TestHelpers.InMemory.Repository;
 
 namespace TreniniDotNet.IntegrationTests
 {
@@ -62,8 +52,7 @@ namespace TreniniDotNet.IntegrationTests
             
             builder.ConfigureServices(services =>
             {
-                services
-                    .ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
+                services.ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
                
                 var connectionString = new SqliteConnectionStringBuilder($"Data Source={_contextId}.db")
                 {
@@ -71,8 +60,6 @@ namespace TreniniDotNet.IntegrationTests
                     Cache = SqliteCacheMode.Shared,
                     Mode = SqliteOpenMode.ReadWriteCreate
                 }.ToString();
-                
-              //  var connectionString = $"Data Source=:memory:;Version=3;New=True;";
 
                 services.ReplaceDapper(options =>
                 {
@@ -112,16 +99,6 @@ namespace TreniniDotNet.IntegrationTests
                                             "database with test messages. Error: {Message}", ex.Message);
                     }
                 }
-
-                // services.AddTransient<InMemoryContext>();
-                // services.AddTransient<IBrandsRepository, BrandsRepository>();
-                // services.AddTransient<ICatalogItemsRepository, CatalogItemsRepository>();
-                // services.AddTransient<ICatalogItemRefsRepository, CatalogItemRefsRepository>();
-                // services.AddTransient<ICollectionsRepository, CollectionsRepository>();
-                // services.AddTransient<IRailwaysRepository, RailwaysRepository>();
-                // services.AddTransient<IScalesRepository, ScalesRepository>();
-                // services.AddTransient<IShopsRepository, ShopsRepository>();
-                // services.AddTransient<IWishlistsRepository, WishlistsRepository>();
             });
         }
     }

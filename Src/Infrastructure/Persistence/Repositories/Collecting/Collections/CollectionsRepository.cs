@@ -222,7 +222,9 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
         }
 
         private Task<IEnumerable<Guid>> GetCollectionItemIdsAsync(CollectionId id) =>
-            _unitOfWork.QueryAsync<Guid>(GetCollectionItemIdsQuery, new { Id = id.ToGuid() });
+            _unitOfWork.QueryAsync<Guid>(
+                GetCollectionItemIdsQuery,
+                new { collection_id = id.ToGuid() });
 
         private static Price ToPrice(decimal? amount, string? currency)
         {
