@@ -20,7 +20,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         }
 
         [Fact]
-        public async Task GetCatalogItemBySlug_ShouldReturn200OK_WhenTheBrandExists()
+        public async Task GetCatalogItemBySlug_ShouldReturn200OK_WhenCatalogItemsExist()
         {
             var content = await _client.GetJsonAsync<CatalogItemResponse>("/api/v1/catalogitems/acme-60392");
 

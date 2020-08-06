@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
+using TreniniDotNet.Web.Collecting.V1.Wishlists.Common.Requests;
 
 namespace TreniniDotNet.Web.Collecting.V1.Wishlists.CreateWishlist
 {
@@ -11,5 +12,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.CreateWishlist
         public string? ListName { set; get; }
 
         public string? Visibility { set; get; }
+        
+        public BudgetRequest? Budget { set; get; }
     }
 }
