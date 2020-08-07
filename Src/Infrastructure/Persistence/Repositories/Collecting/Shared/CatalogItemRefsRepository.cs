@@ -52,7 +52,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Share
             FROM catalog_items AS ci
             JOIN brands AS b on ci.brand_id = b.brand_id
             LEFT JOIN rolling_stocks AS rs ON rs.catalog_item_id = ci.catalog_item_id
-            WHERE ci.slug = @Slug;";
+            WHERE ci.slug = @slug;";
 
         #endregion
     }

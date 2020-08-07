@@ -4,16 +4,16 @@ using Microsoft.Extensions.Options;
 
 namespace TreniniDotNet.Infrastructure.Dapper
 {
-    public class SqliteDatabaseContext : IDatabaseContext
+    public class SqliteConnectionProvider : IConnectionProvider
     {
         private readonly DatabaseOptions _options;
 
-        public SqliteDatabaseContext(IOptions<DatabaseOptions> options)
+        public SqliteConnectionProvider(IOptions<DatabaseOptions> options)
         {
             _options = options.Value;
         }
 
-        public DbConnection NewConnection()
+        public DbConnection Create()
         {
             return new SqliteConnection(_options.ConnectionString);
         }

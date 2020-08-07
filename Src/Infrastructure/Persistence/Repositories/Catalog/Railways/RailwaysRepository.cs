@@ -24,7 +24,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
         {
             var results = await _unitOfWork.QueryAsync<RailwayDto>(
                 GetAllRailwaysWithPaginationQuery,
-                new { @skip = page.Start, @limit = page.Limit + 1 });
+                new { skip = page.Start, limit = page.Limit + 1 });
 
             return new PaginatedResult<Railway>(
                 page,
@@ -33,65 +33,28 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
 
         public async Task<RailwayId> AddAsync(Railway railway)
         {
-            var _ = await _unitOfWork.ExecuteAsync(InsertRailwayCommand, new
-            {
-                Id = railway.Id.ToGuid(),
-                railway.Name,
-                railway.CompanyName,
-                railway.Slug,
-                Country = railway.Country.Code,
-                railway.PeriodOfActivity?.OperatingSince,
-                railway.PeriodOfActivity?.OperatingUntil,
-                Active = railway.PeriodOfActivity?.RailwayStatus == RailwayStatus.Active,
-                GaugeMm = railway.TrackGauge?.Millimeters.Value,
-                GaugeIn = railway.TrackGauge?.Inches.Value,
-                railway.TrackGauge?.TrackGauge,
-                railway.Headquarters,
-                TotalLengthMi = railway.TotalLength?.Miles.Value,
-                TotalLengthKm = railway.TotalLength?.Kilometers.Value,
-                railway.WebsiteUrl,
-                Created = railway.CreatedDate.ToDateTimeUtc(),
-                Modified = railway.ModifiedDate?.ToDateTimeUtc(),
-                railway.Version
-            });
+            var _ = await _unitOfWork.ExecuteAsync(InsertRailwayCommand, 
+                ToRailwayDto(railway));
             return railway.Id;
         }
 
         public async Task UpdateAsync(Railway railway)
         {
-            var _ = await _unitOfWork.ExecuteAsync(UpdateRailwayCommand, new
-            {
-                Id = railway.Id.ToGuid(),
-                railway.Name,
-                railway.CompanyName,
-                railway.Slug,
-                railway.Country,
-                railway.PeriodOfActivity?.OperatingSince,
-                railway.PeriodOfActivity?.OperatingUntil,
-                Active = railway.PeriodOfActivity?.RailwayStatus == RailwayStatus.Active,
-                GaugeMm = railway.TrackGauge?.Millimeters.Value,
-                GaugeIn = railway.TrackGauge?.Inches.Value,
-                railway.TrackGauge?.TrackGauge,
-                railway.Headquarters,
-                TotalLengthMi = railway.TotalLength?.Miles.Value,
-                TotalLengthKm = railway.TotalLength?.Kilometers.Value,
-                railway.WebsiteUrl,
-                Modified = railway.ModifiedDate?.ToDateTimeUtc(),
-                railway.Version
-            });
+            var _ = await _unitOfWork.ExecuteAsync(UpdateRailwayCommand, 
+                ToRailwayDto(railway));
         }
 
         public Task DeleteAsync(RailwayId id)
         {
             return _unitOfWork.ExecuteScalarAsync<string>(
                 DeleteRailwayCommand,
-                new { Id = id });
+                new { railway_id = id.ToGuid() });
         }
         public async Task<bool> ExistsAsync(Slug slug)
         {
             var result = await _unitOfWork.ExecuteScalarAsync<string>(
                 GetRailwayExistsQuery,
-                new { @slug = slug.ToString() });
+                new { slug = slug.Value });
 
             return string.IsNullOrEmpty(result) == false;
         }
@@ -105,6 +68,31 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
             return ProjectToDomain(result);
         }
 
+        private RailwayDto ToRailwayDto(Railway railway)
+        {
+            return new RailwayDto
+            {
+                railway_id = railway.Id.ToGuid(),
+                name = railway.Name,
+                company_name = railway.CompanyName,
+                slug = railway.Slug,
+                country = railway.Country.Code,
+                operating_since = railway.PeriodOfActivity?.OperatingSince,
+                operating_until = railway.PeriodOfActivity?.OperatingUntil,
+                active = railway.PeriodOfActivity?.RailwayStatus == RailwayStatus.Active,
+                gauge_mm = railway.TrackGauge?.Millimeters.Value,
+                gauge_in = railway.TrackGauge?.Inches.Value,
+                track_gauge = railway.TrackGauge?.TrackGauge.ToString(),
+                headquarters = railway.Headquarters,
+                total_length_mi = railway.TotalLength?.Miles.Value,
+                total_length_km = railway.TotalLength?.Kilometers.Value,
+                website_url = railway.WebsiteUrl?.ToString(),
+                created = railway.CreatedDate.ToDateTimeUtc(),
+                last_modified = railway.ModifiedDate?.ToDateTimeUtc(),
+                version = railway.Version
+            };
+        }
+        
         private Railway? ProjectToDomain(RailwayDto? dto)
         {
             if (dto is null)
@@ -141,19 +129,18 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
 	            railway_id, name, company_name, slug, country, operating_since, operating_until, 
                 active, gauge_mm, gauge_in, track_gauge, headquarters, total_length_mi, total_length_km, 
                 website_url, created, last_modified, version)
-            VALUES(@Id, @Name, @CompanyName, @Slug, @Country, @OperatingSince, @OperatingUntil, 
-                @Active, @GaugeMm, @GaugeIn, @TrackGauge, @Headquarters, @TotalLengthMi, @TotalLengthKm, 
-                @WebsiteUrl, @Created, @Modified, @Version);";
+            VALUES(@railway_id, @name, @company_name, @slug, @country, @operating_since, @operating_until, 
+                @active, @gauge_mm, @gauge_in, @track_gauge, @headquarters, @total_length_mi, @total_length_km, 
+                @website_url, @created, @last_modified, @version);";
 
         private const string UpdateRailwayCommand = @"UPDATE railways SET 
-                name = @Name, company_name = @CompanyName, slug = @Slug, country = @Country, 
-                operating_since = @OperatingSince, operating_until = @OperatingUntil, active = @Active, 
-                gauge_mm = @GaugeMm, gauge_in = @GaugeIn, track_gauge = @TrackGauge, 
-                headquarters = @Headquarters, total_length_mi = @TotalLengthMi, total_length_km = @TotalLengthKm, 
-                website_url = @WebsiteUrl, 
-                last_modified = @Modified, 
-                version = @Version
-            WHERE railway_id = @Id;";
+                name = @name, company_name = @company_name, slug = @slug, country = @country, 
+                operating_since = @operating_since, operating_until = @operating_until, active = @active, 
+                gauge_mm = @gauge_mm, gauge_in = @gauge_in, track_gauge = @track_gauge, 
+                headquarters = @headquarters, total_length_mi = @total_length_mi, total_length_km = @total_length_km, 
+                website_url = @website_url, created = @created,last_modified = @last_modified, 
+                version = @version
+            WHERE railway_id = @railway_id;";
 
         private const string GetRailwayExistsQuery = @"SELECT slug FROM railways WHERE slug = @slug LIMIT 1;";
 
@@ -161,7 +148,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
 
         private const string GetAllRailwaysWithPaginationQuery = @"SELECT * FROM railways ORDER BY name LIMIT @limit OFFSET @skip;";
 
-        private const string DeleteRailwayCommand = @"DELETE FROM railways WHERE railway_id = @Id;";
+        private const string DeleteRailwayCommand = @"DELETE FROM railways WHERE railway_id = @railway_id;";
 
         #endregion
     }

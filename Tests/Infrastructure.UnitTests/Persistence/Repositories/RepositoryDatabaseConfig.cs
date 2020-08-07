@@ -25,7 +25,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories
                 ConnectionString = connectionString
             });
 
-            DatabaseContext = new SqliteDatabaseContext(options);
+            ConnectionProvider = new SqliteConnectionProvider(options);
 
             RegisterTypeHandlers();
 
@@ -33,7 +33,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories
             migrationsRunner.MigrateUp();
         }
 
-        public IDatabaseContext DatabaseContext { get; }
+        public IConnectionProvider ConnectionProvider { get; }
 
         private static void RegisterTypeHandlers()
         {

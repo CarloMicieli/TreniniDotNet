@@ -14,7 +14,7 @@ namespace TreniniDotNet.Infrastructure.Persistence
         public static IServiceCollection ReplaceDapper(this IServiceCollection services, Action<DapperOptions> action)
         {
             var descriptors = services
-                .Where(d => d.ServiceType == typeof(IDatabaseContext) || d.ServiceType == typeof(IUnitOfWork))
+                .Where(d => d.ServiceType == typeof(IConnectionProvider) || d.ServiceType == typeof(IUnitOfWork))
                 .ToList();
             foreach (var descriptor in descriptors)
             {

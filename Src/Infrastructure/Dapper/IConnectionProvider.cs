@@ -2,8 +2,8 @@
 
 namespace TreniniDotNet.Infrastructure.Dapper
 {
-    public interface IDatabaseContext
+    public interface IConnectionProvider
     {
-        DbConnection NewConnection();
+        DbConnection Create();
     }
 }

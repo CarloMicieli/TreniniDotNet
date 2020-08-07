@@ -10,14 +10,14 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 {
     public sealed class DatabaseAssert
     {
-        public IDatabaseContext DatabaseContext { get; }
+        public IConnectionProvider ConnectionProvider { get; }
 
-        public DatabaseAssert(IDatabaseContext databaseContext) =>
-            DatabaseContext = databaseContext;
+        public DatabaseAssert(IConnectionProvider connectionProvider) =>
+            ConnectionProvider = connectionProvider;
 
         public DatabaseAssertionBuilder RowInTable(string tableName)
         {
-            return new DatabaseAssertionBuilder(DatabaseContext, tableName);
+            return new DatabaseAssertionBuilder(ConnectionProvider, tableName);
         }
 
         public sealed class DatabaseAssertionBuilder
@@ -27,13 +27,13 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 
             private string TableName { get; }
 
-            public DatabaseAssertionBuilder(IDatabaseContext databaseContext, string tableName)
+            public DatabaseAssertionBuilder(IConnectionProvider connectionProvider, string tableName)
             {
-                DatabaseContext = databaseContext;
+                ConnectionProvider = connectionProvider;
                 TableName = tableName;
             }
 
-            public IDatabaseContext DatabaseContext { get; }
+            public IConnectionProvider ConnectionProvider { get; }
 
             public DatabaseAssertionBuilder WithPrimaryKey(object obj)
             {
@@ -65,7 +65,7 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 
                 try
                 {
-                    using var connection = DatabaseContext.NewConnection();
+                    using var connection = ConnectionProvider.Create();
                     dynamic result = connection.QuerySingle(selectText, _primaryKeys);
 
                     IDictionary<string, object> resultValues = result;
@@ -96,6 +96,23 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                             }
                         }
 
+                        var uuidFields = props
+                            .Where(it => it.PropertyType == typeof(Guid) || it.PropertyType == typeof(Guid?))
+                            .Select(it => it.Name)
+                            .ToList();
+
+                        if (uuidFields.Count > 0)
+                        {
+                            foreach (var field in uuidFields)
+                            {
+                                if (resultValues.TryGetValue(field, out var value) &&
+                                    value != null)
+                                {
+                                    resultValues[field] = Guid.Parse(value.ToString());
+                                }
+                            }
+                        }
+
                         // Made DateTime to be UTC 
 
                         var dateTimeFields = props
@@ -116,9 +133,25 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                                 {
                                     if (!(value is null) && expectedUtcDateTimes.Contains(field))
                                     {
-                                        int hours = (int)DateTime.UtcNow.Subtract(DateTime.Now).TotalHours;
                                         resultValues[field] = DateTime.SpecifyKind(
                                             Convert.ToDateTime(value), DateTimeKind.Utc);
+                                    }
+                                }
+                            }
+                            
+                            var expectedUnspecifiedDateTimes = expectedValues
+                                .Where(it => IsUtcDateTime(it.Value) == false)
+                                .Select(it => it.Key)
+                                .ToHashSet();
+
+                            foreach (var field in dateTimeFields)
+                            {
+                                if (resultValues.TryGetValue(field, out var value))
+                                {
+                                    if (!(value is null) && expectedUnspecifiedDateTimes.Contains(field))
+                                    {
+                                        resultValues[field] = DateTime.SpecifyKind(
+                                            Convert.ToDateTime(value), DateTimeKind.Unspecified);
                                     }
                                 }
                             }
@@ -130,7 +163,7 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                             {
                                 if (resultValues.TryGetValue(key, out var actual))
                                 {
-                                    actual.Should().BeEquivalentTo(expected);
+                                    actual.Should().Be(expected, "Value for {0} is different", key);
                                 }
                             }
                         }
@@ -148,7 +181,7 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
             public void ShouldNotExists()
             {
                 var selectText = BuildQueryText();
-                using var connection = DatabaseContext.NewConnection();
+                using var connection = ConnectionProvider.Create();
                 var results = connection.Query(selectText, _primaryKeys);
 
                 if (results.Count() > 0)

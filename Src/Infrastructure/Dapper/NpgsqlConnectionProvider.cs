@@ -4,16 +4,16 @@ using Npgsql;
 
 namespace TreniniDotNet.Infrastructure.Dapper
 {
-    public class NpgsqlDatabaseContext : IDatabaseContext
+    public class NpgsqlConnectionProvider : IConnectionProvider
     {
         private readonly DatabaseOptions _options;
 
-        public NpgsqlDatabaseContext(IOptions<DatabaseOptions> options)
+        public NpgsqlConnectionProvider(IOptions<DatabaseOptions> options)
         {
             _options = options.Value;
         }
 
-        public DbConnection NewConnection()
+        public DbConnection Create()
         {
             return new NpgsqlConnection(_options.ConnectionString);
         }

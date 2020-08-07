@@ -10,10 +10,10 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 {
     public sealed class DatabaseArrange
     {
-        public IDatabaseContext DatabaseContext { get; }
+        public IConnectionProvider ConnectionProvider { get; }
 
-        public DatabaseArrange(IDatabaseContext databaseContext) =>
-            DatabaseContext = databaseContext;
+        public DatabaseArrange(IConnectionProvider connectionProvider) =>
+            ConnectionProvider = connectionProvider;
 
         public void InsertOne(string tableName, object obj)
         {
@@ -66,7 +66,7 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 
         private int Execute(string commandText, object obj)
         {
-            using var connection = DatabaseContext.NewConnection();
+            using var connection = ConnectionProvider.Create();
             return connection.Execute(commandText, obj);
         }
 

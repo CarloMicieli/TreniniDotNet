@@ -128,7 +128,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                 var results = await _unitOfWork.QueryAsync<WishlistDto>(
                     GetWishlists, new
                     {
-                        Owner = owner.Value
+                        owner = owner.Value
                     });
 
                 return ProjectToDomain(results).ToList();
@@ -138,8 +138,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Wishl
                 var results = await _unitOfWork.QueryAsync<WishlistDto>(
                     GetWishlistsByVisibility, new
                     {
-                        Owner = owner.Value,
-                        Visibility = visibility.ToString()
+                        owner = owner.Value,
+                        visibility = visibility.ToString()
                     });
 
                 return ProjectToDomain(results).ToList();

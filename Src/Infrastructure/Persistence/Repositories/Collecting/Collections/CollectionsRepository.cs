@@ -268,7 +268,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Collecting.Colle
             LEFT JOIN brands AS b on ci.brand_id = b.brand_id
             LEFT JOIN shops AS s on items.purchased_at = s.shop_id";
 
-        private const string GetCollectionByOwnerQuery = GetCollectionQuery + " WHERE owner = @Owner;";
+        private const string GetCollectionByOwnerQuery = GetCollectionQuery + " WHERE owner = @owner;";
 
         private const string GetCollectionByIdQuery = GetCollectionQuery + " WHERE c.collection_id = @collection_id;";
 

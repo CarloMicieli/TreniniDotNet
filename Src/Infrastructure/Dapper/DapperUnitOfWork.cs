@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using TreniniDotNet.Common.Data;
@@ -12,46 +13,41 @@ namespace TreniniDotNet.Infrastructure.Dapper
         private IDbConnection? _connection;
         private IDbTransaction? _transaction;
 
-        private IDatabaseContext DatabaseContext { get; }
-
-        public DapperUnitOfWork(IDatabaseContext databaseContext)
+        private readonly IConnectionProvider _connectionProvider;
+        private readonly SemaphoreSlim _semaphore;
+        
+        public DapperUnitOfWork(IConnectionProvider connectionProvider)
         {
-            DatabaseContext = databaseContext ?? throw new ArgumentNullException(nameof(databaseContext));
-            _connection = OpenConnection();
+            _connectionProvider = connectionProvider ?? throw new ArgumentNullException(nameof(connectionProvider));
+            _semaphore = new SemaphoreSlim(1);
         }
+        
+        public Task<int> ExecuteAsync(string cmd, object param) =>
+            CreateOrGetConnection().ExecuteAsync(cmd, param, _transaction);
 
-        public Task<int> ExecuteAsync(string cmd, object param)
-        {
-            _transaction ??= OpenConnection().BeginTransaction();
-            return _connection.ExecuteAsync(cmd, param, _transaction);
-        }
+        public Task<TResult> ExecuteScalarAsync<TResult>(string sql, object param) =>
+            CreateOrGetConnection().ExecuteScalarAsync<TResult>(sql, param, _transaction);
 
-        public Task<TResult> ExecuteScalarAsync<TResult>(string sql, object param)
-        {
-            _transaction ??= OpenConnection().BeginTransaction();
-            return _connection.ExecuteScalarAsync<TResult>(sql, param, _transaction);
-        }
-
-        public Task<IEnumerable<TResult>> QueryAsync<TResult>(string sql, object param)
-        {
-            _transaction ??= OpenConnection().BeginTransaction();
-            return _connection.QueryAsync<TResult>(sql, param, _transaction);
-        }
+        public Task<IEnumerable<TResult>> QueryAsync<TResult>(string sql, object param) =>
+            CreateOrGetConnection().QueryAsync<TResult>(sql, param, _transaction);
 
         public Task<TResult?> QueryFirstOrDefaultAsync<TResult>(string sql, object param)
-            where TResult : class
-        {
-            _transaction ??= OpenConnection().BeginTransaction();
-            return _connection.QueryFirstOrDefaultAsync<TResult?>(sql, param, _transaction);
-        }
+            where TResult : class => 
+            CreateOrGetConnection().QueryFirstOrDefaultAsync<TResult?>(sql, param, _transaction);
 
-        private IDbConnection OpenConnection()
+        private IDbConnection CreateOrGetConnection()
         {
+            _semaphore.Wait();
+
             if (_connection is null)
             {
-                _connection = DatabaseContext.NewConnection();
+                _connection = _connectionProvider.Create();
                 _connection.Open();
+
+                _transaction = _connection.BeginTransaction();
             }
+
+            _semaphore.Release();
 
             return _connection;
         }
@@ -82,6 +78,7 @@ namespace TreniniDotNet.Infrastructure.Dapper
         public void Dispose()
         {
             _transaction?.Dispose();
+            _connection?.Close();
             _connection?.Dispose();
         }
     }

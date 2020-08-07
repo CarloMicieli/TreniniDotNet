@@ -7,10 +7,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Images
 {
     public sealed class ImagesRepository
     {
-        private readonly IDatabaseContext _dbContext;
+        private readonly IConnectionProvider _dbContext;
         private readonly IClock _clock;
 
-        public ImagesRepository(IDatabaseContext dbContext, IClock clock)
+        public ImagesRepository(IConnectionProvider dbContext, IClock clock)
         {
             _dbContext = dbContext;
             _clock = clock;
@@ -18,7 +18,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Images
 
         public async Task SaveImageAsync(Image image)
         {
-            await using var connection = _dbContext.NewConnection();
+            await using var connection = _dbContext.Create();
             await connection.OpenAsync();
 
             await connection.ExecuteAsync(InsertImageCommand, new
@@ -32,7 +32,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Images
 
         public async Task<Image?> GetImageByFilenameAsync(string filename)
         {
-            await using var connection = _dbContext.NewConnection();
+            await using var connection = _dbContext.Create();
             await connection.OpenAsync();
 
             return await connection.QueryFirstAsync<Image?>(SelectImageQuery, new

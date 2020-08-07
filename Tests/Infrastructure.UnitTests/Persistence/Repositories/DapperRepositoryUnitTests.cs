@@ -15,8 +15,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories
         {
             var config = new RepositoryDatabaseConfig();
 
-            Database = new DatabaseTestHelpers(config.DatabaseContext);
-            UnitOfWork = new DapperUnitOfWork(config.DatabaseContext);
+            Database = new DatabaseTestHelpers(config.ConnectionProvider);
+            UnitOfWork = new DapperUnitOfWork(config.ConnectionProvider);
 
             Repository = builder(UnitOfWork);
         }

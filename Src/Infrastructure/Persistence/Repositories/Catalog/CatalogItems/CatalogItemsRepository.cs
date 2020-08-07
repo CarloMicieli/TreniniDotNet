@@ -451,7 +451,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
 	            epoch = @epoch, category = @category, railway_id = @railway_id, 
                 length_mm = @length_mm, length_in = @length_in, min_radius = @min_radius,
                 class_name = @class_name, road_number = @road_number, type_name = @type_name, 
-                couplers = @couplers, livery = @livery, depot = @Depot,
+                couplers = @couplers, livery = @livery, depot = @depot,
                 passenger_car_type = @passenger_car_type, service_level = @service_level, 
                 dcc_interface = @dcc_interface, control = @control
             WHERE rolling_stock_id = @rolling_stock_id AND catalog_item_id = @catalog_item_id;";
