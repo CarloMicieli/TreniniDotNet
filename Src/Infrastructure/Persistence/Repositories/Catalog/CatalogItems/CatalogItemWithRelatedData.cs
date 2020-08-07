@@ -55,6 +55,19 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         public Guid scale_id { set; get; }
         public string item_number { set; get; } = null!;
         public string slug { set; get; } = null!;
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is CatalogItemGroupingKey that)
+            {
+                return catalog_item_id == that.catalog_item_id;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode() => 
+            catalog_item_id.GetHashCode();
     }
 #pragma warning restore CA1707 // Identifiers should not contain underscores
 #pragma warning restore CA1812 // Avoid uninstantiated internal classes

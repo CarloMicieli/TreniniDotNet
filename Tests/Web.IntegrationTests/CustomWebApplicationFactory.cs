@@ -57,7 +57,7 @@ namespace TreniniDotNet.IntegrationTests
                 var connectionString = new SqliteConnectionStringBuilder($"Data Source={_contextId}.db")
                 {
                     ForeignKeys = true,
-                    Cache = SqliteCacheMode.Shared,
+                    Cache = SqliteCacheMode.Private,
                     Mode = SqliteOpenMode.ReadWriteCreate
                 }.ToString();
 
