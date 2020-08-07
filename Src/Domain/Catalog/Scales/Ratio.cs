@@ -9,9 +9,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     /// </summary>
     public readonly struct Ratio : IEquatable<Ratio>
     {
-        // private const Digits DefaultDigits = Digits.One;
-
-        private readonly float _ratio;
+        private readonly decimal _ratio;
 
         private Ratio(decimal ratio)
         {
@@ -19,18 +17,10 @@ namespace TreniniDotNet.Domain.Catalog.Scales
             {
                 throw new ArgumentException("ratio value must be positive");
             }
-            _ratio = (float)ratio;
+            _ratio = ratio;
         }
 
-        public float ToFloat()
-        {
-            return _ratio;
-        }
-
-        public decimal ToDecimal()
-        {
-            return (decimal)_ratio;
-        }
+        public decimal ToDecimal() => _ratio;
 
         #region [ Equality ]
         public override bool Equals(object? obj)

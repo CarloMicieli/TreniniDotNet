@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Dapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -74,6 +75,7 @@ namespace TreniniDotNet.IntegrationTests
                     options.ScanMigrationsIn(typeof(InitialMigration).Assembly);
                 });
 
+                RegisterTypeHandlers();
                 services.ReplaceWithInMemoryUnitWork();
 
                 var sp = services.BuildServiceProvider();
@@ -104,6 +106,26 @@ namespace TreniniDotNet.IntegrationTests
                 }
             });
         }
+
+        private static void RegisterTypeHandlers()
+        {
+            var assembly = typeof(GuidTypeHandler).Assembly;
+            var baseType = typeof(SqlMapper.ITypeHandler);
+
+            var typeHandlers = assembly
+                .GetTypes()
+                .Where(t => baseType.IsAssignableFrom(t));
+
+            foreach (var typeHandler in typeHandlers)
+            {
+                var iTypeHandler = Activator.CreateInstance(typeHandler) as SqlMapper.ITypeHandler;
+                var type = typeHandler?.BaseType?.GetGenericArguments()[0];
+                if (type != null && iTypeHandler != null)
+                {
+                    SqlMapper.AddTypeHandler(type, iTypeHandler);
+                }
+            }
+        }
     }
 #pragma warning restore CA1063 // Implement IDisposable Correctly
 
@@ -118,12 +140,12 @@ namespace TreniniDotNet.IntegrationTests
             {
                 services.Remove(descriptor);
             }
-            
+
             services.AddScoped<IUnitOfWork, InMemoryUnitOfWork>();
 
             return services;
         }
-        
+
         public static IServiceCollection ReplaceWithInMemory<TContext>(this IServiceCollection services,
             string databaseName)
             where TContext : DbContext
