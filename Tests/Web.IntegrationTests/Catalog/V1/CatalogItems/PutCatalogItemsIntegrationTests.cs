@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
+using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -41,7 +42,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         {
             var client = CreateAuthorizedHttpClient();
 
-            var itemSlug = "acme-60458";
+            var itemSlug = CatalogSeedData.CatalogItems.Acme60458.Slug.Value;
 
             var request = new
             {
@@ -58,7 +59,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         {
             var client = CreateAuthorizedHttpClient();
 
-            var itemSlug = "acme-60458";
+            var itemSlug = CatalogSeedData.CatalogItems.Acme60458.Slug.Value;
 
             var request = new
             {

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Infrastructure.Identity;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
@@ -54,7 +55,7 @@ namespace TreniniDotNet.IntegrationTests
             {
                 services.ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
 
-                var connectionString = new SqliteConnectionStringBuilder($"Data Source={_contextId}.db")
+                var connectionString = new SqliteConnectionStringBuilder($"Data Source={_contextId}")
                 {
                     ForeignKeys = true,
                     Cache = SqliteCacheMode.Private,
@@ -72,6 +73,8 @@ namespace TreniniDotNet.IntegrationTests
                     options.UseSqlite(connectionString);
                     options.ScanMigrationsIn(typeof(InitialMigration).Assembly);
                 });
+
+                services.ReplaceWithInMemoryUnitWork();
 
                 var sp = services.BuildServiceProvider();
                 using (var scope = sp.CreateScope())
@@ -106,6 +109,21 @@ namespace TreniniDotNet.IntegrationTests
 
     public static class ServiceCollectionTestExtensions
     {
+        public static IServiceCollection ReplaceWithInMemoryUnitWork(this IServiceCollection services)
+        {
+            var descriptor = services.SingleOrDefault(
+                d => d.ServiceType == typeof(IUnitOfWork));
+
+            if (descriptor != null)
+            {
+                services.Remove(descriptor);
+            }
+            
+            services.AddScoped<IUnitOfWork, InMemoryUnitOfWork>();
+
+            return services;
+        }
+        
         public static IServiceCollection ReplaceWithInMemory<TContext>(this IServiceCollection services,
             string databaseName)
             where TContext : DbContext
