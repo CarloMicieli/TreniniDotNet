@@ -33,11 +33,11 @@ namespace TreniniDotNet.IntegrationTests
             File.Delete($"{_contextId}.db");
             base.Dispose();
         }
-        
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("Testing");
-            
+
             builder.ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.Sources.Clear();
@@ -49,11 +49,11 @@ namespace TreniniDotNet.IntegrationTests
 
                 config.AddEnvironmentVariables();
             });
-            
+
             builder.ConfigureServices(services =>
             {
                 services.ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
-               
+
                 var connectionString = new SqliteConnectionStringBuilder($"Data Source={_contextId}.db")
                 {
                     ForeignKeys = true,
@@ -82,7 +82,7 @@ namespace TreniniDotNet.IntegrationTests
 
                     var userManager = scopedServices.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = scopedServices.GetRequiredService<RoleManager<IdentityRole>>();
-                    
+
                     var migration = scopedServices.GetRequiredService<IDatabaseMigration>();
                     migration.Up();
 

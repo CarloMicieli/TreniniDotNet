@@ -66,7 +66,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
             return false;
         }
 
-        public override int GetHashCode() => 
+        public override int GetHashCode() =>
             catalog_item_id.GetHashCode();
     }
 #pragma warning restore CA1707 // Identifiers should not contain underscores

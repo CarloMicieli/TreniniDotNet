@@ -15,13 +15,13 @@ namespace TreniniDotNet.Infrastructure.Dapper
 
         private readonly IConnectionProvider _connectionProvider;
         private readonly SemaphoreSlim _semaphore;
-        
+
         public DapperUnitOfWork(IConnectionProvider connectionProvider)
         {
             _connectionProvider = connectionProvider ?? throw new ArgumentNullException(nameof(connectionProvider));
             _semaphore = new SemaphoreSlim(1);
         }
-        
+
         public Task<int> ExecuteAsync(string cmd, object param) =>
             CreateOrGetConnection().ExecuteAsync(cmd, param, _transaction);
 
@@ -32,7 +32,7 @@ namespace TreniniDotNet.Infrastructure.Dapper
             CreateOrGetConnection().QueryAsync<TResult>(sql, param, _transaction);
 
         public Task<TResult?> QueryFirstOrDefaultAsync<TResult>(string sql, object param)
-            where TResult : class => 
+            where TResult : class =>
             CreateOrGetConnection().QueryFirstOrDefaultAsync<TResult?>(sql, param, _transaction);
 
         private IDbConnection CreateOrGetConnection()

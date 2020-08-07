@@ -13,7 +13,7 @@ namespace TreniniDotNet.IntegrationTests.UserProfiles.V1.Accounts
     {
         private readonly HttpClient _client;
 
-        public AuthenticateUserIntegrationTests(CustomWebApplicationFactory<Startup> factory) 
+        public AuthenticateUserIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
             _client = factory.CreateClient();

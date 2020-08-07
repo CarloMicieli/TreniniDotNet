@@ -138,7 +138,7 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                                     }
                                 }
                             }
-                            
+
                             var expectedUnspecifiedDateTimes = expectedValues
                                 .Where(it => IsUtcDateTime(it.Value) == false)
                                 .Select(it => it.Key)

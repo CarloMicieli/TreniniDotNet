@@ -37,7 +37,7 @@ namespace TreniniDotNet.Infrastructure.Dapper.Extensions.DependencyInjection
                 Cache = SqliteCacheMode.Shared,
                 Mode = SqliteOpenMode.ReadWriteCreate
             }.ToString();
-           
+
             UseSqlite(connectionString);
         }
 

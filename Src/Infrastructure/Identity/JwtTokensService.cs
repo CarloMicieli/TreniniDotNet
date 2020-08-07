@@ -21,7 +21,7 @@ namespace TreniniDotNet.Infrastructure.Identity
         {
             _jwtSettings = jwtSettings;
         }
-        
+
         public string CreateToken(string subject)
         {
             var authClaims = new[]

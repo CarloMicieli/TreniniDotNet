@@ -17,11 +17,11 @@ namespace TreniniDotNet.Web.Collecting.V1.Common.ViewModels
         public string Slug => _catalogItem.Slug;
 
         public string BrandName => _catalogItem.BrandName;
-        
+
         public string ItemNumber => _catalogItem.ItemNumber.Value;
-        
+
         public string Category => _catalogItem.Category.ToString();
-        
+
         public string Description => _catalogItem.ToString();
     }
 }

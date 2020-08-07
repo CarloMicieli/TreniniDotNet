@@ -48,11 +48,11 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
             }
             else
             {
-               standards = input.Standards
-                    .Select(EnumHelpers.OptionalValueFor<ScaleStandard>)
-                    .Where(it => it.HasValue)
-                    .Select(it => it!.Value)
-                    .ToHashSet();
+                standards = input.Standards
+                     .Select(EnumHelpers.OptionalValueFor<ScaleStandard>)
+                     .Where(it => it.HasValue)
+                     .Select(it => it!.Value)
+                     .ToHashSet();
             }
 
             var _ = await _scaleService.CreateScale(

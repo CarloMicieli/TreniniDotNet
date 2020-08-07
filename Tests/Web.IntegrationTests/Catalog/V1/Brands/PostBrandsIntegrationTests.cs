@@ -13,7 +13,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
     public class PostBrandsIntegrationTests : AbstractWebApplicationFixture
     {
         private readonly HttpClient client;
-        
+
         public PostBrandsIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
@@ -33,7 +33,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         public async Task PostBrands_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
             var client = CreateAuthorizedHttpClient();
-            
+
             var request = new
             {
                 CompanyName = "Associazione Costruzioni Modellistiche Esatte",

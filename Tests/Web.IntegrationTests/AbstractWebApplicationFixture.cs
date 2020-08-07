@@ -14,7 +14,7 @@ namespace TreniniDotNet.IntegrationTests
     {
         private readonly CustomWebApplicationFactory<Startup> _factory;
         private readonly ITokensService _tokensService;
-        
+
         protected AbstractWebApplicationFixture(CustomWebApplicationFactory<Startup> factory)
         {
             _tokensService = new JwtTokensService(new JwtSettings
@@ -37,7 +37,7 @@ namespace TreniniDotNet.IntegrationTests
 
             return client;
         }
-        
+
         protected HttpClient CreateAuthorizedHttpClient() =>
             CreateHttpClient("George", "Pa$$word88");
 

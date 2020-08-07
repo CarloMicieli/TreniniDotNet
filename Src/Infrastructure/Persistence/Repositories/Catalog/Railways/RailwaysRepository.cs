@@ -33,14 +33,14 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
 
         public async Task<RailwayId> AddAsync(Railway railway)
         {
-            var _ = await _unitOfWork.ExecuteAsync(InsertRailwayCommand, 
+            var _ = await _unitOfWork.ExecuteAsync(InsertRailwayCommand,
                 ToRailwayDto(railway));
             return railway.Id;
         }
 
         public async Task UpdateAsync(Railway railway)
         {
-            var _ = await _unitOfWork.ExecuteAsync(UpdateRailwayCommand, 
+            var _ = await _unitOfWork.ExecuteAsync(UpdateRailwayCommand,
                 ToRailwayDto(railway));
         }
 
@@ -92,7 +92,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways
                 version = railway.Version
             };
         }
-        
+
         private Railway? ProjectToDomain(RailwayDto? dto)
         {
             if (dto is null)

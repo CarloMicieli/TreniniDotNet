@@ -13,7 +13,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
     public class AddItemToCollectionIntegrationTests : AbstractWebApplicationFixture
     {
         private readonly HttpClient _httpClient;
-        
+
         public AddItemToCollectionIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
