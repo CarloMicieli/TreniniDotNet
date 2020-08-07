@@ -25,6 +25,7 @@ namespace TreniniDotNet.TestHelpers.SeedData.Catalog
         {
             _id = RailwayId.NewId();
             _created = Instant.FromDateTimeUtc(DateTime.UtcNow);
+            _periodOfActivity = Domain.Catalog.Railways.PeriodOfActivity.Default();
             _modified = null;
             _version = 1;
         }
