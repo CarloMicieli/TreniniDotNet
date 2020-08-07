@@ -1,6 +1,6 @@
 using System;
 using MediatR;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TreniniDotNet.Web.Collecting.V1.Wishlists.Common.Requests;
 
 namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlist

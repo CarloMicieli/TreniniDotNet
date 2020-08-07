@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using MediatR;
-using Newtonsoft.Json;
 using TreniniDotNet.Web.Collecting.V1.Common.Requests;
 
 namespace TreniniDotNet.Web.Collecting.V1.Collections.EditCollectionItem

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Shops.GetShopsList;
@@ -11,6 +12,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.GetShopsList
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ShopsController : UseCaseController<GetShopsListRequest, GetShopsListPresenter>
     {
         public ShopsController(IMediator mediator, GetShopsListPresenter presenter)

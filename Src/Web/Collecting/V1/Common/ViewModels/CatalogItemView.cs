@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Text.Json.Serialization;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
 
 namespace TreniniDotNet.Web.Collecting.V1.Common.ViewModels
 {
@@ -12,15 +9,19 @@ namespace TreniniDotNet.Web.Collecting.V1.Common.ViewModels
 
         public CatalogItemView(CatalogItemRef catalogItem)
         {
-            //Links = selfLink;
-            this._catalogItem = catalogItem;
+            _catalogItem = catalogItem;
         }
-
-        // [JsonPropertyName("_links")]
-        // public LinksView? Links { get; }
 
         public Guid CatalogItemId => _catalogItem.Id;
 
         public string Slug => _catalogItem.Slug;
+
+        public string BrandName => _catalogItem.BrandName;
+        
+        public string ItemNumber => _catalogItem.ItemNumber.Value;
+        
+        public string Category => _catalogItem.Category.ToString();
+        
+        public string Description => _catalogItem.ToString();
     }
 }

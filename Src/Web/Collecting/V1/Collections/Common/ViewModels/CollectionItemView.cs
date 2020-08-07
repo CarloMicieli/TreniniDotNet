@@ -24,8 +24,6 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
 
         public CatalogItemView CatalogItem { get; }
 
-        public CatalogItemDetailsView? Details { get; }
-
         public string Condition => _inner.Condition.ToString();
 
         public PriceView Price => new PriceView(_inner.Price);
