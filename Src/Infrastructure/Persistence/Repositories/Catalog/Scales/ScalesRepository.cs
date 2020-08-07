@@ -26,7 +26,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
         {
             var results = await _unitOfWork.QueryAsync<ScaleDto>(
                 GetAllScalesWithPaginationQuery,
-                new { @skip = page.Start, @limit = page.Limit + 1 });
+                new { skip = page.Start, limit = page.Limit + 1 });
 
             return new PaginatedResult<Scale>(
                 page,
@@ -105,7 +105,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
                 return null;
             }
 
-            var scaleGauge = ScaleGauge.Of(dto.gauge_mm,
+            var scaleGauge = ScaleGauge.Of(
+                dto.gauge_mm,
                 MeasureUnit.Millimeters,
                 EnumHelpers.RequiredValueFor<TrackGauge>(dto.track_type));
 

@@ -23,10 +23,10 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Images
 
             await connection.ExecuteAsync(InsertImageCommand, new
             {
-                image.Filename,
-                image.ContentType,
-                image.Content,
-                Created = _clock.GetCurrentInstant().ToDateTimeUtc()
+                filename = image.Filename,
+                content_type = image.ContentType,
+                content = image.Content,
+                created = _clock.GetCurrentInstant().ToDateTimeUtc()
             });
         }
 
@@ -43,8 +43,8 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Images
 
         private const string InsertImageCommand = @"
             INSERT INTO images(filename, content_type, content, created) 
-            VALUES(@Filename, @ContentType, @Content, @Created);";
+            VALUES(@filename, @content_type, @content, @created);";
 
-        private const string SelectImageQuery = "SELECT filename, content_type AS ContentType, content FROM images WHERE filename = @Filename";
+        private const string SelectImageQuery = "SELECT filename, content_type AS ContentType, content FROM images WHERE filename = @filename";
     }
 }
