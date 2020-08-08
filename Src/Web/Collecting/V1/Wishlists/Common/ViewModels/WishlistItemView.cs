@@ -22,15 +22,6 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
             {
                 Price = new PriceView(item.Price);
             }
-
-            // if (item.Details is null)
-            // {
-            //     Details = null;
-            // }
-            // else
-            // {
-            //     Details = new CatalogItemDetailsView(item.Details);
-            // }
         }
 
         public Guid ItemId => _item.Id;
@@ -42,8 +33,6 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
         public PriceView? Price { get; }
 
         public CatalogItemView CatalogItem { get; }
-
-        public CatalogItemDetailsView? Details { get; }
 
         public string? Notes => _item.Notes;
     }

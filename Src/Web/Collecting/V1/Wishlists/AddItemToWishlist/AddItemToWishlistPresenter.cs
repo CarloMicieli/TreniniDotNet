@@ -45,11 +45,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.AddItemToWishlist
 
         public override void Standard(AddItemToWishlistOutput output)
         {
-            ViewModel = new OkObjectResult(new
-            {
-                Id = output.Id,
-                ItemId = output.ItemId
-            });
+            ViewModel = new OkResult();
         }
 
         public void WishlistNotFound(WishlistId wishlistId)

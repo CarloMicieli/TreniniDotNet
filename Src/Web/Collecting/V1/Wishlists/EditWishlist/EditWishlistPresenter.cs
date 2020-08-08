@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Wishlists.EditWishlist;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Wishlists;
@@ -9,17 +10,17 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlist
     {
         public override void Standard(EditWishlistOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new OkResult();
         }
 
         public void WishlistNotFound(WishlistId id)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundResult();
         }
 
         public void NotAuthorizedToEditThisWishlist(Owner owner)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundResult();
         }
     }
 }
