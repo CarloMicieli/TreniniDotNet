@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Shops.GetShopBySlug;
@@ -10,6 +11,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.GetShopBySlug
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ShopsController : UseCaseController<GetShopBySlugRequest, GetShopBySlugPresenter>
     {
         public ShopsController(IMediator mediator, GetShopBySlugPresenter presenter)

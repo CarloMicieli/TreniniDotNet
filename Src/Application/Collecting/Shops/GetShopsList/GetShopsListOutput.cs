@@ -6,11 +6,11 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetShopsList
 {
     public sealed class GetShopsListOutput : IUseCaseOutput
     {
-        public GetShopsListOutput(PaginatedResult<Shop> shops)
+        public GetShopsListOutput(PaginatedResult<Shop> paginatedResult)
         {
-            Shops = shops;
+            PaginatedResult = paginatedResult;
         }
 
-        public PaginatedResult<Shop> Shops { get; }
+        public PaginatedResult<Shop> PaginatedResult { get; }
     }
 }

@@ -11,11 +11,11 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels
         {
             var shop = CollectingSeedData.Shops.NewTecnomodelTreni();
 
-            var view = new ShopView(shop);
+            var view = new ShopView(shop, null);
 
             view.ShopId.Should().Be(shop.Id);
             view.Name.Should().Be(shop.Name);
-            view.Slug.Should().Be(shop.Slug);
+            //view.Slug.Should().Be(shop.Slug);
             view.EmailAddress.Should().Be(shop.EmailAddress?.ToString());
             view.PhoneNumber.Should().Be(shop.PhoneNumber?.ToString());
             view.WebsiteUrl.Should().Be(shop.WebsiteUrl?.ToString());

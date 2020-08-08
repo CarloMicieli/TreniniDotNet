@@ -33,9 +33,9 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetShopsList
             outputPort.ShouldHaveStandardOutput();
 
             var output = outputPort.UseCaseOutput;
-            output.Shops.Should().NotBeNull();
-            output.Shops.Results.Should().NotBeNull();
-            output.Shops.CurrentPage.Should().Be(new Page(0, 10));
+            output.PaginatedResult.Should().NotBeNull();
+            output.PaginatedResult.Results.Should().NotBeNull();
+            output.PaginatedResult.CurrentPage.Should().Be(new Page(0, 10));
         }
 
         private GetShopsListUseCase CreateUseCase(

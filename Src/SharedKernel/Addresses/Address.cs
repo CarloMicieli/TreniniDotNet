@@ -65,6 +65,19 @@ namespace TreniniDotNet.SharedKernel.Addresses
             return false;
         }
 
+        public bool IsEmpty
+        {
+            get
+            {
+                return (string.IsNullOrWhiteSpace(Line1) &&
+                        string.IsNullOrWhiteSpace(Line2) &&
+                        string.IsNullOrWhiteSpace(City) &&
+                        string.IsNullOrWhiteSpace(Region) &&
+                        string.IsNullOrWhiteSpace(PostalCode) &&
+                        string.IsNullOrWhiteSpace(Country));
+            }
+        }
+        
         public static Address? With(
             string? line1 = null,
             string? line2 = null,
