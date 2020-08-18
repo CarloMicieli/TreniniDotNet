@@ -1,51 +1,5 @@
 # Trenini.Net
 
-![GitHub](https://img.shields.io/github/license/CarloMicieli/TreniniDotNet)
-![GitHub last commit](https://img.shields.io/github/last-commit/CarloMicieli/TreniniDotNet)
-![.NET Core](https://github.com/CarloMicieli/TreniniDotNet/workflows/.NET%20Core/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/CarloMicieli/TreniniDotNet/badge.svg?branch=master)](https://coveralls.io/github/CarloMicieli/TreniniDotNet?branch=master)
-
-<img src="logo.png" alt="Logo" width="200"/>
-
-An application to manage model railway collections.
-
-## Setup
-
-### Requirements
-
-- `.NET Core 3.1.5`
-- `Postgres SQL 12`
-
-### Setup
-
-#### Postgres
-
-Add the PostgreSQL 12 repository
-
-```
-$ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-$ echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
-```
-
-Install both server and client:
-
-```
-$ sudo apt update
-$ sudo apt -y install postgresql-12 postgresql-client-12
-```
-
-### Database init
-
-Create a new database (development *only*):
-
-```
-postgres=# CREATE DATABASE TreniniDb;
-CREATE DATABASE
-postgres=# CREATE USER tdbuser WITH ENCRYPTED PASSWORD 'tdbpass';
-CREATE ROLE
-postgres=# ALTER USER tdbuser CREATEDB;
-GRANT
-```
 
 ## Run the application
 
