@@ -300,8 +300,7 @@ public async Task BrandsRepository_GetBySlug_ShouldFindOneBrandBySlug()
 
 ## Built With
 
-* [.NET Core 3.1](http://dot.net) - Back end
-* [Angular](https://www.angular.io/) - Front end 
+* [.NET Core 3.1](http://dot.net)
 
 ## Contributing
 
