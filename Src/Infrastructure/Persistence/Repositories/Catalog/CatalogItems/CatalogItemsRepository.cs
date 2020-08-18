@@ -112,7 +112,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
         {
             var results = await _unitOfWork.QueryAsync<CatalogItemWithRelatedData>(
                 GetCatalogItemBySlug,
-                new { slug = slug.ToString() });
+                new { slug = slug.Value });
 
             return FromCatalogItemDto(results);
         }
@@ -299,7 +299,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogI
                 brand_id = catalogItem.Brand.Id.ToGuid(),
                 scale_id = catalogItem.Scale.Id.ToGuid(),
                 item_number = catalogItem.ItemNumber.Value,
-                slug = catalogItem.Slug,
+                slug = catalogItem.Slug.Value,
                 power_method = catalogItem.PowerMethod.ToString(),
                 delivery_date = catalogItem.DeliveryDate?.ToString(),
                 available = catalogItem.IsAvailable,

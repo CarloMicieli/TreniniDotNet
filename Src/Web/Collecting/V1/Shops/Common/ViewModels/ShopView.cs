@@ -21,9 +21,9 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels
             }
         }
 
-        [JsonPropertyName("_links")] 
+        [JsonPropertyName("_links")]
         public LinksView? Links => _selfLink;
-        
+
         public Guid ShopId => _shop.Id;
 
         public string Name => _shop.Name;

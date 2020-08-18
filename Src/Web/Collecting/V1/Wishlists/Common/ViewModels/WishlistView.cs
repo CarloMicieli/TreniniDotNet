@@ -28,7 +28,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
 
         public string Owner => _wishlist.Owner.Value;
 
-        public BudgetView? Budget => (_wishlist.Budget is null) ? 
+        public BudgetView? Budget => (_wishlist.Budget is null) ?
             null : new BudgetView(_wishlist.Budget);
 
         public List<WishlistItemView> Items { get; }

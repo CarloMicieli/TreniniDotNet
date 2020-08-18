@@ -9,7 +9,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         {
             Slug = slug;
         }
-        
+
         public Slug Slug { get; }
     }
 }

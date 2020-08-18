@@ -35,7 +35,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             _unitOfWork = unitOfWork ??
                 throw new ArgumentNullException(nameof(unitOfWork));
             _rollingStocksFactory = rollingStocksFactory ??
-                 throw new ArgumentNullException(nameof(rollingStocksFactory));
+                                    throw new ArgumentNullException(nameof(rollingStocksFactory));
         }
 
         protected override async Task Handle(EditCatalogItemInput input)
@@ -91,6 +91,10 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
                 rollingStocks = input.Values.RollingStocks
                     .Select(it => _rollingStocksFactory.FromInput(it, railways))
                     .ToList();
+            }
+            else
+            {
+                rollingStocks = item.RollingStocks;
             }
 
             ItemNumber? itemNumber = null;

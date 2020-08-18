@@ -77,7 +77,7 @@ namespace TreniniDotNet.SharedKernel.Addresses
                         string.IsNullOrWhiteSpace(Country));
             }
         }
-        
+
         public static Address? With(
             string? line1 = null,
             string? line2 = null,

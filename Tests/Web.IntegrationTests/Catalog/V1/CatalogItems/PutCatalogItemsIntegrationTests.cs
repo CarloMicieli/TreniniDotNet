@@ -2,16 +2,16 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
-using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Web;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
 {
     public class PutCatalogItemsIntegrationTests : AbstractWebApplicationFixture
     {
-        public PutCatalogItemsIntegrationTests(CustomWebApplicationFactory<Startup> factory)
-            : base(factory)
+        public PutCatalogItemsIntegrationTests(CustomWebApplicationFactory<Startup> factory, ITestOutputHelper output)
+            : base(factory, output)
         {
         }
 
@@ -42,14 +42,16 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         {
             var client = CreateAuthorizedHttpClient();
 
-            var itemSlug = CatalogSeedData.CatalogItems.Acme60458.Slug.Value;
+            var itemSlug = "acme-60458";
 
             var request = new
             {
-                Brand = "invalid"
+                description = "Modified",
+                brand = "invalid"
             };
 
             var response = await client.PutJsonAsync($"/api/v1/catalogItems/{itemSlug}", request, Check.Nothing);
+            Log("Response: {0}", response);
 
             response.StatusCode.Should().Be(HttpStatusCode.Conflict);
         }
@@ -59,14 +61,15 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         {
             var client = CreateAuthorizedHttpClient();
 
-            var itemSlug = CatalogSeedData.CatalogItems.Acme60458.Slug.Value;
+            var itemSlug = "acme-60458";
 
             var request = new
             {
-                Scale = "abc"
+                scale = "abc"
             };
 
             var response = await client.PutJsonAsync($"/api/v1/catalogItems/{itemSlug}", request, Check.Nothing);
+            Log("Response: {0}", response);
 
             response.StatusCode.Should().Be(HttpStatusCode.Conflict);
         }
@@ -80,12 +83,16 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
 
             var request = new
             {
-                Description = "modified"
+                description = "modified"
             };
 
             var response = await client.PutJsonAsync($"/api/v1/catalogItems/{itemSlug}", request, Check.Nothing);
+            Log("Response: {0}", response);
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var response2 = await client.GetAsync($"/api/v1/catalogItems/{itemSlug}");
+            response2.EnsureSuccessStatusCode();
         }
     }
 }

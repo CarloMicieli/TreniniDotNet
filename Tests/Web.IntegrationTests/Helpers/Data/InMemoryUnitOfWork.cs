@@ -10,12 +10,12 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
     public sealed class InMemoryUnitOfWork : IUnitOfWork
     {
         private readonly IConnectionProvider _connectionProvider;
-        
+
         public InMemoryUnitOfWork(IConnectionProvider connectionProvider)
         {
             _connectionProvider = connectionProvider ?? throw new ArgumentNullException(nameof(connectionProvider));
         }
-        
+
         public Task<int> SaveAsync()
         {
             return Task.FromResult(0);
@@ -34,7 +34,7 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
             await using var connection = _connectionProvider.Create();
             await connection.OpenAsync();
             var result = await connection.ExecuteScalarAsync<TResult>(sql, param);
-            return result;            
+            return result;
         }
 
         public async Task<IEnumerable<TResult>> QueryAsync<TResult>(string sql, object param)
@@ -42,7 +42,7 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
             await using var connection = _connectionProvider.Create();
             await connection.OpenAsync();
             var result = await connection.QueryAsync<TResult>(sql, param);
-            return result;    
+            return result;
         }
 
         public async Task<TResult> QueryFirstOrDefaultAsync<TResult>(string sql, object param) where TResult : class
@@ -50,7 +50,7 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
             await using var connection = _connectionProvider.Create();
             await connection.OpenAsync();
             var result = await connection.QueryFirstOrDefaultAsync<TResult>(sql, param);
-            return result;    
+            return result;
         }
     }
 }

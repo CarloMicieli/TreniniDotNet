@@ -17,12 +17,12 @@ namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
                 parameter.Value = DBNull.Value;
             }
         }
-     
+
         public override double? Parse(object? value)
         {
             if (value == null || value is DBNull) return null;
 
             return Convert.ToDouble(value);
         }
-    } 
+    }
 }

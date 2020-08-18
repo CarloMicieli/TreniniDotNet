@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TreniniDotNet.Infrastructure.Identity;
 using TreniniDotNet.Web;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace TreniniDotNet.IntegrationTests
 {
@@ -15,7 +16,9 @@ namespace TreniniDotNet.IntegrationTests
         private readonly CustomWebApplicationFactory<Startup> _factory;
         private readonly ITokensService _tokensService;
 
-        protected AbstractWebApplicationFixture(CustomWebApplicationFactory<Startup> factory)
+        protected ITestOutputHelper Output { get; }
+
+        protected AbstractWebApplicationFixture(CustomWebApplicationFactory<Startup> factory, ITestOutputHelper output = null)
         {
             _tokensService = new JwtTokensService(new JwtSettings
             {
@@ -24,6 +27,15 @@ namespace TreniniDotNet.IntegrationTests
                 Audience = "http://www.trenini.net"
             });
             _factory = factory;
+
+            Output = output;
+
+            Log("Context id {0}", factory.Id);
+        }
+
+        protected void Log(string format, params object[] args)
+        {
+            Output?.WriteLine(format, args);
         }
 
         protected HttpClient CreateHttpClient() => _factory.CreateClient();
@@ -40,7 +52,6 @@ namespace TreniniDotNet.IntegrationTests
 
         protected HttpClient CreateAuthorizedHttpClient() =>
             CreateHttpClient("George", "Pa$$word88");
-
 
         protected List<object> JsonArray(object element) => new List<object>() { element };
 

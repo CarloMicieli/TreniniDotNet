@@ -27,7 +27,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.GetShopBySlug
             var selfLink = _linksGenerator.GenerateSelfLink(
                 nameof(ShopsController.GetShopBySlug),
                 output.Shop.Slug);
-           
+
             ViewModel = new OkObjectResult(new ShopView(output.Shop, selfLink));
         }
     }

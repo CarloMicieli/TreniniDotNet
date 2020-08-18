@@ -30,6 +30,8 @@ namespace TreniniDotNet.IntegrationTests
             _contextId = Guid.NewGuid();
         }
 
+        public Guid Id => _contextId;
+
         public new void Dispose()
         {
             File.Delete($"{_contextId}.db");
@@ -56,7 +58,7 @@ namespace TreniniDotNet.IntegrationTests
             {
                 services.ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
 
-                var connectionString = new SqliteConnectionStringBuilder($"Data Source={_contextId}")
+                var connectionString = new SqliteConnectionStringBuilder($"DataSource={_contextId}.db")
                 {
                     ForeignKeys = true,
                     Cache = SqliteCacheMode.Private,
