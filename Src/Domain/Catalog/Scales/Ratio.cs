@@ -61,7 +61,7 @@ namespace TreniniDotNet.Domain.Catalog.Scales
 
         public override string ToString()
         {
-            return $"1:{_ratio}";
+            return $"1:{_ratio:.#}";
         }
 
         public static Ratio Of(decimal ratio)
