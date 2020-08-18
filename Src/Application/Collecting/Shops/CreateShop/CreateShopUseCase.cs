@@ -54,7 +54,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
                 input.Address?.Country,
                 out var a) ? a : (Address?)null;
 
-            var shopId = await _shopService.CreateShopAsync(
+            var id = await _shopService.CreateShopAsync(
                 input.Name,
                 websiteUrl,
                 mailAddress,
@@ -63,7 +63,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
 
             var _ = await _unitOfWork.SaveAsync();
 
-            OutputPort.Standard(new CreateShopOutput(shopId, slug));
+            OutputPort.Standard(new CreateShopOutput(slug));
         }
     }
 }

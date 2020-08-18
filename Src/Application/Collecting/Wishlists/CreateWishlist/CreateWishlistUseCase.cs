@@ -49,7 +49,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
 
             var _ = await _unitOfWork.SaveAsync();
 
-            OutputPort.Standard(new CreateWishlistOutput(listId, slug));
+            OutputPort.Standard(new CreateWishlistOutput(listId, owner, slug));
         }
     }
 }

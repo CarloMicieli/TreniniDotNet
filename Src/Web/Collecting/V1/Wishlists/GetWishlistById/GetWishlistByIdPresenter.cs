@@ -15,12 +15,12 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.GetWishlistById
 
         public void WishlistNotFound(WishlistId id)
         {
-            ViewModel = new NotFoundObjectResult(new { Id = id });
+            ViewModel = new NotFoundObjectResult(new { Id = id.ToGuid() });
         }
 
         public void WishlistNotVisible(WishlistId id, Visibility visibility)
         {
-            ViewModel = new NotFoundObjectResult(new { Id = id });
+            ViewModel = new NotFoundObjectResult(new { Id = id.ToGuid() });
         }
     }
 }

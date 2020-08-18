@@ -60,7 +60,6 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
             unitOfWork.EnsureUnitOfWorkWasSaved();
 
             var output = outputPort.UseCaseOutput;
-            output.Id.Should().Be(new ShopId(id));
             output.Slug.Should().Be(Slug.Of("Tecnomodel"));
         }
 
