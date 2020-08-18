@@ -7,13 +7,14 @@ using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using TreniniDotNet.Web;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
 {
     public class RemoveItemFromCollectionIntegrationTests : AbstractWebApplicationFixture
     {
-        public RemoveItemFromCollectionIntegrationTests(CustomWebApplicationFactory<Startup> factory)
-            : base(factory)
+        public RemoveItemFromCollectionIntegrationTests(CustomWebApplicationFactory<Startup> factory, ITestOutputHelper output)
+            : base(factory, output)
         {
         }
 
@@ -28,6 +29,8 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
             var response = await client.DeleteJsonAsync(
                 $"api/v1/collections/{id}/items/{itemId}",
                 Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
@@ -44,6 +47,8 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
                 $"api/v1/collections/{id}/items/{itemId}",
                 Check.Nothing);
 
+            await response.LogAsyncTo(Output);
+
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
@@ -58,8 +63,10 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
             var itemId = collection.Items.First().Id;
 
             var response = await client.DeleteJsonAsync(
-                $"api/v1/collections/{id}/items/{itemId}",
+                $"api/v1/collections/{id.ToGuid()}/items/{itemId.ToGuid()}",
                 Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }

@@ -7,13 +7,14 @@ using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using TreniniDotNet.Web;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
 {
     public class EditCollectionItemIntegrationTests : AbstractWebApplicationFixture
     {
-        public EditCollectionItemIntegrationTests(CustomWebApplicationFactory<Startup> factory)
-            : base(factory)
+        public EditCollectionItemIntegrationTests(CustomWebApplicationFactory<Startup> factory, ITestOutputHelper output)
+            : base(factory, output)
         {
         }
 
@@ -29,6 +30,8 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
                 $"api/v1/collections/{id}/items/{itemId}",
                 new { }, Check.Nothing);
 
+            await response.LogAsyncTo(Output);
+
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
@@ -42,15 +45,21 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
 
             var request = new
             {
-                Price = 250M,
-                Condition = "New",
-                AddedDate = DateTime.Now
+                price = new
+                {
+                    value = 250M,
+                    currency = "EUR"
+                },
+                condition = "New",
+                addedDate = DateTime.Now
             };
 
             var response = await client.PutJsonAsync(
                 $"api/v1/collections/{id}/items/{itemId}",
                 request,
                 Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -65,15 +74,21 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
 
             var request = new
             {
-                Price = 250M,
-                Condition = "New",
-                AddedDate = DateTime.Now
+                price = new
+                {
+                    value = 250M,
+                    currency = "EUR"
+                },
+                condition = "New",
+                addedDate = DateTime.Now
             };
 
             var response = await client.PutJsonAsync(
                 $"api/v1/collections/{georgeCollection.Id}/items/{itemId}",
                 request,
                 Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -89,16 +104,22 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
 
             var request = new
             {
-                ItemId = item.Id,
-                Price = 250M,
-                Condition = "New",
-                AddedDate = DateTime.Now
+                itemId = item.Id,
+                price = new
+                {
+                    value = 250M,
+                    currency = "EUR"
+                },
+                condition = "New",
+                addedDate = DateTime.Now
             };
 
             var response = await client.PutJsonAsync(
-                $"api/v1/collections/{georgeCollection.Id}/items/{item.Id}",
+                $"api/v1/collections/{georgeCollection.Id.ToGuid()}/items/{item.Id.ToGuid()}",
                 request,
                 Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
