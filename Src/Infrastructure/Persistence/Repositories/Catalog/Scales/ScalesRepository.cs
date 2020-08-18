@@ -35,49 +35,37 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
 
         public async Task<ScaleId> AddAsync(Scale scale)
         {
-            var _ = await _unitOfWork.ExecuteAsync(InsertScaleCommand, new
-            {
-                Id = scale.Id.ToGuid(),
-                scale.Name,
-                scale.Slug,
-                scale.Ratio,
-                GaugeMm = scale.Gauge.InMillimeters.Value,
-                GaugeIn = scale.Gauge.InInches.Value,
-                TrackGauge = scale.Gauge.TrackGauge.ToString(),
-                scale.Description,
-                Standards = string.Join(", ", scale.Standards.Select(it => it.ToString())),
-                scale.Weight,
-                Created = scale.CreatedDate.ToDateTimeUtc(),
-                Modified = scale.ModifiedDate?.ToDateTimeUtc(),
-                scale.Version
-            });
+            var _ = await _unitOfWork.ExecuteAsync(InsertScaleCommand, ToScaleDto(scale));
             return scale.Id;
         }
 
         public async Task UpdateAsync(Scale scale)
         {
-            var _ = await _unitOfWork.ExecuteAsync(UpdateScaleCommand, new
-            {
-                Id = scale.Id.ToGuid(),
-                scale.Name,
-                scale.Slug,
-                scale.Ratio,
-                GaugeMm = scale.Gauge.InMillimeters.Value,
-                GaugeIn = scale.Gauge.InInches.Value,
-                TrackGauge = scale.Gauge.TrackGauge.ToString(),
-                scale.Description,
-                Standards = string.Join(", ", scale.Standards.Select(it => it.ToString())),
-                scale.Weight,
-                Modified = scale.ModifiedDate?.ToDateTimeUtc(),
-                scale.Version
-            });
+            var _ = await _unitOfWork.ExecuteAsync(UpdateScaleCommand, ToScaleDto(scale));
         }
+
+        private ScaleDto ToScaleDto(Scale scale) => new ScaleDto
+        {
+            scale_id = scale.Id.ToGuid(),
+            name = scale.Name,
+            slug = scale.Slug.Value,
+            ratio = scale.Ratio.ToDecimal(),
+            gauge_mm = scale.Gauge.InMillimeters.Value,
+            gauge_in = scale.Gauge.InInches.Value,
+            track_type = scale.Gauge.TrackGauge.ToString(),
+            description = scale.Description,
+            standards = string.Join(", ", scale.Standards.Select(it => it.ToString())),
+            weight = scale.Weight,
+            created = scale.CreatedDate.ToDateTimeUtc(),
+            last_modified = scale.ModifiedDate?.ToDateTimeUtc(),
+            version = scale.Version
+        };
 
         public Task DeleteAsync(ScaleId id)
         {
             return _unitOfWork.ExecuteScalarAsync<string>(
                 DeleteScaleCommand,
-                new { Id = id });
+                new { scale_id = id.ToGuid() });
         }
 
         public async Task<bool> ExistsAsync(Slug slug)
@@ -93,7 +81,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
         {
             var result = await _unitOfWork.QueryFirstOrDefaultAsync<ScaleDto>(
                 GetScaleBySlugQuery,
-                new { @slug = slug.ToString() });
+                new { slug = slug.ToString() });
 
             return ProjectToDomain(result);
         }
@@ -134,23 +122,25 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
         #region [ Query / Command text ]
 
         private const string InsertScaleCommand = @"INSERT INTO scales(
-	            scale_id, name, slug, ratio, gauge_mm, gauge_in, track_type, description, standards, weight, created, last_modified, version)
+	            scale_id, name, slug, ratio, gauge_mm, gauge_in, track_type, description, 
+                   standards, weight, created, last_modified, version)
             VALUES(
-                @Id, @Name, @Slug, @Ratio, @GaugeMm, @GaugeIn, @TrackGauge, @Description, @Standards, @Weight, @Created, @Modified, @Version);";
+                @scale_id, @name, @slug, @ratio, @gauge_mm, @gauge_in, @track_type, @description,
+                   @standards, @weight, @created, @last_modified, @version);";
 
         private const string UpdateScaleCommand = @"UPDATE scales SET 
-                name = @Name, 
-                slug = @Slug, 
-                ratio = @Ratio, 
-                gauge_mm = @GaugeMm, 
-                gauge_in = @GaugeIn, 
-                track_type = @TrackGauge, 
-                description = @Description,
-                standards = @Standards,
-                weight = @Weight, 
-                last_modified = @Modified, 
-                version = @Version
-            WHERE scale_id = @Id;";
+                name = @name, 
+                slug = @slug, 
+                ratio = @ratio, 
+                gauge_mm = @gauge_mm, 
+                gauge_in = @gauge_in, 
+                track_type = @track_type, 
+                description = @description,
+                standards = @standards,
+                weight = @weight, 
+                last_modified = @last_modified, 
+                version = @version
+            WHERE scale_id = @scale_id;";
 
         private const string GetScaleExistsQuery = @"SELECT slug FROM scales WHERE slug = @slug LIMIT 1;";
 
@@ -158,7 +148,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales
 
         private const string GetAllScalesWithPaginationQuery = @"SELECT * FROM scales ORDER BY name LIMIT @limit OFFSET @skip;";
 
-        private const string DeleteScaleCommand = @"DELETE FROM scales WHERE scale_id = @Id";
+        private const string DeleteScaleCommand = @"DELETE FROM scales WHERE scale_id = @scale_id";
 
         #endregion
     }

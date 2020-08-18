@@ -15,7 +15,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
 
             Id = scale.Id.ToGuid();
             Name = scale.Name;
-            Ratio = scale.Ratio.ToDecimal();
+            Ratio = Math.Round(scale.Ratio.ToDecimal(), 1);
 
             Gauge = new ScaleGaugeView(scale.Gauge);
 
