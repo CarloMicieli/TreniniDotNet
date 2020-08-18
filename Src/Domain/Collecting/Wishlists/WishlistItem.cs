@@ -1,42 +1,59 @@
-﻿using NodaMoney;
-using NodaTime;
-using TreniniDotNet.Common;
+﻿using NodaTime;
+using TreniniDotNet.Common.Domain;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collecting.Wishlists
 {
-    public sealed class WishlistItem : Entity<WishlistItemId>, IWishlistItem
+    public sealed class WishlistItem : Entity<WishlistItemId>
     {
-        internal WishlistItem(
+        public WishlistItem(
             WishlistItemId itemId,
-            ICatalogRef catalogItem,
-            ICatalogItemDetails? details,
+            CatalogItemRef catalogItem,
             Priority priority,
             LocalDate addedDate,
-            Money? price,
+            LocalDate? removedDate,
+            Price? price,
             string? notes)
-            : base(itemId)
         {
+            Id = itemId;
             Priority = priority;
             AddedDate = addedDate;
+            RemovedDate = removedDate;
             Price = price;
             CatalogItem = catalogItem;
-            Details = details;
             Notes = notes;
         }
 
+        #region [ Properties ]
         public Priority Priority { get; }
 
         public LocalDate AddedDate { get; }
 
-        public Money? Price { get; }
+        public LocalDate? RemovedDate { get; }
 
-        public ICatalogRef CatalogItem { get; }
+        public Price? Price { get; }
 
-        public ICatalogItemDetails? Details { get; }
+        public CatalogItemRef CatalogItem { get; }
 
         public string? Notes { get; }
+        #endregion
+
+        public WishlistItem With(
+            CatalogItemRef? catalogItem = null,
+            Priority? priority = null,
+            LocalDate? addedDate = null,
+            LocalDate? removedDate = null,
+            Price? price = null,
+            string? notes = null)
+        {
+            return new WishlistItem(Id,
+                catalogItem ?? CatalogItem,
+                priority ?? Priority,
+                addedDate ?? AddedDate,
+                removedDate ?? RemovedDate,
+                price ?? Price,
+                notes ?? Notes);
+        }
 
         public override string ToString() => $"WishlistItem({Id}, {CatalogItem}, {Priority})";
     }

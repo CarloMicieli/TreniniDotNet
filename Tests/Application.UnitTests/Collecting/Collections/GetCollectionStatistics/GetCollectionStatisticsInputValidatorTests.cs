@@ -1,4 +1,4 @@
-﻿using FluentValidation.TestHelper;
+using FluentValidation.TestHelper;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Collections.GetCollectionStatistics

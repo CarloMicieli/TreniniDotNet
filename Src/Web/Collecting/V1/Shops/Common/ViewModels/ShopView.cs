@@ -1,25 +1,30 @@
 using System;
+using System.Text.Json.Serialization;
 using TreniniDotNet.Domain.Collecting.Shops;
+using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
 
 namespace TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels
 {
     public sealed class ShopView
     {
-        private readonly IShop _shop;
+        private readonly Shop _shop;
+        private readonly LinksView? _selfLink;
 
-        public ShopView(IShop shop)
+        public ShopView(Shop shop, LinksView? selfLink)
         {
             _shop = shop;
+            _selfLink = selfLink;
 
-            if (!(shop.Address is null))
+            if (shop.Address?.IsEmpty == false)
             {
                 Address = new Catalog.V1.Brands.Common.ViewModels.AddressView(shop.Address);
             }
         }
 
-        public Guid ShopId => _shop.Id.ToGuid();
+        [JsonPropertyName("_links")]
+        public LinksView? Links => _selfLink;
 
-        public string Slug => _shop.Slug.Value;
+        public Guid ShopId => _shop.Id;
 
         public string Name => _shop.Name;
 

@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Application.Collecting.Shared;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
+using TreniniDotNet.Domain.Collecting.Collections;
 
 namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
 {
-    public sealed class AddItemToCollectionInputValidator : AbstractValidator<AddItemToCollectionInput>
+    public sealed class AddItemToCollectionInputValidator : AbstractUseCaseValidator<AddItemToCollectionInput>
     {
         public AddItemToCollectionInputValidator()
         {
@@ -15,8 +17,8 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
                 .MaximumLength(60);
 
             RuleFor(x => x.Price)
-                .NotEmpty()
-                .GreaterThan(0M);
+                .NotNull()
+                .SetValidator(new PriceInputValidator());
 
             RuleFor(x => x.Condition)
                 .IsEnumName(typeof(Condition), caseSensitive: false);

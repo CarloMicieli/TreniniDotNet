@@ -1,29 +1,29 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Brands;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
 {
-    public sealed class CreateBrandUseCase : ValidatedUseCase<CreateBrandInput, ICreateBrandOutputPort>, ICreateBrandUseCase
+    public sealed class CreateBrandUseCase : AbstractUseCase<CreateBrandInput, CreateBrandOutput, ICreateBrandOutputPort>
     {
-        private readonly BrandService _brandService;
+        private readonly BrandsService _brandsService;
         private readonly IUnitOfWork _unitOfWork;
 
         public CreateBrandUseCase(
+            IUseCaseInputValidator<CreateBrandInput> inputValidator,
             ICreateBrandOutputPort outputPort,
-            BrandService brandService,
+            BrandsService brandService,
             IUnitOfWork unitOfWork)
-            : base(new CreateBrandInputValidator(), outputPort)
+            : base(inputValidator, outputPort)
         {
-            _brandService = brandService ??
-                throw new ArgumentNullException(nameof(brandService));
-            _unitOfWork = unitOfWork ??
-                throw new ArgumentNullException(nameof(unitOfWork));
+            _brandsService = brandService ?? throw new ArgumentNullException(nameof(brandService));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         protected override async Task Handle(CreateBrandInput input)
@@ -31,7 +31,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
             string brandName = input.Name;
             var slug = Slug.Of(brandName);
 
-            var brandExists = await _brandService.BrandAlreadyExists(slug);
+            var brandExists = await _brandsService.BrandAlreadyExists(slug);
             if (brandExists)
             {
                 OutputPort.BrandAlreadyExists(slug);
@@ -42,7 +42,7 @@ namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
             var optUri = input.WebsiteUrl.ToUriOpt();
             var optEmailAddress = input.EmailAddress.ToMailAddressOpt();
 
-            var _ = await _brandService.CreateBrand(
+            var _ = await _brandsService.CreateBrand(
                 brandName,
                 input.CompanyName,
                 input.GroupName,

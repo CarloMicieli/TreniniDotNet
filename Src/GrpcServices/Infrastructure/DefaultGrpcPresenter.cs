@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentValidation.Results;
 using Grpc.Core;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs.Validation;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
 
 namespace TreniniDotNet.GrpcServices.Infrastructure
 {
-    public abstract class DefaultGrpcPresenter<TOutput, TResponse> : IOutputPortStandard<TOutput>
+    public abstract class DefaultGrpcPresenter<TOutput, TResponse> : IStandardOutputPort<TOutput>
         where TOutput : IUseCaseOutput
         where TResponse : class
     {
@@ -25,9 +26,9 @@ namespace TreniniDotNet.GrpcServices.Infrastructure
             this.Response = _mapping(output);
         }
 
-        public void InvalidRequest(IList<ValidationFailure> failures)
+        public void InvalidRequest(IEnumerable<ValidationError> validationErrors)
         {
-            string details = string.Join(", ", failures.Select(it => it.ToString()));
+            string details = string.Join(", ", validationErrors.Select(it => it.ToString()));
             throw new RpcException(new Status(StatusCode.InvalidArgument,
                 $"Invalid request [Details: {details}]"));
         }

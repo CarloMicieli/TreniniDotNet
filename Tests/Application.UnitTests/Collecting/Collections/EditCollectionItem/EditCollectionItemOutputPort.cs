@@ -1,9 +1,8 @@
-﻿using TreniniDotNet.Application.Collecting.Collections.EditCollectionItem;
+using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Collections.OutputPorts
+namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
 {
     public sealed class EditCollectionItemOutputPort : OutputPortTestHelper<EditCollectionItemOutput>, IEditCollectionItemOutputPort
     {

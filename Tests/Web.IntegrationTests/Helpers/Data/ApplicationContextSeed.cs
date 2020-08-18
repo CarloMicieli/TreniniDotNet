@@ -9,25 +9,25 @@ using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 
 namespace TreniniDotNet.IntegrationTests.Helpers.Data
 {
-    public class ApplicationContextSeed
+    public static class ApplicationContextSeed
     {
-        public static void SeedCatalog(IServiceProvider scopedServices)
+        public static async Task SeedCatalog(IServiceProvider scopedServices)
         {
-            IBrandsRepository brands = scopedServices.GetRequiredService<IBrandsRepository>();
-            brands.SeedDatabase();
+            var brands = scopedServices.GetRequiredService<IBrandsRepository>();
+            await brands.SeedDatabase();
 
-            IRailwaysRepository railways = scopedServices.GetRequiredService<IRailwaysRepository>();
-            railways.SeedDatabase();
+            var railways = scopedServices.GetRequiredService<IRailwaysRepository>();
+            await railways.SeedDatabase();
 
-            IScalesRepository scales = scopedServices.GetRequiredService<IScalesRepository>();
-            scales.SeedDatabase();
+            var scales = scopedServices.GetRequiredService<IScalesRepository>();
+            await scales.SeedDatabase();
 
-            ICatalogItemRepository catalogItems = scopedServices.GetRequiredService<ICatalogItemRepository>();
-            catalogItems.SeedDatabase();
+            var catalogItems = scopedServices.GetRequiredService<ICatalogItemsRepository>();
+            await catalogItems.SeedDatabase();
         }
 
         public static async Task SeedCollections(IServiceProvider scopedServices)
@@ -36,12 +36,10 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Data
             await shops.SeedDatabase();
 
             var collections = scopedServices.GetRequiredService<ICollectionsRepository>();
-            var collectionItems = scopedServices.GetRequiredService<ICollectionItemsRepository>();
-            await collections.SeedDatabase(collectionItems);
+            await collections.SeedDatabase();
 
             var wishLists = scopedServices.GetRequiredService<IWishlistsRepository>();
-            var wishListItems = scopedServices.GetRequiredService<IWishlistItemsRepository>();
-            await wishLists.SeedDatabase(wishListItems);
+            await wishLists.SeedDatabase();
         }
     }
 }

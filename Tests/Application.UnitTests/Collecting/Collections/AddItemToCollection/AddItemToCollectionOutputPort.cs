@@ -1,9 +1,8 @@
-﻿using TreniniDotNet.Application.Collecting.Collections.AddItemToCollection;
-using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Collections.OutputPorts
+namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
 {
     public class AddItemToCollectionOutputPort : OutputPortTestHelper<AddItemToCollectionOutput>, IAddItemToCollectionOutputPort
     {

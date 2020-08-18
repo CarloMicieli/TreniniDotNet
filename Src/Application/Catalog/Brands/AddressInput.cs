@@ -1,4 +1,4 @@
-using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.SharedKernel.Addresses;
 
 namespace TreniniDotNet.Application.Catalog.Brands
 {

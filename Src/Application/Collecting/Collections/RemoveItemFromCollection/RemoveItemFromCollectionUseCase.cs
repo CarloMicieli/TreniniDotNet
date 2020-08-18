@@ -1,23 +1,24 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common.Extensions;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Collecting.Collections;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 
 namespace TreniniDotNet.Application.Collecting.Collections.RemoveItemFromCollection
 {
-    public sealed class RemoveItemFromCollectionUseCase : ValidatedUseCase<RemoveItemFromCollectionInput, IRemoveItemFromCollectionOutputPort>, IRemoveItemFromCollectionUseCase
+    public sealed class RemoveItemFromCollectionUseCase : AbstractUseCase<RemoveItemFromCollectionInput, RemoveItemFromCollectionOutput, IRemoveItemFromCollectionOutputPort>
     {
         private readonly CollectionsService _collectionService;
         private readonly IUnitOfWork _unitOfWork;
 
         public RemoveItemFromCollectionUseCase(
+            IUseCaseInputValidator<RemoveItemFromCollectionInput> inputValidator,
             IRemoveItemFromCollectionOutputPort output,
             CollectionsService collectionService,
             IUnitOfWork unitOfWork)
-            : base(new RemoveItemFromCollectionInputValidator(), output)
+            : base(inputValidator, output)
         {
             _collectionService = collectionService ??
                 throw new ArgumentNullException(nameof(collectionService));
@@ -30,17 +31,22 @@ namespace TreniniDotNet.Application.Collecting.Collections.RemoveItemFromCollect
             var id = new CollectionId(input.Id);
             var itemId = new CollectionItemId(input.ItemId);
 
-            var exists = await _collectionService.ItemExistsAsync(id, itemId);
-            if (!exists)
+            var collection = await _collectionService.GetCollectionByIdAsync(id);
+            if (collection is null)
+            {
+                OutputPort.CollectionNotFound(id);
+                return;
+            }
+
+            var item = collection.FindItemById(itemId);
+            if (item is null)
             {
                 OutputPort.CollectionItemNotFound(id, itemId);
                 return;
             }
 
-            await _collectionService.RemoveItemAsync(
-                id,
-                itemId,
-                input.Removed.ToLocalDateOrDefault());
+            collection.RemoveItem(itemId);
+            await _collectionService.UpdateCollectionAsync(collection);
 
             var _ = await _unitOfWork.SaveAsync();
 

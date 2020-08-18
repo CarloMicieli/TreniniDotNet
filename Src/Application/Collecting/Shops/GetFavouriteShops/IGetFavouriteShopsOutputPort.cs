@@ -1,8 +1,8 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
 
 namespace TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops
 {
-    public interface IGetFavouriteShopsOutputPort : IOutputPortStandard<GetFavouriteShopsOutput>
+    public interface IGetFavouriteShopsOutputPort : IStandardOutputPort<GetFavouriteShopsOutput>
     {
     }
 }

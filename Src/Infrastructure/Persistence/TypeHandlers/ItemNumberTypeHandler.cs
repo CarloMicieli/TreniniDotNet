@@ -1,6 +1,7 @@
-﻿using System.Data;
+﻿#nullable disable
+using System.Data;
 using Dapper;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {

@@ -1,23 +1,21 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Wishlists;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
 {
-    public class EditWishlistItemUseCaseTests : CollectingUseCaseTests<EditWishlistItemUseCase, EditWishlistItemOutput, EditWishlistItemOutputPort>
+    public class EditWishlistItemUseCaseTests : WishlistUseCaseTests<EditWishlistItemUseCase, EditWishlistItemInput, EditWishlistItemOutput, EditWishlistItemOutputPort>
     {
         [Fact]
         public async Task EditWishlistItem_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewEditWishlistItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -27,9 +25,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
         [Fact]
         public async Task EditWishlistItem_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewEditWishlistItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.EditWishlistItem.Empty);
+            await useCase.Execute(NewEditWishlistItemInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -37,9 +35,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
         [Fact]
         public async Task EditWishlistItem_ShouldOutputError_WhenWishlistWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewEditWishlistItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            var input = CollectingInputs.EditWishlistItem.With(
+            var input = NewEditWishlistItemInput.With(
                 owner: "George",
                 id: Guid.NewGuid(),
                 itemId: Guid.NewGuid());
@@ -55,15 +53,15 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
         [Fact]
         public async Task EditWishlistItem_ShouldEditWishlistItems()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeWishlistUseCase(Start.WithSeedData, NewEditWishlistItem);
+            var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var item = wishlist.Items.First();
 
-            var input = CollectingInputs.EditWishlistItem.With(
+            var input = NewEditWishlistItemInput.With(
                 owner: "George",
-                id: wishlist.Id.ToGuid(),
-                itemId: item.Id.ToGuid());
+                id: wishlist.Id,
+                itemId: item.Id);
 
             await useCase.Execute(input);
 
@@ -77,12 +75,11 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
             output.ItemId.Should().Be(item.Id);
         }
 
-        private EditWishlistItemUseCase NewEditWishlistItem(
-            WishlistService wishlistsService,
-            EditWishlistItemOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new EditWishlistItemUseCase(outputPort, wishlistsService, unitOfWork);
-        }
+        private EditWishlistItemUseCase CreateUseCase(
+            IEditWishlistItemOutputPort outputPort,
+            WishlistsService wishlistsService,
+            WishlistItemsFactory wishlistItemsFactory,
+            IUnitOfWork unitOfWork) =>
+            new EditWishlistItemUseCase(new EditWishlistItemInputValidator(), outputPort, wishlistsService, unitOfWork);
     }
 }

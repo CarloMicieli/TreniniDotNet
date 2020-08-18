@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
 
 namespace TreniniDotNet.Web.Infrastructure.ViewModels.Pagination

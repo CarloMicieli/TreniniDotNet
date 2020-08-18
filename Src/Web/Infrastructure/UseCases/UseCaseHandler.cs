@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using TreniniDotNet.Common.UseCases.Interfaces.Input;
+using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 
 namespace TreniniDotNet.Web.Infrastructure.UseCases
 {
@@ -18,9 +19,9 @@ namespace TreniniDotNet.Web.Infrastructure.UseCases
         protected UseCaseHandler(TUseCase useCase, IMapper mapper)
         {
             UseCase = useCase ??
-                throw new ArgumentNullException(nameof(useCase));
+                      throw new ArgumentNullException(nameof(useCase));
             Mapper = mapper ??
-                throw new ArgumentNullException(nameof(mapper));
+                     throw new ArgumentNullException(nameof(mapper));
         }
 
         protected override Task Handle(TRequest request, CancellationToken cancellationToken)

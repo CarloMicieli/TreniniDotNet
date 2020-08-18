@@ -1,8 +1,7 @@
-﻿using TreniniDotNet.Application.Collecting.Shops.GetShopBySlug;
-using TreniniDotNet.Common;
+﻿using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Shops.OutputPorts
+namespace TreniniDotNet.Application.Collecting.Shops.GetShopBySlug
 {
     public class GetShopBySlugOutputPort : OutputPortTestHelper<GetShopBySlugOutput>, IGetShopBySlugOutputPort
     {

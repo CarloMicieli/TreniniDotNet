@@ -1,24 +1,24 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Collections.OutputPorts;
-using TreniniDotNet.Application.Services;
+using TreniniDotNet.Application.Collecting.Shared;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Collections;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.SharedKernel.Slugs;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
 {
-    public class EditCollectingItemUseCaseTests : CollectingUseCaseTests<EditCollectionItemUseCase, EditCollectionItemOutput, EditCollectionItemOutputPort>
+    public class EditCollectingItemUseCaseTests : CollectionUseCaseTests<EditCollectionItemUseCase, EditCollectionItemInput, EditCollectionItemOutput, EditCollectionItemOutputPort>
     {
         [Fact]
         public async Task EditCollectionItem_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -28,9 +28,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public async Task EditCollectionItem_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.EditCollectionItem.Empty);
+            await useCase.Execute(NewEditCollectionItemInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -38,15 +38,15 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public async Task EditCollectionItem_ShouldFail_WhenTheCollectionNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
-            var input = CollectingInputs.EditCollectionItem.With(
+            var input = NewEditCollectionItemInput.With(
                 owner: collection.Owner.Value,
-                id: id.ToGuid(),
+                id: id,
                 itemId: Guid.NewGuid(),
-                price: 450M);
+                price: NewPriceInput.With(450M, "EUR"));
 
             await useCase.Execute(input);
 
@@ -57,16 +57,16 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public async Task EditCollectionItem_ShouldFail_WhenTheCollectionItemNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
             var itemId = Guid.NewGuid();
-            var input = CollectingInputs.EditCollectionItem.With(
+            var input = NewEditCollectionItemInput.With(
                 owner: collection.Owner.Value,
-                id: id.ToGuid(),
+                id: id,
                 itemId: itemId,
-                price: 450M);
+                price: NewPriceInput.With(450M, "EUR"));
 
             await useCase.Execute(input);
 
@@ -77,16 +77,16 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public async Task EditCollectionItem_ShouldFail_WhenTheUserIsNotTheCollectionOwner()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
             var itemId = Guid.NewGuid();
-            var input = CollectingInputs.EditCollectionItem.With(
+            var input = NewEditCollectionItemInput.With(
                 owner: collection.Owner.Value,
-                id: id.ToGuid(),
+                id: id,
                 itemId: itemId,
-                price: 450M);
+                price: NewPriceInput.With(450M, "EUR"));
 
             await useCase.Execute(input);
 
@@ -97,17 +97,17 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public async Task EditCollectionItem_ShouldFail_WhenTheShopNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
-            var itemId = collection.Items.Select(it => it.Id.ToGuid()).First();
-            var input = CollectingInputs.EditCollectionItem.With(
+            var itemId = collection.Items.Select(it => it.Id).First();
+            var input = NewEditCollectionItemInput.With(
                 owner: collection.Owner,
-                id: id.ToGuid(),
+                id: id,
                 itemId: itemId,
                 shop: "Not found",
-                price: 450M);
+                price: NewPriceInput.With(450M, "EUR"));
 
             await useCase.Execute(input);
 
@@ -118,16 +118,16 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         [Fact]
         public async Task EditCollectionItem_ShouldEditCatalogItem()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeCollectionUseCase(Start.WithSeedData, NewEditCollectionItem);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
             var itemId = collection.Items.Select(it => it.Id).First();
-            var input = CollectingInputs.EditCollectionItem.With(
+            var input = NewEditCollectionItemInput.With(
                 owner: collection.Owner,
-                id: id.ToGuid(),
-                itemId: itemId.ToGuid(),
-                price: 450M);
+                id: id,
+                itemId: itemId,
+                price: NewPriceInput.With(999M, "EUR"));
 
             await useCase.Execute(input);
 
@@ -140,14 +140,18 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             output.CollectionId.Should().Be(id);
             output.ItemId.Should().Be(itemId);
             output.CatalogItem.Should().Be(Slug.Of("acme-60458"));
+
+            var dbCollection = dbContext.Collections.FirstOrDefault(it => it.Id == id);
+            var dbCollectionItem = dbCollection?.Items.FirstOrDefault(it => it.Id == itemId);
+
+            dbCollectionItem?.Price.Amount.Should().Be(999M);
         }
 
-        private EditCollectionItemUseCase NewEditCollectionItem(
-            CollectionsService collectionService,
-            EditCollectionItemOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new EditCollectionItemUseCase(outputPort, collectionService, unitOfWork);
-        }
+        private EditCollectionItemUseCase CreateUseCase(
+            IEditCollectionItemOutputPort outputPort,
+            CollectionsService collectionsService,
+            CollectionItemsFactory collectionItemsFactory,
+            IUnitOfWork unitOfWork) =>
+            new EditCollectionItemUseCase(new EditCollectionItemInputValidator(), outputPort, collectionsService, unitOfWork);
     }
 }

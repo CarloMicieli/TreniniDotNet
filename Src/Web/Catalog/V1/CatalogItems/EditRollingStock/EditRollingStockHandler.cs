@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock
 {
-    public sealed class EditRollingStockHandler : UseCaseHandler<IEditRollingStockUseCase, EditRollingStockRequest, EditRollingStockInput>
+    public sealed class EditRollingStockHandler : UseCaseHandler<EditRollingStockUseCase, EditRollingStockRequest, EditRollingStockInput>
     {
-        public EditRollingStockHandler(IEditRollingStockUseCase useCase, IMapper mapper)
+        public EditRollingStockHandler(EditRollingStockUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

@@ -13,7 +13,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
     public sealed class GrpcCatalogItemsService : CatalogItemsService.CatalogItemsServiceBase
     {
         public GrpcCatalogItemsService(
-            ICreateCatalogItemUseCase useCase,
+            CreateCatalogItemUseCase useCase,
             CreateCatalogItemPresenter presenter,
             ILogger<GrpcCatalogItemsService> log)
         {
@@ -27,7 +27,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
 
         private ILogger<GrpcCatalogItemsService> Log { get; }
         private CreateCatalogItemPresenter Presenter { get; }
-        private ICreateCatalogItemUseCase UseCase { get; }
+        private CreateCatalogItemUseCase UseCase { get; }
 
         public override async Task<CreateCatalogItemResponse> CreateCatalogItem(CreateCatalogItemRequest request, ServerCallContext context)
         {

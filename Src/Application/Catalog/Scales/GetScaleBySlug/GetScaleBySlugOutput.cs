@@ -1,15 +1,15 @@
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
 using TreniniDotNet.Domain.Catalog.Scales;
 
 namespace TreniniDotNet.Application.Catalog.Scales.GetScaleBySlug
 {
-    public class GetScaleBySlugOutput : IUseCaseOutput
+    public sealed class GetScaleBySlugOutput : IUseCaseOutput
     {
-        public GetScaleBySlugOutput(IScale scale)
+        public GetScaleBySlugOutput(Scale scale)
         {
             Scale = scale;
         }
 
-        public IScale Scale { get; }
+        public Scale Scale { get; }
     }
 }

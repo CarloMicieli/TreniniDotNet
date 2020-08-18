@@ -1,16 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 using TreniniDotNet.Domain.Catalog.Railways;
 using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.GrpcServices.Catalog.Brands;
-using TreniniDotNet.GrpcServices.Catalog.CatalogItems;
-using TreniniDotNet.GrpcServices.Catalog.Railways;
-using TreniniDotNet.GrpcServices.Catalog.Scales;
-using TreniniDotNet.Infrastructure.Persistence.Catalog.Brands;
-using TreniniDotNet.Infrastructure.Persistence.Catalog.CatalogItems;
-using TreniniDotNet.Infrastructure.Persistence.Catalog.Railways;
-using TreniniDotNet.Infrastructure.Persistence.Catalog.Scales;
+using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Brands;
+using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.CatalogItems;
+using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Railways;
+using TreniniDotNet.Infrastructure.Persistence.Repositories.Catalog.Scales;
 
 namespace TreniniDotNet.GrpcServices.Catalog.DependencyInjection
 {
@@ -28,33 +25,33 @@ namespace TreniniDotNet.GrpcServices.Catalog.DependencyInjection
         private static IServiceCollection AddBrandService(this IServiceCollection services)
         {
             services.AddScoped<IBrandsRepository, BrandsRepository>();
-            services.AddScoped<IBrandsFactory, BrandsFactory>();
-            services.AddScoped<BrandService>();
+            services.AddScoped<BrandsFactory>();
+            services.AddScoped<BrandsService>();
             return services;
         }
 
         private static IServiceCollection AddCatalogItemService(this IServiceCollection services)
         {
-            services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
-            services.AddScoped<ICatalogItemsFactory, CatalogItemsFactory>();
-            services.AddScoped<IRollingStocksFactory, RollingStocksFactory>();
-            services.AddScoped<CatalogItemService>();
+            services.AddScoped<ICatalogItemsRepository, CatalogItemsRepository>();
+            services.AddScoped<CatalogItemsFactory>();
+            services.AddScoped<RollingStocksFactory>();
+            services.AddScoped<CatalogItemsService>();
             return services;
         }
 
         private static IServiceCollection AddRailwayService(this IServiceCollection services)
         {
             services.AddScoped<IRailwaysRepository, RailwaysRepository>();
-            services.AddScoped<IRailwaysFactory, RailwaysFactory>();
-            services.AddScoped<RailwayService>();
+            services.AddScoped<RailwaysFactory>();
+            services.AddScoped<RailwaysService>();
             return services;
         }
 
         private static IServiceCollection AddScaleService(this IServiceCollection services)
         {
             services.AddScoped<IScalesRepository, ScalesRepository>();
-            services.AddScoped<IScalesFactory, ScalesFactory>();
-            services.AddScoped<ScaleService>();
+            services.AddScoped<ScalesFactory>();
+            services.AddScoped<ScalesService>();
             return services;
         }
     }

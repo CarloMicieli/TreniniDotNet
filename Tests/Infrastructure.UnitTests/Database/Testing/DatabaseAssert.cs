@@ -10,78 +10,78 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 {
     public sealed class DatabaseAssert
     {
-        public IDatabaseContext DatabaseContext { get; }
+        public IConnectionProvider ConnectionProvider { get; }
 
-        public DatabaseAssert(IDatabaseContext databaseContext) =>
-            DatabaseContext = databaseContext;
+        public DatabaseAssert(IConnectionProvider connectionProvider) =>
+            ConnectionProvider = connectionProvider;
 
         public DatabaseAssertionBuilder RowInTable(string tableName)
         {
-            return new DatabaseAssertionBuilder(DatabaseContext, tableName);
+            return new DatabaseAssertionBuilder(ConnectionProvider, tableName);
         }
 
         public sealed class DatabaseAssertionBuilder
         {
-            private object primaryKeys;
-            private object values;
+            private object _primaryKeys;
+            private object _values;
 
             private string TableName { get; }
 
-            public DatabaseAssertionBuilder(IDatabaseContext databaseContext, string tableName)
+            public DatabaseAssertionBuilder(IConnectionProvider connectionProvider, string tableName)
             {
-                DatabaseContext = databaseContext;
+                ConnectionProvider = connectionProvider;
                 TableName = tableName;
             }
 
-            public IDatabaseContext DatabaseContext { get; }
+            public IConnectionProvider ConnectionProvider { get; }
 
             public DatabaseAssertionBuilder WithPrimaryKey(object obj)
             {
-                primaryKeys = obj;
+                _primaryKeys = obj;
                 return this;
             }
 
             public DatabaseAssertionBuilder WithValues(object obj)
             {
-                values = obj;
+                _values = obj;
                 return this;
             }
 
             public DatabaseAssertionBuilder AndPrimaryKey(object obj)
             {
-                primaryKeys = obj;
+                _primaryKeys = obj;
                 return this;
             }
 
             public DatabaseAssertionBuilder AndValues(object obj)
             {
-                values = obj;
+                _values = obj;
                 return this;
             }
 
             public void ShouldExists()
             {
-                string selectText = BuildQueryText();
+                var selectText = BuildQueryText();
 
                 try
                 {
-                    using var connection = DatabaseContext.NewConnection();
-                    dynamic result = connection.QuerySingle(selectText, primaryKeys);
+                    using var connection = ConnectionProvider.Create();
+                    dynamic result = connection.QuerySingle(selectText, _primaryKeys);
 
                     IDictionary<string, object> resultValues = result;
 
-                    if (values != null)
+                    if (_values != null)
                     {
-                        IEnumerable<PropertyInfo> props = values
+                        IEnumerable<PropertyInfo> props = _values
                             .GetType()
                             .GetProperties();
 
                         IDictionary<string, object> expectedValues = props
-                            .ToDictionary(it => it.Name, it => it.GetValue(values));
+                            .ToDictionary(it => it.Name, it => it.GetValue(_values));
 
                         // Sqlite has no boolean data type, need to change it before the assertion
                         var booleanFields = props
-                            .Where(it => it.PropertyType == typeof(bool) || it.PropertyType == typeof(Nullable<bool>))
+                            .Where(it => it.PropertyType == typeof(bool) || it.PropertyType == typeof(bool?))
                             .Select(it => it.Name)
                             .ToList();
 
@@ -96,10 +96,27 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                             }
                         }
 
+                        var uuidFields = props
+                            .Where(it => it.PropertyType == typeof(Guid) || it.PropertyType == typeof(Guid?))
+                            .Select(it => it.Name)
+                            .ToList();
+
+                        if (uuidFields.Count > 0)
+                        {
+                            foreach (var field in uuidFields)
+                            {
+                                if (resultValues.TryGetValue(field, out var value) &&
+                                    value != null)
+                                {
+                                    resultValues[field] = Guid.Parse(value.ToString());
+                                }
+                            }
+                        }
+
                         // Made DateTime to be UTC 
 
                         var dateTimeFields = props
-                            .Where(it => it.PropertyType == typeof(DateTime) || it.PropertyType == typeof(Nullable<DateTime>))
+                            .Where(it => it.PropertyType == typeof(DateTime) || it.PropertyType == typeof(DateTime?))
                             .Select(it => it.Name)
                             .ToList();
 
@@ -116,10 +133,25 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                                 {
                                     if (!(value is null) && expectedUtcDateTimes.Contains(field))
                                     {
-                                        int hours = (int)DateTime.UtcNow.Subtract(DateTime.Now).TotalHours;
+                                        resultValues[field] = DateTime.SpecifyKind(
+                                            Convert.ToDateTime(value), DateTimeKind.Utc);
+                                    }
+                                }
+                            }
 
+                            var expectedUnspecifiedDateTimes = expectedValues
+                                .Where(it => IsUtcDateTime(it.Value) == false)
+                                .Select(it => it.Key)
+                                .ToHashSet();
 
-                                        resultValues[field] = DateTime.SpecifyKind(Convert.ToDateTime(value), DateTimeKind.Utc);
+                            foreach (var field in dateTimeFields)
+                            {
+                                if (resultValues.TryGetValue(field, out var value))
+                                {
+                                    if (!(value is null) && expectedUnspecifiedDateTimes.Contains(field))
+                                    {
+                                        resultValues[field] = DateTime.SpecifyKind(
+                                            Convert.ToDateTime(value), DateTimeKind.Unspecified);
                                     }
                                 }
                             }
@@ -127,7 +159,13 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 
                         if (expectedValues.Count > 0)
                         {
-                            resultValues.Should().BeEquivalentTo(expectedValues);
+                            foreach (var (key, expected) in expectedValues)
+                            {
+                                if (resultValues.TryGetValue(key, out var actual))
+                                {
+                                    actual.Should().Be(expected, "Value for {0} is different", key);
+                                }
+                            }
                         }
                     }
                 }
@@ -142,9 +180,9 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 
             public void ShouldNotExists()
             {
-                string selectText = BuildQueryText();
-                using var connection = DatabaseContext.NewConnection();
-                var results = connection.Query(selectText, primaryKeys);
+                var selectText = BuildQueryText();
+                using var connection = ConnectionProvider.Create();
+                var results = connection.Query(selectText, _primaryKeys);
 
                 if (results.Count() > 0)
                 {
@@ -154,11 +192,11 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
 
             private string BuildQueryText()
             {
-                string select = "";
-                if (values != null)
+                var select = "";
+                if (_values != null)
                 {
                     select += string.Join(", ",
-                        values.GetType()
+                        _values.GetType()
                             .GetProperties()
                             .Select(it => it.Name));
                 }
@@ -168,8 +206,8 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
                     select = "*";
                 }
 
-                string where = string.Join(" AND ",
-                    primaryKeys.GetType()
+                var where = string.Join(" AND ",
+                    _primaryKeys.GetType()
                         .GetProperties()
                         .Select(it => $"{it.Name} = @{it.Name}"));
 

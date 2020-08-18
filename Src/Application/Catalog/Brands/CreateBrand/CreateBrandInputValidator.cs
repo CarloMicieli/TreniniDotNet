@@ -1,10 +1,11 @@
-﻿using FluentValidation;
+using FluentValidation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Common.Validation;
 using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
 {
-    public sealed class CreateBrandInputValidator : AbstractValidator<CreateBrandInput>
+    public sealed class CreateBrandInputValidator : AbstractUseCaseValidator<CreateBrandInput>
     {
         public CreateBrandInputValidator()
         {

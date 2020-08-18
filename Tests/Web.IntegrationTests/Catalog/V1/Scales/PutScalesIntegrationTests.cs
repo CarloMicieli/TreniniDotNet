@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
@@ -29,7 +28,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         [Fact]
         public async Task PutScales_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var request = new
             {
@@ -45,7 +44,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         [Fact]
         public async Task PutScales_ShouldReturn404NotFound_WhenScaleToEditWasNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var scale = "not-found";
             var response = await client.PutJsonAsync($"/api/v1/scales/{scale}", new { }, Check.Nothing);
@@ -56,7 +55,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         [Fact]
         public async Task PutScales_ShouldReturn200OK_WhenScaleWasUpdated()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var scale = "H0";
             var request = new

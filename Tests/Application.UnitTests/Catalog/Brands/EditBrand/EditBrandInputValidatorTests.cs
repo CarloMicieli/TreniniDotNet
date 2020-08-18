@@ -1,13 +1,12 @@
-﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Common;
+using FluentValidation.TestHelper;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Brands.EditBrand
 {
     public class EditBrandInputValidatorTests
     {
-        private readonly EditBrandInputValidator Validator;
+        private EditBrandInputValidator Validator { get; }
 
         public EditBrandInputValidatorTests()
         {

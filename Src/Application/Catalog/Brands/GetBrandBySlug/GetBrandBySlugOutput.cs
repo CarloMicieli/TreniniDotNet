@@ -1,17 +1,15 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
 using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Application.Catalog.Brands.GetBrandBySlug
 {
-    public class GetBrandBySlugOutput : IUseCaseOutput
+    public sealed class GetBrandBySlugOutput : IUseCaseOutput
     {
-        private IBrand _brand;
-
-        public GetBrandBySlugOutput(IBrand brand)
+        public GetBrandBySlugOutput(Brand brand)
         {
-            _brand = brand;
+            Brand = brand;
         }
 
-        public IBrand Brand => _brand;
+        public Brand Brand { get; }
     }
 }

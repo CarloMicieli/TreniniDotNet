@@ -1,7 +1,8 @@
-﻿using TreniniDotNet.Application.Collecting.Shops.CreateShop;
+﻿using System.Collections.Generic;
+using System.Linq;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Shops.OutputPorts
+namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
 {
     public sealed class CreateShopOutputPort : OutputPortTestHelper<CreateShopOutput>, ICreateShopOutputPort
     {
@@ -19,5 +20,18 @@ namespace TreniniDotNet.Application.InMemory.Collecting.Shops.OutputPorts
 
         public void AssertShopAlreadyExists(string expectedShopName) =>
             ShopAlreadyExistsMethod.ShouldBeInvokedWithTheArgument(expectedShopName);
+
+        public override IEnumerable<IMethodInvocation> Methods
+        {
+            get
+            {
+                var methods = new List<IMethodInvocation>
+                {
+                    ShopAlreadyExistsMethod
+                };
+
+                return base.Methods.Concat(methods);
+            }
+        }
     }
 }

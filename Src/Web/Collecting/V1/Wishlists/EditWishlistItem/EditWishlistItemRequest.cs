@@ -1,6 +1,7 @@
 ﻿using System;
 using MediatR;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using TreniniDotNet.Web.Collecting.V1.Common.Requests;
 
 namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlistItem
 {
@@ -13,7 +14,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlistItem
         [JsonIgnore]
         public string? Owner { set; get; }
         public DateTime? AddedDate { get; }
-        public decimal? Price { get; }
+        public PriceRequest? Price { get; }
         public string? Priority { get; }
         public string? Notes { get; }
     }

@@ -1,6 +1,7 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Xunit.Abstractions;
 
 namespace TreniniDotNet.IntegrationTests.Helpers.Extensions
 {
@@ -13,6 +14,12 @@ namespace TreniniDotNet.IntegrationTests.Helpers.Extensions
             {
                 PropertyNameCaseInsensitive = true
             });
+        }
+
+        public static async Task LogAsyncTo(this HttpResponseMessage response, ITestOutputHelper output)
+        {
+            output?.WriteLine("Response was: {0}", response);
+            output?.WriteLine("with content: {0}", await response.Content.ReadAsStringAsync());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.Railways
     public sealed class GrpcRailwaysService : RailwaysService.RailwaysServiceBase
     {
         public GrpcRailwaysService(
-            ICreateRailwayUseCase useCase,
+            CreateRailwayUseCase useCase,
             CreateRailwayPresenter presenter,
             ILogger<GrpcRailwaysService> log)
         {
@@ -26,7 +26,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.Railways
 
         private ILogger<GrpcRailwaysService> Log { get; }
         private CreateRailwayPresenter Presenter { get; }
-        private ICreateRailwayUseCase UseCase { get; }
+        private CreateRailwayUseCase UseCase { get; }
 
         public override async Task<CreateRailwayResponse> CreateRailway(CreateRailwayRequest request, ServerCallContext context)
         {

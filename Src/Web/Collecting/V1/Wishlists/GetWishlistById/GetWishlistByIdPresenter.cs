@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
@@ -15,12 +15,12 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.GetWishlistById
 
         public void WishlistNotFound(WishlistId id)
         {
-            ViewModel = new NotFoundObjectResult(new { Id = id });
+            ViewModel = new NotFoundObjectResult(new { Id = id.ToGuid() });
         }
 
         public void WishlistNotVisible(WishlistId id, Visibility visibility)
         {
-            ViewModel = new NotFoundObjectResult(new { Id = id });
+            ViewModel = new NotFoundObjectResult(new { Id = id.ToGuid() });
         }
     }
 }

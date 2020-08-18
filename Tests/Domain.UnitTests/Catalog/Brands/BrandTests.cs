@@ -1,83 +1,56 @@
-﻿using System;
-using System.Net.Mail;
+using System;
 using FluentAssertions;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
-using static TreniniDotNet.TestHelpers.SeedData.Catalog.CatalogSeedData;
 
 namespace TreniniDotNet.Domain.Catalog.Brands
 {
     public class BrandTests
     {
         [Fact]
-        public void Brand_ShouldCreateNewValues()
-        {
-            var b = NewBrandWith(
-                brandId: new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
-                name: "ACME",
-                companyName: "Anonima Costruzione Modelli Esatti",
-                websiteUrl: new Uri("https://www.acmetreni.com"),
-                mailAddress: new MailAddress("mail@acmetreni.com"),
-                brandKind: BrandKind.Industrial);
-
-            b.Should().NotBeNull();
-            b.Name.Should().Be("ACME");
-        }
-
-        [Fact]
-        public void Brand_ToBrandInfo_ShouldReturnTheBrandInfo()
-        {
-            var b = NewBrandWith(
-                brandId: new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
-                name: "ACME");
-
-            var info = b.ToBrandInfo();
-
-            info.Should().NotBeNull();
-            info.Id.Should().Be(b.Id);
-            info.Slug.Should().Be(b.Slug);
-            info.Name.Should().Be(b.Name);
-        }
-
-        [Fact]
         public void Brand_Equals_ShouldCheckForBrandsEquality()
         {
-            var acme1 = NewBrandWith(
-                brandId: new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
-                name: "ACME",
-                companyName: "Anonima Costruzione Modelli Esatti",
-                websiteUrl: new Uri("https://www.acmetreni.com"),
-                mailAddress: new MailAddress("mail@acmetreni.com"),
-                brandKind: BrandKind.Industrial);
-            var acme2 = NewBrandWith(
-                brandId: new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
-                name: "ACME",
-                companyName: "Anonima Costruzione Modelli Esatti",
-                websiteUrl: new Uri("https://www.acmetreni.com"),
-                mailAddress: new MailAddress("mail@acmetreni.com"),
-                brandKind: BrandKind.Industrial);
+            var acme1 = CatalogSeedData.Brands.New()
+                .Id(new Guid("9ed9f089-2053-4a39-b669-a6d603080402"))
+                .Name("ACME")
+                .CompanyName("Associazione Costruzioni Modellistiche Esatte")
+                .WebsiteUrl("http://www.acmetreni.com")
+                .MailAddress("mail@acmetreni.com")
+                .Industrial()
+                .Build();
 
-            //(acme1 == acme2).Should().BeTrue();
+            var acme2 = CatalogSeedData.Brands.New()
+                .Id(new Guid("9ed9f089-2053-4a39-b669-a6d603080402"))
+                .Name("ACME")
+                .CompanyName("Associazione Costruzioni Modellistiche Esatte")
+                .WebsiteUrl("http://www.acmetreni.com")
+                .MailAddress("mail@acmetreni.com")
+                .Industrial()
+                .Build();
+
+            (acme1 == acme2).Should().BeTrue();
             acme1.Equals(acme2).Should().BeTrue();
         }
 
         [Fact]
         public void Brand_Equals_ShouldCheckForBrandsInequality()
         {
-            var acme = NewBrandWith(
-                brandId: new BrandId(new Guid("5685961f-b0ca-4c66-ae22-df2fabe32666")),
-                name: "ACME",
-                companyName: "Anonima Costruzione Modelli Esatti",
-                websiteUrl: new Uri("https://www.acmetreni.com"),
-                mailAddress: new MailAddress("mail@acmetreni.com"),
-                brandKind: BrandKind.Industrial);
-            var roco = NewBrandWith(
-                brandId: new BrandId(new Guid("ec168962-6191-474a-bec9-a07b74539307")),
-                name: "Roco",
-                companyName: "Roco Gmbh",
-                websiteUrl: new Uri("https://www.roco.cc"),
-                brandKind: BrandKind.Industrial);
+            var acme = CatalogSeedData.Brands.New()
+                .Id(new Guid("9ed9f089-2053-4a39-b669-a6d603080402"))
+                .Name("ACME")
+                .CompanyName("Associazione Costruzioni Modellistiche Esatte")
+                .WebsiteUrl("http://www.acmetreni.com")
+                .MailAddress("mail@acmetreni.com")
+                .Industrial()
+                .Build();
+            var roco = CatalogSeedData.Brands.New()
+                .Id(new Guid("4b7a619b-65cc-41f5-a003-450537c85dea"))
+                .Name("Roco")
+                .CompanyName("Modelleisenbahn GmbH")
+                .WebsiteUrl("http://www.roco.cc")
+                .MailAddress("webshop@roco.cc")
+                .Industrial()
+                .Build();
 
             (acme != roco).Should().BeTrue();
             acme.Equals(roco).Should().BeFalse();
@@ -87,14 +60,15 @@ namespace TreniniDotNet.Domain.Catalog.Brands
         [Fact]
         public void Brand_ToString_ShouldProduceStringRepresentation()
         {
-            var b = NewBrandWith(name: "ACME");
+            var b = CatalogSeedData.Brands.New().Name("ACME").Build();
             b.ToString().Should().Be("Brand(ACME)");
         }
 
         [Fact]
         public void Brand_With_ShouldProduceAModifiedNewValue()
         {
-            var modifiedAcme = CatalogSeedData.Brands.Acme().With(groupName: "Modified ACME Group");
+            var modifiedAcme = CatalogSeedData.Brands.NewAcme()
+                .With(groupName: "Modified ACME Group");
             modifiedAcme.Should().NotBeNull();
             modifiedAcme.GroupName.Should().Be("Modified ACME Group");
         }

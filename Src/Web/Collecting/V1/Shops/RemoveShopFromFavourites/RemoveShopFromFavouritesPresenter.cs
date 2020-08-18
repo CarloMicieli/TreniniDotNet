@@ -1,4 +1,6 @@
-﻿using TreniniDotNet.Application.Collecting.Shops.RemoveShopFromFavourites;
+﻿using Microsoft.AspNetCore.Mvc;
+using TreniniDotNet.Application.Collecting.Shops.RemoveShopFromFavourites;
+using TreniniDotNet.Domain.Collecting.Shops;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
 namespace TreniniDotNet.Web.Collecting.V1.Shops.RemoveShopFromFavourites
@@ -7,7 +9,12 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.RemoveShopFromFavourites
     {
         public override void Standard(RemoveShopFromFavouritesOutput output)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new OkResult();
+        }
+
+        public void ShopNotFound(ShopId shopId)
+        {
+            ViewModel = new NotFoundObjectResult(new { ShopId = shopId });
         }
     }
 }

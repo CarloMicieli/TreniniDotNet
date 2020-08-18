@@ -11,9 +11,9 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.ViewModels
 {
     public sealed class CatalogItemView
     {
-        private readonly ICatalogItem _item;
+        private readonly CatalogItem _item;
 
-        public CatalogItemView(ICatalogItem item, LinksView? selfLink)
+        public CatalogItemView(CatalogItem item, LinksView? selfLink)
         {
             Links = selfLink;
 

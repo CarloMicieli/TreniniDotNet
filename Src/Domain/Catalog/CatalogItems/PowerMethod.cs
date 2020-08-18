@@ -1,4 +1,4 @@
-﻿namespace TreniniDotNet.Domain.Catalog.CatalogItems
+namespace TreniniDotNet.Domain.Catalog.CatalogItems
 {
     /// <summary>
     /// The power methods for the model.

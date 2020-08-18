@@ -1,12 +1,12 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using TreniniDotNet.Common.Lengths;
+using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
-using static TreniniDotNet.Common.Enums.EnumHelpers;
+using TreniniDotNet.SharedKernel.Lengths;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    public sealed class RailwayGauge : IEquatable<RailwayGauge>
+    public sealed class RailwayGauge
     {
         private static readonly TwoLengths TwoLengths =
             new TwoLengths(MeasureUnit.Inches, MeasureUnit.Millimeters);
@@ -27,7 +27,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             var (lenIn, lenMm) = TwoLengths.Create(inches, mm);
 
             return new RailwayGauge(
-                OptionalValueFor<TrackGauge>(trackGauge) ?? TrackGauge.Standard,
+                EnumHelpers.OptionalValueFor<TrackGauge>(trackGauge) ?? TrackGauge.Standard,
                 lenIn,
                 lenMm);
         }
@@ -46,7 +46,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         }
 
         #region [ Equality ]
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is RailwayGauge that)
             {
@@ -55,8 +55,6 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
             return false;
         }
-
-        public bool Equals(RailwayGauge other) => AreEquals(this, other);
 
         public static bool operator ==(RailwayGauge left, RailwayGauge right) => AreEquals(left, right);
 

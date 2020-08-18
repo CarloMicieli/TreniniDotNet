@@ -3,18 +3,18 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using TreniniDotNet.Web;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
 {
     public class EditWishlistItemIntegrationTests : AbstractWebApplicationFixture
     {
-        public EditWishlistItemIntegrationTests(CustomWebApplicationFactory<Startup> factory)
-            : base(factory)
+        public EditWishlistItemIntegrationTests(CustomWebApplicationFactory<Startup> factory, ITestOutputHelper output)
+            : base(factory, output)
         {
         }
 
@@ -27,19 +27,23 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
             var itemId = Guid.NewGuid();
             var response = await client.PutJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", new { }, Check.Nothing);
 
+            await response.LogAsyncTo(Output);
+
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
         [Fact]
         public async Task EditWishlistItem_ShouldReturn404NotFound_WhenUserIsNotTheWishlistOwner()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;
             var itemId = wishlist.Items.First().Id;
 
-            var response = await client.PutJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", new { }, Check.Nothing);
+            var response = await client.PutJsonAsync($"/api/v1/wishlists/{id.ToGuid()}/items/{itemId.ToGuid()}", new { }, Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -47,14 +51,16 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task EditWishlistItem_ShouldReturn404NotFound_WhenWishlistItemIsNotFound()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
 
             var id = wishlist.Id;
             var itemId = Guid.NewGuid();
 
-            var response = await client.PutJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", new { }, Check.Nothing);
+            var response = await client.PutJsonAsync($"/api/v1/wishlists/{id.ToGuid()}/items/{itemId}", new { }, Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -62,9 +68,9 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task EditWishlistItem_ShouldModifyWishlistItem()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;
             var itemId = wishlist.Items.First().Id;
 
@@ -75,7 +81,9 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
                 Notes = "My notes"
             };
 
-            var response = await client.PutJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", request, Check.Nothing);
+            var response = await client.PutJsonAsync($"/api/v1/wishlists/{id.ToGuid()}/items/{itemId.ToGuid()}", request, Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }

@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using TreniniDotNet.Common.Extensions;
-using TreniniDotNet.Common.Lengths;
+using TreniniDotNet.SharedKernel.Lengths;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {
@@ -24,15 +24,15 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
             }
             else
             {
-                throw new ArgumentException(ExceptionMessages.InvalidGaugeValue, nameof(gauge));
+                throw new ArgumentException("InvalidGaugeValue", nameof(gauge));
             }
         }
 
         public static Gauge Of(decimal value, MeasureUnit mu) => new Gauge(value, mu);
 
-        public static Gauge OfMillimiters(float mm) => new Gauge(mm, MeasureUnit.Millimeters);
+        public static Gauge OfMillimeters(float mm) => new Gauge(mm, MeasureUnit.Millimeters);
 
-        public static Gauge OfMillimiters(decimal mm) => new Gauge(mm, MeasureUnit.Millimeters);
+        public static Gauge OfMillimeters(decimal mm) => new Gauge(mm, MeasureUnit.Millimeters);
 
         public static Gauge OfInches(float inches) => new Gauge(inches, MeasureUnit.Inches);
 
@@ -75,7 +75,7 @@ namespace TreniniDotNet.Domain.Catalog.ValueObjects
         #endregion
 
         #region [ Equality ]
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Gauge that)
             {

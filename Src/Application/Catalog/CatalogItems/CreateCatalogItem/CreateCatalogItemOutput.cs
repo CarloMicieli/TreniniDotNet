@@ -1,6 +1,6 @@
-﻿using TreniniDotNet.Common;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {

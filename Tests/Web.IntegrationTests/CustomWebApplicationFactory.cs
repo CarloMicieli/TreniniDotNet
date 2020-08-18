@@ -1,36 +1,40 @@
 using System;
 using System.IO;
 using System.Linq;
+using Dapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TreniniDotNet.Common.Data;
+using TreniniDotNet.Infrastructure.Identity;
 using TreniniDotNet.Infrastructure.Persistence;
 using TreniniDotNet.Infrastructure.Persistence.Migrations;
 using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
 using TreniniDotNet.IntegrationTests.Helpers.Data;
-using TreniniDotNet.Web.UserProfiles.Identity;
 
 namespace TreniniDotNet.IntegrationTests
 {
 #pragma warning disable CA1063 // Implement IDisposable Correctly
-    // ref https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/test/integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/CustomWebApplicationFactory.cs
-    public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup>, IDisposable
+    public sealed class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup>
         where TStartup : class
     {
-        private readonly Guid contextId;
+        private readonly Guid _contextId;
 
         public CustomWebApplicationFactory()
         {
-            this.contextId = Guid.NewGuid();
+            _contextId = Guid.NewGuid();
         }
+
+        public Guid Id => _contextId;
 
         public new void Dispose()
         {
-            File.Delete($"{contextId}.db");
+            File.Delete($"{_contextId}.db");
             base.Dispose();
         }
 
@@ -45,7 +49,7 @@ namespace TreniniDotNet.IntegrationTests
                 var env = hostingContext.HostingEnvironment;
 
                 config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
-                      .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: false);
+                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: false);
 
                 config.AddEnvironmentVariables();
             });
@@ -54,9 +58,13 @@ namespace TreniniDotNet.IntegrationTests
             {
                 services.ReplaceWithInMemory<ApplicationIdentityDbContext>("IdentityInMemoryDatabase");
 
-                string connectionString = $"Data Source={contextId}.db";
+                var connectionString = new SqliteConnectionStringBuilder($"DataSource={_contextId}.db")
+                {
+                    ForeignKeys = true,
+                    Cache = SqliteCacheMode.Private,
+                    Mode = SqliteOpenMode.ReadWriteCreate
+                }.ToString();
 
-                // Replace with sqlite
                 services.ReplaceDapper(options =>
                 {
                     options.UseSqlite(connectionString);
@@ -69,11 +77,10 @@ namespace TreniniDotNet.IntegrationTests
                     options.ScanMigrationsIn(typeof(InitialMigration).Assembly);
                 });
 
-                // Build the service provider.
-                var sp = services.BuildServiceProvider();
+                RegisterTypeHandlers();
+                services.ReplaceWithInMemoryUnitWork();
 
-                // Create a scope to obtain a reference to the database
-                // context (ApplicationDbContext).
+                var sp = services.BuildServiceProvider();
                 using (var scope = sp.CreateScope())
                 {
                     var scopedServices = scope.ServiceProvider;
@@ -88,25 +95,61 @@ namespace TreniniDotNet.IntegrationTests
 
                     try
                     {
-                        // Seed the database with test data.
-                        ApplicationContextSeed.SeedCatalog(scopedServices);
-                        ApplicationContextSeed.SeedCollections(scopedServices).Wait();
                         AppIdentityDbContextSeed.SeedAsync(userManager, roleManager).Wait();
+
+                        DatabaseHelper.InitialiseDbForTests(scopedServices)
+                            .Wait();
                     }
                     catch (Exception ex)
                     {
                         logger.LogError(ex, "An error occurred seeding the " +
-                            "database with test messages. Error: {Message}", ex.Message);
+                                            "database with test messages. Error: {Message}", ex.Message);
                     }
                 }
             });
         }
+
+        private static void RegisterTypeHandlers()
+        {
+            var assembly = typeof(GuidTypeHandler).Assembly;
+            var baseType = typeof(SqlMapper.ITypeHandler);
+
+            var typeHandlers = assembly
+                .GetTypes()
+                .Where(t => baseType.IsAssignableFrom(t));
+
+            foreach (var typeHandler in typeHandlers)
+            {
+                var iTypeHandler = Activator.CreateInstance(typeHandler) as SqlMapper.ITypeHandler;
+                var type = typeHandler?.BaseType?.GetGenericArguments()[0];
+                if (type != null && iTypeHandler != null)
+                {
+                    SqlMapper.AddTypeHandler(type, iTypeHandler);
+                }
+            }
+        }
     }
 #pragma warning restore CA1063 // Implement IDisposable Correctly
 
-    public static class IServiceCollectionTestExtensions
+    public static class ServiceCollectionTestExtensions
     {
-        public static IServiceCollection ReplaceWithInMemory<TContext>(this IServiceCollection services, string databaseName)
+        public static IServiceCollection ReplaceWithInMemoryUnitWork(this IServiceCollection services)
+        {
+            var descriptor = services.SingleOrDefault(
+                d => d.ServiceType == typeof(IUnitOfWork));
+
+            if (descriptor != null)
+            {
+                services.Remove(descriptor);
+            }
+
+            services.AddScoped<IUnitOfWork, InMemoryUnitOfWork>();
+
+            return services;
+        }
+
+        public static IServiceCollection ReplaceWithInMemory<TContext>(this IServiceCollection services,
+            string databaseName)
             where TContext : DbContext
         {
             var descriptor = services.SingleOrDefault(
@@ -118,10 +161,7 @@ namespace TreniniDotNet.IntegrationTests
             }
 
             // Add ApplicationDbContext using an in-memory database for testing.
-            services.AddDbContext<TContext>(options =>
-            {
-                options.UseInMemoryDatabase(databaseName);
-            });
+            services.AddDbContext<TContext>(options => { options.UseInMemoryDatabase(databaseName); });
 
             return services;
         }

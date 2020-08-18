@@ -1,8 +1,8 @@
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.GetLatestCatalogItems
 {
-    public interface IGetLatestCatalogItemsOutputPort : IOutputPortStandard<GetLatestCatalogItemsOutput>
+    public interface IGetLatestCatalogItemsOutputPort : IStandardOutputPort<GetLatestCatalogItemsOutput>
     {
     }
 }

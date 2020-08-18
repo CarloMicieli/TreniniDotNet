@@ -1,9 +1,12 @@
-﻿using FluentValidation;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+﻿#nullable disable
+using FluentValidation;
+using TreniniDotNet.Application.Collecting.Shared;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
 {
-    public class EditWishlistItemInputValidator : AbstractValidator<EditWishlistItemInput>
+    public class EditWishlistItemInputValidator : AbstractUseCaseValidator<EditWishlistItemInput>
     {
         public EditWishlistItemInputValidator()
         {
@@ -14,7 +17,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
                 .NotEmpty();
 
             RuleFor(x => x.Price)
-                .GreaterThan(0M);
+                .SetValidator(new PriceInputValidator());
 
             RuleFor(x => x.Priority)
                 .IsEnumName(typeof(Priority), caseSensitive: false);

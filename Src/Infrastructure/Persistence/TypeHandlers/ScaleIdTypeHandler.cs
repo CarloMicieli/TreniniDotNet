@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using Dapper;
+using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers

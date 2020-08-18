@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentValidation.TestHelper;
+using TreniniDotNet.Application.Collecting.Shared;
 using TreniniDotNet.TestHelpers.Common;
 using Xunit;
 
@@ -17,7 +18,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         [Fact]
         public void AddItemToWishlistInput_ShouldSucceedValidation()
         {
-            var input = CollectingInputs.AddItemToWishlist.With(
+            var input = NewAddItemToWishlistInput.With(
                 id: Guid.NewGuid(),
                 catalogItem: "acme-123456");
 
@@ -29,7 +30,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         [Fact]
         public void AddItemToWishlistInput_ShouldFailValidation_WhenItIsEmpty()
         {
-            var input = CollectingInputs.AddItemToWishlist.Empty;
+            var input = NewAddItemToWishlistInput.Empty;
 
             var result = Validator.TestValidate(input);
 
@@ -40,27 +41,27 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         [Fact]
         public void AddItemToWishlistInput_ShouldFailValidation_WhenPriceIsNegative()
         {
-            var input = CollectingInputs.AddItemToWishlist.With(price: -1M);
+            var input = NewAddItemToWishlistInput.With(price: new PriceInput(-1M, "EUR"));
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.Price);
+            result.ShouldHaveValidationErrorFor(x => x.Price.Value);
         }
 
         [Fact]
         public void AddItemToWishlistInput_ShouldFailValidation_WhenPriceIsZero()
         {
-            var input = CollectingInputs.AddItemToWishlist.With(price: 0M);
+            var input = NewAddItemToWishlistInput.With(price: new PriceInput(0M, "EUR"));
 
             var result = Validator.TestValidate(input);
 
-            result.ShouldHaveValidationErrorFor(x => x.Price);
+            result.ShouldHaveValidationErrorFor(x => x.Price.Value);
         }
 
         [Fact]
         public void AddItemToWishlistInput_ShouldFailValidation_WhenItemNumberIsTooLong()
         {
-            var input = CollectingInputs.AddItemToWishlist.With(
+            var input = NewAddItemToWishlistInput.With(
                 catalogItem: RandomString.WithLengthOf(51));
 
             var result = Validator.TestValidate(input);
@@ -71,7 +72,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         [Fact]
         public void AddItemToWishlistInput_ShouldFailValidation_WhenPriorityIsInvalid()
         {
-            var input = CollectingInputs.AddItemToWishlist.With(
+            var input = NewAddItemToWishlistInput.With(
                 priority: "--invalid--");
 
             var result = Validator.TestValidate(input);
@@ -82,7 +83,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         [Fact]
         public void AddItemToWishlistInput_ShouldFailValidation_WhenNotesAreTooLong()
         {
-            var input = CollectingInputs.AddItemToWishlist.With(
+            var input = NewAddItemToWishlistInput.With(
                 notes: RandomString.WithLengthOf(151));
 
             var result = Validator.TestValidate(input);

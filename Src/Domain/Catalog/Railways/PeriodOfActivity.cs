@@ -4,8 +4,10 @@ using TreniniDotNet.Common.Enums;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    public sealed class PeriodOfActivity : IEquatable<PeriodOfActivity>
+    public sealed class PeriodOfActivity
     {
+        private PeriodOfActivity() { }
+
         private PeriodOfActivity(DateTime? operatingSince, DateTime? operatingUntil, RailwayStatus status)
         {
             OperatingSince = operatingSince;
@@ -92,25 +94,21 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public override int GetHashCode() => HashCode.Combine(RailwayStatus, OperatingSince, OperatingUntil);
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is PeriodOfActivity that)
             {
-                return AreEquals(this, that);
+                return this == that;
             }
 
             return false;
         }
 
-        public bool Equals(PeriodOfActivity other) => AreEquals(this, other);
-
-        public static bool operator ==(PeriodOfActivity left, PeriodOfActivity right) => AreEquals(left, right);
-
-        public static bool operator !=(PeriodOfActivity left, PeriodOfActivity right) => !AreEquals(left, right);
-
-        private static bool AreEquals(PeriodOfActivity left, PeriodOfActivity right) =>
+        public static bool operator ==(PeriodOfActivity left, PeriodOfActivity right) =>
             left.RailwayStatus == right.RailwayStatus &&
             left.OperatingSince == right.OperatingSince &&
             left.OperatingUntil == right.OperatingUntil;
+
+        public static bool operator !=(PeriodOfActivity left, PeriodOfActivity right) => !(left == right);
     }
 }

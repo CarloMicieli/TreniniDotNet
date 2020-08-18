@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Web;
@@ -33,7 +32,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task DeleteRollingStocks_ShouldReturn404NotFound_WhenCatalogItemIsNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "acme-123456";
             var id = Guid.NewGuid();
@@ -45,12 +44,12 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task DeleteRollingStocks_ShouldReturn204NoContent_WhenRollingStockIsDeleted()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().Id.ToGuid();
+            var id = item.RollingStocks.First().Id;
 
             var response = await client.DeleteJsonAsync($"/api/v1/catalogItems/{itemSlug}/rollingStocks/{id}", Check.Nothing);
 

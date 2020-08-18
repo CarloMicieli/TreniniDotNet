@@ -1,25 +1,27 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
 
 namespace TreniniDotNet.Web.Collecting.V1.Common.ViewModels
 {
     public sealed class CatalogItemView
     {
-        private readonly ICatalogRef _catalogItem;
+        private readonly CatalogItemRef _catalogItem;
 
-        public CatalogItemView(ICatalogRef catalogItem)
+        public CatalogItemView(CatalogItemRef catalogItem)
         {
-            //Links = selfLink;
-            this._catalogItem = catalogItem;
+            _catalogItem = catalogItem;
         }
 
-        // [JsonPropertyName("_links")]
-        // public LinksView? Links { get; }
+        public Guid CatalogItemId => _catalogItem.Id;
 
-        public Guid CatalogItemId => _catalogItem.CatalogItemId.ToGuid();
+        public string Slug => _catalogItem.Slug;
 
-        public string Slug => _catalogItem.Slug.Value;
+        public string BrandName => _catalogItem.BrandName;
+
+        public string ItemNumber => _catalogItem.ItemNumber.Value;
+
+        public string Category => _catalogItem.Category.ToString();
+
+        public string Description => _catalogItem.ToString();
     }
 }

@@ -1,8 +1,10 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
+using TreniniDotNet.Domain.Collecting.Shops;
 
 namespace TreniniDotNet.Application.Collecting.Shops.AddShopToFavourites
 {
-    public interface IAddShopToFavouritesOutputPort : IOutputPortStandard<AddShopToFavouritesOutput>
+    public interface IAddShopToFavouritesOutputPort : IStandardOutputPort<AddShopToFavouritesOutput>
     {
+        void ShopNotFound(ShopId shopId);
     }
 }

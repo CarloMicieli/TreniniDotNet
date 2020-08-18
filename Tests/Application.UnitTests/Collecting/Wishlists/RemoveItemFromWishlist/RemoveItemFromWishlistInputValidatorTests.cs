@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
         [Fact]
         public void RemoveItemFromWishlistInput_ShouldSucceedValidation()
         {
-            var input = CollectingInputs.RemoveItemFromWishlist.With(
+            var input = NewRemoveItemFromWishlistInput.With(
                 id: Guid.NewGuid(),
                 itemId: Guid.NewGuid());
 
@@ -28,7 +28,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist
         [Fact]
         public void RemoveItemFromWishlistInput_ShouldFailValidation_WhenEmpty()
         {
-            var input = CollectingInputs.RemoveItemFromWishlist.Empty;
+            var input = NewRemoveItemFromWishlistInput.Empty;
 
             var result = Validator.TestValidate(input);
 

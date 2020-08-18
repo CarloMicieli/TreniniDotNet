@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Shops.GetShopsList
 {
-    public class GetShopsListHandler : UseCaseHandler<IGetShopsListUseCase, GetShopsListRequest, GetShopsListInput>
+    public class GetShopsListHandler : UseCaseHandler<GetShopsListUseCase, GetShopsListRequest, GetShopsListInput>
     {
-        public GetShopsListHandler(IGetShopsListUseCase useCase, IMapper mapper)
+        public GetShopsListHandler(GetShopsListUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

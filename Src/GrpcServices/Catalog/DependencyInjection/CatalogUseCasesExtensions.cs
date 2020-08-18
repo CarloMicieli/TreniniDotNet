@@ -10,10 +10,10 @@ namespace TreniniDotNet.GrpcServices.Catalog.DependencyInjection
     {
         public static IServiceCollection AddCatalogUseCases(this IServiceCollection services)
         {
-            services.AddScoped<ICreateBrandUseCase, CreateBrandUseCase>();
-            services.AddScoped<ICreateCatalogItemUseCase, CreateCatalogItemUseCase>();
-            services.AddScoped<ICreateRailwayUseCase, CreateRailwayUseCase>();
-            services.AddScoped<ICreateScaleUseCase, CreateScaleUseCase>();
+            services.AddScoped<CreateBrandUseCase>();
+            services.AddScoped<CreateCatalogItemUseCase>();
+            services.AddScoped<CreateRailwayUseCase>();
+            services.AddScoped<CreateScaleUseCase>();
             return services;
         }
     }

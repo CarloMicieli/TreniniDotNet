@@ -1,8 +1,8 @@
 using TreniniDotNet.Catalog;
-using DomainCategory = TreniniDotNet.Domain.Catalog.CatalogItems.Category;
+using DomainCategory = TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks.Category;
 using DomainControl = TreniniDotNet.Domain.Catalog.CatalogItems.Control;
 using DomainDccInterface = TreniniDotNet.Domain.Catalog.CatalogItems.DccInterface;
-using DomainPassengerCarType = TreniniDotNet.Domain.Catalog.CatalogItems.PassengerCarType;
+using DomainPassengerCarType = TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks.PassengerCarType;
 using DomainPowerMode = TreniniDotNet.Domain.Catalog.CatalogItems.PowerMethod;
 
 namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems

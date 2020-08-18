@@ -1,23 +1,28 @@
 ﻿using System;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.Addresses;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.Extensions;
-using TreniniDotNet.Common.PhoneNumbers;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Collecting.Shops;
+using TreniniDotNet.SharedKernel.Addresses;
+using TreniniDotNet.SharedKernel.PhoneNumbers;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
 {
-    public sealed class CreateShopUseCase : ValidatedUseCase<CreateShopInput, ICreateShopOutputPort>, ICreateShopUseCase
+    public sealed class CreateShopUseCase : AbstractUseCase<CreateShopInput, CreateShopOutput, ICreateShopOutputPort>
     {
         private readonly ShopsService _shopService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateShopUseCase(ICreateShopOutputPort output, ShopsService service, IUnitOfWork unitOfWork)
-            : base(new CreateShopInputValidator(), output)
+        public CreateShopUseCase(
+            IUseCaseInputValidator<CreateShopInput> inputValidator,
+            ICreateShopOutputPort output,
+            ShopsService service,
+            IUnitOfWork unitOfWork)
+            : base(inputValidator, output)
         {
             _shopService = service ??
                 throw new ArgumentNullException(nameof(service));
@@ -29,7 +34,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         {
             var slug = Slug.Of(input.Name);
 
-            bool shopExists = await _shopService.ExistsAsync(slug);
+            var shopExists = await _shopService.ExistsAsync(slug);
             if (shopExists)
             {
                 OutputPort.ShopAlreadyExists(input.Name);
@@ -40,7 +45,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
             Uri? websiteUrl = input.WebsiteUrl.ToUriOpt();
             MailAddress? mailAddress = input.EmailAddress.ToMailAddressOpt();
 
-            Address? address = Address.TryCreate(
+            var address = Address.TryCreate(
                 input.Address?.Line1,
                 input.Address?.Line2,
                 input.Address?.City,
@@ -49,7 +54,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
                 input.Address?.Country,
                 out var a) ? a : (Address?)null;
 
-            var shopId = await _shopService.CreateShop(
+            var id = await _shopService.CreateShopAsync(
                 input.Name,
                 websiteUrl,
                 mailAddress,
@@ -58,7 +63,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
 
             var _ = await _unitOfWork.SaveAsync();
 
-            OutputPort.Standard(new CreateShopOutput(shopId, slug));
+            OutputPort.Standard(new CreateShopOutput(slug));
         }
     }
 }

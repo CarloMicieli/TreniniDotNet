@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem;
 using TreniniDotNet.Catalog;
-using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.GrpcServices.Infrastructure;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
 {
@@ -27,7 +26,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.CatalogItems
             NotFound($"Brand {brand} was not found");
         }
 
-        public void CatalogItemAlreadyExists(IBrandInfo brand, ItemNumber itemNumber)
+        public void CatalogItemAlreadyExists(Brand brand, ItemNumber itemNumber)
         {
             AlreadyExists($"Catalog item {brand} {itemNumber} already exist");
         }

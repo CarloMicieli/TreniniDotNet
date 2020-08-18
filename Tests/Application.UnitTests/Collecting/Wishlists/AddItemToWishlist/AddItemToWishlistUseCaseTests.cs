@@ -1,25 +1,23 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Wishlists;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
 {
-    public class AddItemToWishlistUseCaseTests : CollectingUseCaseTests<AddItemToWishlistUseCase, AddItemToWishlistOutput, AddItemToWishlistOutputPort>
+    public class AddItemToWishlistUseCaseTests : WishlistUseCaseTests<AddItemToWishlistUseCase, AddItemToWishlistInput, AddItemToWishlistOutput, AddItemToWishlistOutputPort>
     {
         [Fact]
         public async Task AddItemToWishlist_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewAddItemToWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -29,9 +27,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         [Fact]
         public async Task AddItemToWishlist_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewAddItemToWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.AddItemToWishlist.Empty);
+            await useCase.Execute(NewAddItemToWishlistInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -39,10 +37,10 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         [Fact]
         public async Task AddItemToWishlist_ShouldOutputError_WhenWishlistWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewAddItemToWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var id = Guid.NewGuid();
-            var input = CollectingInputs.AddItemToWishlist.With(
+            var input = NewAddItemToWishlistInput.With(
                 owner: "George",
                 id: id,
                 catalogItem: "acme-123456");
@@ -56,12 +54,12 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         [Fact]
         public async Task AddItemToWishlist_ShouldOutputError_WhenCatalogItemWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewAddItemToWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var id = CollectionSeedData.Wishlists.George_First_List().Id;
-            var input = CollectingInputs.AddItemToWishlist.With(
+            var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
+            var input = NewAddItemToWishlistInput.With(
                 owner: "George",
-                id: id.ToGuid(),
+                id: id,
                 catalogItem: "acme-123456");
 
             await useCase.Execute(input);
@@ -73,38 +71,38 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
         [Fact]
         public async Task AddItemToWishlist_ShouldOutputError_WhenCatalogItemWasAlreadyPresentInTheList()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewAddItemToWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;
             var item = wishlist.Items.First();
 
-            var input = CollectingInputs.AddItemToWishlist.With(
+            var input = NewAddItemToWishlistInput.With(
                 owner: "George",
-                id: id.ToGuid(),
+                id: id,
                 catalogItem: item.CatalogItem.Slug.ToString());
 
             await useCase.Execute(input);
 
             outputPort.ShouldHaveNoValidationError();
-            outputPort.AssertCatalogItemAlreadyPresent(id, item.Id, item.CatalogItem);
+            outputPort.AssertCatalogItemAlreadyPresent(id, item.CatalogItem);
         }
 
         [Fact]
         public async Task AddItemToWishlist_ShouldAddNewItems()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeWishlistUseCase(Start.WithSeedData, NewAddItemToWishlist);
+            var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var wishlist = CollectionSeedData.Wishlists.George_First_List();
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
             var id = wishlist.Id;
-            var item = CatalogSeedData.CatalogItems.Bemo_1254134();
+            var item = CatalogSeedData.CatalogItems.NewBemo1254134();
 
             var itemId = Guid.NewGuid();
             SetNextGeneratedGuid(itemId);
 
-            var input = CollectingInputs.AddItemToWishlist.With(
+            var input = NewAddItemToWishlistInput.With(
                 owner: "George",
-                id: id.ToGuid(),
+                id: id,
                 catalogItem: item.Slug.ToString());
 
             await useCase.Execute(input);
@@ -119,12 +117,11 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.AddItemToWishlist
             output.ItemId.Should().Be(new WishlistItemId(itemId));
         }
 
-        private AddItemToWishlistUseCase NewAddItemToWishlist(
-            WishlistService wishlistsService,
-            AddItemToWishlistOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new AddItemToWishlistUseCase(outputPort, wishlistsService, unitOfWork);
-        }
+        private AddItemToWishlistUseCase CreateUseCase(
+            IAddItemToWishlistOutputPort outputPort,
+            WishlistsService wishlistsService,
+            WishlistItemsFactory wishlistItemsFactory,
+            IUnitOfWork unitOfWork) =>
+            new AddItemToWishlistUseCase(new AddItemToWishlistInputValidator(), outputPort, wishlistsService, wishlistItemsFactory, unitOfWork);
     }
 }

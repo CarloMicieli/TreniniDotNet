@@ -1,21 +1,20 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
 {
-    public class EditRailwayUseCaseTests : CatalogUseCaseTests<EditRailwayUseCase, EditRailwayOutput, EditRailwayOutputPort>
+    public sealed class EditRailwayUseCaseTests : RailwayUseCaseTests<EditRailwayUseCase, EditRailwayInput, EditRailwayOutput, EditRailwayOutputPort>
     {
         [Fact]
         public async Task EditRailway_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewEditRailway);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(NewEditRailwayInput.Empty);
 
@@ -25,7 +24,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
         [Fact]
         public async Task EditRailway_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewEditRailway);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -35,7 +34,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
         [Fact]
         public async Task EditRailway_ShouldOutputAnError_WhenRailwayIsNotFound()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewEditRailway);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(NewEditRailwayInput.With(railwaySlug: Slug.Of("RhB")));
 
@@ -46,7 +45,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
         [Fact]
         public async Task EditRailway_ShouldEditRailway()
         {
-            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeRailwaysUseCase(Start.WithSeedData, NewEditRailway);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             await useCase.Execute(NewEditRailwayInput.With(
                 railwaySlug: Slug.Of("RhB"),
@@ -60,13 +59,12 @@ namespace TreniniDotNet.Application.Catalog.Railways.EditRailway
             var railway = dbContext.Railways.FirstOrDefault(it => it.Slug == Slug.Of("RhB"));
             railway.Should().NotBeNull();
             railway?.CompanyName.Should().Be("Ferrovia Retica");
-            railway?.Version.Should().Be(2);
         }
 
-
-        private EditRailwayUseCase NewEditRailway(RailwayService railwayService, EditRailwayOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new EditRailwayUseCase(outputPort, railwayService, unitOfWork);
-        }
+        private EditRailwayUseCase CreateUseCase(
+            EditRailwayOutputPort outputPort,
+            RailwaysService railwaysService,
+            IUnitOfWork unitOfWork) =>
+            new EditRailwayUseCase(new EditRailwayInputValidator(), outputPort, railwaysService, unitOfWork);
     }
 }

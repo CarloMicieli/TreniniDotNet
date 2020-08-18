@@ -1,7 +1,7 @@
 using TreniniDotNet.Application.Catalog.Railways.CreateRailway;
 using TreniniDotNet.Catalog;
-using TreniniDotNet.Common;
 using TreniniDotNet.GrpcServices.Infrastructure;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.GrpcServices.Catalog.Railways
 {

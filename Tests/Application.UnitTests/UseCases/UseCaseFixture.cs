@@ -1,4 +1,4 @@
-﻿using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.TestHelpers.InMemory.Repository;
 using TreniniDotNet.TestHelpers.InMemory.Services;
 

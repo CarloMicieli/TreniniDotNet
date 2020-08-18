@@ -1,7 +1,6 @@
-﻿using FluentValidation.TestHelper;
-using TreniniDotNet.Common;
+using FluentValidation.TestHelper;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 {

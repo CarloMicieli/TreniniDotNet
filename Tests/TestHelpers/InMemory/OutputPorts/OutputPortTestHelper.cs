@@ -1,17 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using FluentValidation.Results;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs.Validation;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
 
 namespace TreniniDotNet.TestHelpers.InMemory.OutputPorts
 {
-    public abstract class OutputPortTestHelper<TUseCaseOutput> : IOutputPortStandard<TUseCaseOutput>
+    public abstract class OutputPortTestHelper<TUseCaseOutput> : IStandardOutputPort<TUseCaseOutput>
         where TUseCaseOutput : IUseCaseOutput
     {
         private MethodInvocation<string> ErrorMethod { set; get; }
-        private MethodInvocation<IList<ValidationFailure>> InvalidRequestMethod { set; get; }
+        private MethodInvocation<IEnumerable<ValidationError>> InvalidRequestMethod { set; get; }
         private MethodInvocation<TUseCaseOutput> StandardMethod { set; get; }
 
         private IEnumerable<IMethodInvocation> CommonMethods => new List<IMethodInvocation>
@@ -22,7 +23,7 @@ namespace TreniniDotNet.TestHelpers.InMemory.OutputPorts
         protected OutputPortTestHelper()
         {
             this.ErrorMethod = MethodInvocation<string>.NotInvoked(nameof(Error));
-            this.InvalidRequestMethod = MethodInvocation<IList<ValidationFailure>>.NotInvoked(nameof(InvalidRequest));
+            this.InvalidRequestMethod = MethodInvocation<IEnumerable<ValidationError>>.NotInvoked(nameof(InvalidRequest));
             this.StandardMethod = MethodInvocation<TUseCaseOutput>.NotInvoked(nameof(Standard));
         }
 
@@ -35,14 +36,14 @@ namespace TreniniDotNet.TestHelpers.InMemory.OutputPorts
         protected MethodInvocation<TValue1, TValue2, TValue3> NewMethod<TValue1, TValue2, TValue3>(string methodName) =>
             MethodInvocation<TValue1, TValue2, TValue3>.NotInvoked(methodName, () => this.ToString());
 
+        public void InvalidRequest(IEnumerable<ValidationError> validationErrors)
+        {
+            this.InvalidRequestMethod = this.InvalidRequestMethod.Invoked(validationErrors);
+        }
+
         public void Error(string message)
         {
             this.ErrorMethod = this.ErrorMethod.Invoked(message);
-        }
-
-        public void InvalidRequest(IList<ValidationFailure> failures)
-        {
-            this.InvalidRequestMethod = this.InvalidRequestMethod.Invoked(failures);
         }
 
         public void Standard(TUseCaseOutput output)

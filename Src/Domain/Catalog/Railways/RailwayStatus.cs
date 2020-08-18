@@ -1,4 +1,4 @@
-﻿namespace TreniniDotNet.Domain.Catalog.Railways
+namespace TreniniDotNet.Domain.Catalog.Railways
 {
     public enum RailwayStatus
     {

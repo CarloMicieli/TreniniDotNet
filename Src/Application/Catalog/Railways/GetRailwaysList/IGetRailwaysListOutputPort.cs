@@ -1,8 +1,8 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
 
 namespace TreniniDotNet.Application.Catalog.Railways.GetRailwaysList
 {
-    public interface IGetRailwaysListOutputPort : IOutputPortStandard<GetRailwaysListOutput>
+    public interface IGetRailwaysListOutputPort : IStandardOutputPort<GetRailwaysListOutput>
     {
     }
 }

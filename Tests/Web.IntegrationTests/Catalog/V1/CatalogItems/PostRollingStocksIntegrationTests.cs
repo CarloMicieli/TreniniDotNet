@@ -2,10 +2,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
-using TreniniDotNet.Common;
 using TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -32,7 +31,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostRollingStocks_ShouldReturn404NotFound_WhenTheCatalogItemIsNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "not-found";
 
@@ -51,7 +50,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostRollingStocks_ShouldReturn422UnprocessableEntity_WhenTheRailwayIsNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "acme-60458";
 
@@ -70,7 +69,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PostRollingStocks_ShouldReturn201Created_WhenTheRollingStockIsAddedToTheCatalogItem()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "acme-60458";
 

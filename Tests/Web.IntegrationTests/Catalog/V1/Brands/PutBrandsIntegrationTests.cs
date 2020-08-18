@@ -1,7 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
@@ -24,7 +23,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
             {
             };
 
-            var brand = "acme";
+            const string brand = "acme";
             var response = await client.PutJsonAsync($"/api/v1/brands/{brand}", request, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
@@ -33,14 +32,14 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         [Fact]
         public async Task PutBrands_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var request = new
             {
                 BrandType = "--invalid--"
             };
 
-            var brand = "acme";
+            const string brand = "acme";
             var response = await client.PutJsonAsync($"/api/v1/brands/{brand}", request, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -49,9 +48,9 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         [Fact]
         public async Task PutBrands_ShouldReturn404NotFound_WhenBrandToEditWasNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
-            var brand = "not-found";
+            const string brand = "not-found";
             var response = await client.PutJsonAsync($"/api/v1/brands/{brand}", new { }, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -60,9 +59,9 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         [Fact]
         public async Task PutBrands_ShouldReturn200OK_WhenBrandWasUpdated()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
-            var brand = "acme";
+            const string brand = "acme";
             var request = new
             {
                 CompanyName = "Associazione Costruzioni Modellistiche Esatte",

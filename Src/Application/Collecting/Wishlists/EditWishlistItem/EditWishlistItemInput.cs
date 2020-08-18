@@ -1,6 +1,6 @@
 ﻿using System;
-using TreniniDotNet.Common.UseCases.Interfaces;
-using TreniniDotNet.Common.UseCases.Interfaces.Input;
+using TreniniDotNet.Application.Collecting.Shared;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
 {
@@ -10,7 +10,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
             string owner,
             Guid id, Guid itemId,
             DateTime? addedDate,
-            decimal? price,
+            PriceInput? price,
             string? priority,
             string? notes)
         {
@@ -27,7 +27,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.EditWishlistItem
         public Guid Id { get; }
         public Guid ItemId { get; }
         public DateTime? AddedDate { get; }
-        public decimal? Price { get; }
+        public PriceInput? Price { get; }
         public string? Priority { get; }
         public string? Notes { get; }
     }

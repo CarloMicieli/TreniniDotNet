@@ -1,9 +1,9 @@
-﻿using TreniniDotNet.Common;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.Brands.CreateBrand
 {
-    public interface ICreateBrandOutputPort : IOutputPortStandard<CreateBrandOutput>
+    public interface ICreateBrandOutputPort : IStandardOutputPort<CreateBrandOutput>
     {
         void BrandAlreadyExists(Slug brand);
     }

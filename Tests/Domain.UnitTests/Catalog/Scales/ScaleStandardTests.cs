@@ -10,10 +10,10 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         [Fact]
         public void ScaleStandard_TryParse_ShouldParseValidStrings()
         {
-            var result = ScaleStandards.TryParse(ScaleStandard.NEM.ToString(), out var standard);
+            var result = ScaleStandards.TryParse(ScaleStandard.Nem.ToString(), out var standard);
 
             result.Should().BeTrue();
-            standard.Should().Be(ScaleStandard.NEM);
+            standard.Should().Be(ScaleStandard.Nem);
         }
 
         [Fact]
@@ -28,8 +28,8 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         [Fact]
         public void ScaleStandard_Parse_ShouldParseValidStrings()
         {
-            var standard = ScaleStandards.Parse(ScaleStandard.NEM.ToString());
-            standard.Should().Be(ScaleStandard.NEM);
+            var standard = ScaleStandards.Parse(ScaleStandard.Nem.ToString());
+            standard.Should().Be(ScaleStandard.Nem);
         }
 
         [Fact]
@@ -44,16 +44,16 @@ namespace TreniniDotNet.Domain.Catalog.Scales
         {
             IEnumerable<string> values = new List<string>
             {
-                ScaleStandard.NEM.ToString(),
-                ScaleStandard.NRMA.ToString()
+                ScaleStandard.Nem.ToString(),
+                ScaleStandard.Nrma.ToString()
             };
 
             var set = ScaleStandards.ToSet(values);
 
             set.Should().NotBeNull();
             set.Should().HaveCount(2);
-            set.Should().Contain(ScaleStandard.NEM);
-            set.Should().Contain(ScaleStandard.NRMA);
+            set.Should().Contain(ScaleStandard.Nem);
+            set.Should().Contain(ScaleStandard.Nrma);
         }
 
         [Fact]

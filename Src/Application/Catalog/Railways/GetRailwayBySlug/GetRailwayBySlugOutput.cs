@@ -1,15 +1,15 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
 using TreniniDotNet.Domain.Catalog.Railways;
 
 namespace TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug
 {
     public sealed class GetRailwayBySlugOutput : IUseCaseOutput
     {
-        public GetRailwayBySlugOutput(IRailway railway)
+        public GetRailwayBySlugOutput(Railway railway)
         {
             Railway = railway;
         }
 
-        public IRailway Railway { get; }
+        public Railway Railway { get; }
     }
 }

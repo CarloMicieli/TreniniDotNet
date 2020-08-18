@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using FluentAssertions;
 
 namespace TreniniDotNet.TestHelpers.InMemory.OutputPorts

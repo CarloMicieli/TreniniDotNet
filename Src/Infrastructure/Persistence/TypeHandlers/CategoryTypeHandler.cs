@@ -1,6 +1,7 @@
 using System.Data;
 using Dapper;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
 
 namespace Infrastructure.Infrastructure.TypeHandlers

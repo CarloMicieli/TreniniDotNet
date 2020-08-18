@@ -1,22 +1,20 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Wishlists;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
 {
-    public class GetWishlistByIdUseCaseTests : CollectingUseCaseTests<GetWishlistByIdUseCase, GetWishlistByIdOutput, GetWishlistByIdOutputPort>
+    public class GetWishlistByIdUseCaseTests : WishlistUseCaseTests<GetWishlistByIdUseCase, GetWishlistByIdInput, GetWishlistByIdOutput, GetWishlistByIdOutputPort>
     {
         [Fact]
         public async Task GetWishlistById_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewGetWishlistById);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -26,7 +24,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
         [Fact]
         public async Task GetWishlistById_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewGetWishlistById);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetWishlistByIdInput(null, Guid.Empty));
 
@@ -36,7 +34,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
         [Fact]
         public async Task GetWishlistById_ShouldOutputError_WhenTheWishlistWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewGetWishlistById);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var id = Guid.NewGuid();
             await useCase.Execute(new GetWishlistByIdInput("George", id));
@@ -48,10 +46,10 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
         [Fact]
         public async Task GetWishlistById_ShouldOutputTheWishlist()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewGetWishlistById);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var id = CollectionSeedData.Wishlists.George_First_List().Id;
-            await useCase.Execute(new GetWishlistByIdInput("George", id.ToGuid()));
+            var id = CollectingSeedData.Wishlists.NewGeorgeFirstList().Id;
+            await useCase.Execute(new GetWishlistByIdInput("George", id));
 
             outputPort.ShouldHaveNoValidationError();
             outputPort.ShouldHaveStandardOutput();
@@ -61,12 +59,11 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
             output.Wishlist.Id.Should().Be(id);
         }
 
-        private GetWishlistByIdUseCase NewGetWishlistById(
-            WishlistService wishlistService,
-            GetWishlistByIdOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new GetWishlistByIdUseCase(outputPort, wishlistService);
-        }
+        private GetWishlistByIdUseCase CreateUseCase(
+            IGetWishlistByIdOutputPort outputPort,
+            WishlistsService wishlistsService,
+            WishlistItemsFactory wishlistItemsFactory,
+            IUnitOfWork unitOfWork) =>
+            new GetWishlistByIdUseCase(new GetWishlistByIdInputValidator(), outputPort, wishlistsService);
     }
 }

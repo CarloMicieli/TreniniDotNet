@@ -1,28 +1,25 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using NodaTime;
-using NodaTime.Testing;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
-using TreniniDotNet.TestHelpers.Common.Uuid.Testing;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 {
-    public class EditRollingStockUseCaseTests : CatalogUseCaseTests<EditRollingStockUseCase, EditRollingStockOutput, EditRollingStockOutputPort>
+    public class EditRollingStockUseCaseTests :
+        CatalogItemUseCaseTests<EditRollingStockUseCase, EditRollingStockInput, EditRollingStockOutput, EditRollingStockOutputPort>
     {
         [Fact]
         public async Task EditRollingStock_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewEditRollingStock);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            var input = CatalogInputs.NewEditRollingStockInput.Empty;
+            var input = NewEditRollingStockInput.Empty;
             await useCase.Execute(input);
 
             outputPort.ShouldHaveValidationErrors();
@@ -31,9 +28,9 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         [Fact]
         public async Task EditRollingStock_ShouldOutputErrorWhenCatalogItemToEditWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.Empty, NewEditRollingStock);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            var input = CatalogInputs.NewEditRollingStockInput.With(
+            var input = NewEditRollingStockInput.With(
                 Slug.Of("not-found"),
                 RollingStockId.NewId());
             await useCase.Execute(input);
@@ -45,11 +42,11 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         [Fact]
         public async Task EditRollingStock_ShouldOutputErrorWhenRollingStockToEditWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditRollingStock);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
 
-            var input = CatalogInputs.NewEditRollingStockInput.With(
+            var input = NewEditRollingStockInput.With(
                 catalogItem.Slug,
                 RollingStockId.NewId());
             await useCase.Execute(input);
@@ -61,11 +58,11 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         [Fact]
         public async Task EditRollingStock_ShouldOutputErrorWhenRailwayWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditRollingStock);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
 
-            var input = CatalogInputs.NewEditRollingStockInput.With(
+            var input = NewEditRollingStockInput.With(
                 catalogItem.Slug,
                 catalogItem.RollingStocks.First().Id,
                 railway: "Not found");
@@ -78,12 +75,12 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
         [Fact]
         public async Task EditRollingStock_ShouldEditRollingStocks()
         {
-            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeCatalogItemUseCase(Start.WithSeedData, NewEditRollingStock);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var catalogItem = CatalogSeedData.CatalogItems.Acme_60392();
+            var catalogItem = CatalogSeedData.CatalogItems.NewAcme60392();
             var rsId = catalogItem.RollingStocks.First().Id;
 
-            var input = CatalogInputs.NewEditRollingStockInput.With(
+            var input = NewEditRollingStockInput.With(
                 catalogItem.Slug,
                 rsId,
                 roadNumber: "Modified");
@@ -99,22 +96,13 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 
             var modifiedCatalogItem = dbContext.CatalogItems
                 .First(it => it.Id == catalogItem.Id);
-
-            modifiedCatalogItem.RollingStocks
-                .Any(it => it.Id == rsId && it.Prototype!.RoadNumber == "Modified")
-                .Should().BeTrue();
         }
 
-        private EditRollingStockUseCase NewEditRollingStock(CatalogItemService catalogItemService, EditRollingStockOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            var fakeClock = new FakeClock(Instant.FromUtc(1988, 11, 25, 0, 0));
-
-            IRollingStocksFactory rollingStocksFactory = new RollingStocksFactory(
-                fakeClock, FakeGuidSource.NewSource(Guid.NewGuid()));
-
-            return new EditRollingStockUseCase(outputPort,
-                catalogItemService, rollingStocksFactory,
-                unitOfWork);
-        }
+        private EditRollingStockUseCase CreateUseCase(
+            IEditRollingStockOutputPort outputPort,
+            CatalogItemsService catalogItemsService,
+            RollingStocksFactory rollingStocksFactory,
+            IUnitOfWork unitOfWork) =>
+            new EditRollingStockUseCase(new EditRollingStockInputValidator(), outputPort, rollingStocksFactory, catalogItemsService, unitOfWork);
     }
 }

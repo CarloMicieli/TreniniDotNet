@@ -1,13 +1,13 @@
 ﻿using System;
-using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
 {
     public sealed class ScaleInfoView
     {
-        private readonly IScaleInfo _scale;
+        private readonly ScaleRef _scale;
 
-        public ScaleInfoView(IScaleInfo scale)
+        public ScaleInfoView(ScaleRef scale)
         {
             _scale = scale ??
                 throw new ArgumentNullException(nameof(scale));
@@ -15,8 +15,8 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
 
         public Guid Id => _scale.Id.ToGuid();
 
-        public string Name => _scale.Name;
+        public string Name => _scale.ToString();
 
-        public string Slug => _scale.Slug.ToString();
+        public string Slug => _scale.Slug;
     }
 }

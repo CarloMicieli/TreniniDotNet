@@ -1,22 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common.Data;
+using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Application.Catalog.Scales.EditScale
 {
-    public sealed class EditScaleUseCase : ValidatedUseCase<EditScaleInput, IEditScaleOutputPort>, IEditScaleUseCase
+    public sealed class EditScaleUseCase : AbstractUseCase<EditScaleInput, EditScaleOutput, IEditScaleOutputPort>
     {
-        private readonly ScaleService _scaleService;
+        private readonly ScalesService _scaleService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EditScaleUseCase(IEditScaleOutputPort output,
-            ScaleService scaleService,
+        public EditScaleUseCase(
+            IUseCaseInputValidator<EditScaleInput> inputValidator,
+            IEditScaleOutputPort output,
+            ScalesService scaleService,
             IUnitOfWork unitOfWork)
-            : base(new EditScaleInputValidator(), output)
+            : base(inputValidator, output)
         {
             _scaleService = scaleService ??
                 throw new ArgumentNullException(nameof(scaleService));
@@ -35,19 +40,34 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
 
             var values = input.Values;
 
-            ScaleGauge? scaleGauge = (values.Gauge.Inches is null && values.Gauge.Millimeters is null) ?
-                (ScaleGauge?)null : values.Gauge.ToScaleGauge();
+            var scaleGauge = (values.Gauge.Inches is null && values.Gauge.Millimeters is null) ?
+                null : values.Gauge.ToScaleGauge();
 
             var ratio = values.Ratio.HasValue ? Ratio.Of(values.Ratio.Value) : (Ratio?)null;
 
-            await _scaleService.UpdateScale(
-                scale,
+            ISet<ScaleStandard> standards;
+            if (values.Standards is null)
+            {
+                standards = new HashSet<ScaleStandard>();
+            }
+            else
+            {
+                standards = values.Standards
+                    .Select(EnumHelpers.OptionalValueFor<ScaleStandard>)
+                    .Where(it => it.HasValue)
+                    .Select(it => it!.Value)
+                    .ToHashSet();
+            }
+
+            var modifiedScale = scale.With(
                 values.Name,
                 ratio,
                 scaleGauge,
                 values.Description,
-                ImmutableHashSet<ScaleStandard>.Empty,
+                standards,
                 values.Weight);
+
+            await _scaleService.UpdateScaleAsync(modifiedScale);
 
             await _unitOfWork.SaveAsync();
 

@@ -1,27 +1,24 @@
+using System.Net.Http;
 using System.Threading.Tasks;
-using TreniniDotNet.IntegrationTests;
 using TreniniDotNet.Web;
 using Xunit;
 
-namespace IntegrationTests
+namespace TreniniDotNet.IntegrationTests
 {
     public class HealthChecksTests : AbstractWebApplicationFixture
     {
+        private readonly HttpClient _client;
+
         public HealthChecksTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            _client = factory.CreateClient();
         }
 
         [Fact]
         public async Task HealthChecks()
         {
-            // Arrange
-            var client = CreateHttpClient();
-
-            // Act
-            var response = await client.GetAsync("/health");
-
-            // Assert
+            var response = await _client.GetAsync("/health");
             response.EnsureSuccessStatusCode(); // Status Code 200-299
         }
     }

@@ -1,10 +1,10 @@
-﻿using TreniniDotNet.Common.Addresses;
+﻿using TreniniDotNet.SharedKernel.Addresses;
 
 namespace TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels
 {
     public class AddressView
     {
-        internal AddressView(Address address)
+        public AddressView(Address address)
         {
             Line1 = address.Line1;
             Line2 = address.Line2;

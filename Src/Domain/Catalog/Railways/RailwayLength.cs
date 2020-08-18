@@ -1,11 +1,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using TreniniDotNet.Common.Extensions;
-using TreniniDotNet.Common.Lengths;
+using TreniniDotNet.SharedKernel.Lengths;
 
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    public sealed class RailwayLength : IEquatable<RailwayLength>
+    public sealed class RailwayLength
     {
         private static readonly TwoLengths TwoLengths =
             new TwoLengths(MeasureUnit.Kilometers, MeasureUnit.Miles);
@@ -42,24 +42,21 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         }
 
         #region [ Equality ]
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is RailwayLength that)
             {
-                return AreEquals(this, that);
+                return this == that;
             }
 
             return false;
         }
 
-        public bool Equals(RailwayLength other) => AreEquals(this, other);
+        public static bool operator ==(RailwayLength left, RailwayLength right) =>
+            left.Miles == right.Miles &&
+            left.Kilometers == right.Kilometers;
 
-        public static bool operator ==(RailwayLength left, RailwayLength right) => AreEquals(left, right);
-
-        public static bool operator !=(RailwayLength left, RailwayLength right) => !AreEquals(left, right);
-
-        private static bool AreEquals(RailwayLength left, RailwayLength right) =>
-            left.Miles == right.Miles && left.Kilometers == right.Kilometers;
+        public static bool operator !=(RailwayLength left, RailwayLength right) => !(left == right);
         #endregion
 
         public override int GetHashCode() => HashCode.Combine(Kilometers, Miles);

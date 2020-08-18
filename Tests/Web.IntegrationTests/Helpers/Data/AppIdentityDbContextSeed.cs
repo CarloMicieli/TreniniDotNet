@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using TreniniDotNet.Web.UserProfiles.Identity;
+using TreniniDotNet.Infrastructure.Identity;
 
 namespace TreniniDotNet.IntegrationTests.Helpers.Data
 {

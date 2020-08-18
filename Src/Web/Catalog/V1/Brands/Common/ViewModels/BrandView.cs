@@ -7,11 +7,11 @@ namespace TreniniDotNet.Web.Catalog.V1.Brands.Common.ViewModels
 {
     public class BrandView
     {
-        public BrandView(IBrand b, LinksView? selfLink)
+        public BrandView(Brand b, LinksView? selfLink)
         {
             Links = selfLink;
 
-            Id = b.Id.ToGuid();
+            Id = b.Id;
             Name = b.Name;
             CompanyName = b.CompanyName;
             MailAddress = b.EmailAddress?.ToString();

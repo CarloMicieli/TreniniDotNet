@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using FluentAssertions;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Domain.Collecting.Shared
@@ -32,6 +33,13 @@ namespace TreniniDotNet.Domain.Collecting.Shared
         }
 
         [Fact]
+        public void Owner_ToString_ShouldProduceStringRepresentations()
+        {
+            var owner = new Owner("George");
+            owner.ToString().Should().Be("Owner(George)");
+        }
+
+        [Fact]
         public void Owner_ShouldCheckEquality()
         {
             var george1 = new Owner("George");
@@ -43,6 +51,39 @@ namespace TreniniDotNet.Domain.Collecting.Shared
             george1.Equals(george2).Should().BeTrue();
             george1.Equals(richard).Should().BeFalse();
             (george1 == richard).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Owner_CanViewWishlist_WhenIsTheOwner()
+        {
+            var wishlist = CollectingSeedData.Wishlists.NewGeorgeFirstList();
+            var owner = wishlist.Owner;
+            var richard = new Owner("richard");
+
+            owner.CanView(wishlist).Should().BeTrue();
+            richard.CanView(wishlist).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Owner_CanViewWishlist_WhenWishlistIsPublic()
+        {
+            var wishlist = CollectingSeedData.Wishlists.NewRocketFirstList();
+            var owner = wishlist.Owner;
+            var george = new Owner("George");
+
+            owner.CanView(wishlist).Should().BeTrue();
+            george.CanView(wishlist).Should().BeTrue();
+        }
+
+        [Fact]
+        public void Owner_CanEditWishlist_OnlyWhenIsTheOwner()
+        {
+            var wishlist = CollectingSeedData.Wishlists.NewRocketFirstList();
+            var owner = wishlist.Owner;
+            var george = new Owner("George");
+
+            owner.CanEdit(wishlist).Should().BeTrue();
+            george.CanEdit(wishlist).Should().BeFalse();
         }
     }
 }

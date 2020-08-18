@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace TreniniDotNet.Infrastructure.Dapper.Extensions.DependencyInjection
@@ -18,13 +20,25 @@ namespace TreniniDotNet.Infrastructure.Dapper.Extensions.DependencyInjection
         public void UsePostgres(string connectionString)
         {
             ConfigureDatabaseOptions(connectionString);
-            services.AddScoped<IDatabaseContext, NpgsqlDatabaseContext>();
+            services.AddScoped<IConnectionProvider, NpgsqlConnectionProvider>();
         }
 
         public void UseSqlite(string connectionString)
         {
             ConfigureDatabaseOptions(connectionString);
-            services.AddScoped<IDatabaseContext, SqliteDatabaseContext>();
+            services.AddScoped<IConnectionProvider, SqliteConnectionProvider>();
+        }
+
+        public void UseSqliteInMemory(Guid id)
+        {
+            var connectionString = new SqliteConnectionStringBuilder($"Data Source={id}.db")
+            {
+                ForeignKeys = true,
+                Cache = SqliteCacheMode.Shared,
+                Mode = SqliteOpenMode.ReadWriteCreate
+            }.ToString();
+
+            UseSqlite(connectionString);
         }
 
         public void ScanTypeHandlersIn(Assembly assembly)

@@ -1,17 +1,15 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.GetCatalogItemBySlug
 {
     public sealed class GetCatalogItemBySlugOutput : IUseCaseOutput
     {
-        private readonly ICatalogItem _item;
-
-        public GetCatalogItemBySlugOutput(ICatalogItem item)
+        public GetCatalogItemBySlugOutput(CatalogItem item)
         {
-            _item = item;
+            Item = item;
         }
 
-        public ICatalogItem Item => _item;
+        public CatalogItem Item { get; }
     }
 }

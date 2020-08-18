@@ -1,23 +1,20 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 
 namespace TreniniDotNet.Domain.Collecting.Wishlists
 {
-    public interface IWishlistsRepository
+    public interface IWishlistsRepository : IRepository<WishlistId, Wishlist>
     {
-        Task<bool> ExistAsync(Owner owner, Slug wishlistSlug);
+        Task<bool> ExistsAsync(WishlistId id);
 
-        Task<bool> ExistAsync(Owner owner, WishlistId id);
+        Task<Wishlist?> GetByIdAsync(WishlistId id);
 
-        Task<WishlistId> AddAsync(IWishlist wishList);
+        Task<List<Wishlist>> GetByOwnerAsync(Owner owner, VisibilityCriteria visibility);
 
-        Task DeleteAsync(WishlistId id);
+        Task<bool> ExistsAsync(Owner owner, string listName);
 
-        Task<IWishlist?> GetByIdAsync(WishlistId id);
-
-        Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, VisibilityCriteria visibility);
+        Task<int> CountWishlistsAsync(Owner owner);
     }
 }

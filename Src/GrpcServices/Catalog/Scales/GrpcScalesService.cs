@@ -13,7 +13,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.Scales
     public sealed class GrpcScalesService : ScalesService.ScalesServiceBase
     {
         public GrpcScalesService(
-            ICreateScaleUseCase useCase,
+            CreateScaleUseCase useCase,
             CreateScalePresenter presenter,
             ILogger<GrpcScalesService> log)
         {
@@ -27,7 +27,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.Scales
 
         private ILogger<GrpcScalesService> Log { get; }
         private CreateScalePresenter Presenter { get; }
-        private ICreateScaleUseCase UseCase { get; }
+        private CreateScaleUseCase UseCase { get; }
 
         public override async Task<CreateScaleResponse> CreateScale(CreateScaleRequest request, ServerCallContext context)
         {

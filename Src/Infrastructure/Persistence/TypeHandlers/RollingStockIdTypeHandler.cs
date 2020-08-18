@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using Dapper;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 
 namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
@@ -22,7 +23,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 
         public override void SetValue(IDbDataParameter parameter, RollingStockId? value)
         {
-            parameter.Value = value?.ToGuid();
+            parameter.Value = value;
         }
     }
 }

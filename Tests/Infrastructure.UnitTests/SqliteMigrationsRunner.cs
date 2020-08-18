@@ -13,7 +13,7 @@ namespace TreniniDotNet.Infrastructure
 
         public SqliteMigrationsRunner(IOptions<DatabaseOptions> options)
         {
-            this.ServiceProvider = CreateServices(options.Value.ConnectionString);
+            ServiceProvider = CreateServices(options.Value.ConnectionString);
         }
 
         private static IServiceProvider CreateServices(string connectionString)

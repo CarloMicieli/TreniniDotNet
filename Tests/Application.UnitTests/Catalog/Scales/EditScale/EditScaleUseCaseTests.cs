@@ -1,21 +1,20 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Scales;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.EditScale
 {
-    public class EditScaleUseCaseTests : CatalogUseCaseTests<EditScaleUseCase, EditScaleOutput, EditScaleOutputPort>
+    public class EditScaleUseCaseTests : ScaleUseCaseTests<EditScaleUseCase, EditScaleInput, EditScaleOutput, EditScaleOutputPort>
     {
         [Fact]
         public async Task EditScale_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewEditScale);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(NewEditScaleInput.Empty);
 
@@ -25,7 +24,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
         [Fact]
         public async Task EditScale_ShouldOutputError_WhenScaleIsNotFound()
         {
-            var (useCase, outputPort) = ArrangeScalesUseCase(Start.Empty, NewEditScale);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(NewEditScaleInput.With(scaleSlug: Slug.Of("H0m")));
 
@@ -36,7 +35,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
         [Fact]
         public async Task EditScale_ShouldEditScale()
         {
-            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeScalesUseCase(Start.WithSeedData, NewEditScale);
+            var (useCase, outputPort, unitOfWork, dbContext) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var input = NewEditScaleInput.With(
                 scaleSlug: Slug.Of("H0m"),
@@ -54,9 +53,10 @@ namespace TreniniDotNet.Application.Catalog.Scales.EditScale
             scale.Ratio.ToDecimal().Should().Be(97M);
         }
 
-        private EditScaleUseCase NewEditScale(ScaleService scaleService, EditScaleOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new EditScaleUseCase(outputPort, scaleService, unitOfWork);
-        }
+        private EditScaleUseCase CreateUseCase(
+            EditScaleOutputPort outputPort,
+            ScalesService scalesService,
+            IUnitOfWork unitOfWork) =>
+            new EditScaleUseCase(new EditScaleInputValidator(), outputPort, scalesService, unitOfWork);
     }
 }

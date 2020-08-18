@@ -1,9 +1,11 @@
-﻿using FluentValidation;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+﻿#nullable disable
+using FluentValidation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
 {
-    public sealed class CreateWishlistInputValidator : AbstractValidator<CreateWishlistInput>
+    public sealed class CreateWishlistInputValidator : AbstractUseCaseValidator<CreateWishlistInput>
     {
         public CreateWishlistInputValidator()
         {
@@ -17,6 +19,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
 
             RuleFor(x => x.ListName)
                 .MaximumLength(50);
+
+            RuleFor(x => x.Budget)
+                .SetValidator(new BudgetInputValidator());
         }
     }
 }

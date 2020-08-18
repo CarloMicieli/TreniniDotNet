@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 using TreniniDotNet.Domain.Catalog.Scales;
 using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
@@ -8,17 +9,17 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels
 {
     public sealed class ScaleView
     {
-        public ScaleView(IScale scale, LinksView? selfLink)
+        public ScaleView(Scale scale, LinksView? selfLink)
         {
             Links = selfLink;
 
             Id = scale.Id.ToGuid();
             Name = scale.Name;
-            Ratio = scale.Ratio.ToDecimal();
+            Ratio = Math.Round(scale.Ratio.ToDecimal(), 1);
 
             Gauge = new ScaleGaugeView(scale.Gauge);
 
-            Standards = new List<string>();
+            Standards = scale.Standards.Select(it => it.ToString()).ToList();
             Weight = scale.Weight;
             Description = scale.Description;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using MediatR;
-using Newtonsoft.Json;
+using TreniniDotNet.Web.Collecting.V1.Common.Requests;
 
 namespace TreniniDotNet.Web.Collecting.V1.Collections.EditCollectionItem
 {
@@ -17,7 +18,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.EditCollectionItem
 
         public string? Shop { get; set; }
 
-        public decimal? Price { get; set; }
+        public PriceRequest? Price { get; set; }
 
         public string? Condition { get; set; }
 

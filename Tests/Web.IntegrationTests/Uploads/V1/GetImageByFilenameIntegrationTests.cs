@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
@@ -21,7 +20,7 @@ namespace TreniniDotNet.IntegrationTests.Uploads.V1
         [Fact]
         public async Task GetImageByFilename_ShouldReturn200Ok_ReturnTheImage()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             byte[] imageData = default(byte[]);
             using var reader = new StreamReader(@"../../../Uploads/image.jpg");

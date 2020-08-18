@@ -1,6 +1,6 @@
 ﻿using System;
-using TreniniDotNet.Common.UseCases.Interfaces;
-using TreniniDotNet.Common.UseCases.Interfaces.Input;
+using TreniniDotNet.Application.Collecting.Shared;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 
 namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
 {
@@ -11,7 +11,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             Guid id,
             Guid itemId,
             DateTime? addedDate,
-            decimal? price,
+            PriceInput? price,
             string? condition,
             string? shop,
             string? notes)
@@ -30,7 +30,7 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
         public Guid Id { get; }
         public Guid ItemId { get; }
         public string? Shop { get; }
-        public decimal? Price { get; }
+        public PriceInput? Price { get; }
         public string? Condition { get; }
         public DateTime? AddedDate { get; }
         public string? Notes { get; }

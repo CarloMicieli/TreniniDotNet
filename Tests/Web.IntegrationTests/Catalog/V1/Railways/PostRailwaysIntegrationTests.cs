@@ -2,10 +2,9 @@
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
-using TreniniDotNet.Common;
 using TreniniDotNet.IntegrationTests.Catalog.V1.Railways.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -31,7 +30,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Railways
         [Fact]
         public async Task PostRailways_ShouldReturn201Created_WhenTheNewRailwayIsCreated()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var model = new
             {
@@ -70,7 +69,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Railways
         [Fact]
         public async Task PostRailways_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var contentWithoutName = new
             {
@@ -91,7 +90,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Railways
         [Fact]
         public async Task PostRailways_ShouldReturn409Conflict_WhenTheRailwayAlreadyExist()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var content = new
             {

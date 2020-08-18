@@ -1,8 +1,8 @@
 using System;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Catalog.V1.Brands.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
@@ -12,16 +12,18 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
 {
     public class PostBrandsIntegrationTests : AbstractWebApplicationFixture
     {
+        private readonly HttpClient client;
+
         public PostBrandsIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            factory.ClientOptions.BaseAddress = new Uri("http://localhost/api/v1/brands/");
+            client = factory.CreateClient();
         }
 
         [Fact]
         public async Task PostBrands_ShouldReturn401Unauthorized_WhenUserIsNotAuthenticated()
         {
-            var client = CreateHttpClient();
-
             var response = await client.PostJsonAsync("/api/v1/brands", new { }, Check.Nothing);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
@@ -30,7 +32,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         [Fact]
         public async Task PostBrands_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var request = new
             {
@@ -48,7 +50,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         [Fact]
         public async Task PostBrands_ShouldReturn409Conflict_WhenTheBrandAlreadyExist()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var request = new
             {
@@ -67,7 +69,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Brands
         [Fact]
         public async Task PostBrands_ShouldReturn201Created_WhenCreateTheNewBrand()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var request = new
             {

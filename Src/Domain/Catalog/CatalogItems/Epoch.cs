@@ -127,7 +127,7 @@ namespace TreniniDotNet.Domain.Catalog.CatalogItems
 
         #region [ Equality ]
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return ReferenceEquals(this, obj) || obj is Epoch other && Equals(other);
         }

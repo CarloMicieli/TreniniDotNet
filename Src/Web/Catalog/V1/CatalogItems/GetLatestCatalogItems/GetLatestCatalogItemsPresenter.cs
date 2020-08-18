@@ -28,7 +28,7 @@ namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.GetLatestCatalogItems
             ViewModel = new OkObjectResult(viewModel);
         }
 
-        private CatalogItemView ToCatalogItemView(ICatalogItem catalogItem)
+        private CatalogItemView ToCatalogItemView(CatalogItem catalogItem)
         {
             return new CatalogItemView(catalogItem, _linksGenerator.GenerateSelfLink(
                 nameof(GetCatalogItemBySlug.CatalogItemsController.GetCatalogItemBySlug),

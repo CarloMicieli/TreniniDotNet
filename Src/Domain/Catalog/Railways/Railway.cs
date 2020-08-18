@@ -1,19 +1,19 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+using System;
 using NodaTime;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Domain;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.SharedKernel.Countries;
+using TreniniDotNet.SharedKernel.Slugs;
 
-[assembly: InternalsVisibleTo("TestHelpers")]
 namespace TreniniDotNet.Domain.Catalog.Railways
 {
-    public sealed class Railway : AggregateRoot<RailwayId>, IRailway
+    public sealed class Railway : AggregateRoot<RailwayId>
     {
-        internal Railway(
+        public Railway(
             RailwayId id,
-            Slug slug, string name,
+            string name,
             string? companyName,
-            Country? country,
+            Country country,
             PeriodOfActivity periodOfActivity,
             RailwayLength? railwayLength,
             RailwayGauge? gauge,
@@ -24,8 +24,8 @@ namespace TreniniDotNet.Domain.Catalog.Railways
             int version)
             : base(id, created, modified, version)
         {
-            Slug = slug;
             Name = name;
+            Slug = Slug.Of(name);
             CompanyName = companyName;
             Country = country;
             PeriodOfActivity = periodOfActivity;
@@ -42,7 +42,7 @@ namespace TreniniDotNet.Domain.Catalog.Railways
 
         public string? CompanyName { get; }
 
-        public Country? Country { get; }
+        public Country Country { get; }
 
         public PeriodOfActivity PeriodOfActivity { get; }
 
@@ -55,8 +55,32 @@ namespace TreniniDotNet.Domain.Catalog.Railways
         public string? Headquarters { get; }
         #endregion
 
-        public override string ToString() => $"Railway({Name})";
+        public Railway With(
+            string? name = null,
+            string? companyName = null,
+            Country? country = null,
+            PeriodOfActivity? periodOfActivity = null,
+            RailwayLength? railwayLength = null,
+            RailwayGauge? gauge = null,
+            Uri? websiteUrl = null,
+            string? headquarters = null)
+        {
+            var slug = (name is null) ? Slug : Slug.Of(name);
+            return new Railway(
+                Id,
+                name ?? Name,
+                companyName ?? CompanyName,
+                country ?? Country,
+                periodOfActivity ?? PeriodOfActivity,
+                railwayLength ?? TotalLength,
+                gauge ?? TrackGauge,
+                websiteUrl ?? WebsiteUrl,
+                headquarters ?? Headquarters,
+                CreatedDate,
+                ModifiedDate,
+                Version);
+        }
 
-        public IRailwayInfo ToRailwayInfo() => this;
+        public override string ToString() => $"Railway({Name})";
     }
 }

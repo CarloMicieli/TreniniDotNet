@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.Railways.GetRailwayBySlug
 {
-    public class GetRailwayBySlugHandler : UseCaseHandler<IGetRailwayBySlugUseCase, GetRailwayBySlugRequest, GetRailwayBySlugInput>
+    public class GetRailwayBySlugHandler : UseCaseHandler<GetRailwayBySlugUseCase, GetRailwayBySlugRequest, GetRailwayBySlugInput>
     {
-        public GetRailwayBySlugHandler(IGetRailwayBySlugUseCase useCase, IMapper mapper)
+        public GetRailwayBySlugHandler(GetRailwayBySlugUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Collections.CreateCollection
 {
-    public sealed class CreateCollectionHandler : UseCaseHandler<ICreateCollectionUseCase, CreateCollectionRequest, CreateCollectionInput>
+    public sealed class CreateCollectionHandler : UseCaseHandler<CreateCollectionUseCase, CreateCollectionRequest, CreateCollectionInput>
     {
-        public CreateCollectionHandler(ICreateCollectionUseCase useCase, IMapper mapper)
+        public CreateCollectionHandler(CreateCollectionUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

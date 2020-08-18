@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 {
-    public interface IEditCatalogItemOutputPort : IOutputPortStandard<EditCatalogItemOutput>
+    public interface IEditCatalogItemOutputPort : IStandardOutputPort<EditCatalogItemOutput>
     {
         void CatalogItemNotFound(Slug catalogItem);
 

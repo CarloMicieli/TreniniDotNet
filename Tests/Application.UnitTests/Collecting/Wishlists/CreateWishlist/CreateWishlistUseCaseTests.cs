@@ -1,22 +1,20 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Wishlists.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Wishlists;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
 {
-    public class CreateWishlistUseCaseTests : CollectingUseCaseTests<CreateWishlistUseCase, CreateWishlistOutput, CreateWishlistOutputPort>
+    public class CreateWishlistUseCaseTests : WishlistUseCaseTests<CreateWishlistUseCase, CreateWishlistInput, CreateWishlistOutput, CreateWishlistOutputPort>
     {
         [Fact]
         public async Task CreateWishlist_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewCreateWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -26,9 +24,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
         [Fact]
         public async Task CreateWishlist_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.Empty, NewCreateWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.CreateWishlist.Empty);
+            await useCase.Execute(NewCreateWishlistInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -36,9 +34,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
         [Fact]
         public async Task CreateWishlist_ShouldOutputError_WhenAlreadyExistsWishlistWithTheSameSlug()
         {
-            var (useCase, outputPort) = ArrangeWishlistUseCase(Start.WithSeedData, NewCreateWishlist);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var input = CollectingInputs.CreateWishlist.With(
+            var input = NewCreateWishlistInput.With(
                 owner: "George",
                 listName: "First list",
                 visibility: "Private");
@@ -52,12 +50,12 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
         [Fact]
         public async Task CreateWishlist_ShouldCreateNewWishlist()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeWishlistUseCase(Start.WithSeedData, NewCreateWishlist);
+            var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var guid = Guid.NewGuid();
             SetNextGeneratedGuid(guid);
 
-            var input = CollectingInputs.CreateWishlist.With(
+            var input = NewCreateWishlistInput.With(
                 owner: "George",
                 listName: "Second list",
                 visibility: "Private");
@@ -74,12 +72,11 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
             output.Slug.Should().Be(Slug.Of("Second list"));
         }
 
-        private CreateWishlistUseCase NewCreateWishlist(
-            WishlistService wishlistsService,
-            CreateWishlistOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new CreateWishlistUseCase(outputPort, wishlistsService, unitOfWork);
-        }
+        private CreateWishlistUseCase CreateUseCase(
+            ICreateWishlistOutputPort outputPort,
+            WishlistsService wishlistsService,
+            WishlistItemsFactory wishlistItemsFactory,
+            IUnitOfWork unitOfWork) =>
+            new CreateWishlistUseCase(new CreateWishlistInputValidator(), outputPort, wishlistsService, unitOfWork);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
-using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Catalog.V1.Railways.Common.Requests;
 
 namespace TreniniDotNet.Web.Catalog.V1.Railways.EditRailway

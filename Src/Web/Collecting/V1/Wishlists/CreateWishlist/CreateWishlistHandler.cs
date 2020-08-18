@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Wishlists.CreateWishlist
 {
-    public sealed class CreateWishlistHandler : UseCaseHandler<ICreateWishlistUseCase, CreateWishlistRequest, CreateWishlistInput>
+    public sealed class CreateWishlistHandler : UseCaseHandler<CreateWishlistUseCase, CreateWishlistRequest, CreateWishlistInput>
     {
-        public CreateWishlistHandler(ICreateWishlistUseCase useCase, IMapper mapper)
+        public CreateWishlistHandler(CreateWishlistUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

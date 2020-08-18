@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.AddRollingStockToCatalogItem
 {
-    public sealed class AddRollingStockToCatalogItemHandler : UseCaseHandler<IAddRollingStockToCatalogItemUseCase, AddRollingStockToCatalogItemRequest, AddRollingStockToCatalogItemInput>
+    public sealed class AddRollingStockToCatalogItemHandler : UseCaseHandler<AddRollingStockToCatalogItemUseCase, AddRollingStockToCatalogItemRequest, AddRollingStockToCatalogItemInput>
     {
-        public AddRollingStockToCatalogItemHandler(IAddRollingStockToCatalogItemUseCase useCase, IMapper mapper)
+        public AddRollingStockToCatalogItemHandler(AddRollingStockToCatalogItemUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

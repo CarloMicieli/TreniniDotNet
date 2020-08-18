@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
-using TreniniDotNet.Common;
 using TreniniDotNet.IntegrationTests.Catalog.V1.Scales.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -32,7 +31,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         [Fact]
         public async Task PostScales_ShouldReturn201Created_WhenTheNewScaleIsCreated()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var model = new
             {
@@ -61,7 +60,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         [Fact]
         public async Task PostScales_ShouldReturn400BadRequest_WhenTheRequestIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var content = new
             {
@@ -81,7 +80,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Scales
         [Fact]
         public async Task PostScales_ShouldReturn409Conflict_WhenTheScaleAlreadyExist()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var content = new
             {

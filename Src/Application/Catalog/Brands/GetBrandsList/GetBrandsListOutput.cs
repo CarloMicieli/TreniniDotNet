@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
-using TreniniDotNet.Common.Pagination;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using System.Collections.Generic;
+using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
 using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Application.Catalog.Brands.GetBrandsList
 {
     public sealed class GetBrandsListOutput : IUseCaseOutput
     {
-        public GetBrandsListOutput(PaginatedResult<IBrand> paginatedResult)
+        public GetBrandsListOutput(PaginatedResult<Brand> paginatedResult)
         {
             PaginatedResult = paginatedResult;
         }
 
-        public PaginatedResult<IBrand> PaginatedResult { get; }
+        public PaginatedResult<Brand> PaginatedResult { get; }
 
-        public IEnumerable<IBrand> Result => PaginatedResult.Results;
+        public IEnumerable<Brand> Result => PaginatedResult.Results;
     }
 }

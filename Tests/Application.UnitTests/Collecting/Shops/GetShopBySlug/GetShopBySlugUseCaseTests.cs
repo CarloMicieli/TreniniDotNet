@@ -1,20 +1,19 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Shops.OutputPorts;
-using TreniniDotNet.Application.Services;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Shops;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Shops.GetShopBySlug
 {
-    public class GetShopBySlugUseCaseTests : CollectingUseCaseTests<GetShopBySlugUseCase, GetShopBySlugOutput, GetShopBySlugOutputPort>
+    public class GetShopBySlugUseCaseTests : ShopUseCaseTests<GetShopBySlugUseCase, GetShopBySlugInput, GetShopBySlugOutput, GetShopBySlugOutputPort>
     {
         [Fact]
         public async Task GetShopBySlug_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeShopUseCase(Start.Empty, NewGetShopBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -24,7 +23,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetShopBySlug
         [Fact]
         public async Task GetShopBySlug_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeShopUseCase(Start.Empty, NewGetShopBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetShopBySlugInput(null));
 
@@ -34,7 +33,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetShopBySlug
         [Fact]
         public async Task GetShopBySlug_ShouldOutputError_WhenShopWasNotFound()
         {
-            var (useCase, outputPort) = ArrangeShopUseCase(Start.Empty, NewGetShopBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var expectedSlug = Slug.Of("not found");
 
@@ -47,7 +46,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetShopBySlug
         [Fact]
         public async Task GetShopBySlug_ShouldOutputTheShop()
         {
-            var (useCase, outputPort) = ArrangeShopUseCase(Start.WithSeedData, NewGetShopBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var expectedSlug = Slug.Of("Tecnomodel");
 
@@ -61,13 +60,10 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetShopBySlug
             output.Shop.Slug.Should().Be(expectedSlug);
         }
 
-
-        private GetShopBySlugUseCase NewGetShopBySlug(
+        private GetShopBySlugUseCase CreateUseCase(
+            IGetShopBySlugOutputPort outputPort,
             ShopsService shopsService,
-            GetShopBySlugOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new GetShopBySlugUseCase(outputPort, shopsService);
-        }
+            IUnitOfWork unitOfWork) =>
+            new GetShopBySlugUseCase(new GetShopBySlugInputValidator(), outputPort, shopsService);
     }
 }

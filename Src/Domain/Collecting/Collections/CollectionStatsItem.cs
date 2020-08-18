@@ -1,12 +1,11 @@
-﻿using NodaMoney;
-using TreniniDotNet.Common;
+﻿using TreniniDotNet.Domain.Catalog.CatalogItems;
 using TreniniDotNet.Domain.Collecting.Shared;
 
 namespace TreniniDotNet.Domain.Collecting.Collections
 {
-    public sealed class CollectionStatsItem : ICollectionStatsItem
+    public sealed class CollectionStatsItem
     {
-        public CollectionStatsItem(Year year, CollectionCategory category, int count, Money totalValue)
+        public CollectionStatsItem(Year year, CatalogItemCategory category, int count, Price totalValue)
         {
             Category = category;
             Count = count;
@@ -14,9 +13,9 @@ namespace TreniniDotNet.Domain.Collecting.Collections
             TotalValue = totalValue;
         }
 
-        public CollectionCategory Category { get; }
+        public CatalogItemCategory Category { get; }
 
-        public Money TotalValue { get; }
+        public Price TotalValue { get; }
 
         public int Count { get; }
 

@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Shops.GetFavouriteShops
 {
-    public sealed class GetFavouriteShopsHandler : UseCaseHandler<IGetFavouriteShopsUseCase, GetFavouriteShopsRequest, GetFavouriteShopsInput>
+    public sealed class GetFavouriteShopsHandler : UseCaseHandler<GetFavouriteShopsUseCase, GetFavouriteShopsRequest, GetFavouriteShopsInput>
     {
-        public GetFavouriteShopsHandler(IGetFavouriteShopsUseCase useCase, IMapper mapper)
+        public GetFavouriteShopsHandler(GetFavouriteShopsUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

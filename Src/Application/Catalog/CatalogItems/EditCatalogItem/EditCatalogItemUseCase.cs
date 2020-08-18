@@ -3,38 +3,39 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.DeliveryDates;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Brands;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 using TreniniDotNet.Domain.Catalog.Scales;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.SharedKernel.DeliveryDates;
+using TreniniDotNet.SharedKernel.Slugs;
 using static TreniniDotNet.Common.Enums.EnumHelpers;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 {
-    public sealed class EditCatalogItemUseCase : ValidatedUseCase<EditCatalogItemInput, IEditCatalogItemOutputPort>, IEditCatalogItemUseCase
+    public sealed class EditCatalogItemUseCase : AbstractUseCase<EditCatalogItemInput, EditCatalogItemOutput, IEditCatalogItemOutputPort>
     {
-        private readonly CatalogItemService _catalogItemService;
-        private readonly IRollingStocksFactory _rollingStocksFactory;
+        private readonly CatalogItemsService _catalogItemService;
+        private readonly RollingStocksFactory _rollingStocksFactory;
         private readonly IUnitOfWork _unitOfWork;
 
         public EditCatalogItemUseCase(
-            IEditCatalogItemOutputPort output,
-            IRollingStocksFactory rollingStocksFactory,
-            CatalogItemService catalogItemService,
+            IUseCaseInputValidator<EditCatalogItemInput> inputValidator,
+            IEditCatalogItemOutputPort outputPort,
+            RollingStocksFactory rollingStocksFactory,
+            CatalogItemsService catalogItemService,
             IUnitOfWork unitOfWork)
-            : base(new EditCatalogItemInputValidator(), output)
+            : base(inputValidator, outputPort)
         {
             _catalogItemService = catalogItemService ??
                 throw new ArgumentNullException(nameof(catalogItemService));
             _unitOfWork = unitOfWork ??
                 throw new ArgumentNullException(nameof(unitOfWork));
             _rollingStocksFactory = rollingStocksFactory ??
-                throw new ArgumentNullException(nameof(rollingStocksFactory));
+                                    throw new ArgumentNullException(nameof(rollingStocksFactory));
         }
 
         protected override async Task Handle(EditCatalogItemInput input)
@@ -46,11 +47,11 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
                 return;
             }
 
-            IBrandInfo? brand = null;
+            Brand? brand = null;
             if (input.Values.Brand != null)
             {
                 var brandSlug = Slug.Of(input.Values.Brand);
-                brand = await _catalogItemService.FindBrandInfoBySlug(brandSlug);
+                brand = await _catalogItemService.FindBrandBySlug(brandSlug);
                 if (brand is null)
                 {
                     OutputPort.BrandNotFound(brandSlug);
@@ -58,11 +59,11 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
                 }
             }
 
-            IScaleInfo? scale = null;
+            Scale? scale = null;
             if (input.Values.Scale != null)
             {
                 var scaleSlug = Slug.Of(input.Values.Scale);
-                scale = await _catalogItemService.FindScaleInfoBySlug(scaleSlug);
+                scale = await _catalogItemService.FindScaleBySlug(scaleSlug);
                 if (scale is null)
                 {
                     OutputPort.ScaleNotFound(scaleSlug);
@@ -70,7 +71,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
                 }
             }
 
-            IReadOnlyList<IRollingStock> rollingStocks = ImmutableList<IRollingStock>.Empty;
+            IReadOnlyList<RollingStock> rollingStocks = ImmutableList<RollingStock>.Empty;
             if (input.Values.RollingStocks != null &&
                 input.Values.RollingStocks.Count > 0)
             {
@@ -79,7 +80,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
                     .Distinct();
 
                 var (railways, railwaysNotFound) =
-                    await _catalogItemService.FindRailwaysInfoBySlug(inputRailways);
+                    await _catalogItemService.FindRailwaysBySlug(inputRailways);
 
                 if (railwaysNotFound.Count > 0)
                 {
@@ -89,7 +90,11 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 
                 rollingStocks = input.Values.RollingStocks
                     .Select(it => _rollingStocksFactory.FromInput(it, railways))
-                    .ToImmutableList();
+                    .ToList();
+            }
+            else
+            {
+                rollingStocks = item.RollingStocks;
             }
 
             ItemNumber? itemNumber = null;
@@ -101,18 +106,20 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
             var deliveryDate = input.Values.DeliveryDate.ToDeliveryDateOpt();
             var powerMethod = OptionalValueFor<PowerMethod>(input.Values.PowerMethod);
 
-            await _catalogItemService.UpdateCatalogItem(
-                item,
-                brand,
+            var modifiedCatalogItem = item.With(
+                BrandRef.AsOptional(brand),
                 itemNumber,
-                scale,
+                ScaleRef.AsOptional(scale),
                 powerMethod,
                 rollingStocks,
                 input.Values.Description,
                 input.Values.PrototypeDescription,
                 input.Values.ModelDescription,
                 deliveryDate,
-                input.Values.Available);
+                input.Values.Available
+            );
+
+            await _catalogItemService.UpdateCatalogItemAsync(modifiedCatalogItem);
 
             var _ = await _unitOfWork.SaveAsync();
 

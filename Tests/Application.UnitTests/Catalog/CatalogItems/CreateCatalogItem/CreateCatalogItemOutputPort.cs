@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using TreniniDotNet.Common;
 using TreniniDotNet.Domain.Catalog.Brands;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
@@ -10,14 +10,14 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
     public class CreateCatalogItemOutputPort : OutputPortTestHelper<CreateCatalogItemOutput>, ICreateCatalogItemOutputPort
     {
         public MethodInvocation<Slug> BrandNotFoundMethod { get; set; }
-        public MethodInvocation<IBrandInfo, ItemNumber> CatalogItemAlreadyExistsMethod { get; set; }
+        public MethodInvocation<Brand, ItemNumber> CatalogItemAlreadyExistsMethod { get; set; }
         public MethodInvocation<Slug> ScaleNotFoundMethod { get; set; }
         public MethodInvocation<IEnumerable<Slug>> RailwayNotFoundMethod { get; set; }
 
         public CreateCatalogItemOutputPort()
         {
             BrandNotFoundMethod = NewMethod<Slug>(nameof(BrandNotFound));
-            CatalogItemAlreadyExistsMethod = NewMethod<IBrandInfo, ItemNumber>(nameof(CatalogItemAlreadyExists));
+            CatalogItemAlreadyExistsMethod = NewMethod<Brand, ItemNumber>(nameof(CatalogItemAlreadyExists));
             ScaleNotFoundMethod = NewMethod<Slug>(nameof(ScaleNotFound));
             RailwayNotFoundMethod = NewMethod<IEnumerable<Slug>>(nameof(RailwayNotFound));
         }
@@ -27,7 +27,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             BrandNotFoundMethod = BrandNotFoundMethod.Invoked(brand);
         }
 
-        public void CatalogItemAlreadyExists(IBrandInfo brand, ItemNumber itemNumber)
+        public void CatalogItemAlreadyExists(Brand brand, ItemNumber itemNumber)
         {
             CatalogItemAlreadyExistsMethod = CatalogItemAlreadyExistsMethod.Invoked(brand, itemNumber);
         }
@@ -47,7 +47,7 @@ namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
             BrandNotFoundMethod.ShouldBeInvokedWithTheArgument(expectedBrand);
         }
 
-        public void AssertCatalogItemAlreadyExists(IBrandInfo expectedBrand, ItemNumber expectedItemNumber)
+        public void AssertCatalogItemAlreadyExists(Brand expectedBrand, ItemNumber expectedItemNumber)
         {
             CatalogItemAlreadyExistsMethod.ShouldBeInvokedWithTheArguments(expectedBrand, expectedItemNumber);
         }

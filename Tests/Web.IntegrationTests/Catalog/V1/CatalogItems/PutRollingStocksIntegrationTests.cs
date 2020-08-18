@@ -3,10 +3,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.Common;
 using TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.TestHelpers.SeedData.Catalog;
 using TreniniDotNet.Web;
 using Xunit;
@@ -35,7 +35,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PutRollingStocks_ShouldReturn404NotFound_WhenCatalogItemIsNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
             var itemSlug = "acme-123456";
             var id = Guid.NewGuid();
@@ -47,12 +47,12 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PutRollingStocks_ShouldReturn422UnprocessableEntity_WhenRailwayIsNotFound()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().Id.ToGuid();
+            var id = item.RollingStocks.First().Id;
 
             var model = new
             {
@@ -67,12 +67,12 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PutRollingStocks_ShouldReturn409BadRequest_WhenInputIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().Id.ToGuid();
+            var id = item.RollingStocks.First().Id;
 
             var model = new
             {
@@ -88,12 +88,12 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
         [Fact]
         public async Task PutRollingStocks_ShouldReturn201Created_WhenInputIsInvalid()
         {
-            var client = await CreateAuthorizedHttpClientAsync();
+            var client = CreateAuthorizedHttpClient();
 
-            var item = CatalogSeedData.CatalogItems.Acme_60392();
+            var item = CatalogSeedData.CatalogItems.NewAcme60392();
 
             var itemSlug = item.Slug.Value;
-            var id = item.RollingStocks.First().Id.ToGuid();
+            var id = item.RollingStocks.First().Id;
 
             var model = new
             {

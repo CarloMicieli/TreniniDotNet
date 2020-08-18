@@ -1,7 +1,8 @@
+using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems.Responses;
+using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -9,16 +10,19 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.CatalogItems
 {
     public class GetLatestCatalogItemsIntegrationTests : AbstractWebApplicationFixture
     {
+        private HttpClient _client;
+
         public GetLatestCatalogItemsIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            _client = factory.CreateClient();
         }
 
         [Fact]
         public async Task GetLatestCatalogItems_ShouldReturn200OK_WhenTheBrandExists()
         {
             var limit = 2;
-            var content = await GetJsonAsync<CatalogItemsListResponse>($"/api/v1/CatalogItems/latest?start=2&limit={limit}");
+            var content = await _client.GetJsonAsync<CatalogItemsListResponse>($"/api/v1/CatalogItems/latest?start=2&limit={limit}");
 
             content.Should().NotBeNull();
             content._links.Should().NotBeNull();

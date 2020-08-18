@@ -15,7 +15,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public void CreateShopInput_ShouldFailValidation_WhenEmpty()
         {
-            var input = CollectingInputs.CreateShop.Empty;
+            var input = NewCreateShopInput.Empty;
 
             var result = Validator.TestValidate(input);
 
@@ -25,7 +25,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public void CreateShopInput_ShouldFailValidation_WhenWebsiteUrlIsInvalid()
         {
-            var input = CollectingInputs.CreateShop.With(name: "Shop Name", websiteUrl: "--invalid--");
+            var input = NewCreateShopInput.With(name: "Shop Name", websiteUrl: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -35,7 +35,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public void CreateShopInput_ShouldFailValidation_WhenEmailAddressIsInvalid()
         {
-            var input = CollectingInputs.CreateShop.With(name: "Shop Name", emailAddress: "--invalid--");
+            var input = NewCreateShopInput.With(name: "Shop Name", emailAddress: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -45,7 +45,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public void CreateShopInput_ShouldFailValidation_WhenPhoneNumberIsInvalid()
         {
-            var input = CollectingInputs.CreateShop.With(name: "Shop Name", phoneNumber: "--invalid--");
+            var input = NewCreateShopInput.With(name: "Shop Name", phoneNumber: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -55,7 +55,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.CreateShop
         [Fact]
         public void CreateShopInput_ShouldSucceedValidation_WhenValid()
         {
-            var input = CollectingInputs.CreateShop.With(name: "Shop Name");
+            var input = NewCreateShopInput.With(name: "Shop Name");
 
             var result = Validator.TestValidate(input);
 

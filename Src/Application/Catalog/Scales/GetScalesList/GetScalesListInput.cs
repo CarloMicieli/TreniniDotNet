@@ -1,10 +1,9 @@
-﻿using TreniniDotNet.Common.Pagination;
-using TreniniDotNet.Common.UseCases.Interfaces;
-using TreniniDotNet.Common.UseCases.Interfaces.Input;
+﻿using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.GetScalesList
 {
-    public class GetScalesListInput : IUseCaseInput
+    public sealed class GetScalesListInput : IUseCaseInput
     {
         public GetScalesListInput(Page page)
         {

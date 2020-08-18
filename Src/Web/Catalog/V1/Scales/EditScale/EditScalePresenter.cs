@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Catalog.Scales.EditScale;
-using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
 namespace TreniniDotNet.Web.Catalog.V1.Scales.EditScale

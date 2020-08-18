@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Collections.CreateCollection;
+using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
 namespace TreniniDotNet.Web.Collecting.V1.Collections.CreateCollection
@@ -18,9 +19,9 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.CreateCollection
                 output);
         }
 
-        public void UserHasAlreadyOneCollection(string message)
+        public void UserHasAlreadyOneCollection(Owner owner)
         {
-            ViewModel = new ConflictObjectResult(message);
+            ViewModel = new ConflictObjectResult($"User {owner} has already one collection");
         }
     }
 }

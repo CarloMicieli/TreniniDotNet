@@ -12,8 +12,7 @@ using TreniniDotNet.GrpcServices.Catalog.CatalogItems;
 using TreniniDotNet.GrpcServices.Catalog.DependencyInjection;
 using TreniniDotNet.GrpcServices.Catalog.Railways;
 using TreniniDotNet.GrpcServices.Catalog.Scales;
-using TreniniDotNet.Infrastructure.Persistence;
-using TreniniDotNet.Infrastructure.Persistence.TypeHandlers;
+using TreniniDotNet.Infrastructure.Persistence.DependencyInjection;
 
 namespace TreniniDotNet.GrpcServices
 {
@@ -28,7 +27,7 @@ namespace TreniniDotNet.GrpcServices
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -36,13 +35,7 @@ namespace TreniniDotNet.GrpcServices
                 .ReadFrom.Configuration(Configuration)
                 .CreateLogger();
 
-            var connectionString = Configuration.GetConnectionString("Default");
-
-            services.AddDapper(options =>
-            {
-                options.UsePostgres(connectionString);
-                options.ScanTypeHandlersIn(typeof(GuidTypeHandler).Assembly);
-            });
+            services.AddRepositories(Configuration);
 
             services.AddMediatR(typeof(Startup).Assembly);
 
@@ -52,6 +45,7 @@ namespace TreniniDotNet.GrpcServices
             services.AddCatalogUseCases();
             services.AddCatalogServices();
             services.AddCatalogPresenters();
+            services.AddUseCaseInputValidators();
 
             services.AddGrpc(options =>
             {

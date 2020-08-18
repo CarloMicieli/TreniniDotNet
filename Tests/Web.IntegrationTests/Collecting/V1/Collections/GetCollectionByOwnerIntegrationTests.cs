@@ -2,10 +2,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Collecting.V1.Collections.Responses;
 using TreniniDotNet.IntegrationTests.Helpers.Extensions;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -33,7 +32,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         [Fact]
         public async Task GetCollectionByOwner_ShouldReturn404NotFound_WhenUserHasNoCollection()
         {
-            var client = await CreateHttpClientAsync("Ciccins", "Pa$$word88");
+            var client = CreateHttpClient("Ciccins", "Pa$$word88");
 
             var id = Guid.NewGuid();
 
@@ -45,9 +44,9 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Collections
         [Fact]
         public async Task GetCollectionByOwner_ShouldReturnTheCollection()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
-            var id = CollectionSeedData.Collections.GeorgeCollection().Id;
+            var id = CollectingSeedData.Collections.NewGeorgeCollection().Id;
 
             var collection = await client.GetJsonAsync<CollectionResponse>($"api/v1/collections/{id}");
 

@@ -1,5 +1,5 @@
 using MediatR;
-using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Common.Data.Pagination;
 
 namespace TreniniDotNet.Web.Collecting.V1.Shops.GetShopsList
 {

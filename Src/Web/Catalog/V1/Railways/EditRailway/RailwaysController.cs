@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Catalog.Railways.EditRailway;
-using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.Railways.EditRailway

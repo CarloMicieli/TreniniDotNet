@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
         [Fact]
         public void DeleteWishlistInputValidator_ShouldFail_WithEmptyInputs()
         {
-            var input = CollectingInputs.DeleteWishlist.With();
+            var input = NewDeleteWishlistInput.With();
 
             var result = Validator.TestValidate(input);
 
@@ -26,7 +26,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
         [Fact]
         public void DeleteWishlistInputValidator_ShouldValidate_ValidInputs()
         {
-            var input = CollectingInputs.DeleteWishlist.With(id: Guid.NewGuid());
+            var input = NewDeleteWishlistInput.With(id: Guid.NewGuid());
 
             var result = Validator.TestValidate(input);
 

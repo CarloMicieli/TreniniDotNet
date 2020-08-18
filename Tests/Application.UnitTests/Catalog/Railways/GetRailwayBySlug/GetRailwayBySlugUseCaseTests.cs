@@ -1,18 +1,18 @@
-﻿using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using System.Threading.Tasks;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.SharedKernel.Slugs;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug
 {
-    public class GetRailwayBySlugUseCaseTests : CatalogUseCaseTests<GetRailwayBySlugUseCase, GetRailwayBySlugOutput, GetRailwayBySlugOutputPort>
+    public sealed class GetRailwayBySlugUseCaseTests : RailwayUseCaseTests<GetRailwayBySlugUseCase, GetRailwayBySlugInput, GetRailwayBySlugOutput, GetRailwayBySlugOutputPort>
     {
         [Fact]
         public async Task GetRailwayBySlug_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewGetRailwayBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetRailwayBySlugInput(Slug.Empty));
 
@@ -22,7 +22,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug
         [Fact]
         public async Task GetRailwayBySlug_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewGetRailwayBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -32,7 +32,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug
         [Fact]
         public async Task GetRailwayBySlug_ShouldOutputNotFound_WhenRailwayDoesNotExist()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewGetRailwayBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetRailwayBySlugInput(Slug.Of("not-found")));
 
@@ -42,7 +42,7 @@ namespace TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug
         [Fact]
         public async Task GetRailwayBySlug_ShouldOutputRailway_WhenRailwayExists()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.WithSeedData, NewGetRailwayBySlug);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             await useCase.Execute(new GetRailwayBySlugInput(Slug.Of("db")));
 
@@ -51,9 +51,10 @@ namespace TreniniDotNet.Application.Catalog.Railways.GetRailwayBySlug
             Assert.Equal(Slug.Of("db"), output.Railway?.Slug);
         }
 
-        private GetRailwayBySlugUseCase NewGetRailwayBySlug(RailwayService railwayService, GetRailwayBySlugOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new GetRailwayBySlugUseCase(outputPort, railwayService);
-        }
+        private GetRailwayBySlugUseCase CreateUseCase(
+            GetRailwayBySlugOutputPort outputPort,
+            RailwaysService railwaysService,
+            IUnitOfWork unitOfWork) =>
+            new GetRailwayBySlugUseCase(new GetRailwayBySlugInputValidator(), outputPort, railwaysService);
     }
 }

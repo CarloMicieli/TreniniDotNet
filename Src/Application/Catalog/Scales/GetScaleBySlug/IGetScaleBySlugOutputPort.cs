@@ -1,8 +1,8 @@
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
 
 namespace TreniniDotNet.Application.Catalog.Scales.GetScaleBySlug
 {
-    public interface IGetScaleBySlugOutputPort : IOutputPortStandard<GetScaleBySlugOutput>
+    public interface IGetScaleBySlugOutputPort : IStandardOutputPort<GetScaleBySlugOutput>
     {
         void ScaleNotFound(string message);
     }

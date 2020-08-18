@@ -1,5 +1,5 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.DeleteWishlist
 {

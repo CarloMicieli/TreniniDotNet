@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistsByOwner
 {
-    public sealed class GetWishlistsByOwnerInputValidator : AbstractValidator<GetWishlistsByOwnerInput>
+    public sealed class GetWishlistsByOwnerInputValidator : AbstractUseCaseValidator<GetWishlistsByOwnerInput>
     {
         public GetWishlistsByOwnerInputValidator()
         {

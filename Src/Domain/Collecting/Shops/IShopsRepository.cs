@@ -1,27 +1,26 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using TreniniDotNet.Common;
-using TreniniDotNet.Common.Pagination;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Common.Data;
+using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Domain.Collecting.Shared;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Domain.Collecting.Shops
 {
-    public interface IShopsRepository
+    public interface IShopsRepository : IRepository<ShopId, Shop>
     {
-        Task<IEnumerable<IShopInfo>> GetFavouritesAsync(string user);
-
-        Task AddToFavouritesAsync(string user, ShopId shopId);
-
-        Task RemoveFromFavouritesAsync(string user, ShopId shopId);
-
-        Task<IShopInfo?> GetShopInfoBySlugAsync(Slug slug);
+        Task<bool> ExistsAsync(ShopId shopId);
 
         Task<bool> ExistsAsync(Slug slug);
 
-        Task<ShopId> AddAsync(IShop shop);
+        Task<Shop?> GetBySlugAsync(Slug slug);
 
-        Task<IShop?> GetBySlugAsync(Slug slug);
+        Task AddShopToFavouritesAsync(Owner owner, ShopId shopId);
 
-        Task<IEnumerable<IShop>> GetShopsAsync(Page page);
+        Task RemoveFromFavouritesAsync(Owner owner, ShopId shopId);
+
+        Task<List<Shop>> GetFavouriteShopsAsync(Owner owner);
+
+        Task<PaginatedResult<Shop>> GetShopsAsync(Page page);
     }
 }

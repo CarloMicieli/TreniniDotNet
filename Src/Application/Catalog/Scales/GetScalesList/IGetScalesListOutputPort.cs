@@ -1,8 +1,8 @@
-﻿using TreniniDotNet.Common.UseCases.Interfaces.Output;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
 
 namespace TreniniDotNet.Application.Catalog.Scales.GetScalesList
 {
-    public interface IGetScalesListOutputPort : IOutputPortStandard<GetScalesListOutput>
+    public interface IGetScalesListOutputPort : IStandardOutputPort<GetScalesListOutput>
     {
     }
 }

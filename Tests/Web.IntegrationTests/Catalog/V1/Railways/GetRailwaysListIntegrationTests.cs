@@ -1,8 +1,9 @@
 ﻿using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.IntegrationTests.Catalog.V1.Railways.Responses;
+using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -10,15 +11,18 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Railways
 {
     public sealed class GetRailwaysListIntegrationTests : AbstractWebApplicationFixture
     {
+        private HttpClient _client;
+
         public GetRailwaysListIntegrationTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            _client = factory.CreateClient();
         }
 
         [Fact]
         public async Task GetRailwaysList_ShouldReturn200OK_AndTheRailways()
         {
-            var content = await GetJsonAsync<RailwaysListResponse>("/api/v1/railways");
+            var content = await _client.GetJsonAsync<RailwaysListResponse>("/api/v1/railways");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be("http://localhost/api/v1/Railways?start=0&limit=50");
@@ -36,7 +40,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Railways
         public async Task GetRailwaysList_ShouldReturn200OK_AndTheFirstPageOfRailways()
         {
             var limit = 2;
-            var content = await GetJsonAsync<RailwaysListResponse>($"/api/v1/railways?start=0&limit={limit}");
+            var content = await _client.GetJsonAsync<RailwaysListResponse>($"/api/v1/railways?start=0&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Railways?start=0&limit={limit}");
@@ -51,7 +55,7 @@ namespace TreniniDotNet.IntegrationTests.Catalog.V1.Railways
         public async Task GetRailwaysList_ShouldReturn200OK_AndTheRailwaysWithPagination()
         {
             var limit = 2;
-            var content = await GetJsonAsync<RailwaysListResponse>($"/api/v1/railways?start=2&limit={limit}");
+            var content = await _client.GetJsonAsync<RailwaysListResponse>($"/api/v1/railways?start=2&limit={limit}");
 
             content._links.Should().NotBeNull();
             content._links._Self.Should().Be($"http://localhost/api/v1/Railways?start=2&limit={limit}");

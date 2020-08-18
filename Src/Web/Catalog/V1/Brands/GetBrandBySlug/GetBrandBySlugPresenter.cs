@@ -6,7 +6,7 @@ using TreniniDotNet.Web.Infrastructure.ViewModels.Links;
 
 namespace TreniniDotNet.Web.Catalog.V1.Brands.GetBrandBySlug
 {
-    public class GetBrandBySlugPresenter : DefaultHttpResultPresenter<GetBrandBySlugOutput>, IGetBrandBySlugOutputPort
+    public sealed class GetBrandBySlugPresenter : DefaultHttpResultPresenter<GetBrandBySlugOutput>, IGetBrandBySlugOutputPort
     {
         private readonly ILinksGenerator _linksGenerator;
 

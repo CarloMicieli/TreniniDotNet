@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.Brands.EditBrand
 {
-    public sealed class EditBrandHandler : UseCaseHandler<IEditBrandUseCase, EditBrandRequest, EditBrandInput>
+    public sealed class EditBrandHandler : UseCaseHandler<EditBrandUseCase, EditBrandRequest, EditBrandInput>
     {
-        public EditBrandHandler(IEditBrandUseCase useCase, IMapper mapper)
+        public EditBrandHandler(EditBrandUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

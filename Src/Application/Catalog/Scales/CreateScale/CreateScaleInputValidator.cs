@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
 {
-    public sealed class CreateScaleInputValidator : AbstractValidator<CreateScaleInput>
+    public sealed class CreateScaleInputValidator : AbstractUseCaseValidator<CreateScaleInput>
     {
         public CreateScaleInputValidator()
         {

@@ -8,11 +8,11 @@ namespace TreniniDotNet.Domain.Catalog.Scales
     public enum ScaleStandard
     {
         // NEM-standards are used by model railway industry and hobbyists in Europe.
-        NEM,
+        Nem,
 
         // NMRA standards are used widely in North America and by certain special 
         // interest groups all over the world.
-        NRMA,
+        Nrma,
 
         British,
 

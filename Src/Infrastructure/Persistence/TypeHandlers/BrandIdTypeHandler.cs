@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using Dapper;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Catalog.Brands;
 
 namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {
@@ -22,7 +22,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 
         public override void SetValue(IDbDataParameter parameter, BrandId? value)
         {
-            parameter.Value = value?.ToGuid();
+            parameter.Value = value;
         }
     }
 }

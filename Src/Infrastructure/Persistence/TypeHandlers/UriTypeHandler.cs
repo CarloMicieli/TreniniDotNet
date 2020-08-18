@@ -1,12 +1,13 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Data;
 using Dapper;
 
 namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {
-    public class UriTypeHandler : SqlMapper.TypeHandler<Uri?>
+    public class UriTypeHandler : SqlMapper.TypeHandler<Uri>
     {
-        public override Uri? Parse(object value)
+        public override Uri Parse(object value)
         {
             if (value is null)
             {
@@ -16,7 +17,7 @@ namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
             return new Uri(value.ToString());
         }
 
-        public override void SetValue(IDbDataParameter parameter, Uri? value)
+        public override void SetValue(IDbDataParameter parameter, Uri value)
         {
             parameter.Value = value?.ToString();
         }

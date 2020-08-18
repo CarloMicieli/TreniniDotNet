@@ -16,7 +16,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
         [Fact]
         public void CreateWishlistInput_ShouldFailValidation_WhenEmpty()
         {
-            var input = CollectingInputs.CreateWishlist.Empty;
+            var input = NewCreateWishlistInput.Empty;
 
             var result = Validator.TestValidate(input);
 
@@ -25,9 +25,9 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
         }
 
         [Fact]
-        public void CreateWishlistInput_ShouldFailValidation_WhenVisibilitIsNotValid()
+        public void CreateWishlistInput_ShouldFailValidation_WhenVisibilityIsNotValid()
         {
-            var input = CollectingInputs.CreateWishlist.With(owner: "George", visibility: "--invalid--");
+            var input = NewCreateWishlistInput.With(owner: "George", visibility: "--invalid--");
 
             var result = Validator.TestValidate(input);
 
@@ -38,7 +38,7 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.CreateWishlist
         [Fact]
         public void CreateWishlistInput_ShouldFailValidation_WhenListNameIsTooLong()
         {
-            var input = CollectingInputs.CreateWishlist.With(
+            var input = NewCreateWishlistInput.With(
                 listName: RandomString.WithLengthOf(51));
 
             var result = Validator.TestValidate(input);

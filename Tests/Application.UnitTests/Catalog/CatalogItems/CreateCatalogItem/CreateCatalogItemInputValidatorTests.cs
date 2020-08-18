@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using FluentValidation.TestHelper;
-using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.CreateCatalogItem
 {

@@ -10,7 +10,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.CreateScale
         public decimal? Ratio { set; get; }
         public ScaleGaugeRequest? Gauge { set; get; }
         public string? Description { set; get; }
-        public int? Weight { get; }
+        public int? Weight { get; set; }
         public List<string> Standards { get; set; } = new List<string>();
     }
 }

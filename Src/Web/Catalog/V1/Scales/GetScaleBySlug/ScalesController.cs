@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Catalog.V1.Scales.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 

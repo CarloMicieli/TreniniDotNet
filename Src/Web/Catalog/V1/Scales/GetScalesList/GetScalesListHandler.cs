@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.Scales.GetScalesList
 {
-    public class GetScalesListHandler : UseCaseHandler<IGetScalesListUseCase, GetScalesListRequest, GetScalesListInput>
+    public class GetScalesListHandler : UseCaseHandler<GetScalesListUseCase, GetScalesListRequest, GetScalesListInput>
     {
-        public GetScalesListHandler(IGetScalesListUseCase useCase, IMapper mapper)
+        public GetScalesListHandler(GetScalesListUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

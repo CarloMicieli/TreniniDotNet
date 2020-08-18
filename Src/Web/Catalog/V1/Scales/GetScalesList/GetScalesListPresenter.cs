@@ -28,7 +28,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Scales.GetScalesList
             ViewModel = new OkObjectResult(viewModel);
         }
 
-        private ScaleView ToScaleView(IScale scale)
+        private ScaleView ToScaleView(Scale scale)
         {
             return new ScaleView(scale, _linksGenerator.GenerateSelfLink(
                 nameof(GetScaleBySlug.ScalesController.GetScaleBySlug),

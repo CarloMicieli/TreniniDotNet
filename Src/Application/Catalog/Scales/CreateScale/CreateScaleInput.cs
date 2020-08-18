@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using TreniniDotNet.Common.UseCases.Interfaces;
-using TreniniDotNet.Common.UseCases.Interfaces.Input;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
 {

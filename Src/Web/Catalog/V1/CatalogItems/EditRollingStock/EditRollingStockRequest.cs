@@ -1,7 +1,7 @@
 using MediatR;
 using Newtonsoft.Json;
-using TreniniDotNet.Common;
-using TreniniDotNet.Domain.Catalog.ValueObjects;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.EditRollingStock

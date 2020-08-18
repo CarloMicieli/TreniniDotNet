@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Wishlists.RemoveItemFromWishlist;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.Web.Infrastructure.ViewModels;
 
 namespace TreniniDotNet.Web.Collecting.V1.Wishlists.RemoveItemFromWishlist
@@ -16,8 +16,8 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.RemoveItemFromWishlist
         {
             ViewModel = new NotFoundObjectResult(new
             {
-                Id = id.ToGuid(),
-                ItemId = itemId.ToGuid()
+                Id = id,
+                ItemId = itemId
             });
         }
     }

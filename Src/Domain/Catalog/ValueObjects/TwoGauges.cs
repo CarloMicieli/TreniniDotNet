@@ -1,4 +1,4 @@
-﻿using TreniniDotNet.Common.Lengths;
+﻿using TreniniDotNet.SharedKernel.Lengths;
 
 namespace TreniniDotNet.Domain.Catalog.ValueObjects
 {

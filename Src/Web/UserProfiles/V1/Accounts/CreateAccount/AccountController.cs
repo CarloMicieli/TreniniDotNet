@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TreniniDotNet.Web.UserProfiles.Identity;
+using TreniniDotNet.Infrastructure.Identity;
 
 namespace TreniniDotNet.Web.UserProfiles.V1.Accounts.CreateAccount
 {

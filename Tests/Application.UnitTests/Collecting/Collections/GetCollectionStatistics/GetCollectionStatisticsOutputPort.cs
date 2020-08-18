@@ -1,8 +1,7 @@
-﻿using TreniniDotNet.Application.Collecting.Collections.GetCollectionStatistics;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.TestHelpers.InMemory.OutputPorts;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Collections.OutputPorts
+namespace TreniniDotNet.Application.Collecting.Collections.GetCollectionStatistics
 {
     public sealed class GetCollectionStatisticsOutputPort : OutputPortTestHelper<GetCollectionStatisticsOutput>, IGetCollectionStatisticsOutputPort
     {

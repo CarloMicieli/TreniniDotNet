@@ -1,17 +1,16 @@
-﻿using FluentValidation.TestHelper;
+using FluentValidation.TestHelper;
 using TreniniDotNet.Domain.Catalog.ValueObjects;
 using Xunit;
-using static TreniniDotNet.Application.Catalog.CatalogInputs;
 
 namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
 {
     public class CreateScaleInputValidatorTests
     {
-        private readonly CreateScaleInputValidator validator;
+        private CreateScaleInputValidator Validator { get; }
 
         public CreateScaleInputValidatorTests()
         {
-            validator = new CreateScaleInputValidator();
+            Validator = new CreateScaleInputValidator();
         }
 
         [Fact]
@@ -25,7 +24,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
                     trackGauge: TrackGauge.Standard.ToString()),
                 description: "my notes");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldNotHaveAnyValidationErrors();
         }
@@ -35,7 +34,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         {
             var input = NewCreateScaleInput.Empty;
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Name);
         }
@@ -45,7 +44,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         {
             var input = NewCreateScaleInput.With(name: "   ");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Name);
         }
@@ -55,7 +54,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         {
             var input = NewCreateScaleInput.With(name: "01234567890");
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Name);
         }
@@ -65,7 +64,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         {
             var input = NewCreateScaleInput.With(ratio: -1M);
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Ratio);
         }
@@ -75,7 +74,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         {
             var input = NewCreateScaleInput.With(ratio: 0M);
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Ratio);
         }
@@ -85,7 +84,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         {
             var input = NewCreateScaleInput.With(scaleGauge: NewScaleGaugeInput.With(millimeters: -10M));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Gauge.Millimeters);
         }
@@ -95,7 +94,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         {
             var input = NewCreateScaleInput.With(scaleGauge: NewScaleGaugeInput.With(millimeters: 0M));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Gauge.Millimeters);
         }
@@ -105,7 +104,7 @@ namespace TreniniDotNet.Application.Catalog.Scales.CreateScale
         {
             var input = NewCreateScaleInput.With(scaleGauge: NewScaleGaugeInput.With(trackGauge: "invalid"));
 
-            var result = validator.TestValidate(input);
+            var result = Validator.TestValidate(input);
 
             result.ShouldHaveValidationErrorFor(x => x.Gauge.TrackGauge);
         }

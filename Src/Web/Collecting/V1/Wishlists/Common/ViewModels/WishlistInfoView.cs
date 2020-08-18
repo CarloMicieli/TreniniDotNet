@@ -5,19 +5,19 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels
 {
     public sealed class WishlistInfoView
     {
-        private readonly IWishlistInfo _inner;
+        private Wishlist Wishlist { get; }
 
-        public WishlistInfoView(IWishlistInfo inner)
+        public WishlistInfoView(Wishlist wishlist)
         {
-            _inner = inner;
+            Wishlist = wishlist;
         }
 
-        public Guid WishlistId => _inner.Id.ToGuid();
+        public Guid Id => Wishlist.Id;
 
-        public string Slug => _inner.Slug.Value;
+        public string Slug => Wishlist.Slug.Value;
 
-        public string? ListName => _inner.ListName;
+        public string? ListName => Wishlist.ListName;
 
-        public string Visibility => _inner.Visibility.ToString();
+        public string Visibility => Wishlist.Visibility.ToString();
     }
 }

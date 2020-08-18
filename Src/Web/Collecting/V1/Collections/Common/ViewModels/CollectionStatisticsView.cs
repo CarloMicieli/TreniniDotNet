@@ -8,9 +8,9 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
 {
     public sealed class CollectionStatisticsView
     {
-        private readonly ICollectionStats _inner;
+        private readonly CollectionStats _inner;
 
-        public CollectionStatisticsView(ICollectionStats stats)
+        public CollectionStatisticsView(CollectionStats stats)
         {
             _inner = stats;
 
@@ -20,13 +20,13 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels
                 .ToList();
         }
 
-        public Guid Id => _inner.Id.ToGuid();
+        public Guid Id => _inner.Id;
 
         public string Owner => _inner.Owner.Value;
 
         public DateTime ModifiedDate => _inner.ModifiedDate.ToDateTimeUtc();
 
-        public MoneyView TotalValue => new MoneyView(_inner.TotalValue);
+        public PriceView TotalValue => new PriceView(_inner.TotalValue);
 
         public List<CollectionStatItem> Details { get; }
 

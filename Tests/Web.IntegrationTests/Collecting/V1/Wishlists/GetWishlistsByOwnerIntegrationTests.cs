@@ -1,7 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IntegrationTests;
 using TreniniDotNet.Web;
 using Xunit;
 
@@ -39,7 +38,7 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
         [Fact]
         public async Task GetWishlistsByOwner_ShouldReturnWishlists()
         {
-            var client = await CreateHttpClientAsync("George", "Pa$$word88");
+            var client = CreateHttpClient("George", "Pa$$word88");
 
             var owner = "George";
             var response = await client.GetAsync($"/api/v1/wishlists/owner/{owner}?visibility=private");

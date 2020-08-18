@@ -4,9 +4,9 @@ using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Catalog.V1.Brands.CreateBrand
 {
-    public class CreateBrandHandler : UseCaseHandler<ICreateBrandUseCase, CreateBrandRequest, CreateBrandInput>
+    public class CreateBrandHandler : UseCaseHandler<CreateBrandUseCase, CreateBrandRequest, CreateBrandInput>
     {
-        public CreateBrandHandler(ICreateBrandUseCase useCase, IMapper mapper)
+        public CreateBrandHandler(CreateBrandUseCase useCase, IMapper mapper)
             : base(useCase, mapper)
         {
         }

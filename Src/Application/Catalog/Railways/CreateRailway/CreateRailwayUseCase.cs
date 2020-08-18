@@ -1,25 +1,28 @@
-﻿using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
-using TreniniDotNet.Common;
+using System.Threading.Tasks;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.Railways;
+using TreniniDotNet.SharedKernel.Countries;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.Railways.CreateRailway
 {
-    public sealed class CreateRailwayUseCase : ValidatedUseCase<CreateRailwayInput, ICreateRailwayOutputPort>, ICreateRailwayUseCase
+    public sealed class CreateRailwayUseCase : AbstractUseCase<CreateRailwayInput, CreateRailwayOutput, ICreateRailwayOutputPort>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly RailwayService _railwayService;
+        private readonly RailwaysService _railwayService;
 
         public CreateRailwayUseCase(
+            IUseCaseInputValidator<CreateRailwayInput> inputValidator,
             ICreateRailwayOutputPort outputPort,
-            RailwayService railwayService,
+            RailwaysService railwayService,
             IUnitOfWork unitOfWork)
-            : base(new CreateRailwayInputValidator(), outputPort)
+            : base(inputValidator, outputPort)
         {
-            _unitOfWork = unitOfWork;
             _railwayService = railwayService;
+            _unitOfWork = unitOfWork;
         }
 
         protected override async Task Handle(CreateRailwayInput input)

@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using MediatR;
 
 namespace TreniniDotNet.Web.Collecting.V1.Collections.CreateCollection
 {

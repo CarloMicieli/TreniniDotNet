@@ -1,72 +1,91 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 using TreniniDotNet.TestHelpers.InMemory.Repository;
 
-namespace TreniniDotNet.Application.InMemory.Collecting.Wishlists
+namespace TreniniDotNet.Application.Collecting.Wishlists
 {
     public sealed class WishlistsRepository : IWishlistsRepository
     {
-        private readonly InMemoryContext _context;
+        private InMemoryContext Context { get; }
 
         public WishlistsRepository(InMemoryContext context)
         {
-            _context = context;
+            Context = context;
         }
 
-        public Task<WishlistId> AddAsync(IWishlist wishList)
-        {
-            return Task.FromResult(wishList.Id);
-        }
-
-        public Task DeleteAsync(WishlistId id) =>
-            Task.CompletedTask;
-
-        public Task DeleteItemAsync(WishlistId id, WishlistItemId itemId)
+        public Task<PaginatedResult<Wishlist>> GetAllAsync(Page page)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<bool> ExistAsync(Owner owner, Slug wishlistSlug)
+        public Task<WishlistId> AddAsync(Wishlist catalogItem)
         {
-            var result = _context.WishLists
-                .Any(it => it.Owner == owner && it.Slug == wishlistSlug);
+            Context.WishLists.Add(catalogItem);
+            return Task.FromResult(catalogItem.Id);
+        }
+
+        public Task UpdateAsync(Wishlist brand)
+        {
+            Context.WishLists.RemoveAll(it => it.Id == brand.Id);
+            Context.WishLists.Add(brand);
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteAsync(WishlistId id)
+        {
+            Context.WishLists.RemoveAll(it => it.Id == id);
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteAsync(Wishlist wishlist)
+        {
+            Context.WishLists.RemoveAll(it => it.Id == wishlist.Id);
+            return Task.CompletedTask;
+        }
+
+        public Task<bool> ExistsAsync(WishlistId id)
+        {
+            var result = Context.WishLists.Any(it => it.Id == id);
             return Task.FromResult(result);
         }
 
-        public Task<bool> ExistAsync(Owner owner, WishlistId id)
+        public Task<Wishlist> GetByIdAsync(WishlistId id)
         {
-            var result = _context.WishLists
-                .Any(it => it.Owner == owner && it.Id == id);
+            var result = Context.WishLists.FirstOrDefault(it => it.Id == id);
             return Task.FromResult(result);
         }
 
-        public Task<IWishlist> GetByIdAsync(WishlistId id)
+        public Task<List<Wishlist>> GetByOwnerAsync(Owner owner, VisibilityCriteria visibility)
         {
-            var result = _context.WishLists
-                .FirstOrDefault(it => it.Id == id);
-            return Task.FromResult(result);
-        }
+            var results = Context.WishLists.Where(it => it.Owner == owner);
 
-        public Task<IEnumerable<IWishlistInfo>> GetByOwnerAsync(Owner owner, VisibilityCriteria visibility)
-        {
-            IEnumerable<IWishlistInfo> result = _context.WishLists
-                .Where(it => it.Owner == owner);
-
-            if (visibility != VisibilityCriteria.All)
+            if (visibility == VisibilityCriteria.Private)
             {
-                var vis = (visibility == VisibilityCriteria.Private) ? Visibility.Private : Visibility.Public;
-                result = result.Where(it => it.Visibility == vis);
+                results = results.Where(it => it.Visibility == Visibility.Private);
+            }
+            else if (visibility == VisibilityCriteria.Public)
+            {
+                results = results.Where(it => it.Visibility == Visibility.Public);
             }
 
-            result = result
-                .Select(it => (IWishlistInfo)it)
-                .ToList();
+            return Task.FromResult(results.ToList());
+        }
+
+        public Task<bool> ExistsAsync(Owner owner, string listName)
+        {
+            var result = Context.WishLists.Any(it =>
+                it.Owner == owner && string.Equals(it.ListName, listName, StringComparison.InvariantCultureIgnoreCase));
             return Task.FromResult(result);
+        }
+
+        public Task<int> CountWishlistsAsync(Owner owner)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

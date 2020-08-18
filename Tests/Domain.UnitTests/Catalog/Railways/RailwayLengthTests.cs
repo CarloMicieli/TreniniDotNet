@@ -1,5 +1,5 @@
 using FluentAssertions;
-using TreniniDotNet.Common.Lengths;
+using TreniniDotNet.SharedKernel.Lengths;
 using Xunit;
 
 namespace TreniniDotNet.Domain.Catalog.Railways

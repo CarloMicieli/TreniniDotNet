@@ -8,11 +8,11 @@ namespace TreniniDotNet.Infrastructure.Database.Testing
         public DatabaseSetup Setup { get; }
         public DatabaseAssert Assert { get; }
 
-        public DatabaseTestHelpers(IDatabaseContext databaseContext)
+        public DatabaseTestHelpers(IConnectionProvider connectionProvider)
         {
-            Arrange = new DatabaseArrange(databaseContext);
-            Setup = new DatabaseSetup(databaseContext);
-            Assert = new DatabaseAssert(databaseContext);
+            Arrange = new DatabaseArrange(connectionProvider);
+            Setup = new DatabaseSetup(connectionProvider);
+            Assert = new DatabaseAssert(connectionProvider);
         }
     }
 }

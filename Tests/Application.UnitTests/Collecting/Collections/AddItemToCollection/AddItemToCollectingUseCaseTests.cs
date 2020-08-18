@@ -1,24 +1,23 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using TreniniDotNet.Application.InMemory.Collecting.Collections.OutputPorts;
-using TreniniDotNet.Application.Services;
+using TreniniDotNet.Application.Collecting.Shared;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
-using TreniniDotNet.TestHelpers.SeedData.Collection;
+using TreniniDotNet.SharedKernel.Slugs;
+using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using Xunit;
 
 namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
 {
-    public class AddItemToCollectingUseCaseTests : CollectingUseCaseTests<AddItemToCollectionUseCase, AddItemToCollectionOutput, AddItemToCollectionOutputPort>
+    public class AddItemToCollectingUseCaseTests : CollectionUseCaseTests<AddItemToCollectionUseCase, AddItemToCollectionInput, AddItemToCollectionOutput, AddItemToCollectionOutputPort>
     {
         [Fact]
         public async Task AddItemToCollection_ShouldOutputAnError_WhenInputIsNull()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewAddItemToCollection);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(null);
 
@@ -28,9 +27,9 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         [Fact]
         public async Task AddItemToCollection_ShouldValidateInput()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewAddItemToCollection);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
-            await useCase.Execute(CollectingInputs.AddItemToCollection.Empty);
+            await useCase.Execute(NewAddItemToCollectionInput.Empty);
 
             outputPort.ShouldHaveValidationErrors();
         }
@@ -38,16 +37,16 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         [Fact]
         public async Task AddItemToCollection_ShouldFail_WhenTheCollectionNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.Empty, NewAddItemToCollection);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             var owner = new Owner("not-found");
 
-            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
-            var input = CollectingInputs.AddItemToCollection.With(
+            var input = NewAddItemToCollectionInput.With(
                 owner: owner,
                 catalogItem: "acme-60392",
-                price: 450M);
+                price: NewPriceInput.With(450M, "EUR"));
 
             await useCase.Execute(input);
 
@@ -58,15 +57,15 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         [Fact]
         public async Task AddItemToCollection_ShouldFail_WhenTheShopNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewAddItemToCollection);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
-            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
-            var input = CollectingInputs.AddItemToCollection.With(
+            var input = NewAddItemToCollectionInput.With(
                 owner: "George",
                 catalogItem: "acme-60392",
                 shop: "Not found",
-                price: 450M);
+                price: NewPriceInput.With(450M, "EUR"));
 
             await useCase.Execute(input);
 
@@ -77,15 +76,15 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         [Fact]
         public async Task AddItemToCollection_ShouldFail_WhenTheCatalogItemNotExists()
         {
-            var (useCase, outputPort) = ArrangeCollectionUseCase(Start.WithSeedData, NewAddItemToCollection);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var catalogItem = Slug.Of("acme-123456");
-            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
-            var input = CollectingInputs.AddItemToCollection.With(
+            var input = NewAddItemToCollectionInput.With(
                 owner: "George",
                 catalogItem: catalogItem.ToString(),
-                price: 450M);
+                price: NewPriceInput.With(450M, "EUR"));
 
             await useCase.Execute(input);
 
@@ -96,17 +95,17 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
         [Fact]
         public async Task AddItemToCollection_ShouldAddItemsToCollection()
         {
-            var (useCase, outputPort, unitOfWork) = ArrangeCollectionUseCase(Start.WithSeedData, NewAddItemToCollection);
+            var (useCase, outputPort, unitOfWork) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             var itemId = Guid.NewGuid();
             SetNextGeneratedGuid(itemId);
 
-            var collection = CollectionSeedData.Collections.GeorgeCollection();
+            var collection = CollectingSeedData.Collections.NewGeorgeCollection();
             var id = collection.Id;
-            var input = CollectingInputs.AddItemToCollection.With(
+            var input = NewAddItemToCollectionInput.With(
                 owner: "George",
                 catalogItem: "acme-60392",
-                price: 450M);
+                price: NewPriceInput.With(450M, "EUR"));
 
             await useCase.Execute(input);
 
@@ -121,12 +120,11 @@ namespace TreniniDotNet.Application.Collecting.Collections.AddItemToCollection
             output.CatalogItem.Should().Be(Slug.Of("acme-60392"));
         }
 
-        private AddItemToCollectionUseCase NewAddItemToCollection(
-            CollectionsService collectionService,
-            AddItemToCollectionOutputPort outputPort,
-            IUnitOfWork unitOfWork)
-        {
-            return new AddItemToCollectionUseCase(outputPort, collectionService, unitOfWork);
-        }
+        private AddItemToCollectionUseCase CreateUseCase(
+            IAddItemToCollectionOutputPort outputPort,
+            CollectionsService collectionsService,
+            CollectionItemsFactory collectionItemsFactory,
+            IUnitOfWork unitOfWork) =>
+            new AddItemToCollectionUseCase(new AddItemToCollectionInputValidator(), outputPort, collectionsService, collectionItemsFactory, unitOfWork);
     }
 }

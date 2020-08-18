@@ -1,25 +1,30 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using TreniniDotNet.Common.Data;
 using TreniniDotNet.Common.Enums;
 using TreniniDotNet.Common.Extensions;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Collecting.Collections;
 using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
 {
     public sealed class EditCollectionItemUseCase :
-        ValidatedUseCase<EditCollectionItemInput, IEditCollectionItemOutputPort>,
-        IEditCollectionItemUseCase
+        AbstractUseCase<EditCollectionItemInput, EditCollectionItemOutput, IEditCollectionItemOutputPort>
     {
         private readonly CollectionsService _collectionService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EditCollectionItemUseCase(IEditCollectionItemOutputPort output, CollectionsService collectionService, IUnitOfWork unitOfWork)
-            : base(new EditCollectionItemInputValidator(), output)
+        public EditCollectionItemUseCase(
+            IUseCaseInputValidator<EditCollectionItemInput> inputValidator,
+            IEditCollectionItemOutputPort output,
+            CollectionsService collectionService,
+            IUnitOfWork unitOfWork)
+            : base(inputValidator, output)
         {
             _collectionService = collectionService ??
                 throw new ArgumentNullException(nameof(collectionService));
@@ -33,46 +38,50 @@ namespace TreniniDotNet.Application.Collecting.Collections.EditCollectionItem
             var collectionId = new CollectionId(input.Id);
             var itemId = new CollectionItemId(input.ItemId);
 
-            bool collectionExists = await _collectionService.ExistAsync(owner, collectionId);
-            if (!collectionExists)
+            var collection = await _collectionService.GetByOwnerAsync(owner);
+            if (collection is null)
             {
                 OutputPort.CollectionNotFound(owner, collectionId);
                 return;
             }
 
-            ICollectionItem? item = await _collectionService.GetItemByIdAsync(collectionId, itemId);
+            var item = collection.FindItemById(itemId);
             if (item is null)
             {
                 OutputPort.CollectionItemNotFound(owner, collectionId, itemId);
                 return;
             }
 
-            IShopInfo? shopInfo = null;
+            Shop? shop = null;
             if (!string.IsNullOrWhiteSpace(input.Shop))
             {
-                shopInfo = await _collectionService.GetShopInfo(input.Shop);
-                if (shopInfo is null)
+                var shopSlug = Slug.Of(input.Shop);
+                shop = await _collectionService.GetShopBySlugAsync(shopSlug);
+                if (shop is null)
                 {
                     OutputPort.ShopNotFound(input.Shop);
+                    return;
                 }
             }
 
             var addedDate = input.AddedDate.ToLocalDateOrDefault();
             var condition = EnumHelpers.OptionalValueFor<Condition>(input.Condition);
 
-            await _collectionService.EditItemAsync(
-                collectionId,
-                itemId,
-                item.CatalogItem,
-                condition ?? item.Condition,
-                input.Price ?? item.Price,
-                addedDate ?? item.AddedDate,
-                null,
-                input.Notes ?? item.Notes);
+            var price = input.Price?.ToPriceOrDefault();
+
+            var modifiedItem = item.With(
+                catalogItem: item.CatalogItem,
+                condition: condition,
+                price: price,
+                addedDate: addedDate,
+                notes: input.Notes);
+            collection.UpdateItem(modifiedItem);
+
+            await _collectionService.UpdateCollectionAsync(collection);
 
             await _unitOfWork.SaveAsync();
 
-            OutputPort.Standard(new EditCollectionItemOutput(collectionId, itemId, item.CatalogItem.Slug));
+            OutputPort.Standard(new EditCollectionItemOutput(collectionId, itemId, Slug.Of(item.CatalogItem.Slug)));
         }
     }
 }

@@ -28,7 +28,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Railways.GetRailwaysList
             ViewModel = new OkObjectResult(viewModel);
         }
 
-        private RailwayView ToRailwayView(IRailway railway)
+        private RailwayView ToRailwayView(Railway railway)
         {
             return new RailwayView(railway, _linksGenerator.GenerateSelfLink(
                 nameof(GetRailwayBySlug.RailwaysController.GetRailwayBySlug),

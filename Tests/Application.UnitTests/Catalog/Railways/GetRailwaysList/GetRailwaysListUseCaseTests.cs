@@ -1,40 +1,42 @@
-﻿using System.Linq;
 using System.Threading.Tasks;
-using TreniniDotNet.Application.Services;
+using FluentAssertions;
 using TreniniDotNet.Application.UseCases;
-using TreniniDotNet.Common.Pagination;
+using TreniniDotNet.Common.Data;
+using TreniniDotNet.Common.Data.Pagination;
 using TreniniDotNet.Domain.Catalog.Railways;
 using Xunit;
 
 namespace TreniniDotNet.Application.Catalog.Railways.GetRailwaysList
 {
-    public sealed class GetRailwaysListUseCaseTests : CatalogUseCaseTests<GetRailwaysListUseCase, GetRailwaysListOutput, GetRailwaysListOutputPort>
+    public class GetRailwaysListUseCaseTests : RailwayUseCaseTests<GetRailwaysListUseCase, GetRailwaysListInput, GetRailwaysListOutput, GetRailwaysListOutputPort>
     {
         [Fact]
         public async Task GetRailwaysList_ShouldReturnEmptyResult_WhenNoRailwayExists()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.Empty, NewGetRailwaysList);
+            var (useCase, outputPort) = ArrangeUseCase(Start.Empty, CreateUseCase);
 
             await useCase.Execute(new GetRailwaysListInput(Page.Default));
 
             outputPort.ShouldHaveStandardOutput();
-            Assert.True(outputPort.UseCaseOutput.Result.Count() == 0);
+
+            outputPort.UseCaseOutput.Result.Should().HaveCount(0);
         }
 
         [Fact]
-        public async Task GetRailwaysList_ShoulReturnTheRailwaysList()
+        public async Task GetRailwaysList_ShouldReturnTheRailwaysList()
         {
-            var (useCase, outputPort) = ArrangeRailwaysUseCase(Start.WithSeedData, NewGetRailwaysList);
+            var (useCase, outputPort) = ArrangeUseCase(Start.WithSeedData, CreateUseCase);
 
             await useCase.Execute(new GetRailwaysListInput(Page.Default));
 
             outputPort.ShouldHaveStandardOutput();
-            Assert.True(outputPort.UseCaseOutput.Result.Count() > 0);
+            outputPort.UseCaseOutput.Result.Should().HaveCount(7);
         }
 
-        private GetRailwaysListUseCase NewGetRailwaysList(RailwayService railwayService, GetRailwaysListOutputPort outputPort, IUnitOfWork unitOfWork)
-        {
-            return new GetRailwaysListUseCase(outputPort, railwayService);
-        }
+        private GetRailwaysListUseCase CreateUseCase(
+            GetRailwaysListOutputPort outputPort,
+            RailwaysService railwaysService,
+            IUnitOfWork unitOfWork) =>
+            new GetRailwaysListUseCase(new GetRailwaysListInputValidator(), outputPort, railwaysService);
     }
 }

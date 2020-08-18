@@ -1,5 +1,5 @@
 using MediatR;
-using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 using TreniniDotNet.Web.Catalog.V1.CatalogItems.Common.Requests;
 
 namespace TreniniDotNet.Web.Catalog.V1.CatalogItems.AddRollingStockToCatalogItem

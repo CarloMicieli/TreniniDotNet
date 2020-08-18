@@ -13,7 +13,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.Brands
     public sealed class GrpcBrandsService : BrandsService.BrandsServiceBase
     {
         public GrpcBrandsService(
-            ICreateBrandUseCase useCase,
+            CreateBrandUseCase useCase,
             CreateBrandPresenter presenter,
             ILogger<GrpcBrandsService> log)
         {
@@ -27,7 +27,7 @@ namespace TreniniDotNet.GrpcServices.Catalog.Brands
 
         private ILogger<GrpcBrandsService> Log { get; }
         private CreateBrandPresenter Presenter { get; }
-        private ICreateBrandUseCase UseCase { get; }
+        private CreateBrandUseCase UseCase { get; }
 
         public override async Task<CreateBrandResponse> CreateBrand(CreateBrandRequest request, ServerCallContext context)
         {

@@ -1,10 +1,12 @@
 using FluentValidation;
-using TreniniDotNet.Common.Validation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.Domain.Catalog.CatalogItems.RollingStocks;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditRollingStock
 {
-    public sealed class EditRollingStockInputValidator : AbstractValidator<EditRollingStockInput>
+    public sealed class EditRollingStockInputValidator : AbstractUseCaseValidator<EditRollingStockInput>
     {
         public EditRollingStockInputValidator()
         {

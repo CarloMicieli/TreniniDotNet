@@ -7,22 +7,25 @@ namespace TreniniDotNet.Web.Catalog.V1.Railways.Common.ViewModels
 {
     public sealed class RailwayView
     {
-        public RailwayView(IRailway railway, LinksView? selfLink)
+        public RailwayView(Railway railway, LinksView? selfLink)
         {
-            this.Links = selfLink;
-            this.Id = railway.Id.ToGuid();
-            this.Name = railway.Name;
-            this.CompanyName = railway.CompanyName;
-            this.Country = railway.Country.ToString();
-            this.WebsiteUrl = railway.WebsiteUrl?.ToString();
-            this.Headquarters = railway.Headquarters;
+            Links = selfLink;
+            Id = railway.Id;
+            Name = railway.Name;
+            CompanyName = railway.CompanyName;
+            Country = railway.Country.ToString();
+            WebsiteUrl = railway.WebsiteUrl?.ToString();
+            Headquarters = railway.Headquarters;
 
-            this.PeriodOfActivity = new PeriodOfActivityView
+            if (!(railway.PeriodOfActivity is null))
             {
-                Status = railway.PeriodOfActivity.RailwayStatus.ToString(),
-                OperatingSince = railway.PeriodOfActivity.OperatingSince,
-                OperatingUntil = railway.PeriodOfActivity.OperatingUntil
-            };
+                PeriodOfActivity = new PeriodOfActivityView
+                {
+                    Status = railway.PeriodOfActivity.RailwayStatus.ToString(),
+                    OperatingSince = railway.PeriodOfActivity.OperatingSince,
+                    OperatingUntil = railway.PeriodOfActivity.OperatingUntil
+                };
+            }
 
             if (!(railway.TotalLength is null))
             {

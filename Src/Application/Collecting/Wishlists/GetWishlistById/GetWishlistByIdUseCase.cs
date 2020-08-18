@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TreniniDotNet.Common.UseCases;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Collecting.Shared;
-using TreniniDotNet.Domain.Collecting.ValueObjects;
 using TreniniDotNet.Domain.Collecting.Wishlists;
 
 namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
 {
-    public sealed class GetWishlistByIdUseCase : ValidatedUseCase<GetWishlistByIdInput, IGetWishlistByIdOutputPort>, IGetWishlistByIdUseCase
+    public sealed class GetWishlistByIdUseCase : AbstractUseCase<GetWishlistByIdInput, GetWishlistByIdOutput, IGetWishlistByIdOutputPort>
     {
-        private readonly WishlistService _wishlistService;
+        private readonly WishlistsService _wishlistService;
 
-        public GetWishlistByIdUseCase(IGetWishlistByIdOutputPort output, WishlistService wishlistService)
-            : base(new GetWishlistByIdInputValidator(), output)
+        public GetWishlistByIdUseCase(
+            IUseCaseInputValidator<GetWishlistByIdInput> inputValidator,
+            IGetWishlistByIdOutputPort outputPort,
+            WishlistsService wishlistService)
+            : base(inputValidator, outputPort)
         {
             _wishlistService = wishlistService ??
                 throw new ArgumentNullException(nameof(wishlistService));
@@ -30,15 +33,13 @@ namespace TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById
                 return;
             }
 
-            if (wishlist.Owner == owner ||
-                wishlist.Visibility == Visibility.Public)
-            {
-                OutputPort.Standard(new GetWishlistByIdOutput(wishlist));
-            }
-            else
+            if (owner.CanView(wishlist) == false)
             {
                 OutputPort.WishlistNotVisible(id, wishlist.Visibility);
+                return;
             }
+
+            OutputPort.Standard(new GetWishlistByIdOutput(wishlist));
         }
     }
 }

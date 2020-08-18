@@ -28,7 +28,7 @@ namespace TreniniDotNet.Web.Catalog.V1.Brands.GetBrandsList
             ViewModel = new OkObjectResult(viewModel);
         }
 
-        private BrandView ToBrandView(IBrand brand)
+        private BrandView ToBrandView(Brand brand)
         {
             return new BrandView(brand,
                 _linksGenerator.GenerateSelfLink(nameof(GetBrandBySlug.BrandsController.GetBrandBySlug), brand.Slug));

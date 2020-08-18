@@ -1,6 +1,8 @@
-﻿using System.Data;
+﻿#nullable disable
+using System.Data;
 using Dapper;
 using TreniniDotNet.Common;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Infrastructure.Persistence.TypeHandlers
 {

@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
-using TreniniDotNet.Common.Validation;
+using TreniniDotNet.Common.UseCases.Boundaries.Inputs;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.EditCatalogItem
 {
-    public sealed class EditCatalogItemInputValidator : AbstractValidator<EditCatalogItemInput>
+    public sealed class EditCatalogItemInputValidator : AbstractUseCaseValidator<EditCatalogItemInput>
     {
         public EditCatalogItemInputValidator()
         {

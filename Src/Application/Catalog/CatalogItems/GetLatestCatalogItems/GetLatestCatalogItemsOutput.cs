@@ -1,19 +1,19 @@
 using System.Collections.Generic;
-using TreniniDotNet.Common.Pagination;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+using TreniniDotNet.Common.Data.Pagination;
+using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
 using TreniniDotNet.Domain.Catalog.CatalogItems;
 
 namespace TreniniDotNet.Application.Catalog.CatalogItems.GetLatestCatalogItems
 {
     public sealed class GetLatestCatalogItemsOutput : IUseCaseOutput
     {
-        public GetLatestCatalogItemsOutput(PaginatedResult<ICatalogItem> paginatedResult)
+        public GetLatestCatalogItemsOutput(PaginatedResult<CatalogItem> paginatedResult)
         {
             this.PaginatedResult = paginatedResult;
         }
 
-        public PaginatedResult<ICatalogItem> PaginatedResult { get; }
+        public PaginatedResult<CatalogItem> PaginatedResult { get; }
 
-        public IEnumerable<ICatalogItem> Results => PaginatedResult.Results;
+        public IEnumerable<CatalogItem> Results => PaginatedResult.Results;
     }
 }

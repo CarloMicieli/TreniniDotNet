@@ -1,9 +1,9 @@
-﻿using TreniniDotNet.Common;
-using TreniniDotNet.Common.UseCases.Interfaces.Output;
+﻿using TreniniDotNet.Common.UseCases.Boundaries.Outputs.Ports;
+using TreniniDotNet.SharedKernel.Slugs;
 
 namespace TreniniDotNet.Application.Collecting.Shops.GetShopBySlug
 {
-    public interface IGetShopBySlugOutputPort : IOutputPortStandard<GetShopBySlugOutput>
+    public interface IGetShopBySlugOutputPort : IStandardOutputPort<GetShopBySlugOutput>
     {
         void ShopNotFound(Slug slug);
     }
