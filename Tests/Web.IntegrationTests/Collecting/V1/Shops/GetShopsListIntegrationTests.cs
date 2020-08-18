@@ -16,16 +16,6 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Shops
         }
 
         [Fact]
-        public async Task GetShopsList_ShouldReturn401Unauthorized_WhenUserIsNotAuthorized()
-        {
-            var client = CreateHttpClient();
-
-            var response = await client.GetAsync($"/api/v1/shops");
-
-            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
-        }
-
-        [Fact]
         public async Task GetShopsList_ShouldReturnShopsList()
         {
             var client = CreateHttpClient("George", "Pa$$word88");
