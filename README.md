@@ -119,29 +119,39 @@ $ dotnet test
 
 ## Use cases
 
+### Accounts
+
+```
+$ curl -d '{"username":"George", "password":"Stephenson1$", "email":"mail@stephensonandson.co.uk"}' \
+    -H "Content-Type: application/json" \
+    -X POST http://localhost:5000/api/v1/Account
+```
+
+In order to make changes a valid JWT token is required:
+
+```
+$ curl -d '{"username":"George", "password":"Stephenson1$"}' \
+    -H "Content-Type: application/json" \
+    -X POST http://localhost:5000/api/v1/Authenticate
+
+{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJHZW9yZ2UiLCJqdGkiOiJiNTZiNTYzMS1lYjk5LTRhNTctYmRkZC00NTc2ODcyZWI4NDkiLCJleHAiOjE1OTc3NzE5MTksImlzcyI6Imh0dHA6Ly93d3cudHJlbmluaS5uZXQiLCJhdWQiOiJodHRwOi8vd3d3LnRyZW5pbmkubmV0In0.jkrXUCtP15I1TAtnlGcJfsvudVvn9OvCSnIg6k2xf68"}
+```
+
 ### Catalog
 
 #### Brands
 
 A **Brand** represents a model railways rolling stock manufacturer.
 
-```csharp
-interface Brand
-{
-    BrandId BrandId { get; }
-    Slug Slug { get; }
-    string Name { get; }
-    Uri? WebsiteUrl { get; }
-    MailAddress? EmailAddress { get; }
-    string? CompanyName { get; }
-    string? GroupName { get; }
-    string? Description { get; }
-    BrandKind Kind { get; }
-    Address? Address { get; }
-}
+* Create/modify **brands**;
+
+```
+$ curl -d '{ "name":"ACME2", "companyName":"Associazione modellistica", "description": "string",  "websiteUrl": "http://www.acmetreni.com", "emailAddress": "mail@acmetreni.com", "brandType": "Industrial","address": { "line1": "via Acacia 22", "city": "Milano", "postalCode": "20126", "country": "IT" }}' \
+    -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJHZW9yZ2UiLCJqdGkiOiJiNTZiNTYzMS1lYjk5LTRhNTctYmRkZC00NTc2ODcyZWI4NDkiLCJleHAiOjE1OTc3NzE5MTksImlzcyI6Imh0dHA6Ly93d3cudHJlbmluaS5uZXQiLCJhdWQiOiJodHRwOi8vd3d3LnRyZW5pbmkubmV0In0.jkrXUCtP15I1TAtnlGcJfsvudVvn9OvCSnIg6k2xf68" \
+    -H "Content-Type: application/json" \
+    -X POST http://localhost:5000/api/v1/brands
 ```
 
-* Create/modify **brands**;
 * Find a **brand**, by its SEO friendly ("slug") identifier
 * Find all **brands**, with paginated results
 
