@@ -28,7 +28,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.EditWishlistItem
 
         public void NotAuthorizedToEditThisWishlist(Owner owner)
         {
-            throw new System.NotImplementedException();
+            ViewModel = new NotFoundResult();
         }
     }
 }
