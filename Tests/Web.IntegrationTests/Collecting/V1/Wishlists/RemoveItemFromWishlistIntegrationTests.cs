@@ -7,13 +7,14 @@ using TreniniDotNet.IntegrationTests.Helpers.Extensions;
 using TreniniDotNet.TestHelpers.SeedData.Collecting;
 using TreniniDotNet.Web;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
 {
     public class RemoveItemFromWishlistIntegrationTests : AbstractWebApplicationFixture
     {
-        public RemoveItemFromWishlistIntegrationTests(CustomWebApplicationFactory<Startup> factory)
-            : base(factory)
+        public RemoveItemFromWishlistIntegrationTests(CustomWebApplicationFactory<Startup> factory, ITestOutputHelper output)
+            : base(factory, output)
         {
         }
 
@@ -25,6 +26,8 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
             var id = Guid.NewGuid();
             var itemId = Guid.NewGuid();
             var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
@@ -39,7 +42,9 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
             var id = wishlist.Id;
             var itemId = wishlist.Items.First().Id;
 
-            var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", Check.Nothing);
+            var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id.ToGuid()}/items/{itemId.ToGuid()}", Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -54,7 +59,9 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
             var id = wishlist.Id;
             var itemId = Guid.NewGuid();
 
-            var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", Check.Nothing);
+            var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id.ToGuid()}/items/{itemId}", Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -69,7 +76,9 @@ namespace TreniniDotNet.IntegrationTests.Collecting.V1.Wishlists
             var id = wishlist.Id;
             var itemId = wishlist.Items.First().Id;
 
-            var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id}/items/{itemId}", Check.Nothing);
+            var response = await client.DeleteJsonAsync($"/api/v1/wishlists/{id.ToGuid()}/items/{itemId.ToGuid()}", Check.Nothing);
+
+            await response.LogAsyncTo(Output);
 
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
