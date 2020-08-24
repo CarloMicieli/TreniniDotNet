@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TreniniDotNet.Application.UseCases;
 using TreniniDotNet.Common.Data;
+using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 using Xunit;
 
@@ -41,6 +42,8 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops
 
             var result = outputPort.UseCaseOutput.FavouriteShops;
             result.Should().HaveCount(1);
+
+            outputPort.UseCaseOutput.Owner.Should().Be(new Owner("George"));
         }
 
         private GetFavouriteShopsUseCase CreateUseCase(

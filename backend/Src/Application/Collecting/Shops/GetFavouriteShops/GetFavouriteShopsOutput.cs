@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TreniniDotNet.Common.UseCases.Boundaries.Outputs;
+using TreniniDotNet.Domain.Collecting.Shared;
 using TreniniDotNet.Domain.Collecting.Shops;
 
 namespace TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops
@@ -8,8 +9,11 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops
     {
         public List<Shop> FavouriteShops { get; }
 
-        public GetFavouriteShopsOutput(List<Shop> favouriteShops)
+        public Owner Owner { get; }
+
+        public GetFavouriteShopsOutput(Owner owner, List<Shop> favouriteShops)
         {
+            Owner = owner;
             FavouriteShops = favouriteShops;
         }
     }
