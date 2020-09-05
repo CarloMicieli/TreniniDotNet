@@ -7,8 +7,8 @@ on:
     tags:
       - '!*' # Do not execute on tags
     paths:
-      - backend/Src/**
-      - backend/Tests/**
+      - Src/**
+      - Tests/**
 jobs:
   build_and_test:
 
@@ -23,16 +23,16 @@ jobs:
         dotnet-version: '3.1.401'
     
     - name: Build with dotnet
-      run: dotnet build backend/TreniniDotNet.sln --configuration Release
+      run: dotnet build TreniniDotNet.sln --configuration Release
     
     - name: Run the Tests
-      run: dotnet test backend/TreniniDotNet.sln --configuration Release
+      run: dotnet test TreniniDotNet.sln --configuration Release
 
     - name: Generate coverage report
-      run: dotnet test backend/TreniniDotNet.sln /p:CollectCoverage=true /p:CoverletOutput=../../TestResults/ /p:CoverletOutputFormat=lcov /maxcpucount:1
+      run: dotnet test TreniniDotNet.sln /p:CollectCoverage=true /p:CoverletOutput=../../TestResults/ /p:CoverletOutputFormat=lcov /maxcpucount:1
       
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: backend/TestResults/coverage.info  
+        path-to-lcov: TestResults/coverage.info  

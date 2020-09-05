@@ -56,7 +56,7 @@ postgres=# ALTER USER tdbuser CREATEDB;
 GRANT
 ```
 
-## Backend
+## Application
 
 ### Build the solution
 
@@ -87,5 +87,3 @@ $ dotnet run --project backend/Src/Web
 [18:57:52 INF] Application started. Press Ctrl+C to shut down.
 [18:57:52 INF] Hosting environment: Production
 ```
-
-## Frontend
