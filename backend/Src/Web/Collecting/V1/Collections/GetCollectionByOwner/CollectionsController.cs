@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Collections.GetCollectionByOwner;
+using TreniniDotNet.Web.Collecting.V1.Collections.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Collections.GetCollectionByOwner
@@ -19,7 +20,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Collections.GetCollectionByOwner
         }
 
         [HttpGet("{id}", Name = "GetCollectionByOwner")]
-        [ProducesResponseType(typeof(GetCollectionByOwnerOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CollectionView), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

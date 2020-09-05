@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Wishlists.GetWishlistsByOwner;
+using TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Wishlists.GetWishlistsByOwner
@@ -18,7 +19,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.GetWishlistsByOwner
         }
 
         [HttpGet("owner/{owner}")]
-        [ProducesResponseType(typeof(GetWishlistsByOwnerOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(WishlistsView), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> GetWishlists(string owner, [FromQuery] string visibility = "all")

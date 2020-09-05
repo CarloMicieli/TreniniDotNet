@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TreniniDotNet.Application.Collecting.Shops.GetShopBySlug;
+using TreniniDotNet.Web.Collecting.V1.Shops.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Shops.GetShopBySlug
@@ -19,8 +19,9 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.GetShopBySlug
         {
         }
 
-        [HttpGet("{slug}", Name = nameof(GetShopBySlug))]
-        [ProducesResponseType(typeof(GetShopBySlugOutput), StatusCodes.Status200OK)]
+        [HttpGet]
+        [Route("{slug}", Name = nameof(GetShopBySlug))]
+        [ProducesResponseType(typeof(ShopView), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> GetShopBySlug(string slug)

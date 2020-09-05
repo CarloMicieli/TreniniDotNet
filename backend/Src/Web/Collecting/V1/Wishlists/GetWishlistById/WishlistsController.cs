@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TreniniDotNet.Application.Collecting.Wishlists.GetWishlistById;
+using TreniniDotNet.Web.Collecting.V1.Wishlists.Common.ViewModels;
 using TreniniDotNet.Web.Infrastructure.UseCases;
 
 namespace TreniniDotNet.Web.Collecting.V1.Wishlists.GetWishlistById
@@ -19,7 +20,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Wishlists.GetWishlistById
         }
 
         [HttpGet("{id}", Name = nameof(GetWishlistById))]
-        [ProducesResponseType(typeof(GetWishlistByIdOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(WishlistView), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

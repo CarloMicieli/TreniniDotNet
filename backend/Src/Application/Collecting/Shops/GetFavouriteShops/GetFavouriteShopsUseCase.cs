@@ -25,7 +25,7 @@ namespace TreniniDotNet.Application.Collecting.Shops.GetFavouriteShops
             var owner = new Owner(input.Owner);
             var favouriteShops = await _shopsService.GetFavouriteShops(owner);
 
-            OutputPort.Standard(new GetFavouriteShopsOutput(favouriteShops));
+            OutputPort.Standard(new GetFavouriteShopsOutput(owner, favouriteShops));
         }
     }
 }

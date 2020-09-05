@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,20 +11,22 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.RemoveShopFromFavourites
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public sealed class ShopsController : UseCaseController<RemoveShopFromFavouritesRequest, RemoveShopFromFavouritesPresenter>
+    public sealed class FavouriteShopsController : UseCaseController<RemoveShopFromFavouritesRequest, RemoveShopFromFavouritesPresenter>
     {
-        public ShopsController(IMediator mediator, RemoveShopFromFavouritesPresenter presenter)
+        public FavouriteShopsController(IMediator mediator, RemoveShopFromFavouritesPresenter presenter)
             : base(mediator, presenter)
         {
         }
 
-        [HttpDelete("favourites")]
+        [HttpDelete("{shopId}")]
         [ProducesResponseType(typeof(RemoveShopFromFavouritesOutput), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Task<IActionResult> Get(RemoveShopFromFavouritesRequest request)
+        public Task<IActionResult> Get(Guid shopId, RemoveShopFromFavouritesRequest request)
         {
+            request.Owner = CurrentUser;
+            request.ShopId = shopId;
             return HandleRequest(request);
         }
     }

@@ -10,9 +10,9 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.AddShopToFavourites
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public sealed class ShopsController : UseCaseController<AddShopToFavouritesRequest, AddShopToFavouritesPresenter>
+    public sealed class FavouriteShopsController : UseCaseController<AddShopToFavouritesRequest, AddShopToFavouritesPresenter>
     {
-        public ShopsController(IMediator mediator, AddShopToFavouritesPresenter presenter)
+        public FavouriteShopsController(IMediator mediator, AddShopToFavouritesPresenter presenter)
             : base(mediator, presenter)
         {
         }
@@ -23,6 +23,7 @@ namespace TreniniDotNet.Web.Collecting.V1.Shops.AddShopToFavourites
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Task<IActionResult> Post(AddShopToFavouritesRequest request)
         {
+            request.Owner = CurrentUser;
             return HandleRequest(request);
         }
     }
