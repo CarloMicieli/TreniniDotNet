@@ -1,11 +1,11 @@
 # Trenini.net
 
-![GitHub](https://img.shields.io/github/license/CarloMicieli/dotnetcore-clean-architecture)
-![GitHub last commit](https://img.shields.io/github/last-commit/CarloMicieli/dotnetcore-clean-architecture)
+![GitHub](https://img.shields.io/github/license/CarloMicieli/TreniniDotNet)
+![GitHub last commit](https://img.shields.io/github/last-commit/CarloMicieli/TreniniDotNet)
 ![.NET Core](https://github.com/CarloMicieli/dotnetcore-clean-architecture/workflows/.NET%20Core/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/CarloMicieli/dotnetcore-clean-architecture/badge.svg?branch=master)](https://coveralls.io/github/CarloMicieli/dotnetcore-clean-architecture?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/CarloMicieli/TreniniDotNet/badge.svg?branch=master)](https://coveralls.io/github/CarloMicieli/TreniniDotNet?branch=master)
 
-An application to manage model railway collections.
+An application to manage model railway collections following the **clean architecture** principles with .NET core.
 
 ## Requirements
 
