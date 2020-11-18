@@ -1,10 +1,10 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:5.0 AS base
 WORKDIR /app
 ENV ASPNETCORE_ENVIRONMENT=Development
 ENV ASPNETCORE_ConnectionStrings__Default=Host=postgres;Database=TreniniDb;Username=tdbuser;Password=tdbpass
 EXPOSE 5000
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:5.0 AS build
 ARG Configuration=Release
 WORKDIR /
 COPY . .

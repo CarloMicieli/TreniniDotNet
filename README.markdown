@@ -9,7 +9,7 @@ An application to manage model railway collections following the **clean archite
 
 ## Requirements
 
-- `.NET Core 3.1.x`
+- `.NET Core 5.0.x`
 - `Postgres SQL 12`
 
 ## Setup
@@ -24,7 +24,7 @@ $ sudo dpkg -i packages-microsoft-prod.deb
 $ sudo apt-get update; \
   sudo apt-get install -y apt-transport-https && \
   sudo apt-get update && \
-  sudo apt-get install -y dotnet-sdk-3.1
+  sudo apt-get install -y dotnet-sdk-5.0
 ```
 
 ### Postgres
@@ -61,13 +61,13 @@ GRANT
 ### Build the solution
 
 ```
-$ dotnet build backend/TreniniDotNet.sln
+$ dotnet build TreniniDotNet.sln
 ```
 
 ### Build docker image
 
 ```
-$ docker build backend/webapi.dockerfile -t treninidotnet-webapi:latest
+$ docker build webapi.dockerfile -t treninidotnet-webapi:latest
 ```
 
 NOTE: **sudo** is required on some configuration.
@@ -75,13 +75,13 @@ NOTE: **sudo** is required on some configuration.
 ### Run all tests
 
 ```
-$ dotnet test backend/TreniniDotNet.sln
+$ dotnet test TreniniDotNet.sln
 ```
 
 ### Run the web api
 
 ```
-$ dotnet run --project backend/Src/Web
+$ dotnet run --project Src/Web
 [18:57:52 INF] Now listening on: http://localhost:5000
 [18:57:52 INF] Now listening on: https://localhost:5001
 [18:57:52 INF] Application started. Press Ctrl+C to shut down.

@@ -6,7 +6,7 @@ services:
     image: "treninidotnet"
     build:
       context: .
-      dockerfile: backend/webapi.dockerfile
+      dockerfile: ./webapi.dockerfile
     ports:
       - "5000:5000"
     depends_on:
